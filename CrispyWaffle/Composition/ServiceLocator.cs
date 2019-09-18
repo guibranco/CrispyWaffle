@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace CrispyWaffle.Composition
 {
+    using Extensions;
     using Log;
+    using Log.Handlers;
     using System.Collections.Concurrent;
     using System.Linq;
     using System.Reflection;
+    using Telemetry;
 
     /// <summary>
     /// The service locator class.
@@ -84,12 +87,12 @@ namespace CrispyWaffle.Composition
                                           }
                                           catch (ReflectionTypeLoadException e)
                                           {
-                                              using (var eventLog = new EventLog("Application"))
-                                              {
-                                                  eventLog.Source = "Application";
-                                                  foreach (var loaderException in e.LoaderExceptions)
-                                                      eventLog.WriteEntry($@"{loaderException.Message}{loaderException.StackTrace}", EventLogEntryType.Error);
-                                              }
+                                              //using (var eventLog = new EventLog("Application"))
+                                              //{
+                                              //    eventLog.Source = "Application";
+                                              //    foreach (var loaderException in e.LoaderExceptions)
+                                              //        eventLog.WriteEntry($@"{loaderException.Message}{loaderException.StackTrace}", EventLogEntryType.Error);
+                                              //}
                                           }
                                           return Enumerable.Empty<Type>();
                                       })
@@ -102,18 +105,18 @@ namespace CrispyWaffle.Composition
         #region Private methods
 
         /// <summary>
-        /// Registers the scoped internal.
+        /// Registers the lifeStyled internal.
         /// </summary>
-        /// <param name="scope">The scope.</param>
+        /// <param name="lifeStyle">The life style.</param>
         /// <param name="contract">The contract.</param>
         /// <param name="implementation">The implementation.</param>
-        private static void RegisterScopedInternal(LifeCycleScope scope, Type contract, Type implementation)
+        private static void RegisterlifeStyledInternal(LifeStyle lifeStyle, Type contract, Type implementation)
         {
             RegistrationsCalls.Add(contract, 0);
 
             #region Transient
 
-            if (scope == LifeCycleScope.TRANSIENT)
+            if (lifeStyle == LifeStyle.TRANSIENT)
             {
                 Registrations.AddOrUpdate(contract,
                                           () =>
@@ -161,13 +164,13 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the scoped creator internal.
+        /// Registers the lifeStyled creator internal.
         /// </summary>
         /// <typeparam name="TContract">The type of the contract.</typeparam>
-        /// <param name="scope">The scope.</param>
+        /// <param name="lifeStyle">The life style.</param>
         /// <param name="instanceCreator">The instance creator.</param>
-        private static void RegisterScopedCreatorInternal<TContract>(
-            LifeCycleScope scope,
+        private static void RegisterlifeStyledCreatorInternal<TContract>(
+            LifeStyle lifeStyle,
             Func<TContract> instanceCreator)
         {
             var contract = typeof(TContract);
@@ -175,7 +178,7 @@ namespace CrispyWaffle.Composition
 
             #region Transient 
 
-            if (scope == LifeCycleScope.TRANSIENT)
+            if (lifeStyle == LifeStyle.TRANSIENT)
             {
                 Registrations.AddOrUpdate(
                                           contract,
@@ -265,7 +268,7 @@ namespace CrispyWaffle.Composition
             }
             catch (InvalidOperationException e)
             {
-                throw new InvalidOperationException(Resources.ServiceLocator_GetInstance_NoRegistrationsFor + parentContract, e);
+                throw new InvalidOperationException($"No registrations for {parentContract}", e);
             }
         }
 
@@ -282,7 +285,7 @@ namespace CrispyWaffle.Composition
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException(string.Format(Resources.ServiceLocator_CreateInstance, implementationType.FullName), e);
+                throw new InvalidOperationException($"Unable to create instance of type {implementationType.FullName}", e);
             }
 
         }
@@ -337,7 +340,8 @@ namespace CrispyWaffle.Composition
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException(string.Format(Resources.ServiceLocator_CreateInstanceWith, implementationType.FullName), e);
+                throw new InvalidOperationException(
+                    $"Unable to create instance of type {implementationType.FullName} using parameters", e);
             }
         }
 
@@ -403,12 +407,12 @@ namespace CrispyWaffle.Composition
                 return null;
             if (types.Count > 1)
             {
-                using (var eventLog = new EventLog("Application"))
-                {
-                    eventLog.Source = "Application";
-                    foreach (var t in types)
-                        eventLog.WriteEntry(string.Format(Resources.ServiceLocator_TryAutoRegistration, type.FullName, t.FullName), EventLogEntryType.Warning);
-                }
+                //using (var eventLog = new EventLog("Application"))
+                //{
+                //    eventLog.Source = "Application";
+                //    foreach (var t in types)
+                //        eventLog.WriteEntry(string.Format(Resources.ServiceLocator_TryAutoRegistration, type.FullName, t.FullName), EventLogEntryType.Warning);
+                //}
                 throw new TooManyImplementationsException(type);
             }
             var instance = GetInstance(types.Single());
@@ -470,14 +474,14 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the specified scope.
+        /// Registers the specified lifeStyle.
         /// </summary>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
-        /// <param name="scope">The scope.</param>
-        public static void Register<TImplementation>(LifeCycleScope scope = LifeCycleScope.TRANSIENT)
+        /// <param name="lifeStyle">The life style.</param>
+        public static void Register<TImplementation>(LifeStyle lifeStyle = LifeStyle.TRANSIENT)
         {
             var type = typeof(TImplementation);
-            RegisterScopedInternal(scope, type, type);
+            RegisterlifeStyledInternal(lifeStyle, type, type);
         }
 
         /// <summary>
@@ -485,11 +489,11 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TContract">The interface binding implementation</typeparam>
         /// <typeparam name="TImplementation">The concrete implementation of <typeparamref name="TContract" /></typeparam>
-        public static void Register<TContract, TImplementation>(LifeCycleScope scope = LifeCycleScope.TRANSIENT) where TImplementation : TContract
+        public static void Register<TContract, TImplementation>(LifeStyle lifeStyle = LifeStyle.TRANSIENT) where TImplementation : TContract
         {
             var contract = typeof(TContract);
             var implementation = typeof(TImplementation);
-            RegisterScopedInternal(scope, contract, implementation);
+            RegisterlifeStyledInternal(lifeStyle, contract, implementation);
         }
 
         /// <summary>
@@ -497,10 +501,10 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TContract">The interface binding implementation</typeparam>
         /// <param name="instanceCreator">The instance creator for an implementation onf <typeparamref name="TContract" /></param>
-        /// <param name="scope">The lifecycle scope of the registration </param>
-        public static void Register<TContract>(Func<TContract> instanceCreator, LifeCycleScope scope = LifeCycleScope.TRANSIENT)
+        /// <param name="lifeStyle">The lifecycle lifeStyle of the registration </param>
+        public static void Register<TContract>(Func<TContract> instanceCreator, LifeStyle lifeStyle = LifeStyle.TRANSIENT)
         {
-            RegisterScopedCreatorInternal(scope, instanceCreator);
+            RegisterlifeStyledCreatorInternal(lifeStyle, instanceCreator);
         }
 
         /// <summary>
@@ -533,7 +537,7 @@ namespace CrispyWaffle.Composition
         /// </summary>
         public static void DisposeAllRegistrations()
         {
-            LogConsumer.Trace(Resources.ServiceLocator_DisposeAllRegistrations_Title);
+            LogConsumer.Trace("Service locator statistics");
             var temp = new Dictionary<Type, int>(RegistrationsCalls);
             foreach (var calls in temp)
                 TelemetryAnalytics.TrackDependency(calls.Key, calls.Value);
@@ -608,7 +612,7 @@ namespace CrispyWaffle.Composition
             var instance = TryGetInstance(contract);
             if (instance != null)
                 return instance;
-            throw new InvalidOperationException(Resources.ServiceLocator_GetInstance_NoRegistrationsFor + contract);
+            throw new InvalidOperationException($"No registrations for {contract}");
         }
 
         /// <summary>
@@ -623,7 +627,7 @@ namespace CrispyWaffle.Composition
             var instance = CreateInstanceWith(contract, parameters);
             if (instance != null)
                 return instance;
-            throw new InvalidOperationException(Resources.ServiceLocator_GetInstance_NoRegistrationsFor + contract);
+            throw new InvalidOperationException($"No registrations for {contract}");
         }
 
         /// <summary>
