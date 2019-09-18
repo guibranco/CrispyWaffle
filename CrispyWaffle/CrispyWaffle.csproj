@@ -9,11 +9,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Log\Adapters\" />
-    <Folder Include="Log\Filters\" />
-    <Folder Include="Log\Handlers\" />
-    <Folder Include="Log\Providers\" />
-  </ItemGroup>
-
 </Project>

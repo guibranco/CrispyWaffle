@@ -1,5 +1,6 @@
 ﻿namespace CrispyWaffle.Cache
 {
+    using Composition;
     using Log;
     using System;
     using System.Collections.Generic;
@@ -101,7 +102,7 @@
                 if (!Repositories.ContainsKey(priority))
                 {
                     Repositories.Add(priority, repository);
-                    LogConsumer.Trace(Resources.CacheManager_AddRepository, repository.GetType().FullName, priority);
+                    LogConsumer.Trace("Adding cache repository of type {0} with priority {1}", repository.GetType().FullName, priority);
                     if (repository.GetType() == MemoryType)
                         _isMemoryRepositoryInList = true;
                     return priority;
@@ -120,7 +121,7 @@
         /// <param name="key">The key.</param>
         public static void Set<T>(T value, [Localizable(false)]string key)
         {
-            LogConsumer.Trace(Resources.CacheManager_Set, key, Repositories.Count);
+            LogConsumer.Trace("Adding {0} to {1} cache repositories", key, Repositories.Count);
             foreach (var repository in Repositories.Values)
                 repository.Set(value, key);
         }
@@ -134,7 +135,7 @@
         /// <param name="subKey">The sub key.</param>
         public static void Set<T>(T value, [Localizable(false)] string key, [Localizable(false)] string subKey)
         {
-            LogConsumer.Trace(Resources.CacheManager_SetSub, key, Repositories.Count, subKey);
+            LogConsumer.Trace("Adding {0}/{2} to {1} cache repositories", key, Repositories.Count, subKey);
             foreach (var repository in Repositories.Values)
                 repository.Set(value, key, subKey);
         }
@@ -148,7 +149,7 @@
         /// <param name="ttl">The TTL.</param>
         public static void Set<T>(T value, [Localizable(false)] string key, TimeSpan ttl)
         {
-            LogConsumer.Trace(Resources.CacheManager_Set_TTL, key, Repositories.Count, ttl);
+            LogConsumer.Trace("Adding {0} to {1} cache repositories with TTL of {2:g}", key, Repositories.Count, ttl);
             foreach (var repository in Repositories.Values)
                 repository.Set(value, key, ttl);
         }
@@ -164,10 +165,10 @@
         public static void SetTo<TCacheRepository, TValue>(TValue value, [Localizable(false)]string key)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_SetTo, key, type.FullName);
+            LogConsumer.Trace("Adding {0} to repository of type {1}", key, type.FullName);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Set(value, key);
         }
 
@@ -183,10 +184,10 @@
         public static void SetTo<TCacheRepository, TValue>(TValue value, [Localizable(false)]string key, [Localizable(false)]string subKey)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_SetSubTo, key, type.FullName, subKey);
+            LogConsumer.Trace("Adding {0}/{2} to repository of type {1}", key, type.FullName, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Set(value, key, subKey);
         }
 
@@ -202,10 +203,10 @@
         public static void SetTo<TCacheRepository, TValue>(TValue value, [Localizable(false)]string key, TimeSpan ttl)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_SetTo_TTL, key, type.FullName, ttl);
+            LogConsumer.Trace("Adding {0} to repository of type {1} with TTL of {2:g}", key, type.FullName, ttl);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Set(value, key, ttl);
         }
 
@@ -222,10 +223,10 @@
         public static void SetTo<TCacheRepository, TValue>(TValue value, [Localizable(false)]string key, [Localizable(false)]string subKey, TimeSpan ttl)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_SetSubTo_TTL, key, type.FullName, ttl, subKey);
+            LogConsumer.Trace("Adding {0}/{2} to repository of type {1} with TTL of {2:g}", key, type.FullName, ttl, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Set(value, key, subKey);
         }
 
@@ -242,7 +243,7 @@
         /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists</exception>
         public static T Get<T>([Localizable(false)]string key)
         {
-            LogConsumer.Trace(Resources.CacheManager_Get, key, Repositories.Count);
+            LogConsumer.Trace("Getting {0} from any of {1} cache repositories", key, Repositories.Count);
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, out T value))
@@ -251,7 +252,7 @@
                     SetTo<MemoryCacheRepository, T>(value, key);
                 return value;
             }
-            throw new InvalidOperationException(string.Format(Resources.CacheManager_Get_UnableToGetKey, key));
+            throw new InvalidOperationException($"Unable to get the item with key {key}");
         }
 
         /// <summary>
@@ -264,7 +265,7 @@
         /// <exception cref="InvalidOperationException"></exception>
         public static T Get<T>([Localizable(false)]string key, [Localizable(false)] string subKey)
         {
-            LogConsumer.Trace(Resources.CacheManager_GetSub, key, Repositories.Count, subKey);
+            LogConsumer.Trace("Getting {0}/{2} from any of {1} cache repositories", key, Repositories.Count, subKey);
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, subKey, out T value))
@@ -273,7 +274,7 @@
                     SetTo<MemoryCacheRepository, T>(value, key, subKey);
                 return value;
             }
-            throw new InvalidOperationException(string.Format(Resources.CacheManager_GetSub_UnableToGetKey, key, subKey));
+            throw new InvalidOperationException($"Unable to get the item with key {key} and sub key {subKey}");
         }
 
         /// <summary>
@@ -287,10 +288,10 @@
         public static TValue GetFrom<TCacheRepository, TValue>([Localizable(false)]string key)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_GetFrom, key, type.FullName);
+            LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             return repository.Get<TValue>(key);
         }
 
@@ -306,10 +307,10 @@
         public static TValue GetFrom<TCacheRepository, TValue>([Localizable(false)]string key, [Localizable(false)]string subKey)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_GetSubFrom, key, type.FullName, subKey);
+            LogConsumer.Trace("Getting {0}/{2} from repository {1}", key, type.FullName, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             return repository.Get<TValue>(key, subKey);
         }
 
@@ -327,7 +328,7 @@
         /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
         public static bool TryGet<T>([Localizable(false)]string key, out T value)
         {
-            LogConsumer.Trace(Resources.CacheManager_TryGet, key, Repositories.Count);
+            LogConsumer.Trace("Trying to get {0} from any of {1} repositories", key, Repositories.Count);
             value = default;
             foreach (var repository in Repositories.Values)
             {
@@ -350,7 +351,7 @@
         /// <returns></returns>
         public static bool TryGet<T>([Localizable(false)]string key, [Localizable(false)]string subKey, out T value)
         {
-            LogConsumer.Trace(Resources.CacheManager_TryGetSub, key, Repositories.Count, subKey);
+            LogConsumer.Trace("Trying to get {0}/{2} from any of {1} repositories", key, Repositories.Count, subKey);
             value = default;
             foreach (var repository in Repositories.Values)
             {
@@ -374,7 +375,7 @@
         /// <returns></returns>
         public static TimeSpan TTL([Localizable(false)] string key)
         {
-            LogConsumer.Trace(Resources.CacheManager_TTL, key, Repositories.Count);
+            LogConsumer.Trace("Trying to get TTL of key {0} from {1} repositories", key, Repositories.Count);
             var result = new TimeSpan(0);
             foreach (var repository in Repositories.Values)
             {
@@ -396,7 +397,7 @@
         /// <param name="key">The key.</param>
         public static void Remove([Localizable(false)] string key)
         {
-            LogConsumer.Trace(Resources.CacheManager_Remove, key, Repositories.Count);
+            LogConsumer.Trace("Removing key {0} from {1} repositories", key, Repositories.Count);
             foreach (var repository in Repositories.Values)
                 repository.Remove(key);
         }
@@ -408,7 +409,7 @@
         /// <param name="subKey">The sub key.</param>
         public static void Remove([Localizable(false)] string key, [Localizable(false)]string subKey)
         {
-            LogConsumer.Trace(Resources.CacheManager_RemoveSub, key, Repositories.Count, subKey);
+            LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repositories", key, Repositories.Count, subKey);
             foreach (var repository in Repositories.Values)
                 repository.Remove(key, subKey);
         }
@@ -422,10 +423,10 @@
         public static void RemoveFrom<TCacheRepository>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_RemoveFrom, key, Repositories.Count);
+            LogConsumer.Trace("Removing key {0} from {1} repository", key, Repositories.Count);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Remove(key);
         }
 
@@ -439,10 +440,10 @@
         public static void RemoveFrom<TCacheRepository>([Localizable(false)] string key, [Localizable(false)]string subKey)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(Resources.CacheManager_RemoveSubFrom, key, Repositories.Count, subKey);
+            LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repository", key, Repositories.Count, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
-                throw new InvalidOperationException(string.Format(Resources.CacheManager_RepositoryUnavailableInProvidersList, type.FullName));
+                throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
             repository.Remove(key, subKey);
         }
 
