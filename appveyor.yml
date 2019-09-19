@@ -34,11 +34,11 @@ build_script:
  - dotnet sonarscanner end /d:sonar.login="%SONAR_TOKEN%"
  - codecov -f "Tests\CrispyWaffle.Tests\coverage.opencover.xml"
 after_build:
-- xcopy %CD%\Src\CrispyWaffle\bin\Release\netstandard2.0\*.* %CD%\src\
+- xcopy %CD%\Src\CrispyWaffle\bin\Release\netstandard2.0\*.* %CD%\Build\
 - copy %CD%\Src\CrispyWaffle\bin\Release\CrispyWaffle.1.0.%APPVEYOR_BUILD_NUMBER%.nupkg CrispyWaffle.%APPVEYOR_BUILD_VERSION%.nupkg
 - rd /s /q %CD%\Src\CrispyWaffle\bin\Release\
 - cd %CD%
-- 7z a -tzip -mx9 "CrispyWaffle.v%APPVEYOR_BUILD_VERSION%.zip" src
+- 7z a -tzip -mx9 "CrispyWaffle.v%APPVEYOR_BUILD_VERSION%.zip" Build
 artifacts:
 - path: CrispyWaffle.v%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFile
