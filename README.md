@@ -15,14 +15,9 @@ The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=security_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 
 ---
+
 NuGet package: https://www.nuget.org/packages/CrispyWaffle
 
 ```
 Install-Package CrispyWaffle
-```
-
-<<<<<<< HEAD
 ---
-=======
----
->>>>>>> master
