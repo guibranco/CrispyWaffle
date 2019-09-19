@@ -28,15 +28,15 @@ build:
   verbosity: normal
 build_script:
  - dotnet tool install --global dotnet-sonarscanner
- - dotnet sonarscanner begin /k:"guibranco_CrispyWaffle" /o:"guibranco-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%SONAR_TOKEN%" /v:"%APPVEYOR_BUILD_NUMBER%" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.coverage.exclusions="CrispyWaffle.Tests/**,**/*Tests.cs" /d:sonar.cs.opencover.reportsPaths="%CD%\CrispyWaffle.Tests\coverage.opencover.xml"
+ - dotnet sonarscanner begin /k:"guibranco_CrispyWaffle" /o:"guibranco-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%SONAR_TOKEN%" /v:"%APPVEYOR_BUILD_NUMBER%" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.coverage.exclusions="Tests/CrispyWaffle.Tests/**,**/*Tests.cs" /d:sonar.cs.opencover.reportsPaths="%CD%\Tests\CrispyWaffle.Tests\coverage.opencover.xml"
  - dotnet build
- - ps: dotnet test .\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="opencover"
+ - ps: dotnet test .\Tests\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="opencover"
  - dotnet sonarscanner end /d:sonar.login="%SONAR_TOKEN%"
- - codecov -f "CrispyWaffle.Tests\coverage.opencover.xml"
+ - codecov -f "Tests\CrispyWaffle.Tests\coverage.opencover.xml"
 after_build:
-- xcopy %CD%\CrispyWaffle\bin\Release\netstandard2.0\*.* %CD%\src\
-- copy %CD%\CrispyWaffle\bin\Release\CrispyWaffle.1.0.%APPVEYOR_BUILD_NUMBER%.nupkg CrispyWaffle.%APPVEYOR_BUILD_VERSION%.nupkg
-- rd /s /q %CD%\CrispyWaffle\bin\Release\
+- xcopy %CD%\Src\CrispyWaffle\bin\Release\netstandard2.0\*.* %CD%\src\
+- copy %CD%\Src\CrispyWaffle\bin\Release\CrispyWaffle.1.0.%APPVEYOR_BUILD_NUMBER%.nupkg CrispyWaffle.%APPVEYOR_BUILD_VERSION%.nupkg
+- rd /s /q %CD%\Src\CrispyWaffle\bin\Release\
 - cd %CD%
 - 7z a -tzip -mx9 "CrispyWaffle.v%APPVEYOR_BUILD_VERSION%.zip" src
 artifacts:
