@@ -1,4 +1,4 @@
-# CrispyWaffl
+# CrispyWaffle
 The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle)
