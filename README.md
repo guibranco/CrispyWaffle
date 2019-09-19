@@ -1,5 +1,5 @@
-# CrispyWaffle.Core
-The core library of CrispyWaffle - a toolkit for C# projects
+# CrispyWaffle
+The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle)
 [![CrispyWaffle NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/)

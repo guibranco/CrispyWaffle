@@ -1,6 +1,6 @@
 ﻿namespace CrispyWaffle.Extensions
 {
-    using CrispyWaffle.Attributes;
+    using Attributes;
     using System;
     using System.Diagnostics;
     using System.Linq;

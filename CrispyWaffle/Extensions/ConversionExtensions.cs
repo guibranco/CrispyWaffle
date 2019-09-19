@@ -2,7 +2,6 @@
 {
     using GoodPractices;
     using Newtonsoft.Json.Linq;
-    using Notification.Model;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
@@ -13,7 +12,6 @@
     using System.Xml;
     using Utilities;
     using Validations;
-    using StackTrace = System.Diagnostics.StackTrace;
 
     /// <summary>
     /// Helper class for generic conversions
@@ -397,44 +395,6 @@
             if (digit == 10)
                 digit = 0;
             return digit;
-        }
-
-        /// <summary>
-        /// Converts a <see cref="Exception"/> to <see cref="Notification.Model.ExceptionNotification"/>
-        /// </summary>
-        /// <param name="exception">The exception to be converted</param>
-        /// <returns>An instance of <see cref="Notification.Model.ExceptionNotification"/> with <paramref name="exception"/> information to send a notification</returns>
-        public static ExceptionNotification ToNotification(this Exception exception)
-        {
-            var queue = exception.ToQueue(out _);
-            var result = new ExceptionNotification();
-            while (queue.Count > 0)
-            {
-                exception = queue.Dequeue();
-                result.AddMessage(exception.Message);
-                if (exception.StackTrace != null)
-                    result.AddDetail(new StackTrace
-                    {
-                        Stack = exception.StackTrace,
-                        Type = exception.GetType().FullName
-                    });
-                if (exception is IRestException exceptionJSON)
-                {
-                    if (!string.IsNullOrWhiteSpace(exceptionJSON.Request))
-                        result.JsonRequest = exceptionJSON.Request.ToPrettyString();
-                    if (!string.IsNullOrWhiteSpace(exceptionJSON.Response))
-                        result.JsonResponse = exceptionJSON.Response.ToPrettyString();
-                    continue;
-                }
-
-                if (!(exception is IXMLServiceException exceptionXML))
-                    continue;
-                if (exceptionXML.Request != null && exceptionXML.Request.InnerXml.Length != 0)
-                    result.XmlRequest = exceptionXML.Request.ToIdentString();
-                if (exceptionXML.Response != null && exceptionXML.Response.InnerXml.Length != 0)
-                    result.XmlResponse = exceptionXML.Response.ToIdentString();
-            }
-            return result;
         }
 
         /// <summary>

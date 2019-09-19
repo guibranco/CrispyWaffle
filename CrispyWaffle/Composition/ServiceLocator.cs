@@ -5,7 +5,6 @@ namespace CrispyWaffle.Composition
 {
     using Extensions;
     using Log;
-    using Log.Handlers;
     using System.Collections.Concurrent;
     using System.Linq;
     using System.Reflection;
@@ -63,39 +62,12 @@ namespace CrispyWaffle.Composition
                                     .Distinct()
                                     .Where(y => loadedAssemblies.All(a => a.FullName != y.FullName))
                                     .ToList();
-            foreach (var missingAssembly in missingAssemblies)
-            {
-                try
-                {
-                    loadedAssemblies.Add(AppDomain.CurrentDomain.Load(missingAssembly));
-                }
-                catch (Exception e)
-                {
-                    FailOverExceptionHandler.Handle(e);
-                }
-            }
+            loadedAssemblies.AddRange(missingAssemblies.Select(missingAssembly => AppDomain.CurrentDomain.Load(missingAssembly)));
 
             TypesCache = AppDomain
                           .CurrentDomain
                           .GetAssemblies()
-                          .SelectMany(
-                                      a =>
-                                      {
-                                          try
-                                          {
-                                              return a.GetTypes();
-                                          }
-                                          catch (ReflectionTypeLoadException e)
-                                          {
-                                              //using (var eventLog = new EventLog("Application"))
-                                              //{
-                                              //    eventLog.Source = "Application";
-                                              //    foreach (var loaderException in e.LoaderExceptions)
-                                              //        eventLog.WriteEntry($@"{loaderException.Message}{loaderException.StackTrace}", EventLogEntryType.Error);
-                                              //}
-                                          }
-                                          return Enumerable.Empty<Type>();
-                                      })
+                          .SelectMany(a => a.GetTypes())
                           .Where(a => a != null && a.Name.IndexOf(@"_canon", StringExtensions.Comparison) == -1)
                           .ToList();
         }
@@ -444,15 +416,7 @@ namespace CrispyWaffle.Composition
         /// <typeparam name="TBootstrapper">The bootstrapper class that inherits <see cref="IBootstrapper"/></typeparam>
         public static void RegisterBootstrapper<TBootstrapper>() where TBootstrapper : class, IBootstrapper, new()
         {
-            var bootstrapper = new TBootstrapper();
-            try
-            {
-                bootstrapper.RegisterServices();
-            }
-            catch (Exception e)
-            {
-                FailOverExceptionHandler.Handle(e);
-            }
+            new TBootstrapper().RegisterServices();
         }
 
         /// <summary>

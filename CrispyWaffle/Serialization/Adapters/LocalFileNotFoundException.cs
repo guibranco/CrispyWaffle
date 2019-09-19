@@ -10,7 +10,7 @@
     [Serializable]
     internal class LocalFileNotFoundException : Exception
     {
-        // <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="LocalFileNotFoundException" /> class.
         /// </summary>
         /// <param name="file">The file.</param>

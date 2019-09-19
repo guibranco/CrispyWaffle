@@ -9,7 +9,6 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using Telemetry;
     using Validations;
 
     /// <summary>
@@ -207,7 +206,6 @@
         /// </summary>
         /// <param name="input">The input String to act on.</param>
         /// <returns>str as a String.</returns>
-        /// <remarks>Guilherme B. Stracini, 27/03/2013.</remarks>
         [Pure]
         public static string ToSafeUrl(this string input)
         {
@@ -316,158 +314,6 @@
         {
             input = input.RemoveDiacritics().ToLower();
             return input.Levenshtein(inputToCompare.RemoveDiacritics().ToLower());
-        }
-
-        /// <summary>
-        /// A String extension method that abbreviates to maxChars.
-        /// </summary>
-        /// <param name="input">The input string to act on.</param>
-        /// <param name="maxChars">The max chars allowed.</param>
-        /// <returns>The input abbreviated to maxChars.</returns>
-        [Pure]
-        public static string SmartAbbreviation(this string input, int maxChars)
-        {
-            TelemetryAnalytics.TrackHit(TypeExtensions.GetCallingMethod());
-            if (string.IsNullOrWhiteSpace(input))
-                return input;
-            if (maxChars <= 0)
-                return string.Empty;
-            input = input.Trim()
-                         .ToUpper()
-                         .Replace(@"LOTEAMENTO", @"LOT")
-                         .Replace(@"RESIDENCIAL", @"RESID")
-                         .Replace(@"HABITACIONAL", @"HABIT")
-                         .Replace(@"HOSPITAL", @"HOSP")
-                         .Replace(@"CONDOMINIO", @"COND")
-                         .Replace(@"VILA", @"VL")
-                         .Replace(@"JARDIM", @"JD")
-                         .Replace(@"CONJUNTO", @"CONJ")
-                         .Replace(@"PARQUE", @"PQ")
-                         .Replace(@"ESTANCIA", @"EST")
-                         .Replace(@"COMENDADOR", @"COM")
-                         .Replace(@"FAZENDA", @"FAZ")
-                         .Replace(@"CHACARA", @"CHAC")
-                         .Replace(@"RUA", @"R")
-                         .Replace(@"AVENIDA", @"AV")
-                         .Replace(@"SANTO", @"S")
-                         .Replace(@"DE", @"D");
-
-
-            if (input.Length <= maxChars)
-                return input;
-            input = StringValidations.ParenthesesPattern.Replace(input, "$1").RemoveExcessSpaces();
-            var words = input.Split(' ');
-            switch (words.Length)
-            {
-                case 1:
-                    return maxChars > 1 ? string.Concat(input.Substring(0, maxChars - 1), @".") : input.Substring(0, 1);
-                case 2:
-                    return SmartAbbreviationTwoWords(maxChars, words);
-                case 3:
-                    return SmartAbbreviationThreeWords(maxChars, words);
-                default:
-                    return SmartAbbreviationFourOrMoreWords(maxChars, words);
-            }
-        }
-
-        /// <summary>
-        /// Smarts the abbreviation four or more words.
-        /// </summary>
-        /// <param name="maxChars">The maximum chars.</param>
-        /// <param name="words">The words.</param>
-        /// <returns></returns>
-        [Pure]
-        private static string SmartAbbreviationFourOrMoreWords(int maxChars, string[] words)
-        {
-            var tempA = new string[words.Length - 1];
-            Array.Copy(words, 1, tempA, 0, words.Length - 1);
-            var wordsWithoutFirst = string.Join(@" ", tempA);
-            var tempB = new string[words.Length - 2];
-            Array.Copy(words, 1, tempB, 0, words.Length - 2);
-            var wordsWithoutFirstAndLast = string.Join(@" ", tempB);
-            var subSum = (words.Length - 2) * 2;
-            var sum = words[0].Length + subSum + words[words.Length - 1].Length;
-            var abbreviatedLastSum = words[0].Length + subSum + 2;
-            var rest = maxChars - sum;
-
-            if (rest >= 0)
-            {
-                rest = maxChars - (words[0].Length + words[words.Length - 1].Length + 2);
-                return
-                    $@"{words[0]} {wordsWithoutFirstAndLast.SmartAbbreviation(rest)} {words[words.Length - 1]}";
-            }
-
-            if (maxChars - abbreviatedLastSum >= 0)
-                return $@"{words[0]} {wordsWithoutFirst.SmartAbbreviation(maxChars - words[0].Length - 1)}";
-            rest = maxChars - subSum;
-            if (rest <= 1)
-                return
-                    $@"{words[0]} {wordsWithoutFirst.SmartAbbreviation(maxChars - 2)}"
-                        .SmartAbbreviation(maxChars);
-
-            var remainingFirst = rest;
-            rest = maxChars - rest - 1;
-            if (words[0].Length < remainingFirst)
-                rest = maxChars - words[0].Length - 1;
-            return
-                $@"{words[0].SmartAbbreviation(remainingFirst)} {wordsWithoutFirst.SmartAbbreviation(rest)}";
-        }
-
-        /// <summary>
-        /// Smarts the abbreviation three words.
-        /// </summary>
-        /// <param name="maxChars">The maximum chars.</param>
-        /// <param name="words">The words.</param>
-        /// <returns></returns>
-        [Pure]
-        private static string SmartAbbreviationThreeWords(int maxChars, IReadOnlyList<string> words)
-        {
-            var sum = words[0].Length + words[2].Length + 2;
-            var rest = maxChars - sum;
-            var secondIsPreposition = StringValidations.PortuguesPrepositionPattern.Match(words[1]).Success;
-            if (rest >= 1 &&
-                secondIsPreposition == false)
-                return $@"{words[0]} {words[1].SmartAbbreviation(rest)} {words[2]}";
-            rest = maxChars - words[0].Length - 1;
-            if (rest >= 1)
-                return $@"{words[0]} {$@"{words[1]} {words[2]}".SmartAbbreviation(rest)}";
-            rest = maxChars - 4;
-            if (rest < 2 ||
-                StringValidations.PortuguesPrepositionPattern.Match(words[0]).Success ||
-                StringValidations.PortuguesPrepositionPattern.Match(words[2]).Success)
-                return secondIsPreposition
-                           ? $@"{words[0]} {words[2]}".SmartAbbreviation(maxChars)
-                           : StringValidations.PortuguesPrepositionPattern.Match(words[0]).Success
-                        ? $@"{words[1]} {words[2]}".SmartAbbreviation(maxChars)
-                        : StringValidations.PortuguesPrepositionPattern.Match(words[2]).Success
-                            ? $@"{words[0]} {words[1]}".SmartAbbreviation(maxChars)
-                            : $@"{words[0]} {words[2]}".SmartAbbreviation(maxChars);
-            var extremes = $@"{words[0]} {words[2]}".SmartAbbreviation(rest + 1).Split(' ');
-            return $@"{extremes[0]} {words[1][0]}. {extremes[1]}";
-        }
-
-        /// <summary>
-        /// Smarts the abbreviation two words.
-        /// </summary>
-        /// <param name="maxChars">The maximum chars.</param>
-        /// <param name="words">The words.</param>
-        /// <returns></returns>
-        [Pure]
-        private static string SmartAbbreviationTwoWords(int maxChars, IReadOnlyList<string> words)
-        {
-            int rest;
-            if (words[0].Length + 2 >= maxChars)
-            {
-                if (StringValidations.PortuguesPrepositionPattern.Match(words[0]).Success)
-                    return words[1].SmartAbbreviation(maxChars);
-                rest = maxChars - 2;
-                return StringValidations.PortuguesPrepositionPattern.Match(words[1]).Success == false && rest > 0
-                    ? $@"{words[0].SmartAbbreviation(rest)} {words[1].SmartAbbreviation(1)}"
-                    : words[1].SmartAbbreviation(maxChars);
-            }
-
-            rest = maxChars - words[0].Length - 1;
-            return $@"{words[0]} {words[1].SmartAbbreviation(rest)}";
         }
 
         /// <summary>
