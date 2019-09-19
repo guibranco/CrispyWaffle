@@ -28,7 +28,7 @@ build:
   verbosity: normal
 build_script:
  - dotnet tool install --global dotnet-sonarscanner
- - dotnet sonarscanner begin /k:"guibranco_CrispyWaffle" /do:"guibranco-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%SONAR_TOKEN%" /v:"%APPVEYOR_BUILD_NUMBER%" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.coverage.exclusions="CrispyWaffle.Tests/**,**/*Tests.cs" /d:sonar.cs.opencover.reportsPaths="%CD%\CrispyWaffle.Tests\coverage.opencover.xml"
+ - dotnet sonarscanner begin /k:"guibranco_CrispyWaffle" /o:"guibranco-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="%SONAR_TOKEN%" /v:"%APPVEYOR_BUILD_NUMBER%" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.coverage.exclusions="CrispyWaffle.Tests/**,**/*Tests.cs" /d:sonar.cs.opencover.reportsPaths="%CD%\CrispyWaffle.Tests\coverage.opencover.xml"
  - dotnet build
  - ps: dotnet test .\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="opencover"
  - dotnet sonarscanner end /d:sonar.login="%SONAR_TOKEN%"
