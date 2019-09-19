@@ -1,0 +1,130 @@
+﻿namespace CrispyWaffle.Log.Providers
+{
+    using Adapters;
+    using Serialization;
+
+    /// <summary>
+    /// Text file log pr
+    /// </summary>
+    public sealed class TextFileLogProvider : ILogProvider
+    {
+        #region Private fields
+
+        /// <summary>
+        /// Text file log adapter
+        /// </summary>
+
+        private readonly ITextFileLogAdapter _adapter;
+
+        #endregion
+
+        #region ~Ctors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextFileLogProvider"/> class.
+        /// </summary>
+        /// <param name="adapter">The adapter.</param>
+        public TextFileLogProvider(ITextFileLogAdapter adapter)
+        {
+            _adapter = adapter;
+        }
+
+        #endregion
+
+        #region Implementation of ILogProvider
+
+        /// <summary>
+        /// Sets the log level of the instance
+        /// </summary>
+        /// <param name="level">The log level</param>
+
+        public void SetLevel(LogLevel level)
+        {
+            _adapter.SetLevel(level);
+        }
+
+        /// <summary>
+        /// Logs the message with error level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+
+        public void Error(string category, string message)
+        {
+            _adapter.CategorizedError(category, message);
+        }
+
+        /// <summary>
+        /// Logs the message with warning level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+
+        public void Warning(string category, string message)
+        {
+            _adapter.CategorizedWarning(category, message);
+        }
+
+        /// <summary>
+        /// Logs the message with info level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+
+        public void Info(string category, string message)
+        {
+            _adapter.CategorizedInfo(category, message);
+        }
+
+        /// <summary>
+        /// Logs the message with trace level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+
+        public void Trace(string category, string message)
+        {
+            _adapter.CategorizedTrace(category, message);
+        }
+
+        /// <summary>
+        /// Logs the message with debug level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+
+        public void Debug(string category, string message)
+        {
+            _adapter.CategorizedDebug(category, message);
+        }
+
+        /// <summary>
+        /// Logs the message as a file with file name specified in <paramref name="fileName"/> with debug level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="content">The content to be stored</param>
+        /// <param name="fileName">The name of the attachment.</param>
+
+        public void Debug(string category, string content, string fileName)
+        {
+            _adapter.CategorizedDebug(category, content, fileName);
+        }
+
+        /// <summary>
+        /// Logs the message as a /attachment with a file name with debug level using a custom serializer or default.
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat"/> serializer format</typeparam>
+        /// <param name="content">The object to be serialized</param>
+        /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
+        /// <param name="customFormat">(Optional) the custom serializer format</param>
+
+        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE)
+            where T : class, new()
+        {
+            _adapter.CategorizedDebug(category, content, identifier, customFormat);
+        }
+
+        #endregion
+    }
+}
