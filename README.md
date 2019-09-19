@@ -21,4 +21,8 @@ NuGet package: https://www.nuget.org/packages/CrispyWaffle
 Install-Package CrispyWaffle
 ```
 
+<<<<<<< HEAD
 ---
+=======
+---
+>>>>>>> master
