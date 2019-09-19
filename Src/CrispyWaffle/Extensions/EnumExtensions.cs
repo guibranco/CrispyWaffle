@@ -24,19 +24,27 @@
             var type = typeof(T);
             if (!type.IsEnum)
                 throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
-            foreach (var field in from field in type.GetFields()
-                                  let attr =
-                                  Attribute.GetCustomAttribute(field, typeof(HumanReadableAttribute)) as HumanReadableAttribute
-                                  where
-                                  attr != null &&
-                                  attr.StringValue.Equals(humanReadableValue, StringExtensions.Comparison) ||
-                                  field.Name.Equals(humanReadableValue, StringExtensions.Comparison)
-                                  select field)
-                return (T)field.GetValue(null);
-            throw new ArgumentOutOfRangeException(
-                                                  nameof(humanReadableValue),
-                                                  humanReadableValue,
-                                                  $"Unable to find the field for {type.FullName} with value {humanReadableValue} in the attribute of type {typeof(HumanReadableAttribute).FullName}");
+            var field = type.GetFields().Select(f =>
+                    new
+                    {
+                        Field = f,
+                        Attr =
+                            Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute)) as
+                                HumanReadableAttribute
+                    })
+                .Where(item =>
+                    item.Attr != null &&
+                    item.Attr.StringValue.Equals(humanReadableValue, StringExtensions.Comparison) ||
+                    item.Field.Name.Equals(humanReadableValue, StringExtensions.Comparison))
+                .Select(item => item.Field)
+                .SingleOrDefault();
+            if (field == null)
+                throw new ArgumentOutOfRangeException(
+                    nameof(humanReadableValue),
+                    humanReadableValue,
+                    $"Unable to find the field for {type.FullName} with value {humanReadableValue} in the attribute of type {typeof(HumanReadableAttribute).FullName}");
+            return (T)field.GetValue(null);
+
         }
 
         /// <summary>
@@ -52,19 +60,27 @@
                 throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
             if (internalValue == null)
                 return default;
-            foreach (var field in from field in type.GetFields()
-                                  let attr =
-                                  Attribute.GetCustomAttribute(field, typeof(InternalValueAttribute)) as InternalValueAttribute
-                                  where
-                                  attr != null &&
-                                  attr.InternalValue.Equals(internalValue, StringExtensions.Comparison) ||
-                                  field.Name.Equals(internalValue, StringExtensions.Comparison)
-                                  select field)
-                return (T)field.GetValue(null);
-            throw new ArgumentOutOfRangeException(nameof(internalValue),
-                                                  internalValue,
-                                                  $"Unable to find the field for {type.FullName} with value {internalValue} in the attribute of type {typeof(InternalValueAttribute).FullName}");
 
+            var field = type.GetFields().Select(f =>
+                    new
+                    {
+                        Field = f,
+                        Attr =
+                            Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute)) as
+                                InternalValueAttribute
+                    })
+                .Where(item =>
+                    item.Attr != null &&
+                    item.Attr.InternalValue.Equals(internalValue, StringExtensions.Comparison) ||
+                    item.Field.Name.Equals(internalValue, StringExtensions.Comparison))
+                .Select(item => item.Field)
+                .SingleOrDefault();
+            if (field == null)
+                throw new ArgumentOutOfRangeException(
+                    nameof(internalValue),
+                    internalValue,
+                    $"Unable to find the field for {type.FullName} with value {internalValue} in the attribute of type {typeof(InternalValueAttribute).FullName}");
+            return (T)field.GetValue(null);
         }
 
         /// <summary>

@@ -466,28 +466,27 @@
         {
             var type = typeof(T);
             var ctors = type.GetConstructors().OrderByDescending(c => c.GetParameters().Length);
-            foreach (var ctor in ctors)
+            var ctor = ctors.FirstOrDefault();
+            if (ctor == null)
+                return default;
+            var arguments = new List<object>();
+            var parameters = ctor.GetParameters();
+            foreach (var parameter in parameters)
             {
-                var arguments = new List<object>();
-                var parameters = ctor.GetParameters();
-                foreach (var parameter in parameters)
+                var property = type.GetProperty(parameter.Name, BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
+                if (property == null && !useNonPublic)
+                    continue;
+                if (property == null)
                 {
-                    var property = type.GetProperty(parameter.Name, BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
-                    if (property == null && !useNonPublic)
-                        continue;
+                    property = type.GetProperty(parameter.Name, BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
                     if (property == null)
-                    {
-                        property = type.GetProperty(parameter.Name, BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
-                        if (property == null)
-                            continue;
-                    }
-                    if (property.PropertyType != parameter.ParameterType)
                         continue;
-                    arguments.Add(property.GetValue(instance));
                 }
-                return (T)ctor.Invoke(arguments.ToArray());
+                if (property.PropertyType != parameter.ParameterType)
+                    continue;
+                arguments.Add(property.GetValue(instance));
             }
-            return default;
+            return (T)ctor.Invoke(arguments.ToArray());
         }
     }
 }

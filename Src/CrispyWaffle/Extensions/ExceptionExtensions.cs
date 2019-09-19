@@ -23,7 +23,7 @@
             types = new List<Type>();
             var handling = exception;
             result.Enqueue(handling);
-            while (handling.InnerException != null)
+            while (handling?.InnerException != null)
             {
                 result.Enqueue(handling.InnerException);
                 handling = handling.InnerException;
