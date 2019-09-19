@@ -18,6 +18,8 @@ The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 NuGet package: https://www.nuget.org/packages/CrispyWaffle
 
-```
+```ps
 Install-Package CrispyWaffle
+```
+
 ---

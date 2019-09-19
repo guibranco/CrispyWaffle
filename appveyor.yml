@@ -6,6 +6,7 @@ image: Visual Studio 2017
 configuration: Release
 skip_commits:
   message: /(Created|Update).*\.(png|jpg|jpeg|bmp|gif|md)/
+skip_branch_with_pr: true
 environment:
   SONAR_TOKEN: 
     secure: Ygi3OANCoY8kUyJ7TJ9ewyqEkNxw6o9MZkPWOZfLCH/Dsss8df3yGsL0tMVB1abz
