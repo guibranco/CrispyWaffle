@@ -1,4 +1,4 @@
-# CrispyWaffle
+# CrispyWaffle 🧇
 The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle)
@@ -13,6 +13,8 @@ The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=security_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
+
+![Crispy Waffle log](https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png)
 
 ---
 
