@@ -169,7 +169,6 @@
         /// </summary>
         /// <param name="input">The str to act on.</param>
         /// <returns>str as a Decimal.</returns>
-        /// <remarks>Guilherme B. Stracini, 27/03/2013.</remarks>
         public static decimal ToDecimal(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
