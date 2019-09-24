@@ -38,9 +38,6 @@
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         [Pure]
         public T Deserialize<T>(object serialized) where T : class
         {
@@ -55,9 +52,6 @@
         /// <returns>A T.</returns>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
         /// <exception cref="LocalFileNotFoundException"></exception>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         [Pure]
         public T Load<T>(string file) where T : class
         {
@@ -100,9 +94,6 @@
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
-        /// <remarks>Versão: 1.50.2697.579
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 21/03/2014.</remarks>
         public void Serialize<T>(T deserialized, out Stream stream) where T : class
         {
             stream = new MemoryStream();
@@ -123,9 +114,6 @@
         /// <param name="file">The file.</param>
         /// <param name="deserialized">The deserialized.</param>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         public void Save<T>(string file, T deserialized) where T : class
         {
             Stream stream = null;
