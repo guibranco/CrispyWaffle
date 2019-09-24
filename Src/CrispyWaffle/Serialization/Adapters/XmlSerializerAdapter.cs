@@ -11,9 +11,6 @@
     /// A serializer xml.
     /// </summary>
     /// <seealso cref="ISerializerAdapter" />
-    /// <remarks>Versão: 1.47.2489.499
-    /// Autor: Guilherme Branco Stracini
-    /// Data: 08/03/2014.</remarks>
     public sealed class XmlSerializerAdapter : ISerializerAdapter
     {
         #region Implemetation of ISerializerAdapter
@@ -37,9 +34,6 @@
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         [Pure]
         public T Deserialize<T>(object serialized) where T : class
         {
@@ -55,9 +49,6 @@
         /// <returns>A T.</returns>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
         /// <exception cref="LocalFileNotFoundException">Thrown when an Arquivo Nao Encontrado error condition occurs.</exception>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         [Pure]
         public T Load<T>(string file) where T : class
         {
@@ -78,9 +69,6 @@
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
-        /// <remarks>Versão: 1.50.2738.583
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 25/03/2014.</remarks>
         [Pure]
         public void Serialize<T>(T deserialized, out Stream stream) where T : class
         {
@@ -102,9 +90,6 @@
         /// <param name="file">The file.</param>
         /// <param name="deserialized">The deserialized.</param>
         /// <exception cref="LocalFileNotFoundException">null - null</exception>
-        /// <remarks>Versão: 1.47.2489.499
-        /// Autor: Guilherme Branco Stracini
-        /// Data: 08/03/2014.</remarks>
         public void Save<T>(string file, T deserialized) where T : class
         {
             Stream stream = null;

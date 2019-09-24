@@ -344,7 +344,6 @@
         /// </summary>
         /// <param name="uri">The URI to act on.</param>
         /// <returns>The file extension.</returns>
-        /// <remarks>Guilherme B. Stracini, 27/03/2013.</remarks>
         [Pure]
         public static string GetFileExtension(this Uri uri)
         {
