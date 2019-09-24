@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>toolkit sdk framework library lib</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png</PackageIconUrl>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
