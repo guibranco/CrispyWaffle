@@ -64,6 +64,7 @@
             var counter = 1;
             while (true)
             {
+				#warning Check IntegracaoService string above
                 var method = stack.GetFrame(counter++).GetMethod();
                 if (method == null)
                     return @"IntegracaoService";
