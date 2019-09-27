@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 1.1.{build}
 pull_requests:
  do_not_increment_build_number: true
 skip_tags: true
@@ -13,11 +13,11 @@ environment:
 dotnet_csproj: 
   patch: true 
   file: '**\*.csproj' 
-  version: '1.0.{build}' 
-  package_version: '1.0.{build}' 
-  assembly_version: '1.0.{build}'
-  file_version: '1.0.{build}'
-  informational_version: '1.0.{build}'
+  version: '1.1.{build}' 
+  package_version: '1.1.{build}' 
+  assembly_version: '1.1.{build}'
+  file_version: '1.1.{build}'
+  informational_version: '1.1.{build}'
 before_build:
 - cmd: nuget restore
 - cmd: choco install opencover.portable
@@ -45,7 +45,7 @@ build_script:
  - codecov -f "Tests\CrispyWaffle.Tests\coverage.opencover.xml"
 after_build:
 - xcopy %CD%\Src\CrispyWaffle\bin\Release\netstandard2.0\*.* %CD%\Build\
-- copy %CD%\Src\CrispyWaffle\bin\Release\CrispyWaffle.1.0.%APPVEYOR_BUILD_NUMBER%.nupkg CrispyWaffle.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\CrispyWaffle\bin\Release\CrispyWaffle.1.1.%APPVEYOR_BUILD_NUMBER%.nupkg CrispyWaffle.%APPVEYOR_BUILD_VERSION%.nupkg
 - rd /s /q %CD%\Src\CrispyWaffle\bin\Release\
 - cd %CD%
 - 7z a -tzip -mx9 "CrispyWaffle.%APPVEYOR_BUILD_VERSION%.zip" Build
