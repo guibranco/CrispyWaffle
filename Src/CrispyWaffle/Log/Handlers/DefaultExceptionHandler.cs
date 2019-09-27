@@ -66,14 +66,14 @@
             {
                 var method = stack.GetFrame(counter++).GetMethod();
                 if (method == null)
-                    return @"IntegracaoService";
+                    return @"CrispyWaffle";
                 var ns = method.DeclaringType?.FullName;
                 if (string.IsNullOrWhiteSpace(ns))
                     return method.Name;
-                if (ns.StartsWith(@"IntegracaoService.Commons.Log"))
+                if (ns.StartsWith(@"CrispyWaffle.Log"))
                     continue;
-                if (ns.StartsWith(@"IntegracaoService.", StringExtensions.Comparison))
-                    ns = ns.Substring(18);
+                if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+                    ns = ns.Substring(13);
                 return ns;
             }
         }

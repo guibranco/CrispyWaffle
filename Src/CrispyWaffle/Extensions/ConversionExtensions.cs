@@ -11,7 +11,6 @@
     using System.Text.RegularExpressions;
     using System.Xml;
     using Utilities;
-    using Validations;
 
     /// <summary>
     /// Helper class for generic conversions
@@ -225,25 +224,26 @@
         }
 
         /// <summary>
-        /// Parses the phone number.
+        /// Parses the brazilian phone number.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns></returns>
-        public static PhoneNumber ParsePhoneNumber(this string number)
+        /// <exception cref="InvalidTelephoneNumberException"></exception>
+        public static PhoneNumber ParseBrazilianPhoneNumber(this string number)
         {
             var result = new PhoneNumber(0, 0, 0);
-            if (number.TryParsePhoneNumber(ref result))
+            if (number.TryParseBrazilianPhoneNumber(ref result))
                 return result;
             throw new InvalidTelephoneNumberException(number.RemoveNonNumeric());
         }
 
         /// <summary>
-        /// Tries the parse phone number.
+        /// Tries the parse brazilian phone number.
         /// </summary>
-        /// <param name="number">The phone number as string.</param>
-        /// <param name="result">The phone number as PhoneNumber struct.</param>
-        /// <returns><b>True</b> if succeed, <b>false</b> otherwise</returns>
-        public static bool TryParsePhoneNumber(this string number, ref PhoneNumber result)
+        /// <param name="number">The number.</param>
+        /// <param name="result">The result.</param>
+        /// <returns></returns>
+        public static bool TryParseBrazilianPhoneNumber(this string number, ref PhoneNumber result)
         {
             var dirty = number.RemoveNonNumeric();
             var dirtyLength = dirty.Length;
@@ -267,70 +267,6 @@
             var telephoneNumber = dirty.Substring(dirtyLength - allowedDigits, allowedDigits);
             result = new PhoneNumber(55, prefix.ToInt32(), telephoneNumber.ToInt64());
             return true;
-        }
-
-        /// <summary>
-        /// To HTML list string.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
-        /// <param name="includeListTag">Includes the UL tags in the return string.</param>
-        /// <returns>System.String.</returns>
-        public static string ToListString(this Exception exception, bool includeListTag = true)
-        {
-            var builder = new StringBuilder();
-            if (includeListTag)
-                builder.Append(@"<ul>");
-
-            var inner = exception;
-            while (inner != null)
-            {
-                var stackTrace = inner.StackTrace ?? string.Empty;
-                if (ExceptionValidations.StackTracePattern.IsMatch(stackTrace))
-                    stackTrace =
-                        ExceptionValidations
-                            .StackTracePattern
-                            .Matches(stackTrace)
-                            .Cast<Match>()
-                            .Aggregate(string.Empty,
-                                       (current, match) =>
-                                           current + $@"<li> {match.Groups["method"].Value}</li>");
-                builder.AppendFormat(@"<li><b>{0}</b> (<u>{1}</u>)</li>{2}",
-                                     inner.Message,
-                                     inner.GetType().FullName,
-                                     stackTrace);
-                inner = inner.InnerException;
-            }
-
-            if (includeListTag)
-                builder.AppendLine(@"</ul>");
-            return builder.ToString();
-        }
-
-        /// <summary>
-        /// Cleans the list items.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <param name="maxItems">The maximum items.</param>
-        /// <returns></returns>
-        public static string CleanListItems(this string input, int maxItems = 15)
-        {
-            input = input?.Replace(@"<ul>", string.Empty).Replace(@"</ul>", string.Empty) ??
-                             string.Empty;
-
-            var pattern = new Regex(@"<li class='operation'>(?<operation>.+?)</li>(?:\s+<li>(?:.+?)</li>)*",
-                                    RegexOptions.IgnoreCase |
-                                    RegexOptions.CultureInvariant |
-                                    RegexOptions.Multiline);
-            if (!pattern.IsMatch(input) || maxItems <= 0)
-                return input;
-            var matches = pattern.Matches(input);
-            var max = matches.Count > maxItems
-                          ? maxItems
-                          : matches.Count;
-            input = string.Empty;
-            for (var i = 1; i <= max; i++)
-                input += matches[matches.Count - i];
-            return input;
         }
 
         /// <summary>
@@ -436,7 +372,7 @@
         /// </summary>
         /// <param name="document">The document.</param>
         /// <returns></returns>
-        public static string FormatDocument(this string document)
+        public static string FormatBrazilianDocument(this string document)
         {
             if (string.IsNullOrWhiteSpace(document))
                 return "Invalid document";

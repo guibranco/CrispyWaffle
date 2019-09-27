@@ -18,10 +18,32 @@ The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 ---
 
+## Installation
+
+Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/Releases) pages or simple install from [NuGet](https://www.nuget.org/packages/CrispyWaffle) package manager
+
+---
+
 NuGet package: https://www.nuget.org/packages/CrispyWaffle
 
 ```ps
 Install-Package CrispyWaffle
 ```
+---
+
+## Changelog
+
+Version 1.1 (2019-09-27) [@guibranco](https://github.com/guibranco)
+- Add Math Extensions (CrispyWaffle.Extensions.MathExtensions namespace)
+- Add Personal Data Validations (CrispyWaffle.Validations.PersonalDataValidations)
+- Rename method *FormatDocument* to *FormatBrazilianDocument* (CrispyWaffle.Extensions.ConversionExtensions)
+- Rename method *ParsePhoneNumber* to *arseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions)
+- Removed *CleanListItems* (CrispyWaffle.Extensions.ConversionExtensions)
+- Rename method *TryParsePhoneNumber* to *TryParseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions)
+- Removed *CleanListItems* and *ToListString* (CrispyWaffle.Extensions.ConversionExtensions) **(Specific to application patterns)**
 
 ---
+
+## TODO
+
+- Add tests
