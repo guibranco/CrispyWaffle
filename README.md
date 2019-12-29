@@ -20,7 +20,7 @@ The CrispyWaffle project - a toolkit for dotNet (framework & core) projects
 
 ## Installation
 
-Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/Releases) pages or simple install from [NuGet](https://www.nuget.org/packages/CrispyWaffle) package manager
+Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) pages or simple install from [NuGet](https://www.nuget.org/packages/CrispyWaffle) package manager
 
 ---
 
