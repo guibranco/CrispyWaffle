@@ -3,7 +3,7 @@ skip_tags: true
 image: Visual Studio 2019
 configuration: Release
 skip_commits:
-  message: /(Create|Update).*\.(png|jpg|jpeg|bmp|gif|md)/
+  message: /(Create|Update) .*\.(png|jpg|jpeg|bmp|gif|md)/
 
 environment:
   SOLUTION_NAME: CrispyWaffle 

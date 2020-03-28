@@ -48,8 +48,9 @@ Install-Package CrispyWaffle
 
 ## Changelog
 
-Version 2.0 (2020-03-28) [@guibranco](https://github.com/guibranco)
+Version 1.2 (2020-03-28) [@guibranco](https://github.com/guibranco)
 
+- Add some unit tests
 - Update appveyor.yml with build enhancements and test coverages.
 - Update readme template
 
@@ -64,7 +65,3 @@ Version 1.1 (2019-09-27) [@guibranco](https://github.com/guibranco)
 - Removed *CleanListItems* and *ToListString* (CrispyWaffle.Extensions.ConversionExtensions) **(Specific to application patterns)**
 
 ---
-
-## TODO
-
-- Add tests
