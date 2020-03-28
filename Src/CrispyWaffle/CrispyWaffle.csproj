@@ -1,23 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<Authors>Guilherme Branco Stracini</Authors>
+    <Authors>Guilherme Branco Stracini</Authors>
+    <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle toolkit for .NET projects</Description>
-    <Copyright>© 2019 Guilherme Branco Stracini. All rights reserved.</Copyright>
-    <PackageLicense>https://github.com/guibranco/CrispyWaffle/blob/master/LICENSE</PackageLicense>
-    <PackageProjectUrl>https://github.com/guibranco/CrispyWaffle/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/guibranco/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>toolkit sdk framework library lib</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png</PackageIconUrl>
+    <PackageIcon>logo.png</PackageIcon>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../LICENSE" Pack="true" PackagePath="\"/>
+    <None Include="../../logo.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>

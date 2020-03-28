@@ -26,12 +26,12 @@
 
             var keyBytes = new Rfc2898DeriveBytes(passwordHash, Encoding.ASCII.GetBytes(saltKey)).GetBytes(256 / 8);
             var symmetricKey = new RijndaelManaged { Mode = CipherMode.CBC, Padding = PaddingMode.Zeros };
-            var encryptor = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
+            var encryption = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
 
             byte[] cipherTextBytes;
 
             var memoryStream = new MemoryStream();
-            using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+            using (var cryptoStream = new CryptoStream(memoryStream, encryption, CryptoStreamMode.Write))
             {
                 cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
                 cryptoStream.FlushFinalBlock();
@@ -55,11 +55,11 @@
             var keyBytes = new Rfc2898DeriveBytes(passwordHash, Encoding.ASCII.GetBytes(saltKey)).GetBytes(256 / 8);
             var symmetricKey = new RijndaelManaged { Mode = CipherMode.CBC, Padding = PaddingMode.None };
 
-            var decryptor = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
+            var decryption = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
             var memoryStream = new MemoryStream(cipherTextBytes);
             byte[] plainTextBytes;
             int decryptedByteCount;
-            using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+            using (var cryptoStream = new CryptoStream(memoryStream, decryption, CryptoStreamMode.Read))
             {
                 plainTextBytes = new byte[cipherTextBytes.Length];
                 decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);

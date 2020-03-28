@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CrispyWaffle.Composition
+﻿namespace CrispyWaffle.Composition
 {
     using Extensions;
     using Log;
+    using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Telemetry;
@@ -77,12 +76,12 @@ namespace CrispyWaffle.Composition
         #region Private methods
 
         /// <summary>
-        /// Registers the lifeStyled internal.
+        /// Registers the life styled internal.
         /// </summary>
         /// <param name="lifeStyle">The life style.</param>
         /// <param name="contract">The contract.</param>
         /// <param name="implementation">The implementation.</param>
-        private static void RegisterlifeStyledInternal(LifeStyle lifeStyle, Type contract, Type implementation)
+        private static void RegisterLifeStyledInternal(LifeStyle lifeStyle, Type contract, Type implementation)
         {
             RegistrationsCalls.Add(contract, 0);
 
@@ -445,7 +444,7 @@ namespace CrispyWaffle.Composition
         public static void Register<TImplementation>(LifeStyle lifeStyle = LifeStyle.TRANSIENT)
         {
             var type = typeof(TImplementation);
-            RegisterlifeStyledInternal(lifeStyle, type, type);
+            RegisterLifeStyledInternal(lifeStyle, type, type);
         }
 
         /// <summary>
@@ -457,7 +456,7 @@ namespace CrispyWaffle.Composition
         {
             var contract = typeof(TContract);
             var implementation = typeof(TImplementation);
-            RegisterlifeStyledInternal(lifeStyle, contract, implementation);
+            RegisterLifeStyledInternal(lifeStyle, contract, implementation);
         }
 
         /// <summary>
