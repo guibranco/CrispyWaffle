@@ -34,8 +34,7 @@
             if (type == JsonToken.Null)
                 return null;
             var value = JToken.Load(reader);
-            if (value == null ||
-                type == JsonToken.String && string.IsNullOrWhiteSpace(value.Value<string>()) ||
+            if (type == JsonToken.String && string.IsNullOrWhiteSpace(value.Value<string>()) ||
                 !value.HasValues && (type == JsonToken.StartArray || type == JsonToken.StartObject))
                 return null;
             throw new NotNullObserverException(type, reader.Value ?? value.ToString(), reader.Path);

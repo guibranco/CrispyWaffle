@@ -47,11 +47,13 @@
                 currentValue % multipleOf == 0)
                 return currentValue;
             var left = currentValue % multipleOf;
+            if (left == 1)
+                return currentValue - 1;
             var half = multipleOf / 2;
 
-            return left > half
+            return left >= half
                        ? currentValue - left + multipleOf
-                       : currentValue + left;
+                       : currentValue - left;
         }
     }
 }

@@ -8,7 +8,7 @@
         /// <summary>
         /// The country code
         /// </summary>
-        public int CountryCode { get; set; }
+        public int CountryCode { get; private set; }
 
         /// <summary>
         /// The region code
