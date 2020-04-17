@@ -1,4 +1,4 @@
-# CrispyWaffle 🧇
+# CrispyWaffle
 
 The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
 
@@ -41,7 +41,9 @@ NuGet URL: https://www.nuget.org/packages/CrispyWaffle
 NuGet installation via *Package Manager Console*:
 
 ```ps
+
 Install-Package CrispyWaffle
+
 ```
 
 ---
