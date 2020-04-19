@@ -7,7 +7,7 @@
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle toolkit for .NET projects</Description>
-    <PackageProjectUrl>https://github.com/guibranco/CrispyWaffle</PackageProjectUrl>
+    <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>toolkit sdk framework library lib</PackageTags>

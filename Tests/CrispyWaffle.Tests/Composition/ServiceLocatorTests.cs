@@ -1,17 +1,20 @@
 ﻿using CrispyWaffle.Composition;
 using System.Threading;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.Composition
 {
-    public class ServiceLocatorTests
+    public class ServiceLocatorTests : IClassFixture<BootstrapFixture>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceLocatorTests"/> class.
         /// </summary>
-        public ServiceLocatorTests()
+        /// <param name="fixture">The fixture.</param>
+        /// <param name="testOutputHelper">The test output helper.</param>
+        public ServiceLocatorTests(BootstrapFixture fixture, ITestOutputHelper testOutputHelper)
         {
-            ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
+            fixture.SetLog(testOutputHelper);
         }
 
         /// <summary>
