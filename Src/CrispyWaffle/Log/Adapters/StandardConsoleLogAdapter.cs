@@ -5,8 +5,8 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    
-     /// <summary>
+
+    /// <summary>
     /// Class ConsoleLogAdapter.
     /// Redirects log to Console Window.
     /// This class cannot be inherited.
@@ -54,7 +54,7 @@
         /// The synchronize root
         /// </summary>
         private static readonly object SyncRoot = new object();
-        
+
         /// <summary>
         /// The colors by level
         /// </summary>
@@ -115,7 +115,7 @@
                 return;
             lock (SyncRoot)
             {
-                Console.ForegroundColor = ColorsByLevel[level];;
+                Console.ForegroundColor = ColorsByLevel[level];
                 Console.Write(@"{0:HH:mm:ss} ", DateTime.Now);
                 Console.WriteLine(message);
                 Console.ForegroundColor = DefaultColor;
