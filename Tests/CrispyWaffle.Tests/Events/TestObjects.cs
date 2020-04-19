@@ -6,7 +6,7 @@ namespace CrispyWaffle.Tests.Events
     /// <summary>
     /// Class TestObjects.
     /// </summary>
-    internal partial class TestObjects
+    internal class TestObjects
     {
         /// <summary>
         /// The test done event class.

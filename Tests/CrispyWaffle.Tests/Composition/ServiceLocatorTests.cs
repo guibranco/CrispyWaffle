@@ -11,7 +11,6 @@ namespace CrispyWaffle.Tests.Composition
         /// </summary>
         public ServiceLocatorTests()
         {
-            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
         }
 
@@ -21,7 +20,7 @@ namespace CrispyWaffle.Tests.Composition
         [Fact]
         public void ValidateSingletonCreationAndPersistence()
         {
-            
+
             var instanceA = ServiceLocator.Resolve<TestObjects.SingletonTest>();
             Thread.Sleep(1000);
             var instanceB = ServiceLocator.Resolve<TestObjects.SingletonTest>();

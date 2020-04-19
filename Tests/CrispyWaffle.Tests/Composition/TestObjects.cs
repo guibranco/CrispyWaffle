@@ -2,7 +2,10 @@
 
 namespace CrispyWaffle.Tests.Composition
 {
-    internal partial class TestObjects
+    /// <summary>
+    /// Class TestObjects.
+    /// </summary>
+    internal class TestObjects
     {
         public sealed class SingletonTest
         {
