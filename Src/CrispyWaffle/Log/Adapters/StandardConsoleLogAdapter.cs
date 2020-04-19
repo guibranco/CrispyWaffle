@@ -1,11 +1,12 @@
 ﻿namespace CrispyWaffle.Log.Adapters
 {
+    using Extensions;
     using Serialization;
     using System;
+    using System.Collections.Generic;
     using System.IO;
-    using Extensions;
-
-    /// <summary>
+    
+     /// <summary>
     /// Class ConsoleLogAdapter.
     /// Redirects log to Console Window.
     /// This class cannot be inherited.
@@ -53,6 +54,18 @@
         /// The synchronize root
         /// </summary>
         private static readonly object SyncRoot = new object();
+        
+        /// <summary>
+        /// The colors by level
+        /// </summary>
+        private static readonly Dictionary<LogLevel, ConsoleColor> ColorsByLevel = new Dictionary<LogLevel, ConsoleColor>
+        {
+            {LogLevel.ERROR, ErrorColor},
+            {LogLevel.WARNING, WarningColor},
+            {LogLevel.INFO, InfoColor},
+            {LogLevel.TRACE, TraceColor},
+            {LogLevel.DEBUG, DebugColor}
+        };
 
         /// <summary>
         /// The is console enabled
@@ -100,31 +113,9 @@
             if (!_level.HasFlag(level) ||
                 !_isConsoleEnabled)
                 return;
-            ConsoleColor color;
-            switch (level)
-            {
-                case LogLevel.ERROR:
-                    color = ErrorColor;
-                    break;
-                case LogLevel.WARNING:
-                    color = WarningColor;
-                    break;
-                case LogLevel.INFO:
-                    color = InfoColor;
-                    break;
-                case LogLevel.TRACE:
-                    color = TraceColor;
-                    break;
-                case LogLevel.DEBUG:
-                    color = DebugColor;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(level), level, null);
-            }
-
             lock (SyncRoot)
             {
-                Console.ForegroundColor = color;
+                Console.ForegroundColor = ColorsByLevel[level];;
                 Console.Write(@"{0:HH:mm:ss} ", DateTime.Now);
                 Console.WriteLine(message);
                 Console.ForegroundColor = DefaultColor;
