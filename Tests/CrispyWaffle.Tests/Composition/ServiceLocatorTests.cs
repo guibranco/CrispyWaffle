@@ -7,12 +7,21 @@ namespace CrispyWaffle.Tests.Composition
     public class ServiceLocatorTests
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceLocatorTests"/> class.
+        /// </summary>
+        public ServiceLocatorTests()
+        {
+            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
+            ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
+        }
+
+        /// <summary>
         /// Validates the singleton creation and persistence.
         /// </summary>
         [Fact]
         public void ValidateSingletonCreationAndPersistence()
         {
-            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
+            
             var instanceA = ServiceLocator.Resolve<TestObjects.SingletonTest>();
             Thread.Sleep(1000);
             var instanceB = ServiceLocator.Resolve<TestObjects.SingletonTest>();
@@ -28,9 +37,7 @@ namespace CrispyWaffle.Tests.Composition
         [Fact]
         public void ValidateSingletonCreationWithDependency()
         {
-            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             var instanceInner = ServiceLocator.Resolve<TestObjects.SingletonTest>();
-            ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
             var instance = ServiceLocator.Resolve<TestObjects.SingletonWithDependencyTest>();
             Assert.NotNull(instance.Singleton);
             Assert.Equal(instanceInner.Date, instance.Singleton.Date);
