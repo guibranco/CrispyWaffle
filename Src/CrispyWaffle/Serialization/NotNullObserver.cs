@@ -8,6 +8,6 @@
     /// <remarks>
     /// Only works for IntegracaoService.Commons.Serialization.Adapter.JsonSerializerAdapter!
     /// </remarks>
-    public class NotNullObserver : object
+    public class NotNullObserver
     { }
 }

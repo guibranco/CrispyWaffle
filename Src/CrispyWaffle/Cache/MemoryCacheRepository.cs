@@ -37,8 +37,8 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
-        /// <param name="ttlUnavailable">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
-        public void Set<T>(T value, string key, TimeSpan? ttlUnavailable = null)
+        /// <param name="ttl">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
+        public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
             Data.AddOrUpdate(key, value, (_, __) => value);
         }

@@ -170,11 +170,11 @@
         /// <returns>str as a Decimal.</returns>
         public static decimal ToDecimal(this string input)
         {
-            return string.IsNullOrWhiteSpace(input)
-                ? 0M
-                : decimal.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result)
-                       ? result
-                       : 0M;
+            if (string.IsNullOrWhiteSpace(input))
+                return 0M;
+            return decimal.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result)
+                ? result
+                : 0M;
         }
 
         /// <summary>

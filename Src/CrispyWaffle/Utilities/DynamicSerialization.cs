@@ -1,5 +1,7 @@
 ﻿namespace CrispyWaffle.Utilities
 {
+    using Extensions;
+    using Serialization;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
@@ -10,8 +12,6 @@
     using System.Xml;
     using System.Xml.Schema;
     using System.Xml.Serialization;
-    using Extensions;
-    using Serialization;
 
     /// <summary>
     /// A dynamic serialization.
@@ -22,7 +22,7 @@
     /// <seealso cref="System.IEquatable{DynamicSerialization}" />
     [Serializable]
     [Serializer]
-    public class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
+    public sealed class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
     {
         #region Protected fields
 

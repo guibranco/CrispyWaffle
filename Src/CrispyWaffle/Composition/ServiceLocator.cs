@@ -629,11 +629,12 @@
         /// <returns></returns>
         public static object TryGetInstance(Type contract)
         {
-            return Registrations.TryGetValue(contract, out var creator)
-                ? creator()
-                : !contract.IsAbstract
-                       ? CreateInstance(contract)
-                       : TryAutoRegistration(contract);
+            if (Registrations.TryGetValue(contract, out var creator))
+                return creator();
+            return !contract.IsAbstract
+                ? CreateInstance(contract)
+                : TryAutoRegistration(contract);
+            ;
         }
 
         #endregion

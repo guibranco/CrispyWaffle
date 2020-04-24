@@ -5,7 +5,7 @@
     /// <summary>
     /// Interface xml service exception
     /// </summary>
-    public interface IXMLServiceException
+    public interface IXmlServiceException
     {
         /// <summary>
         /// Gets the request.
