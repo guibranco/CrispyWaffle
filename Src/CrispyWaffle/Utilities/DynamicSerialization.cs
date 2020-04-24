@@ -22,7 +22,7 @@
     /// <seealso cref="System.IEquatable{DynamicSerialization}" />
     [Serializable]
     [Serializer]
-    public sealed class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
+    public class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
     {
         #region Protected fields
 
