@@ -16,19 +16,7 @@
         /// <summary>
         /// The clients
         /// </summary>
-        private static readonly List<ITelemetryClient> Clients;
-
-        #endregion
-
-        #region ~Ctor 
-
-        /// <summary>
-        /// Initializes the <see cref="TelemetryAnalytics"/> class.
-        /// </summary>
-        static TelemetryAnalytics()
-        {
-            Clients = new List<ITelemetryClient>();
-        }
+        private static readonly List<ITelemetryClient> Clients = new List<ITelemetryClient>();
 
         #endregion
 
