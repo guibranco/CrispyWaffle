@@ -55,25 +55,49 @@
         /// </summary>
         static ServiceLocator()
         {
+            LoadMissingAssemblies();
+            TypesCache = AppDomain
+                         .CurrentDomain
+                         .GetAssemblies()
+                         .SelectMany(a => a.GetTypes())
+                         .Where(a => a != null && a.Name.IndexOf(@"_canon", StringExtensions.Comparison) == -1)
+                         .ToList();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Loads the missing assemblies.
+        /// </summary>
+        private static void LoadMissingAssemblies()
+        {
             var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
             var missingAssemblies = loadedAssemblies
                                     .SelectMany(x => x.GetReferencedAssemblies())
                                     .Distinct()
                                     .Where(y => loadedAssemblies.All(a => a.FullName != y.FullName))
                                     .ToList();
-            loadedAssemblies.AddRange(missingAssemblies.Select(missingAssembly => AppDomain.CurrentDomain.Load(missingAssembly)));
-
-            TypesCache = AppDomain
-                          .CurrentDomain
-                          .GetAssemblies()
-                          .SelectMany(a => a.GetTypes())
-                          .Where(a => a != null && a.Name.IndexOf(@"_canon", StringExtensions.Comparison) == -1)
-                          .ToList();
+            missingAssemblies.ForEach(LoadMissingAssembly);
         }
 
-        #endregion
-
-        #region Private methods
+        /// <summary>
+        /// Loads the missing assembly.
+        /// </summary>
+        /// <param name="missingAssembly">The missing assembly.</param>
+        private static void LoadMissingAssembly(AssemblyName missingAssembly)
+        {
+            try
+            {
+                AppDomain.CurrentDomain.Load(missingAssembly);
+            }
+            catch (Exception e)
+            {
+                if (!NotLoadedAssemblies.Keys.Contains(missingAssembly.FullName))
+                    NotLoadedAssemblies.Add(missingAssembly.FullName, e);
+            }
+        }
 
         /// <summary>
         /// Registers the life styled internal.
@@ -402,6 +426,11 @@
         /// The types cache.
         /// </value>
         public static List<Type> TypesCache { get; }
+
+        /// <summary>
+        /// The not loaded assemblies
+        /// </summary>
+        public static readonly IDictionary<string, Exception> NotLoadedAssemblies = new Dictionary<string, Exception>();
 
         #endregion
 
