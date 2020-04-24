@@ -17,7 +17,7 @@
         /// <summary>
         /// The repositories
         /// </summary>
-        private static readonly SortedList<int, ICacheRepository> Repositories;
+        private static readonly SortedList<int, ICacheRepository> Repositories = new SortedList<int, ICacheRepository>();
 
         /// <summary>
         /// The current priority
@@ -27,25 +27,12 @@
         /// <summary>
         /// The memory type
         /// </summary>
-        private static readonly Type MemoryType;
+        private static readonly Type MemoryType = typeof(MemoryCacheRepository);
 
         /// <summary>
         /// The is memory repository in list
         /// </summary>
         private static bool _isMemoryRepositoryInList;
-
-        #endregion
-
-        #region ~Ctor
-
-        /// <summary>
-        /// Initializes the <see cref="CacheManager"/> class.
-        /// </summary>
-        static CacheManager()
-        {
-            Repositories = new SortedList<int, ICacheRepository>();
-            MemoryType = typeof(MemoryCacheRepository);
-        }
 
         #endregion
 

@@ -134,10 +134,9 @@
         {
             if (string.IsNullOrWhiteSpace(input))
                 return string.Empty;
-            return input.Length < maxCharacters
-                ? input
-                : string.Concat(input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters),
-                                 addEllipsis ? @"..." : string.Empty);
+            if (input.Length < maxCharacters)
+                return input;
+            return string.Concat(input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters), addEllipsis ? @"..." : string.Empty);
         }
 
         /// <summary>

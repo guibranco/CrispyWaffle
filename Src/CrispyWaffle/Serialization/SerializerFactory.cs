@@ -1,5 +1,6 @@
 ﻿namespace CrispyWaffle.Serialization
 {
+    using Adapters;
     using Composition;
     using Newtonsoft.Json;
     using System;
@@ -7,7 +8,6 @@
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Globalization;
-    using Adapters;
 
     /// <summary>
     /// The serializer factory class.
@@ -82,6 +82,25 @@
         {
             return GetSerializerFromType(obj);
         }
+
+        /// <summary>
+        ///     Gets the serializer.
+        /// </summary>
+        ///
+        /// <typeparam name="T">
+        ///     Generic type parameter.
+        /// </typeparam>
+        ///
+        /// <returns>
+        ///     The serializer&lt; t&gt;
+        /// </returns>
+        [Pure]
+        public static SerializerConverter<T> GetSerializer<T>() where T : class
+        {
+            var obj = (T)Activator.CreateInstance(typeof(T));
+            return GetSerializerFromType(obj);
+        }
+
         /// <summary>
         /// Gets the serializer.
         /// </summary>
@@ -136,24 +155,6 @@
         public static SerializerConverter<T> GetCustomSerializer<T>(this T obj, SerializerFormat format) where T : class
         {
             return GetSerializer(obj, new SerializerAttribute(format));
-        }
-
-        /// <summary>
-        ///     Gets the serializer.
-        /// </summary>
-        ///
-        /// <typeparam name="T">
-        ///     Generic type parameter.
-        /// </typeparam>
-        ///
-        /// <returns>
-        ///     The serializer&lt; t&gt;
-        /// </returns>
-        [Pure]
-        public static SerializerConverter<T> GetSerializer<T>() where T : class
-        {
-            var obj = (T)Activator.CreateInstance(typeof(T));
-            return GetSerializerFromType(obj);
         }
 
         /// <summary>
