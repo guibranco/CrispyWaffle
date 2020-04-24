@@ -1,4 +1,4 @@
-# CrispyWaffle 🧇
+# CrispyWaffle
 
 The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
 
