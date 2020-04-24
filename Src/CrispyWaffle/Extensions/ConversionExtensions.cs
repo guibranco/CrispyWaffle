@@ -260,8 +260,7 @@
                          (dirtyLength == 11 || dirtyLength == 12)
                              ? dirty.Substring(1, 2)
                              : dirty.Substring(0, 2);
-            var hasNineDigits = dirtyLength >= 9 &&
-                                dirty.Substring(dirtyLength - 9, 1)
+            var hasNineDigits = dirty.Substring(dirtyLength - 9, 1)
                                      .Equals(@"9", StringExtensions.Comparison);
             var allowedDigits = hasNineDigits ? 9 : 8;
             var telephoneNumber = dirty.Substring(dirtyLength - allowedDigits, allowedDigits);
