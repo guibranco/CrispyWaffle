@@ -11,7 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-namespace IntegracaoService.Commons.Utilities
+namespace CrispyWaffle.Utilities
 {
     using System.Collections.Generic;
 
