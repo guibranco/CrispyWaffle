@@ -634,7 +634,6 @@
             return !contract.IsAbstract
                 ? CreateInstance(contract)
                 : TryAutoRegistration(contract);
-            ;
         }
 
         #endregion
