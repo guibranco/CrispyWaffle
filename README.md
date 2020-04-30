@@ -7,11 +7,9 @@ The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
 ## CI/CD
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle)
-[![CrispyWaffle NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/)
-[![CrispyWaffle NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/)
-[![Github All Releases](https://img.shields.io/github/downloads/guibranco/CrispyWaffle/total.svg?style=flat)](https://github.com/guibranco/CrispyWaffle)
-[![Last release](https://img.shields.io/github/release-date/guibranco/CrispyWaffle.svg?style=flat)](https://github.com/guibranco/CrispyWaffle)
-[![time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
+[![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
+[![GitHub license](https://img.shields.io/github/license/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
+[![Time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
 
 ## Code Quality
 
@@ -33,38 +31,40 @@ The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
 
 ---
 
-## Installation
+## Installation 
 
-Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) pages or simple install from [NuGet](https://www.nuget.org/packages/CrispyWaffle) package manager
+[![GitHub last release](https://img.shields.io/github/release-date/guibranco/CrispyWaffle.svg?style=flat)](https://github.com/guibranco/CrispyWaffle) [![Github All Releases](https://img.shields.io/github/downloads/guibranco/CrispyWaffle/total.svg?style=flat)](https://github.com/guibranco/CrispyWaffle)
 
-NuGet URL: [https://www.nuget.org/packages/CrispyWaffle](https://www.nuget.org/packages/CrispyWaffle)
+Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) pages.
+
+| Package | Version | Downloads |
+|------------------|:-------:|:-------:|
+| **CrispyWaffle** | [![CrispyWaffle NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) | [![CrispyWaffle NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) |
 
 NuGet installation via *Package Manager Console*:
 
 ```ps
-
 Install-Package CrispyWaffle
-
 ```
 
 ---
 
 ## Changelog
 
-Version 1.2 (2020-03-28) [@guibranco](https://github.com/guibranco)
+2020-03-28 - Version 1.2 - [@guibranco](https://github.com/guibranco)
 
-- Add some unit tests
+- Add some unit tests.
 - Update appveyor.yml with build enhancements and test coverages.
-- Update readme template
+- Update readme template.
 
-Version 1.1 (2019-09-27) [@guibranco](https://github.com/guibranco)
+2019-09-27 - Version 1.1 - [@guibranco](https://github.com/guibranco)
 
-- Add Math Extensions (CrispyWaffle.Extensions.MathExtensions namespace)
-- Add Personal Data Validations (CrispyWaffle.Validations.PersonalDataValidations)
-- Rename method *FormatDocument* to *FormatBrazilianDocument* (CrispyWaffle.Extensions.ConversionExtensions)
-- Rename method *ParsePhoneNumber* to *arseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions)
-- Removed *CleanListItems* (CrispyWaffle.Extensions.ConversionExtensions)
-- Rename method *TryParsePhoneNumber* to *TryParseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions)
-- Removed *CleanListItems* and *ToListString* (CrispyWaffle.Extensions.ConversionExtensions) **(Specific to application patterns)**
+- Add Math Extensions (CrispyWaffle.Extensions.MathExtensions namespace).
+- Add Personal Data Validations (CrispyWaffle.Validations.PersonalDataValidations).
+- Rename method *FormatDocument* to *FormatBrazilianDocument* (CrispyWaffle.Extensions.ConversionExtensions).
+- Rename method *ParsePhoneNumber* to *arseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions).
+- Removed *CleanListItems* (CrispyWaffle.Extensions.ConversionExtensions).
+- Rename method *TryParsePhoneNumber* to *TryParseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions).
+- Removed *CleanListItems* and *ToListString* (CrispyWaffle.Extensions.ConversionExtensions) **(Specific to application patterns)**.
 
 ---
