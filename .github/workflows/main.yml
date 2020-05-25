@@ -1,0 +1,16 @@
+name: Trigger bimensal build
+on:
+  schedule:
+    - cron: "0 0 1 */2 *"
+jobs:
+  triggerNewBuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fjogeleit/http-request-action@master
+        id: call_app_veyor
+        with:
+            url: 'https://ci.appveyor.com/api/builds'
+            method: 'POST'
+            customHeaders: '{"Authorization": "Bearer ${{ secrets.app_veyor }}"}'
+            data: '{ "accountName": "guibranco", "projectSlug": "crispywaffle", "branch": "master" }'
+      - run: "${{ steps.call_app_veyor.response }}"
