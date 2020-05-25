@@ -12,7 +12,7 @@
     /// This class cannot be inherited.
     /// </summary>
     /// <seealso cref="ILogAdapter" />
-    internal sealed class StandardConsoleLogAdapter : IConsoleLogAdapter
+    public sealed class StandardConsoleLogAdapter : IConsoleLogAdapter
     {
         #region Consts
 

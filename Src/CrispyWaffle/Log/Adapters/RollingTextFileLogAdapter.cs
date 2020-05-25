@@ -3,7 +3,7 @@
     using Serialization;
     using System;
 
-    internal sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
+    public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
         #region Private fields
 
