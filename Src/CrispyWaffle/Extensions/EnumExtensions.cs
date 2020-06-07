@@ -156,12 +156,6 @@
         /// </exception>
         public static IEnumerable<T> GetUniqueFlags<T>(this Enum flags)
         {
-            //if (!typeof(T).IsEnum)
-            //throw new ArgumentException("The generic type parameter must be an Enum.");
-
-            //if (flags.GetType() != typeof(T))
-            //throw new ArgumentException("The generic type parameter does not match the target type.");
-
             ulong flag = 1;
             foreach (var value in Enum.GetValues(flags.GetType()).Cast<T>())
             {

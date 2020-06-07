@@ -8,7 +8,7 @@
     /// </summary>
     /// <seealso cref="Exception" />
     [Serializable]
-    internal class LocalFileNotFoundException : Exception
+    public class LocalFileNotFoundException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalFileNotFoundException" /> class.
