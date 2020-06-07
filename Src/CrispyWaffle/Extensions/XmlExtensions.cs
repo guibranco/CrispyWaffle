@@ -56,10 +56,11 @@
         {
             var nodes = xmlNode.SelectNodes(node);
             var item = nodes?.Item(0);
-            return item != null
-                ? nodes.Count >= 1
-                           ? item.InnerText
-                           : string.Empty
+            if (item == null)
+                return string.Empty;
+
+            return nodes.Count >= 1
+                ? item.InnerText
                 : string.Empty;
         }
 

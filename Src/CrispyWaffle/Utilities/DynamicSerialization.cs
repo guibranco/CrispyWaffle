@@ -96,7 +96,7 @@
                 case DynamicSerializationOption.CAMELCASE:
                     return key.ToCamelCase();
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return key;
             }
         }
 

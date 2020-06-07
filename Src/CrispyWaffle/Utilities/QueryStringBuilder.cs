@@ -57,7 +57,10 @@
         /// <returns>a string representing only the querystring.</returns>
         private static string ExtractQuerystring(string s)
         {
-            return string.IsNullOrWhiteSpace(s) ? s : s.Contains(@"?") ? s.Substring(s.IndexOf(@"?", StringComparison.Ordinal) + 1) : s;
+            if (string.IsNullOrWhiteSpace(s) || s.Contains(@"?"))
+                return s;
+
+            return s.Substring(s.IndexOf(@"?", StringComparison.Ordinal) + 1);
         }
 
         /// <summary>

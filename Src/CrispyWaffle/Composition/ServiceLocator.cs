@@ -411,15 +411,7 @@ namespace CrispyWaffle.Composition
             if (types.Count == 0)
                 return null;
             if (types.Count > 1)
-            {
-                //using (var eventLog = new EventLog("Application"))
-                //{
-                //    eventLog.Source = "Application";
-                //    foreach (var t in types)
-                //        eventLog.WriteEntry(string.Format(Resources.ServiceLocator_TryAutoRegistration, type.FullName, t.FullName), EventLogEntryType.Warning);
-                //}
                 throw new TooManyImplementationsException(type);
-            }
             var instance = GetInstance(types.Single());
             Registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
             return instance;
