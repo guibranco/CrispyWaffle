@@ -130,7 +130,7 @@
                 case SerializerFormat.XML:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<XmlSerializerAdapter>());
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(attribute.Format));
+                    throw new InvalidOperationException(nameof(attribute.Format));
             }
         }
 
