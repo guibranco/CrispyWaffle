@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Composition
+﻿using System.Threading;
+
+namespace CrispyWaffle.Composition
 {
     using Extensions;
     using Log;
@@ -46,6 +48,11 @@
         /// </summary>
         private static readonly ConcurrentDictionary<Type, List<Type>> Instances = new ConcurrentDictionary<Type, List<Type>>();
 
+        /// <summary>
+        /// The cancellation token source
+        /// </summary>
+        private static readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+
         #endregion
 
         #region ~Ctor
@@ -62,6 +69,9 @@
                          .SelectMany(a => a.GetTypes())
                          .Where(a => a != null && a.Name.IndexOf(@"_canon", StringExtensions.Comparison) == -1)
                          .ToList();
+            var cancellationToken = typeof(CancellationToken);
+            RegistrationsCalls.Add(cancellationToken, 0);
+            Registrations.AddOrUpdate(cancellationToken, () => CancellationTokenSource.Token, (key, existingValue) => () => existingValue);
         }
 
         #endregion
@@ -164,7 +174,7 @@
         /// <typeparam name="TContract">The type of the contract.</typeparam>
         /// <param name="lifeStyle">The life style.</param>
         /// <param name="instanceCreator">The instance creator.</param>
-        private static void RegisterlifeStyledCreatorInternal<TContract>(
+        private static void RegisterLifeStyledCreatorInternal<TContract>(
             LifeStyle lifeStyle,
             Func<TContract> instanceCreator)
         {
@@ -496,7 +506,7 @@
         /// <param name="lifeStyle">The lifecycle lifeStyle of the registration </param>
         public static void Register<TContract>(Func<TContract> instanceCreator, LifeStyle lifeStyle = LifeStyle.TRANSIENT)
         {
-            RegisterlifeStyledCreatorInternal(lifeStyle, instanceCreator);
+            RegisterLifeStyledCreatorInternal(lifeStyle, instanceCreator);
         }
 
         /// <summary>
@@ -634,6 +644,23 @@
             return !contract.IsAbstract
                 ? CreateInstance(contract)
                 : TryAutoRegistration(contract);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        /// <summary>
+        /// Requests the cancellation.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public static bool RequestCancellation()
+        {
+            if (!CancellationTokenSource.Token.CanBeCanceled)
+                return false;
+
+            CancellationTokenSource.Cancel();
+            return true;
         }
 
         #endregion
