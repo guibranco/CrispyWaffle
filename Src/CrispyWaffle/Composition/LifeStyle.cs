@@ -12,16 +12,11 @@
         /// </summary>
         [HumanReadable("Transient")]
         TRANSIENT,
+
         /// <summary>
         /// The singleton
         /// </summary>
         [HumanReadable("Singleton")]
-        SINGLETON,
-
-        /// <summary>
-        /// The scoped
-        /// </summary>
-        [HumanReadable("Scoped")]
-        SCOPED
+        SINGLETON
     }
 }

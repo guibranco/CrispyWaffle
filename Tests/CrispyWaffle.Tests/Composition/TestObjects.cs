@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace CrispyWaffle.Tests.Composition
 {
@@ -43,6 +44,28 @@ namespace CrispyWaffle.Tests.Composition
             {
                 Singleton = singleton;
             }
+        }
+
+        /// <summary>
+        /// Class CancellationTokenDependencyTest. This class cannot be inherited.
+        /// </summary>
+        public sealed class CancellationTokenDependencyTest
+        {
+            /// <summary>
+            /// Gets the cancellation token.
+            /// </summary>
+            /// <value>The cancellation token.</value>
+            public CancellationToken CancellationToken { get; }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="CancellationTokenDependencyTest"/> class.
+            /// </summary>
+            /// <param name="cancellationToken">The cancellation token.</param>
+            public CancellationTokenDependencyTest(CancellationToken cancellationToken)
+            {
+                CancellationToken = cancellationToken;
+            }
+
         }
     }
 }
