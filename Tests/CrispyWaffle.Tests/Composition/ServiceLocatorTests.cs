@@ -20,9 +20,9 @@ namespace CrispyWaffle.Tests.Composition
 {
     /// <summary>
     /// Class ServiceLocatorTests.
-    /// Implements the <see cref="Xunit.IClassFixture{CrispyWaffle.Tests.BootstrapFixture}" />
+    /// Implements the <see cref="Xunit.IClassFixture{BootstrapFixture}" />
     /// </summary>
-    /// <seealso cref="Xunit.IClassFixture{CrispyWaffle.Tests.BootstrapFixture}" />
+    /// <seealso cref="Xunit.IClassFixture{BootstrapFixture}" />
     public class ServiceLocatorTests : IClassFixture<BootstrapFixture>
     {
         /// <summary>
