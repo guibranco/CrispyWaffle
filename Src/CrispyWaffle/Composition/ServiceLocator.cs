@@ -314,10 +314,10 @@ namespace CrispyWaffle.Composition
                             .Select((type, i) =>
                                 GetInstanceWithContext(type, implementationType, i))
                             .ToArray());
-                var ctors = implementationType.GetConstructors();
-                var ctor = ctors.Length == 1
-                    ? ctors.Single()
-                    : ResolveMultipleConstructors(ctors, implementationType);
+                var constructors = implementationType.GetConstructors();
+                var ctor = constructors.Length == 1
+                    ? constructors.Single()
+                    : ResolveMultipleConstructors(constructors, implementationType);
                 if (ctor == null)
                     return null;
                 dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
@@ -358,10 +358,10 @@ namespace CrispyWaffle.Composition
         /// <returns></returns>
         private static object CreateInstanceWithInternal(Type implementationType, Dictionary<int, object> parameters)
         {
-            var ctors = implementationType.GetConstructors();
-            var ctor = ctors.Length == 1
-                ? ctors.Single()
-                : ResolveMultipleConstructors(ctors, implementationType);
+            var constructors = implementationType.GetConstructors();
+            var ctor = constructors.Length == 1
+                ? constructors.Single()
+                : ResolveMultipleConstructors(constructors, implementationType);
             if (ctor == null)
                 return null;
             var dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
@@ -375,12 +375,12 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// Resolves implementation with multiple constructors
         /// </summary>
-        /// <param name="ctors">Array of <see cref="ConstructorInfo"/> to be resolved</param>
+        /// <param name="constructors">Array of <see cref="ConstructorInfo"/> to be resolved</param>
         /// <param name="parentType">The parent type</param>
         /// <returns>A single instance of <see cref="ConstructorInfo"/>. The winner of the resolution.</returns>
-        private static ConstructorInfo ResolveMultipleConstructors(ConstructorInfo[] ctors, Type parentType = null)
+        private static ConstructorInfo ResolveMultipleConstructors(ConstructorInfo[] constructors, Type parentType = null)
         {
-            var candidates = ctors.Where(c => c.GetParameters().All(p => !p.ParameterType.IsSimpleType())).ToList();
+            var candidates = constructors.Where(c => c.GetParameters().All(p => !p.ParameterType.IsSimpleType())).ToList();
             return candidates.Count == 0
                 ? null
                 : candidates.Count == 1
