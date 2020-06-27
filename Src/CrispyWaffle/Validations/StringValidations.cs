@@ -16,7 +16,7 @@
         /// <summary>
         /// The portuguese preposition pattern
         /// </summary>
-        public static readonly Regex PortuguesPrepositionPattern = new Regex("^(da|de|do|das|dos|no|na|nos|nas|-|etapa)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        public static readonly Regex PortuguesePrepositionPattern = new Regex("^(da|de|do|das|dos|no|na|nos|nas|-|etapa)$", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         /// <summary>
         /// The parentheses pattern

@@ -26,8 +26,8 @@
         [Pure]
         public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null) where T : class
         {
-            var formmater = new BinaryFormatter();
-            var result = formmater.Deserialize(stream);
+            var formatter = new BinaryFormatter();
+            var result = formatter.Deserialize(stream);
             stream.Close();
             return (T)result;
         }

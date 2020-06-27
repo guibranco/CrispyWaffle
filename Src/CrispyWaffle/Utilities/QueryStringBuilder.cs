@@ -141,13 +141,13 @@
         /// <summary>
         /// Adds a range to 'isUnique'.
         /// </summary>
-        /// <param name="itens">The itens.</param>
+        /// <param name="items">The items.</param>
         /// <param name="isUnique">true if the name is unique within the querystring. This allows us to override existing
         /// values.</param>
         /// <returns>A QueryString.</returns>
-        public QueryStringBuilder AddRange(Dictionary<string, string> itens, bool isUnique = false)
+        public QueryStringBuilder AddRange(Dictionary<string, string> items, bool isUnique = false)
         {
-            foreach (var item in itens)
+            foreach (var item in items)
                 Add(item.Key, item.Value, isUnique);
             return this;
         }
