@@ -39,10 +39,20 @@
             };
             try
             {
-                if (Console.OpenStandardInput(1) != Stream.Null)
-                    AdditionalProviders.Add(
-                        new Tuple<ILogProvider, ExceptionLogType>(ServiceLocator.Resolve<ConsoleLogProvider>(),
-                            ExceptionLogType.MESSAGE));
+                bool consoleAvailable;
+
+                using (var stream = Console.OpenStandardInput(1))
+                {
+                    consoleAvailable = stream != Stream.Null;
+                }
+
+                if (!consoleAvailable)
+                    return;
+
+                var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
+
+                if (instance != null)
+                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.MESSAGE));
             }
             catch (Exception e)
             {
@@ -58,7 +68,7 @@
         /// Gets the category.
         /// </summary>
         /// <returns></returns>
-        private string GetCategory()
+        private static string GetCategory()
         {
             var stack = new StackTrace();
             var counter = 1;
@@ -82,7 +92,7 @@
         /// Handles the internal.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        private void HandleInternal(Exception exception)
+        private static void HandleInternal(Exception exception)
         {
             var category = GetCategory();
             var exceptions = exception.ToQueue(out var types);

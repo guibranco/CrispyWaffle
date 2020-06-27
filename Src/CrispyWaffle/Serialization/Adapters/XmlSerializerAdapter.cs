@@ -99,10 +99,10 @@
                     throw new LocalFileNotFoundException(null, null);
                 if (File.Exists(file))
                     File.Delete(file);
-                using (var arquivoStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     Serialize(deserialized, out stream);
-                    stream.CopyTo(arquivoStream);
+                    stream.CopyTo(fileStream);
                 }
             }
             finally

@@ -399,8 +399,8 @@
         public static T DeepClone<T>(this T instance, bool useNonPublic = true)
         {
             var type = typeof(T);
-            var ctors = type.GetConstructors().OrderByDescending(c => c.GetParameters().Length);
-            var ctor = ctors.FirstOrDefault();
+            var constructors = type.GetConstructors().OrderByDescending(c => c.GetParameters().Length);
+            var ctor = constructors.FirstOrDefault();
             if (ctor == null)
                 return default;
             var arguments = new List<object>();
