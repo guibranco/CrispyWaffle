@@ -57,9 +57,11 @@
                 throw new ArgumentNullException(nameof(file), "Supply a valid filename");
             if (!File.Exists(file))
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
-            string serialized;
-            using (var sr = new StreamReader(file, Encoding.UTF8))
-                serialized = sr.ReadToEnd();
+
+            using var sr = new StreamReader(file, Encoding.UTF8);
+
+            var serialized = sr.ReadToEnd();
+
             return Deserialize<T>(serialized);
         }
 
@@ -97,13 +99,15 @@
             {
                 if (string.IsNullOrWhiteSpace(file))
                     throw new LocalFileNotFoundException(null, null);
+
                 if (File.Exists(file))
                     File.Delete(file);
-                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    Serialize(deserialized, out stream);
-                    stream.CopyTo(fileStream);
-                }
+
+                using var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                Serialize(deserialized, out stream);
+
+                stream.CopyTo(fileStream);
             }
             finally
             {

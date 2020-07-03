@@ -3,6 +3,12 @@
     using Serialization;
     using System;
 
+    //TODO
+    /// <summary>
+    /// Class RollingTextFileLogAdapter. This class cannot be inherited.
+    /// Implements the <see cref="CrispyWaffle.Log.Adapters.ITextFileLogAdapter" />
+    /// </summary>
+    /// <seealso cref="CrispyWaffle.Log.Adapters.ITextFileLogAdapter" />
     public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
         #region Private fields

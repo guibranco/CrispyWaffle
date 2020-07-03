@@ -300,8 +300,11 @@
                 NewLineChars = "\r\n",
                 NewLineHandling = NewLineHandling.Replace
             };
-            using (var writer = XmlWriter.Create(builder, settings))
-                document.Save(writer);
+
+            using var writer = XmlWriter.Create(builder, settings);
+
+            document.Save(writer);
+
             return builder.ToString();
         }
 
@@ -399,25 +402,33 @@
         public static T DeepClone<T>(this T instance, bool useNonPublic = true)
         {
             var type = typeof(T);
+
             var constructors = type.GetConstructors().OrderByDescending(c => c.GetParameters().Length);
             var ctor = constructors.FirstOrDefault();
+
             if (ctor == null)
                 return default;
+
             var arguments = new List<object>();
             var parameters = ctor.GetParameters();
             foreach (var parameter in parameters)
             {
                 var property = type.GetProperty(parameter.Name, BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
+
                 if (property == null && !useNonPublic)
                     continue;
+
                 if (property == null)
                 {
                     property = type.GetProperty(parameter.Name, BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
+
                     if (property == null)
                         continue;
                 }
+
                 if (property.PropertyType != parameter.ParameterType)
                     continue;
+
                 arguments.Add(property.GetValue(instance));
             }
             return (T)ctor.Invoke(arguments.ToArray());

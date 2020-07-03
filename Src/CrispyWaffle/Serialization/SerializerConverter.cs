@@ -81,12 +81,13 @@
             {
                 instance._formatter.Serialize(instance._obj, out var stream);
                 textReader = new StreamReader(stream);
-                using (JsonReader jsonReader = new JsonTextReader(textReader))
-                {
-                    textReader = null;
-                    var type = instance._obj.GetType();
-                    return typeof(IEnumerable).IsAssignableFrom(type) ? JArray.Load(jsonReader) : (JToken)JObject.Load(jsonReader);
-                }
+
+                using JsonReader jsonReader = new JsonTextReader(textReader);
+
+                textReader = null;
+                var type = instance._obj.GetType();
+
+                return typeof(IEnumerable).IsAssignableFrom(type) ? JArray.Load(jsonReader) : (JToken)JObject.Load(jsonReader);
             }
             catch (InvalidOperationException e)
             {
@@ -147,8 +148,11 @@
                 XmlDocument xml = instance;
                 var builder = new StringBuilder();
                 var settings = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, NewLineOnAttributes = true };
-                using (var xmlWriter = XmlWriter.Create(builder, settings))
-                    xml.WriteContentTo(xmlWriter);
+
+                using var xmlWriter = XmlWriter.Create(builder, settings);
+
+                xml.WriteContentTo(xmlWriter);
+
                 return builder.ToString();
             }
             if (instance._formatter is JsonSerializerAdapter)
