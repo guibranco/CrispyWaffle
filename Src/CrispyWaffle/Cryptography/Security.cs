@@ -37,6 +37,7 @@
                 cryptoStream.FlushFinalBlock();
                 cipherTextBytes = memoryStream.ToArray();
             }
+
             return Convert.ToBase64String(cipherTextBytes);
         }
 
@@ -57,13 +58,16 @@
 
             var decryption = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
             var memoryStream = new MemoryStream(cipherTextBytes);
+
             byte[] plainTextBytes;
             int decryptedByteCount;
+
             using (var cryptoStream = new CryptoStream(memoryStream, decryption, CryptoStreamMode.Read))
             {
                 plainTextBytes = new byte[cipherTextBytes.Length];
                 decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
             }
+            
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
         }
 

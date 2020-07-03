@@ -5,8 +5,16 @@ using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests
 {
+    /// <summary>
+    /// Class BootstrapFixture.
+    /// Implements the <see cref="System.IDisposable" />
+    /// </summary>
+    /// <seealso cref="System.IDisposable" />
     public class BootstrapFixture : IDisposable
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BootstrapFixture"/> class.
+        /// </summary>
         public BootstrapFixture()
         {
             ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
@@ -15,6 +23,10 @@ namespace CrispyWaffle.Tests
             //LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
         }
 
+        /// <summary>
+        /// Sets the log.
+        /// </summary>
+        /// <param name="testOutputHelper">The test output helper.</param>
         public void SetLog(ITestOutputHelper testOutputHelper)
         {
             testOutputHelper.WriteLine("teste");
@@ -22,8 +34,15 @@ namespace CrispyWaffle.Tests
 
         #region IDisposable Support
 
+        /// <summary>
+        /// The disposed value
+        /// </summary>
         private bool _disposedValue; // To detect redundant calls
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (_disposedValue)

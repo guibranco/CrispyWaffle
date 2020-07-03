@@ -57,11 +57,14 @@
         {
             if (string.IsNullOrWhiteSpace(file))
                 throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+
             if (!File.Exists(file))
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
+
             var fileName = Path.GetFileName(file);
             var folder = Path.GetDirectoryName(file);
             var are = new AutoResetEvent(false);
+
             Stream stream;
             while (true)
             {
@@ -97,10 +100,14 @@
         public void Serialize<T>(T deserialized, out Stream stream) where T : class
         {
             stream = new MemoryStream();
+
             using (var streamTemp = new MemoryStream())
             {
+
                 IFormatter formatter = new BinaryFormatter();
+
                 formatter.Serialize(streamTemp, deserialized);
+
                 streamTemp.Seek(0, SeekOrigin.Begin);
                 streamTemp.CopyTo(stream);
                 stream.Seek(0, SeekOrigin.Begin);
@@ -121,11 +128,14 @@
             {
                 if (string.IsNullOrWhiteSpace(file))
                     throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+
                 if (File.Exists(file))
                     File.Delete(file);
+
                 using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     Serialize(deserialized, out stream);
+
                     stream.CopyTo(fileStream);
                 }
             }

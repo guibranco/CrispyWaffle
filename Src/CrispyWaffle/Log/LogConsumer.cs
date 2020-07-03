@@ -90,16 +90,22 @@
             while (true)
             {
                 var method = stack.GetFrame(counter++).GetMethod();
+
                 if (method == null)
                     return @"CrispyWaffle";
+
                 var ns = method.DeclaringType?.FullName;
+
                 if (string.IsNullOrWhiteSpace(ns))
                     return method.Name;
+
                 if (ns.StartsWith(@"CrispyWaffle.Log") ||
                     ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
                     continue;
+
                 if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
                     ns = ns.Substring(13);
+
                 return ns;
             }
         }
