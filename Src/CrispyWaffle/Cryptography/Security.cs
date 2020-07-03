@@ -28,13 +28,15 @@
             var symmetricKey = new RijndaelManaged { Mode = CipherMode.CBC, Padding = PaddingMode.Zeros };
             var encryption = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
 
+            byte[] cipherTextBytes;
+
             var memoryStream = new MemoryStream();
-
-            using var cryptoStream = new CryptoStream(memoryStream, encryption, CryptoStreamMode.Write);
-
-            cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
-            cryptoStream.FlushFinalBlock();
-            var cipherTextBytes = memoryStream.ToArray();
+            using (var cryptoStream = new CryptoStream(memoryStream, encryption, CryptoStreamMode.Write))
+            {
+                cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+                cryptoStream.FlushFinalBlock();
+                cipherTextBytes = memoryStream.ToArray();
+            }
 
             return Convert.ToBase64String(cipherTextBytes);
         }
@@ -57,11 +59,15 @@
             var decryption = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
             var memoryStream = new MemoryStream(cipherTextBytes);
 
-            using var cryptoStream = new CryptoStream(memoryStream, decryption, CryptoStreamMode.Read);
+            byte[] plainTextBytes;
+            int decryptedByteCount;
 
-            var plainTextBytes = new byte[cipherTextBytes.Length];
-            var decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-
+            using (var cryptoStream = new CryptoStream(memoryStream, decryption, CryptoStreamMode.Read))
+            {
+                plainTextBytes = new byte[cipherTextBytes.Length];
+                decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
+            }
+            
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
         }
 

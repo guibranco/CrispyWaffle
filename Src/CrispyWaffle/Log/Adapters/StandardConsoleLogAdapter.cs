@@ -88,9 +88,8 @@
         {
             _level = LogLevel.PRODUCTION;
 
-            using var stream = Console.OpenStandardInput(1);
-
-            _isConsoleEnabled = stream != Stream.Null;
+            using (var stream = Console.OpenStandardInput(1))
+                _isConsoleEnabled = stream != Stream.Null;
         }
 
         /// <summary>

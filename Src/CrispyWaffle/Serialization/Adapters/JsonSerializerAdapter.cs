@@ -109,11 +109,12 @@
             if (!File.Exists(file))
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
 
-            using var sr = new StreamReader(file, Encoding.UTF8);
+            using (var sr = new StreamReader(file, Encoding.UTF8))
+            {
+                var serialized = sr.ReadToEnd();
 
-            var serialized = sr.ReadToEnd();
-
-            return Deserialize<T>(serialized);
+                return Deserialize<T>(serialized);
+            }
         }
 
         /// <summary>
@@ -129,15 +130,17 @@
             var streamTemp = new MemoryStream();
             var streamWriter = new StreamWriter(streamTemp, Encoding.UTF8);
 
-            using var jsonWriter = new JsonTextWriter(streamWriter);
+            using (var jsonWriter = new JsonTextWriter(streamWriter))
+            {
+                jsonWriter.Formatting = Formatting.Indented;
 
-            jsonWriter.Formatting = Formatting.Indented;
-            jsonSerializer.Serialize(jsonWriter, deserialized);
+                jsonSerializer.Serialize(jsonWriter, deserialized);
 
-            streamWriter.Flush();
-            streamTemp.Seek(0, SeekOrigin.Begin);
-            streamTemp.CopyTo(stream);
-            stream.Seek(0, SeekOrigin.Begin);
+                streamWriter.Flush();
+                streamTemp.Seek(0, SeekOrigin.Begin);
+                streamTemp.CopyTo(stream);
+                stream.Seek(0, SeekOrigin.Begin);
+            }
         }
 
         /// <summary>
@@ -158,11 +161,12 @@
                 if (File.Exists(file))
                     File.Delete(file);
 
-                using var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None);
+                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    Serialize(deserialized, out stream);
 
-                Serialize(deserialized, out stream);
-
-                stream.CopyTo(fileStream);
+                    stream.CopyTo(fileStream);
+                }
             }
             finally
             {

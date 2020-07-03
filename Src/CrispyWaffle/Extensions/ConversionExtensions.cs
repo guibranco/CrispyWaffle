@@ -247,6 +247,7 @@
         {
             var dirty = number.RemoveNonNumeric();
             var dirtyLength = dirty.Length;
+
             if (dirty.StartsWith(@"55") && dirtyLength > 11 && dirtyLength < 15)
             {
                 dirty = dirty.Remove(0, 2);
@@ -256,6 +257,7 @@
             if (dirtyLength < 10 ||
                 dirtyLength > 12)
                 return false;
+
             var prefix = dirty.Substring(0, 1).Equals(@"0", StringExtensions.Comparison) &&
                          (dirtyLength == 11 || dirtyLength == 12)
                              ? dirty.Substring(1, 2)
@@ -277,9 +279,12 @@
         {
             if (string.IsNullOrWhiteSpace(json))
                 return string.Empty;
+
             if (!json.IsValidJson())
                 return json;
+
             var parsedJson = JToken.Parse(json);
+
             return parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
         }
 
@@ -293,6 +298,7 @@
             if (document == null)
                 return null;
             var builder = new StringBuilder();
+
             var settings = new XmlWriterSettings
             {
                 Indent = true,
@@ -301,9 +307,8 @@
                 NewLineHandling = NewLineHandling.Replace
             };
 
-            using var writer = XmlWriter.Create(builder, settings);
-
-            document.Save(writer);
+            using (var writer = XmlWriter.Create(builder, settings))
+                document.Save(writer);
 
             return builder.ToString();
         }

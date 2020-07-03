@@ -58,11 +58,12 @@
             if (!File.Exists(file))
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
 
-            using var sr = new StreamReader(file, Encoding.UTF8);
+            using (var sr = new StreamReader(file, Encoding.UTF8))
+            {
+                var serialized = sr.ReadToEnd();
 
-            var serialized = sr.ReadToEnd();
-
-            return Deserialize<T>(serialized);
+                return Deserialize<T>(serialized);
+            }
         }
 
         /// <summary>
@@ -75,13 +76,19 @@
         public void Serialize<T>(T deserialized, out Stream stream) where T : class
         {
             stream = new MemoryStream();
+
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
+
             var xmlConfig = new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8, OmitXmlDeclaration = false };
             var xmlStream = XmlWriter.Create(stream, xmlConfig);
+
             var serializer = new XmlSerializer(deserialized.GetType());
+
             serializer.Serialize(xmlStream, deserialized, ns);
+
             xmlStream.Close();
+
             stream.Seek(0, SeekOrigin.Begin);
         }
 
@@ -103,11 +110,13 @@
                 if (File.Exists(file))
                     File.Delete(file);
 
-                using var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None);
+                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
 
-                Serialize(deserialized, out stream);
+                    Serialize(deserialized, out stream);
 
-                stream.CopyTo(fileStream);
+                    stream.CopyTo(fileStream);
+                }
             }
             finally
             {

@@ -2,6 +2,7 @@
 {
     using Adapters;
     using Composition;
+    using Extensions;
     using Log;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -12,7 +13,6 @@
     using System.IO;
     using System.Text;
     using System.Xml;
-    using Extensions;
 
     /// <summary>
     /// A serializer extension.
@@ -82,12 +82,16 @@
                 instance._formatter.Serialize(instance._obj, out var stream);
                 textReader = new StreamReader(stream);
 
-                using JsonReader jsonReader = new JsonTextReader(textReader);
+                using (JsonReader jsonReader = new JsonTextReader(textReader))
+                {
 
-                textReader = null;
-                var type = instance._obj.GetType();
+                    textReader = null;
+                    var type = instance._obj.GetType();
 
-                return typeof(IEnumerable).IsAssignableFrom(type) ? JArray.Load(jsonReader) : (JToken)JObject.Load(jsonReader);
+                    return typeof(IEnumerable).IsAssignableFrom(type)
+                        ? JArray.Load(jsonReader)
+                        : (JToken)JObject.Load(jsonReader);
+                }
             }
             catch (InvalidOperationException e)
             {
@@ -107,18 +111,23 @@
         /// <returns>The result of the conversion.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         [Pure]
-        public static implicit operator byte[] (SerializerConverter<T> instance)
+        public static implicit operator byte[](SerializerConverter<T> instance)
         {
             if (!(instance._formatter is BinarySerializerAdapter))
                 return null;
+
             Stream stream = null;
             MemoryStream memoryStream = null;
             byte[] bytes = null;
+
             try
             {
                 instance._formatter.Serialize(instance._obj, out stream);
+
                 memoryStream = new MemoryStream();
+
                 stream.CopyTo(memoryStream);
+
                 bytes = memoryStream.ToArray();
 
             }
@@ -131,6 +140,7 @@
                 stream?.Dispose();
                 memoryStream?.Dispose();
             }
+
             return bytes;
         }
 
@@ -149,11 +159,11 @@
                 var builder = new StringBuilder();
                 var settings = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, NewLineOnAttributes = true };
 
-                using var xmlWriter = XmlWriter.Create(builder, settings);
-
-                xml.WriteContentTo(xmlWriter);
+                using (var xmlWriter = XmlWriter.Create(builder, settings))
+                    xml.WriteContentTo(xmlWriter);
 
                 return builder.ToString();
+
             }
             if (instance._formatter is JsonSerializerAdapter)
             {
@@ -276,7 +286,7 @@
         /// <param name="file">The file to load.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T Load([Localizable(false)]string file)
+        public T Load([Localizable(false)] string file)
         {
             _obj = _formatter.Load<T>(file);
             return _obj;
@@ -286,7 +296,7 @@
         /// Saves the given file.
         /// </summary>
         /// <param name="file">The file to load.</param>
-        public void Save([Localizable(false)]string file)
+        public void Save([Localizable(false)] string file)
         {
             _formatter.Save(file, _obj);
         }
