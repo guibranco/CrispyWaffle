@@ -58,14 +58,6 @@
         public string ThreadName { get; set; }
 
         /// <summary>
-        /// Gets or sets the cpu usage.
-        /// </summary>
-        /// <value>
-        /// The cpu usage.
-        /// </value>
-        public int CPUUsage { get; set; }
-
-        /// <summary>
         /// Gets or sets the hostname.
         /// </summary>
         /// <value>
