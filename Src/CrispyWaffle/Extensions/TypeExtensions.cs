@@ -121,7 +121,7 @@ namespace CrispyWaffle.Extensions
         /// <summary>
         /// The primitive numeric types
         /// </summary>
-        private static HashSet<TypeCode> PrimitiveNumericTypes = new HashSet<TypeCode>
+        private static readonly HashSet<TypeCode> PrimitiveNumericTypes = new HashSet<TypeCode>
         {
             TypeCode.Byte, TypeCode.SByte, TypeCode.UInt16, TypeCode.UInt32, TypeCode.UInt64, TypeCode.Int16,
             TypeCode.Int32, TypeCode.Int64, TypeCode.Decimal, TypeCode.Double, TypeCode.Single
@@ -132,6 +132,7 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>Boolean.</returns>
+        // ReSharper disable once CognitiveComplexity
         public static bool IsNumericType(this Type type)
         {
             while (true)
