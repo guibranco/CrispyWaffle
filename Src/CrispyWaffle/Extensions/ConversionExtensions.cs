@@ -94,12 +94,15 @@
             }
         }
 
+
+
         /// <summary>
         /// Tries to convert string to date time.
         /// </summary>
         /// <param name="input">The input string a valid DateTime format.</param>
         /// <param name="value">The DateTime value.</param>
         /// <returns><b>True</b> if success, <b>false</b> otherwise</returns>
+        // ReSharper disable once MethodTooLong
         public static bool TryToDateTime(this string input, out DateTime value)
         {
             value = DateTime.MinValue;
@@ -110,30 +113,39 @@
             {
                 case "agora":
                 case "now":
+
                     value = DateTime.Now;
+
                     return true;
+
                 case "hoje":
                 case "today":
+
                     value = DateTime.Today;
+
                     return true;
+
                 case "ontem":
                 case "yesterday":
+
                     value = DateTime.Today.AddDays(-1);
+
                     return true;
+
                 case "amanhã":
                 case "amanha":
                 case "tomorrow":
+
                     value = DateTime.Today.AddDays(1);
+
                     return true;
+
                 default:
+
                     if (DateTime.TryParse(input, out value))
                         return true;
-                    return input.Length == 10 &&
-                           DateTime.TryParseExact(input,
-                               @"dd/MM/yyyy",
-                               CultureInfo.InvariantCulture,
-                               DateTimeStyles.None,
-                               out value);
+
+                    return input.Length == 10 && DateTime.TryParseExact(input, @"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
             }
         }
 
@@ -146,7 +158,9 @@
         {
             if (string.IsNullOrWhiteSpace(input))
                 return 0;
+
             var success = int.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
+
             return success ? result : 0;
         }
 
@@ -159,7 +173,9 @@
         {
             if (string.IsNullOrWhiteSpace(input))
                 return 0;
+
             var success = long.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
+
             return success ? result : 0;
         }
 
@@ -172,6 +188,7 @@
         {
             if (string.IsNullOrWhiteSpace(input))
                 return 0M;
+
             return decimal.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result)
                 ? result
                 : 0M;
@@ -232,8 +249,10 @@
         public static PhoneNumber ParseBrazilianPhoneNumber(this string number)
         {
             var result = new PhoneNumber(0, 0, 0);
+
             if (number.TryParseBrazilianPhoneNumber(ref result))
                 return result;
+
             throw new InvalidTelephoneNumberException(number.RemoveNonNumeric());
         }
 
@@ -262,11 +281,16 @@
                          (dirtyLength == 11 || dirtyLength == 12)
                              ? dirty.Substring(1, 2)
                              : dirty.Substring(0, 2);
+
             var hasNineDigits = dirty.Substring(dirtyLength - 9, 1)
                                      .Equals(@"9", StringExtensions.Comparison);
+
             var allowedDigits = hasNineDigits ? 9 : 8;
+
             var telephoneNumber = dirty.Substring(dirtyLength - allowedDigits, allowedDigits);
+
             result = new PhoneNumber(55, prefix.ToInt32(), telephoneNumber.ToInt64());
+
             return true;
         }
 
@@ -297,6 +321,7 @@
         {
             if (document == null)
                 return null;
+
             var builder = new StringBuilder();
 
             var settings = new XmlWriterSettings
@@ -351,6 +376,16 @@
         }
 
         /// <summary>
+        /// The ordinal suffix
+        /// </summary>
+        private static readonly Dictionary<int, string> OrdinalSuffix = new Dictionary<int, string>
+        {
+            {1,"st"},
+            {2,"nd"},
+            {3,"rd"}
+        };
+
+        /// <summary>
         /// To the ordinal.
         /// </summary>
         /// <param name="number">The number.</param>
@@ -359,20 +394,18 @@
         {
             if (number < 0)
                 return number.ToString();
+
             var rem = number % 100;
+
             if (rem >= 11 && rem <= 13)
                 return $"{number}th";
-            switch (number % 10)
-            {
-                case 1:
-                    return $"{number}st";
-                case 2:
-                    return $"{number}nd";
-                case 3:
-                    return $"{number}rd";
-                default:
-                    return $"{number}th";
-            }
+
+
+            var key = (int)number % 10;
+            if (OrdinalSuffix.ContainsKey(key))
+                return $"{number}{OrdinalSuffix[key]}";
+
+            return $"{number}th";
         }
 
         /// <summary>
@@ -427,27 +460,45 @@
 
             var arguments = new List<object>();
             var parameters = ctor.GetParameters();
+
             foreach (var parameter in parameters)
             {
-                var property = type.GetProperty(parameter.Name, BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
+                ParseParameters(instance, useNonPublic, type, parameter, arguments);
+            }
 
-                if (property == null && !useNonPublic)
-                    continue;
+            return (T)ctor.Invoke(arguments.ToArray());
+        }
+
+        /// <summary>
+        /// Parses the parameters.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <param name="useNonPublic">if set to <c>true</c> [use non public].</param>
+        /// <param name="type">The type.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="arguments">The arguments.</param>
+        private static void ParseParameters<T>(T instance, bool useNonPublic, Type type, ParameterInfo parameter, List<object> arguments)
+        {
+            var property = type.GetProperty(parameter.Name,
+                BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
+
+            if (property == null && !useNonPublic)
+                return;
+
+            if (property == null)
+            {
+                property = type.GetProperty(parameter.Name,
+                    BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
 
                 if (property == null)
-                {
-                    property = type.GetProperty(parameter.Name, BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
-
-                    if (property == null)
-                        continue;
-                }
-
-                if (property.PropertyType != parameter.ParameterType)
-                    continue;
-
-                arguments.Add(property.GetValue(instance));
+                    return;
             }
-            return (T)ctor.Invoke(arguments.ToArray());
+
+            if (property.PropertyType != parameter.ParameterType)
+                return;
+
+            arguments.Add(property.GetValue(instance));
         }
     }
 }

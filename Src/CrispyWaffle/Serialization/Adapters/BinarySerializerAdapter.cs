@@ -63,9 +63,8 @@
 
             var fileName = Path.GetFileName(file);
             var folder = Path.GetDirectoryName(file);
-            var are = new AutoResetEvent(false);
 
-            var stream = LoadInternal(file, fileName, folder, are);
+            var stream = LoadInternal(file, fileName, folder);
 
             return Deserialize<T>(stream);
         }
@@ -76,41 +75,50 @@
         /// <param name="file">The file.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="folder">The folder.</param>
-        /// <param name="are">The are.</param>
         /// <returns>Stream.</returns>
-        private static Stream LoadInternal(string file, string fileName, string folder, AutoResetEvent are)
+        private static Stream LoadInternal(string file, string fileName, string folder)
         {
-            Stream stream;
+            var autoResetEvent = new AutoResetEvent(false);
+
             while (true)
             {
                 try
                 {
-                    stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None);
-                    break;
+                    return new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None);
                 }
                 catch (IOException)
                 {
-                    FileSystemWatcher watcher = null;
-                    try
-                    {
-                        watcher = new FileSystemWatcher
-                        {
-                            Filter = fileName, Path = folder,
-                            NotifyFilter = NotifyFilters.Attributes | NotifyFilters.DirectoryName | NotifyFilters.FileName |
-                                           NotifyFilters.LastWrite | NotifyFilters.Size,
-                            EnableRaisingEvents = true
-                        };
-                        watcher.Changed += (o, e) => are.Set();
-                        are.WaitOne(new TimeSpan(0, 0, 0, 30));
-                    }
-                    finally
-                    {
-                        watcher?.Dispose();
-                    }
+                    HandleLoadIoException(fileName, folder, autoResetEvent);
                 }
             }
+        }
 
-            return stream;
+        /// <summary>
+        /// Handles the load io exception.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="folder">The folder.</param>
+        /// <param name="autoResetEvent">The automatic reset event.</param>
+        private static void HandleLoadIoException(string fileName, string folder, AutoResetEvent autoResetEvent)
+        {
+            FileSystemWatcher watcher = null;
+            try
+            {
+                watcher = new FileSystemWatcher
+                {
+                    Filter = fileName,
+                    Path = folder,
+                    NotifyFilter = NotifyFilters.Attributes | NotifyFilters.DirectoryName | NotifyFilters.FileName |
+                                   NotifyFilters.LastWrite | NotifyFilters.Size,
+                    EnableRaisingEvents = true
+                };
+                watcher.Changed += (o, e) => autoResetEvent.Set();
+                autoResetEvent.WaitOne(new TimeSpan(0, 0, 0, 30));
+            }
+            finally
+            {
+                watcher?.Dispose();
+            }
         }
 
         /// <summary>
