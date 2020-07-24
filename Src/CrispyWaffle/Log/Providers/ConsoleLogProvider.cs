@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Log.Providers
+﻿using System;
+
+namespace CrispyWaffle.Log.Providers
 {
     using Adapters;
     using Serialization;
@@ -55,7 +57,7 @@
         /// Logs the message with fatal level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Fatal(string category, string message)
         {
             _adapter.Fatal(message);
@@ -65,7 +67,7 @@
         /// Logs the message with error level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Error(string category, string message)
         {
             _adapter.Error(message);
@@ -75,7 +77,7 @@
         /// Logs the message with warning level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Warning(string category, string message)
         {
             _adapter.Warning(message);
@@ -85,7 +87,7 @@
         /// Logs the message with info level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Info(string category, string message)
         {
             _adapter.Info(message);
@@ -95,17 +97,38 @@
         /// Logs the message with trace level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Trace(string category, string message)
         {
             _adapter.Trace(message);
         }
 
         /// <summary>
+        /// Logs the message with trace level and shows exception details.
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged.</param>
+        /// <param name="exception">The exception.</param>
+        public void Trace(string category, string message, Exception exception)
+        {
+            _adapter.Trace(message, exception);
+        }
+
+        /// <summary>
+        /// Logs the exception details with trace level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="exception">The exception.</param>
+        public void Trace(string category, Exception exception)
+        {
+            _adapter.Trace(exception);
+        }
+
+        /// <summary>
         /// Logs the message with debug level
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Debug(string category, string message)
         {
             _adapter.Debug(message);

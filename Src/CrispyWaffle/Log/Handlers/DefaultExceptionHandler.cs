@@ -95,10 +95,14 @@
         private static void HandleInternal(Exception exception)
         {
             var category = GetCategory();
+
             var exceptions = exception.ToQueue(out var types);
+
             foreach (var type in types)
                 TelemetryAnalytics.TrackException(type);
+
             var messages = exceptions.GetMessages(category, AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.MESSAGE).Select(p => p.Item1).ToList());
+            
             foreach (var additionalProvider in AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.FULL))
                 additionalProvider.Item1.Error(category, messages);
         }
@@ -112,7 +116,7 @@
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
         /// but this behavior depends on the Adapter implementation.
         /// </summary>
-        /// <param name="exception">The exception to be logged</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(Exception exception)
         {
@@ -150,7 +154,9 @@
         public ILogProvider AddLogProvider<TILogProvider>(ExceptionLogType type) where TILogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TILogProvider>();
+
             AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
+
             return provider;
         }
 

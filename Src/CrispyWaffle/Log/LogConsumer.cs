@@ -159,8 +159,8 @@
         /// Log the message to an specific log provider with the specified log level.
         /// </summary>
         /// <typeparam name="TLogProvider">The log provider to log the message</typeparam>
-        /// <param name="level">The level of message to be logged</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="level">The level of message to be logged.</param>
+        /// <param name="message">The message to be logged.</param>
         /// <returns>True if the log provider exists in the providers list, false if not</returns>
         public static bool LogTo<TLogProvider>(LogLevel level, string message) where TLogProvider : ILogProvider
         {
@@ -314,7 +314,7 @@
         /// <summary>
         /// Logs the message with tracing log level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public static void Trace(string message)
         {
             var category = GetCategory();
@@ -337,7 +337,7 @@
         /// <summary>
         /// Logs the message with info log level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public static void Info(string message)
         {
             var category = GetCategory();
@@ -360,7 +360,7 @@
         /// <summary>
         /// Logs the message with warning log level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public static void Warning(string message)
         {
             var category = GetCategory();
@@ -383,7 +383,7 @@
         /// <summary>
         /// Logs the message with error log level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public static void Error(string message)
         {
             var category = GetCategory();
