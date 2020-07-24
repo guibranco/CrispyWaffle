@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Log.Handlers
+﻿using System.Reflection;
+
+namespace CrispyWaffle.Log.Handlers
 {
     using Composition;
     using Extensions;
@@ -71,21 +73,46 @@
         private static string GetCategory()
         {
             var stack = new StackTrace();
+
             var counter = 1;
+
             while (true)
             {
                 var method = stack.GetFrame(counter++).GetMethod();
+
                 if (method == null)
                     return @"CrispyWaffle";
-                var ns = method.DeclaringType?.FullName;
-                if (string.IsNullOrWhiteSpace(ns))
-                    return method.Name;
-                if (ns.StartsWith(@"CrispyWaffle.Log"))
-                    continue;
-                if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
-                    ns = ns.Substring(13);
-                return ns;
+
+                if (GetNamespace(method, out var category))
+                    return category;
             }
+        }
+
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="category">The category.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool GetNamespace(MethodBase method, out string category)
+        {
+            category = string.Empty;
+            var ns = method.DeclaringType?.FullName;
+
+            if (string.IsNullOrWhiteSpace(ns))
+            {
+                category = method.Name;
+                return true;
+            }
+
+            if (ns.StartsWith(@"CrispyWaffle.Log"))
+                return false;
+
+            if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+                ns = ns.Substring(13);
+
+            category = ns;
+            return true;
         }
 
         /// <summary>
@@ -102,7 +129,7 @@
                 TelemetryAnalytics.TrackException(type);
 
             var messages = exceptions.GetMessages(category, AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.MESSAGE).Select(p => p.Item1).ToList());
-            
+
             foreach (var additionalProvider in AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.FULL))
                 additionalProvider.Item1.Error(category, messages);
         }

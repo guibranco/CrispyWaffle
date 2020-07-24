@@ -63,6 +63,26 @@
         }
 
         /// <summary>
+        /// Calculates the module11.
+        /// </summary>
+        /// <param name="working">The working.</param>
+        /// <param name="multiplier">The multiplier.</param>
+        /// <returns>System.Int32.</returns>
+        private static int CalculateModule11(string working, int[] multiplier)
+        {
+            var sum = 0;
+
+            for (var i = 0; i < multiplier.Length; i++)
+                sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplier[i];
+
+            var rest = sum % 11;
+
+            rest = rest < 2 ? 0 : 11 - rest;
+
+            return rest;
+        }
+
+        /// <summary>
         /// Calculates the brazilian person document digits.
         /// </summary>
         /// <param name="document">The document.</param>
@@ -84,27 +104,13 @@
 
             var working = document.Substring(0, 9);
 
-            var sum = 0;
-
-            for (var i = 0; i < 9; i++)
-                sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplierA[i];
-
-            var rest = sum % 11;
-
-            rest = rest < 2 ? 0 : 11 - rest;
+            var rest = CalculateModule11(working, multiplierA);
 
             var digit = rest.ToString(StringExtensions.Culture);
 
             working = string.Concat(working, digit);
 
-            sum = 0;
-
-            for (var i = 0; i < 10; i++)
-                sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplierB[i];
-
-            rest = sum % 11;
-
-            rest = rest < 2 ? 0 : 11 - rest;
+            rest = CalculateModule11(working, multiplierB);
 
             digit = string.Concat(digit, rest);
 
@@ -127,29 +133,18 @@
             if (document.Length != 14)
                 throw new InvalidDocumentException("CNPJ", document);
 
+            if (SameNumberDocumentPattern.IsMatch(document))
+                throw new InvalidDocumentException("CNPJ", document);
+
             var working = document.Substring(0, 12);
 
-            var sum = 0;
-
-            for (var i = 0; i < 12; i++)
-                sum += int.Parse(working[i].ToString(StringExtensions.Culture)) * multiplierA[i];
-
-            var rest = sum % 11;
-
-            rest = rest < 2 ? 0 : 11 - rest;
+            var rest = CalculateModule11(working, multiplierA);
 
             var digit = rest.ToString(StringExtensions.Culture);
 
-            working = working + digit;
+            working = string.Concat(working, digit);
 
-            sum = 0;
-
-            for (var i = 0; i < 13; i++)
-                sum += int.Parse(working[i].ToString(StringExtensions.Culture)) * multiplierB[i];
-
-            rest = sum % 11;
-
-            rest = rest < 2 ? 0 : 11 - rest;
+            rest = CalculateModule11(working, multiplierB);
 
             digit = string.Concat(digit, rest);
 

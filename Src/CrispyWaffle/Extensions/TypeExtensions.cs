@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Extensions
+﻿using System.Collections.Generic;
+
+namespace CrispyWaffle.Extensions
 {
     using Attributes;
     using System;
@@ -50,24 +52,39 @@
             var defaultObject = (T)Activator.CreateInstance(type);
             foreach (var propertyInfo in type.GetProperties())
             {
-                var defaultValue = propertyInfo.GetValue(defaultObject);
-                var newValue = propertyInfo.GetValue(newObject);
-                var currentValue = propertyInfo.GetValue(currentObject);
-                var shouldSerialize = false;
-
-                var shouldSerializeMethod = type.GetMethod(string.Concat(@"ShouldSerialize", propertyInfo.Name));
-                if (shouldSerializeMethod != null && shouldSerializeMethod.ReturnType == typeof(bool))
-                    shouldSerialize = (bool)shouldSerializeMethod.Invoke(newObject, null);
-
-                if (!shouldSerialize && (newValue == null || newValue.Equals(defaultValue)))
-                    continue;
-
-                if (newValue == null || propertyInfo.PropertyType.IsSimpleType())
-                    propertyInfo.SetValue(currentObject, newValue);
-                else if (typeof(IUpdateable).IsAssignableFrom(propertyInfo.PropertyType))
-                    propertyInfo.SetValue(currentObject, ((IUpdateable)currentValue).UpdateValues((IUpdateable)newValue), null);
+                UpdateValueInternal(currentObject, newObject, propertyInfo, defaultObject, type);
             }
             return currentObject;
+        }
+
+        /// <summary>
+        /// Updates the value internal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="currentObject">The current object.</param>
+        /// <param name="newObject">The new object.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="defaultObject">The default object.</param>
+        /// <param name="type">The type.</param>
+        private static void UpdateValueInternal<T>(T currentObject, T newObject, PropertyInfo propertyInfo, T defaultObject,
+            Type type) where T : IUpdateable
+        {
+            var defaultValue = propertyInfo.GetValue(defaultObject);
+            var newValue = propertyInfo.GetValue(newObject);
+            var currentValue = propertyInfo.GetValue(currentObject);
+            var shouldSerialize = false;
+
+            var shouldSerializeMethod = type.GetMethod(string.Concat(@"ShouldSerialize", propertyInfo.Name));
+            if (shouldSerializeMethod != null && shouldSerializeMethod.ReturnType == typeof(bool))
+                shouldSerialize = (bool)shouldSerializeMethod.Invoke(newObject, null);
+
+            if (!shouldSerialize && (newValue == null || newValue.Equals(defaultValue)))
+                return;
+
+            if (newValue == null || propertyInfo.PropertyType.IsSimpleType())
+                propertyInfo.SetValue(currentObject, newValue);
+            else if (typeof(IUpdateable).IsAssignableFrom(propertyInfo.PropertyType))
+                propertyInfo.SetValue(currentObject, ((IUpdateable)currentValue).UpdateValues((IUpdateable)newValue), null);
         }
 
         /// <summary>
@@ -102,6 +119,15 @@
         }
 
         /// <summary>
+        /// The primitive numeric types
+        /// </summary>
+        private static HashSet<TypeCode> PrimitiveNumericTypes = new HashSet<TypeCode>
+        {
+            TypeCode.Byte, TypeCode.SByte, TypeCode.UInt16, TypeCode.UInt32, TypeCode.UInt64, TypeCode.Int16,
+            TypeCode.Int32, TypeCode.Int64, TypeCode.Decimal, TypeCode.Double, TypeCode.Single
+        };
+
+        /// <summary>
         /// Determines whether [is numeric type] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
@@ -110,34 +136,22 @@
         {
             while (true)
             {
-                switch (Type.GetTypeCode(type))
-                {
-                    case TypeCode.Byte:
-                    case TypeCode.SByte:
-                    case TypeCode.UInt16:
-                    case TypeCode.UInt32:
-                    case TypeCode.UInt64:
-                    case TypeCode.Int16:
-                    case TypeCode.Int32:
-                    case TypeCode.Int64:
-                    case TypeCode.Decimal:
-                    case TypeCode.Double:
-                    case TypeCode.Single:
-                        return true;
-                    case TypeCode.Object:
-                        if (type != null
-                            && (!type.IsGenericType ||
-                                type.GetGenericTypeDefinition() != typeof(Nullable<>)))
-                            return false;
-                        if (type != null)
-                            type = Nullable.GetUnderlyingType(type);
-                        break;
-                    default:
-                        return false;
-                }
+                var typeCode = Type.GetTypeCode(type);
+
+                if (PrimitiveNumericTypes.Contains(typeCode))
+                    return true;
+
+                if (typeCode != TypeCode.Object)
+                    return false;
+
+                if (type != null && (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Nullable<>)))
+                    return false;
+
+                if (type != null)
+                    type = Nullable.GetUnderlyingType(type);
             }
         }
-        
+
         /// <summary>
         /// Gets the calling method.
         /// </summary>

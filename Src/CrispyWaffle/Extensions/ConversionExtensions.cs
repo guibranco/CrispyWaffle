@@ -321,21 +321,32 @@
         public static int ToModule10(this string input)
         {
             var number = Regex.Replace(input, "[^0-9]", "");
+
             var sum = 0;
+
             var weight = 2;
+
             var counter = number.Length - 1;
+
             while (counter >= 0)
             {
                 var multiplication = number.Substring(counter, 1).ToInt32() * weight;
+
                 if (multiplication >= 10)
                     multiplication = 1 + (multiplication - 10);
+
                 sum += multiplication;
+
                 weight = weight == 2 ? 1 : 2;
+
                 counter--;
             }
+
             var digit = 10 - sum % 10;
+
             if (digit == 10)
                 digit = 0;
+
             return digit;
         }
 
