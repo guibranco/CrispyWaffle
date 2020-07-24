@@ -60,6 +60,18 @@
         }
 
         /// <inheritdoc />
+        public void Trace(Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void Trace(string message, Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
         public void Trace(string message)
         {
             throw new NotImplementedException();
@@ -119,6 +131,18 @@
 
         /// <inheritdoc />
         public void CategorizedTrace(string category, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void CategorizedTrace(string category, string message, Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public void CategorizedTrace(string category, Exception exception)
         {
             throw new NotImplementedException();
         }

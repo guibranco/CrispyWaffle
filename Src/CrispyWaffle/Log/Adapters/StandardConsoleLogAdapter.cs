@@ -125,6 +125,34 @@
             }
         }
 
+        /// <summary>
+        /// Writes the internal.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="exception">The exception.</param>
+        private void WriteInternal(LogLevel level, Exception exception)
+        {
+            if (!_level.HasFlag(level) ||
+                !_isConsoleEnabled)
+                return;
+
+            lock (SyncRoot)
+            {
+                Console.ForegroundColor = ColorsByLevel[level];
+
+                do
+                {
+                    Console.Write(@"{0:HH:mm:ss} ", DateTime.Now);
+                    Console.WriteLine(exception.Message);
+
+                    exception = exception.InnerException;
+
+                } while (exception != null);
+
+                Console.ForegroundColor = DefaultColor;
+            }
+        }
+
         #endregion
 
         #region Implementation of IDisposable
@@ -186,7 +214,7 @@
         /// <summary>
         /// Logs a message as DEBUG level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
 
         public void Debug(string message)
@@ -194,11 +222,32 @@
             WriteInternal(LogLevel.DEBUG, message);
         }
 
+        /// <summary>
+        /// Logs exception details as TRACE level.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <remarks>Requires LogLevel.TRACE flag.</remarks>
+        public void Trace(Exception exception)
+        {
+            WriteInternal(LogLevel.TRACE, exception);
+        }
+
+        /// <summary>
+        /// Logs a message as TRACE level with exception details.
+        /// </summary>
+        /// <param name="message">The message to be logged.</param>
+        /// <param name="exception">The exception.</param>
+        /// <remarks>Requires LogLevel.TRACE flag.</remarks>
+        public void Trace(string message, Exception exception)
+        {
+            WriteInternal(LogLevel.TRACE, message);
+            WriteInternal(LogLevel.TRACE, exception);
+        }
 
         /// <summary>
         /// Logs a message as TRACE level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
 
         public void Trace(string message)
@@ -209,7 +258,7 @@
         /// <summary>
         /// Logs a message as INFO level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.INFO flag.</remarks>
 
         public void Info(string message)
@@ -220,7 +269,7 @@
         /// <summary>
         /// Logs a message as WARNING level.
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.WARNING flag.</remarks>
 
         public void Warning(string message)
@@ -231,7 +280,7 @@
         /// <summary>
         /// Logs a message as ERROR level.
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
 
         public void Error(string message)
@@ -242,7 +291,7 @@
         /// <summary>
         /// Logs a message as FATAL level.
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.FATAL flag.</remarks>
         public void Fatal(string message)
         {
