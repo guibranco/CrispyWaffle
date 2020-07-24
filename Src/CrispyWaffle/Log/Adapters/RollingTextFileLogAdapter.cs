@@ -83,9 +83,21 @@
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
+        public void Fatal(string message)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Implementation of ICategorizedLogAdapter
+
+        /// <inheritdoc />
+        public void CategorizedFatal(string category, string message)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <inheritdoc />
         public void CategorizedError(string category, string message)

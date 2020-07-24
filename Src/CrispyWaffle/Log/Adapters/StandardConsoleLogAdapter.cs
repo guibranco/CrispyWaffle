@@ -60,6 +60,7 @@
         /// </summary>
         private static readonly Dictionary<LogLevel, ConsoleColor> ColorsByLevel = new Dictionary<LogLevel, ConsoleColor>
         {
+            {LogLevel.FATAL, ErrorColor},
             {LogLevel.ERROR, ErrorColor},
             {LogLevel.WARNING, WarningColor},
             {LogLevel.INFO, InfoColor},
@@ -123,7 +124,6 @@
                 Console.ForegroundColor = DefaultColor;
             }
         }
-
 
         #endregion
 
@@ -237,6 +237,16 @@
         public void Error(string message)
         {
             WriteInternal(LogLevel.ERROR, message);
+        }
+
+        /// <summary>
+        /// Logs a message as FATAL level.
+        /// </summary>
+        /// <param name="message">The message to be logged</param>
+        /// <remarks>Requires LogLevel.FATAL flag.</remarks>
+        public void Fatal(string message)
+        {
+            WriteInternal(LogLevel.FATAL, message);
         }
 
         #endregion

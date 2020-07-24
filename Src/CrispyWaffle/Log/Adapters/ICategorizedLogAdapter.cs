@@ -9,6 +9,13 @@
     public interface ICategorizedLogAdapter : ILogAdapter
     {
         /// <summary>
+        /// Logs the message with fatal level in the specified category
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message.</param>
+        void CategorizedFatal(string category, string message);
+
+        /// <summary>
         /// Logs the message with error level in the specified category
         /// </summary>
         /// <param name="category">The category</param>

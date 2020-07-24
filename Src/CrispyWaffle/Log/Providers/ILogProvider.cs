@@ -11,8 +11,14 @@
         /// Sets the log level of the instance
         /// </summary>
         /// <param name="level">The log level</param>
-
         void SetLevel(LogLevel level);
+
+        /// <summary>
+        /// Logs the message with fatal level.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message.</param>
+        void Fatal(string category, string message);
 
         /// <summary>
         /// Logs the message with error level.

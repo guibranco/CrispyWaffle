@@ -1,8 +1,8 @@
 ﻿namespace CrispyWaffle.Log.Handlers
 {
+    using Providers;
     using System;
     using System.Threading;
-    using Providers;
 
     /// <summary>
     /// The the Exception handler interface.
@@ -16,7 +16,6 @@
         /// </summary>
         /// <param name="exception">The exception to be logged</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-
         void Handle(Exception exception);
 
         /// <summary>
@@ -27,7 +26,6 @@
         /// <param name="sender">The sender</param>
         /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-
         void Handle(object sender, UnhandledExceptionEventArgs args);
 
         /// <summary>

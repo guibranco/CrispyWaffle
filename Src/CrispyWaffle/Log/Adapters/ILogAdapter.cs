@@ -69,5 +69,11 @@
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         void Error(string message);
 
+        /// <summary>
+        /// Logs a message as FATAL level.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        void Fatal(string message);
+
     }
 }
