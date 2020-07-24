@@ -37,37 +37,56 @@
         /// <summary>
         /// Logs a message as DEBUG level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
         void Debug(string message);
 
         /// <summary>
+        /// Logs the exception with trace level.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        void Trace(Exception exception);
+
+        /// <summary>
+        /// Logs the message with trace level and shows exception details.
+        /// </summary>
+        /// <param name="message">The message to be logged.</param>
+        /// <param name="exception">The exception.</param>
+        void Trace(string message, Exception exception);
+
+        /// <summary>
         /// Logs a message as TRACE level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
         void Trace(string message);
 
         /// <summary>
         /// Logs a message as INFO level
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.INFO flag.</remarks>
         void Info(string message);
 
         /// <summary>
         /// Logs a message as WARNING level.
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.WARNING flag.</remarks>
         void Warning(string message);
 
         /// <summary>
         /// Logs a message as ERROR level.
         /// </summary>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         void Error(string message);
+
+        /// <summary>
+        /// Logs a message as FATAL level.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        void Fatal(string message);
 
     }
 }

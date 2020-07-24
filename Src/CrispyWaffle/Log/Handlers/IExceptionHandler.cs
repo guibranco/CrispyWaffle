@@ -1,8 +1,8 @@
 ﻿namespace CrispyWaffle.Log.Handlers
 {
+    using Providers;
     using System;
     using System.Threading;
-    using Providers;
 
     /// <summary>
     /// The the Exception handler interface.
@@ -14,9 +14,8 @@
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
         /// but this behavior depends on the Adapter implementation.
         /// </summary>
-        /// <param name="exception">The exception to be logged</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-
         void Handle(Exception exception);
 
         /// <summary>
@@ -27,7 +26,6 @@
         /// <param name="sender">The sender</param>
         /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-
         void Handle(object sender, UnhandledExceptionEventArgs args);
 
         /// <summary>

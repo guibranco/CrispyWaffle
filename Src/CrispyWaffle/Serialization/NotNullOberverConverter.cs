@@ -31,12 +31,18 @@
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var type = reader.TokenType;
+
             if (type == JsonToken.Null)
                 return null;
+
             var value = JToken.Load(reader);
-            if (type == JsonToken.String && string.IsNullOrWhiteSpace(value.Value<string>()) ||
-                !value.HasValues && (type == JsonToken.StartArray || type == JsonToken.StartObject))
+
+            if (type == JsonToken.String && string.IsNullOrWhiteSpace(value.Value<string>()))
                 return null;
+
+            if (!value.HasValues && (type == JsonToken.StartArray || type == JsonToken.StartObject))
+                return null;
+
             throw new NotNullObserverException(type, reader.Value ?? value.ToString(), reader.Path);
         }
 

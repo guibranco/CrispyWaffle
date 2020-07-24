@@ -2,9 +2,15 @@
 using CrispyWaffle.Log;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;
+using System;
 
 namespace CrispyWaffle.Tests
 {
+    /// <summary>
+    /// Class TestLogProvider.
+    /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
+    /// </summary>
+    /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
     internal class TestLogProvider : ILogProvider
     {
         #region Implementation of ILogProvider
@@ -16,6 +22,16 @@ namespace CrispyWaffle.Tests
         public void SetLevel(LogLevel level)
         {
             System.Diagnostics.Debug.WriteLine(level.GetHumanReadableValue());
+        }
+
+        /// <summary>
+        /// Logs the message with fatal level.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message.</param>
+        public void Fatal(string category, string message)
+        {
+            System.Diagnostics.Debug.WriteLine("Fatal: {0} - {1}", category, message);
         }
 
         /// <summary>
@@ -59,6 +75,28 @@ namespace CrispyWaffle.Tests
         }
 
         /// <summary>
+        /// Logs the message with trace level and shows exception details.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
+        /// <param name="exception">The exception.</param>
+        public void Trace(string category, string message, Exception exception)
+        {
+            System.Diagnostics.Debug.WriteLine("Trace: {0} - {1}", category, message);
+            WriteExceptionDetails("Trace", category, exception);
+        }
+
+        /// <summary>
+        /// Logs the exception details with trace level.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="exception">The exception.</param>
+        public void Trace(string category, Exception exception)
+        {
+            WriteExceptionDetails("Trace", category, exception);
+        }
+
+        /// <summary>
         /// Logs the message with debug level
         /// </summary>
         /// <param name="category">The category.</param>
@@ -95,5 +133,23 @@ namespace CrispyWaffle.Tests
         }
 
         #endregion
+
+        /// <summary>
+        /// Writes the exception details.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="exception">The exception.</param>
+        private static void WriteExceptionDetails(string level, string category, Exception exception)
+        {
+            do
+            {
+                System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", level, category, exception.Message);
+                System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", level, category, exception.GetType().FullName);
+                System.Diagnostics.Debug.WriteLine("{0}: {1} - {2}", level, category, exception.StackTrace);
+
+                exception = exception.InnerException;
+            } while (exception != null);
+        }
     }
 }
