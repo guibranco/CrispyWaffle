@@ -282,6 +282,7 @@
         /// <param name="inputToCompare">The string to compare.</param>
         /// <returns>An Int32.</returns>
         [Pure]
+        // ReSharper disable once MethodTooLong
         public static int Levenshtein(this string input, string inputToCompare)
         {
             var n = input.Length;
