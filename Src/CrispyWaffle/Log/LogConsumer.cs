@@ -335,6 +335,44 @@
         }
 
         /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="message">The message.</param>
+        public static void Trace(Exception exception, string message)
+        {
+            var category = GetCategory();
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
+                provider.Trace(category, message, exception);
+        }
+
+        /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="arguments">The arguments.</param>
+        public static void Trace(Exception exception, string message, params object[] arguments)
+        {
+            Trace(exception, string.Format(message, arguments));
+        }
+
+        /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public static void Trace(Exception exception)
+        {
+            var category = GetCategory();
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, exception.Message))))
+                provider.Trace(category, exception);
+        }
+
+        /// <summary>
         /// Logs the message with info log level
         /// </summary>
         /// <param name="message">The message to be logged.</param>
