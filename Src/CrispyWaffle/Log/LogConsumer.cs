@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Log
+﻿using System.Reflection;
+
+namespace CrispyWaffle.Log
 {
     using Composition;
     using Extensions;
@@ -94,20 +96,37 @@
                 if (method == null)
                     return @"CrispyWaffle";
 
-                var ns = method.DeclaringType?.FullName;
-
-                if (string.IsNullOrWhiteSpace(ns))
-                    return method.Name;
-
-                if (ns.StartsWith(@"CrispyWaffle.Log") ||
-                    ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
-                    continue;
-
-                if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
-                    ns = ns.Substring(13);
-
-                return ns;
+                if (GetNamespace(method, out var category))
+                    return category;
             }
+        }
+
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="category">The category.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool GetNamespace(MethodBase method, out string category)
+        {
+            category = string.Empty;
+            var ns = method.DeclaringType?.FullName;
+
+            if (string.IsNullOrWhiteSpace(ns))
+            {
+                category = method.Name;
+                return true;
+            }
+
+            if (ns.StartsWith(@"CrispyWaffle.Log") ||
+                ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
+                return false;
+
+            if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+                ns = ns.Substring(13);
+
+            category = ns;
+            return true;
         }
 
         #endregion
@@ -165,12 +184,32 @@
         public static bool LogTo<TLogProvider>(LogLevel level, string message) where TLogProvider : ILogProvider
         {
             var type = typeof(TLogProvider);
+
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
+
             if (provider == null)
                 return false;
+
             var category = GetCategory();
+
             if (Filters.Any(f => !f.Filter(type.FullName, level, category, message)))
                 return false;
+
+            LogToInternal(level, message, provider, category);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Logs to internal.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="provider">The provider.</param>
+        /// <param name="category">The category.</param>
+        /// <exception cref="ArgumentOutOfRangeException">level - null</exception>
+        private static void LogToInternal(LogLevel level, string message, ILogProvider provider, string category)
+        {
             switch (level)
             {
                 case LogLevel.FATAL:
@@ -194,7 +233,6 @@
                 default:
                     throw new ArgumentOutOfRangeException(nameof(level), level, null);
             }
-            return true;
         }
 
         /// <summary>
@@ -332,6 +370,44 @@
         public static void Trace(string message, params object[] arguments)
         {
             Trace(string.Format(message, arguments));
+        }
+
+        /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="message">The message.</param>
+        public static void Trace(Exception exception, string message)
+        {
+            var category = GetCategory();
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
+                provider.Trace(category, message, exception);
+        }
+
+        /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="arguments">The arguments.</param>
+        public static void Trace(Exception exception, string message, params object[] arguments)
+        {
+            Trace(exception, string.Format(message, arguments));
+        }
+
+        /// <summary>
+        /// Traces the specified exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public static void Trace(Exception exception)
+        {
+            var category = GetCategory();
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, exception.Message))))
+                provider.Trace(category, exception);
         }
 
         /// <summary>

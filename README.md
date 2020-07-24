@@ -51,6 +51,12 @@ Install-Package CrispyWaffle
 
 ## Changelog
 
+2020-07-24 - Version 1.3 - [@guibranco](https://github.com/guibranco)
+
+- Add EvenLogProvider and EventLogAdapter
+- Add log Trace methods that support exceptions
+- Add Fatal log level
+
 2020-03-28 - Version 1.2 - [@guibranco](https://github.com/guibranco)
 
 - Add some unit tests.

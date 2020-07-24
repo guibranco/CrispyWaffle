@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Cryptography
+﻿using System.Collections.Generic;
+
+namespace CrispyWaffle.Cryptography
 {
     using System;
     using System.ComponentModel;
@@ -31,6 +33,7 @@
             byte[] cipherTextBytes;
 
             var memoryStream = new MemoryStream();
+
             using (var cryptoStream = new CryptoStream(memoryStream, encryption, CryptoStreamMode.Write))
             {
                 cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
@@ -67,9 +70,21 @@
                 plainTextBytes = new byte[cipherTextBytes.Length];
                 decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
             }
-            
+
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
         }
+
+        /// <summary>
+        /// The hash algorithms
+        /// </summary>
+        private static Dictionary<HashAlgorithmType, HashAlgorithm> hashAlgorithms = new Dictionary<HashAlgorithmType, HashAlgorithm>
+        {
+            {HashAlgorithmType.MD5, new MD5CryptoServiceProvider()},
+            {HashAlgorithmType.SHA1, SHA1.Create()},
+            {HashAlgorithmType.SHA256, SHA256.Create()},
+            {HashAlgorithmType.SHA384, SHA384.Create()},
+            {HashAlgorithmType.SHA512, SHA512.Create()}
+        };
 
         /// <summary>
         /// Generates a hash for the requested value using the desired hash algorithm
@@ -79,33 +94,21 @@
         /// <returns>The hash of the value</returns>
         public static string Hash(string value, HashAlgorithmType type)
         {
-            HashAlgorithm algorithm;
-            switch (type)
-            {
-                case HashAlgorithmType.MD5:
-                    algorithm = new MD5CryptoServiceProvider();
-                    break;
-                case HashAlgorithmType.SHA1:
-                    algorithm = SHA1.Create();
-                    break;
-                case HashAlgorithmType.SHA256:
-                    algorithm = SHA256.Create();
-                    break;
-                case HashAlgorithmType.SHA384:
-                    algorithm = SHA384.Create();
-                    break;
-                case HashAlgorithmType.SHA512:
-                    algorithm = SHA512.Create();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+
+            if (!hashAlgorithms.ContainsKey(type))
+                throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid algorithm type");
+
+            var algorithm = hashAlgorithms[type];
+
             var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
+
             var result = new StringBuilder();
+
             foreach (var t in hash)
                 result.Append(type == HashAlgorithmType.MD5
                                   ? t.ToString(@"x2")
                                   : t.ToString(CultureInfo.InvariantCulture));
+
             return result.ToString();
         }
     }

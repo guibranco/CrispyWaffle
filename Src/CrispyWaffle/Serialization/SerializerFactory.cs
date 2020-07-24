@@ -16,51 +16,102 @@
     public static class SerializerFactory
     {
         /// <summary>
-        ///     Gets serializer from type.
+        /// Gets the type of the serializer from.
         /// </summary>
-        ///
-        /// <exception cref="InvalidOperationException">
-        ///     Thrown when the requested operation is invalid.
-        /// </exception>
-        ///
-        /// <typeparam name="T">
-        ///     Generic type parameter.
-        /// </typeparam>
-        /// <param name="obj">
-        ///     The object.
-        /// </param>
-        ///
-        /// <returns>
-        ///     The serializer from type&lt; t&gt;
-        /// </returns>
-        /// 
-        /// 
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>SerializerConverter&lt;T&gt;.</returns>
+        /// <exception cref="InvalidOperationException">Unable to serializer the object of type '{type.FullName}'</exception>
+        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        /// <exception cref="InvalidOperationException">The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}</exception>
         [Pure]
         private static SerializerConverter<T> GetSerializerFromType<T>(T obj) where T : class
         {
             var type = obj.GetType();
+
             if (!type.IsClass)
                 throw new InvalidOperationException($"Unable to serializer the object of type '{type.FullName}'");
+
             if (Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) is SerializerAttribute attribute)
                 return GetSerializer(obj, attribute);
-            if (type.IsArray)
-            {
-                type = type.GetElementType();
-                attribute = Attribute.GetCustomAttribute(type ?? throw new InvalidOperationException(), typeof(SerializerAttribute)) as SerializerAttribute;
-                if (attribute != null)
-                    return GetSerializer(obj, attribute);
-            }
-            else if (typeof(IEnumerable).IsAssignableFrom(type))
-            {
-                type = type.GetGenericArguments()[0];
-                attribute = Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) as SerializerAttribute;
-                if (attribute != null)
-                    return GetSerializer(obj, attribute);
-            }
+
+            if (GetSerializerFromArrayOrInherit(obj, ref type, out var serializerConverter))
+                return serializerConverter;
+
             if (type.IsSerializable)
                 return GetSerializer(obj, new SerializerAttribute(SerializerFormat.BINARY));
-            throw new InvalidOperationException(
-                $"The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}");
+
+            throw new InvalidOperationException($"The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}");
+        }
+
+        /// <summary>
+        /// Gets the serializer from array or inherit.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="serializerConverter">The serializer converter.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        private static bool GetSerializerFromArrayOrInherit<T>(T obj, ref Type type,
+            out SerializerConverter<T> serializerConverter) where T : class
+        {
+            serializerConverter = null;
+
+            if (type.IsArray)
+            {
+                return GetSerializerFromArray(obj, ref type, ref serializerConverter);
+            }
+            
+            return typeof(IEnumerable).IsAssignableFrom(type) && GetSerializerFromInherit(obj, ref type, ref serializerConverter);
+        }
+
+        /// <summary>
+        /// Gets the serializer from inherit.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="serializerConverter">The serializer converter.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool GetSerializerFromInherit<T>(T obj, ref Type type, ref SerializerConverter<T> serializerConverter)
+            where T : class
+        {
+            type = type.GetGenericArguments()[0];
+
+            var attribute = Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) as SerializerAttribute;
+
+            if (attribute == null)
+                return false;
+
+            serializerConverter = GetSerializer(obj, attribute);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the serializer from array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="serializerConverter">The serializer converter.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        private static bool GetSerializerFromArray<T>(T obj, ref Type type, ref SerializerConverter<T> serializerConverter)
+            where T : class
+        {
+            type = type.GetElementType();
+
+            var attribute = Attribute.GetCustomAttribute(type ?? throw new InvalidOperationException("Invalid array subtype"),
+                typeof(SerializerAttribute)) as SerializerAttribute;
+
+            if (attribute == null)
+                return false;
+
+            serializerConverter = GetSerializer(obj, attribute);
+
+            return true;
         }
 
         /// <summary>
@@ -84,16 +135,10 @@
         }
 
         /// <summary>
-        ///     Gets the serializer.
+        /// Gets the serializer.
         /// </summary>
-        ///
-        /// <typeparam name="T">
-        ///     Generic type parameter.
-        /// </typeparam>
-        ///
-        /// <returns>
-        ///     The serializer&lt; t&gt;
-        /// </returns>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SerializerConverter&lt;T&gt;.</returns>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>() where T : class
         {
