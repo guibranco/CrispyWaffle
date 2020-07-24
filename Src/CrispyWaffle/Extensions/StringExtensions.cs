@@ -285,7 +285,9 @@
         public static int Levenshtein(this string input, string inputToCompare)
         {
             var n = input.Length;
+
             var m = inputToCompare.Length;
+
             var d = new int[n + 1, m + 1];
 
             if (n == 0)
@@ -305,9 +307,11 @@
                 for (var j = 1; j <= m; j++)
                 {
                     var cost = inputToCompare.Substring(j - 1, 1) == input.Substring(i - 1, 1) ? 0 : 1;
-                    d[i, j] = Math.Min(Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1), d[i - 1, j - 1] + cost);
+                    var min = Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1);
+                    d[i, j] = Math.Min(min, d[i - 1, j - 1] + cost);
                 }
             }
+
             return d[n, m];
         }
 
@@ -397,10 +401,15 @@
             try
             {
                 jsonRaw = jsonRaw.Trim();
-                if ((!jsonRaw.StartsWith(@"{") || !jsonRaw.EndsWith(@"}"))
-                    && (!jsonRaw.StartsWith(@"[") || !jsonRaw.EndsWith(@"]")))
+
+                var isObject = jsonRaw.StartsWith(@"{") && jsonRaw.EndsWith(@"}");
+                var isArray = jsonRaw.StartsWith(@"[") && jsonRaw.EndsWith(@"]");
+
+                if (!isObject && !isArray)
                     return false;
+
                 JToken.Parse(jsonRaw);
+
                 return true;
             }
             catch (Exception)
@@ -439,29 +448,46 @@
         {
             if (string.IsNullOrWhiteSpace(source))
                 return string.Empty;
+
             var array = new char[source.Length];
             var arrayIndex = 0;
             var inside = false;
 
             foreach (var let in source)
             {
-                switch (let)
-                {
-                    case '<':
-                        inside = true;
-                        continue;
-                    case '>':
-                        inside = false;
-                        continue;
-                    default:
-                        if (inside)
-                            continue;
-                        array[arrayIndex] = let;
-                        arrayIndex++;
-                        break;
-                }
+                inside = StripTagInternal(@let, inside, array, ref arrayIndex);
             }
+
             return new string(array, 0, arrayIndex);
+        }
+
+        /// <summary>
+        /// Strips the tag internal.
+        /// </summary>
+        /// <param name="let">The let.</param>
+        /// <param name="inside">if set to <c>true</c> [inside].</param>
+        /// <param name="array">The array.</param>
+        /// <param name="arrayIndex">Index of the array.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool StripTagInternal(char @let, bool inside, char[] array, ref int arrayIndex)
+        {
+            switch (@let)
+            {
+                case '<':
+                    return true;
+                case '>':
+                    return false;
+                default:
+                    if (inside)
+                        return true;
+
+                    array[arrayIndex] = @let;
+                    arrayIndex++;
+
+                    break;
+            }
+
+            return false;
         }
     }
 }

@@ -65,6 +65,21 @@
             var folder = Path.GetDirectoryName(file);
             var are = new AutoResetEvent(false);
 
+            var stream = LoadInternal(file, fileName, folder, are);
+
+            return Deserialize<T>(stream);
+        }
+
+        /// <summary>
+        /// Loads the internal.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="folder">The folder.</param>
+        /// <param name="are">The are.</param>
+        /// <returns>Stream.</returns>
+        private static Stream LoadInternal(string file, string fileName, string folder, AutoResetEvent are)
+        {
             Stream stream;
             while (true)
             {
@@ -78,7 +93,13 @@
                     FileSystemWatcher watcher = null;
                     try
                     {
-                        watcher = new FileSystemWatcher { Filter = fileName, Path = folder, NotifyFilter = NotifyFilters.Attributes | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Size, EnableRaisingEvents = true };
+                        watcher = new FileSystemWatcher
+                        {
+                            Filter = fileName, Path = folder,
+                            NotifyFilter = NotifyFilters.Attributes | NotifyFilters.DirectoryName | NotifyFilters.FileName |
+                                           NotifyFilters.LastWrite | NotifyFilters.Size,
+                            EnableRaisingEvents = true
+                        };
                         watcher.Changed += (o, e) => are.Set();
                         are.WaitOne(new TimeSpan(0, 0, 0, 30));
                     }
@@ -88,7 +109,8 @@
                     }
                 }
             }
-            return Deserialize<T>(stream);
+
+            return stream;
         }
 
         /// <summary>
