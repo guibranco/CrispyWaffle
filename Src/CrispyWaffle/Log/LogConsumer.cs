@@ -173,6 +173,9 @@
                 return false;
             switch (level)
             {
+                case LogLevel.FATAL:
+                    provider.Fatal(category, message);
+                    break;
                 case LogLevel.ERROR:
                     provider.Error(category, message);
                     break;
@@ -205,13 +208,19 @@
             where TLogProvider : ILogProvider
         {
             var type = typeof(TLogProvider);
+
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
+
             if (provider == null)
                 return false;
+
             var category = GetCategory();
+
             if (Filters.Any(f => !f.Filter(type.FullName, LogLevel.DEBUG, category, content)))
                 return false;
+
             provider.Debug(category, content, identifier);
+
             return true;
         }
 
@@ -232,13 +241,19 @@
             where T : class, new()
         {
             var type = typeof(TLogProvider);
+
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
+
             if (provider == null)
                 return false;
+
             var category = GetCategory();
+
             if (Filters.Any(f => !f.Filter(type.FullName, LogLevel.DEBUG, category, string.Empty)))
                 return false;
+
             provider.Debug(category, content, identifier, customFormat);
+
             return true;
         }
 
@@ -249,7 +264,9 @@
         public static void Debug(string message)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, message))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, message))))
                 provider.Debug(category, message);
         }
 
@@ -271,7 +288,9 @@
         public static void Debug(string content, [Localizable(false)] string identifier)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, content))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, content))))
                 provider.Debug(category, content, identifier);
         }
 
@@ -286,7 +305,9 @@
             where T : class, new()
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, string.Empty))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, string.Empty))))
                 provider.Debug(category, content, identifier, customFormat);
         }
 
@@ -297,7 +318,9 @@
         public static void Trace(string message)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
                 provider.Trace(category, message);
         }
 
@@ -318,7 +341,9 @@
         public static void Info(string message)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.INFO, category, message))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.INFO, category, message))))
                 provider.Info(category, message);
         }
 
@@ -339,7 +364,9 @@
         public static void Warning(string message)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.WARNING, category, message))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.WARNING, category, message))))
                 provider.Warning(category, message);
         }
 
@@ -360,7 +387,9 @@
         public static void Error(string message)
         {
             var category = GetCategory();
-            foreach (var provider in Providers.Where(p => Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.ERROR, category, message))))
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.ERROR, category, message))))
                 provider.Error(category, message);
         }
 
@@ -372,6 +401,29 @@
         public static void Error(string message, params object[] arguments)
         {
             Error(string.Format(message, arguments));
+        }
+
+        /// <summary>
+        /// Fatals the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void Fatal(string message)
+        {
+            var category = GetCategory();
+
+            foreach (var provider in Providers.Where(p =>
+                Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.FATAL, category, message))))
+                provider.Fatal(category, message);
+        }
+
+        /// <summary>
+        /// Fatals the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="arguments">The arguments.</param>
+        public static void Fatal(string message, params object[] arguments)
+        {
+            Fatal(string.Format(message, arguments));
         }
 
         /// <summary>

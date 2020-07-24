@@ -44,11 +44,20 @@
         }
 
         /// <summary>
+        /// Logs the message with fatal level
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="message">The message to be logged</param>
+        public void Fatal(string category, string message)
+        {
+            _adapter.CategorizedFatal(category, message);
+        }
+
+        /// <summary>
         /// Logs the message with error level
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
-
         public void Error(string category, string message)
         {
             _adapter.CategorizedError(category, message);

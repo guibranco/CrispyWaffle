@@ -3,6 +3,9 @@
     using Extensions;
     using System.Text.RegularExpressions;
 
+    /// <summary>
+    /// Class PersonalDataValidation.
+    /// </summary>
     public static class PersonalDataValidation
     {
         /// <summary>
@@ -70,25 +73,41 @@
         {
             int[] multiplierA = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplierB = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
             document = document.RemoveNonNumeric();
+
             if (document.Length != 11)
                 throw new InvalidDocumentException("CPF", document);
+
             if (SameNumberDocumentPattern.IsMatch(document))
                 throw new InvalidDocumentException("CPF", document);
+
             var working = document.Substring(0, 9);
+
             var sum = 0;
+
             for (var i = 0; i < 9; i++)
                 sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplierA[i];
+
             var rest = sum % 11;
+
             rest = rest < 2 ? 0 : 11 - rest;
+
             var digit = rest.ToString(StringExtensions.Culture);
+
             working = string.Concat(working, digit);
+
             sum = 0;
+
             for (var i = 0; i < 10; i++)
                 sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplierB[i];
+
             rest = sum % 11;
+
             rest = rest < 2 ? 0 : 11 - rest;
+
             digit = string.Concat(digit, rest);
+
             return digit;
         }
 
@@ -102,23 +121,38 @@
         {
             int[] multiplierA = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplierB = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+
             document = document.RemoveNonNumeric();
+
             if (document.Length != 14)
                 throw new InvalidDocumentException("CNPJ", document);
+
             var working = document.Substring(0, 12);
+
             var sum = 0;
+
             for (var i = 0; i < 12; i++)
                 sum += int.Parse(working[i].ToString(StringExtensions.Culture)) * multiplierA[i];
+
             var rest = sum % 11;
+
             rest = rest < 2 ? 0 : 11 - rest;
+
             var digit = rest.ToString(StringExtensions.Culture);
+
             working = working + digit;
+
             sum = 0;
+
             for (var i = 0; i < 13; i++)
                 sum += int.Parse(working[i].ToString(StringExtensions.Culture)) * multiplierB[i];
+
             rest = sum % 11;
+
             rest = rest < 2 ? 0 : 11 - rest;
+
             digit = string.Concat(digit, rest);
+
             return digit;
         }
     }

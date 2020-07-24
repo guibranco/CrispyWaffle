@@ -5,6 +5,11 @@ using CrispyWaffle.Serialization;
 
 namespace CrispyWaffle.Tests
 {
+    /// <summary>
+    /// Class TestLogProvider.
+    /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
+    /// </summary>
+    /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
     internal class TestLogProvider : ILogProvider
     {
         #region Implementation of ILogProvider
@@ -16,6 +21,16 @@ namespace CrispyWaffle.Tests
         public void SetLevel(LogLevel level)
         {
             System.Diagnostics.Debug.WriteLine(level.GetHumanReadableValue());
+        }
+
+        /// <summary>
+        /// Logs the message with fatal level.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message.</param>
+        public void Fatal(string category, string message)
+        {
+            System.Diagnostics.Debug.WriteLine("Fatal: {0} - {1}", category, message);
         }
 
         /// <summary>

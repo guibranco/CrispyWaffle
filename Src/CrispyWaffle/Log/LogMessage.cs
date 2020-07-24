@@ -24,14 +24,14 @@
         /// The level.
         /// </value>
         public string Level { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the application.
         /// </summary>
         /// <value>
         /// The application.
         /// </value>
-        public string Application { get;set; }
+        public string Application { get; set; }
 
         /// <summary>
         /// Gets or sets the category.
