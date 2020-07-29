@@ -30,16 +30,24 @@
             var type = obj.GetType();
 
             if (!type.IsClass)
+            {
                 throw new InvalidOperationException($"Unable to serializer the object of type '{type.FullName}'");
+            }
 
             if (Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) is SerializerAttribute attribute)
+            {
                 return GetSerializer(obj, attribute);
+            }
 
             if (GetSerializerFromArrayOrInherit(obj, ref type, out var serializerConverter))
+            {
                 return serializerConverter;
+            }
 
             if (type.IsSerializable)
+            {
                 return GetSerializer(obj, new SerializerAttribute(SerializerFormat.BINARY));
+            }
 
             throw new InvalidOperationException($"The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}");
         }
@@ -82,7 +90,9 @@
             var attribute = Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) as SerializerAttribute;
 
             if (attribute == null)
+            {
                 return false;
+            }
 
             serializerConverter = GetSerializer(obj, attribute);
 
@@ -107,7 +117,9 @@
                 typeof(SerializerAttribute)) as SerializerAttribute;
 
             if (attribute == null)
+            {
                 return false;
+            }
 
             serializerConverter = GetSerializer(obj, attribute);
 

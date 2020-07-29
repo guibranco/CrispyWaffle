@@ -51,7 +51,10 @@
         public static string ReplaceFirst(this string input, string search, string replace)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return input;
+            }
+
             var pos = input.IndexOf(search, StringComparison.Ordinal);
             return pos < 0 ? input : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
         }
@@ -133,9 +136,15 @@
         public static string Abbreviate(this string input, int maxCharacters, bool addEllipsis = true)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return string.Empty;
+            }
+
             if (input.Length < maxCharacters)
+            {
                 return input;
+            }
+
             return string.Concat(input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters), addEllipsis ? @"..." : string.Empty);
         }
 
@@ -149,7 +158,10 @@
         public static string ToCamelCase(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return string.Empty;
+            }
+
             var words = input.Trim().Split(' ');
             var sb = new StringBuilder();
             foreach (var w in words.Where(s => !string.IsNullOrWhiteSpace(s)))
@@ -186,16 +198,25 @@
         {
             var result = new StringBuilder();
             if (!input.Any())
+            {
                 return string.Empty;
+            }
+
             foreach (var s in input)
             {
                 result.Append(@" ");
                 if (toUpper.Contains(s.ToUpper()))
+                {
                     result.Append(s.ToUpper());
+                }
                 else if (toLower.Contains(s.ToLower()))
+                {
                     result.Append(s.ToLower());
+                }
                 else
+                {
                     result.Append(s.ToCamelCase());
+                }
             }
             return result.ToString();
         }
@@ -209,7 +230,10 @@
         public static string ToSafeUrl(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return input;
+            }
+
             var bytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(input);
             return Encoding.UTF8.GetString(bytes).Replace(@"-", string.Empty).Replace(@".", string.Empty).RemoveExcessSpaces().Trim().ReplaceNonAlphanumeric(@"-").Trim('-');
 
@@ -225,7 +249,10 @@
         public static string ToBase64(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return string.Empty;
+            }
+
             var utf8Bytes = Encoding.UTF8.GetBytes(input);
             return Convert.ToBase64String(utf8Bytes);
         }
@@ -240,7 +267,10 @@
         public static string FromBase64(this string input, string encoding = "ISO-8859-1")
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return string.Empty;
+            }
+
             var base64Bytes = Convert.FromBase64String(input);
             return Encoding.GetEncoding(encoding).GetString(base64Bytes);
         }
@@ -254,7 +284,9 @@
         public static string FromISO2UTF8(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return string.Empty;
+            }
 
             var iso = Encoding.GetEncoding("ISO-8859-1");
             var utf = Encoding.UTF8;
@@ -292,16 +324,24 @@
             var d = new int[n + 1, m + 1];
 
             if (n == 0)
+            {
                 return m;
+            }
 
             if (m == 0)
+            {
                 return n;
+            }
 
             for (var i = 0; i <= n; i++)
+            {
                 d[i, 0] = i;
+            }
 
             for (var j = 0; j <= m; j++)
+            {
                 d[0, j] = j;
+            }
 
             for (var i = 1; i <= n; i++)
             {
@@ -407,7 +447,9 @@
                 var isArray = jsonRaw.StartsWith(@"[") && jsonRaw.EndsWith(@"]");
 
                 if (!isObject && !isArray)
+                {
                     return false;
+                }
 
                 JToken.Parse(jsonRaw);
 
@@ -434,9 +476,14 @@
                 yield break;
             }
             if (chunkLength < 1)
+            {
                 throw new ArgumentException(@"Invalid chuck length", nameof(chunkLength));
+            }
+
             for (var i = 0; i < str.Length; i += chunkLength)
+            {
                 yield return str.Substring(i, chunkLength + i > str.Length ? str.Length - i : chunkLength);
+            }
         }
 
         /// <summary>
@@ -448,7 +495,9 @@
         public static string StripTags(this string source)
         {
             if (string.IsNullOrWhiteSpace(source))
+            {
                 return string.Empty;
+            }
 
             var array = new char[source.Length];
             var arrayIndex = 0;
@@ -480,7 +529,9 @@
                     return false;
                 default:
                     if (inside)
+                    {
                         return true;
+                    }
 
                     array[arrayIndex] = @let;
                     arrayIndex++;

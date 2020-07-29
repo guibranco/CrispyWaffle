@@ -57,7 +57,9 @@
             var nodes = xmlNode.SelectNodes(node);
             var item = nodes?.Item(0);
             if (item == null)
+            {
                 return string.Empty;
+            }
 
             return nodes.Count >= 1
                 ? item.InnerText
@@ -84,7 +86,9 @@
                 }
                 var item = nodesL.Item(0);
                 if (item != null)
+                {
                     results.Add(item.InnerText);
+                }
             }
             return string.Join<string>(@" ", results);
         }

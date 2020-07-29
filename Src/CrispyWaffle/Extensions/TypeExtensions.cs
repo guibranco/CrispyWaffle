@@ -76,15 +76,23 @@ namespace CrispyWaffle.Extensions
 
             var shouldSerializeMethod = type.GetMethod(string.Concat(@"ShouldSerialize", propertyInfo.Name));
             if (shouldSerializeMethod != null && shouldSerializeMethod.ReturnType == typeof(bool))
+            {
                 shouldSerialize = (bool)shouldSerializeMethod.Invoke(newObject, null);
+            }
 
             if (!shouldSerialize && (newValue == null || newValue.Equals(defaultValue)))
+            {
                 return;
+            }
 
             if (newValue == null || propertyInfo.PropertyType.IsSimpleType())
+            {
                 propertyInfo.SetValue(currentObject, newValue);
+            }
             else if (typeof(IUpdateable).IsAssignableFrom(propertyInfo.PropertyType))
+            {
                 propertyInfo.SetValue(currentObject, ((IUpdateable)currentValue).UpdateValues((IUpdateable)newValue), null);
+            }
         }
 
         /// <summary>
@@ -140,16 +148,24 @@ namespace CrispyWaffle.Extensions
                 var typeCode = Type.GetTypeCode(type);
 
                 if (PrimitiveNumericTypes.Contains(typeCode))
+                {
                     return true;
+                }
 
                 if (typeCode != TypeCode.Object)
+                {
                     return false;
+                }
 
                 if (type != null && (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Nullable<>)))
+                {
                     return false;
+                }
 
                 if (type != null)
+                {
                     type = Nullable.GetUnderlyingType(type);
+                }
             }
         }
 
@@ -164,12 +180,21 @@ namespace CrispyWaffle.Extensions
             var stack = new StackTrace();
             var method = stack.GetFrame(frame).GetMethod();
             if (method == null)
+            {
                 return @"CrispyWaffle";
+            }
+
             var ns = method.DeclaringType?.FullName;
             if (string.IsNullOrWhiteSpace(ns))
+            {
                 return method.Name;
+            }
+
             if (excludeBegin && ns.StartsWith(@"CrispyWaffle", StringExtensions.Comparison))
+            {
                 ns = ns.Substring(13);
+            }
+
             return $@"{ns}.{method.Name}";
         }
     }

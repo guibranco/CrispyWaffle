@@ -91,7 +91,10 @@
                     Repositories.Add(priority, repository);
                     LogConsumer.Trace("Adding cache repository of type {0} with priority {1}", repository.GetType().FullName, priority);
                     if (repository.GetType() == MemoryType)
+                    {
                         _isMemoryRepositoryInList = true;
+                    }
+
                     return priority;
                 }
                 priority++;
@@ -110,7 +113,9 @@
         {
             LogConsumer.Trace("Adding {0} to {1} cache repositories", key, Repositories.Count);
             foreach (var repository in Repositories.Values)
+            {
                 repository.Set(value, key);
+            }
         }
 
         /// <summary>
@@ -124,7 +129,9 @@
         {
             LogConsumer.Trace("Adding {0}/{2} to {1} cache repositories", key, Repositories.Count, subKey);
             foreach (var repository in Repositories.Values)
+            {
                 repository.Set(value, key, subKey);
+            }
         }
 
         /// <summary>
@@ -138,7 +145,9 @@
         {
             LogConsumer.Trace("Adding {0} to {1} cache repositories with TTL of {2:g}", key, Repositories.Count, ttl);
             foreach (var repository in Repositories.Values)
+            {
                 repository.Set(value, key, ttl);
+            }
         }
 
         /// <summary>
@@ -155,7 +164,10 @@
             LogConsumer.Trace("Adding {0} to repository of type {1}", key, type.FullName);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Set(value, key);
         }
 
@@ -174,7 +186,10 @@
             LogConsumer.Trace("Adding {0}/{2} to repository of type {1}", key, type.FullName, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Set(value, key, subKey);
         }
 
@@ -193,7 +208,10 @@
             LogConsumer.Trace("Adding {0} to repository of type {1} with TTL of {2:g}", key, type.FullName, ttl);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Set(value, key, ttl);
         }
 
@@ -213,7 +231,10 @@
             LogConsumer.Trace("Adding {0}/{2} to repository of type {1} with TTL of {2:g}", key, type.FullName, ttl, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Set(value, key, subKey);
         }
 
@@ -234,9 +255,15 @@
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, out T value))
+                {
                     continue;
+                }
+
                 if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                {
                     SetTo<MemoryCacheRepository, T>(value, key);
+                }
+
                 return value;
             }
             throw new InvalidOperationException($"Unable to get the item with key {key}");
@@ -256,9 +283,15 @@
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, subKey, out T value))
+                {
                     continue;
+                }
+
                 if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                {
                     SetTo<MemoryCacheRepository, T>(value, key, subKey);
+                }
+
                 return value;
             }
             throw new InvalidOperationException($"Unable to get the item with key {key} and sub key {subKey}");
@@ -278,7 +311,10 @@
             LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             return repository.Get<TValue>(key);
         }
 
@@ -297,7 +333,10 @@
             LogConsumer.Trace("Getting {0}/{2} from repository {1}", key, type.FullName, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             return repository.Get<TValue>(key, subKey);
         }
 
@@ -320,9 +359,15 @@
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, out value))
+                {
                     continue;
+                }
+
                 if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                {
                     SetTo<MemoryCacheRepository, T>(value, key);
+                }
+
                 return true;
             }
             return false;
@@ -343,9 +388,15 @@
             foreach (var repository in Repositories.Values)
             {
                 if (!repository.TryGet(key, subKey, out value))
+                {
                     continue;
+                }
+
                 if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                {
                     SetTo<MemoryCacheRepository, T>(value, key, subKey);
+                }
+
                 return true;
             }
             return false;
@@ -368,7 +419,10 @@
             {
                 var currentResult = repository.TTL(key);
                 if (currentResult == result)
+                {
                     continue;
+                }
+
                 return currentResult;
             }
             return new TimeSpan(0);
@@ -386,7 +440,9 @@
         {
             LogConsumer.Trace("Removing key {0} from {1} repositories", key, Repositories.Count);
             foreach (var repository in Repositories.Values)
+            {
                 repository.Remove(key);
+            }
         }
 
         /// <summary>
@@ -398,7 +454,9 @@
         {
             LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repositories", key, Repositories.Count, subKey);
             foreach (var repository in Repositories.Values)
+            {
                 repository.Remove(key, subKey);
+            }
         }
 
         /// <summary>
@@ -413,7 +471,10 @@
             LogConsumer.Trace("Removing key {0} from {1} repository", key, Repositories.Count);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Remove(key);
         }
 
@@ -430,7 +491,10 @@
             LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repository", key, Repositories.Count, subKey);
             var repository = Repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
+            {
                 throw new InvalidOperationException($"The repository of type {type.FullName} isn't available in the repositories providers list");
+            }
+
             repository.Remove(key, subKey);
         }
 

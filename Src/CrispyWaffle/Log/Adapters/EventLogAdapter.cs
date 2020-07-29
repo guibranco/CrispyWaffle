@@ -65,7 +65,10 @@ namespace CrispyWaffle.Log.Adapters
         public EventLogAdapter(string source, string logName, string machineName, bool manageEventSource,
             IEventIdProvider eventIdProvider)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
             if (source.Length > MaximumSourceNameLengthChars)
             {
@@ -138,10 +141,12 @@ namespace CrispyWaffle.Log.Adapters
             {
                 var metaSource = $"serilog-{log.Log}";
                 if (!EventLog.SourceExists(metaSource, log.MachineName))
+                {
                     EventLog.CreateEventSource(new EventSourceCreationData(metaSource, log.Log)
                     {
                         MachineName = log.MachineName
                     });
+                }
 
                 log.Source = metaSource;
                 log.WriteEntry(
@@ -187,7 +192,9 @@ namespace CrispyWaffle.Log.Adapters
         private void WriteInternal(LogLevel level, string message)
         {
             if (!_level.HasFlag(level))
+            {
                 return;
+            }
 
             var type = LevelToEventLogEntryType(level);
 
@@ -208,7 +215,9 @@ namespace CrispyWaffle.Log.Adapters
         {
 
             if (!_level.HasFlag(level))
+            {
                 return;
+            }
 
             var type = LevelToEventLogEntryType(level);
 
@@ -279,7 +288,9 @@ namespace CrispyWaffle.Log.Adapters
             where T : class
         {
             if (!_level.HasFlag(LogLevel.DEBUG))
+            {
                 return;
+            }
 
             var contentAsString = customFormat == SerializerFormat.NONE
                 ? content.GetSerializer()

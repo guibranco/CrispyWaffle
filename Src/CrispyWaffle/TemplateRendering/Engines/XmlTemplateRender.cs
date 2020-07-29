@@ -25,10 +25,16 @@
             var document = (XNode)data;
             var xsl = new XslCompiledTransform();
             using (var stringReader = new StringReader(template))
+            {
                 xsl.Load(XmlReader.Create(stringReader));
+            }
+
             var stringBuilder = new StringBuilder();
             using (var stringWriter = new StringWriter(stringBuilder))
+            {
                 xsl.Transform(document.CreateReader(), null, new XmlTextWriter(stringWriter));
+            }
+
             return stringBuilder.ToString();
         }
 

@@ -1,4 +1,5 @@
 ﻿using CrispyWaffle.Composition;
+using CrispyWaffle.Log;
 using CrispyWaffle.Tests.Composition;
 using System;
 using Xunit.Abstractions;
@@ -20,7 +21,7 @@ namespace CrispyWaffle.Tests
             ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
 
-            //LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
+            LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace CrispyWaffle.Tests
         /// <param name="testOutputHelper">The test output helper.</param>
         public void SetLog(ITestOutputHelper testOutputHelper)
         {
-            testOutputHelper.WriteLine("teste");
+            testOutputHelper.WriteLine("Tests");
         }
 
         #region IDisposable Support
@@ -46,7 +47,10 @@ namespace CrispyWaffle.Tests
         protected virtual void Dispose(bool disposing)
         {
             if (_disposedValue)
+            {
                 return;
+            }
+
             if (disposing)
             {
                 //ServiceLocator.DisposeAllRegistrations();

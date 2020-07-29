@@ -32,11 +32,16 @@ namespace CrispyWaffle.Log.Providers
         public ConsoleLogProvider(IConsoleLogAdapter adapter)
         {
             if (_adapter != null)
+            {
                 return;
+            }
+
             lock (SyncRoot)
             {
                 if (_adapter == null)
+                {
                     _adapter = adapter;
+                }
             }
         }
 

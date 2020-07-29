@@ -23,12 +23,21 @@
         public static string ValidateEmailAddress(this string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
+            {
                 throw new InvalidEmailAddressException(string.Empty);
+            }
+
             var isValid = NetworkValidations.EmailAddressPattern.IsMatch(emailAddress);
             if (isValid && !emailAddress.EndsWith(@"combr"))
+            {
                 return emailAddress;
+            }
+
             if (emailAddress.EndsWith(@"combr") || emailAddress.Contains(@","))
+            {
                 return emailAddress.Replace(@"combr", @"com.br").Replace(@",", @".");
+            }
+
             throw new InvalidEmailAddressException(emailAddress);
         }
 
@@ -73,7 +82,9 @@
             var sum = 0;
 
             for (var i = 0; i < multiplier.Length; i++)
+            {
                 sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplier[i];
+            }
 
             var rest = sum % 11;
 
@@ -97,10 +108,14 @@
             document = document.RemoveNonNumeric();
 
             if (document.Length != 11)
+            {
                 throw new InvalidDocumentException("CPF", document);
+            }
 
             if (SameNumberDocumentPattern.IsMatch(document))
+            {
                 throw new InvalidDocumentException("CPF", document);
+            }
 
             var working = document.Substring(0, 9);
 
@@ -131,10 +146,14 @@
             document = document.RemoveNonNumeric();
 
             if (document.Length != 14)
+            {
                 throw new InvalidDocumentException("CNPJ", document);
+            }
 
             if (SameNumberDocumentPattern.IsMatch(document))
+            {
                 throw new InvalidDocumentException("CNPJ", document);
+            }
 
             var working = document.Substring(0, 12);
 

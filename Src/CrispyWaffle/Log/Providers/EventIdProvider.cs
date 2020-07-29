@@ -18,7 +18,10 @@ namespace CrispyWaffle.Log.Providers
         /// <returns>A 32-bit hash of the template.</returns>
         static int Compute(string message)
         {
-            if (message == null) throw new ArgumentNullException(nameof(message));
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
 
             // Jenkins one-at-a-time https://en.wikipedia.org/wiki/Jenkins_hash_function
             unchecked

@@ -96,7 +96,9 @@ namespace CrispyWaffle.Cryptography
         {
 
             if (!hashAlgorithms.ContainsKey(type))
+            {
                 throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid algorithm type");
+            }
 
             var algorithm = hashAlgorithms[type];
 
@@ -105,9 +107,11 @@ namespace CrispyWaffle.Cryptography
             var result = new StringBuilder();
 
             foreach (var t in hash)
+            {
                 result.Append(type == HashAlgorithmType.MD5
-                                  ? t.ToString(@"x2")
-                                  : t.ToString(CultureInfo.InvariantCulture));
+                    ? t.ToString(@"x2")
+                    : t.ToString(CultureInfo.InvariantCulture));
+            }
 
             return result.ToString();
         }

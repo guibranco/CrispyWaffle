@@ -45,10 +45,16 @@
         {
             if (!forceDifferentValue &&
                 currentValue % multipleOf == 0)
+            {
                 return currentValue;
+            }
+
             var left = currentValue % multipleOf;
             if (left == 1)
+            {
                 return currentValue - 1;
+            }
+
             var half = multipleOf / 2;
 
             return left >= half

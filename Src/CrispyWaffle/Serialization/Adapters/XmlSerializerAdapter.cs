@@ -54,9 +54,14 @@
         {
             var fileName = Path.GetFileName(file);
             if (string.IsNullOrWhiteSpace(fileName))
+            {
                 throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+            }
+
             if (!File.Exists(file))
+            {
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
+            }
 
             using (var sr = new StreamReader(file, Encoding.UTF8))
             {
@@ -105,10 +110,14 @@
             try
             {
                 if (string.IsNullOrWhiteSpace(file))
+                {
                     throw new LocalFileNotFoundException(null, null);
+                }
 
                 if (File.Exists(file))
+                {
                     File.Delete(file);
+                }
 
                 using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
                 {

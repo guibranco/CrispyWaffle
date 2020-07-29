@@ -92,7 +92,9 @@ namespace CrispyWaffle.Composition
         protected virtual void Dispose(bool disposing)
         {
             if (disposing && IsValueCreated)
+            {
                 Value.Dispose();
+            }
         }
     }
 }

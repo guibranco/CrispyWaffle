@@ -63,7 +63,10 @@
         public static DateTime ToDateTime(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 throw new ArgumentNullException(nameof(input), "Input value cannot be null");
+            }
+
             input = input.ToLower().Trim();
             switch (input)
             {
@@ -82,14 +85,20 @@
                     return DateTime.Today.AddDays(1);
                 default:
                     if (DateTime.TryParse(input, out var result))
+                    {
                         return result;
+                    }
+
                     if (input.Length == 10 &&
                         DateTime.TryParseExact(input,
-                                               @"dd/MM/yyyy",
-                                               CultureInfo.InvariantCulture,
-                                               DateTimeStyles.None,
-                                               out result))
+                            @"dd/MM/yyyy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out result))
+                    {
                         return result;
+                    }
+
                     throw new ArgumentOutOfRangeException(nameof(input), input, "Unable to parse the string to a valid datetime");
             }
         }
@@ -107,7 +116,10 @@
         {
             value = DateTime.MinValue;
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return false;
+            }
+
             input = input.ToLower().Trim();
             switch (input)
             {
@@ -143,7 +155,9 @@
                 default:
 
                     if (DateTime.TryParse(input, out value))
+                    {
                         return true;
+                    }
 
                     return input.Length == 10 && DateTime.TryParseExact(input, @"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
             }
@@ -157,7 +171,9 @@
         public static int ToInt32(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return 0;
+            }
 
             var success = int.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
 
@@ -172,7 +188,9 @@
         public static long ToInt64(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return 0;
+            }
 
             var success = long.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
 
@@ -187,7 +205,9 @@
         public static decimal ToDecimal(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return 0M;
+            }
 
             return decimal.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result)
                 ? result
@@ -251,7 +271,9 @@
             var result = new PhoneNumber(0, 0, 0);
 
             if (number.TryParseBrazilianPhoneNumber(ref result))
+            {
                 return result;
+            }
 
             throw new InvalidTelephoneNumberException(number.RemoveNonNumeric());
         }
@@ -275,7 +297,9 @@
 
             if (dirtyLength < 10 ||
                 dirtyLength > 12)
+            {
                 return false;
+            }
 
             var prefix = dirty.Substring(0, 1).Equals(@"0", StringExtensions.Comparison) &&
                          (dirtyLength == 11 || dirtyLength == 12)
@@ -302,10 +326,14 @@
         public static string ToPrettyString(this string json)
         {
             if (string.IsNullOrWhiteSpace(json))
+            {
                 return string.Empty;
+            }
 
             if (!json.IsValidJson())
+            {
                 return json;
+            }
 
             var parsedJson = JToken.Parse(json);
 
@@ -320,7 +348,9 @@
         public static string ToIdentString(this XmlDocument document)
         {
             if (document == null)
+            {
                 return null;
+            }
 
             var builder = new StringBuilder();
 
@@ -333,7 +363,9 @@
             };
 
             using (var writer = XmlWriter.Create(builder, settings))
+            {
                 document.Save(writer);
+            }
 
             return builder.ToString();
         }
@@ -358,7 +390,9 @@
                 var multiplication = number.Substring(counter, 1).ToInt32() * weight;
 
                 if (multiplication >= 10)
+                {
                     multiplication = 1 + (multiplication - 10);
+                }
 
                 sum += multiplication;
 
@@ -370,7 +404,9 @@
             var digit = 10 - sum % 10;
 
             if (digit == 10)
+            {
                 digit = 0;
+            }
 
             return digit;
         }
@@ -393,17 +429,23 @@
         public static string ToOrdinal(this long number)
         {
             if (number < 0)
+            {
                 return number.ToString();
+            }
 
             var rem = number % 100;
 
             if (rem >= 11 && rem <= 13)
+            {
                 return $"{number}th";
+            }
 
 
             var key = (int)number % 10;
             if (OrdinalSuffix.ContainsKey(key))
+            {
                 return $"{number}{OrdinalSuffix[key]}";
+            }
 
             return $"{number}th";
         }
@@ -426,7 +468,10 @@
         public static string FormatBrazilianDocument(this string document)
         {
             if (string.IsNullOrWhiteSpace(document))
+            {
                 return "Invalid document";
+            }
+
             var documentPattern = document.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
             return string.Format(documentPattern, document.RemoveNonNumeric().ToInt64());
         }
@@ -456,7 +501,9 @@
             var ctor = constructors.FirstOrDefault();
 
             if (ctor == null)
+            {
                 return default;
+            }
 
             var arguments = new List<object>();
             var parameters = ctor.GetParameters();
@@ -484,7 +531,9 @@
                 BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
 
             if (property == null && !useNonPublic)
+            {
                 return;
+            }
 
             if (property == null)
             {
@@ -492,11 +541,15 @@
                     BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
 
                 if (property == null)
+                {
                     return;
+                }
             }
 
             if (property.PropertyType != parameter.ParameterType)
+            {
                 return;
+            }
 
             arguments.Add(property.GetValue(instance));
         }

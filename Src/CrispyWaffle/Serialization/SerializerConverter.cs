@@ -46,7 +46,10 @@
         public static implicit operator XmlDocument(SerializerConverter<T> instance)
         {
             if (!(instance?._formatter is XmlSerializerAdapter))
+            {
                 return null;
+            }
+
             Stream stream = null;
             var xml = new XmlDocument();
             try
@@ -75,7 +78,10 @@
         public static implicit operator JToken(SerializerConverter<T> instance)
         {
             if (!(instance._formatter is JsonSerializerAdapter))
+            {
                 return null;
+            }
+
             TextReader textReader = null;
             try
             {
@@ -114,7 +120,9 @@
         public static implicit operator byte[](SerializerConverter<T> instance)
         {
             if (!(instance._formatter is BinarySerializerAdapter))
+            {
                 return null;
+            }
 
             Stream stream = null;
             MemoryStream memoryStream = null;
@@ -160,7 +168,9 @@
                 var settings = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, NewLineOnAttributes = true };
 
                 using (var xmlWriter = XmlWriter.Create(builder, settings))
+                {
                     xml.WriteContentTo(xmlWriter);
+                }
 
                 return builder.ToString();
 
@@ -171,7 +181,10 @@
                 return json.ToString();
             }
             if (!(instance._formatter is BinarySerializerAdapter))
+            {
                 throw new InvalidOperationException($"he type {typeof(T).FullName} doesn't allow string explicit conversion");
+            }
+
             byte[] bytes = instance;
             var binary = bytes.ToBinaryString();
             return string.Join(@" ", binary);

@@ -66,7 +66,10 @@
         public T Get<T>(string key)
         {
             if (!Data.TryGetValue(key, out var value))
+            {
                 throw new InvalidOperationException($"Unable to get the item with key {key}");
+            }
+
             return (T)value;
         }
 
@@ -82,7 +85,10 @@
         {
             var finalKey = $@"{key}-{subKey}";
             if (!Hash.TryGetValue(finalKey, out var value))
+            {
                 throw new InvalidOperationException($"Unable to get the item with key {key} and sub key {subKey}");
+            }
+
             return (T)value;
         }
 
@@ -98,7 +104,10 @@
         {
             value = default;
             if (!Data.TryGetValue(key, out var temp))
+            {
                 return false;
+            }
+
             value = (T)temp;
             return true;
         }
@@ -116,7 +125,10 @@
             value = default;
             var finalKey = $@"{key}-{subKey}";
             if (!Hash.TryGetValue(finalKey, out var temp))
+            {
                 return false;
+            }
+
             value = (T)temp;
             return true;
         }
@@ -129,7 +141,9 @@
         public void Remove(string key)
         {
             if (Data.ContainsKey(key))
+            {
                 Data.TryRemove(key, out _);
+            }
         }
 
         /// <summary>
@@ -141,7 +155,9 @@
         {
             var finalKey = $@"{key}-{subKey}";
             if (Data.ContainsKey(finalKey))
+            {
                 Hash.TryRemove(finalKey, out _);
+            }
         }
 
         /// <summary>
