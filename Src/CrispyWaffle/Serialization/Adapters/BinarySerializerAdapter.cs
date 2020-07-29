@@ -56,10 +56,14 @@
         public T Load<T>(string file) where T : class
         {
             if (string.IsNullOrWhiteSpace(file))
+            {
                 throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+            }
 
             if (!File.Exists(file))
+            {
                 throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
+            }
 
             var fileName = Path.GetFileName(file);
             var folder = Path.GetDirectoryName(file);
@@ -157,10 +161,14 @@
             try
             {
                 if (string.IsNullOrWhiteSpace(file))
+                {
                     throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+                }
 
                 if (File.Exists(file))
+                {
                     File.Delete(file);
+                }
 
                 using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
                 {

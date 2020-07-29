@@ -87,10 +87,16 @@
         public void Reset()
         {
             if (_mode != LazyThreadSafetyMode.None)
+            {
                 lock (_syncLock)
+                {
                     _box = null;
+                }
+            }
             else
+            {
                 _box = null;
+            }
         }
 
         /// <summary>
@@ -125,7 +131,9 @@
             {
                 var b1 = _box;
                 if (b1 != null)
+                {
                     return b1.Value;
+                }
 
                 switch (_mode)
                 {
@@ -134,7 +142,10 @@
                         {
                             var b2 = _box;
                             if (b2 != null)
+                            {
                                 return b2.Value;
+                            }
+
                             _box = new Box(_valueFactory());
                             return _box.Value;
                         }
@@ -144,7 +155,10 @@
                         {
                             var b2 = _box;
                             if (b2 != null)
+                            {
                                 return b2.Value;
+                            }
+
                             _box = new Box(newValue);
                             return _box.Value;
                         }

@@ -34,7 +34,9 @@
                 handling = handling.InnerException;
 
                 if (handling != null)
+                {
                     types.Add(handling.GetType());
+                }
             }
 
             result = new Queue<Exception>(result.Reverse());
@@ -60,17 +62,21 @@
                 var current = exceptions.Dequeue();
 
                 if (counter > 0)
+                {
                     message.Append("Exception rethrow at")
-                           .Append(@" [")
-                           .Append(counter)
-                           .Append(@"]: ");
+                        .Append(@" [")
+                        .Append(counter)
+                        .Append(@"]: ");
+                }
 
                 message.Append(current.Message).AppendFormat(" [{0}]", current.GetType().Name).AppendLine().AppendLine(current.StackTrace);
 
                 counter++;
 
                 foreach (var additionalProvider in additionalProviders)
+                {
                     additionalProvider.Error(category, current.Message);
+                }
             }
 
             return message.ToString();

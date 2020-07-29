@@ -105,7 +105,9 @@ namespace CrispyWaffle.Composition
             catch (Exception e)
             {
                 if (!NotLoadedAssemblies.Keys.Contains(missingAssembly.FullName))
+                {
                     NotLoadedAssemblies.Add(missingAssembly.FullName, e);
+                }
             }
         }
 
@@ -147,7 +149,9 @@ namespace CrispyWaffle.Composition
                 {
                     RegistrationsCalls[contract]++;
                     lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
+                    {
                         return lazy.Value;
+                    }
                 },
                 (key, existingValue) => () => existingValue);
         }
@@ -165,7 +169,9 @@ namespace CrispyWaffle.Composition
                 {
                     RegistrationsCalls[contract]++;
                     lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
+                    {
                         return lazyDisposable.Value;
+                    }
                 },
                 (key, existingValue) => () => existingValue);
         }
@@ -228,7 +234,9 @@ namespace CrispyWaffle.Composition
                 {
                     RegistrationsCalls[contract]++;
                     lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                    {
                         return lazy.Value;
+                    }
                 },
                 (key, existingValue) => () => existingValue);
         }
@@ -248,7 +256,9 @@ namespace CrispyWaffle.Composition
                 {
                     RegistrationsCalls[contract]++;
                     lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                    {
                         return lazyDisposable.Value;
+                    }
                 },
                 (key, existingValue) => () => existingValue);
         }
@@ -281,16 +291,24 @@ namespace CrispyWaffle.Composition
             if (!Instances.ContainsKey(contract))
             {
                 lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                {
                     if (!Instances.ContainsKey(contract))
+                    {
                         Instances.TryAdd(contract,
-                                         TypesCache.Where(t => contract.IsAssignableFrom(t) && !t.IsAbstract).ToList());
-
+                            TypesCache.Where(t => contract.IsAssignableFrom(t) && !t.IsAbstract).ToList());
+                    }
+                }
             }
 
             if (!Instances.TryGetValue(contract, out var types))
+            {
                 yield break;
+            }
+
             foreach (var type in types)
+            {
                 yield return GetInstance(type);
+            }
         }
 
         /// <summary>
@@ -340,17 +358,21 @@ namespace CrispyWaffle.Composition
         private static object CreateInstanceInternal(Type implementationType)
         {
             if (DependenciesCache.TryGetValue(implementationType, out var dependencies))
+            {
                 return Activator.CreateInstance(implementationType, dependencies.Select((type, i) => GetInstanceWithContext(type, implementationType, i))
                     .ToArray());
+            }
 
             lock (Locks.GetOrAdd(implementationType.FullName ?? implementationType.Name, new object()))
             {
                 if (DependenciesCache.TryGetValue(implementationType, out dependencies))
+                {
                     return Activator.CreateInstance(implementationType,
                         dependencies
                             .Select((type, i) =>
                                 GetInstanceWithContext(type, implementationType, i))
                             .ToArray());
+                }
 
                 var constructors = implementationType.GetConstructors();
 
@@ -359,7 +381,9 @@ namespace CrispyWaffle.Composition
                     : ResolveMultipleConstructors(constructors, implementationType);
 
                 if (ctor == null)
+                {
                     return null;
+                }
 
                 dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
                 DependenciesCache.Add(implementationType, dependencies);
@@ -405,7 +429,10 @@ namespace CrispyWaffle.Composition
                 ? constructors.Single()
                 : ResolveMultipleConstructors(constructors, implementationType);
             if (ctor == null)
+            {
                 return null;
+            }
+
             var dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
             var arguments = dependencies.Select((type, i) =>
                 parameters.ContainsKey(i)
@@ -451,9 +478,15 @@ namespace CrispyWaffle.Composition
                                    t.GetConstructors().Any(c => !c.GetParameters().Any()))
                         .ToList();
             if (types.Count == 0)
+            {
                 return null;
+            }
+
             if (types.Count > 1)
+            {
                 throw new TooManyImplementationsException(type);
+            }
+
             var instance = GetInstance(types.Single());
             Registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
             return instance;
@@ -576,7 +609,10 @@ namespace CrispyWaffle.Composition
             LogConsumer.Trace("Service locator statistics");
             var temp = new Dictionary<Type, int>(RegistrationsCalls);
             foreach (var calls in temp)
+            {
                 TelemetryAnalytics.TrackDependency(calls.Key, calls.Value);
+            }
+
             var type = typeof(IDisposable);
             var instances = RegistrationsCalls
                 .Where(call => call.Value > 0)
@@ -586,8 +622,9 @@ namespace CrispyWaffle.Composition
                                                         .ToList();
 
             foreach (var instance in instances)
+            {
                 ((IDisposable)instance.Value()).Dispose();
-
+            }
         }
 
         #endregion
@@ -647,7 +684,10 @@ namespace CrispyWaffle.Composition
         {
             var instance = TryGetInstance(contract);
             if (instance != null)
+            {
                 return instance;
+            }
+
             throw new InvalidOperationException($"No registrations for {contract}");
         }
 
@@ -662,7 +702,10 @@ namespace CrispyWaffle.Composition
         {
             var instance = CreateInstanceWith(contract, parameters);
             if (instance != null)
+            {
                 return instance;
+            }
+
             throw new InvalidOperationException($"No registrations for {contract}");
         }
 
@@ -674,7 +717,10 @@ namespace CrispyWaffle.Composition
         public static object TryGetInstance(Type contract)
         {
             if (Registrations.TryGetValue(contract, out var creator))
+            {
                 return creator();
+            }
+
             return !contract.IsAbstract
                 ? CreateInstance(contract)
                 : TryAutoRegistration(contract);
@@ -691,7 +737,9 @@ namespace CrispyWaffle.Composition
         public static bool RequestCancellation()
         {
             if (!CancellationTokenSource.Token.CanBeCanceled)
+            {
                 return false;
+            }
 
             CancellationTokenSource.Cancel();
             return true;

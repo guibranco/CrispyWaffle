@@ -58,7 +58,9 @@
         private static string ExtractQuerystring(string s)
         {
             if (string.IsNullOrWhiteSpace(s) || s.Contains(@"?"))
+            {
                 return s;
+            }
 
             return s.Substring(s.IndexOf(@"?", StringComparison.Ordinal) + 1);
         }
@@ -72,9 +74,14 @@
         {
             Clear();
             if (string.IsNullOrWhiteSpace(s))
+            {
                 return;
+            }
+
             foreach (var split in from keyValuePair in ExtractQuerystring(s).Split('&') where !string.IsNullOrWhiteSpace(keyValuePair) select keyValuePair.Split('='))
+            {
                 base.Add(split[0], split.Length == 2 ? split[1] : "");
+            }
         }
 
         #endregion
@@ -111,17 +118,30 @@
         public QueryStringBuilder Add(string name, string value, bool isUnique = false)
         {
             if (name == null)
+            {
                 throw new ArgumentNullException(nameof(name));
+            }
+
             if (value == null)
+            {
                 throw new ArgumentNullException(nameof(value));
+            }
+
             var existingValue = base[name];
             var urlEncoded = HttpUtility.UrlEncode(value);
             if (string.IsNullOrWhiteSpace(existingValue) && !string.IsNullOrWhiteSpace(urlEncoded))
+            {
                 base.Add(name, urlEncoded);
+            }
             else if (isUnique)
+            {
                 base[name] = urlEncoded;
+            }
             else
+            {
                 base[name] += @"," + urlEncoded;
+            }
+
             return this;
         }
 
@@ -148,7 +168,10 @@
         public QueryStringBuilder AddRange(Dictionary<string, string> items, bool isUnique = false)
         {
             foreach (var item in items)
+            {
                 Add(item.Key, item.Value, isUnique);
+            }
+
             return this;
         }
 
@@ -166,12 +189,21 @@
             foreach (var property in typeProperties)
             {
                 if (property.QueryStringBuilderIgnore())
+                {
                     continue;
+                }
+
                 var propertyName = property.GetQueryStringBuilderKeyName() ?? property.Name;
                 if (convertCamelCaseToUnderscore)
+                {
                     propertyName = string.Concat(propertyName.Select((x, i) => i > 0 && char.IsUpper(x) ? @"_" + x.ToString(CultureInfo.InvariantCulture).ToLower() : x.ToString(CultureInfo.InvariantCulture)));
+                }
+
                 if (propertyName.StartsWith(type.Name, StringExtensions.Comparison))
+                {
                     propertyName = $@"{type.Name.ToLower()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
+                }
+
                 var value = property.GetValue(instance, null);
                 Add(propertyName, value?.ToString() ?? string.Empty);
             }
@@ -187,7 +219,10 @@
         {
             var existingValue = base[name];
             if (!string.IsNullOrWhiteSpace(existingValue))
+            {
                 base.Remove(name);
+            }
+
             return this;
         }
 
@@ -242,9 +277,14 @@
             for (var i = 0; i < Keys.Count; i++)
             {
                 if (!includeNullFields && string.IsNullOrWhiteSpace(Keys[i]))
+                {
                     continue;
+                }
+
                 foreach (var val in base[Keys[i]].Split(','))
+                {
                     builder.Append(builder.Length == 0 ? @"?" : @"&").Append(HttpUtility.UrlEncode(Keys[i])).Append(@"=").Append(val);
+                }
             }
             return builder.ToString();
         }

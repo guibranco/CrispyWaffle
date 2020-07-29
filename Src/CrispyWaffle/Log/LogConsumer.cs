@@ -94,10 +94,14 @@ namespace CrispyWaffle.Log
                 var method = stack.GetFrame(counter++).GetMethod();
 
                 if (method == null)
+                {
                     return @"CrispyWaffle";
+                }
 
                 if (GetNamespace(method, out var category))
+                {
                     return category;
+                }
             }
         }
 
@@ -120,10 +124,14 @@ namespace CrispyWaffle.Log
 
             if (ns.StartsWith(@"CrispyWaffle.Log") ||
                 ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
+            {
                 return false;
+            }
 
             if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+            {
                 ns = ns.Substring(13);
+            }
 
             category = ns;
             return true;
@@ -188,12 +196,16 @@ namespace CrispyWaffle.Log
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
 
             if (provider == null)
+            {
                 return false;
+            }
 
             var category = GetCategory();
 
             if (Filters.Any(f => !f.Filter(type.FullName, level, category, message)))
+            {
                 return false;
+            }
 
             LogToInternal(level, message, provider, category);
 
@@ -250,12 +262,16 @@ namespace CrispyWaffle.Log
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
 
             if (provider == null)
+            {
                 return false;
+            }
 
             var category = GetCategory();
 
             if (Filters.Any(f => !f.Filter(type.FullName, LogLevel.DEBUG, category, content)))
+            {
                 return false;
+            }
 
             provider.Debug(category, content, identifier);
 
@@ -283,12 +299,16 @@ namespace CrispyWaffle.Log
             var provider = Providers.SingleOrDefault(p => type == p.GetType());
 
             if (provider == null)
+            {
                 return false;
+            }
 
             var category = GetCategory();
 
             if (Filters.Any(f => !f.Filter(type.FullName, LogLevel.DEBUG, category, string.Empty)))
+            {
                 return false;
+            }
 
             provider.Debug(category, content, identifier, customFormat);
 
@@ -305,7 +325,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, message))))
+            {
                 provider.Debug(category, message);
+            }
         }
 
         /// <summary>
@@ -329,7 +351,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, content))))
+            {
                 provider.Debug(category, content, identifier);
+            }
         }
 
         /// <summary>
@@ -346,7 +370,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.DEBUG, category, string.Empty))))
+            {
                 provider.Debug(category, content, identifier, customFormat);
+            }
         }
 
         /// <summary>
@@ -359,7 +385,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
+            {
                 provider.Trace(category, message);
+            }
         }
 
         /// <summary>
@@ -383,7 +411,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, message))))
+            {
                 provider.Trace(category, message, exception);
+            }
         }
 
         /// <summary>
@@ -407,7 +437,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.TRACE, category, exception.Message))))
+            {
                 provider.Trace(category, exception);
+            }
         }
 
         /// <summary>
@@ -420,7 +452,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.INFO, category, message))))
+            {
                 provider.Info(category, message);
+            }
         }
 
         /// <summary>
@@ -443,7 +477,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.WARNING, category, message))))
+            {
                 provider.Warning(category, message);
+            }
         }
 
         /// <summary>
@@ -466,7 +502,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.ERROR, category, message))))
+            {
                 provider.Error(category, message);
+            }
         }
 
         /// <summary>
@@ -489,7 +527,9 @@ namespace CrispyWaffle.Log
 
             foreach (var provider in Providers.Where(p =>
                 Filters.All(f => f.Filter(p.GetType().FullName, LogLevel.FATAL, category, message))))
+            {
                 provider.Fatal(category, message);
+            }
         }
 
         /// <summary>

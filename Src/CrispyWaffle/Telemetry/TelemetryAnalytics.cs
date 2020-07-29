@@ -55,7 +55,9 @@
         {
             LogConsumer.Trace("Tracking hit of {0}", hitName);
             foreach (var client in Clients)
+            {
                 client.TrackHit(hitName);
+            }
         }
 
         /// <summary>
@@ -68,8 +70,13 @@
             int temp;
             LogConsumer.Trace("Getting hits of {0}", hitName);
             foreach (var client in Clients)
+            {
                 if ((temp = client.GetHit(hitName)) > 0)
+                {
                     return temp;
+                }
+            }
+
             return 0;
         }
 
@@ -81,7 +88,9 @@
         {
             LogConsumer.Trace("Removing hits of {0}", hitName);
             foreach (var client in Clients)
+            {
                 client.RemoveHit(hitName);
+            }
         }
 
         /// <summary>
@@ -93,7 +102,9 @@
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
             foreach (var client in Clients)
+            {
                 client.TrackEvent(@event);
+            }
         }
 
         /// <summary>
@@ -106,7 +117,9 @@
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
             foreach (var client in Clients)
+            {
                 client.TrackEvent(@event, ttl);
+            }
         }
 
         /// <summary>
@@ -120,8 +133,13 @@
             LogConsumer.Trace("Getting event of type {0} with key {1}", typeof(TEvent).FullName, @event.Name);
             TEvent result;
             foreach (var client in Clients)
+            {
                 if ((result = client.GetEvent(@event)) != null)
+                {
                     return result;
+                }
+            }
+
             return null;
         }
 
@@ -139,7 +157,9 @@
             {
                 result = client.GetMetric(metricName, variation);
                 if (result != 0)
+                {
                     break;
+                }
             }
             return result;
         }
@@ -153,7 +173,9 @@
         {
             LogConsumer.Trace("Tracking metric {0} with variation {1}", metricName, variation);
             foreach (var client in Clients)
+            {
                 client.TrackMetric(metricName, variation);
+            }
         }
 
         /// <summary>
@@ -165,7 +187,9 @@
         {
             LogConsumer.Trace("Deleting metric {0} with variation {1}", metricName, variation);
             foreach (var client in Clients)
+            {
                 client.RemoveMetric(metricName, variation);
+            }
         }
 
         /// <summary>
@@ -176,7 +200,9 @@
         {
             LogConsumer.Trace("Tracking exception of type {0}", exceptionType.FullName);
             foreach (var client in Clients)
+            {
                 client.TrackException(exceptionType);
+            }
         }
 
         /// <summary>
@@ -193,7 +219,9 @@
                                   ? string.Empty
                                   : @"s");
             foreach (var client in Clients)
+            {
                 client.TrackDependency(interfaceType, resolvedTimes);
+            }
         }
 
         #endregion

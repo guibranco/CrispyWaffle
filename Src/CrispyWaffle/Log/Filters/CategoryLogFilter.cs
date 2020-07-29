@@ -72,7 +72,10 @@
         public bool Filter(string providerType, LogLevel level, string category, string message)
         {
             if (!string.IsNullOrWhiteSpace(_provider) && !_provider.Equals(providerType))
+            {
                 return true;
+            }
+
             return _isExclusive ? !_categories.Contains(category) : _categories.Contains(category);
         }
 

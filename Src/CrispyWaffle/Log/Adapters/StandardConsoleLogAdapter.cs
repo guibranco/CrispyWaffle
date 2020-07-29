@@ -90,7 +90,9 @@
             _level = LogLevel.PRODUCTION;
 
             using (var stream = Console.OpenStandardInput(1))
+            {
                 _isConsoleEnabled = stream != Stream.Null;
+            }
         }
 
         /// <summary>
@@ -115,7 +117,10 @@
         {
             if (!_level.HasFlag(level) ||
                 !_isConsoleEnabled)
+            {
                 return;
+            }
+
             lock (SyncRoot)
             {
                 Console.ForegroundColor = ColorsByLevel[level];
@@ -134,7 +139,9 @@
         {
             if (!_level.HasFlag(level) ||
                 !_isConsoleEnabled)
+            {
                 return;
+            }
 
             lock (SyncRoot)
             {
@@ -194,9 +201,13 @@
         public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE) where T : class
         {
             if (customFormat == SerializerFormat.NONE)
+            {
                 WriteInternal(LogLevel.DEBUG, (string)content.GetSerializer());
+            }
             else
+            {
                 WriteInternal(LogLevel.DEBUG, (string)content.GetCustomSerializer(customFormat));
+            }
         }
 
         /// <summary>

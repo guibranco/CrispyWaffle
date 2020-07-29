@@ -1,4 +1,17 @@
-﻿using System.Reflection;
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle
+// Author           : Guilherme Branco Stracini
+// Created          : 07-29-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 07-29-2020
+// ***********************************************************************
+// <copyright file="DefaultExceptionHandler.cs" company="Guilherme Branco Stracini ME">
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Reflection;
 
 namespace CrispyWaffle.Log.Handlers
 {
@@ -24,43 +37,7 @@ namespace CrispyWaffle.Log.Handlers
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders;
-
-        #endregion
-
-        #region ~Ctor
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultExceptionHandler"/> class.
-        /// </summary>
-        static DefaultExceptionHandler()
-        {
-            AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>
-            {
-                new Tuple<ILogProvider, ExceptionLogType>(ServiceLocator.Resolve<TextFileLogProvider>(),ExceptionLogType.MESSAGE)
-            };
-            try
-            {
-                bool consoleAvailable;
-
-                using (var stream = Console.OpenStandardInput(1))
-                {
-                    consoleAvailable = stream != Stream.Null;
-                }
-
-                if (!consoleAvailable)
-                    return;
-
-                var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
-
-                if (instance != null)
-                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.MESSAGE));
-            }
-            catch (Exception e)
-            {
-                LogConsumer.Handle(e);
-            }
-        }
+        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders = AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 
@@ -69,7 +46,7 @@ namespace CrispyWaffle.Log.Handlers
         /// <summary>
         /// Gets the category.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         private static string GetCategory()
         {
             var stack = new StackTrace();
@@ -81,10 +58,14 @@ namespace CrispyWaffle.Log.Handlers
                 var method = stack.GetFrame(counter++).GetMethod();
 
                 if (method == null)
+                {
                     return @"CrispyWaffle";
+                }
 
                 if (GetNamespace(method, out var category))
+                {
                     return category;
+                }
             }
         }
 
@@ -106,10 +87,14 @@ namespace CrispyWaffle.Log.Handlers
             }
 
             if (ns.StartsWith(@"CrispyWaffle.Log"))
+            {
                 return false;
+            }
 
             if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+            {
                 ns = ns.Substring(13);
+            }
 
             category = ns;
             return true;
@@ -126,12 +111,16 @@ namespace CrispyWaffle.Log.Handlers
             var exceptions = exception.ToQueue(out var types);
 
             foreach (var type in types)
+            {
                 TelemetryAnalytics.TrackException(type);
+            }
 
             var messages = exceptions.GetMessages(category, AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.MESSAGE).Select(p => p.Item1).ToList());
 
             foreach (var additionalProvider in AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.FULL))
+            {
                 additionalProvider.Item1.Error(category, messages);
+            }
         }
 
         #endregion
@@ -177,7 +166,8 @@ namespace CrispyWaffle.Log.Handlers
         /// Adds the log provider.
         /// </summary>
         /// <typeparam name="TILogProvider">The type of the i log provider.</typeparam>
-        /// <returns></returns>
+        /// <param name="type">The type.</param>
+        /// <returns>ILogProvider.</returns>
         public ILogProvider AddLogProvider<TILogProvider>(ExceptionLogType type) where TILogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TILogProvider>();
@@ -185,6 +175,63 @@ namespace CrispyWaffle.Log.Handlers
             AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
 
             return provider;
+        }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Tries the add console log provider.
+        /// </summary>
+        public static void TryAddConsoleLogProvider()
+        {
+            try
+            {
+                bool consoleAvailable;
+
+                using (var stream = Console.OpenStandardInput(1))
+                {
+                    consoleAvailable = stream != Stream.Null;
+                }
+
+                if (!consoleAvailable)
+                {
+                    return;
+                }
+
+                var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
+
+                if (instance != null)
+                {
+                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.MESSAGE));
+                }
+            }
+            catch (Exception)
+            {
+                //ignore handling
+            }
+        }
+
+        /// <summary>
+        /// Tries the add text file log provider.
+        /// </summary>
+        public static void TryAddTextFileLogProvider()
+        {
+            try
+            {
+
+                var instance = ServiceLocator.TryResolve<TextFileLogProvider>();
+
+                if (instance != null)
+                {
+                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.FULL));
+                }
+            }
+            catch (Exception)
+            {
+                //ignore handling
+            }
         }
 
         #endregion

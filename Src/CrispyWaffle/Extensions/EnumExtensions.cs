@@ -23,7 +23,10 @@
         {
             var type = typeof(T);
             if (!type.IsEnum)
+            {
                 throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
+            }
+
             var field = type.GetFields().Select(f =>
                     new
                     {
@@ -39,10 +42,13 @@
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)
+            {
                 throw new ArgumentOutOfRangeException(
                     nameof(humanReadableValue),
                     humanReadableValue,
                     $"Unable to find the field for {type.FullName} with value {humanReadableValue} in the attribute of type {typeof(HumanReadableAttribute).FullName}");
+            }
+
             return (T)field.GetValue(null);
 
         }
@@ -57,9 +63,14 @@
         {
             var type = typeof(T);
             if (!type.IsEnum)
+            {
                 throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
+            }
+
             if (internalValue == null)
+            {
                 return default;
+            }
 
             var field = type.GetFields().Select(f =>
                     new
@@ -76,10 +87,13 @@
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)
+            {
                 throw new ArgumentOutOfRangeException(
                     nameof(internalValue),
                     internalValue,
                     $"Unable to find the field for {type.FullName} with value {internalValue} in the attribute of type {typeof(InternalValueAttribute).FullName}");
+            }
+
             return (T)field.GetValue(null);
         }
 
@@ -109,7 +123,10 @@
             }
             var fieldInfo = type.GetField(value.ToString());
             if (fieldInfo == null)
+            {
                 throw new ArgumentNullException(nameof(value), "Input value cannot be null");
+            }
+
             return fieldInfo.GetCustomAttributes(typeof(HumanReadableAttribute), false) is HumanReadableAttribute[]
                        attributes && attributes.Length > 0
                        ? attributes[0].StringValue
@@ -161,11 +178,14 @@
             {
                 var bits = Convert.ToUInt64(value);
                 while (flag < bits)
+                {
                     flag <<= 1;
+                }
 
                 if (flag == bits && flags.HasFlag(value as Enum ?? throw new InvalidOperationException($"{nameof(value)} isn't a valid enum value")))
+                {
                     yield return value;
-
+                }
             }
         }
     }

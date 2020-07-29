@@ -68,7 +68,9 @@
         {
             SerializationKeyFilter = DynamicSerializationOption.NONE;
             foreach (var entry in info)
+            {
                 Dictionary.Add(entry.Name, entry.Value);
+            }
         }
 
         #endregion
@@ -180,7 +182,9 @@
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             foreach (var kvp in Dictionary)
+            {
                 info.AddValue(Filter(kvp.Key), kvp.Value);
+            }
         }
 
         /// <summary>
@@ -244,7 +248,10 @@
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
+            {
                 return false;
+            }
+
             return ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
         }
 
@@ -290,7 +297,10 @@
         public void ReadXml(XmlReader reader)
         {
             if (reader.MoveToContent() != XmlNodeType.Element)
+            {
                 return;
+            }
+
             reader.Read();
             while (!reader.EOF)
             {
