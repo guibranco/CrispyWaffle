@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Events
+﻿using CrispyWaffle.Log;
+
+namespace CrispyWaffle.Events
 {
     using Composition;
 
@@ -15,8 +17,13 @@
         public static void Raise<TEvent>(TEvent @event) where TEvent : IEvent
         {
             var handlers = ServiceLocator.ResolveAll<IEventHandler<TEvent>>();
+
             foreach (var handler in handlers)
+            {
+                LogConsumer.Trace($"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}");
+
                 handler.Handle(@event);
+            }
         }
     }
 }
