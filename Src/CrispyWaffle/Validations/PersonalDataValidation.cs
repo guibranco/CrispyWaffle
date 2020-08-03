@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Validations
+﻿using System.Globalization;
+
+namespace CrispyWaffle.Validations
 {
     using Extensions;
     using System.Text.RegularExpressions;
@@ -83,7 +85,7 @@
 
             for (var i = 0; i < multiplier.Length; i++)
             {
-                sum += working[i].ToString(StringExtensions.Culture).ToInt32() * multiplier[i];
+                sum += working[i].ToString(CultureInfo.CurrentCulture).ToInt32() * multiplier[i];
             }
 
             var rest = sum % 11;
@@ -121,7 +123,7 @@
 
             var rest = CalculateModule11(working, multiplierA);
 
-            var digit = rest.ToString(StringExtensions.Culture);
+            var digit = rest.ToString(CultureInfo.CurrentCulture);
 
             working = string.Concat(working, digit);
 
@@ -159,7 +161,7 @@
 
             var rest = CalculateModule11(working, multiplierA);
 
-            var digit = rest.ToString(StringExtensions.Culture);
+            var digit = rest.ToString(CultureInfo.CurrentCulture);
 
             working = string.Concat(working, digit);
 

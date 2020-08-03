@@ -67,7 +67,7 @@ namespace CrispyWaffle.Composition
                          .CurrentDomain
                          .GetAssemblies()
                          .SelectMany(a => a.GetTypes())
-                         .Where(a => a != null && a.Name.IndexOf(@"_canon", StringExtensions.Comparison) == -1)
+                         .Where(a => a != null && a.Name.IndexOf(@"_canon", StringComparison.InvariantCultureIgnoreCase) == -1)
                          .ToList();
             var cancellationToken = typeof(CancellationToken);
             RegistrationsCalls.Add(cancellationToken, 0);
