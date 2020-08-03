@@ -38,7 +38,7 @@
         /// <returns>The given data converted to a Boolean.</returns>
         public static bool ToBoolean(this string str, string validValueForTrue = "S")
         {
-            return str != null && str.Equals(validValueForTrue, StringExtensions.Comparison);
+            return str != null && str.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@
                 return 0;
             }
 
-            var success = int.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
+            var success = int.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result);
 
             return success ? result : 0;
         }
@@ -192,7 +192,7 @@
                 return 0;
             }
 
-            var success = long.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result);
+            var success = long.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result);
 
             return success ? result : 0;
         }
@@ -209,7 +209,7 @@
                 return 0M;
             }
 
-            return decimal.TryParse(input, NumberStyles.Number, StringExtensions.Culture, out var result)
+            return decimal.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result)
                 ? result
                 : 0M;
         }
@@ -301,13 +301,13 @@
                 return false;
             }
 
-            var prefix = dirty.Substring(0, 1).Equals(@"0", StringExtensions.Comparison) &&
+            var prefix = dirty.Substring(0, 1).Equals(@"0", StringComparison.InvariantCultureIgnoreCase) &&
                          (dirtyLength == 11 || dirtyLength == 12)
                              ? dirty.Substring(1, 2)
                              : dirty.Substring(0, 2);
 
             var hasNineDigits = dirty.Substring(dirtyLength - 9, 1)
-                                     .Equals(@"9", StringExtensions.Comparison);
+                                     .Equals(@"9", StringComparison.InvariantCultureIgnoreCase);
 
             var allowedDigits = hasNineDigits ? 9 : 8;
 

@@ -128,7 +128,7 @@ namespace CrispyWaffle.Log
                 return false;
             }
 
-            if (ns.StartsWith(@"CrispyWaffle.", StringExtensions.Comparison))
+            if (ns.StartsWith(@"CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
             {
                 ns = ns.Substring(13);
             }
