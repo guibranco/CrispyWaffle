@@ -199,7 +199,7 @@
                     propertyName = string.Concat(propertyName.Select((x, i) => i > 0 && char.IsUpper(x) ? @"_" + x.ToString(CultureInfo.InvariantCulture).ToLower() : x.ToString(CultureInfo.InvariantCulture)));
                 }
 
-                if (propertyName.StartsWith(type.Name, StringExtensions.Comparison))
+                if (propertyName.StartsWith(type.Name, StringComparison.InvariantCultureIgnoreCase))
                 {
                     propertyName = $@"{type.Name.ToLower()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
                 }

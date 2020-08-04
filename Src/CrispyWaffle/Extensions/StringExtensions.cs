@@ -4,7 +4,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -16,16 +15,6 @@
     /// </summary>
     public static class StringExtensions
     {
-        /// <summary>
-        /// The culture
-        /// </summary>
-        public static readonly CultureInfo Culture = CultureInfo.GetCultureInfo("en-US");
-
-        /// <summary>
-        /// The comparison
-        /// </summary>
-        public static readonly StringComparison Comparison = StringComparison.InvariantCultureIgnoreCase;
-
         /// <summary>
         /// Replaces the non alphanumeric.
         /// </summary>
@@ -197,6 +186,7 @@
         public static string UcWords(this string[] input, string[] toUpper, string[] toLower)
         {
             var result = new StringBuilder();
+
             if (!input.Any())
             {
                 return string.Empty;
@@ -205,6 +195,7 @@
             foreach (var s in input)
             {
                 result.Append(@" ");
+
                 if (toUpper.Contains(s.ToUpper()))
                 {
                     result.Append(s.ToUpper());
@@ -218,6 +209,7 @@
                     result.Append(s.ToCamelCase());
                 }
             }
+
             return result.ToString();
         }
 

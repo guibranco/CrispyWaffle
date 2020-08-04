@@ -37,8 +37,8 @@
                     })
                 .Where(item =>
                     item.Attr != null &&
-                    item.Attr.StringValue.Equals(humanReadableValue, StringExtensions.Comparison) ||
-                    item.Field.Name.Equals(humanReadableValue, StringExtensions.Comparison))
+                    item.Attr.StringValue.Equals(humanReadableValue, StringComparison.InvariantCultureIgnoreCase) ||
+                    item.Field.Name.Equals(humanReadableValue, StringComparison.InvariantCultureIgnoreCase))
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)
@@ -82,8 +82,8 @@
                     })
                 .Where(item =>
                     item.Attr != null &&
-                    item.Attr.InternalValue.Equals(internalValue, StringExtensions.Comparison) ||
-                    item.Field.Name.Equals(internalValue, StringExtensions.Comparison))
+                    item.Attr.InternalValue.Equals(internalValue, StringComparison.InvariantCultureIgnoreCase) ||
+                    item.Field.Name.Equals(internalValue, StringComparison.InvariantCultureIgnoreCase))
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)

@@ -190,7 +190,7 @@ namespace CrispyWaffle.Extensions
                 return method.Name;
             }
 
-            if (excludeBegin && ns.StartsWith(@"CrispyWaffle", StringExtensions.Comparison))
+            if (excludeBegin && ns.StartsWith(@"CrispyWaffle", StringComparison.InvariantCultureIgnoreCase))
             {
                 ns = ns.Substring(13);
             }
