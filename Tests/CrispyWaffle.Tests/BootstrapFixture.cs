@@ -34,6 +34,7 @@ namespace CrispyWaffle.Tests
         public void SetLog(ITestOutputHelper testOutputHelper)
         {
             testOutputHelper.WriteLine("Tests");
+            //LogConsumer.AddProvider(testOutputHelper);
         }
 
         #region IDisposable Support
@@ -56,8 +57,9 @@ namespace CrispyWaffle.Tests
 
             if (disposing)
             {
-                //ServiceLocator.DisposeAllRegistrations();
+                ServiceLocator.DisposeAllRegistrations();
             }
+
             _disposedValue = true;
         }
 
@@ -67,6 +69,7 @@ namespace CrispyWaffle.Tests
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
         }
+
         #endregion
     }
 }

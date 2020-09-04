@@ -14,34 +14,21 @@
 using CrispyWaffle.Composition;
 using System.Threading;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.Composition
 {
     /// <summary>
     /// Class ServiceLocatorTests.
-    /// Implements the <see cref="Xunit.IClassFixture{BootstrapFixture}" />
     /// </summary>
-    /// <seealso cref="Xunit.IClassFixture{BootstrapFixture}" />
-    public class ServiceLocatorTests : IClassFixture<BootstrapFixture>
+    [Collection("ServiceLocator collection")]
+    public class ServiceLocatorTests
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceLocatorTests" /> class.
-        /// </summary>
-        /// <param name="fixture">The fixture.</param>
-        /// <param name="testOutputHelper">The test output helper.</param>
-        public ServiceLocatorTests(BootstrapFixture fixture, ITestOutputHelper testOutputHelper)
-        {
-            fixture.SetLog(testOutputHelper);
-        }
-
         /// <summary>
         /// Defines the test method ValidateSingletonCreationAndPersistence.
         /// </summary>
         [Fact]
         public void ValidateSingletonCreationAndPersistence()
         {
-
             var instanceA = ServiceLocator.Resolve<TestObjects.SingletonTest>();
             Thread.Sleep(1000);
             var instanceB = ServiceLocator.Resolve<TestObjects.SingletonTest>();

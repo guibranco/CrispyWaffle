@@ -20,12 +20,10 @@ namespace CrispyWaffle.Tests.TemplateRendering
 {
     /// <summary>
     /// Class TemplateRenderingTests.
-    /// Implements the <see cref="Xunit.IClassFixture{BootstrapFixture}" />
     /// </summary>
-    /// <seealso cref="Xunit.IClassFixture{BootstrapFixture}" />
-    public class TemplateRenderingTests : IClassFixture<BootstrapFixture>
+    [Collection("ServiceLocator collection")]
+    public class TemplateRenderingTests
     {
-
         /// <summary>
         /// Defines the test method ValidateSimpleTemplate.
         /// </summary>

@@ -1,7 +1,5 @@
-﻿using CrispyWaffle.Composition;
-using CrispyWaffle.Events;
+﻿using CrispyWaffle.Events;
 using System;
-using System.Linq;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Events
@@ -19,7 +17,6 @@ namespace CrispyWaffle.Tests.Events
         {
             var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
             EventsConsumer.Raise(@event);
-            Assert.True(ServiceLocator.NotLoadedAssemblies.Any());
         }
 
         /// <summary>
