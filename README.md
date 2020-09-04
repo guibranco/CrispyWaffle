@@ -1,15 +1,19 @@
 # CrispyWaffle
 
-The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
+The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects. 
+
+[![GitHub license](https://img.shields.io/github/license/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
+[![Time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
 
 ![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png)
 
+
 ## CI/CD
 
-[![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle)
-[![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
-[![GitHub license](https://img.shields.io/github/license/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
-[![Time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
+| Branch | Build status | Last commit |
+|--------|--------------|-------------|
+| Master | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) |
+| Develop | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/develop?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/develop) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/develop)](https://github.com/guibranco/CrispyWaffle) |
 
 ## Code Quality
 
@@ -31,18 +35,25 @@ The CrispyWaffle project - a toolkit for dotNet (both Core & Framework) projects
 
 ---
 
-## Installation 
+## Installation
+
+### Github Releases
 
 [![GitHub last release](https://img.shields.io/github/release-date/guibranco/CrispyWaffle.svg?style=flat)](https://github.com/guibranco/CrispyWaffle) [![Github All Releases](https://img.shields.io/github/downloads/guibranco/CrispyWaffle/total.svg?style=flat)](https://github.com/guibranco/CrispyWaffle)
 
 Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) pages.
 
+### Nuget package manager
+
 | Package | Version | Downloads |
 |------------------|:-------:|:-------:|
 | **CrispyWaffle** | [![CrispyWaffle NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) | [![CrispyWaffle NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) |
 | **CrispyWaffle.Configuration** | [![CrispyWaffle Configuration NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Configuration.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Configuration/) | [![CrispyWaffle Configuration NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Configuration.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Configuration/) |
+| **CrispyWaffle.Elmah** | [![CrispyWaffle ELMAH NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) | [![CrispyWaffle ELMAH NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) |
+| **CrispyWaffle.Log4Net** | [![CrispyWaffle Log4Net NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) | [![CrispyWaffle Log4Net NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) |
 
-NuGet installation via *Package Manager Console*:
+
+### Nuget package maanger via *Package Manager Console*:
 
 **Core**
 ```ps
@@ -52,6 +63,16 @@ Install-Package CrispyWaffle
 **Configuration**
 ```ps
 Install-Package CrispyWaffle.Configuration
+```
+
+**ELMAH**
+```ps
+Install-Package CrispyWaffle.Elmah
+```
+
+**Log4Net**
+```ps
+Install-Package CrispyWaffle.Log4Net
 ```
 
 ---
@@ -80,7 +101,7 @@ static void Main(string[] args)
 }
 ```
 
-A example using `Events`
+An example using `Events`\`EventsHandlers` 
 
 ```cs
 
@@ -149,8 +170,9 @@ public static class Program
 2020-09-04 - Version 2.1 - [@guibranco](https://github.com/guibranco)
 
 - Add the Configuration project and package.
-- Add Mustache template engine (inspired on Mustache/Handlebars).
+- Add Mustache template engine (inspired by Mustache/Handlebars).
 - Add Resource template repository.
+- Add Elmah & Log4Net projects (logging).
 - Basic usage examples.
 
 2020-08-03 - Version 2.0 - [@guibranco](https://github.com/guibranco)
