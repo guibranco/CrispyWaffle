@@ -146,10 +146,11 @@ public static class Program
 
 ## Changelog
 
-2020-09-03 - Version 2.1 - [@guibranco](https://github.com/guibranco)
+2020-09-04 - Version 2.1 - [@guibranco](https://github.com/guibranco)
 
 - Add the Configuration project and package.
 - Add Mustache template engine (inspired on Mustache/Handlebars).
+- Add Resource template repository.
 - Basic usage examples.
 
 2020-08-03 - Version 2.0 - [@guibranco](https://github.com/guibranco)

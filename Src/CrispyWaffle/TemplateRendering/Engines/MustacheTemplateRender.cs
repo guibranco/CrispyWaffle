@@ -58,8 +58,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.ConditionalPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.ConditionalPattern.Matches(template).Cast<Match>()
-                                     .Aggregate(template, (current, match) => EvaluateConditional(match, current));
+                : MustachePatterns.ConditionalPattern
+                    .Matches(template)
+                    .Cast<Match>()
+                    .Aggregate(template, (current, match) => EvaluateConditional(match, current));
         }
 
         /// <summary>
@@ -121,8 +123,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.WithPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.WithPattern.Matches(template).Cast<Match>()
-                              .Aggregate(template, (current, match) => ProcessWith(match, current));
+                : MustachePatterns.WithPattern
+                    .Matches(template)
+                    .Cast<Match>()
+                    .Aggregate(template, (current, match) => ProcessWith(match, current));
         }
 
         /// <summary>
@@ -160,8 +164,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.LoopPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.LoopPattern.Matches(template).Cast<Match>()
-                              .Aggregate(template, (current, match) => ProcessLoop(match, current));
+                : MustachePatterns
+                    .LoopPattern.Matches(template)
+                    .Cast<Match>()
+                    .Aggregate(template, (current, match) => ProcessLoop(match, current));
         }
 
         /// <summary>
