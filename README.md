@@ -40,22 +40,37 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | Package | Version | Downloads |
 |------------------|:-------:|:-------:|
 | **CrispyWaffle** | [![CrispyWaffle NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) | [![CrispyWaffle NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle/) |
+| **CrispyWaffle.Configuration** | | [![CrispyWaffle Configuration NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Configuration.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Configuration/) | [![CrispyWaffle Configuration NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Configuration.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Configuration/) |
 
 NuGet installation via *Package Manager Console*:
 
+**Core**
 ```ps
 Install-Package CrispyWaffle
+```
+
+**Configuration**
+```ps
+Install-Package CrispyWaffle.Configuration
 ```
 
 ---
 
 ## Changelog
 
+2020-09-03 - Version 2.1 - [@guibranco](https://github.com/guibranco)
+
+- Add the Configuration project and package.
+
+2020-08-03 - Version 2.0 - [@guibranco](https://github.com/guibranco)
+
+- Removed some application specific patterns from *StringExtensions* class
+
 2020-07-24 - Version 1.3 - [@guibranco](https://github.com/guibranco)
 
-- Add EvenLogProvider and EventLogAdapter
-- Add log Trace methods that support exceptions
-- Add Fatal log level
+- Add EvenLogProvider and EventLogAdapter.
+- Add log Trace methods that support exceptions.
+- Add Fatal log level.
 
 2020-03-28 - Version 1.2 - [@guibranco](https://github.com/guibranco)
 
