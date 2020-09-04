@@ -1,28 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
+    <ProjectGuid>0EB3767D-0830-4059-B54D-7AA26286F0BD</ProjectGuid>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
-    <Description>The CrispyWaffle toolkit for .NET projects</Description>
+    <Description>The CrispyWaffle configuration package</Description>
     <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageTags>toolkit sdk framework library lib</PackageTags>
+    <PackageTags>toolkit sdk framework library lib configuration</PackageTags>
     <PackageIcon>logo.png</PackageIcon>
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>Guilherme Branco Stracini ME</Company>
-    <PackageReleaseNotes>CancellationToken support in ServiceLocator</PackageReleaseNotes>
+    <PackageReleaseNotes>Configuration release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Diagnostics.EventLog" Version="4.7.0" />
-    <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,4 +33,5 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
 </Project>
