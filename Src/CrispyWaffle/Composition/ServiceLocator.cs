@@ -157,41 +157,6 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the disposable internal.
-        /// </summary>
-        /// <param name="contract">The contract.</param>
-        /// <param name="implementation">The implementation.</param>
-        private static void RegisterDisposableInternal(Type contract, Type implementation)
-        {
-            var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable) CreateInstance(implementation));
-            Registrations.AddOrUpdate(contract,
-                () =>
-                {
-                    RegistrationsCalls[contract]++;
-                    lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
-                    {
-                        return lazyDisposable.Value;
-                    }
-                },
-                (key, existingValue) => () => existingValue);
-        }
-        /// <summary>
-        /// Registers the transient internal.
-        /// </summary>
-        /// <param name="contract">The contract.</param>
-        /// <param name="implementation">The implementation.</param>
-        private static void RegisterTransientInternal(Type contract, Type implementation)
-        {
-            Registrations.AddOrUpdate(contract,
-                () =>
-                {
-                    RegistrationsCalls[contract]++;
-                    return GetInstance(implementation);
-                },
-                (key, existingValue) => () => existingValue);
-        }
-
-        /// <summary>
         /// Registers the lifeStyled creator internal.
         /// </summary>
         /// <typeparam name="TContract">The type of the contract.</typeparam>
@@ -244,12 +209,32 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// Registers the disposable internal.
         /// </summary>
+        /// <param name="contract">The contract.</param>
+        /// <param name="implementation">The implementation.</param>
+        private static void RegisterDisposableInternal(Type contract, Type implementation)
+        {
+            var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable)CreateInstance(implementation));
+            Registrations.AddOrUpdate(contract,
+                () =>
+                {
+                    RegistrationsCalls[contract]++;
+                    lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
+                    {
+                        return lazyDisposable.Value;
+                    }
+                },
+                (key, existingValue) => () => existingValue);
+        }
+
+        /// <summary>
+        /// Registers the disposable internal.
+        /// </summary>
         /// <typeparam name="TContract">The type of the t contract.</typeparam>
         /// <param name="instanceCreator">The instance creator.</param>
         /// <param name="contract">The contract.</param>
         private static void RegisterDisposableInternal<TContract>(Func<TContract> instanceCreator, Type contract)
         {
-            var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable) instanceCreator());
+            var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable)instanceCreator());
             Registrations.AddOrUpdate(
                 contract,
                 () =>
@@ -259,6 +244,22 @@ namespace CrispyWaffle.Composition
                     {
                         return lazyDisposable.Value;
                     }
+                },
+                (key, existingValue) => () => existingValue);
+        }
+
+        /// <summary>
+        /// Registers the transient internal.
+        /// </summary>
+        /// <param name="contract">The contract.</param>
+        /// <param name="implementation">The implementation.</param>
+        private static void RegisterTransientInternal(Type contract, Type implementation)
+        {
+            Registrations.AddOrUpdate(contract,
+                () =>
+                {
+                    RegistrationsCalls[contract]++;
+                    return GetInstance(implementation);
                 },
                 (key, existingValue) => () => existingValue);
         }

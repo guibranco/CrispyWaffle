@@ -17,7 +17,7 @@ namespace CrispyWaffle.TemplateRendering.Repositories
         /// <summary>
         /// The resource manager, source of the content.
         /// </summary>
-        private static ResourceManager _manager;
+        private readonly ResourceManager _manager;
 
         #endregion
 

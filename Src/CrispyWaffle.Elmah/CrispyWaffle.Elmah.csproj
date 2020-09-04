@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ProjectGuid>687F6153-2295-40A6-8673-1359482F928B</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Guilherme Branco Stracini</Authors>
+    <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
+    <Description>The CrispyWaffle ELMAH bridge package</Description>
+    <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>toolkit sdk framework library lib ELMAH bridge log provider exception handler</PackageTags>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Company>Guilherme Branco Stracini ME</Company>
+    <PackageReleaseNotes>ELMAH release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="elmah.corelibrary" Version="1.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
