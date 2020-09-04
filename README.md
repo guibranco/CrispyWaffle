@@ -64,89 +64,83 @@ A simple `console application` with simple logging example:
 
 ```cs
 
-	static void Main(string[] args)
-	{
-		ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(LifeStyle.SINGLETON);
-		ServiceLocator.Register<IExceptionHandler, NullExceptionHandler>(LifeStyle.SINGLETON);
+static void Main(string[] args)
+{
+	ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(LifeStyle.SINGLETON);
+	ServiceLocator.Register<IExceptionHandler, NullExceptionHandler>(LifeStyle.SINGLETON);
 		
-		LogConsumer.AddProvider<ConsoleLogProvider>();
+	LogConsumer.AddProvider<ConsoleLogProvider>();
 		
-		LogConsumer.Info("Hello world Crispy Waffle");
+	LogConsumer.Info("Hello world Crispy Waffle");
 		
-		LogConsumer.Debug("Current time: {0:hh:mm:ss}", DateTime.Now);
+	LogConsumer.Debug("Current time: {0:hh:mm:ss}", DateTime.Now);
 		
-		LogConsumer.Warning("Press any key to close the program!");
-		Console.ReadKey();
-	}
+	LogConsumer.Warning("Press any key to close the program!");
+	Console.ReadKey();
+}
 ```
 
 A example using `Events`
 
 ```cs
 
-	//The event class.
-	public class SomeEvent : IEvent 
+//The event class.
+public class SomeEvent : IEvent 
+{
+	public SomeEvent(string data)
 	{
-		public SomeEvent(string data)
-		{
-			Id = Guid.NewGuid();
-			Date = DateTime.Now;
-			Data = data;
-		}
-
-		public Guid Id { get; }
-
-		public string Data { get; }
-
-		public DateTime Date { get; }
+		Id = Guid.NewGuid();
+		Date = DateTime.Now;
+		Data = data;
 	}
 
-	//The event handler class. Each event can be handled by N event handlers.
-	public class SomeEventHandler : IEventHandler<SomeEvent>
+	public Guid Id { get; }
+
+	public string Data { get; }
+
+	public DateTime Date { get; }
+}
+
+//The event handler class. Each event can be handled by N event handlers.
+public class SomeEventHandler : IEventHandler<SomeEvent>
+{
+	//constructor of the class, with dependencies...
+
+	public void Handle(SomeEvent args)
 	{
-		//constructor of the class, with dependencies...
-
-
-		public void Handle(SomeEvent args)
-		{
-			LogConsumer.Warning("Event 'SomeEvent' handled by 'SomeEventHandler'. Event Id: {0}", args.Id);
-			//do any other processing stuff...
-		}
-
+		LogConsumer.Warning("Event 'SomeEvent' handled by 'SomeEventHandler'. Event Id: {0}", args.Id);
+		//do any other processing stuff...
 	}
 
-	public class AnotherSomeEventHandler : IEventHandler<SomeEvent>
+}
+
+public class AnotherSomeEventHandler : IEventHandler<SomeEvent>
+{
+	//constructor of the class, with dependencies...
+
+	public void Handle(SomeEvent args)
 	{
-		//constructor of the class, with dependencies...
-
-
-		public void Handle(SomeEvent args)
-		{
-			LogConsumer.Warning("Event 'SomeEvent' handled by 'AnotherSomeEventHandler'. Event Id: {0}", args.Id);
+		LogConsumer.Warning("Event 'SomeEvent' handled by 'AnotherSomeEventHandler'. Event Id: {0}", args.Id);
 			
-			//someOtherDependency.DoSomeStuffWithEvent(args.Id, args.Data);
-			//do any other processing stuff...
-		}
+		//someOtherDependency.DoSomeStuffWithEvent(args.Id, args.Data);
+		//do any other processing stuff...
 	}
+}
 
+// Program entry point
+public static class Program 
+{	
+	public static void Main(string[] args)
+	{
+		//Initialize the dependencies with ServiceLocator.
+		//Initialize log providers/adapters
+		//...
 
-	// Program entry point
-	public static class Program 
-	{	
-		public static void Main(string[] args)
-		{
-			//Initialize the dependencies with ServiceLocator.
-			//Initialize log providers/adapters
-			//...
-
-			var evt = new SomeEvent ("README.md test data");
-			EventsConsumer.Raise(evt);
-		}
+		var evt = new SomeEvent ("README.md test data");
+		EventsConsumer.Raise(evt);
 	}
-
+}
 ```
-
-
 
 ---
 
