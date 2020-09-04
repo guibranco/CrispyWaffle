@@ -114,3 +114,10 @@ deploy:
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileConfiguration
+- provider: GitHub
+  on:
+   branch: master
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: Coverage
