@@ -1,5 +1,6 @@
 ﻿using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
+using CrispyWaffle.TemplateRendering.Engines;
 using CrispyWaffle.Tests.Composition;
 using System;
 using Xunit.Abstractions;
@@ -20,6 +21,8 @@ namespace CrispyWaffle.Tests
         {
             ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
+
+            ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
 
             LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
         }
