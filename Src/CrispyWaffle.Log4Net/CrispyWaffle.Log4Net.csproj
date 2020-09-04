@@ -1,8 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <ProjectGuid>D6164E04-F1C9-4D86-9B9C-41036B816C4A</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Guilherme Branco Stracini</Authors>
+    <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
+    <Description>The CrispyWaffle Log4Net bridge package</Description>
+    <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>toolkit sdk framework library lib log4net bridge log provider</PackageTags>
+    <PackageIcon>logo.png</PackageIcon>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Company>Guilherme Branco Stracini ME</Company>
+    <PackageReleaseNotes>Log4Net release</PackageReleaseNotes>
+  </PropertyGroup>>
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.9" />
@@ -10,6 +25,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
