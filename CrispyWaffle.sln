@@ -3,23 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AA14B952-E519-4983-BF49-E106490AAF1F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle", "Src\CrispyWaffle\CrispyWaffle.csproj", "{9A19103F-16F7-4668-BE54-9A1E7A4F7556}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrispyWaffle.Configuration", "Src\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj", "{0EB3767D-0830-4059-B54D-7AA26286F0BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Tests", "Tests\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{03FD84F8-33BC-49F7-9820-CF7B7724B0D5}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AA14B952-E519-4983-BF49-E106490AAF1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle", "Src\CrispyWaffle\CrispyWaffle.csproj", "{9A19103F-16F7-4668-BE54-9A1E7A4F7556}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Configuration", "Src\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj", "{0EB3767D-0830-4059-B54D-7AA26286F0BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrispyWaffle.Elmah", "Src\CrispyWaffle.Elmah\CrispyWaffle.Elmah.csproj", "{687F6153-2295-40A6-8673-1359482F928B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrispyWaffle.Log4Net", "Src\CrispyWaffle.Log4Net\CrispyWaffle.Log4Net.csproj", "{D6164E04-F1C9-4D86-9B9C-41036B816C4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Tests", "Tests\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,22 +33,32 @@ Global
 		{9A19103F-16F7-4668-BE54-9A1E7A4F7556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A19103F-16F7-4668-BE54-9A1E7A4F7556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A19103F-16F7-4668-BE54-9A1E7A4F7556}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EB3767D-0830-4059-B54D-7AA26286F0BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EB3767D-0830-4059-B54D-7AA26286F0BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EB3767D-0830-4059-B54D-7AA26286F0BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EB3767D-0830-4059-B54D-7AA26286F0BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{687F6153-2295-40A6-8673-1359482F928B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{687F6153-2295-40A6-8673-1359482F928B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{687F6153-2295-40A6-8673-1359482F928B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{687F6153-2295-40A6-8673-1359482F928B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6164E04-F1C9-4D86-9B9C-41036B816C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6164E04-F1C9-4D86-9B9C-41036B816C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6164E04-F1C9-4D86-9B9C-41036B816C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6164E04-F1C9-4D86-9B9C-41036B816C4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9A19103F-16F7-4668-BE54-9A1E7A4F7556} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC} = {AA14B952-E519-4983-BF49-E106490AAF1F}
 		{0EB3767D-0830-4059-B54D-7AA26286F0BD} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
+		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC} = {AA14B952-E519-4983-BF49-E106490AAF1F}
+		{687F6153-2295-40A6-8673-1359482F928B} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
+		{D6164E04-F1C9-4D86-9B9C-41036B816C4A} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FAE960DB-B996-4FB3-858C-61BA7C7CD86E}

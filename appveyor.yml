@@ -67,14 +67,20 @@ build_script:
 after_build:
 - xcopy %CD%\Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* %CD%\Build\Core\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* %CD%\Build\Configuration\
+- xcopy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* %CD%\Build\Elmah\
+- xcopy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* %CD%\Build\Log4Net\
 - copy %CD%\Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
 - rd /s /q %CD%\Src\%SOLUTION_NAME%\bin\Release\
 - xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.xml %CD%\Coverage\
 - xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.json %CD%\Coverage\
 - cd %CD%
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Core.zip" Build\Core
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Configuration.zip" Build\Configuration
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Elmah.zip" Build\Elmah
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Log4Net.zip" Build\Log4Net
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
@@ -82,10 +88,18 @@ artifacts:
   name: ZipFileCore
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Configuration.zip
   name: ZipFileConfiguration
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Elmah.zip
+  name: ZipFileElmah
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
+  name: ZipFileLog4Net
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageCore
 - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageConfiguration
+- path: $(SOLUTION_NAME).Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageElmah
+- path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageLog4Net
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
   name: Coverage
 
@@ -100,6 +114,16 @@ deploy:
   on:
    branch: master
   artifact: PackageConfiguration
+- provider: Environment
+  name: NuGet
+  on:
+   branch: master
+  artifact: PackageElmah
+- provider: Environment
+  name: NuGet
+  on:
+   branch: master
+  artifact: PackageLog4Net
 - provider: GitHub
   on:
    branch: master
@@ -114,6 +138,20 @@ deploy:
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileConfiguration
+- provider: GitHub
+  on:
+   branch: master
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: ZipFileElmah
+- provider: GitHub
+  on:
+   branch: master
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: ZipFileLog4Net
 - provider: GitHub
   on:
    branch: master

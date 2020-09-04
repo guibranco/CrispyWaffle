@@ -462,20 +462,26 @@
         [Pure]
         public static IEnumerable<string> SplitBy(this string str, int chunkLength)
         {
-            if (string.IsNullOrEmpty(str))
+            if (!ValidateSplitBy(str, chunkLength))
             {
                 yield return string.Empty;
                 yield break;
-            }
-            if (chunkLength < 1)
-            {
-                throw new ArgumentException(@"Invalid chuck length", nameof(chunkLength));
             }
 
             for (var i = 0; i < str.Length; i += chunkLength)
             {
                 yield return str.Substring(i, chunkLength + i > str.Length ? str.Length - i : chunkLength);
             }
+        }
+
+        private static bool ValidateSplitBy(string str, int chunkLength)
+        {
+            if (chunkLength < 1)
+            {
+                throw new ArgumentException(@"Invalid chuck length", nameof(chunkLength));
+            }
+
+            return !string.IsNullOrWhiteSpace(str);
         }
 
         /// <summary>
