@@ -17,7 +17,7 @@ namespace CrispyWaffle.Tests
 {
     /// <summary>
     /// Class ServiceLocatorCollection.
-    /// Implements the <see cref="Xunit.ICollectionFixture{CrispyWaffle.Tests.}BootstrapFixture}" />
+    /// Implements the <see cref="Xunit.ICollectionFixture{BootstrapFixture}" />
     /// </summary>
     /// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
     [CollectionDefinition("ServiceLocator collection")]
