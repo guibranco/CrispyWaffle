@@ -88,9 +88,9 @@ artifacts:
   name: ZipFileCore
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Configuration.zip
   name: ZipFileConfiguration
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Elmah.zip
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Elmah.zip
   name: ZipFileElmah
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
   name: ZipFileLog4Net
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageCore
