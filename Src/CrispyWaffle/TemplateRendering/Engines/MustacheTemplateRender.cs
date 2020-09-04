@@ -60,6 +60,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns.ConditionalPattern
                     .Matches(template)
+                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => EvaluateConditional(match, current));
         }
@@ -125,6 +126,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns.WithPattern
                     .Matches(template)
+                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessWith(match, current));
         }
@@ -166,6 +168,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns
                     .LoopPattern.Matches(template)
+                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessLoop(match, current));
         }
