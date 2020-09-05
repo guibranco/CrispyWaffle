@@ -11,7 +11,6 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Log;
 using System;
 using System.Threading;
 
@@ -75,8 +74,6 @@ namespace CrispyWaffle.Scheduler
             {
                 return;
             }
-
-            LogConsumer.Debug("Status: {0}", status);
 
             if (status == ThreadState.Running ||
                 status == ThreadState.WaitSleepJoin)
