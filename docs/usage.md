@@ -5,7 +5,6 @@
 A simple `console application` with simple (colored console output) logging example:
 
 ```cs
-
 static void Main(string[] args)
 {
     ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(LifeStyle.SINGLETON);
@@ -27,7 +26,6 @@ static void Main(string[] args)
 An example using `Events` & `EventsHandlers` 
 
 ```cs
-
 //The event class.
 public class SomeEvent : IEvent 
 {
@@ -55,7 +53,6 @@ public class SomeEventHandler : IEventHandler<SomeEvent>
         LogConsumer.Warning("Event 'SomeEvent' handled by 'SomeEventHandler'. Event Id: {0}", args.Id);
         //do any other processing stuff...
     }
-
 }
 
 public class AnotherSomeEventHandler : IEventHandler<SomeEvent>
@@ -106,7 +103,7 @@ public static class Program
 
         jobManager.Stop(); //stops the manager, so no more execution runs.
 
-        if(exampleObj.Counter == 2)
+        if(exampleObj.Counter == 12)
         {
             LogConsumer.Warning("Example job runned for 2 times!");
         }
@@ -122,6 +119,6 @@ public static class Program
 
 ```
 
-## Other methdos
+## Other methods
 
-Other methods usage can be infered from usage from **tests** project.
+Other methods usage can be infered from usage from [tests project](https://github.com/guibranco/CrispyWaffle).
