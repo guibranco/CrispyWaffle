@@ -42,7 +42,7 @@ namespace CrispyWaffle.Tests.Scheduler
 
             manager.Start();
 
-            Thread.Sleep(59 * 1000);
+            Thread.Sleep(70 * 1000);
 
             manager.Stop();
 
