@@ -7,6 +7,7 @@ The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects.
 
 ![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png)
 
+Documentation of the project: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## CI/CD
 
@@ -52,16 +53,16 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | **CrispyWaffle.Elmah** | [![CrispyWaffle ELMAH NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) | [![CrispyWaffle ELMAH NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) |
 | **CrispyWaffle.Log4Net** | [![CrispyWaffle Log4Net NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) | [![CrispyWaffle Log4Net NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) |
 
-Check de [Installation docs sections](/docs/installation) for manual installation instructions.
+More information avaiable [here](https://guibranco.github.io/CrispyWaffle/installation/).
 
 ---
 
 ## Usage
 
-Usage is available at [Usage docs file](/docs/usage.md).
+Usage is available [here](https://guibranco.github.io/CrispyWaffle/usage/).
 
 ---
 
 ## Changelog
 
-Changelog is available at [Changelog docs file](/docs/changelog.md).
+Changelog is available [here](https://guibranco.github.io/CrispyWaffle/changelog/).

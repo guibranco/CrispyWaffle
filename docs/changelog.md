@@ -3,6 +3,7 @@
 ## Version 2.2 [2020-09-05]
 
 - Add scheduler feature.
+- Add documentation using MkDocs.
 
 ## Version 2.1 [2020-09-04]
 
