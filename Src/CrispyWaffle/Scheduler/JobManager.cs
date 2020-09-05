@@ -71,28 +71,19 @@ namespace CrispyWaffle.Scheduler
         /// <param name="cronExpression">The cron expression.</param>
         /// <param name="action">The action.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        public void AddJob(string cronExpression, ThreadStart action)
-        {
-            _jobRunners.Add(new JobRunner(cronExpression, action));
-        }
+        public void AddJob(string cronExpression, ThreadStart action) => _jobRunners.Add(new JobRunner(cronExpression, action));
 
         /// <summary>
         /// Starts this instance.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        public void Start()
-        {
-            _timer.Start();
-        }
+        public void Start() => _timer.Start();
 
         /// <summary>
         /// Stops this instance.
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
-        public void Stop()
-        {
-            _timer.Stop();
-        }
+        public void Stop() => _timer.Stop();
 
         #endregion
     }

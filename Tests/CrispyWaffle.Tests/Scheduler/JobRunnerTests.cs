@@ -11,12 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Log;
 using CrispyWaffle.Scheduler;
 using System;
 using System.Threading;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.Scheduler
 {
@@ -40,7 +38,7 @@ namespace CrispyWaffle.Tests.Scheduler
         [Fact]
         public void ValidateJobRunner()
         {
-            var sampler = new TestSample();
+            var sampler = new TestObjects();
 
             var runner = new JobRunner("*", () => { sampler.Counter++; });
 
@@ -61,7 +59,7 @@ namespace CrispyWaffle.Tests.Scheduler
         [Fact]
         public void ValidateOutOfScheduler()
         {
-            var sampler = new TestSample();
+            var sampler = new TestObjects();
 
             var runner = new JobRunner("*/5", () => { sampler.Counter++; });
 
@@ -87,7 +85,7 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             const int sleepMilliseconds = 2000;
 
-            var sampler = new TestSample();
+            var sampler = new TestObjects();
 
             var runner = new JobRunner("*", () =>
             {
@@ -103,6 +101,8 @@ namespace CrispyWaffle.Tests.Scheduler
 
             runner.Execute(DateTime.Now);
             runner.Execute(DateTime.Now);
+
+            Thread.Sleep(sleepMilliseconds);
 
             Assert.Equal(2, sampler.Counter);
         }
