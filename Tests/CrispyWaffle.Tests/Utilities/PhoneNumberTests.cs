@@ -1,8 +1,24 @@
-﻿using CrispyWaffle.Utilities;
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Tests
+// Author           : Guilherme Branco Stracini
+// Created          : 07-29-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 07-29-2020
+// ***********************************************************************
+// <copyright file="PhoneNumberTests.cs" company="Guilherme Branco Stracini ME">
+//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CrispyWaffle.Utilities;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Utilities
 {
+    /// <summary>
+    /// Class PhoneNumberTests.
+    /// </summary>
     public class PhoneNumberTests
     {
         /// <summary>

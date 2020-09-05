@@ -1,0 +1,4 @@
+site_name: Crispy Waffle
+theme: readthedocs
+repo_url: https://github.com/guibranco/crispywaffle
+extra_css: [extra.css]

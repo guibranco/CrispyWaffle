@@ -15,15 +15,25 @@ using CrispyWaffle.Composition;
 using CrispyWaffle.TemplateRendering.Engines;
 using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.TemplateRendering
 {
     /// <summary>
     /// Class TemplateRenderingTests.
     /// </summary>
-    [Collection("ServiceLocator collection")]
+    [Collection("Logged collection")]
     public class TemplateRenderingTests
     {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemplateRenderingTests"/> class.
+        /// </summary>
+        /// <param name="testOutputHelper">The test output helper.</param>
+        /// <param name="fixture">The fixture.</param>
+        public TemplateRenderingTests(ITestOutputHelper testOutputHelper, BootstrapFixture fixture) =>
+            fixture.SetLogProvider(testOutputHelper);
+
         /// <summary>
         /// Defines the test method ValidateSimpleTemplate.
         /// </summary>

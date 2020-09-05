@@ -7,6 +7,7 @@ The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects.
 
 ![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/master/logo.png)
 
+Documentation of the project: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## CI/CD
 
@@ -41,7 +42,7 @@ The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects.
 
 [![GitHub last release](https://img.shields.io/github/release-date/guibranco/CrispyWaffle.svg?style=flat)](https://github.com/guibranco/CrispyWaffle) [![Github All Releases](https://img.shields.io/github/downloads/guibranco/CrispyWaffle/total.svg?style=flat)](https://github.com/guibranco/CrispyWaffle)
 
-Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) pages.
+Download the latest zip file from the [Release](https://github.com/GuiBranco/CrispyWaffle/releases) page.
 
 ### Nuget package manager
 
@@ -52,153 +53,16 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | **CrispyWaffle.Elmah** | [![CrispyWaffle ELMAH NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) | [![CrispyWaffle ELMAH NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/) |
 | **CrispyWaffle.Log4Net** | [![CrispyWaffle Log4Net NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) | [![CrispyWaffle Log4Net NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/) |
 
-
-### Nuget package maanger via *Package Manager Console*:
-
-**Core**
-```ps
-Install-Package CrispyWaffle
-```
-
-**Configuration**
-```ps
-Install-Package CrispyWaffle.Configuration
-```
-
-**ELMAH**
-```ps
-Install-Package CrispyWaffle.Elmah
-```
-
-**Log4Net**
-```ps
-Install-Package CrispyWaffle.Log4Net
-```
+More information avaiable [here](https://guibranco.github.io/CrispyWaffle/installation/).
 
 ---
 
 ## Usage
 
-### Console application
-
-A simple `console application` with simple logging example:
-
-```cs
-
-static void Main(string[] args)
-{
-	ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(LifeStyle.SINGLETON);
-	ServiceLocator.Register<IExceptionHandler, NullExceptionHandler>(LifeStyle.SINGLETON);
-		
-	LogConsumer.AddProvider<ConsoleLogProvider>();
-		
-	LogConsumer.Info("Hello world Crispy Waffle");
-		
-	LogConsumer.Debug("Current time: {0:hh:mm:ss}", DateTime.Now);
-		
-	LogConsumer.Warning("Press any key to close the program!");
-	Console.ReadKey();
-}
-```
-
-An example using `Events`\`EventsHandlers` 
-
-```cs
-
-//The event class.
-public class SomeEvent : IEvent 
-{
-	public SomeEvent(string data)
-	{
-		Id = Guid.NewGuid();
-		Date = DateTime.Now;
-		Data = data;
-	}
-
-	public Guid Id { get; }
-
-	public string Data { get; }
-
-	public DateTime Date { get; }
-}
-
-//The event handler class. Each event can be handled by N event handlers.
-public class SomeEventHandler : IEventHandler<SomeEvent>
-{
-	//constructor of the class, with dependencies...
-
-	public void Handle(SomeEvent args)
-	{
-		LogConsumer.Warning("Event 'SomeEvent' handled by 'SomeEventHandler'. Event Id: {0}", args.Id);
-		//do any other processing stuff...
-	}
-
-}
-
-public class AnotherSomeEventHandler : IEventHandler<SomeEvent>
-{
-	//constructor of the class, with dependencies...
-
-	public void Handle(SomeEvent args)
-	{
-		LogConsumer.Warning("Event 'SomeEvent' handled by 'AnotherSomeEventHandler'. Event Id: {0}", args.Id);
-			
-		//someOtherDependency.DoSomeStuffWithEvent(args.Id, args.Data);
-		//do any other processing stuff...
-	}
-}
-
-// Program entry point
-public static class Program 
-{	
-	public static void Main(string[] args)
-	{
-		//Initialize the dependencies with ServiceLocator.
-		//Initialize log providers/adapters
-		//...
-
-		var evt = new SomeEvent ("README.md test data");
-		EventsConsumer.Raise(evt);
-	}
-}
-```
+Usage is available [here](https://guibranco.github.io/CrispyWaffle/usage/).
 
 ---
 
 ## Changelog
 
-2020-09-04 - Version 2.1 - [@guibranco](https://github.com/guibranco)
-
-- Add the Configuration project and package.
-- Add Mustache template engine (inspired by Mustache/Handlebars).
-- Add Resource template repository.
-- Add Elmah & Log4Net projects (logging).
-- Basic usage examples.
-
-2020-08-03 - Version 2.0 - [@guibranco](https://github.com/guibranco)
-
-- Removed some application specific patterns from *StringExtensions* class
-
-2020-07-24 - Version 1.3 - [@guibranco](https://github.com/guibranco)
-
-- Add EvenLogProvider and EventLogAdapter.
-- Add log Trace methods that support exceptions.
-- Add Fatal log level.
-
-2020-03-28 - Version 1.2 - [@guibranco](https://github.com/guibranco)
-
-- Add some unit tests.
-- Update appveyor.yml with build enhancements and test coverages.
-- Update readme template.
-
-2019-09-27 - Version 1.1 - [@guibranco](https://github.com/guibranco)
-
-- Add Math Extensions (CrispyWaffle.Extensions.MathExtensions namespace).
-- Add Personal Data Validations (CrispyWaffle.Validations.PersonalDataValidations).
-- Rename method *FormatDocument* to *FormatBrazilianDocument* (CrispyWaffle.Extensions.ConversionExtensions).
-- Rename method *ParsePhoneNumber* to *arseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions).
-- Removed *CleanListItems* (CrispyWaffle.Extensions.ConversionExtensions).
-- Rename method *TryParsePhoneNumber* to *TryParseBrazilianPhoneNumber* (CrispyWaffle.Extensions.ConversionExtensions).
-- Removed *CleanListItems* and *ToListString* (CrispyWaffle.Extensions.ConversionExtensions) **(Specific to application patterns)**.
-
----
+Changelog is available [here](https://guibranco.github.io/CrispyWaffle/changelog/).

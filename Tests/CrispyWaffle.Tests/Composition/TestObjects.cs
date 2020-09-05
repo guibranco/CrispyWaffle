@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Tests
+// Author           : Guilherme Branco Stracini
+// Created          : 07-29-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 07-29-2020
+// ***********************************************************************
+// <copyright file="TestObjects.cs" company="Guilherme Branco Stracini ME">
+//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Threading;
 
 namespace CrispyWaffle.Tests.Composition
@@ -8,6 +21,9 @@ namespace CrispyWaffle.Tests.Composition
     /// </summary>
     internal class TestObjects
     {
+        /// <summary>
+        /// Class SingletonTest. This class cannot be inherited.
+        /// </summary>
         public sealed class SingletonTest
         {
             /// <summary>
@@ -37,7 +53,7 @@ namespace CrispyWaffle.Tests.Composition
             public SingletonTest Singleton { get; }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="SingletonWithDependencyTest"/> class.
+            /// Initializes a new instance of the <see cref="SingletonWithDependencyTest" /> class.
             /// </summary>
             /// <param name="singleton">The singleton.</param>
             public SingletonWithDependencyTest(SingletonTest singleton)
@@ -58,7 +74,7 @@ namespace CrispyWaffle.Tests.Composition
             public CancellationToken CancellationToken { get; }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="CancellationTokenDependencyTest"/> class.
+            /// Initializes a new instance of the <see cref="CancellationTokenDependencyTest" /> class.
             /// </summary>
             /// <param name="cancellationToken">The cancellation token.</param>
             public CancellationTokenDependencyTest(CancellationToken cancellationToken)
