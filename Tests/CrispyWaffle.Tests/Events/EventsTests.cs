@@ -13,6 +13,7 @@
 // ***********************************************************************
 using CrispyWaffle.Events;
 using System;
+using System.Threading;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -40,6 +41,8 @@ namespace CrispyWaffle.Tests.Events
         {
             var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
             EventsConsumer.Raise(@event);
+
+            Thread.Sleep(5000); //bug with "There is no currently active test."
         }
 
         /// <summary>
@@ -51,6 +54,8 @@ namespace CrispyWaffle.Tests.Events
             var @event = new TestObjects.ExceptionEvent(Guid.NewGuid());
             var result = Assert.Throws<NotImplementedException>(() => EventsConsumer.Raise(@event));
             Assert.Equal(@event.Identifier.ToString(), result.Message);
+
+            Thread.Sleep(5000); //bug with "There is no currently active test."
         }
     }
 }
