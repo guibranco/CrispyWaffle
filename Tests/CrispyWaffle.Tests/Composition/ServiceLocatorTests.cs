@@ -4,7 +4,7 @@
 // Created          : 05-28-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 06-06-2020
+// Last Modified On : 09-05-2020
 // ***********************************************************************
 // <copyright file="ServiceLocatorTests.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
@@ -14,15 +14,24 @@
 using CrispyWaffle.Composition;
 using System.Threading;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.Composition
 {
     /// <summary>
     /// Class ServiceLocatorTests.
     /// </summary>
-    [Collection("ServiceLocator collection")]
+    [Collection("Logged collection")]
     public class ServiceLocatorTests
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceLocatorTests"/> class.
+        /// </summary>
+        /// <param name="testOutputHelper">The test output helper.</param>
+        /// <param name="fixture">The fixture.</param>
+        public ServiceLocatorTests(ITestOutputHelper testOutputHelper, BootstrapFixture fixture) =>
+            fixture.SetLogProvider(testOutputHelper);
+
         /// <summary>
         /// Defines the test method ValidateSingletonCreationAndPersistence.
         /// </summary>

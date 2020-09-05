@@ -20,12 +20,11 @@ namespace CrispyWaffle.Tests
     /// Implements the <see cref="Xunit.ICollectionFixture{BootstrapFixture}" />
     /// </summary>
     /// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
-    [CollectionDefinition("ServiceLocator collection")]
-    public class ServiceLocatorCollection : ICollectionFixture<BootstrapFixture>
+    [CollectionDefinition("Logged collection")]
+    public class LoggedCollection : ICollectionFixture<BootstrapFixture>
     {
         // This class has no code, and is never created. Its purpose is simply
         // to be the place to apply [CollectionDefinition] and all the
         // ICollectionFixture<> interfaces.
-
     }
 }

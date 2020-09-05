@@ -1,4 +1,17 @@
-﻿using CrispyWaffle.Composition;
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Tests
+// Author           : Guilherme Branco Stracini
+// Created          : 07-29-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 09-05-2020
+// ***********************************************************************
+// <copyright file="BootstrapFixture.cs" company="Guilherme Branco Stracini ME">
+//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
 using CrispyWaffle.TemplateRendering.Engines;
 using CrispyWaffle.Tests.Composition;
@@ -15,7 +28,7 @@ namespace CrispyWaffle.Tests
     public class BootstrapFixture : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BootstrapFixture"/> class.
+        /// Initializes a new instance of the <see cref="BootstrapFixture" /> class.
         /// </summary>
         public BootstrapFixture()
         {
@@ -23,18 +36,15 @@ namespace CrispyWaffle.Tests
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
 
             ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
-
-            LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
         }
 
         /// <summary>
-        /// Sets the log.
+        /// Sets the log provider.
         /// </summary>
         /// <param name="testOutputHelper">The test output helper.</param>
-        public void SetLog(ITestOutputHelper testOutputHelper)
+        public void SetLogProvider(ITestOutputHelper testOutputHelper)
         {
-            testOutputHelper.WriteLine("Tests");
-            //LogConsumer.AddProvider(testOutputHelper);
+            LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.ALL);
         }
 
         #region IDisposable Support
@@ -57,13 +67,16 @@ namespace CrispyWaffle.Tests
 
             if (disposing)
             {
-                ServiceLocator.DisposeAllRegistrations();
+                //ServiceLocator.DisposeAllRegistrations();
             }
 
             _disposedValue = true;
         }
 
         // This code added to correctly implement the disposable pattern.
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
