@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using CrispyWaffle.Log;
 using System;
 using System.Threading;
 
@@ -68,12 +69,17 @@ namespace CrispyWaffle.Scheduler
         /// <param name="dateTime">The date time.</param>
         private void ExecuteInternal(DateTime dateTime)
         {
+            var status = _thread.ThreadState;
+
             if (!_scheduler.IsTime(dateTime))
             {
                 return;
             }
 
-            if (_thread.ThreadState == ThreadState.Running)
+            LogConsumer.Debug("Status: {0}", status);
+
+            if (status == ThreadState.Running ||
+                status == ThreadState.WaitSleepJoin)
             {
                 return;
             }

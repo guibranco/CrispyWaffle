@@ -17,24 +17,14 @@ namespace CrispyWaffle.Tests
         /// <summary>
         /// Initializes a new instance of the <see cref="BootstrapFixture"/> class.
         /// </summary>
-        public BootstrapFixture()
+        public BootstrapFixture(ITestOutputHelper testOutputHelper)
         {
             ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
 
             ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
 
-            LogConsumer.AddProvider<TestLogProvider>().SetLevel(LogLevel.ALL);
-        }
-
-        /// <summary>
-        /// Sets the log.
-        /// </summary>
-        /// <param name="testOutputHelper">The test output helper.</param>
-        public void SetLog(ITestOutputHelper testOutputHelper)
-        {
-            testOutputHelper.WriteLine("Tests");
-            //LogConsumer.AddProvider(testOutputHelper);
+            LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.ALL);
         }
 
         #region IDisposable Support
