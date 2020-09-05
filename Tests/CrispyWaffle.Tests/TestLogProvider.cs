@@ -101,7 +101,8 @@ namespace CrispyWaffle.Tests
         /// <param name="message">The message to be logged</param>
         public void Trace(string category, string message)
         {
-            _testOutputHelper.WriteLine("Trace: {0} - {1}", category, message);
+            //_testOutputHelper.WriteLine("Trace: {0} - {1}", category, message);
+            System.Diagnostics.Trace.WriteLine($"{category} - {message}");
         }
 
         /// <summary>
