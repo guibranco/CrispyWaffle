@@ -12,6 +12,9 @@
 // <summary></summary>
 // ************************************************************************
 
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +22,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-namespace IntegracaoService.Commons.Utils.Communications
+namespace CrispyWaffle.Utils.Communications
 {
     /// <summary>
     /// The file transfer protocol client class.

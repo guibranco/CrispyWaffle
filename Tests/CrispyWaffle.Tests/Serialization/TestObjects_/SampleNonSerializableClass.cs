@@ -1,0 +1,29 @@
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Tests
+// Author           : Guilherme Branco Stracini
+// Created          : 09-05-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 09-05-2020
+// ***********************************************************************
+// <copyright file="SampleNonSerializableClass.cs" company="Guilherme Branco Stracini ME">
+//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
+
+namespace CrispyWaffle.Tests.Serialization
+{
+    /// <summary>
+    /// Class SampleNonSerializableClass.
+    /// </summary>
+    public class SampleNonSerializableClass
+    {
+        /// <summary>
+        /// Gets or sets the date.
+        /// </summary>
+        /// <value>The date.</value>
+        public DateTime Date { get; set; }
+    }
+}

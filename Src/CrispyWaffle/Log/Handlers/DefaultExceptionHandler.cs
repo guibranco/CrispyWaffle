@@ -139,13 +139,14 @@ namespace CrispyWaffle.Log.Handlers
             HandleInternal(exception);
         }
 
+
         /// <summary>
-        /// Cast <seealso cref="P:System.UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
-        /// and then call <seealso cref="M:IntegracaoService.Commons.Log.Handlers.IExceptionHandler.Handle(System.Exception)" />.
+        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
+        /// and then call <seealso cref="Handle(Exception)" />.
         /// This is the default behavior, each implementation can have it own behavior!
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="args">A instance of <seealso cref="T:System.UnhandledExceptionEventArgs" /></param>
+        /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args)
         {
