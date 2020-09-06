@@ -18,9 +18,9 @@ namespace CrispyWaffle.Tests.Serialization
 {
     /// <summary>
     /// Class SampleXmlClass.
-    /// Implements the <see cref="System.IEquatable{CrispyWaffle.Tests.Serialization.SampleXmlClass}" />
+    /// Implements the <see cref="System.IEquatable{SampleXmlClass}" />
     /// </summary>
-    /// <seealso cref="System.IEquatable{CrispyWaffle.Tests.Serialization.SampleXmlClass}" />
+    /// <seealso cref="System.IEquatable{SampleXmlClass}" />
     [Serializer]
     public class SampleXmlClass : IEquatable<SampleXmlClass>
     {
@@ -108,12 +108,6 @@ namespace CrispyWaffle.Tests.Serialization
         }
 
         #endregion
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SampleXmlClass" /> class.
-        /// </summary>
-        public SampleXmlClass()
-        { }
 
         /// <summary>
         /// Gets or sets the code.

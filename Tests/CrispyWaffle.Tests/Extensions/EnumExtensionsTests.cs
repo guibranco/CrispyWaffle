@@ -28,11 +28,11 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateGetHumanReadableValue()
         {
-            var enumItem = TestEnum.One;
+            var enumItem = TestEnum.ONE;
 
             Assert.Equal("Um", enumItem.GetHumanReadableValue());
 
-            Assert.Equal("Dois", TestEnum.Two.GetHumanReadableValue());
+            Assert.Equal("Dois", TestEnum.TWO.GetHumanReadableValue());
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateGetEnumByHumanReadableValue()
         {
-            Assert.Equal(TestEnum.Three, EnumExtensions.GetEnumByHumanReadableAttribute<TestEnum>("Três"));
-            Assert.Equal(TestEnum.Three, EnumExtensions.GetEnumByHumanReadableAttribute<TestEnum>("três"));
+            Assert.Equal(TestEnum.THREE, EnumExtensions.GetEnumByHumanReadableAttribute<TestEnum>("Três"));
+            Assert.Equal(TestEnum.THREE, EnumExtensions.GetEnumByHumanReadableAttribute<TestEnum>("três"));
         }
 
         /// <summary>
@@ -51,11 +51,11 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateGetInternalValue()
         {
-            var enumItem = TestEnum.One;
+            var enumItem = TestEnum.ONE;
 
             Assert.Equal("один", enumItem.GetInternalValue());
 
-            Assert.Equal("два", TestEnum.Two.GetInternalValue());
+            Assert.Equal("два", TestEnum.TWO.GetInternalValue());
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateGetEnumByInternalValue()
         {
-            Assert.Equal(TestEnum.Three, EnumExtensions.GetEnumByInternalValueAttribute<TestEnum>("три"));
+            Assert.Equal(TestEnum.THREE, EnumExtensions.GetEnumByInternalValueAttribute<TestEnum>("три"));
         }
     }
 }
