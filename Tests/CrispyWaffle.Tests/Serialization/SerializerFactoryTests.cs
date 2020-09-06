@@ -36,17 +36,17 @@ namespace CrispyWaffle.Tests.Serialization
             Assert.Equal(deserialized, deserializedResult);
         }
 
-        [Fact]
-        public void ValidateSerializerJsonStrict()
-        {
-            var deserialized = TestObjects.GetSampleJson();
+        //[Fact]
+        //public void ValidateSerializerJsonStrict()
+        //{
+        //    var deserialized = TestObjects.GetSampleJson();
 
-            var serializedResult = (string)deserialized.GetSerializer();
+        //    var serializedResult = (string)deserialized.GetSerializer();
 
-            var deserializedResult = SerializerFactory.GetSerializer<SampleJsonClass>().Deserialize(serializedResult);
+        //    var deserializedResult = SerializerFactory.GetSerializer<SampleJsonClass>().Deserialize(serializedResult);
 
-            Assert.Equal(deserialized, deserializedResult);
-        }
+        //    Assert.Equal(deserialized, deserializedResult);
+        //}
 
         [Fact]
         public void ValidateGetSerializerJsonNotStrict()
@@ -60,22 +60,22 @@ namespace CrispyWaffle.Tests.Serialization
             Assert.Equal(deserialized, deserializedResult);
         }
 
-        [Fact]
-        public void ValidateGetSerializerFromInstanceJson()
-        {
-            var deserialized = TestObjects.GetSampleJson();
+        //[Fact]
+        //public void ValidateGetSerializerFromInstanceJson()
+        //{
+        //    var deserialized = TestObjects.GetSampleJson();
 
-            var deserializedInstance = TestObjects.GetSampleJson();
+        //    var deserializedInstance = TestObjects.GetSampleJson();
 
-            var serializedResult = (string)deserialized.GetSerializer();
+        //    var serializedResult = (string)deserialized.GetSerializer();
 
-            // ReSharper disable once InvokeAsExtensionMethod
-            var deserializedResult = SerializerFactory.GetSerializer(deserializedInstance).Deserialize(serializedResult);
+        //    // ReSharper disable once InvokeAsExtensionMethod
+        //    var deserializedResult = SerializerFactory.GetSerializer(deserializedInstance).Deserialize(serializedResult);
 
-            Assert.Equal(deserialized, deserializedResult);
+        //    Assert.Equal(deserialized, deserializedResult);
 
-            Assert.NotEqual(deserializedInstance, deserializedResult);
-        }
+        //    Assert.NotEqual(deserializedInstance, deserializedResult);
+        //}
 
         //[Fact]
         //public void ValidateGetSerializerFromInstanceExtensionMethodJson()
