@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Communications\SmtpMailer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Communications\" />
   </ItemGroup>
 
