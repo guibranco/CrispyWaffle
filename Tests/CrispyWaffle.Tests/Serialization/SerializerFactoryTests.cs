@@ -77,22 +77,22 @@ namespace CrispyWaffle.Tests.Serialization
             Assert.NotEqual(deserializedInstance, deserializedResult);
         }
 
-        [Fact]
-        public void ValidateGetSerializerFromInstanceExtensionMethodJson()
-        {
-            var deserialized = TestObjects.GetSampleJson();
+        //[Fact]
+        //public void ValidateGetSerializerFromInstanceExtensionMethodJson()
+        //{
+        //    var deserialized = TestObjects.GetSampleJson();
 
-            var deserializedInstance = TestObjects.GetSampleJson();
+        //    var deserializedInstance = TestObjects.GetSampleJson();
 
-            var serializedResult = (string)deserialized.GetSerializer();
+        //    var serializedResult = (string)deserialized.GetSerializer();
 
-            var deserializedResult = deserializedInstance.GetSerializer().Deserialize(serializedResult);
+        //    var deserializedResult = deserializedInstance.GetSerializer().Deserialize(serializedResult);
 
-            Assert.Equal(deserialized, deserializedResult);
+        //    Assert.Equal(deserialized, deserializedResult);
 
-            Assert.NotEqual(deserializedInstance, deserializedResult);
+        //    Assert.NotEqual(deserializedInstance, deserializedResult);
 
-        }
+        //}
 
         [Fact]
         public void ValidateInvalidTypeSerialization()
