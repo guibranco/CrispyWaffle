@@ -21,7 +21,6 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>SerializerConverter&lt;T&gt;.</returns>
-        /// <exception cref="InvalidOperationException">Unable to serializer the object of type '{type.FullName}'</exception>
         /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
         /// <exception cref="InvalidOperationException">The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}</exception>
         [Pure]
@@ -29,10 +28,10 @@
         {
             var type = obj.GetType();
 
-            if (!type.IsClass)
-            {
-                throw new InvalidOperationException($"Unable to serializer the object of type '{type.FullName}'");
-            }
+            //if (!type.IsClass)
+            //{
+            //    throw new InvalidOperationException($"Unable to serializer the object of type '{type.FullName}'");
+            //}
 
             if (Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) is SerializerAttribute attribute)
             {
@@ -70,7 +69,7 @@
             {
                 return GetSerializerFromArray(obj, ref type, ref serializerConverter);
             }
-            
+
             return typeof(IEnumerable).IsAssignableFrom(type) && GetSerializerFromInherit(obj, ref type, ref serializerConverter);
         }
 
