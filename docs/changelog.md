@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.3 [2020-06-06]
+
+- Add FailoverExceptionHandler class - [issue #73](https://github.com/guibranco/CrispyWaffle/issues/73).
+- Add Environment Helper class - [issue #75](https://github.com/guibranco/CrispyWaffle/issues/75).
+
 ## Version 2.2 [2020-09-05]
 
 - Add scheduler feature.
