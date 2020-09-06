@@ -2,4 +2,5 @@
 	<s:Int64 x:Key="/Default/CodeInspection/CleanCode/MinimumMeaningfulMethodNameLength/@EntryValue">3</s:Int64>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConvertToUsingDeclaration/@EntryIndexedValue"></s:String>
 	<s:Boolean x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ConvertToUsingDeclaration/@EntryIndexRemoved">True</s:Boolean>
-	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=EnforceUsingStatementBraces/@EntryIndexedValue">ERROR</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=EnforceUsingStatementBraces/@EntryIndexedValue">ERROR</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=failover/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
