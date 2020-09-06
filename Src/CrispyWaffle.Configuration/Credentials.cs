@@ -4,17 +4,19 @@
 // Created          : 09-03-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-03-2020
+// Last Modified On : 09-06-2020
 // ***********************************************************************
 // <copyright file="Credentials.cs" company="Guilherme Branco Stracini ME">
 //     © 2020 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using CrispyWaffle.Composition;
+using CrispyWaffle.Cryptography;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using CrispyWaffle.Cryptography;
 
 namespace CrispyWaffle.Configuration
 {
@@ -79,6 +81,7 @@ namespace CrispyWaffle.Configuration
         /// <value>The password.</value>
 
         [XmlIgnore]
+        [JsonIgnore]
         [Localizable(false)]
         public string Password
         {
@@ -97,6 +100,7 @@ namespace CrispyWaffle.Configuration
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         [XmlElement("Password")]
+        [JsonProperty("Password")]
         [Localizable(false)]
         public string PasswordInternal
         {
@@ -107,7 +111,9 @@ namespace CrispyWaffle.Configuration
                     return string.Empty;
                 }
 
-                var encrypt = _password.Encrypt("!nT3gR@C@0$3rW1c3", "y48H85nH21", "HZEM7|Ne2YGS/F41");
+                var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
+
+                var encrypt = _password.Encrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.ViKey);
                 return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.MD5)}";
             }
             set
@@ -125,9 +131,14 @@ namespace CrispyWaffle.Configuration
                     }
 
                     var password = value.Substring(0, value.Length - 32);
+
                     var md5 = value.Substring(value.Length - 32);
+
                     var check = Security.Hash(password, HashAlgorithmType.MD5);
-                    _password = 0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check) ? password.Decrypt("!nT3gR@C@0$3rW1c3", "y48H85nH21", "HZEM7|Ne2YGS/F41") : value;
+
+                    var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
+
+                    _password = 0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check) ? password.Decrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.ViKey) : value;
                 }
                 catch (Exception)
                 {

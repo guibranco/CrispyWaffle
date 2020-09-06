@@ -75,12 +75,14 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             var condition = match.Groups["condition"].Value.ToLower();
             var matchText = match.ToString();
-            return template.Replace(matchText,
-                                    IsPropertyInDictionary(condition)
-                                        ? match.Groups["innerContent"].Value
-                                        : match.Groups["elseInnerContent"].Success
-                                            ? match.Groups["elseInnerContent"].Value
-                                            : string.Empty);
+
+            var value = IsPropertyInDictionary(condition)
+                ? match.Groups["innerContent"].Value
+                : match.Groups["elseInnerContent"].Success
+                    ? match.Groups["elseInnerContent"].Value
+                    : string.Empty;
+
+            return template.Replace(matchText, value);
         }
 
 
