@@ -14,6 +14,7 @@
 using CrispyWaffle.Composition;
 using CrispyWaffle.TemplateRendering.Engines;
 using System;
+using CrispyWaffle.Tests.Fixtures;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,7 +32,7 @@ namespace CrispyWaffle.Tests.TemplateRendering
         /// </summary>
         /// <param name="testOutputHelper">The test output helper.</param>
         /// <param name="fixture">The fixture.</param>
-        public TemplateRenderingTests(ITestOutputHelper testOutputHelper, BootstrapFixture fixture) =>
+        public TemplateRenderingTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
             fixture.SetLogProvider(testOutputHelper);
 
         /// <summary>

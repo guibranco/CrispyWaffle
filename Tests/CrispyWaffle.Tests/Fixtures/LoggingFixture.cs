@@ -4,13 +4,14 @@
 // Created          : 07-29-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
+// Last Modified On : 09-06-2020
 // ***********************************************************************
-// <copyright file="BootstrapFixture.cs" company="Guilherme Branco Stracini ME">
+// <copyright file="LoggingFixture.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
 using CrispyWaffle.TemplateRendering.Engines;
@@ -18,19 +19,19 @@ using CrispyWaffle.Tests.Composition;
 using System;
 using Xunit.Abstractions;
 
-namespace CrispyWaffle.Tests
+namespace CrispyWaffle.Tests.Fixtures
 {
     /// <summary>
-    /// Class BootstrapFixture.
+    /// Class LoggingFixture.
     /// Implements the <see cref="System.IDisposable" />
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public class BootstrapFixture : IDisposable
+    public class LoggingFixture : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BootstrapFixture" /> class.
+        /// Initializes a new instance of the <see cref="LoggingFixture" /> class.
         /// </summary>
-        public BootstrapFixture()
+        public LoggingFixture()
         {
             ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
             ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
