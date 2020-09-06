@@ -11,9 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using CrispyWaffle.Tests.Fixtures;
 using Xunit;
 
-namespace CrispyWaffle.Tests
+namespace CrispyWaffle.Tests.Collections
 {
     /// <summary>
     /// Class ServiceLocatorCollection.
@@ -21,7 +23,7 @@ namespace CrispyWaffle.Tests
     /// </summary>
     /// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
     [CollectionDefinition("Logged collection")]
-    public class LoggedCollection : ICollectionFixture<BootstrapFixture>
+    public class LoggedCollection : ICollectionFixture<LoggingFixture>
     {
         // This class has no code, and is never created. Its purpose is simply
         // to be the place to apply [CollectionDefinition] and all the

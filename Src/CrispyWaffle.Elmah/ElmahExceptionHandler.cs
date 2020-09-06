@@ -34,19 +34,7 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders;
-
-        #endregion
-
-        #region ~Ctor
-
-        /// <summary>
-        /// Initializes the <see cref="ElmahExceptionHandler" /> class.
-        /// </summary>
-        static ElmahExceptionHandler()
-        {
-            AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
-        }
+        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 

@@ -57,9 +57,9 @@ More information avaiable [here](https://guibranco.github.io/CrispyWaffle/instal
 
 ---
 
-## Usage
+## User guide
 
-Usage is available [here](https://guibranco.github.io/CrispyWaffle/usage/).
+User guide is available [here](https://guibranco.github.io/CrispyWaffle/user-guide/basic-usage/).
 
 ---
 

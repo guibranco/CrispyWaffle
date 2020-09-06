@@ -44,7 +44,6 @@ namespace CrispyWaffle.Configuration
         /// The credentials
         /// </summary>
         /// <value>The credentials.</value>
-
         [XmlIgnore]
         public IConnectionCredential Credentials { get; set; }
 
@@ -53,7 +52,6 @@ namespace CrispyWaffle.Configuration
         /// </summary>
         /// <value>The credentials internal.</value>
         /// <remarks>For XML Serialization</remarks>
-
         [XmlElement("Credentials")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -67,7 +65,6 @@ namespace CrispyWaffle.Configuration
         /// The host
         /// </summary>
         /// <value>The host.</value>
-
         [Localizable(false)]
         public string Host { get; set; }
 
@@ -75,7 +72,6 @@ namespace CrispyWaffle.Configuration
         /// The connection name/identifier
         /// </summary>
         /// <value>The name.</value>
-
         [XmlAttribute(AttributeName = "Name")]
         [Localizable(false)]
         public string Name { get; set; }
@@ -84,9 +80,7 @@ namespace CrispyWaffle.Configuration
         /// The host port
         /// </summary>
         /// <value>The port.</value>
-
         public int Port { get; set; }
-
 
         #endregion
 

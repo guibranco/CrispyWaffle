@@ -13,6 +13,7 @@
 // ***********************************************************************
 using CrispyWaffle.Composition;
 using System.Threading;
+using CrispyWaffle.Tests.Fixtures;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -29,7 +30,7 @@ namespace CrispyWaffle.Tests.Composition
         /// </summary>
         /// <param name="testOutputHelper">The test output helper.</param>
         /// <param name="fixture">The fixture.</param>
-        public ServiceLocatorTests(ITestOutputHelper testOutputHelper, BootstrapFixture fixture) =>
+        public ServiceLocatorTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
             fixture.SetLogProvider(testOutputHelper);
 
         /// <summary>
