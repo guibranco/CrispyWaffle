@@ -1,4 +1,17 @@
-﻿namespace CrispyWaffle.Extensions
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle
+// Author           : Guilherme Branco Stracini
+// Created          : 07-29-2020
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 09-07-2020
+// ***********************************************************************
+// <copyright file="ConversionExtensions.cs" company="Guilherme Branco Stracini ME">
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Extensions
 {
     using GoodPractices;
     using Newtonsoft.Json.Linq;
@@ -57,7 +70,9 @@
         /// To the date time.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns></returns>
+        /// <returns>DateTime.</returns>
+        /// <exception cref="System.ArgumentNullException">input - Input value cannot be null</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">input - Unable to parse the string to a valid datetime</exception>
         /// <exception cref="ArgumentNullException">input</exception>
         /// <exception cref="ArgumentOutOfRangeException">input</exception>
         public static DateTime ToDateTime(this string input)
@@ -67,40 +82,12 @@
                 throw new ArgumentNullException(nameof(input), "Input value cannot be null");
             }
 
-            input = input.ToLower().Trim();
-            switch (input)
+            if (input.TryToDateTime(out DateTime result))
             {
-                case "agora":
-                case "now":
-                    return DateTime.Now;
-                case "hoje":
-                case "today":
-                    return DateTime.Today;
-                case "ontem":
-                case "yesterday":
-                    return DateTime.Today.AddDays(-1);
-                case "amanhã":
-                case "amanha":
-                case "tomorrow":
-                    return DateTime.Today.AddDays(1);
-                default:
-                    if (DateTime.TryParse(input, out var result))
-                    {
-                        return result;
-                    }
-
-                    if (input.Length == 10 &&
-                        DateTime.TryParseExact(input,
-                            @"dd/MM/yyyy",
-                            CultureInfo.InvariantCulture,
-                            DateTimeStyles.None,
-                            out result))
-                    {
-                        return result;
-                    }
-
-                    throw new ArgumentOutOfRangeException(nameof(input), input, "Unable to parse the string to a valid datetime");
+                return result;
             }
+
+            throw new ArgumentOutOfRangeException(nameof(input), input, "Unable to parse the string to a valid datetime");
         }
 
 
@@ -154,12 +141,7 @@
 
                 default:
 
-                    if (DateTime.TryParse(input, out value))
-                    {
-                        return true;
-                    }
-
-                    return input.Length == 10 && DateTime.TryParseExact(input, @"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
+                    return DateTime.TryParse(input, out value);
             }
         }
 
@@ -227,29 +209,29 @@
         }
 
         /// <summary>
-        ///  Converts a decimal input to monetary readable format (PT-BR - BRL)
+        /// Converts a decimal input to monetary readable format (PT-BR - BRL)
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">The input.</param>
+        /// <returns>System.String.</returns>
         public static string ToMonetary(this decimal input)
         {
             return input == 0 ? "No value" : $@"R${input:### ##0.00}";
         }
 
         /// <summary>
-        ///     Converts a DateTime instance to Unix Timestamp (number of seconds that have elapsed since 
-        ///     00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970)
+        /// Converts a DateTime instance to Unix Timestamp (number of seconds that have elapsed since
+        /// 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970)
         /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns>System.Int32.</returns>
         public static int ToUnixTimeStamp(this DateTime dateTime)
         {
             return (int)dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         /// <summary>
-        ///     Converts a Unix Timestamp (number of seconds that have elapsed since 00:00:00 Coordinated 
-        ///     Universal Time (UTC), Thursday, 1 January 1970) to a DateTime instance
+        /// Converts a Unix Timestamp (number of seconds that have elapsed since 00:00:00 Coordinated
+        /// Universal Time (UTC), Thursday, 1 January 1970) to a DateTime instance
         /// </summary>
         /// <param name="epochTime">The Unix Timestamp</param>
         /// <returns>A DateTime instance of the epochTime</returns>
@@ -264,7 +246,7 @@
         /// Parses the brazilian phone number.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <returns></returns>
+        /// <returns>PhoneNumber.</returns>
         /// <exception cref="InvalidTelephoneNumberException"></exception>
         public static PhoneNumber ParseBrazilianPhoneNumber(this string number)
         {
@@ -283,7 +265,7 @@
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="result">The result.</param>
-        /// <returns></returns>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool TryParseBrazilianPhoneNumber(this string number, ref PhoneNumber result)
         {
             var dirty = number.RemoveNonNumeric();
@@ -322,7 +304,7 @@
         /// To the pretty string.
         /// </summary>
         /// <param name="json">The json.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public static string ToPrettyString(this string json)
         {
             if (string.IsNullOrWhiteSpace(json))
@@ -425,7 +407,7 @@
         /// To the ordinal.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public static string ToOrdinal(this long number)
         {
             if (number < 0)
@@ -454,7 +436,7 @@
         /// To the ordinal.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public static string ToOrdinal(this int number)
         {
             return ((long)number).ToOrdinal();
@@ -464,7 +446,7 @@
         /// Formats the document.
         /// </summary>
         /// <param name="document">The document.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public static string FormatBrazilianDocument(this string document)
         {
             if (string.IsNullOrWhiteSpace(document))
@@ -480,9 +462,15 @@
         /// Formats the zip code.
         /// </summary>
         /// <param name="zipCode">The zip code.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         public static string FormatBrazilianZipCode(this string zipCode)
         {
+            if (string.IsNullOrWhiteSpace(zipCode))
+            {
+                return "Invalid zipcode";
+            }
+
+
             return Regex.Replace(zipCode.RemoveNonNumeric(), @"(\d{5})(\d{3})", "$1-$2");
         }
 
@@ -492,7 +480,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="instance">The instance.</param>
         /// <param name="useNonPublic">if set to <c>true</c> [use non public].</param>
-        /// <returns></returns>
+        /// <returns>T.</returns>
         public static T DeepClone<T>(this T instance, bool useNonPublic = true)
         {
             var type = typeof(T);

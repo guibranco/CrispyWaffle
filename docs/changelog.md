@@ -1,8 +1,12 @@
 # Changelog
 
+## Version 2.5 [2020-09-07]
+
+- Add CrispyWaffle.RabbitMQ project & package  - [issue #92](https://github.com/guibranco/CrispyWaffle/issues/92).
+
 ## Version 2.4 [2020-09-06]
 
-- Add CrispyWaffle.Redis project & package
+- Add CrispyWaffle.Redis project & package.
 - Add documentation for caching.
 
 ## Version 2.3 [2020-09-06]
