@@ -19,7 +19,7 @@ Default adapters:
 - RollingTextFileLogAdapter: Text file output, rolling to another file every time each reaches defined size.
 - ...
 
-## Example
+## Examples
 
 A simple `console application` with simple (*colored console output*) logging example:
 

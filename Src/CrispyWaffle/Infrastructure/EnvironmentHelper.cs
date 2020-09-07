@@ -122,6 +122,12 @@ namespace CrispyWaffle.Infrastructure
         /// <param name="displayApplicationName">Display name of the application.</param>
         public static void SetDisplayApplicationName(string displayApplicationName) => DisplayApplicationName = displayApplicationName;
 
+        /// <summary>
+        /// Sets the operation.
+        /// </summary>
+        /// <param name="operation">The operation.</param>
+        public static void SetOperation(string operation) => Operation = operation;
+
         #endregion
 
         #region Public properties
@@ -167,6 +173,12 @@ namespace CrispyWaffle.Infrastructure
         /// </summary>
         /// <value>The display name of the application.</value>
         public static string DisplayApplicationName { get; private set; }
+
+        /// <summary>
+        /// Gets the operation.
+        /// </summary>
+        /// <value>The operation.</value>
+        public static string Operation { get; private set; }
 
         /// <summary>
         /// Gets the version.

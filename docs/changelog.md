@@ -1,6 +1,11 @@
 # Changelog
 
-## Version 2.3 [2020-06-06]
+## Version 2.4 [2020-09-06]
+
+- Add CrispyWaffle.Redis project & package
+- Add documentation for caching.
+
+## Version 2.3 [2020-09-06]
 
 - Add FailoverExceptionHandler class - [issue #73](https://github.com/guibranco/CrispyWaffle/issues/73).
 - Add Environment Helper class - [issue #75](https://github.com/guibranco/CrispyWaffle/issues/75).
