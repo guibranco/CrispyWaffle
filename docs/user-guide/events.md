@@ -41,7 +41,9 @@ Event handling is currently done synchronously. There are plans to do async, iss
 
 ---
 
-## Multiple event handlers
+## Examples
+
+### Multiple event handlers for the same event
 
 A more complex example using `Events` & `EventsHandlers`. 
 In this example, there are two event handlers and the event class has some properties:

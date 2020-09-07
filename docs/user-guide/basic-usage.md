@@ -4,6 +4,7 @@
 The Crispy Waffle has the following features:
 
 - [Logging](logging.md)
+- [Caching](caching.md)
 - [Events dispatching](events.md)
 - Conversion extensions
 - String extensions
