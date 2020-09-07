@@ -160,7 +160,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
 
 
             //TODO add LogConsumer to logger parameter.
-            _connectionPoolManager = new RedisCacheConnectionPoolManager(redisConfiguration, null);
+            _connectionPoolManager = new RedisCacheConnectionPoolManager(redisConfiguration);
 
 
             Serializer = serializer;
