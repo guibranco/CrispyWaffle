@@ -21,6 +21,13 @@ namespace CrispyWaffle.Log.Providers
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class.
         /// </summary>
+        public EventLogProvider()
+            : this("crispy-waffle")
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventLogProvider"/> class.
+        /// </summary>
         /// <param name="source">The source.</param>
         public EventLogProvider(string source)
         {

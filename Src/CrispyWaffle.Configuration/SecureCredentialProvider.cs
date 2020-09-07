@@ -35,10 +35,10 @@ namespace CrispyWaffle.Configuration
         public string SaltKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the vi key.
+        /// Gets or sets the initialization vector key.
         /// </summary>
-        /// <value>The vi key.</value>
-        public string ViKey { get; set; }
+        /// <value>The initialization vector key.</value>
+        public string IVKey { get; set; }
 
         #endregion
     }

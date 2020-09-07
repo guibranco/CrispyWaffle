@@ -29,7 +29,7 @@ namespace CrispyWaffle.Tests.Fixtures
         /// </summary>
         public ConfigurationFixture()
         {
-            ServiceLocator.Register<ISecureCredentialProvider>(() => new SecureCredentialProvider { PasswordHash = "Cr1$PTVV@FE13", SaltKey = "y48H85nH21", ViKey = "HZEM7|Ne2YGS/F41" }, LifeStyle.SINGLETON);
+            ServiceLocator.Register<ISecureCredentialProvider>(() => new SecureCredentialProvider { PasswordHash = "Cr1$PTVV@FE13", SaltKey = "y48H85nH21", IVKey = "HZEM7|Ne2YGS/F41" }, LifeStyle.SINGLETON);
         }
 
         #region IDisposable Support

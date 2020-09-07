@@ -31,9 +31,9 @@ namespace CrispyWaffle.Configuration
         string SaltKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the vi key.
+        /// Gets or sets the initialization vector key.
         /// </summary>
-        /// <value>The vi key.</value>
-        string ViKey { get; set; }
+        /// <value>The initialization vector key.</value>
+        string IVKey { get; set; }
     }
 }

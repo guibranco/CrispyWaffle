@@ -113,7 +113,7 @@ namespace CrispyWaffle.Configuration
 
                 var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-                var encrypt = _password.Encrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.ViKey);
+                var encrypt = _password.Encrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.IVKey);
                 return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.MD5)}";
             }
             set
@@ -138,7 +138,7 @@ namespace CrispyWaffle.Configuration
 
                     var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-                    _password = 0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check) ? password.Decrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.ViKey) : value;
+                    _password = 0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check) ? password.Decrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.IVKey) : value;
                 }
                 catch (Exception)
                 {
