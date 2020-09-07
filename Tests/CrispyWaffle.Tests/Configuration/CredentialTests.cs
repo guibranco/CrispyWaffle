@@ -30,7 +30,7 @@ namespace CrispyWaffle.Tests.Configuration
 
             var secureCredentialProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-            var passwordDecrypted = passwordEncrypted.Decrypt(secureCredentialProvider.PasswordHash, secureCredentialProvider.SaltKey, secureCredentialProvider.ViKey);
+            var passwordDecrypted = passwordEncrypted.Decrypt(secureCredentialProvider.PasswordHash, secureCredentialProvider.SaltKey, secureCredentialProvider.IVKey);
 
             Assert.Equal(credential.Password, passwordDecrypted);
 

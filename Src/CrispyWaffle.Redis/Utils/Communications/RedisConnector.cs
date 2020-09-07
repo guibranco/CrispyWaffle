@@ -147,7 +147,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
                 AbortOnConnectFail = false,
                 AllowAdmin = true,
                 Password = password,
-                ServiceName = clientName,
                 Hosts = hostsList.Split(',').Select(host =>
                 {
                     var split = host.Split(':');
@@ -155,7 +154,13 @@ namespace CrispyWaffle.Redis.Utils.Communications
                     var hostname = split[0];
                     var port = split.Length > 1 ? int.Parse(split[1]) : 6379;
                     return new RedisHost { Host = hostname, Port = port };
-                }).ToArray()
+                }).ToArray(),
+                ServerEnumerationStrategy = new ServerEnumerationStrategy
+                {
+                    Mode = ServerEnumerationStrategy.ModeOptions.All,
+                    TargetRole = ServerEnumerationStrategy.TargetRoleOptions.Any,
+                    UnreachableServerAction = ServerEnumerationStrategy.UnreachableServerActionOptions.Throw
+                }
             };
 
 
