@@ -141,7 +141,12 @@ namespace CrispyWaffle.Extensions
 
                 default:
 
-                    return DateTime.TryParse(input, out value);
+                    if (DateTime.TryParse(input, out value))
+                    {
+                        return true;
+                    }
+
+                    return input.Length == 10 && DateTime.TryParseExact(input, @"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
             }
         }
 
