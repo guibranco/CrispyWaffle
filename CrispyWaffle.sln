@@ -21,12 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Elmah", "Src\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Log4Net", "Src\CrispyWaffle.Log4Net\CrispyWaffle.Log4Net.csproj", "{D6164E04-F1C9-4D86-9B9C-41036B816C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrispyWaffle.RabbitMQ", "Src\CrispyWaffle.RabbitMQ\CrispyWaffle.RabbitMQ.csproj", "{D0B119A8-91C1-4350-AB68-CDD831D2F9BE}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Redis", "Src\CrispyWaffle.Redis\CrispyWaffle.Redis.csproj", "{47DB173E-BC2B-4C16-B2A9-9506E57D6D9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Tests", "Tests\CrispyWaffle.Tests\CrispyWaffle.Tests.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrispyWaffle.RabbitMQ", "Src\CrispyWaffle.RabbitMQ\CrispyWaffle.RabbitMQ.csproj", "{D0B119A8-91C1-4350-AB68-CDD831D2F9BE}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
