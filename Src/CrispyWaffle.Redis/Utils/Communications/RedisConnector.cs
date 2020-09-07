@@ -51,9 +51,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="serializer">The serializer.</param>
-        /// <param name="clientName">Name of the client.</param>
-        public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer, string clientName)
-            : this(configuration.HostsList, configuration.Password, clientName, serializer)
+        public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer)
+            : this(configuration.HostsList, configuration.Password, serializer)
         { }
 
         /// <summary>
@@ -62,11 +61,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="configuration">The configuration.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <param name="clientName">Name of the client.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer, string queuePrefix, string clientName)
-            : this(configuration.HostsList, configuration.Password, clientName, serializer) =>
+        public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer, string queuePrefix)
+            : this(configuration.HostsList, configuration.Password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
         /// <summary>
@@ -74,9 +72,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="serializer">The serializer.</param>
-        /// <param name="clientName">Name of the client.</param>
-        public RedisConnector(IConnection connection, ISerializer serializer, string clientName)
-            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, clientName, serializer)
+        public RedisConnector(IConnection connection, ISerializer serializer)
+            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, serializer)
         { }
 
         /// <summary>
@@ -85,11 +82,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="connection">The connection.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <param name="clientName">Name of the client.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(IConnection connection, ISerializer serializer, string queuePrefix, string clientName)
-            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, clientName, serializer)
+        public RedisConnector(IConnection connection, ISerializer serializer, string queuePrefix)
+            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, serializer)
             => QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
         /// <summary>
@@ -99,9 +95,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="port">The port.</param>
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
-        /// <param name="clientName">Name of the client.</param>
-        public RedisConnector(string host, int port, string password, ISerializer serializer, string clientName)
-            : this(string.Concat(host, @":", port), password, clientName, serializer)
+        public RedisConnector(string host, int port, string password, ISerializer serializer)
+            : this(string.Concat(host, @":", port), password, serializer)
         { }
 
         /// <summary>
@@ -112,11 +107,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <param name="clientName">Name of the client.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(string host, int port, string password, ISerializer serializer, string queuePrefix, string clientName)
-            : this(host, port, password, serializer, clientName) =>
+        public RedisConnector(string host, int port, string password, ISerializer serializer, string queuePrefix)
+            : this(host, port, password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
         /// <summary>
@@ -126,11 +120,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <param name="clientName">Name of the client.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(string hostsList, string password, ISerializer serializer, string queuePrefix, string clientName)
-            : this(hostsList, password, clientName, serializer) =>
+        public RedisConnector(string hostsList, string password, ISerializer serializer, string queuePrefix)
+            : this(hostsList, password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
         /// <summary>
@@ -138,11 +131,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// </summary>
         /// <param name="hostsList">The hosts list.</param>
         /// <param name="password">The password.</param>
-        /// <param name="clientName">Name of the client.</param>
         /// <param name="serializer">The serializer.</param>
-        public RedisConnector(string hostsList, string password, string clientName, ISerializer serializer)
+        public RedisConnector(string hostsList, string password, ISerializer serializer)
         {
-            var redisConfiguration = new RedisConfiguration
+            var configuration = new RedisConfiguration
             {
                 AbortOnConnectFail = false,
                 AllowAdmin = true,
@@ -165,11 +157,11 @@ namespace CrispyWaffle.Redis.Utils.Communications
 
 
             //TODO add LogConsumer to logger parameter.
-            _connectionPoolManager = new RedisCacheConnectionPoolManager(redisConfiguration);
+            _connectionPoolManager = new RedisCacheConnectionPoolManager(configuration);
 
 
             Serializer = serializer;
-            Cache = new RedisCacheClient(_connectionPoolManager, serializer, redisConfiguration);
+            Cache = new RedisCacheClient(_connectionPoolManager, serializer, configuration);
             QueuePrefix = "crispy-waffle";
         }
 
