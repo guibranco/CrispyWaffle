@@ -29,9 +29,11 @@ namespace CrispyWaffle.Log.Handlers
             }
             catch (Exception ex)
             {
-                var message = GetMessage(ex);
+                var builder = new StringBuilder()
+                    .AppendFormat("Original exception: {0}\r\n", GetMessage(exception))
+                    .AppendFormat("Current exception: {0}", GetMessage(ex));
 
-                System.IO.File.WriteAllText($@"fatal-{DateTime.Now:yyyyMMddHHmmss}.log", message, Encoding.UTF8);
+                System.IO.File.WriteAllText($@"fatal-{DateTime.Now:yyyyMMddHHmmss}.log", builder.ToString(), Encoding.UTF8);
             }
         }
 
