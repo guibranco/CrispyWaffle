@@ -5,3 +5,7 @@ table {
 table tr td {
     text-align: center;
 }
+
+.wy-nav-content {
+    max-width: 90%;
+}

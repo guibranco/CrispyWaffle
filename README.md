@@ -11,10 +11,10 @@ Documentation of the project: [Read the Docs](https://guibranco.github.io/Crispy
 
 ## CI/CD
 
-| Branch | Build status | Last commit |
-|--------|--------------|-------------|
-| Master | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) |
-| Develop | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/develop?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/develop) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/develop)](https://github.com/guibranco/CrispyWaffle) |
+| Branch | Build status | Last commit | Tests |
+|--------|--------------|-------------|-------|
+| Master | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/master?compact_message) |
+| Develop | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/develop?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/develop) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/develop)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/develop?compact_message) |
 
 ## Code Quality
 
