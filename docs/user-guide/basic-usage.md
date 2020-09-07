@@ -3,16 +3,14 @@
 
 The Crispy Waffle has the following features:
 
-- [Logging](logging.md)
 - [Caching](caching.md)
-- [Events dispatching](events.md)
 - Conversion extensions
-- String extensions
-- Cache 
-- Hash helpers
-- Service locator (acts like a Dependency Injection and IoC container)
+- [Events dispatching](events.md)
+- [Logging](logging.md)
 - [Scheduled task execution](scheduled-jobs.md)
 - Serialization helpers for binary, JSON and XML formats.
+- Service locator (acts like a Dependency Injection and IoC container)
+- String extensions
 
 ## Examples
 
