@@ -17,7 +17,6 @@ Currently supports the following formats:
 
 Check the [Wikipedia's `CRON`](https://en.wikipedia.org/wiki/Cron) page for more examples and details.
 
-
 ## Examples
 
 Using [`cron` expression](https://en.wikipedia.org/wiki/Cron) to schedule tasks/jobs inside a program.

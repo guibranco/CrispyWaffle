@@ -1,4 +1,4 @@
-version: 2.3.{build}
+version: 2.4.{build}
 skip_tags: true
 image: Visual Studio 2019
 configuration: Release
@@ -71,10 +71,12 @@ after_build:
 - xcopy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* %CD%\Build\Configuration\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* %CD%\Build\Elmah\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* %CD%\Build\Log4Net\
+- xcopy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* %CD%\Build\Redis\
 - copy %CD%\Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
 - rd /s /q %CD%\Src\%SOLUTION_NAME%\bin\Release\
 - xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.xml %CD%\Coverage\
 - xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.json %CD%\Coverage\
@@ -83,6 +85,7 @@ after_build:
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Configuration.zip" Build\Configuration
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Elmah.zip" Build\Elmah
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Log4Net.zip" Build\Log4Net
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Redis.zip" Build\Log4Net
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
@@ -94,6 +97,8 @@ artifacts:
   name: ZipFileElmah
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
   name: ZipFileLog4Net
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Redis.zip
+  name: ZipFileRedis
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageCore
 - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
@@ -102,6 +107,8 @@ artifacts:
   name: PackageElmah
 - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageLog4Net
+- path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageRedis
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
   name: Coverage
 
@@ -126,6 +133,11 @@ deploy:
   on:
    branch: master
   artifact: PackageLog4Net
+- provider: Environment
+  name: NuGet
+  on:
+   branch: master
+  artifact: PackageRedis
 - provider: GitHub
   on:
    branch: master
@@ -154,6 +166,13 @@ deploy:
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileLog4Net
+- provider: GitHub
+  on:
+   branch: master
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: ZipFileRedis
 - provider: GitHub
   on:
    branch: master
