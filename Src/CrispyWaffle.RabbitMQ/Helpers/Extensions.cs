@@ -4,10 +4,10 @@
 // Created          : 09-07-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-07-2020
+// Last Modified On : 09-28-2020
 // ***********************************************************************
 // <copyright file="Extensions.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -18,6 +18,21 @@ namespace CrispyWaffle.RabbitMQ.Helpers
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Gets the name of the exchange.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        public static string GetExchangeName<T>()
+        where T : class, IQueuing, new()
+        {
+            var type = typeof(T);
+            return type.GetCustomAttributes(typeof(ExchangeNameAttribute), true)
+                is ExchangeNameAttribute[] attributes && attributes.Length == 1
+                ? attributes[0].ExchangeName
+                : type.Name.ToLower().Replace(@" ", @"-");
+        }
+
         /// <summary>
         /// Gets the name of the queue.
         /// </summary>
