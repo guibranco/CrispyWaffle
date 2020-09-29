@@ -54,8 +54,8 @@ namespace CrispyWaffle.RabbitMQ.Log
         public RabbitMQLogProvider(RabbitMQConnector connector, CancellationToken cancellationToken)
         {
             _connector = connector ?? throw new ArgumentNullException(nameof(connector));
-            _channel = _connector.Connection.CreateModel();
-            _channel.ExchangeDeclare(_connector.DefaultExchangeName, ExchangeType.Fanout);
+            _channel = _connector.ConnectionFactory.CreateConnection().CreateModel();
+            _channel.ExchangeDeclare(_connector.DefaultExchangeName, ExchangeType.Fanout, true);
             _cancellationToken = cancellationToken;
             _queue = new ConcurrentQueue<string>();
             var thread = new Thread(Worker);
