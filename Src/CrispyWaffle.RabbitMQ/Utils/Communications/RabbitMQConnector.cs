@@ -34,30 +34,28 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 throw new ArgumentNullException(nameof(connection));
             }
 
-            var factory = new ConnectionFactory { HostName = connection.Host, Port = connection.Port };
+            ConnectionFactory = new ConnectionFactory { HostName = connection.Host, Port = connection.Port };
 
             if (!string.IsNullOrWhiteSpace(connection.Credentials?.UserName))
             {
-                factory.UserName = connection.Credentials.UserName;
+                ConnectionFactory.UserName = connection.Credentials.UserName;
             }
 
             if (!string.IsNullOrWhiteSpace(connection.Credentials?.Password))
             {
-                factory.Password = connection.Credentials.Password;
+                ConnectionFactory.Password = connection.Credentials.Password;
             }
 
-            factory.VirtualHost = virtualHost ?? throw new ArgumentNullException(nameof(defaultExchange));
+            ConnectionFactory.VirtualHost = virtualHost ?? throw new ArgumentNullException(nameof(defaultExchange));
 
-            Connection = factory.CreateConnection();
             DefaultExchangeName = defaultExchange;
         }
 
-
         /// <summary>
-        /// Gets the connection.
+        /// Gets the connection factory.
         /// </summary>
-        /// <value>The connection.</value>
-        public global::RabbitMQ.Client.IConnection Connection { get; }
+        /// <value>The connection factory.</value>
+        public IConnectionFactory ConnectionFactory { get; }
 
         /// <summary>
         /// Gets the default name of the exchange.

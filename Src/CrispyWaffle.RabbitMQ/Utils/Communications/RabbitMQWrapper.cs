@@ -30,7 +30,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         {
             var exchangeName = Helpers.Extensions.GetExchangeName<T>();
 
-            using (var channel = _connector.Connection.CreateModel())
+            using (var connection = _connector.ConnectionFactory.CreateConnection())
+            using (var channel = connection.CreateModel())
             {
                 if (!string.IsNullOrWhiteSpace(exchangeDeclareType))
                 {
@@ -59,7 +60,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         {
             var queueName = Helpers.Extensions.GetQueueName<T>();
 
-            using (var channel = _connector.Connection.CreateModel())
+            using (var connection = _connector.ConnectionFactory.CreateConnection())
+            using (var channel = connection.CreateModel())
             {
                 if (queueDeclare)
                 {
