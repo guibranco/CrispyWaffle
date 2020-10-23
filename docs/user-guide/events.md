@@ -10,14 +10,16 @@ Each event can be handled by one, two or infinite number of event handlers.
 Event handler class inherit from `IEventHandler<TEvent>` interface and must implement the `Handle(TEvent evt)` method.
 The `TEvent` generic type is the type of `IEvent` that will be handled.
 
-For example, the `HellWorldEvent` class, defined below is a simple class without methods, properties or fields and is used trigger `HelloWorldEventHandler`: 
-`
+For example, the `HellWorldEvent` class, defined below is a simple class without methods, properties or fields and is used to trigger `HelloWorldEventHandler`: 
+
 Event class:
+
 ```cs
 public class HelloWorldEvent : IEvent {}
 ```
 
 Event handler class:
+
 ```cs
 public class HelloWorldEventHandler : IEventHandler<HelloWorldEvent> 
 {
