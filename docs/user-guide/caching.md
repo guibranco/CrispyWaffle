@@ -5,7 +5,7 @@
 Cache data is easy with Crispy Waffle, there are available two **repositories** for cache:
 
 - **MemoryCacheRepository**: A cache repository that store data in application memory.
-- **RedisCacheRepository**: A cache repositority that use Redis as persistence mechanism.
+- **RedisCacheRepository**: A cache repository that uses Redis as persistence mechanism.
 
 There is also a helper class, **CacheManager** that make cache usage easy.
 
