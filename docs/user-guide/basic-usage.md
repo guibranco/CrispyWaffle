@@ -7,7 +7,7 @@ The Crispy Waffle has the following features:
 - Conversion extensions
 - [Events dispatching](events.md)
 - [Logging](logging.md)
-- Messaging
+- [Messaging](messaging.md)
 - [Scheduled task execution](scheduled-jobs.md)
 - Serialization helpers for binary, JSON and XML formats
 - Service locator (acts like a Dependency Injection and IoC container)
