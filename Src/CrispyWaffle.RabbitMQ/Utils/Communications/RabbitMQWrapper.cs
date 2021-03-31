@@ -1,4 +1,17 @@
-﻿using CrispyWaffle.Log;
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.RabbitMQ
+// Author           : Guilherme Branco Stracini
+// Created          : 03-31-2021
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 03-31-2021
+// ***********************************************************************
+// <copyright file="RabbitMQWrapper.cs" company="Guilherme Branco Stracini ME">
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using CrispyWaffle.Log;
 using CrispyWaffle.RabbitMQ.Helpers;
 using CrispyWaffle.Serialization;
 using System;
@@ -6,6 +19,9 @@ using System.Text;
 
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
+    /// <summary>
+    /// Class RabbitMQWrapper.
+    /// </summary>
     public class RabbitMQWrapper
     {
         /// <summary>

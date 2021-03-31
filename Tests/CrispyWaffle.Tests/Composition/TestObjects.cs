@@ -35,10 +35,7 @@ namespace CrispyWaffle.Tests.Composition
             /// <summary>
             /// Initializes a new instance of the <see cref="SingletonTest" /> class.
             /// </summary>
-            public SingletonTest()
-            {
-                Date = DateTime.Now;
-            }
+            public SingletonTest() => Date = DateTime.Now;
         }
 
         /// <summary>
