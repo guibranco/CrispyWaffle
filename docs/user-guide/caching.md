@@ -5,7 +5,7 @@
 Cache data is easy with Crispy Waffle, there are available two **repositories** for cache:
 
 - **MemoryCacheRepository**: A cache repository that store data in application memory.
-- **RedisCacheRepository**: A cache repositority that use Redis as persistence mechanism.
+- **RedisCacheRepository**: A cache repository that uses Redis as persistence mechanism.
 
 There is also a helper class, **CacheManager** that make cache usage easy.
 
@@ -15,7 +15,7 @@ There is also a helper class, **CacheManager** that make cache usage easy.
 
 The following example uses the **RedisCacheRepository** and the **CacheManager** helper class:
 
-Process #1:
+Process #1 (write data to cache):
 
 ```cs
 ServiceLocator.Register<ICacheRepository, RedisCacheRepository>(LifeStyle.SINGLETON);
@@ -23,9 +23,11 @@ CacheManager.AddRepository<ICacheRepository>();
 
 CacheManager.Set("some string text", "MyKey");
 ```
-Process #2
+
+Process #2 (read data from cache - Redis):
+
 ```cs
-ceLocator.Register<ICacheRepository, RedisCacheRepository>(LifeStyle.SINGLETON);
+ServiceLocator.Register<ICacheRepository, RedisCacheRepository>(LifeStyle.SINGLETON);
 CacheManager.AddRepository<ICacheRepository>();
 
 var cachedValueFromRedis = CacheManager.Get<string>("MyKey"); //some string text
@@ -33,7 +35,7 @@ var cachedValueFromRedis = CacheManager.Get<string>("MyKey"); //some string text
 
 ### Multiple cache repositories (registration precedence)
 
-Using multiple cache repositories
+Using multiple cache repositories:
 
 ```cs
 ServiceLocator.Register<ICacheRepository, MemoryCacheRepository>(LifeStyle.SINGLETON);
