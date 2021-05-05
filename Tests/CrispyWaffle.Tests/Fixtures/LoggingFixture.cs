@@ -19,6 +19,7 @@ namespace CrispyWaffle.Tests.Fixtures
     using CrispyWaffle.TemplateRendering.Engines;
     using CrispyWaffle.Tests.Composition;
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using Xunit.Abstractions;
 
     /// <summary>
@@ -26,6 +27,7 @@ namespace CrispyWaffle.Tests.Fixtures
     /// Implements the <see cref="System.IDisposable" />
     /// </summary>
     /// <seealso cref="System.IDisposable" />
+    [ExcludeFromCodeCoverage]
     public class LoggingFixture : IDisposable
     {
         /// <summary>

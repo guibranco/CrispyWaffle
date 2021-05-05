@@ -15,6 +15,7 @@ namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Class SampleXmlClass.
@@ -22,6 +23,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// </summary>
     /// <seealso cref="System.IEquatable{SampleXmlClass}" />
     [Serializer]
+    [ExcludeFromCodeCoverage]
     public class SampleXmlClass : IEquatable<SampleXmlClass>
     {
         #region Equality members

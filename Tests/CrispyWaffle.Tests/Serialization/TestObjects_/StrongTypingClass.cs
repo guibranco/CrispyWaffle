@@ -15,11 +15,13 @@ namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Class StrongTypingClass.
     /// </summary>
     [Serializer(SerializerFormat.JSON)]
+    [ExcludeFromCodeCoverage]
     public class StrongTypingClass : IEquatable<StrongTypingClass>
     {
         #region Equality members
