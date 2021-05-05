@@ -11,14 +11,14 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Timers;
-using Timer = System.Timers.Timer;
-
 namespace CrispyWaffle.Scheduler
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Timers;
+    using Timer = System.Timers.Timer;
+
     /// <summary>
     /// Class JobManager.
     /// Implements the <see cref="CrispyWaffle.Scheduler.IJobManager" />

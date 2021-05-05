@@ -11,14 +11,14 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Log;
-using CrispyWaffle.Log.Providers;
-using CrispyWaffle.Serialization;
-using System;
-using log4net;
-
 namespace CrispyWaffle.Log4Net
 {
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Serialization;
+    using System;
+    using log4net;
+
     /// <summary>
     /// The Log4Net log provider
     /// </summary>

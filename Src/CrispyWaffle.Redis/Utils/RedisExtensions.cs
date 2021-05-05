@@ -1,11 +1,11 @@
-﻿using CrispyWaffle.Composition;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Redis.Utils.Communications;
-using StackExchange.Redis;
-using System;
-
-namespace CrispyWaffle.Redis.Utils
+﻿namespace CrispyWaffle.Redis.Utils
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Redis.Utils.Communications;
+    using StackExchange.Redis;
+    using System;
+
     /// <summary>
     /// The Redis extensions class.
     /// </summary>

@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
-using CrispyWaffle.Serialization;
-using System;
-using System.Linq;
-using Xunit;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Linq;
+    using Xunit;
+
     /// <summary>
     /// Class SerializerFactoryTests.
     /// </summary>

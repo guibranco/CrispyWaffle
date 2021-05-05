@@ -11,17 +11,17 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Cache;
-using CrispyWaffle.Log;
-using CrispyWaffle.Redis.Utils.Communications;
-using StackExchange.Redis;
-using StackExchange.Redis.Extensions.Core.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-
 namespace CrispyWaffle.Redis.Cache
 {
+    using CrispyWaffle.Cache;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Redis.Utils.Communications;
+    using StackExchange.Redis;
+    using StackExchange.Redis.Extensions.Core.Abstractions;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+
     /// <summary>
     /// Class RedisCacheRepository.
     /// Implements the <see cref="CrispyWaffle.Cache.ICacheRepository" />

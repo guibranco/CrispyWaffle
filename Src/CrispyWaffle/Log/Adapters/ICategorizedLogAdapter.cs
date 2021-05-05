@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace CrispyWaffle.Log.Adapters
+﻿namespace CrispyWaffle.Log.Adapters
 {
-    using Serialization;
+    using System;
+    using CrispyWaffle.Serialization;
 
     /// <summary>
     /// Categorized log adapter interface

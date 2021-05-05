@@ -45,12 +45,12 @@
         /// <summary>
         /// Adds the log provider.
         /// </summary>
-        /// <typeparam name="TILogProvider">The type of the i log provider.</typeparam>
+        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public ILogProvider AddLogProvider<TILogProvider>(ExceptionLogType type) where TILogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
         {
-            return ServiceLocator.Resolve<TILogProvider>();
+            return ServiceLocator.Resolve<TLogProvider>();
         }
 
         #endregion

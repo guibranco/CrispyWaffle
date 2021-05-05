@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using CrispyWaffle.Composition;
-using CrispyWaffle.Log.Filters;
-using CrispyWaffle.Log.Handlers;
-using CrispyWaffle.Log.Providers;
-using CrispyWaffle.Serialization;
-
-namespace CrispyWaffle.Log
+﻿namespace CrispyWaffle.Log
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Log.Filters;
+    using CrispyWaffle.Log.Handlers;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Serialization;
+
     /// <summary>
     /// The default log consumer of the application
     /// </summary>
@@ -142,11 +142,11 @@ namespace CrispyWaffle.Log
         /// <summary>
         /// Adds the provider.
         /// </summary>
-        /// <typeparam name="TILogProvider">The type of the i log provider.</typeparam>
+        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <returns></returns>
-        public static ILogProvider AddProvider<TILogProvider>() where TILogProvider : ILogProvider
+        public static ILogProvider AddProvider<TLogProvider>() where TLogProvider : ILogProvider
         {
-            var provider = ServiceLocator.Resolve<TILogProvider>();
+            var provider = ServiceLocator.Resolve<TLogProvider>();
             Providers.Add(provider);
             return provider;
         }

@@ -4,21 +4,21 @@
 // Created          : 03-31-2021
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 03-31-2021
+// Last Modified On : 05-05-2021
 // ***********************************************************************
-// <copyright file="RabbitMQWrapper.cs" company="Guilherme Branco Stracini ME">
+// <copyright file="RabbitMqWrapper.cs" company="Guilherme Branco Stracini ME">
 //     © 2020 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Log;
-using CrispyWaffle.RabbitMQ.Helpers;
-using CrispyWaffle.Serialization;
-using System;
-using System.Text;
-
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
+    using CrispyWaffle.Log;
+    using CrispyWaffle.RabbitMQ.Helpers;
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Text;
+
     /// <summary>
     /// Class RabbitMQWrapper.
     /// </summary>
@@ -44,7 +44,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// <param name="exchangeDeclareType">Type of the exchange declare.</param>
         public void SendToExchange<T>(T item, string exchangeDeclareType = null) where T : class, IQueuing, new()
         {
-            var exchangeName = Helpers.Extensions.GetExchangeName<T>();
+            var exchangeName = Extensions.GetExchangeName<T>();
 
             using (var connection = _connector.ConnectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -74,7 +74,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// <param name="queueDeclare">if set to <c>true</c> [queue declare].</param>
         public void SendToQueue<T>(T item, bool queueDeclare = true) where T : class, IQueuing, new()
         {
-            var queueName = Helpers.Extensions.GetQueueName<T>();
+            var queueName = Extensions.GetQueueName<T>();
 
             using (var connection = _connector.ConnectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())

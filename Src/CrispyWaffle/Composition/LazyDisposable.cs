@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace CrispyWaffle.Composition
+﻿namespace CrispyWaffle.Composition
 {
+    using System;
     using System.Threading;
 
     /// <summary>

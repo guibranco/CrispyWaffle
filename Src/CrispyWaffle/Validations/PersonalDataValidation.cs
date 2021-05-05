@@ -1,8 +1,7 @@
-﻿using System.Globalization;
-
-namespace CrispyWaffle.Validations
+﻿namespace CrispyWaffle.Validations
 {
-    using Extensions;
+    using System.Globalization;
+    using CrispyWaffle.Extensions;
     using System.Text.RegularExpressions;
 
     /// <summary>

@@ -4,17 +4,17 @@
 // Created          : 09-07-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-28-2020
+// Last Modified On : 05-05-2021
 // ***********************************************************************
 // <copyright file="QueueNameAttribute.cs" company="Guilherme Branco Stracini ME">
 //     © 2020 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System;
-
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
+    using System;
+
     /// <summary>
     /// Class QueueNameAttribute. This class cannot be inherited.
     /// Implements the <see cref="System.Attribute" />

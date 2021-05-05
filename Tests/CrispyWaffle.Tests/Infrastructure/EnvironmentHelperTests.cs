@@ -1,15 +1,15 @@
-﻿using CrispyWaffle.Infrastructure;
-using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
-using Xunit;
-
-namespace CrispyWaffle.Tests.Infrastructure
+﻿namespace CrispyWaffle.Tests.Infrastructure
 {
+    using CrispyWaffle.Infrastructure;
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using Xunit;
+
     public class EnvironmentHelperTests
     {
         [Fact]

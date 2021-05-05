@@ -11,15 +11,15 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Composition;
-using CrispyWaffle.TemplateRendering.Engines;
-using System;
-using CrispyWaffle.Tests.Fixtures;
-using Xunit;
-using Xunit.Abstractions;
-
 namespace CrispyWaffle.Tests.TemplateRendering
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.TemplateRendering.Engines;
+    using System;
+    using CrispyWaffle.Tests.Fixtures;
+    using Xunit;
+    using Xunit.Abstractions;
+
     /// <summary>
     /// Class TemplateRenderingTests.
     /// </summary>

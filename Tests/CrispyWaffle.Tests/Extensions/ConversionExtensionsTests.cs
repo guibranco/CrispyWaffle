@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
-using CrispyWaffle.Extensions;
-using CrispyWaffle.GoodPractices;
-using System;
-using Xunit;
-
 namespace CrispyWaffle.Tests.Extensions
 {
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.GoodPractices;
+    using System;
+    using Xunit;
+
     /// <summary>
     /// Class ConversionExtensionsTests.
     /// </summary>

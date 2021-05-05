@@ -11,18 +11,18 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Composition;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log.Handlers;
-using CrispyWaffle.Log.Providers;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-
 namespace CrispyWaffle.Elmah
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log.Handlers;
+    using CrispyWaffle.Log.Providers;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading;
+
     /// <summary>
     /// The Elmah exception handler class
     /// </summary>
@@ -140,13 +140,13 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// Adds the log provider.
         /// </summary>
-        /// <typeparam name="TILogProvider">The type of the i log provider.</typeparam>
+        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public ILogProvider AddLogProvider<TILogProvider>(ExceptionLogType type) where TILogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
         {
-            var provider = ServiceLocator.Resolve<TILogProvider>();
+            var provider = ServiceLocator.Resolve<TLogProvider>();
 
             AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
 

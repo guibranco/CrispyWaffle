@@ -1,12 +1,12 @@
-﻿using CrispyWaffle.Composition;
-using CrispyWaffle.Log.Providers;
-using System;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
-
-namespace CrispyWaffle.Log.Handlers
+﻿namespace CrispyWaffle.Log.Handlers
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Log.Providers;
+    using System;
+    using System.Globalization;
+    using System.Reflection;
+    using System.Text;
+
     /// <summary>
     /// The failover exception handler
     /// </summary>
