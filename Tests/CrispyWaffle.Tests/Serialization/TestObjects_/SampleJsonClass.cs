@@ -16,6 +16,7 @@ namespace CrispyWaffle.Tests.Serialization
     using CrispyWaffle.Serialization;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
@@ -24,6 +25,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// </summary>
     /// <seealso cref="System.IEquatable{SampleJsonClass}" />
     [Serializer(SerializerFormat.JSON)]
+    [ExcludeFromCodeCoverage]
     public class SampleJsonClass : IEquatable<SampleJsonClass>
     {
         #region Equality members

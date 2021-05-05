@@ -16,6 +16,7 @@ namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Xunit;
 
