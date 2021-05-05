@@ -11,17 +11,17 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Configuration;
-using StackExchange.Redis;
-using StackExchange.Redis.Extensions.Core;
-using StackExchange.Redis.Extensions.Core.Abstractions;
-using StackExchange.Redis.Extensions.Core.Configuration;
-using StackExchange.Redis.Extensions.Core.Implementations;
-using System;
-using System.Linq;
-
 namespace CrispyWaffle.Redis.Utils.Communications
 {
+    using CrispyWaffle.Configuration;
+    using StackExchange.Redis;
+    using StackExchange.Redis.Extensions.Core;
+    using StackExchange.Redis.Extensions.Core.Abstractions;
+    using StackExchange.Redis.Extensions.Core.Configuration;
+    using StackExchange.Redis.Extensions.Core.Implementations;
+    using System;
+    using System.Linq;
+
     /// <summary>
     /// Class RedisConnector.
     /// Implements the <see cref="System.IDisposable" />

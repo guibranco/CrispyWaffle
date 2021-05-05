@@ -11,13 +11,15 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Class SampleNonSerializableClass.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class SampleNonSerializableClass
     {
         /// <summary>

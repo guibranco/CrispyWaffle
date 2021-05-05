@@ -11,11 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Extensions;
-using Xunit;
-
 namespace CrispyWaffle.Tests.Extensions
 {
+    using CrispyWaffle.Extensions;
+    using Xunit;
 
     /// <summary>
     /// Class EnumExtensionsTests.

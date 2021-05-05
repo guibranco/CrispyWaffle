@@ -11,17 +11,19 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Serialization;
-using System;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Class SampleXmlClass.
     /// Implements the <see cref="System.IEquatable{SampleXmlClass}" />
     /// </summary>
     /// <seealso cref="System.IEquatable{SampleXmlClass}" />
     [Serializer]
+    [ExcludeFromCodeCoverage]
     public class SampleXmlClass : IEquatable<SampleXmlClass>
     {
         #region Equality members
@@ -63,7 +65,7 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

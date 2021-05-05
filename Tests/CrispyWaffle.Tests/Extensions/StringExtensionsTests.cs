@@ -11,12 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ************************************************************************
-using CrispyWaffle.Extensions;
-using System.Text;
-using Xunit;
-
 namespace CrispyWaffle.Tests.Extensions
 {
+    using CrispyWaffle.Extensions;
+    using System.Text;
+    using Xunit;
+
     /// <summary>
     /// Class StringExtensionsTests.
     /// </summary>

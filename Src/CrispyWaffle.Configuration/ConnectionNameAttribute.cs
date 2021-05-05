@@ -11,10 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System;
-
 namespace CrispyWaffle.Configuration
 {
+    using System;
+
     /// <summary>
     /// Connection name attribute class. This class cannot be inherited.
     /// </summary>

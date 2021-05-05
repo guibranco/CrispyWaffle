@@ -4,7 +4,7 @@
 // Created          : 09-28-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-28-2020
+// Last Modified On : 05-05-2021
 // ***********************************************************************
 // <copyright file="MessageReceiver.cs" company="Guilherme Branco Stracini ME">
 //     © 2020 Guilherme Branco Stracini. All rights reserved.
@@ -12,17 +12,17 @@
 // <summary></summary>
 // ***********************************************************************
 
-using CrispyWaffle.Log;
-using CrispyWaffle.RabbitMQ.Utils.Communications;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
+    using CrispyWaffle.Log;
+    using CrispyWaffle.RabbitMQ.Utils.Communications;
+    using global::RabbitMQ.Client;
+    using global::RabbitMQ.Client.Events;
+    using System;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Class MessageReceiver.
     /// </summary>
@@ -34,7 +34,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         private RabbitMQConnector _connector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageReceiver"/> class.
+        /// Initializes a new instance of the <see cref="MessageReceiver" /> class.
         /// </summary>
         /// <param name="connector">The connector.</param>
         /// <exception cref="ArgumentNullException">connector</exception>

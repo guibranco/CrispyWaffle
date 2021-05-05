@@ -11,11 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Serialization;
-using System;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Class SampleJsonNotStrictClass.
     /// Implements the <see cref="SampleJsonClass" />
@@ -24,6 +25,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// <seealso cref="SampleJsonClass" />
     /// <seealso cref="System.IEquatable{SampleJsonNotStrictClass}" />
     [Serializer(SerializerFormat.JSON, false)]
+    [ExcludeFromCodeCoverage]
     public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNotStrictClass>
     {
         #region Equality members
@@ -65,7 +67,7 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

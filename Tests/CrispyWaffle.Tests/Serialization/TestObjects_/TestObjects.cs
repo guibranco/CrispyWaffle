@@ -12,14 +12,16 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Class 
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class TestObjects
     {
         /// <summary>

@@ -1,19 +1,32 @@
-﻿using CrispyWaffle.Configuration;
-using CrispyWaffle.Infrastructure;
-using RabbitMQ.Client;
-using System;
-using IConnection = CrispyWaffle.Configuration.IConnection;
-
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.RabbitMQ
+// Author           : Guilherme Branco Stracini
+// Created          : 03-31-2021
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 05-05-2021
+// ***********************************************************************
+// <copyright file="RabbitMqConnector.cs" company="Guilherme Branco Stracini ME">
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
+    using CrispyWaffle.Configuration;
+    using CrispyWaffle.Infrastructure;
+    using System;
+    using global::RabbitMQ.Client;
+    using IConnection = CrispyWaffle.Configuration.IConnection;
+
     /// <summary>
     /// Class RabbitMQConnector. This class cannot be inherited.
     /// </summary>
-    [ConnectionName("RabbitMq")]
+    [ConnectionName("RabbitMQ")]
     public sealed class RabbitMQConnector
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQConnector"/> class.
+        /// Initializes a new instance of the <see cref="RabbitMQConnector" /> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         public RabbitMQConnector(IConnection connection)
@@ -21,12 +34,13 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQConnector"/> class.
+        /// Initializes a new instance of the <see cref="RabbitMQConnector" /> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="virtualHost">The virtual host.</param>
         /// <param name="defaultExchange">The default exchange.</param>
-        /// <exception cref="ArgumentNullException">connection - A valid instance of {typeof(IConnection).FullName} is required to initialize {GetType().FullName}!</exception>
+        /// <exception cref="ArgumentNullException">connection</exception>
+        /// <exception cref="ArgumentNullException">defaultExchange</exception>
         public RabbitMQConnector(IConnection connection, string virtualHost, string defaultExchange)
         {
             if (connection == null)

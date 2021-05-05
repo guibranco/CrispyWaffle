@@ -11,10 +11,10 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System.Threading;
-
 namespace CrispyWaffle.Scheduler
 {
+    using System.Threading;
+
     /// <summary>
     /// Interface IJobManager
     /// </summary>

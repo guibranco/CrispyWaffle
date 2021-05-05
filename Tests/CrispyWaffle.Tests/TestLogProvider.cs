@@ -11,20 +11,22 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log;
-using CrispyWaffle.Log.Providers;
-using CrispyWaffle.Serialization;
-using System;
-using Xunit.Abstractions;
-
 namespace CrispyWaffle.Tests
 {
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using Xunit.Abstractions;
+
     /// <summary>
     /// Class TestLogProvider.
     /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
     /// </summary>
     /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
+    [ExcludeFromCodeCoverage]
     internal class TestLogProvider : ILogProvider
     {
 
@@ -60,7 +62,6 @@ namespace CrispyWaffle.Tests
         /// <param name="message">The message.</param>
         public void Fatal(string category, string message)
         {
-
             _testOutputHelper.WriteLine("Fatal: {0} - {1}", category, message);
         }
 

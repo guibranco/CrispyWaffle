@@ -12,20 +12,22 @@
 // <summary></summary>
 // ***********************************************************************
 
-using CrispyWaffle.Composition;
-using CrispyWaffle.Log;
-using CrispyWaffle.TemplateRendering.Engines;
-using CrispyWaffle.Tests.Composition;
-using System;
-using Xunit.Abstractions;
-
 namespace CrispyWaffle.Tests.Fixtures
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.TemplateRendering.Engines;
+    using CrispyWaffle.Tests.Composition;
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using Xunit.Abstractions;
+
     /// <summary>
     /// Class LoggingFixture.
     /// Implements the <see cref="System.IDisposable" />
     /// </summary>
     /// <seealso cref="System.IDisposable" />
+    [ExcludeFromCodeCoverage]
     public class LoggingFixture : IDisposable
     {
         /// <summary>

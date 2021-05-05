@@ -11,13 +11,13 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Scheduler;
-using System;
-using System.Threading;
-using Xunit;
-
 namespace CrispyWaffle.Tests.Scheduler
 {
+    using CrispyWaffle.Scheduler;
+    using System;
+    using System.Threading;
+    using Xunit;
+
     /// <summary>
     /// Class JobRunnerTests.
     /// </summary>

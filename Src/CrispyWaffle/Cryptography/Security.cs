@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace CrispyWaffle.Cryptography
+﻿namespace CrispyWaffle.Cryptography
 {
+    using System.Collections.Generic;
     using System;
     using System.ComponentModel;
     using System.Globalization;
