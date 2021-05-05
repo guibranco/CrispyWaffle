@@ -11,15 +11,15 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log;
-using CrispyWaffle.Log.Providers;
-using CrispyWaffle.Serialization;
-using System;
-using Xunit.Abstractions;
-
 namespace CrispyWaffle.Tests
 {
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Serialization;
+    using System;
+    using Xunit.Abstractions;
+
     /// <summary>
     /// Class TestLogProvider.
     /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />

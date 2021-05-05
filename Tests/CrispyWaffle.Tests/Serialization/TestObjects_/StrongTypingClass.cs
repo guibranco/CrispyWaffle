@@ -11,11 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Serialization;
-using System;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using CrispyWaffle.Serialization;
+    using System;
+
     /// <summary>
     /// Class StrongTypingClass.
     /// </summary>
@@ -61,7 +61,7 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CrispyWaffle.Composition
+﻿namespace CrispyWaffle.Composition
 {
+    using System;
+
     /// <summary>
     /// A dependency resolver interface
     /// </summary>

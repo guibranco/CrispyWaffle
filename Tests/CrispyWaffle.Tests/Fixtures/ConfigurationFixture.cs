@@ -11,12 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Composition;
-using CrispyWaffle.Configuration;
-using System;
-
 namespace CrispyWaffle.Tests.Fixtures
 {
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Configuration;
+    using System;
+
     /// <summary>
     /// Class ConfigurationFixture.
     /// Implements the <see cref="System.IDisposable" />

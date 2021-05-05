@@ -11,21 +11,21 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Validations;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-
 namespace CrispyWaffle.Infrastructure
 {
+    using CrispyWaffle.Validations;
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Net;
+    using System.Net.NetworkInformation;
+    using System.Net.Sockets;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading;
+
     /// <summary>
     /// Class EnvironmentHelper.
     /// </summary>

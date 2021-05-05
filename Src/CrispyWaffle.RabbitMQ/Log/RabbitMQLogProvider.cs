@@ -1,17 +1,37 @@
-﻿using CrispyWaffle.Extensions;
-using CrispyWaffle.Infrastructure;
-using CrispyWaffle.Log;
-using CrispyWaffle.Log.Providers;
-using CrispyWaffle.RabbitMQ.Utils.Communications;
-using CrispyWaffle.Serialization;
-using RabbitMQ.Client;
-using System;
-using System.Collections.Concurrent;
-using System.Text;
-using System.Threading;
-
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.RabbitMQ
+// Author           : Guilherme Branco Stracini
+// Created          : 03-31-2021
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 05-05-2021
+// ***********************************************************************
+// <copyright file="RabbitMqLogProvider.cs" company="Guilherme Branco Stracini ME">
+//     © 2020 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 namespace CrispyWaffle.RabbitMQ.Log
 {
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Infrastructure;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.RabbitMQ.Utils.Communications;
+    using CrispyWaffle.Serialization;
+    using global::RabbitMQ.Client;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Text;
+    using System.Threading;
+
+    /// <summary>
+    /// Class RabbitMQLogProvider.
+    /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
+    /// Implements the <see cref="System.IDisposable" />
+    /// </summary>
+    /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
+    /// <seealso cref="System.IDisposable" />
     public class RabbitMQLogProvider : ILogProvider, IDisposable
     {
         #region Private fields
@@ -46,7 +66,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         #region ~Ctor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQLogProvider"/> class.
+        /// Initializes a new instance of the <see cref="RabbitMQLogProvider" /> class.
         /// </summary>
         /// <param name="connector">The connector.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
@@ -63,7 +83,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="RabbitMQLogProvider"/> class.
+        /// Finalizes an instance of the <see cref="RabbitMQLogProvider" /> class.
         /// </summary>
         ~RabbitMQLogProvider()
         {
@@ -346,7 +366,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <summary>
         /// Debugs the specified category.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
         /// <param name="category">The category.</param>
         /// <param name="content">The content.</param>
         /// <param name="identifier">The identifier.</param>

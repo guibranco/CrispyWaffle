@@ -11,20 +11,19 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System.Reflection;
-
 namespace CrispyWaffle.Log.Handlers
 {
-    using Composition;
-    using Extensions;
-    using Providers;
+    using System.Reflection;
+    using CrispyWaffle.Composition;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log.Providers;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Threading;
-    using Telemetry;
+    using CrispyWaffle.Telemetry;
 
     /// <summary>
     /// Handle the exception and log it using the available log providers of the log consumer.
@@ -166,12 +165,12 @@ namespace CrispyWaffle.Log.Handlers
         /// <summary>
         /// Adds the log provider.
         /// </summary>
-        /// <typeparam name="TILogProvider">The type of the i log provider.</typeparam>
+        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
-        public ILogProvider AddLogProvider<TILogProvider>(ExceptionLogType type) where TILogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
         {
-            var provider = ServiceLocator.Resolve<TILogProvider>();
+            var provider = ServiceLocator.Resolve<TLogProvider>();
 
             AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
 

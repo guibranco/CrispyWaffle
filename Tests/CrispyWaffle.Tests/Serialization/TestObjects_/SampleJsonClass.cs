@@ -11,13 +11,13 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using CrispyWaffle.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace CrispyWaffle.Tests.Serialization
 {
+    using CrispyWaffle.Serialization;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Class SampleJsonClass.
     /// Implements the <see cref="System.IEquatable{SampleJsonClass}" />
@@ -63,7 +63,7 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

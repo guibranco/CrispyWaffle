@@ -11,12 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace CrispyWaffle.Scheduler
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Class Scheduler.
     /// Implements the <see cref="CrispyWaffle.Scheduler.IScheduler" />

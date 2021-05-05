@@ -41,11 +41,11 @@
         /// <summary>
         /// Adds the repository.
         /// </summary>
-        /// <typeparam name="TICacheRepository">The type of the i cache repository.</typeparam>
+        /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <returns></returns>
-        public static ICacheRepository AddRepository<TICacheRepository>() where TICacheRepository : ICacheRepository
+        public static ICacheRepository AddRepository<TCacheRepository>() where TCacheRepository : ICacheRepository
         {
-            var repository = ServiceLocator.Resolve<TICacheRepository>();
+            var repository = ServiceLocator.Resolve<TCacheRepository>();
             AddRepository(repository, _currentPriority++);
             return repository;
         }
@@ -65,13 +65,13 @@
         /// <summary>
         /// Adds the repository.
         /// </summary>
-        /// <typeparam name="TICacheRepository">The type of the i cache repository.</typeparam>
+        /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <param name="priority">The priority.</param>
         /// <returns></returns>
-        public static ICacheRepository AddRepository<TICacheRepository>(int priority)
-            where TICacheRepository : ICacheRepository
+        public static ICacheRepository AddRepository<TCacheRepository>(int priority)
+            where TCacheRepository : ICacheRepository
         {
-            var repository = ServiceLocator.Resolve<TICacheRepository>();
+            var repository = ServiceLocator.Resolve<TCacheRepository>();
             AddRepository(repository, priority);
             return repository;
         }

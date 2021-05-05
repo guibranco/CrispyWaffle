@@ -25,11 +25,11 @@
         /// <summary>
         /// Adds the client.
         /// </summary>
-        /// <typeparam name="TITelemetryClient">The type of the i telemetry client.</typeparam>
+        /// <typeparam name="TTelemetryClient">The type of the i telemetry client.</typeparam>
         /// <returns></returns>
-        public static ITelemetryClient AddClient<TITelemetryClient>() where TITelemetryClient : ITelemetryClient
+        public static ITelemetryClient AddClient<TTelemetryClient>() where TTelemetryClient : ITelemetryClient
         {
-            var client = ServiceLocator.Resolve<TITelemetryClient>();
+            var client = ServiceLocator.Resolve<TTelemetryClient>();
             LogConsumer.Trace("Adding telemetry client of type {0}", client.GetType().FullName);
             Clients.Add(client);
             return client;

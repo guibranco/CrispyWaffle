@@ -1,15 +1,14 @@
-﻿using System.Threading;
-
-namespace CrispyWaffle.Composition
+﻿namespace CrispyWaffle.Composition
 {
-    using Extensions;
-    using Log;
+    using System.Threading;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Telemetry;
+    using CrispyWaffle.Telemetry;
 
     /// <summary>
     /// The service locator class.

@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
-    <Description>The CrispyWaffle RabbitMQ package</Description>
+    <Description>The CrispyWaffle.RabbitM1CrispyWaffle.RabbitMQ package</Description>
     <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>

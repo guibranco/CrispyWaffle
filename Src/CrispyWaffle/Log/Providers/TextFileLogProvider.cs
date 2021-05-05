@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace CrispyWaffle.Log.Providers
+﻿namespace CrispyWaffle.Log.Providers
 {
-    using Adapters;
-    using Serialization;
+    using System;
+    using CrispyWaffle.Log.Adapters;
+    using CrispyWaffle.Serialization;
 
     /// <summary>
     /// Text file log pr
