@@ -47,7 +47,7 @@ public class TransientTest
     public DateTime Date { get; set; }
 
     //when creating a instance, set the Date property to DateTime.Now value.
-    public SingletonTest() => Date = DateTime.Now;
+    public TransientTest() => Date = DateTime.Now;
 }
 
 static void Main(string[] args)
