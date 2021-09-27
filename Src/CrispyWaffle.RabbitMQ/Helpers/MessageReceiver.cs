@@ -31,7 +31,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// <summary>
         /// The connector
         /// </summary>
-        private RabbitMQConnector _connector;
+        private readonly RabbitMQConnector _connector;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageReceiver" /> class.
