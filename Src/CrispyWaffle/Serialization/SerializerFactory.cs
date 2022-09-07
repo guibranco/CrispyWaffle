@@ -45,7 +45,7 @@
 
             if (type.IsSerializable)
             {
-                return GetSerializer(obj, new SerializerAttribute(SerializerFormat.BINARY));
+                return GetSerializer(obj, new SerializerAttribute(SerializerFormat.Binary));
             }
 
             throw new InvalidOperationException($"The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}");
@@ -170,11 +170,11 @@
         {
             switch (attribute.Format)
             {
-                case SerializerFormat.BINARY:
+                case SerializerFormat.Binary:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<BinarySerializerAdapter>());
-                case SerializerFormat.JSON when attribute.IsStrict:
+                case SerializerFormat.Json when attribute.IsStrict:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<JsonSerializerAdapter>());
-                case SerializerFormat.JSON when !attribute.IsStrict:
+                case SerializerFormat.Json when !attribute.IsStrict:
                     var settings = new JsonSerializerSettings
                     {
                         Converters = { new NotNullObserverConverter() },
@@ -183,7 +183,7 @@
                         NullValueHandling = NullValueHandling.Ignore
                     };
                     return new SerializerConverter<T>(obj, new JsonSerializerAdapter(settings));
-                case SerializerFormat.XML:
+                case SerializerFormat.Xml:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<XmlSerializerAdapter>());
                 default:
                     throw new InvalidOperationException(nameof(attribute.Format));

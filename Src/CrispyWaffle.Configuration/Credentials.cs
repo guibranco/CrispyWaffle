@@ -114,7 +114,7 @@ namespace CrispyWaffle.Configuration
                 var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
                 var encrypt = _password.Encrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.IVKey);
-                return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.MD5)}";
+                return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.Md5)}";
             }
             set
             {
@@ -134,7 +134,7 @@ namespace CrispyWaffle.Configuration
 
                     var md5 = value.Substring(value.Length - 32);
 
-                    var check = Security.Hash(password, HashAlgorithmType.MD5);
+                    var check = Security.Hash(password, HashAlgorithmType.Md5);
 
                     var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 

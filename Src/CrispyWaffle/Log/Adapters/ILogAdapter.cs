@@ -24,7 +24,7 @@
         /// <param name="identifier">The file name to be persisted to disk with the content</param>
         /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
-        void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE) where T : class;
+        void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class;
 
         /// <summary>
         /// Save the string <paramref name="content" /> into a file with name <paramref name="fileName" />

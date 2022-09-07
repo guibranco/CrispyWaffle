@@ -36,7 +36,7 @@ namespace CrispyWaffle.Log.Handlers
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders = AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> _additionalProviders = _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 
@@ -114,9 +114,9 @@ namespace CrispyWaffle.Log.Handlers
                 TelemetryAnalytics.TrackException(type);
             }
 
-            var messages = exceptions.GetMessages(category, AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.MESSAGE).Select(p => p.Item1).ToList());
+            var messages = exceptions.GetMessages(category, _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Message).Select(p => p.Item1).ToList());
 
-            foreach (var additionalProvider in AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.FULL))
+            foreach (var additionalProvider in _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Full))
             {
                 additionalProvider.Item1.Error(category, messages);
             }
@@ -172,7 +172,7 @@ namespace CrispyWaffle.Log.Handlers
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
 
-            AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
+            _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
 
             return provider;
         }
@@ -204,7 +204,7 @@ namespace CrispyWaffle.Log.Handlers
 
                 if (instance != null)
                 {
-                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.MESSAGE));
+                    _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Message));
                 }
             }
             catch (Exception)
@@ -225,7 +225,7 @@ namespace CrispyWaffle.Log.Handlers
 
                 if (instance != null)
                 {
-                    AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.FULL));
+                    _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full));
                 }
             }
             catch (Exception)

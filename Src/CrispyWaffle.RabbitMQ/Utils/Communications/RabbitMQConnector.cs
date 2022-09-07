@@ -60,7 +60,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 ConnectionFactory.Password = connection.Credentials.Password;
             }
 
-            ConnectionFactory.VirtualHost = virtualHost ?? throw new ArgumentNullException(nameof(defaultExchange));
+            ConnectionFactory.VirtualHost = virtualHost ?? throw new ArgumentNullException(nameof(virtualHost));
 
             DefaultExchangeName = defaultExchange;
         }

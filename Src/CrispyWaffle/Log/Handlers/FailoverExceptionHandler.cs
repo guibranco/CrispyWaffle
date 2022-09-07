@@ -23,7 +23,7 @@
                 //Tries to log the exception using CrispyWaffle framework behavior
                 ServiceLocator
                     .Resolve<DefaultExceptionHandler>()
-                    .AddLogProvider<EventLogProvider>(ExceptionLogType.FULL);
+                    .AddLogProvider<EventLogProvider>(ExceptionLogType.Full);
 
                 LogConsumer.Handle(exception);
             }

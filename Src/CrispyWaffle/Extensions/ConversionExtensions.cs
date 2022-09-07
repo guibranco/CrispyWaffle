@@ -401,7 +401,7 @@ namespace CrispyWaffle.Extensions
         /// <summary>
         /// The ordinal suffix
         /// </summary>
-        private static readonly Dictionary<int, string> OrdinalSuffix = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _ordinalSuffix = new Dictionary<int, string>
         {
             {1,"st"},
             {2,"nd"},
@@ -429,9 +429,9 @@ namespace CrispyWaffle.Extensions
 
 
             var key = (int)number % 10;
-            if (OrdinalSuffix.ContainsKey(key))
+            if (_ordinalSuffix.ContainsKey(key))
             {
-                return $"{number}{OrdinalSuffix[key]}";
+                return $"{number}{_ordinalSuffix[key]}";
             }
 
             return $"{number}th";

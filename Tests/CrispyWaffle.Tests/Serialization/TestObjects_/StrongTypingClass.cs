@@ -20,7 +20,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// <summary>
     /// Class StrongTypingClass.
     /// </summary>
-    [Serializer(SerializerFormat.JSON)]
+    [Serializer(SerializerFormat.Json)]
     [ExcludeFromCodeCoverage]
     public class StrongTypingClass : IEquatable<StrongTypingClass>
     {

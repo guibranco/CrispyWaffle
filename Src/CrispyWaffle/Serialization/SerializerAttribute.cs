@@ -15,7 +15,7 @@
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="isStrict">if set to <c>true</c> [is strict].</param>
-        public SerializerAttribute(SerializerFormat format = SerializerFormat.XML, bool isStrict = true)
+        public SerializerAttribute(SerializerFormat format = SerializerFormat.Xml, bool isStrict = true)
         {
             Format = format;
             IsStrict = isStrict;

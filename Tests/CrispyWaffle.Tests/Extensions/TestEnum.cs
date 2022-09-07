@@ -26,27 +26,27 @@ namespace CrispyWaffle.Tests.Extensions
         /// </summary>
         [InternalValue("ноль")]
         [HumanReadable("Zero")]
-        NONE = 0,
+        None = 0,
 
         /// <summary>
         /// The one
         /// </summary>
         [InternalValue("один")]
         [HumanReadable("Um")]
-        ONE = 1,
+        One = 1,
 
         /// <summary>
         /// The two
         /// </summary>
         [InternalValue("два")]
         [HumanReadable("Dois")]
-        TWO = 2,
+        Two = 2,
 
         /// <summary>
         /// The three
         /// </summary>
         [InternalValue("три")]
         [HumanReadable("Três")]
-        THREE = 3
+        Three = 3
     }
 }

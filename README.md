@@ -18,7 +18,7 @@ Documentation of the project: [Read the Docs](https://guibranco.github.io/Crispy
 
 ## Code Quality
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f9e814c726bb4ccb8b0380b1fd882f4b)](https://www.codacy.com/manual/guilherme_9/CrispyWaffle?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guibranco/CrispyWaffle&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cdac433295dc4d39b4a5377d147f50fc)](https://www.codacy.com/gh/guibranco/CrispyWaffle/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guibranco/CrispyWaffle&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/guibranco/CrispyWaffle/branch/master/graph/badge.svg)](https://codecov.io/gh/guibranco/CrispyWaffle)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)

@@ -45,7 +45,7 @@
         /// </summary>
         public DynamicSerialization()
         {
-            SerializationKeyFilter = DynamicSerializationOption.NONE;
+            SerializationKeyFilter = DynamicSerializationOption.None;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@
 
         public DynamicSerialization(SerializationInfo info, StreamingContext context)
         {
-            SerializationKeyFilter = DynamicSerializationOption.NONE;
+            SerializationKeyFilter = DynamicSerializationOption.None;
             foreach (var entry in info)
             {
                 Dictionary.Add(entry.Name, entry.Value);
@@ -89,13 +89,13 @@
         {
             switch (SerializationKeyFilter)
             {
-                case DynamicSerializationOption.NONE:
+                case DynamicSerializationOption.None:
                     return key;
-                case DynamicSerializationOption.LOWERCASE:
+                case DynamicSerializationOption.Lowercase:
                     return key.ToLower();
-                case DynamicSerializationOption.UPPERCASE:
+                case DynamicSerializationOption.Uppercase:
                     return key.ToUpper();
-                case DynamicSerializationOption.CAMELCASE:
+                case DynamicSerializationOption.Camelcase:
                     return key.ToCamelCase();
                 default:
                     return key;

@@ -8,18 +8,18 @@
         /// <summary>
         /// The none
         /// </summary>
-        NONE,
+        None,
         /// <summary>
         /// The lowercase
         /// </summary>
-        LOWERCASE,
+        Lowercase,
         /// <summary>
         /// The uppercase
         /// </summary>
-        UPPERCASE,
+        Uppercase,
         /// <summary>
         /// The camelcase
         /// </summary>
-        CAMELCASE
+        Camelcase
     }
 }

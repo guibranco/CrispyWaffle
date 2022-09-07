@@ -16,7 +16,7 @@
         /// <summary>
         /// The connector
         /// </summary>
-        private static readonly RedisConnector Connector = ServiceLocator.Resolve<RedisConnector>();
+        private static readonly RedisConnector _connector = ServiceLocator.Resolve<RedisConnector>();
 
         #endregion
 
@@ -30,11 +30,11 @@
         /// <returns>System.Int32.</returns>
         public static int TemporaryIncrease(string cacheKey, TimeSpan ttl)
         {
-            Connector.DefaultDatabase.StringIncrement(cacheKey, 1, CommandFlags.FireAndForget);
+            _connector.DefaultDatabase.StringIncrement(cacheKey, 1, CommandFlags.FireAndForget);
 
-            Connector.DefaultDatabase.KeyExpire(cacheKey, ttl, CommandFlags.FireAndForget);
+            _connector.DefaultDatabase.KeyExpire(cacheKey, ttl, CommandFlags.FireAndForget);
 
-            return Connector.DefaultDatabase.StringGet(cacheKey, CommandFlags.PreferReplica).ToString().ToInt32();
+            return _connector.DefaultDatabase.StringGet(cacheKey, CommandFlags.PreferReplica).ToString().ToInt32();
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
         /// <param name="database">The database.</param>
         public static void FlushDatabase(int database)
         {
-            Connector.GetDefaultServer().FlushDatabase(database);
+            _connector.GetDefaultServer().FlushDatabase(database);
         }
 
         #endregion

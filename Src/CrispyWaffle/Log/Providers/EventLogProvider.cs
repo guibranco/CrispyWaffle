@@ -172,7 +172,7 @@
         /// <param name="content">Not used</param>
         /// <param name="identifier">Not used</param>
         /// <param name="customFormat">Not used</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE)
+        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
             where T : class, new()
         {
             _adapter.Debug(content, identifier, customFormat);

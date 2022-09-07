@@ -16,7 +16,7 @@
         /// <summary>
         /// The clients
         /// </summary>
-        private static readonly List<ITelemetryClient> Clients = new List<ITelemetryClient>();
+        private static readonly List<ITelemetryClient> _clients = new List<ITelemetryClient>();
 
         #endregion
 
@@ -31,7 +31,7 @@
         {
             var client = ServiceLocator.Resolve<TTelemetryClient>();
             LogConsumer.Trace("Adding telemetry client of type {0}", client.GetType().FullName);
-            Clients.Add(client);
+            _clients.Add(client);
             return client;
         }
 
@@ -43,7 +43,7 @@
         public static ITelemetryClient AddClient(ITelemetryClient client)
         {
             LogConsumer.Trace("Adding telemetry client of type {0}", client.GetType().FullName);
-            Clients.Add(client);
+            _clients.Add(client);
             return client;
         }
 
@@ -54,7 +54,7 @@
         public static void TrackHit([Localizable(false)]string hitName)
         {
             LogConsumer.Trace("Tracking hit of {0}", hitName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackHit(hitName);
             }
@@ -69,7 +69,7 @@
         {
             int temp;
             LogConsumer.Trace("Getting hits of {0}", hitName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 if ((temp = client.GetHit(hitName)) > 0)
                 {
@@ -87,7 +87,7 @@
         public static void RemoveHit(string hitName)
         {
             LogConsumer.Trace("Removing hits of {0}", hitName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.RemoveHit(hitName);
             }
@@ -101,7 +101,7 @@
         public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new()
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackEvent(@event);
             }
@@ -116,7 +116,7 @@
         public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl) where TEvent : class, new()
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackEvent(@event, ttl);
             }
@@ -132,7 +132,7 @@
         {
             LogConsumer.Trace("Getting event of type {0} with key {1}", typeof(TEvent).FullName, @event.Name);
             TEvent result;
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 if ((result = client.GetEvent(@event)) != null)
                 {
@@ -153,7 +153,7 @@
         {
             var result = 0;
             LogConsumer.Trace("Getting metric {0} with variation {1}", metricName, variation);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 result = client.GetMetric(metricName, variation);
                 if (result != 0)
@@ -172,7 +172,7 @@
         public static void TrackMetric([Localizable(false)]string metricName, [Localizable(false)]string variation)
         {
             LogConsumer.Trace("Tracking metric {0} with variation {1}", metricName, variation);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackMetric(metricName, variation);
             }
@@ -186,7 +186,7 @@
         public static void RemoveMetric([Localizable(false)]string metricName, [Localizable(false)]string variation)
         {
             LogConsumer.Trace("Deleting metric {0} with variation {1}", metricName, variation);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.RemoveMetric(metricName, variation);
             }
@@ -199,7 +199,7 @@
         public static void TrackException(Type exceptionType)
         {
             LogConsumer.Trace("Tracking exception of type {0}", exceptionType.FullName);
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackException(exceptionType);
             }
@@ -218,7 +218,7 @@
                               resolvedTimes == 1
                                   ? string.Empty
                                   : @"s");
-            foreach (var client in Clients)
+            foreach (var client in _clients)
             {
                 client.TrackDependency(interfaceType, resolvedTimes);
             }
