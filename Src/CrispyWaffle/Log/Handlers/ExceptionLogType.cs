@@ -8,11 +8,11 @@
         /// <summary>
         /// The message
         /// </summary>
-        MESSAGE,
+        Message,
 
         /// <summary>
         /// The full
         /// </summary>
-        FULL
+        Full
     }
 }

@@ -35,8 +35,8 @@ namespace CrispyWaffle.Tests.Fixtures
         /// </summary>
         public LoggingFixture()
         {
-            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.SINGLETON);
-            ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.SINGLETON);
+            ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.Singleton);
+            ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.Singleton);
 
             ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
         }
@@ -47,7 +47,7 @@ namespace CrispyWaffle.Tests.Fixtures
         /// <param name="testOutputHelper">The test output helper.</param>
         public void SetLogProvider(ITestOutputHelper testOutputHelper)
         {
-            LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.ALL);
+            LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.All);
         }
 
         #region IDisposable Support

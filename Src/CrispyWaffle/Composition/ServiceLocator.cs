@@ -20,37 +20,37 @@
         /// <summary>
         /// The locks
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> Locks = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _locks = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// The registrations calls log
         /// </summary>
-        private static readonly IDictionary<Type, int> RegistrationsCalls = new Dictionary<Type, int>();
+        private static readonly IDictionary<Type, int> _registrationsCalls = new Dictionary<Type, int>();
 
         /// <summary>
         /// The dictionary holding the types and its implementations
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, Func<object>> Registrations = new ConcurrentDictionary<Type, Func<object>>();
+        private static readonly ConcurrentDictionary<Type, Func<object>> _registrations = new ConcurrentDictionary<Type, Func<object>>();
 
         /// <summary>
         /// The dictionary holding the types and its dependency resolver implementations
         /// </summary>
-        private static readonly IDictionary<Type, IDependencyResolver> DependenciesResolvers = new Dictionary<Type, IDependencyResolver>();
+        private static readonly IDictionary<Type, IDependencyResolver> _dependenciesResolvers = new Dictionary<Type, IDependencyResolver>();
 
         /// <summary>
         /// The dictionary holding the types and its dependencies as a cache system for new instances (auto registration)
         /// </summary>
-        private static readonly IDictionary<Type, Type[]> DependenciesCache = new Dictionary<Type, Type[]>();
+        private static readonly IDictionary<Type, Type[]> _dependenciesCache = new Dictionary<Type, Type[]>();
 
         /// <summary>
         /// The instances resolved cache
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, List<Type>> Instances = new ConcurrentDictionary<Type, List<Type>>();
+        private static readonly ConcurrentDictionary<Type, List<Type>> _instances = new ConcurrentDictionary<Type, List<Type>>();
 
         /// <summary>
         /// The cancellation token source
         /// </summary>
-        private static readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         #endregion
 
@@ -69,8 +69,8 @@
                          .Where(a => a != null && a.Name.IndexOf(@"_canon", StringComparison.InvariantCultureIgnoreCase) == -1)
                          .ToList();
             var cancellationToken = typeof(CancellationToken);
-            RegistrationsCalls.Add(cancellationToken, 0);
-            Registrations.AddOrUpdate(cancellationToken, () => CancellationTokenSource.Token, (key, existingValue) => () => existingValue);
+            _registrationsCalls.Add(cancellationToken, 0);
+            _registrations.AddOrUpdate(cancellationToken, () => _cancellationTokenSource.Token, (key, existingValue) => () => existingValue);
         }
 
         #endregion
@@ -118,9 +118,9 @@
         /// <param name="implementation">The implementation.</param>
         private static void RegisterLifeStyledInternal(LifeStyle lifeStyle, Type contract, Type implementation)
         {
-            RegistrationsCalls.Add(contract, 0);
+            _registrationsCalls.Add(contract, 0);
 
-            if (lifeStyle == LifeStyle.TRANSIENT)
+            if (lifeStyle == LifeStyle.Transient)
             {
                 RegisterTransientInternal(contract, implementation);
                 return;
@@ -143,11 +143,11 @@
         private static void RegisterSingletonInternal(Type contract, Type implementation)
         {
             var lazy = new Lazy<object>(() => CreateInstance(implementation));
-            Registrations.AddOrUpdate(contract,
+            _registrations.AddOrUpdate(contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
-                    lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
+                    _registrationsCalls[contract]++;
+                    lock (_locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
                     {
                         return lazy.Value;
                     }
@@ -166,9 +166,9 @@
             Func<TContract> instanceCreator)
         {
             var contract = typeof(TContract);
-            RegistrationsCalls.Add(contract, 0);
+            _registrationsCalls.Add(contract, 0);
 
-            if (lifeStyle == LifeStyle.TRANSIENT)
+            if (lifeStyle == LifeStyle.Transient)
             {
                 RegisterTransientInternal(instanceCreator, contract);
                 return;
@@ -192,12 +192,12 @@
         private static void RegisterSingleton<TContract>(Func<TContract> instanceCreator, Type contract)
         {
             var lazy = new Lazy<object>(() => instanceCreator());
-            Registrations.AddOrUpdate(
+            _registrations.AddOrUpdate(
                 contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
-                    lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                    _registrationsCalls[contract]++;
+                    lock (_locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
                     {
                         return lazy.Value;
                     }
@@ -213,11 +213,11 @@
         private static void RegisterDisposableInternal(Type contract, Type implementation)
         {
             var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable)CreateInstance(implementation));
-            Registrations.AddOrUpdate(contract,
+            _registrations.AddOrUpdate(contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
-                    lock (Locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
+                    _registrationsCalls[contract]++;
+                    lock (_locks.GetOrAdd(implementation.FullName ?? implementation.Name, new object()))
                     {
                         return lazyDisposable.Value;
                     }
@@ -234,12 +234,12 @@
         private static void RegisterDisposableInternal<TContract>(Func<TContract> instanceCreator, Type contract)
         {
             var lazyDisposable = new LazyDisposable<IDisposable>(() => (IDisposable)instanceCreator());
-            Registrations.AddOrUpdate(
+            _registrations.AddOrUpdate(
                 contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
-                    lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                    _registrationsCalls[contract]++;
+                    lock (_locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
                     {
                         return lazyDisposable.Value;
                     }
@@ -254,10 +254,10 @@
         /// <param name="implementation">The implementation.</param>
         private static void RegisterTransientInternal(Type contract, Type implementation)
         {
-            Registrations.AddOrUpdate(contract,
+            _registrations.AddOrUpdate(contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
+                    _registrationsCalls[contract]++;
                     return GetInstance(implementation);
                 },
                 (key, existingValue) => () => existingValue);
@@ -271,11 +271,11 @@
         /// <param name="contract">The contract.</param>
         private static void RegisterTransientInternal<TContract>(Func<TContract> instanceCreator, Type contract)
         {
-            Registrations.AddOrUpdate(
+            _registrations.AddOrUpdate(
                 contract,
                 () =>
                 {
-                    RegistrationsCalls[contract]++;
+                    _registrationsCalls[contract]++;
                     return instanceCreator();
                 },
                 (key, existingValue) => () => existingValue);
@@ -288,19 +288,19 @@
         /// <returns></returns> 
         private static IEnumerable<object> GetAllInstances(Type contract)
         {
-            if (!Instances.ContainsKey(contract))
+            if (!_instances.ContainsKey(contract))
             {
-                lock (Locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
+                lock (_locks.GetOrAdd(contract.FullName ?? contract.Name, new object()))
                 {
-                    if (!Instances.ContainsKey(contract))
+                    if (!_instances.ContainsKey(contract))
                     {
-                        Instances.TryAdd(contract,
+                        _instances.TryAdd(contract,
                             TypesCache.Where(t => contract.IsAssignableFrom(t) && !t.IsAbstract).ToList());
                     }
                 }
             }
 
-            if (!Instances.TryGetValue(contract, out var types))
+            if (!_instances.TryGetValue(contract, out var types))
             {
                 yield break;
             }
@@ -322,7 +322,7 @@
         {
             try
             {
-                return DependenciesResolvers.TryGetValue(contract, out var resolver)
+                return _dependenciesResolvers.TryGetValue(contract, out var resolver)
                            ? resolver.Resolve(parentContract, order)
                            : TryGetInstance(contract);
             }
@@ -357,15 +357,15 @@
         /// <returns></returns>
         private static object CreateInstanceInternal(Type implementationType)
         {
-            if (DependenciesCache.TryGetValue(implementationType, out var dependencies))
+            if (_dependenciesCache.TryGetValue(implementationType, out var dependencies))
             {
                 return Activator.CreateInstance(implementationType, dependencies.Select((type, i) => GetInstanceWithContext(type, implementationType, i))
                     .ToArray());
             }
 
-            lock (Locks.GetOrAdd(implementationType.FullName ?? implementationType.Name, new object()))
+            lock (_locks.GetOrAdd(implementationType.FullName ?? implementationType.Name, new object()))
             {
-                if (DependenciesCache.TryGetValue(implementationType, out dependencies))
+                if (_dependenciesCache.TryGetValue(implementationType, out dependencies))
                 {
                     return Activator.CreateInstance(implementationType,
                         dependencies
@@ -386,7 +386,7 @@
                 }
 
                 dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
-                DependenciesCache.Add(implementationType, dependencies);
+                _dependenciesCache.Add(implementationType, dependencies);
 
                 return Activator.CreateInstance(implementationType,
                     dependencies
@@ -488,7 +488,7 @@
             }
 
             var instance = GetInstance(types.Single());
-            Registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
+            _registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
             return instance;
         }
 
@@ -532,11 +532,11 @@
         public static void Register<TContract>(TContract instance)
         {
             var type = typeof(TContract);
-            RegistrationsCalls.Add(type, 0);
-            Registrations.AddOrUpdate(type,
+            _registrationsCalls.Add(type, 0);
+            _registrations.AddOrUpdate(type,
                                       () =>
                                       {
-                                          RegistrationsCalls[type]++;
+                                          _registrationsCalls[type]++;
                                           return instance;
                                       },
                                       (key, existingVal) => () => existingVal);
@@ -547,7 +547,7 @@
         /// </summary>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         /// <param name="lifeStyle">The life style.</param>
-        public static void Register<TImplementation>(LifeStyle lifeStyle = LifeStyle.TRANSIENT)
+        public static void Register<TImplementation>(LifeStyle lifeStyle = LifeStyle.Transient)
         {
             var type = typeof(TImplementation);
             RegisterLifeStyledInternal(lifeStyle, type, type);
@@ -558,7 +558,7 @@
         /// </summary>
         /// <typeparam name="TContract">The interface binding implementation</typeparam>
         /// <typeparam name="TImplementation">The concrete implementation of <typeparamref name="TContract" /></typeparam>
-        public static void Register<TContract, TImplementation>(LifeStyle lifeStyle = LifeStyle.TRANSIENT) where TImplementation : TContract
+        public static void Register<TContract, TImplementation>(LifeStyle lifeStyle = LifeStyle.Transient) where TImplementation : TContract
         {
             var contract = typeof(TContract);
             var implementation = typeof(TImplementation);
@@ -571,7 +571,7 @@
         /// <typeparam name="TContract">The interface binding implementation</typeparam>
         /// <param name="instanceCreator">The instance creator for an implementation onf <typeparamref name="TContract" /></param>
         /// <param name="lifeStyle">The lifecycle lifeStyle of the registration </param>
-        public static void Register<TContract>(Func<TContract> instanceCreator, LifeStyle lifeStyle = LifeStyle.TRANSIENT)
+        public static void Register<TContract>(Func<TContract> instanceCreator, LifeStyle lifeStyle = LifeStyle.Transient)
         {
             RegisterLifeStyledCreatorInternal(lifeStyle, instanceCreator);
         }
@@ -584,7 +584,7 @@
         public static void RegisterDependencyResolver<TContract, TImplementation>() where TImplementation : IDependencyResolver
         {
             var lazy = new Lazy<IDependencyResolver>(() => (IDependencyResolver)GetInstance(typeof(TImplementation)));
-            DependenciesResolvers.Add(typeof(TContract), lazy.Value);
+            _dependenciesResolvers.Add(typeof(TContract), lazy.Value);
         }
 
         /// <summary>
@@ -594,7 +594,7 @@
         /// <param name="resolver">The <see cref="IDependencyResolver"/> implementation</param>
         public static void RegisterDependencyResolver<TContract>(IDependencyResolver resolver)
         {
-            DependenciesResolvers.Add(typeof(TContract), resolver);
+            _dependenciesResolvers.Add(typeof(TContract), resolver);
         }
 
         #endregion
@@ -607,16 +607,16 @@
         public static void DisposeAllRegistrations()
         {
             LogConsumer.Trace("Service locator statistics");
-            var temp = new Dictionary<Type, int>(RegistrationsCalls);
+            var temp = new Dictionary<Type, int>(_registrationsCalls);
             foreach (var calls in temp)
             {
                 TelemetryAnalytics.TrackDependency(calls.Key, calls.Value);
             }
 
             var type = typeof(IDisposable);
-            var instances = RegistrationsCalls
+            var instances = _registrationsCalls
                 .Where(call => call.Value > 0)
-                .SelectMany(call => Registrations.Where(implementation =>
+                .SelectMany(call => _registrations.Where(implementation =>
                                                         type.IsAssignableFrom(implementation.Key) &&
                                                         call.Key.IsAssignableFrom(implementation.Key)))
                                                         .ToList();
@@ -716,7 +716,7 @@
         /// <returns></returns>
         public static object TryGetInstance(Type contract)
         {
-            if (Registrations.TryGetValue(contract, out var creator))
+            if (_registrations.TryGetValue(contract, out var creator))
             {
                 return creator();
             }
@@ -736,12 +736,12 @@
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool RequestCancellation()
         {
-            if (!CancellationTokenSource.Token.CanBeCanceled)
+            if (!_cancellationTokenSource.Token.CanBeCanceled)
             {
                 return false;
             }
 
-            CancellationTokenSource.Cancel();
+            _cancellationTokenSource.Cancel();
             return true;
         }
 

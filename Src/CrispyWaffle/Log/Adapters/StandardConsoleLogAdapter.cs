@@ -19,32 +19,32 @@
         /// <summary>
         /// The default color
         /// </summary>
-        private const ConsoleColor DefaultColor = ConsoleColor.White;
+        private const ConsoleColor _defaultColor = ConsoleColor.White;
 
         /// <summary>
         /// The debug color
         /// </summary>
-        private const ConsoleColor DebugColor = ConsoleColor.Gray;
+        private const ConsoleColor _debugColor = ConsoleColor.Gray;
 
         /// <summary>
         /// The trace color
         /// </summary>
-        private const ConsoleColor TraceColor = ConsoleColor.DarkGreen;
+        private const ConsoleColor _traceColor = ConsoleColor.DarkGreen;
 
         /// <summary>
         /// The information color
         /// </summary>
-        private const ConsoleColor InfoColor = ConsoleColor.Green;
+        private const ConsoleColor _infoColor = ConsoleColor.Green;
 
         /// <summary>
         /// The warning color
         /// </summary>
-        private const ConsoleColor WarningColor = ConsoleColor.Yellow;
+        private const ConsoleColor _warningColor = ConsoleColor.Yellow;
 
         /// <summary>
         /// The error color
         /// </summary>
-        private const ConsoleColor ErrorColor = ConsoleColor.Red;
+        private const ConsoleColor _errorColor = ConsoleColor.Red;
 
         #endregion
 
@@ -53,19 +53,19 @@
         /// <summary>
         /// The synchronize root
         /// </summary>
-        private static readonly object SyncRoot = new object();
+        private static readonly object _syncRoot = new object();
 
         /// <summary>
         /// The colors by level
         /// </summary>
-        private static readonly Dictionary<LogLevel, ConsoleColor> ColorsByLevel = new Dictionary<LogLevel, ConsoleColor>
+        private static readonly Dictionary<LogLevel, ConsoleColor> _colorsByLevel = new Dictionary<LogLevel, ConsoleColor>
         {
-            {LogLevel.FATAL, ErrorColor},
-            {LogLevel.ERROR, ErrorColor},
-            {LogLevel.WARNING, WarningColor},
-            {LogLevel.INFO, InfoColor},
-            {LogLevel.TRACE, TraceColor},
-            {LogLevel.DEBUG, DebugColor}
+            {LogLevel.Fatal, _errorColor},
+            {LogLevel.Error, _errorColor},
+            {LogLevel.Warning, _warningColor},
+            {LogLevel.Info, _infoColor},
+            {LogLevel.Trace, _traceColor},
+            {LogLevel.Debug, _debugColor}
         };
 
         /// <summary>
@@ -87,7 +87,7 @@
         /// </summary>
         public StandardConsoleLogAdapter()
         {
-            _level = LogLevel.PRODUCTION;
+            _level = LogLevel.Production;
 
             using (var stream = Console.OpenStandardInput(1))
             {
@@ -121,12 +121,12 @@
                 return;
             }
 
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
-                Console.ForegroundColor = ColorsByLevel[level];
+                Console.ForegroundColor = _colorsByLevel[level];
                 Console.Write(@"{0:HH:mm:ss} ", DateTime.Now);
                 Console.WriteLine(message);
-                Console.ForegroundColor = DefaultColor;
+                Console.ForegroundColor = _defaultColor;
             }
         }
 
@@ -143,9 +143,9 @@
                 return;
             }
 
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
-                Console.ForegroundColor = ColorsByLevel[level];
+                Console.ForegroundColor = _colorsByLevel[level];
 
                 do
                 {
@@ -156,7 +156,7 @@
 
                 } while (exception != null);
 
-                Console.ForegroundColor = DefaultColor;
+                Console.ForegroundColor = _defaultColor;
             }
         }
 
@@ -198,15 +198,15 @@
         /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
 
-        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE) where T : class
+        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class
         {
-            if (customFormat == SerializerFormat.NONE)
+            if (customFormat == SerializerFormat.None)
             {
-                WriteInternal(LogLevel.DEBUG, (string)content.GetSerializer());
+                WriteInternal(LogLevel.Debug, (string)content.GetSerializer());
             }
             else
             {
-                WriteInternal(LogLevel.DEBUG, (string)content.GetCustomSerializer(customFormat));
+                WriteInternal(LogLevel.Debug, (string)content.GetCustomSerializer(customFormat));
             }
         }
 
@@ -219,7 +219,7 @@
 
         public void Debug(string content, string filename)
         {
-            WriteInternal(LogLevel.DEBUG, content);
+            WriteInternal(LogLevel.Debug, content);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@
 
         public void Debug(string message)
         {
-            WriteInternal(LogLevel.DEBUG, message);
+            WriteInternal(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
         public void Trace(Exception exception)
         {
-            WriteInternal(LogLevel.TRACE, exception);
+            WriteInternal(LogLevel.Trace, exception);
         }
 
         /// <summary>
@@ -251,8 +251,8 @@
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
         public void Trace(string message, Exception exception)
         {
-            WriteInternal(LogLevel.TRACE, message);
-            WriteInternal(LogLevel.TRACE, exception);
+            WriteInternal(LogLevel.Trace, message);
+            WriteInternal(LogLevel.Trace, exception);
         }
 
         /// <summary>
@@ -263,7 +263,7 @@
 
         public void Trace(string message)
         {
-            WriteInternal(LogLevel.TRACE, message);
+            WriteInternal(LogLevel.Trace, message);
         }
 
         /// <summary>
@@ -274,7 +274,7 @@
 
         public void Info(string message)
         {
-            WriteInternal(LogLevel.INFO, message);
+            WriteInternal(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@
 
         public void Warning(string message)
         {
-            WriteInternal(LogLevel.WARNING, message);
+            WriteInternal(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -296,7 +296,7 @@
 
         public void Error(string message)
         {
-            WriteInternal(LogLevel.ERROR, message);
+            WriteInternal(LogLevel.Error, message);
         }
 
         /// <summary>
@@ -306,7 +306,7 @@
         /// <remarks>Requires LogLevel.FATAL flag.</remarks>
         public void Fatal(string message)
         {
-            WriteInternal(LogLevel.FATAL, message);
+            WriteInternal(LogLevel.Fatal, message);
         }
 
         #endregion

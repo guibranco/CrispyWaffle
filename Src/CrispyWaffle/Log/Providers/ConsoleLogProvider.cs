@@ -14,7 +14,7 @@
         /// <summary>
         /// The synchronize lock
         /// </summary>
-        private static readonly object SyncRoot = new object();
+        private static readonly object _syncRoot = new object();
 
         /// <summary>
         /// The adapter
@@ -35,7 +35,7 @@
                 return;
             }
 
-            lock (SyncRoot)
+            lock (_syncRoot)
             {
                 if (_adapter == null)
                 {
@@ -157,7 +157,7 @@
         /// <param name="content">Not used</param>
         /// <param name="identifier">Not used</param>
         /// <param name="customFormat">Not used</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE)
+        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
             where T : class, new()
         {
             _adapter.Debug(content, identifier, customFormat);

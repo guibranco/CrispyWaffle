@@ -41,7 +41,7 @@ namespace CrispyWaffle.Tests
         /// <param name="testOutputHelper">The test output helper.</param>
         /// <exception cref="ArgumentNullException">_testOutputHelper</exception>
         public TestLogProvider(ITestOutputHelper testOutputHelper) => _testOutputHelper =
-            testOutputHelper ?? throw new ArgumentNullException(nameof(_testOutputHelper));
+            testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
 
         #region Implementation of ILogProvider

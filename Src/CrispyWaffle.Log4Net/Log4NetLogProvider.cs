@@ -71,7 +71,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message.</param>
         public void Fatal(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.FATAL))
+            if (_level.HasFlag(LogLevel.Fatal))
             {
                 _adapter.Fatal(message);
             }
@@ -84,7 +84,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message to be logged</param>
         public void Error(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.ERROR))
+            if (_level.HasFlag(LogLevel.Error))
             {
                 _adapter.Error(message);
             }
@@ -97,7 +97,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message to be logged</param>
         public void Warning(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.WARNING))
+            if (_level.HasFlag(LogLevel.Warning))
             {
                 _adapter.Warn(message);
             }
@@ -110,7 +110,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message to be logged</param>
         public void Info(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.INFO))
+            if (_level.HasFlag(LogLevel.Info))
             {
                 _adapter.Info(message);
             }
@@ -123,7 +123,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message to be logged</param>
         public void Trace(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.TRACE))
+            if (_level.HasFlag(LogLevel.Trace))
             {
                 _adapter.Info(message);
             }
@@ -137,7 +137,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="exception">The exception.</param>
         public void Trace(string category, string message, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
@@ -159,7 +159,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="exception">The exception.</param>
         public void Trace(string category, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
@@ -181,7 +181,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="message">The message to be logged</param>
         public void Debug(string category, string message)
         {
-            if (_level.HasFlag(LogLevel.DEBUG))
+            if (_level.HasFlag(LogLevel.Debug))
             {
                 _adapter.Debug(message);
             }
@@ -195,7 +195,7 @@ namespace CrispyWaffle.Log4Net
         /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
         public void Debug(string category, string content, string identifier)
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
@@ -212,15 +212,15 @@ namespace CrispyWaffle.Log4Net
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE) where T : class, new()
+        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class, new()
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
             _adapter.Debug(identifier);
-            if (customFormat == SerializerFormat.NONE)
+            if (customFormat == SerializerFormat.None)
             {
                 _adapter.Debug((string)content.GetSerializer());
             }

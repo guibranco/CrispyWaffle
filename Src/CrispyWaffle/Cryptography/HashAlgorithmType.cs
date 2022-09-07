@@ -8,22 +8,22 @@
         /// <summary>
         /// The m d5
         /// </summary>
-        MD5,
+        Md5,
         /// <summary>
         /// The sh a1
         /// </summary>
-        SHA1,
+        Sha1,
         /// <summary>
         /// The sh a256
         /// </summary>
-        SHA256,
+        Sha256,
         /// <summary>
         /// The sh a384
         /// </summary>
-        SHA384,
+        Sha384,
         /// <summary>
         /// The sh a512
         /// </summary>
-        SHA512
+        Sha512
     }
 }

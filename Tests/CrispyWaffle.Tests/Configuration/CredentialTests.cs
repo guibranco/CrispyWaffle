@@ -20,9 +20,9 @@
                 UserName = EnvironmentHelper.UserName
             };
 
-            var json = (string)credential.GetCustomSerializer(SerializerFormat.JSON);
+            var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.JSON).Deserialize(json);
+            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json).Deserialize(json);
 
             var passwordEncrypted = (string)deserialized.Password;
 
@@ -45,9 +45,9 @@
                 Password = "EchoFoxPapa"
             };
 
-            var json = (string)credential.GetCustomSerializer(SerializerFormat.JSON);
+            var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.JSON).Deserialize(json);
+            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json).Deserialize(json);
 
             var passwordEncrypted = (string)deserialized.Password;
 

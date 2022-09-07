@@ -12,27 +12,27 @@
         /// </summary>
 
         [HumanReadable("None")]
-        NONE = 0,
+        None = 0,
 
         /// <summary>
         /// 	An enum constant representing the binary option.
         /// </summary>
 
         [HumanReadable("Binary")]
-        BINARY = 1,
+        Binary = 1,
 
         /// <summary>
         /// 	An enum constant representing the JSON option.
         /// </summary>
 
         [HumanReadable("JSON")]
-        JSON = 2,
+        Json = 2,
 
         /// <summary>
         /// 	An enum constant representing the XML option.
         /// </summary>
 
         [HumanReadable("XML")]
-        XML = 3
+        Xml = 3
     }
 }

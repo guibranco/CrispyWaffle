@@ -11,12 +11,12 @@
         /// The transient
         /// </summary>
         [HumanReadable("Transient")]
-        TRANSIENT,
+        Transient,
 
         /// <summary>
         /// The singleton
         /// </summary>
         [HumanReadable("Singleton")]
-        SINGLETON
+        Singleton
     }
 }

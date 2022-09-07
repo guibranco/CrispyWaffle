@@ -224,12 +224,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Fatal(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.FATAL))
+            if (!_level.HasFlag(LogLevel.Fatal))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.FATAL, category, message));
+            PropagateInternal(Serialize(LogLevel.Fatal, category, message));
         }
 
         /// <summary>
@@ -239,12 +239,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Error(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.ERROR))
+            if (!_level.HasFlag(LogLevel.Error))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.ERROR, category, message));
+            PropagateInternal(Serialize(LogLevel.Error, category, message));
         }
 
         /// <summary>
@@ -254,12 +254,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Warning(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.WARNING))
+            if (!_level.HasFlag(LogLevel.Warning))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.WARNING, category, message));
+            PropagateInternal(Serialize(LogLevel.Warning, category, message));
         }
 
         /// <summary>
@@ -269,12 +269,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Info(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.INFO))
+            if (!_level.HasFlag(LogLevel.Info))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.INFO, category, message));
+            PropagateInternal(Serialize(LogLevel.Info, category, message));
         }
 
         /// <summary>
@@ -284,12 +284,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Trace(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.TRACE, category, message));
+            PropagateInternal(Serialize(LogLevel.Trace, category, message));
         }
 
         /// <summary>
@@ -300,12 +300,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="exception">The exception.</param>
         public void Trace(string category, string message, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.TRACE, category, message));
+            PropagateInternal(Serialize(LogLevel.Trace, category, message));
 
             Trace(category, exception);
         }
@@ -317,15 +317,15 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="exception">The exception.</param>
         public void Trace(string category, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
 
             do
             {
-                PropagateInternal(Serialize(LogLevel.TRACE, category, exception.Message));
-                PropagateInternal(Serialize(LogLevel.TRACE, category, exception.StackTrace));
+                PropagateInternal(Serialize(LogLevel.Trace, category, exception.Message));
+                PropagateInternal(Serialize(LogLevel.Trace, category, exception.StackTrace));
 
                 exception = exception.InnerException;
             } while (exception != null);
@@ -339,12 +339,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         public void Debug(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, message));
+            PropagateInternal(Serialize(LogLevel.Debug, category, message));
         }
 
         /// <summary>
@@ -355,12 +355,12 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="identifier">The identifier.</param>
         public void Debug(string category, string content, string identifier)
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, content, identifier));
+            PropagateInternal(Serialize(LogLevel.Debug, category, content, identifier));
         }
 
         /// <summary>
@@ -373,14 +373,14 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="customFormat">The custom format.</param>
         public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat) where T : class, new()
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
             string serialized;
 
-            if (customFormat == SerializerFormat.NONE)
+            if (customFormat == SerializerFormat.None)
             {
                 serialized = (string)content.GetSerializer();
             }
@@ -389,7 +389,7 @@ namespace CrispyWaffle.RabbitMQ.Log
                 serialized = (string)content.GetCustomSerializer(customFormat);
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, serialized, identifier));
+            PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
 
         #endregion

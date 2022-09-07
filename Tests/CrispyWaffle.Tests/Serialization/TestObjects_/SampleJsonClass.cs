@@ -24,7 +24,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// Implements the <see cref="System.IEquatable{SampleJsonClass}" />
     /// </summary>
     /// <seealso cref="System.IEquatable{SampleJsonClass}" />
-    [Serializer(SerializerFormat.JSON)]
+    [Serializer(SerializerFormat.Json)]
     [ExcludeFromCodeCoverage]
     public class SampleJsonClass : IEquatable<SampleJsonClass>
     {
