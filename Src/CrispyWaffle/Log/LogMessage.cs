@@ -6,7 +6,7 @@
     /// <summary>
     /// The log message class.
     /// </summary>
-    [Serializer(SerializerFormat.JSON)]
+    [Serializer(SerializerFormat.Json)]
     public sealed class LogMessage
     {
         /// <summary>

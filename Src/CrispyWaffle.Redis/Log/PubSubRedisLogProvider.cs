@@ -165,12 +165,12 @@
         /// <param name="message">The message.</param>
         public void Fatal(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.FATAL))
+            if (!_level.HasFlag(LogLevel.Fatal))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.FATAL, category, message));
+            PropagateInternal(Serialize(LogLevel.Fatal, category, message));
         }
 
         /// <summary>
@@ -180,12 +180,12 @@
         /// <param name="message">The message.</param>
         public void Error(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.ERROR))
+            if (!_level.HasFlag(LogLevel.Error))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.ERROR, category, message));
+            PropagateInternal(Serialize(LogLevel.Error, category, message));
         }
 
         /// <summary>
@@ -195,12 +195,12 @@
         /// <param name="message">The message to be logged</param>
         public void Warning(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.WARNING))
+            if (!_level.HasFlag(LogLevel.Warning))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.WARNING, category, message));
+            PropagateInternal(Serialize(LogLevel.Warning, category, message));
         }
 
         /// <summary>
@@ -210,12 +210,12 @@
         /// <param name="message">The message to be logged</param>
         public void Info(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.INFO))
+            if (!_level.HasFlag(LogLevel.Info))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.INFO, category, message));
+            PropagateInternal(Serialize(LogLevel.Info, category, message));
         }
 
         /// <summary>
@@ -225,12 +225,12 @@
         /// <param name="message">The message to be logged</param>
         public void Trace(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.TRACE, category, message));
+            PropagateInternal(Serialize(LogLevel.Trace, category, message));
         }
 
         /// <summary>
@@ -241,12 +241,12 @@
         /// <param name="exception">The exception.</param>
         public void Trace(string category, string message, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.TRACE, category, message));
+            PropagateInternal(Serialize(LogLevel.Trace, category, message));
 
             Trace(category, exception);
         }
@@ -258,7 +258,7 @@
         /// <param name="exception">The exception.</param>
         public void Trace(string category, Exception exception)
         {
-            if (!_level.HasFlag(LogLevel.TRACE))
+            if (!_level.HasFlag(LogLevel.Trace))
             {
                 return;
             }
@@ -266,8 +266,8 @@
             do
             {
 
-                PropagateInternal(Serialize(LogLevel.TRACE, category, exception.Message));
-                PropagateInternal(Serialize(LogLevel.TRACE, category, exception.StackTrace));
+                PropagateInternal(Serialize(LogLevel.Trace, category, exception.Message));
+                PropagateInternal(Serialize(LogLevel.Trace, category, exception.StackTrace));
 
                 exception = exception.InnerException;
 
@@ -282,12 +282,12 @@
         /// <param name="message">The message to be logged</param>
         public void Debug(string category, string message)
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, message));
+            PropagateInternal(Serialize(LogLevel.Debug, category, message));
         }
 
         /// <summary>
@@ -298,12 +298,12 @@
         /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
         public void Debug(string category, string content, string identifier)
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, content, identifier));
+            PropagateInternal(Serialize(LogLevel.Debug, category, content, identifier));
         }
 
         /// <summary>
@@ -314,15 +314,15 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE) where T : class, new()
+        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class, new()
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
             string serialized;
-            if (customFormat == SerializerFormat.NONE)
+            if (customFormat == SerializerFormat.None)
             {
                 serialized = (string)content.GetSerializer();
             }
@@ -331,7 +331,7 @@
                 serialized = (string)content.GetCustomSerializer(customFormat);
             }
 
-            PropagateInternal(Serialize(LogLevel.DEBUG, category, serialized, identifier));
+            PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
 
         #endregion

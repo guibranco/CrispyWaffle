@@ -76,13 +76,13 @@
         /// <summary>
         /// The hash algorithms
         /// </summary>
-        private static Dictionary<HashAlgorithmType, HashAlgorithm> hashAlgorithms = new Dictionary<HashAlgorithmType, HashAlgorithm>
+        private static Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms = new Dictionary<HashAlgorithmType, HashAlgorithm>
         {
-            {HashAlgorithmType.MD5, new MD5CryptoServiceProvider()},
-            {HashAlgorithmType.SHA1, SHA1.Create()},
-            {HashAlgorithmType.SHA256, SHA256.Create()},
-            {HashAlgorithmType.SHA384, SHA384.Create()},
-            {HashAlgorithmType.SHA512, SHA512.Create()}
+            {HashAlgorithmType.Md5, new MD5CryptoServiceProvider()},
+            {HashAlgorithmType.Sha1, SHA1.Create()},
+            {HashAlgorithmType.Sha256, SHA256.Create()},
+            {HashAlgorithmType.Sha384, SHA384.Create()},
+            {HashAlgorithmType.Sha512, SHA512.Create()}
         };
 
         /// <summary>
@@ -94,12 +94,12 @@
         public static string Hash(string value, HashAlgorithmType type)
         {
 
-            if (!hashAlgorithms.ContainsKey(type))
+            if (!_hashAlgorithms.ContainsKey(type))
             {
                 throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid algorithm type");
             }
 
-            var algorithm = hashAlgorithms[type];
+            var algorithm = _hashAlgorithms[type];
 
             var hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
 
@@ -107,7 +107,7 @@
 
             foreach (var t in hash)
             {
-                result.Append(type == HashAlgorithmType.MD5
+                result.Append(type == HashAlgorithmType.Md5
                     ? t.ToString(@"x2")
                     : t.ToString(CultureInfo.InvariantCulture));
             }

@@ -17,21 +17,21 @@
         /// <summary>
         /// The application log name
         /// </summary>
-        private const string ApplicationLogName = "Application";
+        private const string _applicationLogName = "Application";
         /// <summary>
         /// The maximum payload length chars
         /// </summary>
-        const int MaximumPayloadLengthChars = 31839;
+        const int _maximumPayloadLengthChars = 31839;
 
         /// <summary>
         /// The maximum source name length chars
         /// </summary>
-        const int MaximumSourceNameLengthChars = 212;
+        const int _maximumSourceNameLengthChars = 212;
 
         /// <summary>
         /// The source moved event identifier
         /// </summary>
-        const int SourceMovedEventId = 3;
+        const int _sourceMovedEventId = 3;
 
         /// <summary>
         /// The event identifier provider
@@ -70,9 +70,9 @@
                 throw new ArgumentNullException(nameof(source));
             }
 
-            if (source.Length > MaximumSourceNameLengthChars)
+            if (source.Length > _maximumSourceNameLengthChars)
             {
-                source = source.Substring(0, MaximumSourceNameLengthChars);
+                source = source.Substring(0, _maximumSourceNameLengthChars);
             }
 
             source = source.Replace("<", "_");
@@ -80,7 +80,7 @@
 
             _eventIdProvider = eventIdProvider ?? throw new ArgumentNullException(nameof(eventIdProvider));
 
-            _log = new EventLog(string.IsNullOrWhiteSpace(logName) ? ApplicationLogName : logName, machineName);
+            _log = new EventLog(string.IsNullOrWhiteSpace(logName) ? _applicationLogName : logName, machineName);
 
             if (manageEventSource)
             {
@@ -154,7 +154,7 @@
                     $"The source has been registered with this log, {log.Log}, however a computer restart may be required " +
                     $"before event logs will appear in {log.Log} with source {source}. Until then, messages may be logged to {oldLogName}.",
                     EventLogEntryType.Warning,
-                    SourceMovedEventId);
+                    _sourceMovedEventId);
             }
         }
 
@@ -168,15 +168,15 @@
         {
             switch (level)
             {
-                case LogLevel.DEBUG:
-                case LogLevel.TRACE:
+                case LogLevel.Debug:
+                case LogLevel.Trace:
                     return EventLogEntryType.Information;
 
-                case LogLevel.WARNING:
+                case LogLevel.Warning:
                     return EventLogEntryType.Warning;
 
-                case LogLevel.ERROR:
-                case LogLevel.FATAL:
+                case LogLevel.Error:
+                case LogLevel.Fatal:
                     return EventLogEntryType.Error;
 
                 default:
@@ -198,9 +198,9 @@
 
             var type = LevelToEventLogEntryType(level);
 
-            if (message.Length > MaximumPayloadLengthChars)
+            if (message.Length > _maximumPayloadLengthChars)
             {
-                message = message.Substring(0, MaximumPayloadLengthChars);
+                message = message.Substring(0, _maximumPayloadLengthChars);
             }
 
             _log.WriteEntry(message, type, _eventIdProvider.ComputeEventId(message));
@@ -223,9 +223,9 @@
 
             var message = GetMessageFromException(exception);
 
-            if (message.Length > MaximumPayloadLengthChars)
+            if (message.Length > _maximumPayloadLengthChars)
             {
-                message = message.Substring(0, MaximumPayloadLengthChars);
+                message = message.Substring(0, _maximumPayloadLengthChars);
             }
 
             _log.WriteEntry(message, type, _eventIdProvider.ComputeEventId(message));
@@ -284,15 +284,15 @@
         /// <param name="identifier">The file name to be persisted to disk with the content</param>
         /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
-        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.NONE)
+        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
             where T : class
         {
-            if (!_level.HasFlag(LogLevel.DEBUG))
+            if (!_level.HasFlag(LogLevel.Debug))
             {
                 return;
             }
 
-            var contentAsString = customFormat == SerializerFormat.NONE
+            var contentAsString = customFormat == SerializerFormat.None
                 ? content.GetSerializer()
                 : content.GetCustomSerializer(customFormat);
 
@@ -307,7 +307,7 @@
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
         public void Debug(string content, string fileName)
         {
-            WriteInternal(LogLevel.DEBUG, $"{fileName}: {content}");
+            WriteInternal(LogLevel.Debug, $"{fileName}: {content}");
         }
 
         /// <summary>
@@ -317,7 +317,7 @@
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
         public void Debug(string message)
         {
-            WriteInternal(LogLevel.DEBUG, message);
+            WriteInternal(LogLevel.Debug, message);
         }
 
         /// <summary>
@@ -326,7 +326,7 @@
         /// <param name="exception">The exception.</param>
         public void Trace(Exception exception)
         {
-            WriteInternal(LogLevel.TRACE, exception);
+            WriteInternal(LogLevel.Trace, exception);
         }
 
         /// <summary>
@@ -336,8 +336,8 @@
         /// <param name="exception">The exception.</param>
         public void Trace(string message, Exception exception)
         {
-            WriteInternal(LogLevel.TRACE, message);
-            WriteInternal(LogLevel.TRACE, exception);
+            WriteInternal(LogLevel.Trace, message);
+            WriteInternal(LogLevel.Trace, exception);
         }
 
         /// <summary>
@@ -347,7 +347,7 @@
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
         public void Trace(string message)
         {
-            WriteInternal(LogLevel.TRACE, message);
+            WriteInternal(LogLevel.Trace, message);
         }
 
         /// <summary>
@@ -357,7 +357,7 @@
         /// <remarks>Requires LogLevel.INFO flag.</remarks>
         public void Info(string message)
         {
-            WriteInternal(LogLevel.INFO, message);
+            WriteInternal(LogLevel.Info, message);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@
         /// <remarks>Requires LogLevel.WARNING flag.</remarks>
         public void Warning(string message)
         {
-            WriteInternal(LogLevel.WARNING, message);
+            WriteInternal(LogLevel.Warning, message);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Error(string message)
         {
-            WriteInternal(LogLevel.ERROR, message);
+            WriteInternal(LogLevel.Error, message);
         }
 
         /// <summary>
@@ -386,7 +386,7 @@
         /// <param name="message">The message.</param>
         public void Fatal(string message)
         {
-            WriteInternal(LogLevel.FATAL, message);
+            WriteInternal(LogLevel.Fatal, message);
         }
 
         #endregion

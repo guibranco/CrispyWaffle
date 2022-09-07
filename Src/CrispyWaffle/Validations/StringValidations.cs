@@ -11,7 +11,7 @@
         /// <summary>
         /// The invalid path chars
         /// </summary>
-        private static readonly string InvalidPathChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
+        private static readonly string _invalidPathChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
 
         /// <summary>
         /// The portuguese preposition pattern
@@ -44,6 +44,6 @@
         /// <summary>
         /// The invalid file name
         /// </summary>
-        public static readonly Regex InvalidFileName = new Regex($@"([{InvalidPathChars}]*\.+$)|([{InvalidPathChars}]+)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+        public static readonly Regex InvalidFileName = new Regex($@"([{_invalidPathChars}]*\.+$)|([{_invalidPathChars}]+)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
     }
 }

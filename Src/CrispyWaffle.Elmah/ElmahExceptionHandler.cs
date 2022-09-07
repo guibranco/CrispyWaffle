@@ -34,7 +34,7 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> AdditionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 
@@ -86,11 +86,11 @@ namespace CrispyWaffle.Elmah
 
             var exceptions = exception.ToQueue(out _);
 
-            var messages = exceptions.GetMessages(category, AdditionalProviders
-                                                      .Where(p => p.Item2 == ExceptionLogType.MESSAGE)
+            var messages = exceptions.GetMessages(category, _additionalProviders
+                                                      .Where(p => p.Item2 == ExceptionLogType.Message)
                                                       .Select(p => p.Item1).ToList());
 
-            foreach (var additionalProvider in AdditionalProviders.Where(p => p.Item2 == ExceptionLogType.FULL))
+            foreach (var additionalProvider in _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Full))
             {
                 additionalProvider.Item1.Error(category, messages);
             }
@@ -148,7 +148,7 @@ namespace CrispyWaffle.Elmah
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
 
-            AdditionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
+            _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
 
             return provider;
         }

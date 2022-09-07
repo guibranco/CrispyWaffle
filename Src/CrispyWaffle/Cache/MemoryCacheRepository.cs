@@ -13,12 +13,12 @@
         /// <summary>
         /// The data
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> Data = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _data = new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// The hash
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> Hash = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _hash = new ConcurrentDictionary<string, object>();
         #endregion
 
         #region Implementation of ICacheRepository
@@ -40,7 +40,7 @@
         /// <param name="ttl">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
         public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
-            Data.AddOrUpdate(key, value, (_, __) => value);
+            _data.AddOrUpdate(key, value, (_, __) => value);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@
         public void Set<T>(T value, string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";
-            Hash.AddOrUpdate(finalKey, value, (_, __) => value);
+            _hash.AddOrUpdate(finalKey, value, (_, __) => value);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@
         /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists</exception>
         public T Get<T>(string key)
         {
-            if (!Data.TryGetValue(key, out var value))
+            if (!_data.TryGetValue(key, out var value))
             {
                 throw new InvalidOperationException($"Unable to get the item with key {key}");
             }
@@ -84,7 +84,7 @@
         public T Get<T>(string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";
-            if (!Hash.TryGetValue(finalKey, out var value))
+            if (!_hash.TryGetValue(finalKey, out var value))
             {
                 throw new InvalidOperationException($"Unable to get the item with key {key} and sub key {subKey}");
             }
@@ -103,7 +103,7 @@
         public bool TryGet<T>(string key, out T value)
         {
             value = default;
-            if (!Data.TryGetValue(key, out var temp))
+            if (!_data.TryGetValue(key, out var temp))
             {
                 return false;
             }
@@ -124,7 +124,7 @@
         {
             value = default;
             var finalKey = $@"{key}-{subKey}";
-            if (!Hash.TryGetValue(finalKey, out var temp))
+            if (!_hash.TryGetValue(finalKey, out var temp))
             {
                 return false;
             }
@@ -140,9 +140,9 @@
         /// <param name="key">The key.</param>
         public void Remove(string key)
         {
-            if (Data.ContainsKey(key))
+            if (_data.ContainsKey(key))
             {
-                Data.TryRemove(key, out _);
+                _data.TryRemove(key, out _);
             }
         }
 
@@ -154,9 +154,9 @@
         public void Remove(string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";
-            if (Data.ContainsKey(finalKey))
+            if (_data.ContainsKey(finalKey))
             {
-                Hash.TryRemove(finalKey, out _);
+                _hash.TryRemove(finalKey, out _);
             }
         }
 
@@ -178,8 +178,8 @@
         /// </summary>
         public void Clear()
         {
-            Data.Clear();
-            Hash.Clear();
+            _data.Clear();
+            _hash.Clear();
         }
 
         #endregion

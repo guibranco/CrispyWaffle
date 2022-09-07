@@ -14,60 +14,60 @@
         /// 
         /// </summary>
         [HumanReadable("Fatal")]
-        FATAL = 1,
+        Fatal = 1,
 
         /// <summary>
         /// The error level
         /// </summary>
 
         [HumanReadable("Error")]
-        ERROR = 1 << 1,
+        Error = 1 << 1,
 
         /// <summary>
         /// The warning level
         /// </summary>
 
         [HumanReadable("Warning")]
-        WARNING = 1 << 2,
+        Warning = 1 << 2,
 
         /// <summary>
         /// The information level
         /// </summary>
 
         [HumanReadable("Information")]
-        INFO = 1 << 3,
+        Info = 1 << 3,
 
 
         /// <summary>
         /// The information detailed level
         /// </summary>
         [HumanReadable("Trace")]
-        TRACE = 1 << 4,
+        Trace = 1 << 4,
 
         /// <summary>
         /// The debug level
         /// </summary>
 
         [HumanReadable("Debug")]
-        DEBUG = 1 << 5,
+        Debug = 1 << 5,
 
         /// <summary>
         /// The production level (Error + Warning + Info)
         /// </summary>
 
         [HumanReadable("Production")]
-        PRODUCTION = FATAL | ERROR | WARNING | INFO,
+        Production = Fatal | Error | Warning | Info,
 
         /// <summary>
         /// The development level (Production + Info detailed)
         /// </summary>
         [HumanReadable("Development")]
-        DEVELOPMENT = PRODUCTION | TRACE,
+        Development = Production | Trace,
 
         /// <summary>
         /// All levels together
         /// </summary>
         [HumanReadable("All")]
-        ALL = DEVELOPMENT | DEBUG
+        All = Development | Debug
     }
 }
