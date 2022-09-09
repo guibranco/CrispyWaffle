@@ -1,6 +1,6 @@
 # CrispyWaffle
 
-The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects. 
+The CrispyWaffle project - a toolkit for .NET projects. 
 
 [![GitHub license](https://img.shields.io/github/license/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
 [![Time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
@@ -9,26 +9,27 @@ The CrispyWaffle project - a toolkit for .NET (Core & Framework) projects.
 
 Documentation of the project: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
+---
+
 ## CI/CD
 
-| Branch | Build status | Last commit | Tests |
-|--------|--------------|-------------|-------|
-| Master | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/master?compact_message) |
-| Develop | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/develop?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/develop) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/develop)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/develop?compact_message) |
+| Branch | Build status | Last commit | Tests | Coverage |
+|--------|--------------|-------------|-------|-------|
+| Master | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/master?compact_message) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage&branch=master)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
+| Develop | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/develop?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/develop) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/develop)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/develop?compact_message) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage&branch=develop)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
 
-## Code Quality
+## Code Quality (master branch)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/cdac433295dc4d39b4a5377d147f50fc)](https://www.codacy.com/gh/guibranco/CrispyWaffle/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guibranco/CrispyWaffle&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/guibranco/CrispyWaffle/branch/master/graph/badge.svg)](https://codecov.io/gh/guibranco/CrispyWaffle)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=alert_status)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
-
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
+
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
-
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
+
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=security_rating)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=bugs)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
