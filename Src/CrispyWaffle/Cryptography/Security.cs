@@ -72,19 +72,7 @@
 
             return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
         }
-
-        /// <summary>
-        /// The hash algorithms
-        /// </summary>
-        private static Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms = new Dictionary<HashAlgorithmType, HashAlgorithm>
-        {
-            {HashAlgorithmType.Md5, new MD5CryptoServiceProvider()},
-            {HashAlgorithmType.Sha1, SHA1.Create()},
-            {HashAlgorithmType.Sha256, SHA256.Create()},
-            {HashAlgorithmType.Sha384, SHA384.Create()},
-            {HashAlgorithmType.Sha512, SHA512.Create()}
-        };
-
+        
         /// <summary>
         /// Generates a hash for the requested value using the desired hash algorithm
         /// </summary>
@@ -114,5 +102,17 @@
 
             return result.ToString();
         }
+
+        /// <summary>
+        /// The hash algorithms
+        /// </summary>
+        private static Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms = new Dictionary<HashAlgorithmType, HashAlgorithm>
+        {
+            {HashAlgorithmType.Md5, new MD5CryptoServiceProvider()},
+            {HashAlgorithmType.Sha1, SHA1.Create()},
+            {HashAlgorithmType.Sha256, SHA256.Create()},
+            {HashAlgorithmType.Sha384, SHA384.Create()},
+            {HashAlgorithmType.Sha512, SHA512.Create()}
+        };
     }
 }
