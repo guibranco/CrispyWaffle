@@ -51,7 +51,7 @@ build_script:
          /d:sonar.coverage.exclusions="**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs" 
          /d:sonar.cs.opencover.reportsPaths="$env:CD\Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml"
     }'
-- ps: 'if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { &
+- ps: 'if ($env:APPVEYOR_PULL_REQUEST_NUMBER) { &
         dotnet sonarscanner begin 
          /k:"$env:SONAR_PROJECT" 
          /o:"$env:SONAR_ORGANIZATION" 
