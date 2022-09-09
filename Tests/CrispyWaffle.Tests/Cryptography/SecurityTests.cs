@@ -1,8 +1,6 @@
 ﻿namespace CrispyWaffle.Tests.Cryptography
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
     using CrispyWaffle.Cryptography;
     using Xunit;
 
