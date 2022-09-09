@@ -85,7 +85,7 @@
 
         #region Implementation of ILazyResettable
 
-        public event EventHandler? OnReset;
+        public event EventHandler OnReset;
 
         /// <summary>
         /// Resets this instance.
