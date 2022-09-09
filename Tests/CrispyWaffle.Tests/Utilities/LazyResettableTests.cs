@@ -6,6 +6,7 @@
     using Xunit;
     using Xunit.Abstractions;
 
+    [Collection("Logged collection")]
     public class LazyResettableTests
     {
         /// <summary>
@@ -44,8 +45,8 @@
             var stats = test.Stats();
 
             Assert.Equal(1,stats.Resets);
-            Assert.Equal(1, stats.Loads);
-            Assert.Equal(1, stats.Loads);
+            Assert.Equal(2, stats.Loads);
+            Assert.Equal(3, stats.Hits);
         }
     }
 
