@@ -1,6 +1,7 @@
 ﻿namespace CrispyWaffle.Utilities
 {
     using System;
+    using System.Diagnostics;
     using System.Security.Permissions;
     using System.Threading;
 
@@ -25,14 +26,12 @@
             /// The value
             /// </summary>
             public readonly T Value;
+
             /// <summary>
             /// Initializes a new instance of the <see cref="Box"/> class.
             /// </summary>
             /// <param name="value">The value.</param>
-            public Box(T value)
-            {
-                Value = value;
-            }
+            public Box(T value) => Value = value;
         }
 
         #endregion
@@ -55,6 +54,11 @@
         /// The box
         /// </summary>
         private Box _box;
+
+        public int Loads;
+        public int Hits;
+        public int Resets;
+        public TimeSpan SumLoadTime;
 
         #endregion
 
@@ -81,6 +85,8 @@
 
         #region Implementation of ILazyResettable
 
+        public event EventHandler? OnReset;
+
         /// <summary>
         /// Resets this instance.
         /// </summary>
@@ -97,6 +103,9 @@
             {
                 _box = null;
             }
+
+            Interlocked.Increment(ref Resets);
+            OnReset?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -115,6 +124,15 @@
         /// </value>
         public Type DeclaringType { get; }
 
+        public ResetLazyStats Stats() =>
+            new ResetLazyStats(typeof(T))
+            {
+                SumLoadTime = SumLoadTime,
+                Hits = Hits,
+                Loads = Loads,
+                Resets = Resets,
+            };
+
         #endregion
 
         #region Public properties
@@ -132,6 +150,7 @@
                 var b1 = _box;
                 if (b1 != null)
                 {
+                    Interlocked.Increment(ref Hits);
                     return b1.Value;
                 }
 
@@ -146,11 +165,11 @@
                                 return b2.Value;
                             }
 
-                            _box = new Box(_valueFactory());
+                            _box = new Box(InternalLoaded());
                             return _box.Value;
                         }
                     case LazyThreadSafetyMode.PublicationOnly:
-                        var newValue = _valueFactory();
+                        var newValue = InternalLoaded();
                         lock (_syncLock)
                         {
                             var b2 = _box;
@@ -163,7 +182,7 @@
                             return _box.Value;
                         }
                 }
-                var b = new Box(_valueFactory());
+                var b = new Box(InternalLoaded());
                 _box = b;
                 return b.Value;
             }
@@ -177,6 +196,20 @@
         ///   <c>true</c> if this instance is value created; otherwise, <c>false</c>.
         /// </value>
         public bool IsValueCreated => _box != null;
+
+        #endregion
+
+        #region Private methods
+
+        private T InternalLoaded()
+        {
+            var sw = Stopwatch.StartNew();
+            var result = _valueFactory();
+            sw.Stop();
+            this.SumLoadTime += sw.Elapsed;
+            Interlocked.Increment(ref Loads);
+            return result;
+        }
 
         #endregion
     }
