@@ -15,7 +15,6 @@ namespace CrispyWaffle.Tests.Events
 {
     using CrispyWaffle.Events;
     using System;
-    using CrispyWaffle.Log;
     using Xunit;
 
     /// <summary>

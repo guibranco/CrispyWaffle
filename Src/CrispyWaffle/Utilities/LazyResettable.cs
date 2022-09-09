@@ -19,7 +19,7 @@
         /// The internal class box
         /// </summary>
         /// <seealso cref="ILazyResettable" />
-        private class Box
+        private sealed class Box
         {
             /// <summary>
             /// The value
