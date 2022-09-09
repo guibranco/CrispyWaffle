@@ -41,7 +41,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// The cache client
         /// </summary>
-        private readonly IRedisCacheClient _cacheClient;
+        private readonly IRedisClient _cacheClient;
 
         #endregion
 

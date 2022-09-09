@@ -40,7 +40,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <summary>
         /// The connection pool manager
         /// </summary>
-        private readonly IRedisCacheConnectionPoolManager _connectionPoolManager;
+        private readonly IRedisConnectionPoolManager _connectionPoolManager;
 
         #endregion
 
@@ -157,11 +157,11 @@ namespace CrispyWaffle.Redis.Utils.Communications
 
 
             //TODO add LogConsumer to logger parameter.
-            _connectionPoolManager = new RedisCacheConnectionPoolManager(configuration);
+            _connectionPoolManager = new RedisConnectionPoolManager(configuration);
 
 
             Serializer = serializer;
-            Cache = new RedisCacheClient(_connectionPoolManager, serializer, configuration);
+            Cache = new RedisClient(_connectionPoolManager, serializer, configuration);
             QueuePrefix = "crispy-waffle";
         }
 
@@ -220,7 +220,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// Gets the cache.
         /// </summary>
         /// <value>The cache.</value>
-        public IRedisCacheClient Cache { get; }
+        public IRedisClient Cache { get; }
 
         /// <summary>
         /// Gets the subscriber.

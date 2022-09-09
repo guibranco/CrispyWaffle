@@ -19,6 +19,7 @@ namespace CrispyWaffle.Infrastructure
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
@@ -71,11 +72,11 @@ namespace CrispyWaffle.Infrastructure
                     continue;
                 }
 
-                foreach (var ip in ni.GetIPProperties().UnicastAddresses)
+                foreach (var ip in ni.GetIPProperties().UnicastAddresses.Select(ip => ip.Address))
                 {
-                    if (ip.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip.Address))
+                    if (ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip))
                     {
-                        return ip.Address.ToString();
+                        return ip.ToString();
                     }
                 }
             }

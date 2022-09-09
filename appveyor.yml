@@ -1,4 +1,4 @@
-version: 2.5.{build}
+version: 3.0.{build}
 skip_tags: true
 image: Visual Studio 2019
 configuration: Release
@@ -39,16 +39,30 @@ build:
   verbosity: normal
 
 build_script:
-- ps: 'if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER -And $env:APPVEYOR_REPO_BRANCH -eq "master") { & 
-  dotnet sonarscanner begin 
- /k:"$env:SONAR_PROJECT" 
- /o:"$env:SONAR_ORGANIZATION" 
- /d:sonar.host.url="https://sonarcloud.io" 
- /d:sonar.login="$env:SONAR_TOKEN" 
- /v:"$env:APPVEYOR_BUILD_NUMBER" 
- /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" 
- /d:sonar.coverage.exclusions="**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs" 
- /d:sonar.cs.opencover.reportsPaths="$env:CD\Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml" }'
+- ps: 'if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { &
+        dotnet sonarscanner begin 
+         /k:"$env:SONAR_PROJECT" 
+         /o:"$env:SONAR_ORGANIZATION" 
+         /d:sonar.branch.name="$env:APPVEYOR_REPO_BRANCH"
+         /d:sonar.host.url="https://sonarcloud.io" 
+         /d:sonar.login="$env:SONAR_TOKEN" 
+         /v:"$env:APPVEYOR_BUILD_NUMBER" 
+         /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" 
+         /d:sonar.coverage.exclusions="**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs" 
+         /d:sonar.cs.opencover.reportsPaths="$env:CD\Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml"
+    }'
+- ps: 'if ($env:APPVEYOR_PULL_REQUEST_NUMBER) { &
+        dotnet sonarscanner begin 
+         /k:"$env:SONAR_PROJECT" 
+         /o:"$env:SONAR_ORGANIZATION" 
+         /d:sonar.pullrequest.key="$env:APPVEYOR_PULL_REQUEST_NUMBER"
+         /d:sonar.host.url="https://sonarcloud.io" 
+         /d:sonar.login="$env:SONAR_TOKEN" 
+         /v:"$env:APPVEYOR_BUILD_NUMBER" 
+         /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" 
+         /d:sonar.coverage.exclusions="**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs" 
+         /d:sonar.cs.opencover.reportsPaths="$env:CD\Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml"
+    }'
 - dotnet build %SOLUTION_NAME%.sln
 - dotnet test .\Tests\%SOLUTION_NAME%.Tests\%SOLUTION_NAME%.Tests.csproj 
  /p:CollectCoverage=true 
@@ -62,9 +76,7 @@ build_script:
  -l CSharp 
  -t %CODACY_PROJECT_TOKEN% 
  -r "%CD%\Tests\%SOLUTION_NAME%.Tests\coverage.opencover.xml"
-- ps: 'if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER -And $env:APPVEYOR_REPO_BRANCH -eq "master") { & 
- dotnet sonarscanner end 
- /d:sonar.login="$env:SONAR_TOKEN" }'
+- dotnet sonarscanner end /d:sonar.login="%SONAR_TOKEN%"
 
 after_build:
 - xcopy %CD%\Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* %CD%\Build\Core\
