@@ -82,7 +82,7 @@ namespace CrispyWaffle.Extensions
                 throw new ArgumentNullException(nameof(input), "Input value cannot be null");
             }
 
-            if (input.TryToDateTime(out DateTime result))
+            if (input.TryToDateTime(out var result))
             {
                 return result;
             }
