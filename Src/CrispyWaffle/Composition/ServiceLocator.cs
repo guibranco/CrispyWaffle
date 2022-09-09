@@ -52,6 +52,11 @@
         /// </summary>
         private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
+        /// <summary>
+        /// The not loaded assemblies
+        /// </summary>
+        private static readonly IDictionary<string, Exception> _notLoadedAssemblies = new Dictionary<string, Exception>();
+
         #endregion
 
         #region ~Ctor
@@ -103,9 +108,9 @@
             }
             catch (Exception e)
             {
-                if (!NotLoadedAssemblies.Keys.Contains(missingAssembly.FullName))
+                if (!_notLoadedAssemblies.Keys.Contains(missingAssembly.FullName))
                 {
-                    NotLoadedAssemblies.Add(missingAssembly.FullName, e);
+                    _notLoadedAssemblies.Add(missingAssembly.FullName, e);
                 }
             }
         }
@@ -503,11 +508,6 @@
         /// The types cache.
         /// </value>
         public static List<Type> TypesCache { get; }
-
-        /// <summary>
-        /// The not loaded assemblies
-        /// </summary>
-        public static readonly IDictionary<string, Exception> NotLoadedAssemblies = new Dictionary<string, Exception>();
 
         #endregion
 

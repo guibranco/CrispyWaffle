@@ -22,5 +22,9 @@
         /// The type of the declaring.
         /// </value>
         Type DeclaringType { get; }
+        /// <summary>
+        /// Stats this instance
+        /// </summary>
+        ResetLazyStats Stats();
     }
 }
