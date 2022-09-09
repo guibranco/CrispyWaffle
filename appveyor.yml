@@ -26,6 +26,9 @@ dotnet_csproj:
 before_build:
 - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
 - ps: $env:SONAR_ORGANIZATION = "$env:APPVEYOR_REPO_NAME" -replace "/.*$","-github"
+- ps: 'if (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:BRANCH_NAME = "$env:APPVEYOR_REPO_BRANCH" }'
+- ps: 'if ($env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:BRANCH_NAME = "$envAPPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH" }'
+- echo %BRANCH_NAME%
 - cmd: nuget restore
 - cmd: choco install opencover.portable
 - cmd: choco install codecov
