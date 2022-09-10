@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 3.1 [2022-09-10]
+
+- Add CrispyWaffle.ElasticSearch project & package - [issue #119](https://github.com/guibranco/CrispyWaffle/issues/119).
+
+## Version 3.0 [2022-09-09]
+
+- Upgrade dependencies and increase unit test coverage.
+
 ## Version 2.5 [2020-09-07]
 
 - Add CrispyWaffle.RabbitMQ project & package  - [issue #92](https://github.com/guibranco/CrispyWaffle/issues/92).
