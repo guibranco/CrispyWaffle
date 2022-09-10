@@ -81,6 +81,7 @@ build_script:
 after_build:
 - xcopy %CD%\Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* %CD%\Build\Core\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* %CD%\Build\Configuration\
+- xcopy %CD%\Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\netstandard2.0\*.* %CD%\Build\ElasticSearch\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* %CD%\Build\Elmah\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* %CD%\Build\Log4Net\
 - xcopy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* %CD%\Build\RabbitMQ\
@@ -88,6 +89,7 @@ after_build:
 
 - copy %CD%\Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
@@ -100,6 +102,7 @@ after_build:
 
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Core.zip" Build\Core
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Configuration.zip" Build\Configuration
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.ElasticSearch.zip" Build\ElasticSearch
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Elmah.zip" Build\Elmah
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Log4Net.zip" Build\Log4Net
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.RabbitMQ.zip" Build\RabbitMQ
@@ -111,6 +114,8 @@ artifacts:
   name: ZipFileCore
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Configuration.zip
   name: ZipFileConfiguration
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.ElasticSearch.zip
+  name: ZipFileElasticSearch
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Elmah.zip
   name: ZipFileElmah
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
@@ -124,6 +129,8 @@ artifacts:
   name: PackageCore
 - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageConfiguration
+- path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageElasticSearch
 - path: $(SOLUTION_NAME).Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageElmah
 - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
@@ -147,6 +154,11 @@ deploy:
    branch: master
   artifact: PackageConfiguration
 - provider: Environment
+  name: NuGet
+  on:
+   branch: master
+  artifact: PackageElasticSearch
+ - provider: Environment
   name: NuGet
   on:
    branch: master
@@ -181,6 +193,13 @@ deploy:
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileConfiguration
+- provider: GitHub
+  on:
+   branch: master
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: ZipFileElasticSearch
 - provider: GitHub
   on:
    branch: master
