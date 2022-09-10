@@ -158,7 +158,7 @@ deploy:
   on:
    branch: master
   artifact: PackageElasticSearch
- - provider: Environment
+- provider: Environment
   name: NuGet
   on:
    branch: master
