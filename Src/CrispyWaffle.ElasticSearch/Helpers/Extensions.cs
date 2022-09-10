@@ -35,19 +35,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// The connector
         /// </summary>
-        private static readonly ElasticConnector _connector;
-
-        #endregion
-
-        #region ~Ctor
-
-        /// <summary>
-        /// Initializes the <see cref="Extensions"/> class.
-        /// </summary>
-        /// <summary>
-        /// Initializes static members of the <see cref="Extensions"/> class.
-        /// </summary>
-        static Extensions() => _connector = ServiceLocator.Resolve<ElasticConnector>();
+        private static readonly ElasticConnector _connector = ServiceLocator.Resolve<ElasticConnector>();
 
         #endregion
 

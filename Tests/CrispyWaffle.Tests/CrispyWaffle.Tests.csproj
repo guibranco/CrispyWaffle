@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\..\Src\CrispyWaffle.ElasticSearch\CrispyWaffle.ElasticSearch.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
