@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Src\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ElasticSearch\" />
+  </ItemGroup>
+
 </Project>
