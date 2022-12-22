@@ -5,14 +5,12 @@
     using Newtonsoft.Json;
     using System;
     using System.Collections;
-    using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Globalization;
 
     /// <summary>
     /// The serializer factory class.
     /// </summary>
-    [DebuggerStepThrough]
     public static class SerializerFactory
     {
         /// <summary>
@@ -185,6 +183,7 @@
                     return new SerializerConverter<T>(obj, new JsonSerializerAdapter(settings));
                 case SerializerFormat.Xml:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<XmlSerializerAdapter>());
+                case SerializerFormat.None:
                 default:
                     throw new InvalidOperationException(nameof(attribute.Format));
             }

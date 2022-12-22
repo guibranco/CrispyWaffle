@@ -454,18 +454,27 @@
         /// <returns>A single instance of <see cref="ConstructorInfo"/>. The winner of the resolution.</returns>
         private static ConstructorInfo ResolveMultipleConstructors(ConstructorInfo[] constructors, Type parentType = null)
         {
-            var candidates = constructors.Where(c => c.GetParameters().All(p => !p.ParameterType.IsSimpleType())).ToList();
-            return candidates.Count == 0
-                ? null
-                : candidates.Count == 1
-                       ? candidates.Single()
-                       : candidates.OrderByDescending(c => c.GetParameters().Length)
-                                   .First(
-                                          c => c.GetParameters()
-                                                .Select((p, i) => new { p.ParameterType, Index = i })
-                                                .All(p => (parentType == null
-                                                              ? GetInstance(p.ParameterType)
-                                                              : GetInstanceWithContext(p.ParameterType, parentType, p.Index)) != null));
+            var candidates = constructors.Where(c =>
+                c.GetParameters().All(p => !p.ParameterType.IsSimpleType() && p.ParameterType != parentType)).ToList();
+
+            if (candidates.Count == 0)
+            {
+                return null;
+            }
+
+            if (candidates.Count == 1)
+            {
+                return candidates[0];
+            }
+
+            return candidates.OrderByDescending(c => c.GetParameters().Length)
+                .First(
+                    c => c.GetParameters()
+                        .Select((p, i) => new { p.ParameterType, Index = i })
+                        .All(p => (parentType == null
+                            ? GetInstance(p.ParameterType)
+                            : GetInstanceWithContext(p.ParameterType, parentType, p.Index)) != null));
+
         }
 
         /// <summary>
