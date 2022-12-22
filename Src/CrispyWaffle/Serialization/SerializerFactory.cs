@@ -5,14 +5,12 @@
     using Newtonsoft.Json;
     using System;
     using System.Collections;
-    using System.Diagnostics;
     using System.Diagnostics.Contracts;
     using System.Globalization;
 
     /// <summary>
     /// The serializer factory class.
     /// </summary>
-    [DebuggerStepThrough]
     public static class SerializerFactory
     {
         /// <summary>
