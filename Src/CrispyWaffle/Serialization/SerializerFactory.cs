@@ -183,6 +183,7 @@
                     return new SerializerConverter<T>(obj, new JsonSerializerAdapter(settings));
                 case SerializerFormat.Xml:
                     return new SerializerConverter<T>(obj, ServiceLocator.Resolve<XmlSerializerAdapter>());
+                case SerializerFormat.None:
                 default:
                     throw new InvalidOperationException(nameof(attribute.Format));
             }
