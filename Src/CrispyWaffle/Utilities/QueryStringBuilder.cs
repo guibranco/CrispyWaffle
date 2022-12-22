@@ -4,7 +4,6 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
-    using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
     using System.Runtime.Serialization;
@@ -17,7 +16,6 @@
     /// string strQuery = new QueryString().Add("id", "179").ToString();
     /// </summary>
     /// <seealso cref="NameValueCollection" />
-    [DebuggerStepThrough]
     [Serializable]
     public class QueryStringBuilder : NameValueCollection
     {
