@@ -457,24 +457,20 @@
             var candidates = constructors.Where(c =>
                 c.GetParameters().All(p => !p.ParameterType.IsSimpleType() && p.ParameterType != parentType)).ToList();
 
-            if (candidates.Count == 0)
+            switch (candidates.Count)
             {
-                return null;
+                case 0:
+                    return null;
+                case 1:
+                    return candidates[0];
+                default:
+                    return candidates.OrderByDescending(c => c.GetParameters().Length)
+                        .First(c => c.GetParameters()
+                            .Select((p, i) => new { p.ParameterType, Index = i })
+                            .All(p => (parentType == null
+                                ? GetInstance(p.ParameterType)
+                                : GetInstanceWithContext(p.ParameterType, parentType, p.Index)) != null));
             }
-
-            if (candidates.Count == 1)
-            {
-                return candidates[0];
-            }
-
-            return candidates.OrderByDescending(c => c.GetParameters().Length)
-                .First(
-                    c => c.GetParameters()
-                        .Select((p, i) => new { p.ParameterType, Index = i })
-                        .All(p => (parentType == null
-                            ? GetInstance(p.ParameterType)
-                            : GetInstanceWithContext(p.ParameterType, parentType, p.Index)) != null));
-
         }
 
         /// <summary>
