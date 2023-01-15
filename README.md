@@ -14,7 +14,7 @@ Documentation of the project: [Read the Docs](https://guibranco.github.io/Crispy
 ## CI/CD
 
 | Build status | Last commit | Tests | Coverage | Code Smells | LoC | 
-|--------------|-------------|-------|-------|-------|-------|
+|--------------|-------------|-------|----------|-------------|-----|
 | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/master?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/master) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/master)](https://github.com/guibranco/CrispyWaffle) | ![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/master?compact_message) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage&branch=master)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells&branch=master)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc&branch=master)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | 
 
 ## Code Quality (master branch)
