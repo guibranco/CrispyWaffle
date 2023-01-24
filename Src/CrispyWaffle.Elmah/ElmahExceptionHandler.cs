@@ -22,6 +22,7 @@ namespace CrispyWaffle.Elmah
     using System.Diagnostics;
     using System.Linq;
     using System.Threading;
+    using ElmahCore;
 
     /// <summary>
     /// The Elmah exception handler class
@@ -87,15 +88,15 @@ namespace CrispyWaffle.Elmah
             var exceptions = exception.ToQueue(out _);
 
             var messages = exceptions.GetMessages(category, _additionalProviders
-                                                      .Where(p => p.Item2 == ExceptionLogType.Message)
-                                                      .Select(p => p.Item1).ToList());
+                .Where(p => p.Item2 == ExceptionLogType.Message)
+                .Select(p => p.Item1).ToList());
 
             foreach (var additionalProvider in _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Full))
             {
                 additionalProvider.Item1.Error(category, messages);
             }
 
-            global::Elmah.ErrorSignal.FromCurrentContext().Raise(exception);
+            ElmahExtensions.RaiseError(exception);
         }
 
         #endregion

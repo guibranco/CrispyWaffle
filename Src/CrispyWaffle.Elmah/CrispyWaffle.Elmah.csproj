@@ -20,10 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="elmah.corelibrary" Version="1.2.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
   
@@ -36,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="ElmahCore" Version="2.1.2" />
   </ItemGroup>
 
 </Project>
