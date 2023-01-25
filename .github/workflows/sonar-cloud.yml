@@ -11,7 +11,7 @@ jobs:
     name: CI Checks
     runs-on: windows-latest
     steps:
-      - name: Set up JDK 11
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
