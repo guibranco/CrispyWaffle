@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis" Version="2.6.90" />
-    <PackageReference Include="StackExchange.Redis.Extensions.Core" Version="8.0.5" />
+    <PackageReference Include="StackExchange.Redis.Extensions.Core" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
