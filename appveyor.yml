@@ -148,91 +148,91 @@ deploy:
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageCore
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageConfiguration
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageElasticSearch
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageElmah
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageLog4Net
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageRabbitMQ
 - provider: Environment
   name: NuGet
   on:
-   branch: master
+   branch: main
   artifact: PackageRedis
 
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileCore
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileConfiguration
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileElasticSearch
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileElmah
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileLog4Net
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileRabbitMQ
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileRedis
 - provider: GitHub
   on:
-   branch: master
+   branch: main
   tag: $(appveyor_build_version)
   auth_token: $(GITHUB_TOKEN)
   force_update: true
