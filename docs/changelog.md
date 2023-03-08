@@ -1,5 +1,6 @@
 # Changelog
 
+
 ## Version 3.1 [2022-09-10]
 
 - Add CrispyWaffle.ElasticSearch project & package - [issue #119](https://github.com/guibranco/CrispyWaffle/issues/119).
