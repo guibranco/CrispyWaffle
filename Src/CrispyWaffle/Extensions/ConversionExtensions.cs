@@ -476,7 +476,7 @@ namespace CrispyWaffle.Extensions
             }
 
 
-            return Regex.Replace(zipCode.RemoveNonNumeric(), @"(\d{5})(\d{3})", "$1-$2");
+            return Regex.Replace(zipCode.RemoveNonNumeric(), @"(\d{5})(\d{3})", "$1-$2", RegexOptions.Compiled, TimeSpan.FromSeconds(10));
         }
 
         /// <summary>

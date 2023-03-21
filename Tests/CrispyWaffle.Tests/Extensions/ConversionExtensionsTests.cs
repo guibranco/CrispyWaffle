@@ -4,7 +4,7 @@
 // Created          : 07-29-2020
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 07-29-2020
+// Last Modified On : 21/03/2023
 // ***********************************************************************
 // <copyright file="ConversionExtensionsTests.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
@@ -97,6 +97,11 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(isNinthDigit, result.IsNinthDigit);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateInvalidParseBrazilianPhoneNumber.
+        /// </summary>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="cleanPhoneNumber">The clean phone number.</param>
         [Theory]
         [InlineData("0", "0")]
         [InlineData("123456789123456789", "123456789123456789")]
@@ -110,6 +115,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal($"The value '{cleanPhoneNumber}' isn't a valid telephone number", result.Message);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateNowToDateTime.
+        /// </summary>
         [Fact]
         public void ValidateNowToDateTime()
         {
@@ -123,6 +131,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(date.Second, result.Second);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateTodayToDateTime.
+        /// </summary>
         [Fact]
         public void ValidateTodayToDateTime()
         {
@@ -132,6 +143,9 @@ namespace CrispyWaffle.Tests.Extensions
         }
 
 
+        /// <summary>
+        /// Defines the test method ValidateYesterdayToDateTime.
+        /// </summary>
         [Fact]
         public void ValidateYesterdayToDateTime()
         {
@@ -141,6 +155,9 @@ namespace CrispyWaffle.Tests.Extensions
         }
 
 
+        /// <summary>
+        /// Defines the test method ValidateTomorrowToDateTime.
+        /// </summary>
         [Fact]
         public void ValidateTomorrowToDateTime()
         {
@@ -149,6 +166,16 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(DateTime.Today.AddDays(1), result);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateStringDateToDateTime.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="year">The year.</param>
+        /// <param name="month">The month.</param>
+        /// <param name="day">The day.</param>
+        /// <param name="hour">The hour.</param>
+        /// <param name="minute">The minute.</param>
+        /// <param name="seconds">The seconds.</param>
         [Theory]
         [InlineData("2020-09-07", 2020, 9, 7, 0, 0, 0)]
         [InlineData("2020-09-07 15:45", 2020, 9, 7, 15, 45, 0)]
@@ -164,6 +191,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(expected, result);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateEmptyStringToDateTime.
+        /// </summary>
         [Fact]
         public void ValidateEmptyStringToDateTime()
         {
@@ -173,6 +203,10 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal("Input value cannot be null (Parameter 'input')", result.Message);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateInvalidStringToDateTime.
+        /// </summary>
+        /// <param name="input">The input.</param>
         [Theory]
         [InlineData("1234567890")]
         public void ValidateInvalidStringToDateTime(string input)
@@ -182,23 +216,27 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal($"Unable to parse the string to a valid datetime (Parameter 'input')\r\nActual value was {input}.", result.Message);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateFormatBrazilianDocument.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
         [Theory]
         [InlineData("12345678900", "123.456.789-00")]
         [InlineData("12345678901234", "12.345.678/9012-34")]
         public void ValidateFormatBrazilianDocument(string input, string output)
         {
-
             var result = input.FormatBrazilianDocument();
-
             Assert.Equal(output, result);
         }
 
+        /// <summary>
+        /// Defines the test method ValidateInvalidFormatBrazilianDocument.
+        /// </summary>
         [Fact]
         public void ValidateInvalidFormatBrazilianDocument()
         {
-
             var result = string.Empty.FormatBrazilianDocument();
-
             Assert.Equal("Invalid document", result);
         }
     }
