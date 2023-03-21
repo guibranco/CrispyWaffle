@@ -54,7 +54,7 @@
         public static bool IsValidBrazilianPersonDocument(this string document)
         {
             var digits = document.CalculateBrazilianPersonDocumentDigits();
-            return digits.Length == 2 && document.EndsWith(digits);
+            return document.EndsWith(digits);
         }
 
 
@@ -68,7 +68,7 @@
         public static bool IsValidBrazilianCorporateDocument(this string document)
         {
             var digits = document.CalculateBrazilianCorporateDocument();
-            return digits.Length == 2 && document.EndsWith(digits);
+            return document.EndsWith(digits);
         }
         
         /// <summary>

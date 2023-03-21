@@ -220,7 +220,7 @@ namespace CrispyWaffle.Extensions
         /// <returns>System.String.</returns>
         public static string ToMonetary(this decimal input)
         {
-            return input == 0 ? "No value" : $@"R${input:### ##0.00}";
+            return input == 0 ? "No value" : $@"R$ {input:#0.00}";
         }
 
         /// <summary>

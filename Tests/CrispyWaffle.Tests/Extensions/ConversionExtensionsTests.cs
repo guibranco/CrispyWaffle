@@ -59,6 +59,16 @@ namespace CrispyWaffle.Tests.Extensions
         }
 
         /// <summary>
+        /// Defines the test method StringToBoolean_InvalidInput_ReturnsFalse.
+        /// </summary>
+        [Fact]
+        public void StringToBoolean_InvalidInput_ReturnsFalse()
+        {
+            var result = "".ToBoolean();
+            Assert.False(result);
+        }
+
+        /// <summary>
         /// Validates the boolean to string.
         /// </summary>
         [Fact]
@@ -217,6 +227,16 @@ namespace CrispyWaffle.Tests.Extensions
         }
 
         /// <summary>
+        /// Defines the test method TryToDateTime_EmptyInput_ReturnsFalse.
+        /// </summary>
+        [Fact]
+        public void TryToDateTime_EmptyInput_ReturnsFalse()
+        {
+            var result = string.Empty.TryToDateTime(out _);
+            Assert.False(result);
+        }
+
+        /// <summary>
         /// Defines the test method ValidateFormatBrazilianDocument.
         /// </summary>
         /// <param name="input">The input.</param>
@@ -238,6 +258,67 @@ namespace CrispyWaffle.Tests.Extensions
         {
             var result = string.Empty.FormatBrazilianDocument();
             Assert.Equal("Invalid document", result);
+        }
+
+        /// <summary>
+        /// Defines the test method ToInt32_EmptyInput_ReturnsZero.
+        /// </summary>
+        [Fact]
+        public void ToInt32_EmptyInput_ReturnsZero()
+        {
+            var result = string.Empty.ToInt32();
+            Assert.Equal(0, result);
+        }
+
+        /// <summary>
+        /// Defines the test method ToInt32_InvalidInput_ReturnsZero.
+        /// </summary>
+        [Fact]
+        public void ToInt32_InvalidInput_ReturnsZero()
+        {
+            var result = "some-string".ToInt32();
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ToInt64_EmptyInput_ReturnsZero()
+        {
+            var result = string.Empty.ToInt64();
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ToInt64_InvalidInput_ReturnsZero()
+        {
+            var result = "some-string".ToInt64();
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ToDecimal_EmptyInput_ReturnsZero()
+        {
+            var result = string.Empty.ToDecimal();
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ToDecimal_InvalidInput_ReturnsZero()
+        {
+            var result = "some-string".ToDecimal();
+            Assert.Equal(0, result);
+        }
+
+        [Theory]
+        [InlineData(1, "R$ 1,00")]
+        [InlineData(1000, "R$ 1000,00")]
+        [InlineData(11.33,"R$ 11,33")]
+        [InlineData(6547654.477, "R$ 6547654,48")]
+        [InlineData(0, "No value")]
+        public void ToMonetary_ValidInput_ReturnsValidString(decimal input, string expected)
+        {
+            var result = input.ToMonetary();
+
+            Assert.Equal(expected,result);
         }
     }
 }
