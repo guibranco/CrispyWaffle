@@ -17,6 +17,7 @@ namespace CrispyWaffle.Tests.Extensions
     using CrispyWaffle.Extensions;
     using CrispyWaffle.GoodPractices;
     using System;
+    using System.Globalization;
     using Xunit;
 
     /// <summary>
@@ -24,6 +25,19 @@ namespace CrispyWaffle.Tests.Extensions
     /// </summary>
     public class ConversionExtensionsTests
     {
+        public ConversionExtensionsTests()
+        {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            var ci = new CultureInfo(currentCulture)
+            {
+                NumberFormat = { NumberDecimalSeparator = ",", NumberGroupSeparator = " " },
+                DateTimeFormat = { DateSeparator = "/" }
+            };
+            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+        }
+
         /// <summary>
         /// Validates the string to bytes.
         /// </summary>
