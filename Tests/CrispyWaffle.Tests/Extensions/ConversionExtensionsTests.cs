@@ -280,6 +280,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(0, result);
         }
 
+        /// <summary>
+        /// Defines the test method ToInt64_EmptyInput_ReturnsZero.
+        /// </summary>
         [Fact]
         public void ToInt64_EmptyInput_ReturnsZero()
         {
@@ -287,6 +290,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(0, result);
         }
 
+        /// <summary>
+        /// Defines the test method ToInt64_InvalidInput_ReturnsZero.
+        /// </summary>
         [Fact]
         public void ToInt64_InvalidInput_ReturnsZero()
         {
@@ -294,6 +300,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(0, result);
         }
 
+        /// <summary>
+        /// Defines the test method ToDecimal_EmptyInput_ReturnsZero.
+        /// </summary>
         [Fact]
         public void ToDecimal_EmptyInput_ReturnsZero()
         {
@@ -301,6 +310,9 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(0, result);
         }
 
+        /// <summary>
+        /// Defines the test method ToDecimal_InvalidInput_ReturnsZero.
+        /// </summary>
         [Fact]
         public void ToDecimal_InvalidInput_ReturnsZero()
         {
@@ -308,6 +320,11 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(0, result);
         }
 
+        /// <summary>
+        /// Defines the test method ToMonetary_ValidInput_ReturnsValidString.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="expected">The expected.</param>
         [Theory]
         [InlineData(1, "R$ 1,00")]
         [InlineData(1000, "R$ 1000,00")]
