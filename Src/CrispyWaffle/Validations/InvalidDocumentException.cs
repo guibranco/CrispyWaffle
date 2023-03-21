@@ -16,7 +16,7 @@
         /// <param name="documentType">Type of the document.</param>
         /// <param name="value">The value.</param>
         public InvalidDocumentException(string documentType, string value)
-            : base($"The value '{value}' isn't a valid value for a document of type {documentType} ")
+            : base($"The value '{value}' isn't a valid value for a document of type {documentType}")
         { }
 
         /// <summary>
