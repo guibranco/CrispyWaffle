@@ -145,7 +145,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged
         /// resources.</param>
-        private void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (_disposed)
             {
