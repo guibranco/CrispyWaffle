@@ -5,7 +5,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Guilherme Branco Stracini</Authors>
-    <Copyright>© 2020 Guilherme Branco Stracini. All rights reserved.</Copyright>
+    <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle Log4Net bridge package</Description>
     <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
@@ -17,6 +17,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>Guilherme Branco Stracini ME</Company>
     <PackageReleaseNotes>Log4Net release</PackageReleaseNotes>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +36,10 @@
     <None Include="..\..\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\README.nuget.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

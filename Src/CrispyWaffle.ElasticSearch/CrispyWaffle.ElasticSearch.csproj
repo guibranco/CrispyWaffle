@@ -5,7 +5,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Guilherme Branco Stracini</Authors>
-    <Copyright>© 2022 Guilherme Branco Stracini. All rights reserved.</Copyright>
+    <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle.ElasticSearch package</Description>
     <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
@@ -17,11 +17,23 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>Guilherme Branco Stracini ME</Company>
     <PackageReleaseNotes>ElasticSearch release</PackageReleaseNotes>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="Log\" />
+    <Folder Include="Utils\Communications\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Elasticsearch.Net" Version="7.17.5" />
+    <PackageReference Include="NEST" Version="7.17.5" />
   </ItemGroup>
   
   <ItemGroup>
@@ -33,17 +45,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Log\" />
-    <Folder Include="Utils\Communications\" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Elasticsearch.Net" Version="7.17.5" />
-    <PackageReference Include="NEST" Version="7.17.5" />
+    <None Include="..\..\README.nuget.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

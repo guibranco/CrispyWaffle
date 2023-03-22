@@ -1,6 +1,10 @@
 # Changelog
 
 
+## Version 4.0 [2023-03-22]
+
+- Add NuGet README.md - [issue #139](https://github.com/guibranco/CrispyWaffle/issues/139)
+
 ## Version 3.1 [2022-09-10]
 
 - Add CrispyWaffle.ElasticSearch project & package - [issue #119](https://github.com/guibranco/CrispyWaffle/issues/119).
