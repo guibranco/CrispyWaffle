@@ -7,7 +7,7 @@
 // Last Modified On : 05-05-2021
 // ***********************************************************************
 // <copyright file="ExchangeNameAttribute.cs" company="Guilherme Branco Stracini ME">
-//     © 2020 Guilherme Branco Stracini. All rights reserved.
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************

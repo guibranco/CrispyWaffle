@@ -7,7 +7,7 @@
 // Last Modified On : 09-04-2020
 // ***********************************************************************
 // <copyright file="MustacheTemplateRender.cs" company="Guilherme Branco Stracini ME">
-//     © 2020 Guilherme Branco Stracini. All rights reserved.
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
