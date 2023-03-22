@@ -1,40 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Mime;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 23/12/2022
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="SmtpMailer.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 namespace CrispyWaffle.Utils.Communications
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Net.Mime;
+    using System.Net.Sockets;
+    using System.Text;
+    using System.Threading.Tasks;
+    using CrispyWaffle.Cache;
+    using CrispyWaffle.Configuration;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Telemetry;
+    using CrispyWaffle.Utils.Extensions;
+    using CrispyWaffle.Utils.GoodPractices;
+
     /// <summary>
     /// The SMTP mailer class.
     /// </summary>
     /// <seealso cref="IMailer" />
     [ConnectionName("SMTP")]
-    public sealed class SmtpMailer : IMailer
+    public class SmtpMailer : IMailer
     {
         #region Private fields
 
         /// <summary>
-        /// The <see cref="SmtpClient"/>
+        /// The <see cref="SmtpClient" />
         /// </summary>
 
         private readonly SmtpClient _client;
 
         /// <summary>
-        /// The <see cref="MailMessage"/> to be sent by the <see cref="SmtpClient"/>
+        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />
         /// </summary>
 
         private readonly MailMessage _message;
 
-        /// <summary>   
-        /// True if disposed. 
+        /// <summary>
+        /// True if disposed.
         /// </summary>
 
         private bool _disposed;
@@ -51,6 +72,11 @@ namespace CrispyWaffle.Utils.Communications
 
         private string _htmlMessage;
 
+        /// <summary>
+        /// The options.
+        /// </summary>
+        private readonly SmtpMailerOptions _options;
+
         #endregion
 
         #region ~Ctor
@@ -58,40 +84,31 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// Initializes a new instance of Mailer class.
         /// </summary>
-        /// <param name="connection"><see cref="IConnection"/></param>
+        /// <param name="connection"><see cref="IConnection" /></param>
+        /// <param name="options"><see cref="SmtpMailerOptions" /></param>
+        /// <exception cref="System.ArgumentNullException">connection</exception>
+        /// <exception cref="System.ArgumentNullException">options</exception>
 
-        public SmtpMailer(IConnection connection)
+        public SmtpMailer(IConnection connection, SmtpMailerOptions options)
         {
             if (connection == null)
             {
                 throw new ArgumentNullException(nameof(connection));
             }
+            _options = options ?? throw new ArgumentNullException(nameof(options));
 
-            _client = new SmtpClient
+            _client = new()
             {
                 Host = connection.Host,
                 Port = connection.Port,
                 Credentials = new NetworkCredential(connection.Credentials.UserName, connection.Credentials.Password),
-                Timeout = 300000
+                Timeout = 300000,
+                EnableSsl = true
             };
-            _message = new MailMessage
-            {
-                From = new MailAddress("integracao@editorainovacao.com.br", "Integração Service")
-            };
+            _message = new() { From = new(_options.FromAddress, _options.FromName) };
             _disposed = false;
         }
 
-        /// <summary>
-        /// Initializes a new instance of Mailer class.
-        /// </summary>
-        /// <param name="connection"><see cref="IConnection"/></param>
-        /// <param name="from"><see cref="MailAddress"/></param>
-
-        public SmtpMailer(IConnection connection, MailAddress from)
-            : this(connection)
-        {
-            _message = new MailMessage { From = from };
-        }
 
         /// <summary>
         /// Initializes a new instance of Mailer class.
@@ -99,7 +116,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="host">The SMTP server address (IP or hostname)</param>
         /// <param name="port">The SMTP server port</param>
         /// <param name="userName">The SMTP username (or e-mail address to authenticate)</param>
-        /// <param name="password">The password of the <paramref name="userName"/> to connect on SMTP server</param>
+        /// <param name="password">The password of the <paramref name="userName" /> to connect on SMTP server</param>
         /// <param name="senderDisplayName">The sender's display name</param>
         /// <param name="senderEmailAddress">The sender's e-mail address</param>
 
@@ -114,28 +131,21 @@ namespace CrispyWaffle.Utils.Communications
             Credentials = new Credentials { Password = password, UserName = userName },
             Host = host,
             Port = port
-        },
-               new MailAddress(senderEmailAddress, senderDisplayName))
+        }, new() { FromAddress = senderEmailAddress, FromName = senderDisplayName })
         { }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="SmtpMailer"/> class.
+        /// Finalizes an instance of the <see cref="SmtpMailer" /> class.
         /// </summary>
-        ~SmtpMailer()
-        {
-            Dispose(false);
-        }
+        ~SmtpMailer() => Dispose(false);
 
         /// <summary>
-        ///     Performs application-defined tasks associated with freeing, 
-        ///     releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing,
+        /// releasing, or resetting unmanaged resources.
         /// </summary>
-        ///
-        /// <param name="disposing">
-        ///     true to release both managed and unmanaged resources; false to release only unmanaged
-        ///     resources.
-        /// </param>
-        private void Dispose(bool disposing)
+        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged
+        /// resources.</param>
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -147,6 +157,7 @@ namespace CrispyWaffle.Utils.Communications
                 _message?.Dispose();
                 _client?.Dispose();
             }
+
             _disposed = true;
         }
 
@@ -158,7 +169,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
         /// unmanaged resources.
         /// </summary>
-        /// <remarks>Guilherme B. Stracini, 06/08/2013.</remarks>
 
         public void Dispose()
         {
@@ -175,12 +185,12 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="toName">To name.</param>
         /// <param name="toEmailAddress">To email address.</param>
-        /// <exception cref="ArgumentNullException">toEmailAddress</exception>
+        /// <exception cref="System.ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null</exception>
         private void SetRecipient(string toName, string toEmailAddress)
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))
             {
-                throw new ArgumentNullException(nameof(toEmailAddress), Resources.SmtpMailer_SetRecipient_EmptyReceiverEmailAddress);
+                throw new ArgumentNullException(nameof(toEmailAddress), "The receiver's e-mail address cannot be null");
             }
 
             _message.To.Add(new MailAddress(toEmailAddress, toName));
@@ -193,9 +203,9 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// Sets the message body
         /// </summary>
-        /// <param name="plainTextMessage"></param>
-        /// <param name="htmlMessage"></param>
-        /// <exception cref="MessageException"></exception>
+        /// <param name="plainTextMessage">The plain text message.</param>
+        /// <param name="htmlMessage">The HTML message.</param>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.MessageException"></exception>
 
         public void SetMessageBody(string plainTextMessage, string htmlMessage)
         {
@@ -221,8 +231,7 @@ namespace CrispyWaffle.Utils.Communications
         /// Adds the attachment.
         /// </summary>
         /// <param name="attachment">The attachment.</param>
-        /// <exception cref="NullMessageException"></exception>
-
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.NullMessageException"></exception>
         public void AddAttachment(Attachment attachment)
         {
             if (!_messageSet)
@@ -259,39 +268,37 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// Sets the reply to.
         /// </summary>
-        /// <param name="replyName">Name of the reply.</param>
-        /// <param name="replyEmailAddress">The reply email address.</param>
+        /// <param name="name">Name of the reply.</param>
+        /// <param name="emailAddress">The reply email address.</param>
 
-        public void SetReplyTo(string replyName, string replyEmailAddress)
+        public void SetReplyTo(string name, string emailAddress)
         {
-            _message.ReplyToList.Add(new MailAddress(replyEmailAddress, replyName));
-            _message.Headers.Add(@"Return-path", $@"{replyName} <{replyEmailAddress}>");
+            _message.ReplyToList.Add(new MailAddress(emailAddress, name));
+            _message.Headers.Add(@"Return-path", $@"{name} <{emailAddress}>");
         }
 
         /// <summary>
         /// Sets the read notification to.
         /// </summary>
-        /// <param name="toName">To name.</param>
-        /// <param name="toEmailAddress">To email address.</param>
+        /// <param name="name">To name.</param>
+        /// <param name="emailAddress">To email address.</param>
 
-        public void SetReadNotificationTo(string toName, string toEmailAddress)
-        {
-            _message.Headers.Add(@"Disposition-Notification-To", $@"{toName} <{toEmailAddress}>");
-        }
+        public void SetReadNotificationTo(string name, string emailAddress) => 
+            _message.Headers.Add(@"Disposition-Notification-To", $@"{name} <{emailAddress}>");
 
         /// <summary>
         /// Sets the recipients.
         /// </summary>
-        /// <param name="toList">To list.</param>
+        /// <param name="recipients">To list.</param>
 
-        public void SetRecipients(Dictionary<string, string> toList)
+        public void SetRecipients(Dictionary<string, string> recipients)
         {
-            if (toList == null)
+            if (recipients == null)
             {
                 return;
             }
 
-            foreach (var receiver in toList)
+            foreach (var receiver in recipients)
             {
                 SetRecipient(receiver.Key, receiver.Value);
             }
@@ -302,17 +309,12 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="priority">The priority.</param>
 
-        public void SetPriority(MailPriority priority)
-        {
-            _message.Priority = priority;
-        }
+        public void SetPriority(MailPriority priority) => _message.Priority = priority;
 
         /// <summary>
         /// Sends the asynchronous.
         /// </summary>
-        /// <returns>
-        /// Task.
-        /// </returns>
+        /// <returns>Task.</returns>
 
         public async Task SendAsync()
         {
@@ -327,11 +329,14 @@ namespace CrispyWaffle.Utils.Communications
 
             var date = DateTime.Now.ToString(@"yyyy-MM-dd HH.mm.ss.ffffff", CultureInfo.InvariantCulture);
 
-            LogConsumer.DebugTo<TextFileLogProvider>(eml, $@"{_message.Subject} {date}.{Guid.NewGuid()}.eml");
-
-            if (OperationManager.IsInTestEnvironment)
+            if (_options.EnableDebug)
             {
-                LogConsumer.Trace(Resources.SmtpMailer_SendAsync_Disabled, Resources.SmtpMailer_SendAsync_DisabledDue_TestEnvironment);
+                LogConsumer.DebugTo<TextFileLogProvider>(eml, $@"{_message.Subject} {date}.{Guid.NewGuid()}.eml");
+            }
+
+            if (_options.IsSandbox)
+            {
+                LogConsumer.Trace("E-mail sending disabled due {0}", "test environment");
                 return;
             }
 
@@ -352,20 +357,20 @@ namespace CrispyWaffle.Utils.Communications
         /// send internal as an asynchronous operation.
         /// </summary>
         /// <param name="cacheKey">The cache key.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         private async Task SendInternalAsync(string cacheKey)
         {
             if (CacheManager.TryGet(cacheKey, out bool exists) && exists)
             {
-                LogConsumer.Trace(Resources.SmtpMailer_SendAsync_Disabled,
-                    Resources.SmtpMailer_SendAsync_DisabledDue_NetworkError);
+                LogConsumer.Trace("E-mail sending disabled due {0}", "network error");
                 return;
             }
 
             var receivers = _message.To.Select(d => d).ToList();
             _message.CC.ToList().ForEach(receivers.Add);
-            LogConsumer.Trace(Resources.SmtpMailer_SendAsync_Sending,
-                _message.Subject.Replace(@" - Integração Service", ""),
+
+            LogConsumer.Trace("Sending email with subject {0} to the following recipients: {1}",
+                _message.Subject,
                 string.Join(@",", receivers.Select(d => d.DisplayName)));
 
             await _client.SendMailAsync(_message).ConfigureAwait(false);
@@ -377,7 +382,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="e">The e.</param>
         /// <param name="cacheKey">The cache key.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if handled, <c>false</c> otherwise.</returns>
         private static bool HandleExtension(Exception e, string cacheKey)
         {
             TelemetryAnalytics.TrackMetric("SMTPError", e.Message);

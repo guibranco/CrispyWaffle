@@ -1,41 +1,40 @@
 ﻿// ***********************************************************************
-// Assembly         : IntegracaoService.Commons.Utils
+// Assembly         : CrispyWaffle.Utils
 // Author           : Guilherme Branco Stracini
-// Created          : 05-28-2020
+// Created          : 23/12/2022
 //
 // Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
+// Last Modified On : 22/03/2023
 // ***********************************************************************
-// <copyright file="Ftp.cs" company="Guilherme Branco Stracini ME">
-//     © 2016-2020 Guilherme Branco Stracini, All Rights Reserved
+// <copyright file="FtpClient.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
 // </copyright>
 // <summary></summary>
-// ************************************************************************
-
-using CrispyWaffle.Configuration;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Threading;
-
+// ***********************************************************************
 namespace CrispyWaffle.Utils.Communications
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Text;
+    using System.Threading;
+    using CrispyWaffle.Configuration;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Utils.GoodPractices;
+
     /// <summary>
-    /// The file transfer protocol client class.
-    /// This class cannot be inherited.
+    /// Class FtpClient.
     /// </summary>
-    public sealed class FtpClient
+    public class FtpClient
     {
         #region Private fields
 
         /// <summary>
         /// The synchronize root.
         /// </summary>
-        private readonly object _syncRoot = new object();
+        private readonly object _syncRoot = new();
 
         /// <summary>
         /// The host
@@ -65,7 +64,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// The files.
         /// </summary>
-        private readonly Queue<string> _files = new Queue<string>();
+        private readonly Queue<string> _files = new();
 
         #endregion
 
@@ -88,7 +87,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         /// <param name="remoteDirectory">The sub directory.</param>
-        /// <exception cref="ArgumentNullException">remoteDirectory</exception>
+        /// <exception cref="System.ArgumentNullException">remoteDirectory</exception>
         public FtpClient(string host, int port, string userName, string password, string remoteDirectory)
         {
             if (string.IsNullOrWhiteSpace(remoteDirectory))
@@ -116,7 +115,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="System.InvalidOperationException">Response stream is null</exception>
         private bool ExistsInternal(string path)
         {
             var result = false;
@@ -124,12 +123,11 @@ namespace CrispyWaffle.Utils.Communications
 
             try
             {
-                LogConsumer.Info(Resources.FTP_Exists_Checking, path.GetPathOrFileName());
+                LogConsumer.Info("Checking in FtpClient the path/file: {0}", path.GetPathOrFileName());
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = string.IsNullOrWhiteSpace(uri.GetFileExtension()) == false
-                                     ? WebRequestMethods.Ftp.GetFileSize
+                request.Method = !string.IsNullOrWhiteSpace(uri.GetFileExtension()) ? WebRequestMethods.Ftp.GetFileSize
                                      : WebRequestMethods.Ftp.ListDirectory;
                 request.Timeout = 30000;
                 request.ReadWriteTimeout = 90000;
@@ -139,17 +137,17 @@ namespace CrispyWaffle.Utils.Communications
                 responseStream = response.GetResponseStream();
                 if (responseStream == null)
                 {
-                    throw new InvalidOperationException(Resources.ResponseStreamIsNull);
+                    throw new InvalidOperationException("Response stream is null");
                 }
 
                 using var reader = new StreamReader(responseStream);
                 responseStream = null;
-                while (reader.EndOfStream == false)
+                while (!reader.EndOfStream)
                 {
                     _files.Enqueue(reader.ReadLine());
                 }
 
-                if (string.IsNullOrWhiteSpace(uri.GetFileExtension()) == false &&
+                if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()) &&
                     status == FtpStatusCode.FileStatus ||
                     status == FtpStatusCode.OpeningData)
                 {
@@ -173,7 +171,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="path">The path String.</param>
         /// <param name="bytes">The bytes.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="FTPException"></exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">create</exception>
         private bool CreateInternal(string path, byte[] bytes)
         {
             var result = false;
@@ -183,12 +181,12 @@ namespace CrispyWaffle.Utils.Communications
                 attempts++;
                 try
                 {
-                    LogConsumer.Info(Resources.FTP_CreateInternal, path.GetPathOrFileName());
+                    LogConsumer.Info("Uploading to FtpClient the file: {0}", path.GetPathOrFileName());
                     var uri = new Uri(path);
                     var request = (FtpWebRequest)WebRequest.Create(uri);
                     request.Credentials = new NetworkCredential(_userName, _password);
                     request.UsePassive = true;
-                    if (string.IsNullOrWhiteSpace(uri.GetFileExtension()) == false)
+                    if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()))
                     {
                         request.Method = WebRequestMethods.Ftp.UploadFile;
                         request.ContentLength = bytes.Length;
@@ -202,7 +200,7 @@ namespace CrispyWaffle.Utils.Communications
                     }
 
                     var response = (FtpWebResponse)request.GetResponse();
-                    if (string.IsNullOrWhiteSpace(uri.GetFileExtension()) == false &&
+                    if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()) &&
                         response.StatusCode == FtpStatusCode.ClosingData ||
                         response.StatusCode == FtpStatusCode.PathnameCreated)
                     {
@@ -216,7 +214,7 @@ namespace CrispyWaffle.Utils.Communications
                 {
                     if (attempts >= 3)
                     {
-                        throw new FTPException(path.GetPathOrFileName(), Resources.Create, e);
+                        throw new FtpClientException(path.GetPathOrFileName(), "create", e);
                     }
 
                     Thread.Sleep(1000);
@@ -230,27 +228,26 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="FTPException"></exception>
-        /// <exception cref="FTPException"></exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">remove</exception>
         private void RemoveInternal(string path)
         {
             try
             {
-                LogConsumer.Info(Resources.FTP_CreateInternal, path.GetPathOrFileName());
+                LogConsumer.Info("Uploading to FtpClient the file: {0}", path.GetPathOrFileName());
                 var fullPath = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(fullPath);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = string.IsNullOrWhiteSpace(fullPath.GetFileExtension()) == false ? WebRequestMethods.Ftp.DeleteFile : WebRequestMethods.Ftp.RemoveDirectory;
+                request.Method = !string.IsNullOrWhiteSpace(fullPath.GetFileExtension()) ? WebRequestMethods.Ftp.DeleteFile : WebRequestMethods.Ftp.RemoveDirectory;
                 request.UsePassive = true;
                 var response = (FtpWebResponse)request.GetResponse();
                 if (response.StatusCode != FtpStatusCode.FileActionOK)
                 {
-                    throw new FTPException(path.GetPathOrFileName(), Resources.Remove, response.StatusCode);
+                    throw new FtpClientException(path.GetPathOrFileName(), "remove", response.StatusCode);
                 }
             }
             catch (WebException e)
             {
-                throw new FTPException(path.GetPathOrFileName(), Resources.Remove, e);
+                throw new FtpClientException(path.GetPathOrFileName(), "remove", e);
             }
         }
 
@@ -258,7 +255,7 @@ namespace CrispyWaffle.Utils.Communications
         /// Gets the FtpClient URL.
         /// </summary>
         /// <returns>StringBuilder.</returns>
-        private StringBuilder GetFTPUrl()
+        private StringBuilder GetFtpUrl()
         {
             var str = new StringBuilder();
             return str.Append(@"ftp://")
@@ -273,36 +270,24 @@ namespace CrispyWaffle.Utils.Communications
         /// Check if a file or directory exists in the FtpClient endpoint
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        private bool Exists()
-        {
-            return ExistsInternal(GetFTPUrl().ToString());
-        }
+        private bool Exists() => ExistsInternal(GetFtpUrl().ToString());
 
         /// <summary>
         /// Check if the path exists in the FtpClient endpoint
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        private bool Exists(string path)
-        {
-            return ExistsInternal(GetFTPUrl().Append(path).ToString());
-        }
+        private bool Exists(string path) => ExistsInternal(GetFtpUrl().Append(path).ToString());
 
         /// <summary>
         /// Removes this instance.
         /// </summary>
-        private void Remove()
-        {
-            RemoveInternal(GetFTPUrl().ToString());
-        }
+        private void Remove() => RemoveInternal(GetFtpUrl().ToString());
 
         /// <summary>
         /// Creates the directory.
         /// </summary>
-        private void CreateDirectory()
-        {
-            CreateInternal(GetFTPUrl().ToString(), null);
-        }
+        private void CreateDirectory() => CreateInternal(GetFtpUrl().ToString(), null);
 
         #endregion
 
@@ -316,7 +301,7 @@ namespace CrispyWaffle.Utils.Communications
         {
             lock (_syncRoot)
             {
-                RemoveInternal(GetFTPUrl().Append(path).ToString());
+                RemoveInternal(GetFtpUrl().Append(path).ToString());
             }
         }
 
@@ -329,7 +314,7 @@ namespace CrispyWaffle.Utils.Communications
         {
             lock (_syncRoot)
             {
-                return CreateInternal(GetFTPUrl().Append(name).Append(@"/").ToString(), null);
+                return CreateInternal(GetFtpUrl().Append(name).Append(@"/").ToString(), null);
             }
         }
 
@@ -339,9 +324,8 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="fileName">Name of the file.</param>
         /// <param name="bytes">The bytes.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">fileName</exception>
-        /// <exception cref="ArgumentNullException">bytes</exception>
-        /// <exception cref="ArgumentNullException">fileName</exception>
+        /// <exception cref="System.ArgumentNullException">fileName</exception>
+        /// <exception cref="System.ArgumentNullException">bytes</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
             if (fileName == null)
@@ -356,7 +340,7 @@ namespace CrispyWaffle.Utils.Communications
 
             lock (_syncRoot)
             {
-                if (Exists() == false)
+                if (!Exists())
                 {
                     CreateDirectory();
                 }
@@ -366,7 +350,7 @@ namespace CrispyWaffle.Utils.Communications
                     Remove(fileName);
                 }
 
-                return CreateInternal(GetFTPUrl().Append(fileName).ToString(), bytes);
+                return CreateInternal(GetFtpUrl().Append(fileName).ToString(), bytes);
             }
         }
 

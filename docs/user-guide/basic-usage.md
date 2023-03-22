@@ -4,6 +4,9 @@
 The Crispy Waffle has the following features:
 
 - [Caching](caching.md)
+- Communication
+    - Ftp client
+    - Smtp mailer client
 - Conversion extensions
 - [Events dispatching](events.md)
 - [Logging](logging.md)

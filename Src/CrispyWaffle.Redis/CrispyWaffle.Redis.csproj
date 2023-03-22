@@ -4,6 +4,7 @@
     <ProjectGuid>47DB173E-BC2B-4C16-B2A9-9506E57D6D9E</ProjectGuid>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle Redis package</Description>
