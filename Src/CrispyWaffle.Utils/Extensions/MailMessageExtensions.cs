@@ -27,6 +27,7 @@ namespace CrispyWaffle.Utils.Extensions
         /// <summary>
         /// The flags
         /// </summary>
+        #pragma warning disable S3011
         private const BindingFlags _flags = BindingFlags.Instance | BindingFlags.NonPublic;
         /// <summary>
         /// The mail writer
