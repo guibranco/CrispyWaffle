@@ -102,7 +102,8 @@ namespace CrispyWaffle.Utils.Communications
                 Host = connection.Host,
                 Port = connection.Port,
                 Credentials = new NetworkCredential(connection.Credentials.UserName, connection.Credentials.Password),
-                Timeout = 300000
+                Timeout = 300000,
+                EnableSsl = true
             };
             _message = new() { From = new(_options.FromAddress, _options.FromName) };
             _disposed = false;
