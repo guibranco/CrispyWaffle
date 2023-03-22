@@ -1,4 +1,17 @@
-﻿namespace CrispyWaffle.Utils.Extensions
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 22/03/2023
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="MailMessageExtensions.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.Extensions
 {
     using System;
     using System.Globalization;
@@ -6,6 +19,9 @@
     using System.Net.Mail;
     using System.Reflection;
 
+    /// <summary>
+    /// Class MailMessageExtensions.
+    /// </summary>
     public static class MailMessageExtensions
     {
         /// <summary>

@@ -1,10 +1,28 @@
-﻿namespace CrispyWaffle.Utils.Communications
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 22/03/2023
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="IMailer.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.Communications
 {
     using System;
     using System.Collections.Generic;
     using System.Net.Mail;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Interface IMailer
+    /// Implements the <see cref="IDisposable" />
+    /// </summary>
+    /// <seealso cref="IDisposable" />
     public interface IMailer : IDisposable
     {
         /// <summary>
@@ -22,8 +40,8 @@
         /// <summary>
         /// Sets the message body
         /// </summary>
-        /// <param name="plainTextMessage"></param>
-        /// <param name="htmlMessage"></param>
+        /// <param name="plainTextMessage">The plain text message.</param>
+        /// <param name="htmlMessage">The HTML message.</param>
         void SetMessageBody(string plainTextMessage, string htmlMessage);
 
         /// <summary>

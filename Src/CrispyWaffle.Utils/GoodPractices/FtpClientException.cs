@@ -1,10 +1,28 @@
-﻿namespace CrispyWaffle.Utils.GoodPractices
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 22/03/2023
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="FtpClientException.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.GoodPractices
 {
     using System;
     using System.Globalization;
     using System.Net;
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// Class FtpClientException.
+    /// Implements the <see cref="Exception" />
+    /// </summary>
+    /// <seealso cref="Exception" />
     [Serializable]
     public class FtpClientException : Exception
     {

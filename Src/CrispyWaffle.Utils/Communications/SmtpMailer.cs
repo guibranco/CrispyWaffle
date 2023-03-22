@@ -1,4 +1,17 @@
-﻿namespace CrispyWaffle.Utils.Communications
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 23/12/2022
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="SmtpMailer.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.Communications
 {
     using System;
     using System.Collections.Generic;
@@ -170,7 +183,7 @@
         /// </summary>
         /// <param name="toName">To name.</param>
         /// <param name="toEmailAddress">To email address.</param>
-        /// <exception cref="System.ArgumentNullException">emailAddress</exception>
+        /// <exception cref="System.ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null</exception>
         private void SetRecipient(string toName, string toEmailAddress)
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))
@@ -190,7 +203,7 @@
         /// </summary>
         /// <param name="plainTextMessage">The plain text message.</param>
         /// <param name="htmlMessage">The HTML message.</param>
-        /// <exception cref="MessageException"></exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.MessageException"></exception>
 
         public void SetMessageBody(string plainTextMessage, string htmlMessage)
         {
@@ -212,6 +225,11 @@
             _htmlMessage = htmlMessage;
         }
 
+        /// <summary>
+        /// Adds the attachment.
+        /// </summary>
+        /// <param name="attachment">The attachment.</param>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.NullMessageException"></exception>
         public void AddAttachment(Attachment attachment)
         {
             if (!_messageSet)

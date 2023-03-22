@@ -1,4 +1,17 @@
-﻿namespace CrispyWaffle.Utils.Communications
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 23/12/2022
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="FtpClient.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.Communications
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +24,9 @@
     using CrispyWaffle.Log;
     using CrispyWaffle.Utils.GoodPractices;
 
+    /// <summary>
+    /// Class FtpClient.
+    /// </summary>
     public class FtpClient
     {
         #region Private fields
@@ -99,7 +115,7 @@
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <exception cref="System.InvalidOperationException">Response stream is null</exception>
         private bool ExistsInternal(string path)
         {
             var result = false;
@@ -155,7 +171,7 @@
         /// <param name="path">The path String.</param>
         /// <param name="bytes">The bytes.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="FtpClientException"></exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">create</exception>
         private bool CreateInternal(string path, byte[] bytes)
         {
             var result = false;
@@ -212,7 +228,7 @@
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="FtpClientException"></exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">remove</exception>
         private void RemoveInternal(string path)
         {
             try

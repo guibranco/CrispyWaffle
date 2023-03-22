@@ -1,5 +1,21 @@
-﻿namespace CrispyWaffle.Utils.Communications
+﻿// ***********************************************************************
+// Assembly         : CrispyWaffle.Utils
+// Author           : Guilherme Branco Stracini
+// Created          : 22/03/2023
+//
+// Last Modified By : Guilherme Branco Stracini
+// Last Modified On : 22/03/2023
+// ***********************************************************************
+// <copyright file="SmtpMailerOptions.cs" company="Guilherme Branco Stracini ME">
+//     © 2023 Guilherme Branco Stracini. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace CrispyWaffle.Utils.Communications
 {
+    /// <summary>
+    /// Class SmtpMailerOptions.
+    /// </summary>
     public class SmtpMailerOptions
     {
         /// <summary>
