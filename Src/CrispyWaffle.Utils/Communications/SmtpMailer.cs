@@ -12,6 +12,13 @@ using System.Threading.Tasks;
 
 namespace CrispyWaffle.Utils.Communications
 {
+    using CrispyWaffle.Cache;
+    using CrispyWaffle.Configuration;
+    using CrispyWaffle.Extensions;
+    using CrispyWaffle.Log;
+    using CrispyWaffle.Log.Providers;
+    using CrispyWaffle.Telemetry;
+
     /// <summary>
     /// The SMTP mailer class.
     /// </summary>
@@ -329,12 +336,6 @@ namespace CrispyWaffle.Utils.Communications
 
             LogConsumer.DebugTo<TextFileLogProvider>(eml, $@"{_message.Subject} {date}.{Guid.NewGuid()}.eml");
 
-            if (OperationManager.IsInTestEnvironment)
-            {
-                LogConsumer.Trace(Resources.SmtpMailer_SendAsync_Disabled, Resources.SmtpMailer_SendAsync_DisabledDue_TestEnvironment);
-                return;
-            }
-
             try
             {
                 await SendInternalAsync(cacheKey).ConfigureAwait(false);
@@ -364,10 +365,8 @@ namespace CrispyWaffle.Utils.Communications
 
             var receivers = _message.To.Select(d => d).ToList();
             _message.CC.ToList().ForEach(receivers.Add);
-            LogConsumer.Trace(Resources.SmtpMailer_SendAsync_Sending,
-                _message.Subject.Replace(@" - Integração Service", ""),
+            LogConsumer.Trace("Sending email with subject {0} to the following recipients: {1}",_message.Subject,
                 string.Join(@",", receivers.Select(d => d.DisplayName)));
-
             await _client.SendMailAsync(_message).ConfigureAwait(false);
         }
 
@@ -377,7 +376,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="e">The e.</param>
         /// <param name="cacheKey">The cache key.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if handled, <c>false</c> otherwise.</returns>
         private static bool HandleExtension(Exception e, string cacheKey)
         {
             TelemetryAnalytics.TrackMetric("SMTPError", e.Message);

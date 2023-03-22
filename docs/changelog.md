@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 4.1 [2023-03-22]
+
+- Add Utils project - [issue #150](https://github.com/guibranco/CrispyWaffle/issues/150)
 
 ## Version 4.0 [2023-03-22]
 

@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : IntegracaoService.Commons.Utils
-// Author           : Guilherme Branco Stracini
-// Created          : 05-28-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="Ftp.cs" company="Guilherme Branco Stracini ME">
-//     © 2016-2020 Guilherme Branco Stracini, All Rights Reserved
-// </copyright>
-// <summary></summary>
-// ************************************************************************
-
-using CrispyWaffle.Configuration;
+﻿using CrispyWaffle.Configuration;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Log;
 using System;

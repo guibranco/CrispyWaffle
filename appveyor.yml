@@ -1,4 +1,4 @@
-version: 4.0.{build}
+version: 4.1.{build}
 skip_tags: true
 image: Visual Studio 2022
 configuration: Release
@@ -88,6 +88,7 @@ after_build:
 - xcopy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* %CD%\Build\Log4Net\
 - xcopy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* %CD%\Build\RabbitMQ\
 - xcopy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* %CD%\Build\Redis\
+- xcopy %CD%\Src\%SOLUTION_NAME%.Utils\bin\Release\netstandard2.0\*.* %CD%\Build\Utils\
 
 - copy %CD%\Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
@@ -96,6 +97,7 @@ after_build:
 - copy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy %CD%\Src\%SOLUTION_NAME%.Utils\bin\Release\%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg
 
 - rd /s /q %CD%\Src\%SOLUTION_NAME%\bin\Release\
 - xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.xml %CD%\Coverage\
@@ -109,6 +111,7 @@ after_build:
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Log4Net.zip" Build\Log4Net
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.RabbitMQ.zip" Build\RabbitMQ
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Redis.zip" Build\Redis
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Utils.zip" Build\Utils
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
@@ -126,6 +129,8 @@ artifacts:
   name: ZipFileRabbitMQ
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Redis.zip
   name: ZipFileRedis
+- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Utils.zip
+  name: ZipFileUtils
 
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageCore
@@ -137,10 +142,12 @@ artifacts:
   name: PackageElmah
 - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageLog4Net
-- path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.nupkg
-  name: PackageRedis
 - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageRabbitMQ
+- path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageRedis
+- path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageUtils
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
   name: Coverage
 
@@ -180,6 +187,11 @@ deploy:
   on:
    branch: main
   artifact: PackageRedis
+- provider: Environment
+  name: NuGet
+  on:
+   branch: main
+  artifact: PackageUtils
 
 - provider: GitHub
   on:
@@ -230,6 +242,13 @@ deploy:
   auth_token: $(GITHUB_TOKEN)
   force_update: true
   artifact: ZipFileRedis
+- provider: GitHub
+  on:
+   branch: main
+  tag: $(appveyor_build_version)
+  auth_token: $(GITHUB_TOKEN)
+  force_update: true
+  artifact: ZipFileUtils
 - provider: GitHub
   on:
    branch: main
