@@ -100,7 +100,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
                     channel.QueueBind(queueName, exchange, "");
                 }
 
-                consumer.Received += (sender, args) =>
+                consumer.Received += (_, args) =>
                 {
                     if (MessageReceived == null)
                     {

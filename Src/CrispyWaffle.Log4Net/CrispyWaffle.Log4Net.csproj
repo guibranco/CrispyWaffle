@@ -4,6 +4,7 @@
     <ProjectGuid>D6164E04-F1C9-4D86-9B9C-41036B816C4A</ProjectGuid>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle Log4Net bridge package</Description>

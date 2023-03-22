@@ -81,7 +81,7 @@ namespace CrispyWaffle.ElasticSearch.Log
             _client = elastic.Client;
             _indexName = elastic.DefaultIndexName;
             _tokenSource = new CancellationTokenSource();
-            Task.Delay(10000).ContinueWith(task => GarbageCollector());
+            Task.Delay(10000).ContinueWith(_ => GarbageCollector());
             _logRetentionDays = logRetentionDays;
         }
 

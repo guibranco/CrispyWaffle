@@ -1,0 +1,53 @@
+﻿namespace CrispyWaffle.Utils.Extensions
+{
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Net.Mail;
+    using System.Reflection;
+
+    public static class MailMessageExtensions
+    {
+        /// <summary>
+        /// The flags
+        /// </summary>
+        private const BindingFlags _flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        /// <summary>
+        /// The mail writer
+        /// </summary>
+        private static readonly Type _mailWriter = typeof(SmtpClient).Assembly.GetType(@"System.Net.Mail.MailWriter");
+        /// <summary>
+        /// The mail writer constructor
+        /// </summary>
+        private static readonly ConstructorInfo _mailWriterConstructor = _mailWriter.GetConstructor(_flags, null, new[] { typeof(Stream) }, null);
+        /// <summary>
+        /// The close method
+        /// </summary>
+        private static readonly MethodInfo _closeMethod = _mailWriter.GetMethod(@"Close", _flags);
+        /// <summary>
+        /// The send method
+        /// </summary>
+        private static readonly MethodInfo _sendMethod = typeof(MailMessage).GetMethod(@"Send", _flags);
+
+        /// <summary>
+        /// A little hack to determine the number of parameters that we
+        /// need to pass to the SaveMethod.
+        /// </summary>
+        private static readonly bool _isRunningInDotNetFourPointFive = _sendMethod.GetParameters().Length == 3;
+
+        /// <summary>
+        /// The raw contents of this MailMessage as a MemoryStream.
+        /// </summary>
+        /// <param name="self">The caller.</param>
+        /// <returns>A MemoryStream with the raw contents of this MailMessage.</returns>
+        public static MemoryStream RawMessage(this MailMessage self)
+        {
+            var result = new MemoryStream();
+            var mailWriter = _mailWriterConstructor.Invoke(new object[] { result });
+            _sendMethod.Invoke(self, _flags, null, _isRunningInDotNetFourPointFive ? new[] { mailWriter, true, true } : new[] { mailWriter, true }, CultureInfo.InvariantCulture);
+            result = new(result.ToArray());
+            _closeMethod.Invoke(mailWriter, _flags, null, Array.Empty<object>(), CultureInfo.InvariantCulture);
+            return result;
+        }
+    }
+}

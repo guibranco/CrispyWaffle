@@ -4,6 +4,7 @@
     <ProjectGuid>C86C7297-1E8D-4611-B01A-08FC4FDF1D62</ProjectGuid>    
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle Utils package</Description>

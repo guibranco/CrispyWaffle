@@ -4,6 +4,7 @@
     <ProjectGuid>D0B119A8-91C1-4350-AB68-CDD831D2F9BE</ProjectGuid>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
     <Authors>Guilherme Branco Stracini</Authors>
     <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle.RabbitMQ package</Description>
