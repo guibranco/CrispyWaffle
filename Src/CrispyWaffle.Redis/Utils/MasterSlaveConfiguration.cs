@@ -1,6 +1,6 @@
 ﻿namespace CrispyWaffle.Redis.Utils
 {
-    using CrispyWaffle.Configuration;
+    using Configuration;
     using System;
 
     /// <summary>

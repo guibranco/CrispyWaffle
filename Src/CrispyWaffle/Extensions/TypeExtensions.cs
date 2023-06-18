@@ -1,12 +1,12 @@
 ﻿namespace CrispyWaffle.Extensions
 {
     using System.Collections.Generic;
-    using CrispyWaffle.Attributes;
+    using Attributes;
     using System;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
-    using CrispyWaffle.Utilities;
+    using Utilities;
 
     /// <summary>
     /// Class TypeExtensions.

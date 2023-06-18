@@ -14,7 +14,7 @@
 
 namespace CrispyWaffle.Tests.Collections
 {
-    using CrispyWaffle.Tests.Fixtures;
+    using Fixtures;
     using Xunit;
 
     /// <summary>

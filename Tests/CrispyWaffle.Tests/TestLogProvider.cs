@@ -14,8 +14,8 @@
 namespace CrispyWaffle.Tests
 {
     using CrispyWaffle.Extensions;
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Log.Providers;
+    using Log;
+    using Log.Providers;
     using CrispyWaffle.Serialization;
     using System;
     using System.Diagnostics.CodeAnalysis;

@@ -1,14 +1,14 @@
 ﻿namespace CrispyWaffle.Composition
 {
     using System.Threading;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Log;
+    using Extensions;
+    using Log;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using CrispyWaffle.Telemetry;
+    using Telemetry;
 
     /// <summary>
     /// The service locator class.
@@ -440,8 +440,8 @@
 
             var dependencies = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
             var arguments = dependencies.Select((type, i) =>
-                parameters.ContainsKey(i)
-                    ? parameters[i]
+                parameters.TryGetValue(i, out var parameter)
+                    ? parameter
                     : GetInstanceWithContext(type, implementationType, i));
             return Activator.CreateInstance(implementationType, arguments);
         }

@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Log.Providers
 {
-    using CrispyWaffle.Log.Adapters;
-    using CrispyWaffle.Serialization;
+    using Adapters;
+    using Serialization;
     using System;
 
     /// <summary>

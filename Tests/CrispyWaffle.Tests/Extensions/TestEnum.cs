@@ -14,7 +14,7 @@
 
 namespace CrispyWaffle.Tests.Extensions
 {
-    using CrispyWaffle.Attributes;
+    using Attributes;
 
     /// <summary>
     /// Enum TestEnum

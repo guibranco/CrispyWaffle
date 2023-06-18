@@ -13,9 +13,9 @@
 // ***********************************************************************
 namespace CrispyWaffle.Log4Net
 {
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Log.Providers;
-    using CrispyWaffle.Serialization;
+    using Log;
+    using Log.Providers;
+    using Serialization;
     using System;
     using log4net;
 

@@ -9,11 +9,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Log.Filters;
-    using CrispyWaffle.Log.Handlers;
-    using CrispyWaffle.Log.Providers;
-    using CrispyWaffle.Serialization;
+    using Composition;
+    using Filters;
+    using Handlers;
+    using Providers;
+    using Serialization;
 
     /// <summary>
     /// The default log consumer of the application

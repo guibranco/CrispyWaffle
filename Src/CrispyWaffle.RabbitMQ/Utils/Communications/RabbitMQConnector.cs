@@ -13,11 +13,11 @@
 // ***********************************************************************
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
-    using CrispyWaffle.Configuration;
-    using CrispyWaffle.Infrastructure;
+    using Configuration;
+    using Infrastructure;
     using System;
     using global::RabbitMQ.Client;
-    using IConnection = CrispyWaffle.Configuration.IConnection;
+    using IConnection = Configuration.IConnection;
 
     /// <summary>
     /// Class RabbitMQConnector. This class cannot be inherited.

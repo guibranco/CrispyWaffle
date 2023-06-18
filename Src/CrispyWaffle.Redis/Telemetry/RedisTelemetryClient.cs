@@ -13,10 +13,10 @@
 // ***********************************************************************
 namespace CrispyWaffle.Redis.Telemetry
 {
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Redis.Utils.Communications;
-    using CrispyWaffle.Serialization;
+    using Composition;
+    using Extensions;
+    using Utils.Communications;
+    using Serialization;
     using CrispyWaffle.Telemetry;
     using StackExchange.Redis;
     using System;

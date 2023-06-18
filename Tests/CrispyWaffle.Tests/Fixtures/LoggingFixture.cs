@@ -15,9 +15,9 @@
 namespace CrispyWaffle.Tests.Fixtures
 {
     using CrispyWaffle.Composition;
-    using CrispyWaffle.Log;
+    using Log;
     using CrispyWaffle.TemplateRendering.Engines;
-    using CrispyWaffle.Tests.Composition;
+    using Composition;
     using System;
     using System.Diagnostics.CodeAnalysis;
     using Xunit.Abstractions;

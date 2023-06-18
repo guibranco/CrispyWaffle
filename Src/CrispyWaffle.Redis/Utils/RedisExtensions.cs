@@ -1,8 +1,8 @@
 ﻿namespace CrispyWaffle.Redis.Utils
 {
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Redis.Utils.Communications;
+    using Composition;
+    using Extensions;
+    using Communications;
     using StackExchange.Redis;
     using System;
 

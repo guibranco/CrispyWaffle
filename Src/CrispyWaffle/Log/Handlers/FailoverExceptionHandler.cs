@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Log.Handlers
 {
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Log.Providers;
+    using Composition;
+    using Providers;
     using System;
     using System.Globalization;
     using System.Reflection;

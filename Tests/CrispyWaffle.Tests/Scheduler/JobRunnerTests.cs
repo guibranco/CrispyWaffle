@@ -21,6 +21,7 @@ namespace CrispyWaffle.Tests.Scheduler
     /// <summary>
     /// Class JobRunnerTests.
     /// </summary>
+    [Collection("JobRunner")]
     public class JobRunnerTests
     {
         /// <summary>

@@ -15,7 +15,7 @@ namespace CrispyWaffle.Redis.Cache
 {
     using CrispyWaffle.Cache;
     using CrispyWaffle.Log;
-    using CrispyWaffle.Redis.Utils.Communications;
+    using Utils.Communications;
     using StackExchange.Redis;
     using StackExchange.Redis.Extensions.Core.Abstractions;
     using System;

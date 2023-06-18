@@ -38,6 +38,7 @@
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="ttl">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
+        /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements (<see cref="System.Int32.MaxValue" />).</exception>
         public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
             _data.AddOrUpdate(key, value, (_, __) => value);
@@ -50,6 +51,7 @@
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
+        /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements (<see cref="System.Int32.MaxValue" />).</exception>
         public void Set<T>(T value, string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";

@@ -13,7 +13,7 @@
 // ***********************************************************************
 namespace CrispyWaffle.Redis.Utils.Communications
 {
-    using CrispyWaffle.Configuration;
+    using Configuration;
     using StackExchange.Redis;
     using StackExchange.Redis.Extensions.Core;
     using StackExchange.Redis.Extensions.Core.Abstractions;

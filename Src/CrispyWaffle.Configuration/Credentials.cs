@@ -13,8 +13,8 @@
 // ***********************************************************************
 namespace CrispyWaffle.Configuration
 {
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Cryptography;
+    using Composition;
+    using Cryptography;
     using Newtonsoft.Json;
     using System;
     using System.ComponentModel;
