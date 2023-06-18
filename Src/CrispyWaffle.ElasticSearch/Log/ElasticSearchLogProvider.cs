@@ -16,12 +16,12 @@ namespace CrispyWaffle.ElasticSearch.Log
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using CrispyWaffle.ElasticSearch.Utils.Communications;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Infrastructure;
+    using Utils.Communications;
+    using Extensions;
+    using Infrastructure;
     using CrispyWaffle.Log;
     using CrispyWaffle.Log.Providers;
-    using CrispyWaffle.Serialization;
+    using Serialization;
     using Nest;
     using LogLevel = CrispyWaffle.Log.LogLevel;
 

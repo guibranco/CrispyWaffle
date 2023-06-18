@@ -13,7 +13,7 @@
 // ***********************************************************************
 namespace CrispyWaffle.TemplateRendering.Engines
 {
-    using CrispyWaffle.Extensions;
+    using Extensions;
     using System;
     using System.Collections.Generic;
     using System.Globalization;

@@ -15,7 +15,7 @@ namespace CrispyWaffle.Tests.Composition
 {
     using CrispyWaffle.Composition;
     using System.Threading;
-    using CrispyWaffle.Tests.Fixtures;
+    using Fixtures;
     using Xunit;
     using Xunit.Abstractions;
 

@@ -16,7 +16,7 @@ namespace CrispyWaffle.Tests.TemplateRendering
     using CrispyWaffle.Composition;
     using CrispyWaffle.TemplateRendering.Engines;
     using System;
-    using CrispyWaffle.Tests.Fixtures;
+    using Fixtures;
     using Xunit;
     using Xunit.Abstractions;
 

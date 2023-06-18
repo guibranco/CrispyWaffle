@@ -15,7 +15,7 @@
 namespace CrispyWaffle.Tests.Extensions
 {
     using CrispyWaffle.Extensions;
-    using CrispyWaffle.GoodPractices;
+    using GoodPractices;
     using System;
     using System.Globalization;
     using Xunit;

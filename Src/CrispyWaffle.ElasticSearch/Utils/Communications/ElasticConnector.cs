@@ -15,8 +15,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     using System;
     using System.Globalization;
-    using CrispyWaffle.Configuration;
-    using CrispyWaffle.Infrastructure;
+    using Configuration;
+    using Infrastructure;
     using Nest;
 
     /// <summary>

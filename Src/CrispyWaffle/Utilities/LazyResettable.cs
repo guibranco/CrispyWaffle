@@ -206,7 +206,7 @@
             var sw = Stopwatch.StartNew();
             var result = _valueFactory();
             sw.Stop();
-            this.SumLoadTime += sw.Elapsed;
+            SumLoadTime += sw.Elapsed;
             Interlocked.Increment(ref Loads);
             return result;
         }

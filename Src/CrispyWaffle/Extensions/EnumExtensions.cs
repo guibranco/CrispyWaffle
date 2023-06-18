@@ -27,7 +27,9 @@
                 throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
             }
 
-            var field = type.GetFields().Select(f =>
+            var field = type
+                .GetFields()
+                .Select(f =>
                     new
                     {
                         Field = f,

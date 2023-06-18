@@ -3,13 +3,13 @@
     using System;
     using System.Collections.Concurrent;
     using System.Threading;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Infrastructure;
+    using Extensions;
+    using Infrastructure;
     using CrispyWaffle.Log;
     using CrispyWaffle.Log.Providers;
-    using CrispyWaffle.Redis.Log.PropagationStrategy;
-    using CrispyWaffle.Redis.Utils.Communications;
-    using CrispyWaffle.Serialization;
+    using PropagationStrategy;
+    using Utils.Communications;
+    using Serialization;
 
     public class PubSubRedisLogProvider : ILogProvider
     {

@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Tests.Utilities
 {
     using System;
-    using CrispyWaffle.Tests.Fixtures;
+    using Fixtures;
     using CrispyWaffle.Utilities;
     using Xunit;
     using Xunit.Abstractions;

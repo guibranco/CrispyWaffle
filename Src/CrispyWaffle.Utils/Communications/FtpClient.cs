@@ -19,10 +19,10 @@ namespace CrispyWaffle.Utils.Communications
     using System.Net;
     using System.Text;
     using System.Threading;
-    using CrispyWaffle.Configuration;
+    using Configuration;
     using CrispyWaffle.Extensions;
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Utils.GoodPractices;
+    using Log;
+    using GoodPractices;
 
     /// <summary>
     /// Class FtpClient.

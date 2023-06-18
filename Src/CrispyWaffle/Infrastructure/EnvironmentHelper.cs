@@ -13,7 +13,7 @@
 // ***********************************************************************
 namespace CrispyWaffle.Infrastructure
 {
-    using CrispyWaffle.Validations;
+    using Validations;
     using System;
     using System.ComponentModel;
     using System.Diagnostics;

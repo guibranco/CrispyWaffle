@@ -98,7 +98,6 @@ namespace CrispyWaffle.Extensions
         /// <param name="input">The input string a valid DateTime format.</param>
         /// <param name="value">The DateTime value.</param>
         /// <returns><b>True</b> if success, <b>false</b> otherwise</returns>
-        // ReSharper disable once MethodTooLong
         public static bool TryToDateTime(this string input, out DateTime value)
         {
             value = DateTime.MinValue;
@@ -429,9 +428,9 @@ namespace CrispyWaffle.Extensions
 
 
             var key = (int)number % 10;
-            if (_ordinalSuffix.ContainsKey(key))
+            if (_ordinalSuffix.TryGetValue(key, out var value))
             {
-                return $"{number}{_ordinalSuffix[key]}";
+                return $"{number}{value}";
             }
 
             return $"{number}th";

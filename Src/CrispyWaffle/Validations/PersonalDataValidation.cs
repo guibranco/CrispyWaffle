@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using CrispyWaffle.Extensions;
+    using Extensions;
     using System.Text.RegularExpressions;
 
     /// <summary>

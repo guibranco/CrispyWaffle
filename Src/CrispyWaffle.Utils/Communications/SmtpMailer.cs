@@ -24,14 +24,14 @@ namespace CrispyWaffle.Utils.Communications
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
-    using CrispyWaffle.Cache;
-    using CrispyWaffle.Configuration;
+    using Cache;
+    using Configuration;
     using CrispyWaffle.Extensions;
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Log.Providers;
-    using CrispyWaffle.Telemetry;
-    using CrispyWaffle.Utils.Extensions;
-    using CrispyWaffle.Utils.GoodPractices;
+    using Log;
+    using Log.Providers;
+    using Telemetry;
+    using Extensions;
+    using GoodPractices;
 
     /// <summary>
     /// The SMTP mailer class.

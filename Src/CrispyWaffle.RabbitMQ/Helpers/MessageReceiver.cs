@@ -15,7 +15,7 @@
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
     using CrispyWaffle.Log;
-    using CrispyWaffle.RabbitMQ.Utils.Communications;
+    using Utils.Communications;
     using global::RabbitMQ.Client;
     using global::RabbitMQ.Client.Events;
     using System;

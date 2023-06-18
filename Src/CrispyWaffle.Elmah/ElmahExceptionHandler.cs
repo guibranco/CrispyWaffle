@@ -13,10 +13,10 @@
 // ***********************************************************************
 namespace CrispyWaffle.Elmah
 {
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Extensions;
-    using CrispyWaffle.Log.Handlers;
-    using CrispyWaffle.Log.Providers;
+    using Composition;
+    using Extensions;
+    using Log.Handlers;
+    using Log.Providers;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;

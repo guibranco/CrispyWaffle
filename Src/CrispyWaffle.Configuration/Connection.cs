@@ -13,7 +13,7 @@
 // ***********************************************************************
 namespace CrispyWaffle.Configuration
 {
-    using CrispyWaffle.Serialization;
+    using Serialization;
     using System.ComponentModel;
     using System.Xml.Serialization;
 

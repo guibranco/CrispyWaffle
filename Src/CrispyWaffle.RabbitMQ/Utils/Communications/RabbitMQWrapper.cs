@@ -14,8 +14,8 @@
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
     using CrispyWaffle.Log;
-    using CrispyWaffle.RabbitMQ.Helpers;
-    using CrispyWaffle.Serialization;
+    using Helpers;
+    using Serialization;
     using System;
     using System.Text;
 

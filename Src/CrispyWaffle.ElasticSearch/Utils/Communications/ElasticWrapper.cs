@@ -13,7 +13,7 @@
 // ***********************************************************************
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
-    using CrispyWaffle.ElasticSearch.Helpers;
+    using Helpers;
     using Nest;
 
     /// <summary>
