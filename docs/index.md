@@ -8,7 +8,7 @@ This project is proudly maintained by [@guibranco ![GitHub followers](https://im
 
 Source code available at: [GitHub ![GitHub stars](https://img.shields.io/github/stars/guibranco/CrispyWaffle?style=social)](https://github.com/guibranco/CrispyWaffle)
 
-Currently opened issues: ![GitHub issues](https://img.shields.io/github/issues/guibranco/crispywaffle)
+Currently opened issues: [![GitHub issues](https://img.shields.io/github/issues/guibranco/crispywaffle)](https://github.com/guibranco/crispywaffle/issues)
 
 ## Build status
 
