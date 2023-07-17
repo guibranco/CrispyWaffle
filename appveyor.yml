@@ -136,54 +136,63 @@ artifacts:
   name: PackageRedis
 - path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageUtils
+  
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
   name: Coverage
 
 deploy:
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageCore
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageConfiguration
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageElasticSearch
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageElmah
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageLog4Net
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageRabbitMQ
   
-- provider: Environment
-  name: NuGet
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageRedis
-  
-- provider: Environment
-  name: NuGet
+
+- provider: NuGet
+  api_key: $(NUGET_TOKEN)
+  skip_symbols: false
   on:
    branch: main
   artifact: PackageUtils
