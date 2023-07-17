@@ -189,7 +189,7 @@ deploy:
   on:
    branch: main
   artifact: PackageRedis
-  
+
 - provider: NuGet
   api_key: $(NUGET_TOKEN)
   skip_symbols: false
