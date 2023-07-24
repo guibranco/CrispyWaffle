@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+
 namespace CrispyWaffle.TemplateRendering.Engines
 {
     using System.Text.RegularExpressions;
@@ -29,7 +31,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
             RegexOptions.Compiled
                 | RegexOptions.CultureInvariant
                 | RegexOptions.IgnoreCase
-                | RegexOptions.Singleline
+                | RegexOptions.Singleline,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -40,7 +43,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
             RegexOptions.Compiled
                 | RegexOptions.CultureInvariant
                 | RegexOptions.IgnoreCase
-                | RegexOptions.Singleline
+                | RegexOptions.Singleline,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -51,7 +55,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
             RegexOptions.Compiled
                 | RegexOptions.CultureInvariant
                 | RegexOptions.IgnoreCase
-                | RegexOptions.Singleline
+                | RegexOptions.Singleline,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -59,7 +64,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// </summary>
         public static readonly Regex PropertyPattern = new Regex(
             "{{(?<property>.+?)}}",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -67,7 +73,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// </summary>
         public static readonly Regex LoopPropertyPattern = new Regex(
             "{{this}}",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -75,7 +82,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// </summary>
         public static readonly Regex ImportPattern = new Regex(
             "{{>import (?<kvp>(?<key>file|type)=\"(?<value>.+?)\"\\s?){2}}}",
-            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
     }
 }
