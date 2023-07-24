@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 4.2 [2023-07-24]
+
+- Fix SonarCloud reports - [issue #182](https://github.com/guibranco/CrispyWaffle/issues/182) by [@viktoriussuwandi](https://github.com/viktoriussuwandi)
+- Fix security in GitHub Actions and AppVeyor pipeline
+- Add CSharpier (Linter)
+- Add DeepSource scanner
+
 ## Version 4.1 [2023-03-22]
 
 - Add Utils project - [issue #150](https://github.com/guibranco/CrispyWaffle/issues/150)
@@ -32,7 +39,7 @@
 
 ## Version 2.2 [2020-09-05]
 
-- Add scheduler feature.
+- Add a scheduler feature.
 - Add documentation using MkDocs.
 
 ## Version 2.1 [2020-09-04]
@@ -45,7 +52,7 @@
 
 ## Version 2.0 [2020-08-03]
 
-- Removed some application specific patterns from *StringExtensions* class
+- Removed some application-specific patterns from the *StringExtensions* class
 
 ## Version 1.3 [2020-07-24]
 
