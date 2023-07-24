@@ -122,12 +122,18 @@ namespace CrispyWaffle.ElasticSearch.Log
             }
 
             var retentionDays = _logRetentionDays;
-            _client.DeleteByQuery<LogMessage>(d =>
-                d.Index(_indexName)
-                    .Query(q =>
-                        q.DateRange(g => g
-                            .Field(f => f.Date)
-                            .LessThan(DateMath.Now.Subtract($@"{retentionDays}d")))));
+            _client.DeleteByQuery<LogMessage>(
+                d =>
+                    d.Index(_indexName)
+                        .Query(
+                            q =>
+                                q.DateRange(
+                                    g =>
+                                        g.Field(f => f.Date)
+                                            .LessThan(DateMath.Now.Subtract($@"{retentionDays}d"))
+                                )
+                        )
+            );
             return null;
         }
 
@@ -139,7 +145,12 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <param name="message">The message.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns>LogMessage.</returns>
-        private static LogMessage Serialize(LogLevel level, string category, string message, string identifier = null) =>
+        private static LogMessage Serialize(
+            LogLevel level,
+            string category,
+            string message,
+            string identifier = null
+        ) =>
             new LogMessage
             {
                 Application = EnvironmentHelper.ApplicationName,
@@ -203,7 +214,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Fatal, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Fatal, category, message))
+            );
         }
 
         /// <summary>
@@ -218,7 +231,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Error, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Error, category, message))
+            );
         }
 
         /// <summary>
@@ -233,7 +248,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Warning, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Warning, category, message))
+            );
         }
 
         /// <summary>
@@ -248,7 +265,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Info, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Info, category, message))
+            );
         }
 
         /// <summary>
@@ -263,7 +282,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Trace, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Trace, category, message))
+            );
         }
 
         /// <summary>
@@ -279,7 +300,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Trace, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Trace, category, message))
+            );
             Trace(category, exception);
         }
 
@@ -305,7 +328,6 @@ namespace CrispyWaffle.ElasticSearch.Log
                 });
 
                 exception = exception.InnerException;
-
             } while (exception != null);
         }
 
@@ -321,7 +343,9 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Debug, category, message)));
+            Task.Factory.StartNew(
+                () => _client.IndexDocument(Serialize(LogLevel.Debug, category, message))
+            );
         }
 
         /// <summary>
@@ -337,7 +361,10 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Debug, category, content, identifier)));
+            Task.Factory.StartNew(
+                () =>
+                    _client.IndexDocument(Serialize(LogLevel.Debug, category, content, identifier))
+            );
         }
 
         /// <summary>
@@ -348,7 +375,13 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class, new()
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class, new()
         {
             if (!_level.HasFlag(LogLevel.Debug))
             {
@@ -366,7 +399,12 @@ namespace CrispyWaffle.ElasticSearch.Log
                 serialized = (string)content.GetCustomSerializer(customFormat);
             }
 
-            Task.Factory.StartNew(() => _client.IndexDocument(Serialize(LogLevel.Debug, category, serialized, identifier)));
+            Task.Factory.StartNew(
+                () =>
+                    _client.IndexDocument(
+                        Serialize(LogLevel.Debug, category, serialized, identifier)
+                    )
+            );
         }
 
         #endregion

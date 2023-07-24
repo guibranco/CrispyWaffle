@@ -23,9 +23,12 @@
         /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null) where T : class
+        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+            where T : class
         {
-            return new XmlSerializer(typeof(T)).Deserialize(new StreamReader(stream, encoding ?? Encoding.UTF8)) as T;
+            return new XmlSerializer(typeof(T)).Deserialize(
+                    new StreamReader(stream, encoding ?? Encoding.UTF8)
+                ) as T;
         }
 
         /// <summary>
@@ -35,10 +38,13 @@
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T Deserialize<T>(object serialized) where T : class
+        public T Deserialize<T>(object serialized)
+            where T : class
         {
             var document = serialized as XmlDocument;
-            return new XmlSerializer(typeof(T)).Deserialize(new StringReader(document?.OuterXml ?? (string)serialized)) as T;
+            return new XmlSerializer(typeof(T)).Deserialize(
+                    new StringReader(document?.OuterXml ?? (string)serialized)
+                ) as T;
         }
 
         /// <summary>
@@ -50,7 +56,8 @@
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
         /// <exception cref="LocalFileNotFoundException">Thrown when an Arquivo Nao Encontrado error condition occurs.</exception>
         [Pure]
-        public T Load<T>(string file) where T : class
+        public T Load<T>(string file)
+            where T : class
         {
             var fileName = Path.GetFileName(file);
             if (string.IsNullOrWhiteSpace(fileName))
@@ -60,7 +67,10 @@
 
             if (!File.Exists(file))
             {
-                throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
+                throw new LocalFileNotFoundException(
+                    file,
+                    Path.GetDirectoryName(Path.GetFullPath(file))
+                );
             }
 
             using (var sr = new StreamReader(file, Encoding.UTF8))
@@ -78,14 +88,20 @@
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
         [Pure]
-        public void Serialize<T>(T deserialized, out Stream stream) where T : class
+        public void Serialize<T>(T deserialized, out Stream stream)
+            where T : class
         {
             stream = new MemoryStream();
 
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
 
-            var xmlConfig = new XmlWriterSettings { Indent = true, Encoding = Encoding.UTF8, OmitXmlDeclaration = false };
+            var xmlConfig = new XmlWriterSettings
+            {
+                Indent = true,
+                Encoding = Encoding.UTF8,
+                OmitXmlDeclaration = false
+            };
             var xmlStream = XmlWriter.Create(stream, xmlConfig);
 
             var serializer = new XmlSerializer(deserialized.GetType());
@@ -104,7 +120,8 @@
         /// <param name="file">The file.</param>
         /// <param name="deserialized">The deserialized.</param>
         /// <exception cref="LocalFileNotFoundException">null - null</exception>
-        public void Save<T>(string file, T deserialized) where T : class
+        public void Save<T>(string file, T deserialized)
+            where T : class
         {
             Stream stream = null;
             try
@@ -119,9 +136,15 @@
                     File.Delete(file);
                 }
 
-                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (
+                    var fileStream = new FileStream(
+                        file,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None
+                    )
+                )
                 {
-
                     Serialize(deserialized, out stream);
 
                     stream.CopyTo(fileStream);

@@ -78,7 +78,6 @@ namespace CrispyWaffle.Tests.Composition
             {
                 CancellationToken = cancellationToken;
             }
-
         }
     }
 }

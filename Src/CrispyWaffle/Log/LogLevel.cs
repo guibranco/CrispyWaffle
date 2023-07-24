@@ -9,9 +9,8 @@
     [Flags]
     public enum LogLevel
     {
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [HumanReadable("Fatal")]
         Fatal = 1,
@@ -36,7 +35,6 @@
 
         [HumanReadable("Information")]
         Info = 1 << 3,
-
 
         /// <summary>
         /// The information detailed level

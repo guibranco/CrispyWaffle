@@ -75,8 +75,7 @@ namespace CrispyWaffle.Scheduler
                 return;
             }
 
-            if (status == ThreadState.Running ||
-                status == ThreadState.WaitSleepJoin)
+            if (status == ThreadState.Running || status == ThreadState.WaitSleepJoin)
             {
                 return;
             }

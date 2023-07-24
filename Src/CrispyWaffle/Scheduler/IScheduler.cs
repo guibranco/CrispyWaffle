@@ -64,6 +64,5 @@ namespace CrispyWaffle.Scheduler
         /// </summary>
         /// <value>The minutes.</value>
         ICollection<int> Minutes { get; }
-
     }
 }

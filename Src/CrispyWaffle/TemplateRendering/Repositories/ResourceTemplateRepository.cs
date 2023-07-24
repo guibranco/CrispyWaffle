@@ -24,7 +24,7 @@
         #region ~Ctor
 
         /// <summary>
-        /// Default constructor. 
+        /// Default constructor.
         /// </summary>
         /// <param name="manager"><see cref="ResourceManager"/></param>
         public ResourceTemplateRepository(ResourceManager manager)
@@ -43,7 +43,9 @@
         /// <param name="content">The template itself</param>
         public void RegisterTemplate(string name, string content)
         {
-            throw new InvalidOperationException("The registration of resource at runtime is not allowed.");
+            throw new InvalidOperationException(
+                "The registration of resource at runtime is not allowed."
+            );
         }
 
         /// <summary>
@@ -56,7 +58,14 @@
             var result = _manager.GetString(name, CultureInfo.CurrentCulture);
             if (result == null)
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Unable to find the template {0} in the repository {1}", name, GetType().FullName));
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Unable to find the template {0} in the repository {1}",
+                        name,
+                        GetType().FullName
+                    )
+                );
             }
 
             return result;

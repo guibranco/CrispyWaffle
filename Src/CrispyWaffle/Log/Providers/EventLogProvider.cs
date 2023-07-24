@@ -22,8 +22,7 @@
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class.
         /// </summary>
         public EventLogProvider()
-            : this("crispy-waffle")
-        { }
+            : this("crispy-waffle") { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class.
@@ -31,7 +30,13 @@
         /// <param name="source">The source.</param>
         public EventLogProvider(string source)
         {
-            _adapter = new EventLogAdapter(source, string.Empty, Environment.MachineName, false, new EventIdProvider());
+            _adapter = new EventLogAdapter(
+                source,
+                string.Empty,
+                Environment.MachineName,
+                false,
+                new EventIdProvider()
+            );
         }
 
         /// <summary>
@@ -41,7 +46,13 @@
         /// <param name="logName">Name of the log.</param>
         public EventLogProvider(string source, string logName)
         {
-            _adapter = new EventLogAdapter(source, logName, Environment.MachineName, false, new EventIdProvider());
+            _adapter = new EventLogAdapter(
+                source,
+                logName,
+                Environment.MachineName,
+                false,
+                new EventIdProvider()
+            );
         }
 
         /// <summary>
@@ -52,11 +63,22 @@
         /// <param name="machineName">Name of the machine.</param>
         /// <param name="manageEventSource">if set to <c>true</c> [manage event source].</param>
         /// <param name="eventIdProvider">The event identifier provider.</param>
-        public EventLogProvider(string source, string logName, string machineName, bool manageEventSource,
-            IEventIdProvider eventIdProvider)
+        public EventLogProvider(
+            string source,
+            string logName,
+            string machineName,
+            bool manageEventSource,
+            IEventIdProvider eventIdProvider
+        )
         {
             var provider = eventIdProvider ?? new EventIdProvider();
-            _adapter = new EventLogAdapter(source, logName, machineName, manageEventSource, provider);
+            _adapter = new EventLogAdapter(
+                source,
+                logName,
+                machineName,
+                manageEventSource,
+                provider
+            );
         }
 
         #endregion
@@ -172,7 +194,12 @@
         /// <param name="content">Not used</param>
         /// <param name="identifier">Not used</param>
         /// <param name="customFormat">Not used</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where T : class, new()
         {
             _adapter.Debug(content, identifier, customFormat);

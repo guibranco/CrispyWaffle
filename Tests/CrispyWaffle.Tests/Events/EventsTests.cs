@@ -30,7 +30,7 @@ namespace CrispyWaffle.Tests.Events
         {
             var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
             EventsConsumer.Raise(@event);
-            Assert.Equal("Sample test",@event.Text);
+            Assert.Equal("Sample test", @event.Text);
         }
 
         /// <summary>

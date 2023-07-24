@@ -22,7 +22,11 @@
     /// <seealso cref="System.IEquatable{DynamicSerialization}" />
     [Serializable]
     [Serializer]
-    public class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
+    public class DynamicSerialization
+        : DynamicObject,
+            ISerializable,
+            IXmlSerializable,
+            IEquatable<DynamicSerialization>
     {
         #region Protected fields
 
@@ -252,7 +256,8 @@
                 return false;
             }
 
-            return ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
+            return ReferenceEquals(this, obj)
+                || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
         }
 
         /// <summary>
@@ -264,9 +269,9 @@
         /// <see cref="T:System.Object" />; otherwise, false.</returns>
         public bool Equals(DynamicSerialization other)
         {
-            return other != null &&
-                    Dictionary.SequenceEqual(other.Dictionary) &&
-                   SerializationKeyFilter == other.SerializationKeyFilter;
+            return other != null
+                && Dictionary.SequenceEqual(other.Dictionary)
+                && SerializationKeyFilter == other.SerializationKeyFilter;
         }
 
         #endregion

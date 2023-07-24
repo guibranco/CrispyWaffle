@@ -27,7 +27,8 @@
         /// </summary>
         /// <typeparam name="TTelemetryClient">The type of the i telemetry client.</typeparam>
         /// <returns></returns>
-        public static ITelemetryClient AddClient<TTelemetryClient>() where TTelemetryClient : ITelemetryClient
+        public static ITelemetryClient AddClient<TTelemetryClient>()
+            where TTelemetryClient : ITelemetryClient
         {
             var client = ServiceLocator.Resolve<TTelemetryClient>();
             LogConsumer.Trace("Adding telemetry client of type {0}", client.GetType().FullName);
@@ -51,7 +52,7 @@
         /// Tracks the hit.
         /// </summary>
         /// <param name="hitName">Name of the hit.</param>
-        public static void TrackHit([Localizable(false)]string hitName)
+        public static void TrackHit([Localizable(false)] string hitName)
         {
             LogConsumer.Trace("Tracking hit of {0}", hitName);
             foreach (var client in _clients)
@@ -98,7 +99,8 @@
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new()
+        public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new()
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
             foreach (var client in _clients)
@@ -113,7 +115,8 @@
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <param name="ttl">The TTL.</param>
-        public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl) where TEvent : class, new()
+        public static void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl)
+            where TEvent : class, new()
         {
             LogConsumer.Trace("Tracking event of type {0}", typeof(TEvent).FullName);
             foreach (var client in _clients)
@@ -128,9 +131,14 @@
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <returns></returns>
-        public static TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new()
+        public static TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new()
         {
-            LogConsumer.Trace("Getting event of type {0} with key {1}", typeof(TEvent).FullName, @event.Name);
+            LogConsumer.Trace(
+                "Getting event of type {0} with key {1}",
+                typeof(TEvent).FullName,
+                @event.Name
+            );
             TEvent result;
             foreach (var client in _clients)
             {
@@ -149,7 +157,10 @@
         /// <param name="metricName">Name of the metric.</param>
         /// <param name="variation">The variation.</param>
         /// <returns></returns>
-        public static int GetMetric([Localizable(false)] string metricName, [Localizable(false)] string variation)
+        public static int GetMetric(
+            [Localizable(false)] string metricName,
+            [Localizable(false)] string variation
+        )
         {
             var result = 0;
             LogConsumer.Trace("Getting metric {0} with variation {1}", metricName, variation);
@@ -169,7 +180,10 @@
         /// </summary>
         /// <param name="metricName">Name of the metric.</param>
         /// <param name="variation">The variation.</param>
-        public static void TrackMetric([Localizable(false)]string metricName, [Localizable(false)]string variation)
+        public static void TrackMetric(
+            [Localizable(false)] string metricName,
+            [Localizable(false)] string variation
+        )
         {
             LogConsumer.Trace("Tracking metric {0} with variation {1}", metricName, variation);
             foreach (var client in _clients)
@@ -183,7 +197,10 @@
         /// </summary>
         /// <param name="metricName">Name of the metric.</param>
         /// <param name="variation">The variation.</param>
-        public static void RemoveMetric([Localizable(false)]string metricName, [Localizable(false)]string variation)
+        public static void RemoveMetric(
+            [Localizable(false)] string metricName,
+            [Localizable(false)] string variation
+        )
         {
             LogConsumer.Trace("Deleting metric {0} with variation {1}", metricName, variation);
             foreach (var client in _clients)
@@ -212,12 +229,12 @@
         /// <param name="resolvedTimes">The resolved times.</param>
         public static void TrackDependency(Type interfaceType, int resolvedTimes)
         {
-            LogConsumer.Trace("Tracking dependency of {0}, resolved {1} time{2}",
-                              interfaceType.FullName,
-                              resolvedTimes,
-                              resolvedTimes == 1
-                                  ? string.Empty
-                                  : @"s");
+            LogConsumer.Trace(
+                "Tracking dependency of {0}, resolved {1} time{2}",
+                interfaceType.FullName,
+                resolvedTimes,
+                resolvedTimes == 1 ? string.Empty : @"s"
+            );
             foreach (var client in _clients)
             {
                 client.TrackDependency(interfaceType, resolvedTimes);

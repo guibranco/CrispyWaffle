@@ -48,10 +48,14 @@ namespace CrispyWaffle.Infrastructure
             IpAddressExternal = GetIpAddressExternal();
             ExecutionPath = assembly.Location;
             Version = !string.IsNullOrWhiteSpace(ExecutionPath)
-                          ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
-                          : string.Empty;
-            VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(@"dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            OperationalSystemVersion = $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
+                ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
+                : string.Empty;
+            VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(
+                @"dd/MM/yyyy HH:mm:ss",
+                CultureInfo.InvariantCulture
+            );
+            OperationalSystemVersion =
+                $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
             ProcessId = Process.GetCurrentProcess().Id;
         }
 
@@ -84,7 +88,6 @@ namespace CrispyWaffle.Infrastructure
             return string.Empty;
         }
 
-
         /// <summary>
         /// Gets the ip address external.
         /// </summary>
@@ -115,13 +118,15 @@ namespace CrispyWaffle.Infrastructure
         /// Sets the name of the application.
         /// </summary>
         /// <param name="applicationName">Name of the application.</param>
-        public static void SetApplicationName(string applicationName) => ApplicationName = applicationName;
+        public static void SetApplicationName(string applicationName) =>
+            ApplicationName = applicationName;
 
         /// <summary>
         /// Sets the display name of the application.
         /// </summary>
         /// <param name="displayApplicationName">Display name of the application.</param>
-        public static void SetDisplayApplicationName(string displayApplicationName) => DisplayApplicationName = displayApplicationName;
+        public static void SetDisplayApplicationName(string displayApplicationName) =>
+            DisplayApplicationName = displayApplicationName;
 
         /// <summary>
         /// Sets the operation.
@@ -210,7 +215,8 @@ namespace CrispyWaffle.Infrastructure
         /// </summary>
         /// <value>The user agent.</value>
         [Localizable(false)]
-        public static string UserAgent => $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
+        public static string UserAgent =>
+            $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
 
         #endregion
     }

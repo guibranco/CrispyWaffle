@@ -42,7 +42,12 @@
         }
 
         /// <inheritdoc />
-        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class
+        public void Debug<T>(
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class
         {
             throw new NotImplementedException();
         }
@@ -160,8 +165,13 @@
         }
 
         /// <inheritdoc />
-        public void CategorizedDebug<T>(string category, T content, string identifier,
-            SerializerFormat customFormat = SerializerFormat.None) where T : class
+        public void CategorizedDebug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class
         {
             throw new NotImplementedException();
         }

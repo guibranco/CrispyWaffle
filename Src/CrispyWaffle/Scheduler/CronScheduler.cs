@@ -35,18 +35,22 @@ namespace CrispyWaffle.Scheduler
         /// The days of week
         /// </summary>
         private readonly HashSet<int> _daysOfWeek = new HashSet<int>();
+
         /// <summary>
         /// The months
         /// </summary>
         private readonly HashSet<int> _months = new HashSet<int>();
+
         /// <summary>
         /// The days of month
         /// </summary>
         private readonly HashSet<int> _daysOfMonth = new HashSet<int>();
+
         /// <summary>
         /// The hours
         /// </summary>
         private readonly HashSet<int> _hours = new HashSet<int>();
+
         /// <summary>
         /// The minutes
         /// </summary>
@@ -69,13 +73,16 @@ namespace CrispyWaffle.Scheduler
         {
             if (!IsValid(expression))
             {
-                throw new ArgumentOutOfRangeException(nameof(expression), expression, "The expression isn't a valid CRON expression");
+                throw new ArgumentOutOfRangeException(
+                    nameof(expression),
+                    expression,
+                    "The expression isn't a valid CRON expression"
+                );
             }
 
             _expression = expression;
 
             GenerateData();
-
         }
 
         #endregion
@@ -90,10 +97,14 @@ namespace CrispyWaffle.Scheduler
             var matches = CronSchedulerValidations.ValidationRegex.Matches(_expression);
 
             GenerateData(matches[0].ToString(), 0, 60).ForEach(i => _minutes.Add(i));
-            GenerateData(matches.Count > 1 ? matches[1].ToString() : "*", 0, 24).ForEach(i => _hours.Add(i));
-            GenerateData(matches.Count > 2 ? matches[2].ToString() : "*", 1, 32).ForEach(i => _daysOfMonth.Add(i));
-            GenerateData(matches.Count > 3 ? matches[3].ToString() : "*", 1, 13).ForEach(i => _months.Add(i));
-            GenerateData(matches.Count > 4 ? matches[4].ToString() : "*", 0, 7).ForEach(i => _daysOfWeek.Add(i));
+            GenerateData(matches.Count > 1 ? matches[1].ToString() : "*", 0, 24)
+                .ForEach(i => _hours.Add(i));
+            GenerateData(matches.Count > 2 ? matches[2].ToString() : "*", 1, 32)
+                .ForEach(i => _daysOfMonth.Add(i));
+            GenerateData(matches.Count > 3 ? matches[3].ToString() : "*", 1, 13)
+                .ForEach(i => _months.Add(i));
+            GenerateData(matches.Count > 4 ? matches[4].ToString() : "*", 0, 7)
+                .ForEach(i => _daysOfWeek.Add(i));
         }
 
         /// <summary>
@@ -120,9 +131,10 @@ namespace CrispyWaffle.Scheduler
                 return GenerateWild(start, max);
             }
 
-            return CronSchedulerValidations.ListRegex.IsMatch(value) ? GenerateList(value) : new List<int>();
+            return CronSchedulerValidations.ListRegex.IsMatch(value)
+                ? GenerateList(value)
+                : new List<int>();
         }
-
 
         /// <summary>
         /// Generates the divided.
@@ -195,16 +207,16 @@ namespace CrispyWaffle.Scheduler
         /// <param name="start">The start.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>List&lt;System.Int32&gt;.</returns>
-        private static List<int> GenerateWild(int start, int max) => Enumerable.Range(start, max).ToList();
-
+        private static List<int> GenerateWild(int start, int max) =>
+            Enumerable.Range(start, max).ToList();
 
         /// <summary>
         /// Generates the list.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>List&lt;System.Int32&gt;.</returns>
-        private static List<int> GenerateList(string value) => value.Split(',').Select(int.Parse).ToList();
-
+        private static List<int> GenerateList(string value) =>
+            value.Split(',').Select(int.Parse).ToList();
 
         #endregion
 
@@ -246,7 +258,8 @@ namespace CrispyWaffle.Scheduler
         /// <param name="expression">The expression.</param>
         /// <returns><c>true</c> if the specified expression is valid; otherwise, <c>false</c>.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public bool IsValid(string expression) => CronSchedulerValidations.ValidationRegex.Matches(expression).Count > 0;
+        public bool IsValid(string expression) =>
+            CronSchedulerValidations.ValidationRegex.Matches(expression).Count > 0;
 
         /// <summary>
         /// Determines whether the specified date time is time.
@@ -256,11 +269,11 @@ namespace CrispyWaffle.Scheduler
         /// <exception cref="NotImplementedException"></exception>
         public bool IsTime(DateTime dateTime)
         {
-            return _minutes.Contains(dateTime.Minute) &&
-                   _hours.Contains(dateTime.Hour) &&
-                   _daysOfMonth.Contains(dateTime.Day) &&
-                   _months.Contains(dateTime.Month) &&
-                   _daysOfWeek.Contains((int)dateTime.DayOfWeek);
+            return _minutes.Contains(dateTime.Minute)
+                && _hours.Contains(dateTime.Hour)
+                && _daysOfMonth.Contains(dateTime.Day)
+                && _months.Contains(dateTime.Month)
+                && _daysOfWeek.Contains((int)dateTime.DayOfWeek);
         }
 
         #endregion

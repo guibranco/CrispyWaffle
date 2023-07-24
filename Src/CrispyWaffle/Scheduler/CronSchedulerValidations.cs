@@ -28,7 +28,10 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The range regex
         /// </summary>
-        public static readonly Regex RangeRegex = new Regex(@"(\d+\-\d+)\/?(\d+)?", RegexOptions.Compiled);
+        public static readonly Regex RangeRegex = new Regex(
+            @"(\d+\-\d+)\/?(\d+)?",
+            RegexOptions.Compiled
+        );
 
         /// <summary>
         /// The wild regex
@@ -38,11 +41,17 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The list regex
         /// </summary>
-        public static readonly Regex ListRegex = new Regex(@"(((\d+,)*\d+)+)", RegexOptions.Compiled);
+        public static readonly Regex ListRegex = new Regex(
+            @"(((\d+,)*\d+)+)",
+            RegexOptions.Compiled
+        );
 
         /// <summary>
         /// The validation regex
         /// </summary>
-        public static readonly Regex ValidationRegex = new Regex(DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex, RegexOptions.Compiled);
+        public static readonly Regex ValidationRegex = new Regex(
+            DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex,
+            RegexOptions.Compiled
+        );
     }
 }

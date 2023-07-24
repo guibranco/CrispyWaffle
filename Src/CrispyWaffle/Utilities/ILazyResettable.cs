@@ -11,10 +11,12 @@
         /// Resets this instance.
         /// </summary>
         void Reset();
+
         /// <summary>
         /// Loads this instance.
         /// </summary>
         void Load();
+
         /// <summary>
         /// Gets the type of the declaring.
         /// </summary>
@@ -22,6 +24,7 @@
         /// The type of the declaring.
         /// </value>
         Type DeclaringType { get; }
+
         /// <summary>
         /// Stats this instance
         /// </summary>

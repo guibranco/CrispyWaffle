@@ -18,6 +18,7 @@
         /// The application log name
         /// </summary>
         private const string _applicationLogName = "Application";
+
         /// <summary>
         /// The maximum payload length chars
         /// </summary>
@@ -62,8 +63,13 @@
         /// <param name="eventIdProvider">The event identifier provider.</param>
         /// <exception cref="ArgumentNullException">source</exception>
         /// <exception cref="ArgumentNullException">eventIdProvider</exception>
-        public EventLogAdapter(string source, string logName, string machineName, bool manageEventSource,
-            IEventIdProvider eventIdProvider)
+        public EventLogAdapter(
+            string source,
+            string logName,
+            string machineName,
+            bool manageEventSource,
+            IEventIdProvider eventIdProvider
+        )
         {
             if (source == null)
             {
@@ -78,9 +84,13 @@
             source = source.Replace("<", "_");
             source = source.Replace(">", "_");
 
-            _eventIdProvider = eventIdProvider ?? throw new ArgumentNullException(nameof(eventIdProvider));
+            _eventIdProvider =
+                eventIdProvider ?? throw new ArgumentNullException(nameof(eventIdProvider));
 
-            _log = new EventLog(string.IsNullOrWhiteSpace(logName) ? _applicationLogName : logName, machineName);
+            _log = new EventLog(
+                string.IsNullOrWhiteSpace(logName) ? _applicationLogName : logName,
+                machineName
+            );
 
             if (manageEventSource)
             {
@@ -103,16 +113,27 @@
         /// <param name="source">The source.</param>
         private static void ConfigureSource(EventLog log, string source)
         {
-            var sourceData = new EventSourceCreationData(source, log.Log) { MachineName = log.MachineName };
+            var sourceData = new EventSourceCreationData(source, log.Log)
+            {
+                MachineName = log.MachineName
+            };
 
             string oldLogName = null;
 
             if (EventLog.SourceExists(source, log.MachineName))
             {
-                var existingLogWithSourceName = EventLog.LogNameFromSourceName(source, log.MachineName);
+                var existingLogWithSourceName = EventLog.LogNameFromSourceName(
+                    source,
+                    log.MachineName
+                );
 
-                if (!string.IsNullOrWhiteSpace(existingLogWithSourceName) &&
-                    !log.Log.Equals(existingLogWithSourceName, StringComparison.OrdinalIgnoreCase))
+                if (
+                    !string.IsNullOrWhiteSpace(existingLogWithSourceName)
+                    && !log.Log.Equals(
+                        existingLogWithSourceName,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                 {
                     // Remove the source from the previous log so we can associate it with the current log name
                     EventLog.DeleteEventSource(source, log.MachineName);
@@ -142,22 +163,24 @@
                 var metaSource = $"serilog-{log.Log}";
                 if (!EventLog.SourceExists(metaSource, log.MachineName))
                 {
-                    EventLog.CreateEventSource(new EventSourceCreationData(metaSource, log.Log)
-                    {
-                        MachineName = log.MachineName
-                    });
+                    EventLog.CreateEventSource(
+                        new EventSourceCreationData(metaSource, log.Log)
+                        {
+                            MachineName = log.MachineName
+                        }
+                    );
                 }
 
                 log.Source = metaSource;
                 log.WriteEntry(
-                    $"Event source {source} was previously registered in log {oldLogName}. " +
-                    $"The source has been registered with this log, {log.Log}, however a computer restart may be required " +
-                    $"before event logs will appear in {log.Log} with source {source}. Until then, messages may be logged to {oldLogName}.",
+                    $"Event source {source} was previously registered in log {oldLogName}. "
+                        + $"The source has been registered with this log, {log.Log}, however a computer restart may be required "
+                        + $"before event logs will appear in {log.Log} with source {source}. Until then, messages may be logged to {oldLogName}.",
                     EventLogEntryType.Warning,
-                    _sourceMovedEventId);
+                    _sourceMovedEventId
+                );
             }
         }
-
 
         /// <summary>
         /// Levels the type of to event log entry.
@@ -213,7 +236,6 @@
         /// <param name="exception">The exception.</param>
         private void WriteInternal(LogLevel level, Exception exception)
         {
-
             if (!_level.HasFlag(level))
             {
                 return;
@@ -229,7 +251,6 @@
             }
 
             _log.WriteEntry(message, type, _eventIdProvider.ComputeEventId(message));
-
         }
 
         /// <summary>
@@ -259,8 +280,7 @@
         #region Implementation of IDisposable
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-        public void Dispose()
-        { }
+        public void Dispose() { }
 
         #endregion
 
@@ -284,7 +304,11 @@
         /// <param name="identifier">The file name to be persisted to disk with the content</param>
         /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
-        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
+        public void Debug<T>(
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where T : class
         {
             if (!_level.HasFlag(LogLevel.Debug))
@@ -292,9 +316,10 @@
                 return;
             }
 
-            var contentAsString = customFormat == SerializerFormat.None
-                ? content.GetSerializer()
-                : content.GetCustomSerializer(customFormat);
+            var contentAsString =
+                customFormat == SerializerFormat.None
+                    ? content.GetSerializer()
+                    : content.GetCustomSerializer(customFormat);
 
             Debug((string)contentAsString, identifier);
         }

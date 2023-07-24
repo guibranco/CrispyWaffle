@@ -46,7 +46,9 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            return Id.Equals(other.Id) && Date.Equals(other.Date) && ListStrong.SequenceEqual(other.ListStrong);
+            return Id.Equals(other.Id)
+                && Date.Equals(other.Date)
+                && ListStrong.SequenceEqual(other.ListStrong);
         }
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
@@ -117,6 +119,5 @@ namespace CrispyWaffle.Tests.Serialization
         /// </summary>
         /// <value>The list strong.</value>
         public List<StrongTypingClass> ListStrong { get; set; }
-
     }
 }

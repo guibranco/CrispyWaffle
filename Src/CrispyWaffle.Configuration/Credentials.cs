@@ -58,7 +58,6 @@ namespace CrispyWaffle.Configuration
         /// </summary>
         private string _password;
 
-
         /// <summary>
         /// Gets or sets the user name.
         /// </summary>
@@ -113,7 +112,11 @@ namespace CrispyWaffle.Configuration
 
                 var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-                var encrypt = _password.Encrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.IVKey);
+                var encrypt = _password.Encrypt(
+                    secureProvider.PasswordHash,
+                    secureProvider.SaltKey,
+                    secureProvider.IVKey
+                );
                 return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.Md5)}";
             }
             set
@@ -138,7 +141,14 @@ namespace CrispyWaffle.Configuration
 
                     var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-                    _password = 0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check) ? password.Decrypt(secureProvider.PasswordHash, secureProvider.SaltKey, secureProvider.IVKey) : value;
+                    _password =
+                        0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check)
+                            ? password.Decrypt(
+                                secureProvider.PasswordHash,
+                                secureProvider.SaltKey,
+                                secureProvider.IVKey
+                            )
+                            : value;
                 }
                 catch (Exception)
                 {

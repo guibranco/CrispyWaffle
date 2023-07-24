@@ -40,7 +40,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerAdapter"/> class.
         /// </summary>
-        /// <param name="settings">The settings.</param> 
+        /// <param name="settings">The settings.</param>
         public JsonSerializerAdapter(JsonSerializerSettings settings)
         {
             _settings = settings;
@@ -60,11 +60,15 @@
         /// A T.
         /// </returns>
         /// <exception cref="NotNullObserverException"></exception>
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null) where T : class
+        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+            where T : class
         {
             try
             {
-                return JsonConvert.DeserializeObject<T>(new StreamReader(stream, encoding ?? Encoding.UTF8).ReadToEnd(), _settings);
+                return JsonConvert.DeserializeObject<T>(
+                    new StreamReader(stream, encoding ?? Encoding.UTF8).ReadToEnd(),
+                    _settings
+                );
             }
             catch (NotNullObserverException e)
             {
@@ -81,7 +85,8 @@
         /// A T.
         /// </returns>
         /// <exception cref="NotNullObserverException"></exception>
-        public T Deserialize<T>(object serialized) where T : class
+        public T Deserialize<T>(object serialized)
+            where T : class
         {
             try
             {
@@ -101,7 +106,8 @@
         /// <returns>A T.</returns>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
         /// <exception cref="LocalFileNotFoundException"></exception>
-        public T Load<T>(string file) where T : class
+        public T Load<T>(string file)
+            where T : class
         {
             var fileName = Path.GetFileName(file);
             if (string.IsNullOrWhiteSpace(fileName))
@@ -111,7 +117,10 @@
 
             if (!File.Exists(file))
             {
-                throw new LocalFileNotFoundException(file, Path.GetDirectoryName(Path.GetFullPath(file)));
+                throw new LocalFileNotFoundException(
+                    file,
+                    Path.GetDirectoryName(Path.GetFullPath(file))
+                );
             }
 
             using (var sr = new StreamReader(file, Encoding.UTF8))
@@ -128,7 +137,8 @@
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[in,out] The stream.</param>
-        public void Serialize<T>(T deserialized, out Stream stream) where T : class
+        public void Serialize<T>(T deserialized, out Stream stream)
+            where T : class
         {
             var jsonSerializer = new JsonSerializer();
             stream = new MemoryStream();
@@ -155,7 +165,8 @@
         /// <param name="file">The file.</param>
         /// <param name="deserialized">The deserialized.</param>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        public void Save<T>(string file, T deserialized) where T : class
+        public void Save<T>(string file, T deserialized)
+            where T : class
         {
             Stream stream = null;
             try
@@ -170,7 +181,14 @@
                     File.Delete(file);
                 }
 
-                using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (
+                    var fileStream = new FileStream(
+                        file,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None
+                    )
+                )
                 {
                     Serialize(deserialized, out stream);
 

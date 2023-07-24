@@ -76,8 +76,13 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="ftp">The FtpClient.</param>
         /// <param name="remoteDirectory">The remote directory.</param>
         public FtpClient(IConnection ftp, string remoteDirectory)
-        : this(ftp?.Host, ftp?.Port ?? 0, ftp?.Credentials.UserName, ftp?.Credentials.Password, remoteDirectory)
-        { }
+            : this(
+                ftp?.Host,
+                ftp?.Port ?? 0,
+                ftp?.Credentials.UserName,
+                ftp?.Credentials.Password,
+                remoteDirectory
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient" /> class.
@@ -88,7 +93,13 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="remoteDirectory">The sub directory.</param>
         /// <exception cref="System.ArgumentNullException">remoteDirectory</exception>
-        public FtpClient(string host, int port, string userName, string password, string remoteDirectory)
+        public FtpClient(
+            string host,
+            int port,
+            string userName,
+            string password,
+            string remoteDirectory
+        )
         {
             if (string.IsNullOrWhiteSpace(remoteDirectory))
             {
@@ -123,12 +134,16 @@ namespace CrispyWaffle.Utils.Communications
 
             try
             {
-                LogConsumer.Info("Checking in FtpClient the path/file: {0}", path.GetPathOrFileName());
+                LogConsumer.Info(
+                    "Checking in FtpClient the path/file: {0}",
+                    path.GetPathOrFileName()
+                );
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = !string.IsNullOrWhiteSpace(uri.GetFileExtension()) ? WebRequestMethods.Ftp.GetFileSize
-                                     : WebRequestMethods.Ftp.ListDirectory;
+                request.Method = !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    ? WebRequestMethods.Ftp.GetFileSize
+                    : WebRequestMethods.Ftp.ListDirectory;
                 request.Timeout = 30000;
                 request.ReadWriteTimeout = 90000;
                 request.UsePassive = true;
@@ -147,9 +162,11 @@ namespace CrispyWaffle.Utils.Communications
                     _files.Enqueue(reader.ReadLine());
                 }
 
-                if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()) &&
-                    status == FtpStatusCode.FileStatus ||
-                    status == FtpStatusCode.OpeningData)
+                if (
+                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                        && status == FtpStatusCode.FileStatus
+                    || status == FtpStatusCode.OpeningData
+                )
                 {
                     result = true;
                 }
@@ -181,7 +198,10 @@ namespace CrispyWaffle.Utils.Communications
                 attempts++;
                 try
                 {
-                    LogConsumer.Info("Uploading to FtpClient the file: {0}", path.GetPathOrFileName());
+                    LogConsumer.Info(
+                        "Uploading to FtpClient the file: {0}",
+                        path.GetPathOrFileName()
+                    );
                     var uri = new Uri(path);
                     var request = (FtpWebRequest)WebRequest.Create(uri);
                     request.Credentials = new NetworkCredential(_userName, _password);
@@ -200,9 +220,11 @@ namespace CrispyWaffle.Utils.Communications
                     }
 
                     var response = (FtpWebResponse)request.GetResponse();
-                    if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()) &&
-                        response.StatusCode == FtpStatusCode.ClosingData ||
-                        response.StatusCode == FtpStatusCode.PathnameCreated)
+                    if (
+                        !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                            && response.StatusCode == FtpStatusCode.ClosingData
+                        || response.StatusCode == FtpStatusCode.PathnameCreated
+                    )
                     {
                         result = true;
                     }
@@ -237,12 +259,18 @@ namespace CrispyWaffle.Utils.Communications
                 var fullPath = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(fullPath);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = !string.IsNullOrWhiteSpace(fullPath.GetFileExtension()) ? WebRequestMethods.Ftp.DeleteFile : WebRequestMethods.Ftp.RemoveDirectory;
+                request.Method = !string.IsNullOrWhiteSpace(fullPath.GetFileExtension())
+                    ? WebRequestMethods.Ftp.DeleteFile
+                    : WebRequestMethods.Ftp.RemoveDirectory;
                 request.UsePassive = true;
                 var response = (FtpWebResponse)request.GetResponse();
                 if (response.StatusCode != FtpStatusCode.FileActionOK)
                 {
-                    throw new FtpClientException(path.GetPathOrFileName(), "remove", response.StatusCode);
+                    throw new FtpClientException(
+                        path.GetPathOrFileName(),
+                        "remove",
+                        response.StatusCode
+                    );
                 }
             }
             catch (WebException e)
@@ -261,7 +289,8 @@ namespace CrispyWaffle.Utils.Communications
             return str.Append(@"ftp://")
                 .Append(_host)
                 .Append(@":")
-                .Append(_port).Append(@"/")
+                .Append(_port)
+                .Append(@"/")
                 .Append(_remoteDirectory)
                 .Append(@"/");
         }

@@ -35,11 +35,56 @@ namespace CrispyWaffle.Tests.Scheduler
 
             var syncRoot = new object();
 
-            manager.AddJob("*", () => { lock (syncRoot) { sampler.Counter++; } });
-            manager.AddJob("*", () => { lock (syncRoot) { sampler.Counter++; } });
-            manager.AddJob("*", () => { lock (syncRoot) { sampler.Counter++; } });
-            manager.AddJob("*", () => { lock (syncRoot) { sampler.Counter++; } });
-            manager.AddJob("*", () => { lock (syncRoot) { sampler.Counter++; } });
+            manager.AddJob(
+                "*",
+                () =>
+                {
+                    lock (syncRoot)
+                    {
+                        sampler.Counter++;
+                    }
+                }
+            );
+            manager.AddJob(
+                "*",
+                () =>
+                {
+                    lock (syncRoot)
+                    {
+                        sampler.Counter++;
+                    }
+                }
+            );
+            manager.AddJob(
+                "*",
+                () =>
+                {
+                    lock (syncRoot)
+                    {
+                        sampler.Counter++;
+                    }
+                }
+            );
+            manager.AddJob(
+                "*",
+                () =>
+                {
+                    lock (syncRoot)
+                    {
+                        sampler.Counter++;
+                    }
+                }
+            );
+            manager.AddJob(
+                "*",
+                () =>
+                {
+                    lock (syncRoot)
+                    {
+                        sampler.Counter++;
+                    }
+                }
+            );
 
             manager.Start();
 
@@ -48,7 +93,6 @@ namespace CrispyWaffle.Tests.Scheduler
             manager.Stop();
 
             Assert.Equal(5, sampler.Counter);
-
         }
     }
 }

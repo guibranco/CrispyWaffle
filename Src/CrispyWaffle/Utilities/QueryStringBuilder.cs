@@ -19,7 +19,6 @@
     [Serializable]
     public class QueryStringBuilder : NameValueCollection
     {
-
         #region ~Ctor
 
         /// <summary>
@@ -41,8 +40,8 @@
         /// </summary>
         /// <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object that contains the information required to serialize the new <see cref="T:System.Collections.Specialized.NameValueCollection" /> instance.</param>
         /// <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> object that contains the source and destination of the serialized stream associated with the new <see cref="T:System.Collections.Specialized.NameValueCollection" /> instance.</param>
-        protected QueryStringBuilder(SerializationInfo info, StreamingContext context) : base(info, context)
-        { }
+        protected QueryStringBuilder(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
 
         #endregion
 
@@ -76,7 +75,11 @@
                 return;
             }
 
-            foreach (var split in from keyValuePair in ExtractQuerystring(s).Split('&') where !string.IsNullOrWhiteSpace(keyValuePair) select keyValuePair.Split('='))
+            foreach (
+                var split in from keyValuePair in ExtractQuerystring(s).Split('&')
+                where !string.IsNullOrWhiteSpace(keyValuePair)
+                select keyValuePair.Split('=')
+            )
             {
                 base.Add(split[0], split.Length == 2 ? split[1] : "");
             }
@@ -180,7 +183,10 @@
         /// <param name="instance">The instance.</param>
         /// <param name="convertCamelCaseToUnderscore">(Optional) the convert camel case to underscore.</param>
         /// <returns>A QueryStringBuilder.</returns>
-        public QueryStringBuilder AddFromType<T>(T instance, bool convertCamelCaseToUnderscore = true)
+        public QueryStringBuilder AddFromType<T>(
+            T instance,
+            bool convertCamelCaseToUnderscore = true
+        )
         {
             var type = typeof(T);
             var typeProperties = type.GetProperties();
@@ -194,12 +200,20 @@
                 var propertyName = property.GetQueryStringBuilderKeyName() ?? property.Name;
                 if (convertCamelCaseToUnderscore)
                 {
-                    propertyName = string.Concat(propertyName.Select((x, i) => i > 0 && char.IsUpper(x) ? @"_" + x.ToString(CultureInfo.InvariantCulture).ToLower() : x.ToString(CultureInfo.InvariantCulture)));
+                    propertyName = string.Concat(
+                        propertyName.Select(
+                            (x, i) =>
+                                i > 0 && char.IsUpper(x)
+                                    ? @"_" + x.ToString(CultureInfo.InvariantCulture).ToLower()
+                                    : x.ToString(CultureInfo.InvariantCulture)
+                        )
+                    );
                 }
 
                 if (propertyName.StartsWith(type.Name, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    propertyName = $@"{type.Name.ToLower()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
+                    propertyName =
+                        $@"{type.Name.ToLower()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
                 }
 
                 var value = property.GetValue(instance, null);
@@ -281,7 +295,11 @@
 
                 foreach (var val in base[Keys[i]].Split(','))
                 {
-                    builder.Append(builder.Length == 0 ? @"?" : @"&").Append(HttpUtility.UrlEncode(Keys[i])).Append(@"=").Append(val);
+                    builder
+                        .Append(builder.Length == 0 ? @"?" : @"&")
+                        .Append(HttpUtility.UrlEncode(Keys[i]))
+                        .Append(@"=")
+                        .Append(val);
                 }
             }
             return builder.ToString();

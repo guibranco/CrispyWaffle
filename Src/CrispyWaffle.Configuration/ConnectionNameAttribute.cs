@@ -22,7 +22,6 @@ namespace CrispyWaffle.Configuration
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class ConnectionNameAttribute : Attribute
     {
-
         /// <summary>
         /// The connection name
         /// </summary>

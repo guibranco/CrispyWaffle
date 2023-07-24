@@ -58,7 +58,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="id">The identifier.</param>
         /// <returns>T.</returns>
 
-        public T GetDocument<T>(object id) where T : class, new() => _elastic.Get(DocumentPath<T>.Id((Id)id)).Source;
+        public T GetDocument<T>(object id)
+            where T : class, new() => _elastic.Get(DocumentPath<T>.Id((Id)id)).Source;
 
         /// <summary>
         /// Gets the document with resolver.
@@ -67,7 +68,9 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="id">The identifier.</param>
         /// <returns>T.</returns>
 
-        public T GetDocumentWithResolver<T>(object id) where T : class, IIndexable, new() => _elastic.Get<T>(new GetRequest(Extensions.GetIndexName<T>(), (Id)id)).Source;
+        public T GetDocumentWithResolver<T>(object id)
+            where T : class, IIndexable, new() =>
+            _elastic.Get<T>(new GetRequest(Extensions.GetIndexName<T>(), (Id)id)).Source;
 
         /// <summary>
         /// Gets the document from.
@@ -77,7 +80,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="indexName">Name of the index.</param>
         /// <returns>T.</returns>
 
-        public T GetDocumentFrom<T>(object id, string indexName) where T : class, new() => _elastic.Get<T>(new GetRequest(indexName, (Id)id)).Source;
+        public T GetDocumentFrom<T>(object id, string indexName)
+            where T : class, new() => _elastic.Get<T>(new GetRequest(indexName, (Id)id)).Source;
 
         /// <summary>
         /// Sets the document.
@@ -85,14 +89,17 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <typeparam name="T"></typeparam>
         /// <param name="document">The document.</param>
 
-        public void SetDocument<T>(T document) where T : class, new() => _elastic.IndexDocument(document);
+        public void SetDocument<T>(T document)
+            where T : class, new() => _elastic.IndexDocument(document);
 
         /// <summary>
         /// Sets the document with resolver.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="document">The document.</param>
-        public void SetDocumentWithResolver<T>(T document) where T : class, IIndexable, new() => _elastic.Index(document, i => i.Index(Extensions.GetIndexName<T>()));
+        public void SetDocumentWithResolver<T>(T document)
+            where T : class, IIndexable, new() =>
+            _elastic.Index(document, i => i.Index(Extensions.GetIndexName<T>()));
 
         /// <summary>
         /// Sets the document to.
@@ -101,7 +108,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="document">The document.</param>
         /// <param name="indexName">Name of the index.</param>
 
-        public void SetDocumentTo<T>(T document, string indexName) where T : class, new() => _elastic.Index(document, i => i.Index(indexName));
+        public void SetDocumentTo<T>(T document, string indexName)
+            where T : class, new() => _elastic.Index(document, i => i.Index(indexName));
 
         #endregion
     }

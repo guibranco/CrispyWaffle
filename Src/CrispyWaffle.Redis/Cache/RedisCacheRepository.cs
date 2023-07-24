@@ -90,7 +90,13 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="databaseNumber">The database number.</param>
         /// <param name="ttl">The TTL.</param>
         /// <param name="fireAndForget">if set to <c>true</c> [fire and forget].</param>
-        public void SetToDatabase<T>(T value, string key, int databaseNumber, TimeSpan? ttl = null, bool fireAndForget = false)
+        public void SetToDatabase<T>(
+            T value,
+            string key,
+            int databaseNumber,
+            TimeSpan? ttl = null,
+            bool fireAndForget = false
+        )
         {
             var flags = CommandFlags.None;
             if (fireAndForget)
@@ -99,7 +105,9 @@ namespace CrispyWaffle.Redis.Cache
             }
 
             var inputBytes = _connector.Serializer.Serialize(value);
-            _connector.GetDatabase(databaseNumber).StringSet(key, inputBytes, ttl, When.Always, flags);
+            _connector
+                .GetDatabase(databaseNumber)
+                .StringSet(key, inputBytes, ttl, When.Always, flags);
         }
 
         /// <summary>
@@ -113,10 +121,18 @@ namespace CrispyWaffle.Redis.Cache
         /// <exception cref="InvalidOperationException"></exception>
         public T GetFromDatabase<T>(string key, int databaseNumber)
         {
-            var valueBytes = _connector.GetDatabase(databaseNumber).StringGet(key, CommandFlags.PreferReplica);
+            var valueBytes = _connector
+                .GetDatabase(databaseNumber)
+                .StringGet(key, CommandFlags.PreferReplica);
             if (!valueBytes.HasValue)
             {
-                throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Unable to get the item with key {0}", key));
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "Unable to get the item with key {0}",
+                        key
+                    )
+                );
             }
 
             return _connector.Serializer.Deserialize<T>(valueBytes);
@@ -133,7 +149,9 @@ namespace CrispyWaffle.Redis.Cache
         public bool TryGetFromDatabase<T>(string key, int databaseNumber, out T value)
         {
             value = default;
-            var valueBytes = _connector.GetDatabase(databaseNumber).StringGet(key, CommandFlags.PreferReplica);
+            var valueBytes = _connector
+                .GetDatabase(databaseNumber)
+                .StringGet(key, CommandFlags.PreferReplica);
             if (!valueBytes.HasValue)
             {
                 return false;
@@ -248,7 +266,13 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
-            throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Unable to get the item with key {0}", key));
+            throw new InvalidOperationException(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    "Unable to get the item with key {0}",
+                    key
+                )
+            );
         }
 
         /// <summary>
@@ -264,9 +288,13 @@ namespace CrispyWaffle.Redis.Cache
         {
             try
             {
-                if (_cacheClient.Db0.HashExistsAsync(key, subKey, CommandFlags.PreferReplica).Result)
+                if (
+                    _cacheClient.Db0.HashExistsAsync(key, subKey, CommandFlags.PreferReplica).Result
+                )
                 {
-                    return _cacheClient.Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica).Result;
+                    return _cacheClient.Db0
+                        .HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
+                        .Result;
                 }
             }
             catch (Exception e)
@@ -278,7 +306,14 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
-            throw new InvalidOperationException(string.Format(CultureInfo.CurrentCulture, "Unable to get the item with key {0} and sub key {1}", key, subKey));
+            throw new InvalidOperationException(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    "Unable to get the item with key {0} and sub key {1}",
+                    key,
+                    subKey
+                )
+            );
         }
 
         /// <summary>
@@ -322,7 +357,9 @@ namespace CrispyWaffle.Redis.Cache
             value = default;
             try
             {
-                value = _cacheClient.Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica).Result;
+                value = _cacheClient.Db0
+                    .HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
+                    .Result;
                 return _cacheClient.Db0.HashExistsAsync(key, subKey).Result;
             }
             catch (Exception e)
@@ -390,7 +427,8 @@ namespace CrispyWaffle.Redis.Cache
         {
             try
             {
-                return _cacheClient.Db0.Database.KeyTimeToLive(key, CommandFlags.PreferReplica) ?? TimeSpan.Zero;
+                return _cacheClient.Db0.Database.KeyTimeToLive(key, CommandFlags.PreferReplica)
+                    ?? TimeSpan.Zero;
             }
             catch (Exception e)
             {

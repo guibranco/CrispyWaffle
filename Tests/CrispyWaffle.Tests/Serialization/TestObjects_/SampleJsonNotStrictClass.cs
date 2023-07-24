@@ -47,7 +47,8 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            return string.Equals(Text, other.Text, StringComparison.InvariantCultureIgnoreCase) && Equals(StrongTyping, other.StrongTyping);
+            return string.Equals(Text, other.Text, StringComparison.InvariantCultureIgnoreCase)
+                && Equals(StrongTyping, other.StrongTyping);
         }
 
         /// <summary>
@@ -93,7 +94,10 @@ namespace CrispyWaffle.Tests.Serialization
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-        public static bool operator ==(SampleJsonNotStrictClass left, SampleJsonNotStrictClass right)
+        public static bool operator ==(
+            SampleJsonNotStrictClass left,
+            SampleJsonNotStrictClass right
+        )
         {
             return Equals(left, right);
         }
@@ -104,7 +108,10 @@ namespace CrispyWaffle.Tests.Serialization
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-        public static bool operator !=(SampleJsonNotStrictClass left, SampleJsonNotStrictClass right)
+        public static bool operator !=(
+            SampleJsonNotStrictClass left,
+            SampleJsonNotStrictClass right
+        )
         {
             return !Equals(left, right);
         }

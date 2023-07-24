@@ -16,7 +16,7 @@
         ///     Generic type parameter
         /// </typeparam>
         /// <param name="stream">
-        ///     The serialized object as stream. 
+        ///     The serialized object as stream.
         /// </param>
         /// <param name="encoding">
         ///     (Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.
@@ -25,7 +25,8 @@
         ///     A T.
         /// </returns>
         [Pure]
-        T DeserializeFromStream<T>(Stream stream, Encoding encoding = null) where T : class;
+        T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+            where T : class;
 
         /// <summary>
         ///     Deserializes the serialized object to a generic type
@@ -42,7 +43,8 @@
         ///     A T.
         /// </returns>
         [Pure]
-        T Deserialize<T>(object serialized) where T : class;
+        T Deserialize<T>(object serialized)
+            where T : class;
 
         /// <summary>
         ///    Loads the given file and Deserialize its.
@@ -59,7 +61,8 @@
         ///     A T.
         /// </returns>
         [Pure]
-        T Load<T>(string file) where T : class;
+        T Load<T>(string file)
+            where T : class;
 
         /// <summary>
         /// 	Serializes.
@@ -74,7 +77,8 @@
         /// <param name="stream">
         /// 	[out] The stream.
         /// </param>
-        void Serialize<T>(T deserialized, out Stream stream) where T : class;
+        void Serialize<T>(T deserialized, out Stream stream)
+            where T : class;
 
         /// <summary>
         ///     Serialize the deserialized Object and Saves the given file.
@@ -89,6 +93,7 @@
         /// <param name="deserialized">
         ///     The deserialized.
         /// </param>
-        void Save<T>(string file, T deserialized) where T : class;
+        void Save<T>(string file, T deserialized)
+            where T : class;
     }
 }

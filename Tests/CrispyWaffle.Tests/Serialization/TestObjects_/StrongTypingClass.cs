@@ -43,7 +43,13 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            return CorrelationId.Equals(other.CorrelationId) && string.Equals(SomeText, other.SomeText, StringComparison.InvariantCultureIgnoreCase) && Date.Equals(other.Date);
+            return CorrelationId.Equals(other.CorrelationId)
+                && string.Equals(
+                    SomeText,
+                    other.SomeText,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+                && Date.Equals(other.Date);
         }
 
         /// <summary>

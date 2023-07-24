@@ -58,14 +58,17 @@
         /// <summary>
         /// The colors by level
         /// </summary>
-        private static readonly Dictionary<LogLevel, ConsoleColor> _colorsByLevel = new Dictionary<LogLevel, ConsoleColor>
+        private static readonly Dictionary<LogLevel, ConsoleColor> _colorsByLevel = new Dictionary<
+            LogLevel,
+            ConsoleColor
+        >
         {
-            {LogLevel.Fatal, _errorColor},
-            {LogLevel.Error, _errorColor},
-            {LogLevel.Warning, _warningColor},
-            {LogLevel.Info, _infoColor},
-            {LogLevel.Trace, _traceColor},
-            {LogLevel.Debug, _debugColor}
+            { LogLevel.Fatal, _errorColor },
+            { LogLevel.Error, _errorColor },
+            { LogLevel.Warning, _warningColor },
+            { LogLevel.Info, _infoColor },
+            { LogLevel.Trace, _traceColor },
+            { LogLevel.Debug, _debugColor }
         };
 
         /// <summary>
@@ -115,8 +118,7 @@
         /// <exception cref="ArgumentOutOfRangeException">level - null</exception>
         private void WriteInternal(LogLevel level, string message)
         {
-            if (!_level.HasFlag(level) ||
-                !_isConsoleEnabled)
+            if (!_level.HasFlag(level) || !_isConsoleEnabled)
             {
                 return;
             }
@@ -137,8 +139,7 @@
         /// <param name="exception">The exception.</param>
         private void WriteInternal(LogLevel level, Exception exception)
         {
-            if (!_level.HasFlag(level) ||
-                !_isConsoleEnabled)
+            if (!_level.HasFlag(level) || !_isConsoleEnabled)
             {
                 return;
             }
@@ -153,7 +154,6 @@
                     Console.WriteLine(exception.Message);
 
                     exception = exception.InnerException;
-
                 } while (exception != null);
 
                 Console.ForegroundColor = _defaultColor;
@@ -184,7 +184,9 @@
 
         public void SetLevel(LogLevel level)
         {
-            Warning($"Switching log level from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}");
+            Warning(
+                $"Switching log level from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}"
+            );
             _level = level;
         }
 
@@ -198,7 +200,12 @@
         /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
         /// <remarks>Requires LogLevel.DEBUG flag</remarks>
 
-        public void Debug<T>(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class
+        public void Debug<T>(
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class
         {
             if (customFormat == SerializerFormat.None)
             {

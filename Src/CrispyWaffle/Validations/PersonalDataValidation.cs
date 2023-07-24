@@ -13,7 +13,11 @@
         /// <summary>
         /// The same number document pattern
         /// </summary>
-        public static readonly Regex SameNumberDocumentPattern = new Regex(@"(\d)\1{10}", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, TimeSpan.FromSeconds(10));
+        public static readonly Regex SameNumberDocumentPattern = new Regex(
+            @"(\d)\1{10}",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+            TimeSpan.FromSeconds(10)
+        );
 
         /// <summary>
         /// Validates the email address.
@@ -43,7 +47,6 @@
             throw new InvalidEmailAddressException(emailAddress);
         }
 
-
         /// <summary>
         /// Determines whether [is valid brazilian person document].
         /// </summary>
@@ -57,7 +60,6 @@
             return document.EndsWith(digits);
         }
 
-
         /// <summary>
         /// Determines whether [is valid brazilian corporate document].
         /// </summary>
@@ -70,7 +72,7 @@
             var digits = document.CalculateBrazilianCorporateDocument();
             return document.EndsWith(digits);
         }
-        
+
         /// <summary>
         /// Calculates the brazilian person document digits.
         /// </summary>
@@ -83,8 +85,13 @@
             int[] multiplierFirstDigit = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplierSecondDigit = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-            return CalculateDocumentDigits(document, Constants.BrazilianPersonDocumentName,
-                Constants.BrazilianPersonDocumentFullLength, multiplierFirstDigit, multiplierSecondDigit);
+            return CalculateDocumentDigits(
+                document,
+                Constants.BrazilianPersonDocumentName,
+                Constants.BrazilianPersonDocumentFullLength,
+                multiplierFirstDigit,
+                multiplierSecondDigit
+            );
         }
 
         /// <summary>
@@ -98,8 +105,13 @@
             int[] multiplierFirstDigit = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplierSecondDigit = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-            return CalculateDocumentDigits(document, Constants.BrazilianCorporateDocumentName,
-                Constants.BrazilianCorporateDocumentFullLength, multiplierFirstDigit, multiplierSecondDigit);
+            return CalculateDocumentDigits(
+                document,
+                Constants.BrazilianCorporateDocumentName,
+                Constants.BrazilianCorporateDocumentFullLength,
+                multiplierFirstDigit,
+                multiplierSecondDigit
+            );
         }
 
         /// <summary>
@@ -112,7 +124,13 @@
         /// <param name="multiplierSecondDigit">The multiplier b.</param>
         /// <returns>System.String.</returns>
         /// <exception cref="CrispyWaffle.Validations.InvalidDocumentException"></exception>
-        private static string CalculateDocumentDigits(string document, string documentType, int fullLength, int[] multiplierFirstDigit, int[] multiplierSecondDigit)
+        private static string CalculateDocumentDigits(
+            string document,
+            string documentType,
+            int fullLength,
+            int[] multiplierFirstDigit,
+            int[] multiplierSecondDigit
+        )
         {
             document = document.RemoveNonNumeric();
 

@@ -40,7 +40,15 @@
                 throw new ArgumentNullException(nameof(slave));
             }
 
-            HostsList = string.Concat(master.Host, @":", master.Port, @",", slave.Host, @":", slave.Port);
+            HostsList = string.Concat(
+                master.Host,
+                @":",
+                master.Port,
+                @",",
+                slave.Host,
+                @":",
+                slave.Port
+            );
 
             if (master.Credentials != null || slave.Credentials != null)
             {

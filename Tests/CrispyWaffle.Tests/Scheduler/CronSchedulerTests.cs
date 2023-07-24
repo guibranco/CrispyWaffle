@@ -47,7 +47,9 @@ namespace CrispyWaffle.Tests.Scheduler
         [Fact]
         public void ValidateInvalidExpression()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => new CronScheduler("invalid expression"));
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => new CronScheduler("invalid expression")
+            );
         }
 
         /// <summary>
@@ -234,7 +236,6 @@ namespace CrispyWaffle.Tests.Scheduler
             Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:45")));
             Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:59")));
             Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:31:50")));
-
         }
 
         /// <summary>
@@ -256,7 +257,5 @@ namespace CrispyWaffle.Tests.Scheduler
             Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 15:00:00")));
             Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 23:59:59")));
         }
-
-
     }
 }

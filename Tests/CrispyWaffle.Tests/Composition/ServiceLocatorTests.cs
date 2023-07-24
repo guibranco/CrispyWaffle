@@ -77,7 +77,6 @@ namespace CrispyWaffle.Tests.Composition
             Assert.True(instance.CancellationToken.CanBeCanceled);
         }
 
-
         /// <summary>
         /// Defines the test method ValidateCancellationTokenCall.
         /// </summary>

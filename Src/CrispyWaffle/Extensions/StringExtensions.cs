@@ -25,8 +25,8 @@
         public static string ReplaceNonAlphanumeric(this string input, string replaceWith)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : StringValidations.NonAlphanumericPattern.Replace(input, replaceWith);
+                ? input
+                : StringValidations.NonAlphanumericPattern.Replace(input, replaceWith);
         }
 
         /// <summary>
@@ -45,7 +45,9 @@
             }
 
             var pos = input.IndexOf(search, StringComparison.Ordinal);
-            return pos < 0 ? input : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
+            return pos < 0
+                ? input
+                : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
         }
 
         /// <summary>
@@ -57,8 +59,8 @@
         public static string RemoveNonNumeric(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : StringValidations.NonNumericPattern.Replace(input, string.Empty);
+                ? input
+                : StringValidations.NonNumericPattern.Replace(input, string.Empty);
         }
 
         /// <summary>
@@ -70,8 +72,8 @@
         public static string RemoveDiacritics(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : Encoding.ASCII.GetString(Encoding.GetEncoding(1251).GetBytes(input));
+                ? input
+                : Encoding.ASCII.GetString(Encoding.GetEncoding(1251).GetBytes(input));
         }
 
         /// <summary>
@@ -83,8 +85,8 @@
         public static string RemoveSpaces(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : StringValidations.SpacesPattern.Replace(input, string.Empty);
+                ? input
+                : StringValidations.SpacesPattern.Replace(input, string.Empty);
         }
 
         /// <summary>
@@ -96,8 +98,8 @@
         public static string RemoveExcessSpaces(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : StringValidations.MultipleSpacesPattern.Replace(input, " ");
+                ? input
+                : StringValidations.MultipleSpacesPattern.Replace(input, " ");
         }
 
         /// <summary>
@@ -110,8 +112,8 @@
         public static string RemoveNonAlphanumeric(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? input
-                       : StringValidations.NonAlphanumericPattern.Replace(input, string.Empty);
+                ? input
+                : StringValidations.NonAlphanumericPattern.Replace(input, string.Empty);
         }
 
         /// <summary>
@@ -122,7 +124,11 @@
         /// <param name="addEllipsis">if set to <c>true</c> [add ellipsis].</param>
         /// <returns></returns>
         [Pure]
-        public static string Abbreviate(this string input, int maxCharacters, bool addEllipsis = true)
+        public static string Abbreviate(
+            this string input,
+            int maxCharacters,
+            bool addEllipsis = true
+        )
         {
             if (string.IsNullOrWhiteSpace(input))
             {
@@ -134,7 +140,10 @@
                 return input;
             }
 
-            return string.Concat(input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters), addEllipsis ? @"..." : string.Empty);
+            return string.Concat(
+                input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters),
+                addEllipsis ? @"..." : string.Empty
+            );
         }
 
         /// <summary>
@@ -171,8 +180,8 @@
         public static string ToUcWords(this string input)
         {
             return string.IsNullOrWhiteSpace(input)
-                       ? string.Empty
-                       : Regex.Replace(input.ToLower(), @"(?:^|\s|/|[0-9])[a-z]", m => m.Value.ToUpper());
+                ? string.Empty
+                : Regex.Replace(input.ToLower(), @"(?:^|\s|/|[0-9])[a-z]", m => m.Value.ToUpper());
         }
 
         /// <summary>
@@ -227,10 +236,15 @@
             }
 
             var bytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(input);
-            return Encoding.UTF8.GetString(bytes).Replace(@"-", string.Empty).Replace(@".", string.Empty).RemoveExcessSpaces().Trim().ReplaceNonAlphanumeric(@"-").Trim('-');
-
+            return Encoding.UTF8
+                .GetString(bytes)
+                .Replace(@"-", string.Empty)
+                .Replace(@".", string.Empty)
+                .RemoveExcessSpaces()
+                .Trim()
+                .ReplaceNonAlphanumeric(@"-")
+                .Trim('-');
         }
-
 
         /// <summary>
         /// Encodes a string to base64 using UTF-8
@@ -339,7 +353,8 @@
             {
                 for (var j = 1; j <= m; j++)
                 {
-                    var cost = inputToCompare.Substring(j - 1, 1) == input.Substring(i - 1, 1) ? 0 : 1;
+                    var cost =
+                        inputToCompare.Substring(j - 1, 1) == input.Substring(i - 1, 1) ? 0 : 1;
                     var min = Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1);
                     d[i, j] = Math.Min(min, d[i - 1, j - 1] + cost);
                 }
@@ -370,7 +385,9 @@
         public static string GetPathOrFileName(this string url)
         {
             var uri = new Uri(url);
-            return string.IsNullOrWhiteSpace(uri.GetFileExtension()) ? uri.AbsolutePath : uri.GetFileName();
+            return string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                ? uri.AbsolutePath
+                : uri.GetFileName();
         }
 
         /// <summary>
@@ -381,7 +398,9 @@
         [Pure]
         public static string GetFileName(this Uri uri)
         {
-            return string.IsNullOrWhiteSpace(uri.LocalPath) ? string.Empty : Path.GetFileName(uri.LocalPath);
+            return string.IsNullOrWhiteSpace(uri.LocalPath)
+                ? string.Empty
+                : Path.GetFileName(uri.LocalPath);
         }
 
         /// <summary>
@@ -404,9 +423,7 @@
         [Pure]
         public static string GetFileExtension(this string fileName)
         {
-            return string.IsNullOrWhiteSpace(fileName)
-                       ? string.Empty
-                       : Path.GetExtension(fileName);
+            return string.IsNullOrWhiteSpace(fileName) ? string.Empty : Path.GetExtension(fileName);
         }
 
         /// <summary>
@@ -475,7 +492,10 @@
 
             for (var i = 0; i < str.Length; i += chunkLength)
             {
-                yield return str.Substring(i, chunkLength + i > str.Length ? str.Length - i : chunkLength);
+                yield return str.Substring(
+                    i,
+                    chunkLength + i > str.Length ? str.Length - i : chunkLength
+                );
             }
         }
 
@@ -512,7 +532,12 @@
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        private static bool StripTagInternal(char @let, bool inside, char[] array, ref int arrayIndex)
+        private static bool StripTagInternal(
+            char @let,
+            bool inside,
+            char[] array,
+            ref int arrayIndex
+        )
         {
             switch (@let)
             {

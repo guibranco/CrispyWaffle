@@ -59,11 +59,16 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
         /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public void ReceiveFromQueue<T>(bool autoAck, CancellationToken cancellationToken) where T : class, IQueuing, new()
+        public void ReceiveFromQueue<T>(bool autoAck, CancellationToken cancellationToken)
+            where T : class, IQueuing, new()
         {
             var queueName = Extensions.GetQueueName<T>();
 
-            Task.Run(() => DoWork(string.Empty, queueName, autoAck, cancellationToken), cancellationToken).ConfigureAwait(false);
+            Task.Run(
+                    () => DoWork(string.Empty, queueName, autoAck, cancellationToken),
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -72,11 +77,16 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
         /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public void ReceiveFromExchange<T>(bool autoAck, CancellationToken cancellationToken) where T : class, IQueuing, new()
+        public void ReceiveFromExchange<T>(bool autoAck, CancellationToken cancellationToken)
+            where T : class, IQueuing, new()
         {
             var exchangeName = Extensions.GetExchangeName<T>();
 
-            Task.Run(() => DoWork(exchangeName, string.Empty, autoAck, cancellationToken), cancellationToken).ConfigureAwait(false);
+            Task.Run(
+                    () => DoWork(exchangeName, string.Empty, autoAck, cancellationToken),
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -86,14 +96,21 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// <param name="queue">The queue.</param>
         /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
         /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        private void DoWork(string exchange, string queue, bool autoAck, CancellationToken cancellationToken)
+        private void DoWork(
+            string exchange,
+            string queue,
+            bool autoAck,
+            CancellationToken cancellationToken
+        )
         {
             using (var connection = _connector.ConnectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 var consumer = new EventingBasicConsumer(channel);
 
-                var queueName = string.IsNullOrWhiteSpace(queue) ? channel.QueueDeclare().QueueName : queue;
+                var queueName = string.IsNullOrWhiteSpace(queue)
+                    ? channel.QueueDeclare().QueueName
+                    : queue;
 
                 if (!string.IsNullOrWhiteSpace(exchange))
                 {
@@ -107,12 +124,13 @@ namespace CrispyWaffle.RabbitMQ.Helpers
                         return;
                     }
 
-                    LogConsumer.Trace($"Message received from exchange: {exchange} | queue: {queue} | queue name: {queueName}");
+                    LogConsumer.Trace(
+                        $"Message received from exchange: {exchange} | queue: {queue} | queue name: {queueName}"
+                    );
 
                     var body = Encoding.UTF8.GetString(args.Body.ToArray());
 
                     var eventArgs = new MessageReceivedArgs { QueueName = queueName, Body = body };
-
 
                     MessageReceived.Invoke(this, eventArgs);
                 };

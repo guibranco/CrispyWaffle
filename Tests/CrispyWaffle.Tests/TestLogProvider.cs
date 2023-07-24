@@ -29,7 +29,6 @@ namespace CrispyWaffle.Tests
     [ExcludeFromCodeCoverage]
     internal class TestLogProvider : ILogProvider
     {
-
         /// <summary>
         /// The test output helper
         /// </summary>
@@ -40,9 +39,9 @@ namespace CrispyWaffle.Tests
         /// </summary>
         /// <param name="testOutputHelper">The test output helper.</param>
         /// <exception cref="ArgumentNullException">_testOutputHelper</exception>
-        public TestLogProvider(ITestOutputHelper testOutputHelper) => _testOutputHelper =
-            testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
-
+        public TestLogProvider(ITestOutputHelper testOutputHelper) =>
+            _testOutputHelper =
+                testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
         #region Implementation of ILogProvider
 
@@ -159,7 +158,13 @@ namespace CrispyWaffle.Tests
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat) where T : class, new()
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat
+        )
+            where T : class, new()
         {
             _testOutputHelper.WriteLine("Error: {0} - {1}", category, identifier);
             _testOutputHelper.WriteLine((string)content.GetCustomSerializer(customFormat));
@@ -178,8 +183,18 @@ namespace CrispyWaffle.Tests
             do
             {
                 _testOutputHelper.WriteLine("{0}: {1} - {2}", level, category, exception.Message);
-                _testOutputHelper.WriteLine("{0}: {1} - {2}", level, category, exception.GetType().FullName);
-                _testOutputHelper.WriteLine("{0}: {1} - {2}", level, category, exception.StackTrace);
+                _testOutputHelper.WriteLine(
+                    "{0}: {1} - {2}",
+                    level,
+                    category,
+                    exception.GetType().FullName
+                );
+                _testOutputHelper.WriteLine(
+                    "{0}: {1} - {2}",
+                    level,
+                    category,
+                    exception.StackTrace
+                );
 
                 exception = exception.InnerException;
             } while (exception != null);

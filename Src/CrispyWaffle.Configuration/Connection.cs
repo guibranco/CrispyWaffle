@@ -83,6 +83,5 @@ namespace CrispyWaffle.Configuration
         public int Port { get; set; }
 
         #endregion
-
     }
 }

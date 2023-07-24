@@ -33,6 +33,7 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <value>The code.</value>
         public int Code { get; set; }
+
         /// <summary>
         /// Gets the error message.
         /// </summary>

@@ -85,6 +85,8 @@
             string category,
             T content,
             string identifier,
-            SerializerFormat customFormat = SerializerFormat.None) where T : class;
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class;
     }
 }

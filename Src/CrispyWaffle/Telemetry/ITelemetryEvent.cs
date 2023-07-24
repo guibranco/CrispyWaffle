@@ -8,7 +8,8 @@
     /// Category is the Redis database
     /// Event is the data to be stored
     /// </summary>
-    public interface ITelemetryEvent<out TEvent> where TEvent : class, new()
+    public interface ITelemetryEvent<out TEvent>
+        where TEvent : class, new()
     {
         /// <summary>
         /// Gets or sets the name.
@@ -33,6 +34,5 @@
         /// The event.
         /// </value>
         TEvent Event { get; }
-
     }
 }

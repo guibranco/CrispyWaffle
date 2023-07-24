@@ -75,6 +75,5 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="attachment">The attachment.</param>
         void AddAttachment(Attachment attachment);
-
     }
 }

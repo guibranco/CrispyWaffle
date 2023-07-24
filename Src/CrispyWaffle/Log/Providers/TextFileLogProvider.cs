@@ -150,7 +150,12 @@
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
 
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where T : class, new()
         {
             _adapter.CategorizedDebug(category, content, identifier, customFormat);

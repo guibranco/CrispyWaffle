@@ -18,7 +18,8 @@
     /// A serializer extension.
     /// </summary>
     /// <typeparam name="T">Generic type parameter.</typeparam>
-    public sealed class SerializerConverter<T> where T : class
+    public sealed class SerializerConverter<T>
+        where T : class
     {
         #region Private fields
 
@@ -90,7 +91,6 @@
 
                 using (JsonReader jsonReader = new JsonTextReader(textReader))
                 {
-
                     textReader = null;
                     var type = instance._obj.GetType();
 
@@ -137,7 +137,6 @@
                 stream.CopyTo(memoryStream);
 
                 bytes = memoryStream.ToArray();
-
             }
             catch (InvalidOperationException e)
             {
@@ -165,7 +164,12 @@
             {
                 XmlDocument xml = instance;
                 var builder = new StringBuilder();
-                var settings = new XmlWriterSettings { OmitXmlDeclaration = true, Indent = true, NewLineOnAttributes = true };
+                var settings = new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true,
+                    Indent = true,
+                    NewLineOnAttributes = true
+                };
 
                 using (var xmlWriter = XmlWriter.Create(builder, settings))
                 {
@@ -173,7 +177,6 @@
                 }
 
                 return builder.ToString();
-
             }
             if (instance._formatter is JsonSerializerAdapter)
             {
@@ -182,7 +185,9 @@
             }
             if (!(instance._formatter is BinarySerializerAdapter))
             {
-                throw new InvalidOperationException($"he type {typeof(T).FullName} doesn't allow string explicit conversion");
+                throw new InvalidOperationException(
+                    $"he type {typeof(T).FullName} doesn't allow string explicit conversion"
+                );
             }
 
             byte[] bytes = instance;
@@ -198,7 +203,10 @@
         [Pure]
         public static implicit operator SerializerConverter<T>(XmlDocument xml)
         {
-            var serializer = new SerializerConverter<T>(default, ServiceLocator.Resolve<XmlSerializerAdapter>());
+            var serializer = new SerializerConverter<T>(
+                default,
+                ServiceLocator.Resolve<XmlSerializerAdapter>()
+            );
             serializer.Deserialize(xml.InnerXml);
             return serializer;
         }
@@ -211,7 +219,10 @@
         [Pure]
         public static implicit operator SerializerConverter<T>(JObject json)
         {
-            var serializer = new SerializerConverter<T>(default, ServiceLocator.Resolve<JsonSerializerAdapter>());
+            var serializer = new SerializerConverter<T>(
+                default,
+                ServiceLocator.Resolve<JsonSerializerAdapter>()
+            );
             serializer.Deserialize(json.ToString());
             return serializer;
         }

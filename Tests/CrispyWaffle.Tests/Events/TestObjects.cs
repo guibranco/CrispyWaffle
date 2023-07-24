@@ -74,7 +74,12 @@ namespace CrispyWaffle.Tests.Events
             /// <param name="args">The arguments.</param>
             public void Handle(TestDoneEvent args)
             {
-                LogConsumer.Info(@"Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}", args.Identifier, args.Text, args.CreatedDateTIme);
+                LogConsumer.Info(
+                    @"Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}",
+                    args.Identifier,
+                    args.Text,
+                    args.CreatedDateTIme
+                );
             }
 
             #endregion

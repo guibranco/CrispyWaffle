@@ -32,7 +32,12 @@
         /// <param name="publisher">The publisher.</param>
         /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public async Task PropagateAsync(string message, string queuePrefix, ISubscriber publisher, CancellationToken cancellationToken)
+        public async Task PropagateAsync(
+            string message,
+            string queuePrefix,
+            ISubscriber publisher,
+            CancellationToken cancellationToken
+        )
         {
             if (cancellationToken.IsCancellationRequested)
             {
