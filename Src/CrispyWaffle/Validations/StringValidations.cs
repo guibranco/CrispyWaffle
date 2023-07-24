@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Validations
+﻿using System;
+
+namespace CrispyWaffle.Validations
 {
     using System.IO;
     using System.Text.RegularExpressions;
@@ -28,7 +30,8 @@
         /// </summary>
         public static readonly Regex ParenthesesPattern = new Regex(
             @"\((.+?)\)",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -36,7 +39,8 @@
         /// </summary>
         public static readonly Regex NonAlphanumericPattern = new Regex(
             @"[^\w\.@-]",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -44,7 +48,8 @@
         /// </summary>
         public static readonly Regex NonNumericPattern = new Regex(
             "[^0-9]",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -52,7 +57,8 @@
         /// </summary>
         public static readonly Regex SpacesPattern = new Regex(
             @"\s+",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -60,7 +66,8 @@
         /// </summary>
         public static readonly Regex MultipleSpacesPattern = new Regex(
             @"[\t|\s]{2,}",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -68,7 +75,8 @@
         /// </summary>
         public static readonly Regex InvalidFileName = new Regex(
             $@"([{_invalidPathChars}]*\.+$)|([{_invalidPathChars}]+)",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
     }
 }
