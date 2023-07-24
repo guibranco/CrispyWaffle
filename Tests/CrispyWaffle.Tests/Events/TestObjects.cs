@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Events
 {
     using CrispyWaffle.Events;
@@ -63,7 +64,6 @@ namespace CrispyWaffle.Tests.Events
         /// The log done event class
         /// </summary>
         /// <seealso cref="IEventHandler{TEvent}" />
-
         public sealed class LogDoneEvent : IEventHandler<TestDoneEvent>
         {
             #region Implementation of IEventHandler<SampleDoneAction>
@@ -140,7 +140,6 @@ namespace CrispyWaffle.Tests.Events
         /// The throw exception event
         /// </summary>
         /// <seealso cref="IEventHandler{ExceptionEvent}" />
-
         public sealed class ThrowExceptionEvent : IEventHandler<ExceptionEvent>
         {
             #region Implementation of IEventHandler<SampleExceptionAction>

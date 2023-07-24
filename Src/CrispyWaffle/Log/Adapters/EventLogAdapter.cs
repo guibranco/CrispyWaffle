@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Log.Adapters
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CrispyWaffle.Log.Adapters
 {
     using Providers;
     using Serialization;
@@ -63,6 +65,7 @@
         /// <param name="eventIdProvider">The event identifier provider.</param>
         /// <exception cref="ArgumentNullException">source</exception>
         /// <exception cref="ArgumentNullException">eventIdProvider</exception>
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public EventLogAdapter(
             string source,
             string logName,

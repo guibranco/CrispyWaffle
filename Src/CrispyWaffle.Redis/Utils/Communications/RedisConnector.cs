@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Redis.Utils.Communications
 {
     using Configuration;
@@ -118,6 +120,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="queuePrefix">The queue prefix.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public RedisConnector(
             string host,
             int port,

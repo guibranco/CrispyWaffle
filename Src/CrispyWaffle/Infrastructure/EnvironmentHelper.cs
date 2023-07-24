@@ -99,8 +99,10 @@ namespace CrispyWaffle.Infrastructure
         )]
         private static string GetIpAddressExternal()
         {
-            using (var wc = new WebClient { Encoding = Encoding.UTF8 })
+            // ReSharper disable once ConvertToUsingDeclaration
+            using (var wc = new WebClient())
             {
+                wc.Encoding = Encoding.UTF8;
                 try
                 {
                     var ip = wc.DownloadString("https://api.ipify.org");

@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Tests.Extensions
 {
     using CrispyWaffle.Extensions;
@@ -219,6 +221,7 @@ namespace CrispyWaffle.Tests.Extensions
         [InlineData("2020-09-07 7:50pm", 2020, 9, 7, 19, 50, 0)]
         [InlineData("01/01/2020", 2020, 1, 1, 0, 0, 0)]
         [InlineData("31/12/2020", 2020, 12, 31, 0, 0, 0)]
+        [SuppressMessage("ReSharper", "TooManyArguments")]
         public void ValidateStringDateToDateTime(
             string input,
             int year,

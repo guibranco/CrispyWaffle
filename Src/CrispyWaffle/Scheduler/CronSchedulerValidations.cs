@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CrispyWaffle.Scheduler
 {
@@ -62,6 +63,7 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The validation regex
         /// </summary>
+        [SuppressMessage("ReSharper", "ComplexConditionExpression")]
         public static readonly Regex ValidationRegex = new Regex(
             DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex,
             RegexOptions.Compiled,

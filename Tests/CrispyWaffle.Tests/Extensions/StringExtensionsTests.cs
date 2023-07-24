@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ************************************************************************
+
 namespace CrispyWaffle.Tests.Extensions
 {
     using CrispyWaffle.Extensions;

@@ -1,4 +1,6 @@
-﻿namespace CrispyWaffle.Log.Providers
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CrispyWaffle.Log.Providers
 {
     using Adapters;
     using Serialization;
@@ -63,6 +65,8 @@
         /// <param name="machineName">Name of the machine.</param>
         /// <param name="manageEventSource">if set to <c>true</c> [manage event source].</param>
         /// <param name="eventIdProvider">The event identifier provider.</param>
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public EventLogProvider(
             string source,
             string logName,

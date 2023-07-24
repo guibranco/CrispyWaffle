@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Events
 {
     using CrispyWaffle.Events;

@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Utils.Communications
 {
     using System;
@@ -94,6 +96,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="remoteDirectory">The sub directory.</param>
         /// <exception cref="System.ArgumentNullException">remoteDirectory</exception>
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public FtpClient(
             string host,
             int port,

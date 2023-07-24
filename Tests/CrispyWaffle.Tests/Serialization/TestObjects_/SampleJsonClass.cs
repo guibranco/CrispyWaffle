@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
@@ -77,6 +78,7 @@ namespace CrispyWaffle.Tests.Serialization
 
         /// <summary>Serves as the default hash function.</summary>
         /// <returns>A hash code for the current object.</returns>
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
         public override int GetHashCode()
         {
             return HashCode.Combine(Id, Date, ListStrong);

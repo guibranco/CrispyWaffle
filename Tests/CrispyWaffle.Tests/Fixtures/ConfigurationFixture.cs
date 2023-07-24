@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Fixtures
 {
     using CrispyWaffle.Composition;

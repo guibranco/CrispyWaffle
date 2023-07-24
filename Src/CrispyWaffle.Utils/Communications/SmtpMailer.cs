@@ -11,6 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Utils.Communications
 {
     using System;
@@ -83,13 +86,13 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="options"><see cref="SmtpMailerOptions" /></param>
         /// <exception cref="System.ArgumentNullException">connection</exception>
         /// <exception cref="System.ArgumentNullException">options</exception>
-
         public SmtpMailer(IConnection connection, SmtpMailerOptions options)
         {
             if (connection == null)
             {
                 throw new ArgumentNullException(nameof(connection));
             }
+
             _options = options ?? throw new ArgumentNullException(nameof(options));
 
             _client = new()
@@ -116,7 +119,7 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="password">The password of the <paramref name="userName" /> to connect on SMTP server</param>
         /// <param name="senderDisplayName">The sender's display name</param>
         /// <param name="senderEmailAddress">The sender's e-mail address</param>
-
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public SmtpMailer(
             string host,
             int port,
@@ -170,7 +173,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
         /// unmanaged resources.
         /// </summary>
-
         public void Dispose()
         {
             Dispose(true);
@@ -210,7 +212,6 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="plainTextMessage">The plain text message.</param>
         /// <param name="htmlMessage">The HTML message.</param>
         /// <exception cref="CrispyWaffle.Utils.GoodPractices.MessageException"></exception>
-
         public void SetMessageBody(string plainTextMessage, string htmlMessage)
         {
             if (_messageSet)
@@ -268,7 +269,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Sets the subject.
         /// </summary>
         /// <param name="subject">The subject.</param>
-
         public void SetSubject(string subject)
         {
             _message.Subject = subject;
@@ -280,7 +280,6 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="name">Name of the reply.</param>
         /// <param name="emailAddress">The reply email address.</param>
-
         public void SetReplyTo(string name, string emailAddress)
         {
             _message.ReplyToList.Add(new MailAddress(emailAddress, name));
@@ -292,7 +291,6 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="name">To name.</param>
         /// <param name="emailAddress">To email address.</param>
-
         public void SetReadNotificationTo(string name, string emailAddress) =>
             _message.Headers.Add(@"Disposition-Notification-To", $@"{name} <{emailAddress}>");
 
@@ -300,7 +298,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Sets the recipients.
         /// </summary>
         /// <param name="recipients">To list.</param>
-
         public void SetRecipients(Dictionary<string, string> recipients)
         {
             if (recipients == null)
@@ -318,14 +315,12 @@ namespace CrispyWaffle.Utils.Communications
         /// Sets the priority.
         /// </summary>
         /// <param name="priority">The priority.</param>
-
         public void SetPriority(MailPriority priority) => _message.Priority = priority;
 
         /// <summary>
         /// Sends the asynchronous.
         /// </summary>
         /// <returns>Task.</returns>
-
         public async Task SendAsync()
         {
             var cacheKey = TypeExtensions.GetCallingMethod();
