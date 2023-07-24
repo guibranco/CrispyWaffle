@@ -41,6 +41,7 @@
         /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider;
+        ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
+            where TLogProvider : ILogProvider;
     }
 }

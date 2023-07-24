@@ -41,7 +41,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="ElmahCore" Version="2.1.2" />
+	  <!-- ReSharper disable once VulnerablePackage -->
+	  <PackageReference Include="ElmahCore" Version="2.1.2" />
   </ItemGroup>
 
 </Project>

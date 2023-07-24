@@ -10,7 +10,6 @@
     /// </summary>
     public static class EnumExtensions
     {
-
         /// <summary>
         /// Gets the enum by human readable attribute.
         /// </summary>
@@ -24,23 +23,33 @@
             var type = typeof(T);
             if (!type.IsEnum)
             {
-                throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
+                throw new InvalidOperationException(
+                    $"The type {type.FullName} must be a enum type"
+                );
             }
 
-            var field = type
-                .GetFields()
-                .Select(f =>
-                    new
-                    {
-                        Field = f,
-                        Attr =
-                            Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute)) as
-                                HumanReadableAttribute
-                    })
-                .Where(item =>
-                    item.Attr != null &&
-                    item.Attr.StringValue.Equals(humanReadableValue, StringComparison.InvariantCultureIgnoreCase) ||
-                    item.Field.Name.Equals(humanReadableValue, StringComparison.InvariantCultureIgnoreCase))
+            var field = type.GetFields()
+                .Select(
+                    f =>
+                        new
+                        {
+                            Field = f,
+                            Attr = Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute))
+                                as HumanReadableAttribute
+                        }
+                )
+                .Where(
+                    item =>
+                        item.Attr != null
+                            && item.Attr.StringValue.Equals(
+                                humanReadableValue,
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        || item.Field.Name.Equals(
+                            humanReadableValue,
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                )
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)
@@ -48,11 +57,11 @@
                 throw new ArgumentOutOfRangeException(
                     nameof(humanReadableValue),
                     humanReadableValue,
-                    $"Unable to find the field for {type.FullName} with value {humanReadableValue} in the attribute of type {typeof(HumanReadableAttribute).FullName}");
+                    $"Unable to find the field for {type.FullName} with value {humanReadableValue} in the attribute of type {typeof(HumanReadableAttribute).FullName}"
+                );
             }
 
             return (T)field.GetValue(null);
-
         }
 
         /// <summary>
@@ -66,7 +75,9 @@
             var type = typeof(T);
             if (!type.IsEnum)
             {
-                throw new InvalidOperationException($"The type {type.FullName} must be a enum type");
+                throw new InvalidOperationException(
+                    $"The type {type.FullName} must be a enum type"
+                );
             }
 
             if (internalValue == null)
@@ -74,18 +85,28 @@
                 return default;
             }
 
-            var field = type.GetFields().Select(f =>
-                    new
-                    {
-                        Field = f,
-                        Attr =
-                            Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute)) as
-                                InternalValueAttribute
-                    })
-                .Where(item =>
-                    item.Attr != null &&
-                    item.Attr.InternalValue.Equals(internalValue, StringComparison.InvariantCultureIgnoreCase) ||
-                    item.Field.Name.Equals(internalValue, StringComparison.InvariantCultureIgnoreCase))
+            var field = type.GetFields()
+                .Select(
+                    f =>
+                        new
+                        {
+                            Field = f,
+                            Attr = Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute))
+                                as InternalValueAttribute
+                        }
+                )
+                .Where(
+                    item =>
+                        item.Attr != null
+                            && item.Attr.InternalValue.Equals(
+                                internalValue,
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                        || item.Field.Name.Equals(
+                            internalValue,
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                )
                 .Select(item => item.Field)
                 .SingleOrDefault();
             if (field == null)
@@ -93,7 +114,8 @@
                 throw new ArgumentOutOfRangeException(
                     nameof(internalValue),
                     internalValue,
-                    $"Unable to find the field for {type.FullName} with value {internalValue} in the attribute of type {typeof(InternalValueAttribute).FullName}");
+                    $"Unable to find the field for {type.FullName} with value {internalValue} in the attribute of type {typeof(InternalValueAttribute).FullName}"
+                );
             }
 
             return (T)field.GetValue(null);
@@ -108,8 +130,10 @@
         public static string GetHumanReadableValue(this Enum value, string flagsSeparator = " | ")
         {
             var type = value.GetType();
-            if (type.GetCustomAttributes(typeof(FlagsAttribute), false).Any() &&
-                value.GetFlagsCount() > 1)
+            if (
+                type.GetCustomAttributes(typeof(FlagsAttribute), false).Any()
+                && value.GetFlagsCount() > 1
+            )
             {
                 var values = value.GetUniqueFlags<Enum>().ToList();
                 var displayNames = values
@@ -119,21 +143,23 @@
                     .Cast<HumanReadableAttribute>()
                     .Select(attribute => attribute.StringValue)
                     .ToList();
-                return displayNames.Any()
-                           ? string.Join(flagsSeparator, displayNames)
-                           : "None";
+                return displayNames.Any() ? string.Join(flagsSeparator, displayNames) : "None";
             }
+
             var fieldInfo = type.GetField(value.ToString());
             if (fieldInfo == null)
             {
                 throw new ArgumentNullException(nameof(value), "Input value cannot be null");
             }
 
-            return fieldInfo.GetCustomAttributes(typeof(HumanReadableAttribute), false) is HumanReadableAttribute[]
-                       attributes && attributes.Length > 0
-                       ? attributes[0].StringValue
-                       : null;
+            return
+                fieldInfo.GetCustomAttributes(typeof(HumanReadableAttribute), false)
+                    is HumanReadableAttribute[] attributes
+                && attributes.Length > 0
+                ? attributes[0].StringValue
+                : null;
         }
+
         /// <summary>
         /// Gets the internal value.
         /// </summary>
@@ -143,10 +169,12 @@
         {
             var type = value.GetType();
             var fieldInfo = type.GetField(value.ToString());
-            return fieldInfo.GetCustomAttributes(typeof(InternalValueAttribute), false) is InternalValueAttribute[]
-                       attributes && attributes.Length > 0
-                       ? attributes[0].InternalValue
-                       : null;
+            return
+                fieldInfo.GetCustomAttributes(typeof(InternalValueAttribute), false)
+                    is InternalValueAttribute[] attributes
+                && attributes.Length > 0
+                ? attributes[0].InternalValue
+                : null;
         }
 
         /// <summary>
@@ -184,7 +212,15 @@
                     flag <<= 1;
                 }
 
-                if (flag == bits && flags.HasFlag(value as Enum ?? throw new InvalidOperationException($"{nameof(value)} isn't a valid enum value")))
+                if (
+                    flag == bits
+                    && flags.HasFlag(
+                        value as Enum
+                            ?? throw new InvalidOperationException(
+                                $"{nameof(value)} isn't a valid enum value"
+                            )
+                    )
+                )
                 {
                     yield return value;
                 }

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Configuration
 {
     using Serialization;
@@ -83,6 +84,5 @@ namespace CrispyWaffle.Configuration
         public int Port { get; set; }
 
         #endregion
-
     }
 }

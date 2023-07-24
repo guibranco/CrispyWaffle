@@ -12,6 +12,7 @@
         /// </summary>
         /// <value>The request.</value>
         XmlDocument Request { get; }
+
         /// <summary>
         /// Gets the response.
         /// </summary>

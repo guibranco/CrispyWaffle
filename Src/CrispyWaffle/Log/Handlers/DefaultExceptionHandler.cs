@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Log.Handlers
 {
     using System.Reflection;
@@ -31,12 +32,15 @@ namespace CrispyWaffle.Log.Handlers
     /// <seealso cref="IExceptionHandler" />
     public class DefaultExceptionHandler : IExceptionHandler
     {
-        #region Private fields 
+        #region Private fields
 
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> _additionalProviders = _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+        private static readonly ICollection<
+            Tuple<ILogProvider, ExceptionLogType>
+        > _additionalProviders = _additionalProviders =
+            new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 
@@ -114,9 +118,19 @@ namespace CrispyWaffle.Log.Handlers
                 TelemetryAnalytics.TrackException(type);
             }
 
-            var messages = exceptions.GetMessages(category, _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Message).Select(p => p.Item1).ToList());
+            var messages = exceptions.GetMessages(
+                category,
+                _additionalProviders
+                    .Where(p => p.Item2 == ExceptionLogType.Message)
+                    .Select(p => p.Item1)
+                    .ToList()
+            );
 
-            foreach (var additionalProvider in _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Full))
+            foreach (
+                var additionalProvider in _additionalProviders.Where(
+                    p => p.Item2 == ExceptionLogType.Full
+                )
+            )
             {
                 additionalProvider.Item1.Error(category, messages);
             }
@@ -137,7 +151,6 @@ namespace CrispyWaffle.Log.Handlers
         {
             HandleInternal(exception);
         }
-
 
         /// <summary>
         /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
@@ -168,7 +181,8 @@ namespace CrispyWaffle.Log.Handlers
         /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
-        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
+            where TLogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
 
@@ -204,7 +218,12 @@ namespace CrispyWaffle.Log.Handlers
 
                 if (instance != null)
                 {
-                    _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Message));
+                    _additionalProviders.Add(
+                        new Tuple<ILogProvider, ExceptionLogType>(
+                            instance,
+                            ExceptionLogType.Message
+                        )
+                    );
                 }
             }
             catch (Exception)
@@ -220,12 +239,13 @@ namespace CrispyWaffle.Log.Handlers
         {
             try
             {
-
                 var instance = ServiceLocator.TryResolve<TextFileLogProvider>();
 
                 if (instance != null)
                 {
-                    _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full));
+                    _additionalProviders.Add(
+                        new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full)
+                    );
                 }
             }
             catch (Exception)

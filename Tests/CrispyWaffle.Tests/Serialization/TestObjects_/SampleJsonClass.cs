@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
@@ -46,7 +47,9 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            return Id.Equals(other.Id) && Date.Equals(other.Date) && ListStrong.SequenceEqual(other.ListStrong);
+            return Id.Equals(other.Id)
+                && Date.Equals(other.Date)
+                && ListStrong.SequenceEqual(other.ListStrong);
         }
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
@@ -75,6 +78,7 @@ namespace CrispyWaffle.Tests.Serialization
 
         /// <summary>Serves as the default hash function.</summary>
         /// <returns>A hash code for the current object.</returns>
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
         public override int GetHashCode()
         {
             return HashCode.Combine(Id, Date, ListStrong);
@@ -117,6 +121,5 @@ namespace CrispyWaffle.Tests.Serialization
         /// </summary>
         /// <value>The list strong.</value>
         public List<StrongTypingClass> ListStrong { get; set; }
-
     }
 }

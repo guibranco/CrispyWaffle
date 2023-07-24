@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Elmah
 {
     using Composition;
@@ -30,12 +31,14 @@ namespace CrispyWaffle.Elmah
     /// <seealso cref="IExceptionHandler" />
     public sealed class ElmahExceptionHandler : IExceptionHandler
     {
-        #region Private fields        
+        #region Private fields
 
         /// <summary>
         /// The additional providers
         /// </summary>
-        private static readonly ICollection<Tuple<ILogProvider, ExceptionLogType>> _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+        private static readonly ICollection<
+            Tuple<ILogProvider, ExceptionLogType>
+        > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         #endregion
 
@@ -87,11 +90,19 @@ namespace CrispyWaffle.Elmah
 
             var exceptions = exception.ToQueue(out _);
 
-            var messages = exceptions.GetMessages(category, _additionalProviders
-                .Where(p => p.Item2 == ExceptionLogType.Message)
-                .Select(p => p.Item1).ToList());
+            var messages = exceptions.GetMessages(
+                category,
+                _additionalProviders
+                    .Where(p => p.Item2 == ExceptionLogType.Message)
+                    .Select(p => p.Item1)
+                    .ToList()
+            );
 
-            foreach (var additionalProvider in _additionalProviders.Where(p => p.Item2 == ExceptionLogType.Full))
+            foreach (
+                var additionalProvider in _additionalProviders.Where(
+                    p => p.Item2 == ExceptionLogType.Full
+                )
+            )
             {
                 additionalProvider.Item1.Error(category, messages);
             }
@@ -145,7 +156,8 @@ namespace CrispyWaffle.Elmah
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
+            where TLogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
 

@@ -1,4 +1,4 @@
-version: 4.1.{build}
+version: 4.2.{build}
 skip_tags: true
 image: Visual Studio 2022
 configuration: Release
@@ -12,14 +12,14 @@ environment:
     secure: 09lSf1NeQ4QhlPM1gerlkaaG8kIPvf/VyOUj81AUZ93uonHUuoADgfJv773g8Dhikm+s/Nx0jjAPQqEA0dqoDUMBULuueYTAquzQII0jlPo=
 
 dotnet_csproj: 
-  patch: true 
-  file: '**\*.csproj' 
-  version: '{version}' 
-  package_version: '{version}' 
-  assembly_version: '{version}' 
-  file_version: '{version}' 
-  informational_version: '{version}' 
-  
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
 init:
 - SET JAVA_HOME=C:\Program Files\Java\jdk19
 - SET PATH=%JAVA_HOME%\bin;%PATH%
@@ -28,6 +28,9 @@ before_build:
 - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
 - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
 - ps: $env:SONAR_ORGANIZATION = "$env:APPVEYOR_REPO_NAME" -replace "/.*$","-github"
+- ps: $env:LOCAL_PR = 0
+- ps: if(-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $env:LOCAL_PR = 1 }
+- ps: if($env:APPVEYOR_PULL_REQUEST_HEAD_REPO_NAME -Eq $env:APPVEYOR_REPO_NAME) { $env:LOCAL_PR = 1 }
 - cmd: nuget restore
 - cmd: choco install opencover.portable
 - cmd: choco install codecov
@@ -43,54 +46,54 @@ build:
 
 build_script:
 - ps: $Params =  "/k:`"$env:SONAR_PROJECT`"", "/o:`"$env:SONAR_ORGANIZATION`"", "/v:`"$env:APPVEYOR_BUILD_NUMBER`""
-- ps: $Params += "/d:sonar.host.url=`"https://sonarcloud.io`"", "/d:sonar.login=`"$env:SONAR_TOKEN`""
+- ps: $Params += "/d:sonar.host.url=`"https://sonarcloud.io`""
+- ps: if($env:LOCAL_PR -Eq 1) { $Params +=  "/d:sonar.token=`"$env:SONAR_TOKEN`"" }
 - ps: $Params += "/d:sonar.exclusions=`"**/bin/**/*,**/obj/**/*`"", "/d:sonar.coverage.exclusions=`"**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs`""
-- ps: $Params += "/d:sonar.cs.opencover.reportsPaths=`"$env:CD\Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml`""
+- ps: $Params += "/d:sonar.cs.opencover.reportsPaths=`"Tests\$env:SOLUTION_NAME.Tests\coverage.opencover.xml`""
 - ps: if(-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $Params += "/d:sonar.branch.name=`"$env:APPVEYOR_REPO_BRANCH`"" }
 - ps: if($env:APPVEYOR_PULL_REQUEST_NUMBER) { $Params += "/d:sonar.pullrequest.key=$env:APPVEYOR_PULL_REQUEST_NUMBER", "/d:sonar.pullrequest.branch=`"$env:APPVEYOR_REPO_BRANCH`"" }
 - ps: Start-process "dotnet" "sonarscanner begin $($Params -join ' ')"
 - codeclimate-test-reporter before-build
 - dotnet build %SOLUTION_NAME%.sln
-- ps: $testProjects = (Get-ChildItem -Path .\Tests\**\ -Recurse -Include *.csproj).Fullname
-- ps: $coverletFormats = @('cobertura', 'lcov', 'opencover')
+- ps: $TEST_PROJECTS = (Get-ChildItem -Path .\Tests\**\ -Recurse -Include *.csproj).Fullname
+- ps: $COVERLET_FORMATS = @('cobertura', 'lcov', 'opencover')
 - ps: |
-    foreach($testProject in $testProjects)
+    foreach($testProject in $TEST_PROJECTS)
     {
-        foreach($coverletFormat in $coverletFormats)
+        foreach($coverletFormat in $COVERLET_FORMATS)
         {
            dotnet test $testProject /p:CollectCoverage=true /p:CoverletOutputFormat="$coverletFormat"
         }
     }
-- codeclimate-test-reporter format-coverage -t lcov -o "%CD%\Tests\%SOLUTION_NAME%.Tests\code-climate.json" "%CD%\Tests\%SOLUTION_NAME%.Tests\coverage.info"
-- codeclimate-test-reporter upload-coverage -i "%CD%\Tests\%SOLUTION_NAME%.Tests\code-climate.json" -r %CODECLIMATE_TOKEN%
-- codecov -f "%CD%\Tests\%SOLUTION_NAME%.Tests\coverage.opencover.xml"
-- java -jar ./codacy-test-reporter.jar report -l CSharp -t %CODACY_PROJECT_TOKEN% -r "%CD%\Tests\%SOLUTION_NAME%.Tests\coverage.opencover.xml"
-- dotnet sonarscanner end /d:sonar.login="%SONAR_TOKEN%"
+- if %LOCAL_PR% EQU 1 codecov -f "Tests\%SOLUTION_NAME%.Tests\coverage.opencover.xml"
+- if %LOCAL_PR% EQU 1 codeclimate-test-reporter format-coverage -t lcov -o "Tests\%SOLUTION_NAME%.Tests\code-climate.json" "Tests\%SOLUTION_NAME%.Tests\coverage.info"
+- if %LOCAL_PR% EQU 1 codeclimate-test-reporter upload-coverage -i "Tests\%SOLUTION_NAME%.Tests\code-climate.json" -r %CODECLIMATE_TOKEN%
+- if %LOCAL_PR% EQU 1 java -jar ./codacy-test-reporter.jar report -l CSharp -t %CODACY_PROJECT_TOKEN% -r "Tests\%SOLUTION_NAME%.Tests\coverage.opencover.xml"
+- if %LOCAL_PR% EQU 1 dotnet sonarscanner end /d:sonar.token="%SONAR_TOKEN%"
 
 after_build:
-- xcopy %CD%\Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* %CD%\Build\Core\
-- xcopy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* %CD%\Build\Configuration\
-- xcopy %CD%\Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\netstandard2.0\*.* %CD%\Build\ElasticSearch\
-- xcopy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* %CD%\Build\Elmah\
-- xcopy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* %CD%\Build\Log4Net\
-- xcopy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* %CD%\Build\RabbitMQ\
-- xcopy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* %CD%\Build\Redis\
-- xcopy %CD%\Src\%SOLUTION_NAME%.Utils\bin\Release\netstandard2.0\*.* %CD%\Build\Utils\
+- xcopy Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* Build\Core\
+- xcopy Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* Build\Configuration\
+- xcopy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\netstandard2.0\*.* Build\ElasticSearch\
+- xcopy Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* Build\Elmah\
+- xcopy Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* Build\Log4Net\
+- xcopy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* Build\RabbitMQ\
+- xcopy Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* Build\Redis\
+- xcopy Src\%SOLUTION_NAME%.Utils\bin\Release\netstandard2.0\*.* Build\Utils\
 
-- copy %CD%\Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy %CD%\Src\%SOLUTION_NAME%.Utils\bin\Release\%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.Utils\bin\Release\%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg
 
-- rd /s /q %CD%\Src\%SOLUTION_NAME%\bin\Release\
-- xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.xml %CD%\Coverage\
-- xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.json %CD%\Coverage\
-- xcopy %CD%\Tests\%SOLUTION_NAME%.Tests\*.info %CD%\Coverage\
-- cd %CD%
+- rd /s /q Src\%SOLUTION_NAME%\bin\Release\
+- xcopy Tests\%SOLUTION_NAME%.Tests\*.xml Coverage\
+- xcopy Tests\%SOLUTION_NAME%.Tests\*.json Coverage\
+- xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
 
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Core.zip" Build\Core
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Configuration.zip" Build\Configuration
@@ -146,61 +149,12 @@ deploy:
   skip_symbols: false
   on:
    branch: main
-  artifact: PackageCore
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageConfiguration
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageElasticSearch
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageElmah
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageLog4Net
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageRabbitMQ
-  
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageRedis
-
-- provider: NuGet
-  api_key: $(NUGET_TOKEN)
-  skip_symbols: false
-  on:
-   branch: main
-  artifact: PackageUtils
 
 - provider: GitHub
   on:
    branch: main
-  tag: $(appveyor_build_version)
+  tag: v$(appveyor_build_version)
+  description: 'Release of $(SOLUTION_NAME) - v($appveyor_build_version)'
   auth_token: $(GITHUB_TOKEN)
   force_update: true
-  artifact: ZipFileCore, ZipFileConfiguration, ZipFileElasticSearch, ZipFileElmah, ZipFileLog4Net, ZipFileRabbitMQ, ZipFileRedis, ZipFileUtils, Coverage
+  

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ************************************************************************
+
 namespace CrispyWaffle.Tests.Extensions
 {
     using CrispyWaffle.Extensions;
@@ -56,7 +57,6 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateBase64Checks()
         {
-
             const string empty = "";
 
             var result = empty.ToBase64();
@@ -85,7 +85,6 @@ namespace CrispyWaffle.Tests.Extensions
 
             Assert.Equal(different.Length, result);
         }
-
 
         /// <summary>
         /// Defines the test method ValidateLevenshteinZero.
@@ -130,7 +129,6 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(1, result);
         }
 
-
         /// <summary>
         /// Defines the test method ValidateRemoveSpaces.
         /// </summary>
@@ -153,7 +151,6 @@ namespace CrispyWaffle.Tests.Extensions
         {
             const string input = "republica federativa do brasil";
             const string expected = "Republica Federativa Do Brasil";
-
 
             var result = input.ToCamelCase();
 
@@ -202,6 +199,5 @@ namespace CrispyWaffle.Tests.Extensions
 
             Assert.False(result);
         }
-
     }
 }

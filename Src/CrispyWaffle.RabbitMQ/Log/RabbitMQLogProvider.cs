@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.RabbitMQ.Log
 {
     using Extensions;
@@ -160,26 +161,32 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="message">The message.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns>System.String.</returns>
-        private static string Serialize(LogLevel level, string category, string message, string identifier = null)
+        private static string Serialize(
+            LogLevel level,
+            string category,
+            string message,
+            string identifier = null
+        )
         {
-            return (string)new LogMessage
-            {
-                Application = EnvironmentHelper.ApplicationName,
-                Category = category,
-                Date = DateTime.Now,
-                Hostname = EnvironmentHelper.Host,
-                Id = Guid.NewGuid().ToString(),
-                IpAddress = EnvironmentHelper.IpAddress,
-                IpAddressRemote = EnvironmentHelper.IpAddressExternal,
-                Level = level.GetHumanReadableValue(),
-                Message = message,
-                MessageIdentifier = identifier,
-                Operation = EnvironmentHelper.Operation,
-                ProcessId = EnvironmentHelper.ProcessId,
-                UserAgent = EnvironmentHelper.UserAgent,
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
-                ThreadName = Thread.CurrentThread.Name
-            }.GetSerializer();
+            return (string)
+                new LogMessage
+                {
+                    Application = EnvironmentHelper.ApplicationName,
+                    Category = category,
+                    Date = DateTime.Now,
+                    Hostname = EnvironmentHelper.Host,
+                    Id = Guid.NewGuid().ToString(),
+                    IpAddress = EnvironmentHelper.IpAddress,
+                    IpAddressRemote = EnvironmentHelper.IpAddressExternal,
+                    Level = level.GetHumanReadableValue(),
+                    Message = message,
+                    MessageIdentifier = identifier,
+                    Operation = EnvironmentHelper.Operation,
+                    ProcessId = EnvironmentHelper.ProcessId,
+                    UserAgent = EnvironmentHelper.UserAgent,
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    ThreadName = Thread.CurrentThread.Name
+                }.GetSerializer();
         }
 
         /// <summary>
@@ -329,7 +336,6 @@ namespace CrispyWaffle.RabbitMQ.Log
 
                 exception = exception.InnerException;
             } while (exception != null);
-
         }
 
         /// <summary>
@@ -371,7 +377,13 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <param name="content">The content.</param>
         /// <param name="identifier">The identifier.</param>
         /// <param name="customFormat">The custom format.</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat) where T : class, new()
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat
+        )
+            where T : class, new()
         {
             if (!_level.HasFlag(LogLevel.Debug))
             {

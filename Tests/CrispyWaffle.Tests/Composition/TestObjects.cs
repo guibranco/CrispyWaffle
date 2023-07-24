@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Composition
 {
     using System;
@@ -78,7 +79,6 @@ namespace CrispyWaffle.Tests.Composition
             {
                 CancellationToken = cancellationToken;
             }
-
         }
     }
 }

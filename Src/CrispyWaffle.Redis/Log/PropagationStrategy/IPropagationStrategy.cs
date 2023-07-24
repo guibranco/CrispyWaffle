@@ -25,6 +25,11 @@
         /// <param name="publisher">The publisher.</param>
         /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        Task PropagateAsync(string message, string queuePrefix, ISubscriber publisher, CancellationToken cancellationToken);
+        Task PropagateAsync(
+            string message,
+            string queuePrefix,
+            ISubscriber publisher,
+            CancellationToken cancellationToken
+        );
     }
 }

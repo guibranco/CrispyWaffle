@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Composition
 {
     using CrispyWaffle.Composition;
@@ -76,7 +77,6 @@ namespace CrispyWaffle.Tests.Composition
             Assert.False(instance.CancellationToken.IsCancellationRequested);
             Assert.True(instance.CancellationToken.CanBeCanceled);
         }
-
 
         /// <summary>
         /// Defines the test method ValidateCancellationTokenCall.

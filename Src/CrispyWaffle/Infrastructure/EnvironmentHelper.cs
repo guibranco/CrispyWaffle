@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Infrastructure
 {
     using Validations;
@@ -34,7 +35,6 @@ namespace CrispyWaffle.Infrastructure
     {
         #region ~Ctor
 
-
         /// <summary>
         /// Initializes static members of the <see cref="EnvironmentHelper"/> class.
         /// </summary>
@@ -48,10 +48,14 @@ namespace CrispyWaffle.Infrastructure
             IpAddressExternal = GetIpAddressExternal();
             ExecutionPath = assembly.Location;
             Version = !string.IsNullOrWhiteSpace(ExecutionPath)
-                          ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
-                          : string.Empty;
-            VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(@"dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-            OperationalSystemVersion = $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
+                ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
+                : string.Empty;
+            VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(
+                @"dd/MM/yyyy HH:mm:ss",
+                CultureInfo.InvariantCulture
+            );
+            OperationalSystemVersion =
+                $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
             ProcessId = Process.GetCurrentProcess().Id;
         }
 
@@ -84,15 +88,21 @@ namespace CrispyWaffle.Infrastructure
             return string.Empty;
         }
 
-
         /// <summary>
         /// Gets the ip address external.
         /// </summary>
         /// <returns>System.String.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Style",
+            "IDE0063:Use simple 'using' statement",
+            Justification = "Not compatible with .Net Standard 2.0"
+        )]
         private static string GetIpAddressExternal()
         {
-            using (var wc = new WebClient { Encoding = Encoding.UTF8 })
+            // ReSharper disable once ConvertToUsingDeclaration
+            using (var wc = new WebClient())
             {
+                wc.Encoding = Encoding.UTF8;
                 try
                 {
                     var ip = wc.DownloadString("https://api.ipify.org");
@@ -115,13 +125,15 @@ namespace CrispyWaffle.Infrastructure
         /// Sets the name of the application.
         /// </summary>
         /// <param name="applicationName">Name of the application.</param>
-        public static void SetApplicationName(string applicationName) => ApplicationName = applicationName;
+        public static void SetApplicationName(string applicationName) =>
+            ApplicationName = applicationName;
 
         /// <summary>
         /// Sets the display name of the application.
         /// </summary>
         /// <param name="displayApplicationName">Display name of the application.</param>
-        public static void SetDisplayApplicationName(string displayApplicationName) => DisplayApplicationName = displayApplicationName;
+        public static void SetDisplayApplicationName(string displayApplicationName) =>
+            DisplayApplicationName = displayApplicationName;
 
         /// <summary>
         /// Sets the operation.
@@ -210,7 +222,8 @@ namespace CrispyWaffle.Infrastructure
         /// </summary>
         /// <value>The user agent.</value>
         [Localizable(false)]
-        public static string UserAgent => $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
+        public static string UserAgent =>
+            $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
 
         #endregion
     }

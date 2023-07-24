@@ -1,6 +1,5 @@
 ﻿namespace CrispyWaffle.GoodPractices
 {
-
     /// <summary>
     /// Interface rest exception
     /// </summary>

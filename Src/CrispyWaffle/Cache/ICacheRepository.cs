@@ -52,7 +52,7 @@
         T Get<T>(string key, string subKey);
 
         /// <summary>
-        /// Tries to get a value based on its key, if exists return true, else false. 
+        /// Tries to get a value based on its key, if exists return true, else false.
         /// The out parameter value is the object requested.
         /// </summary>
         /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>

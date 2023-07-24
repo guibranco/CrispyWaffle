@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Utils.GoodPractices
 {
     using System.Runtime.Serialization;
@@ -27,7 +28,6 @@ namespace CrispyWaffle.Utils.GoodPractices
         /// <summary>
         /// Default constructor.
         /// </summary>
-
         public MessageException()
             : base("The message cannot be set more than once for the same instance of Email class")
         { }
@@ -37,7 +37,7 @@ namespace CrispyWaffle.Utils.GoodPractices
         /// </summary>
         /// <param name="info">The <see cref="SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="StreamingContext" /> that contains contextual information about the source or destination.</param>
-        protected MessageException(SerializationInfo info, StreamingContext context) : base(info, context)
-        { }
+        protected MessageException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
     }
 }

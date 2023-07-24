@@ -51,7 +51,11 @@
         /// <param name="category">The category</param>
         /// <param name="additionalProviders">The additional providers.</param>
         /// <returns></returns>
-        public static string GetMessages(this Queue<Exception> exceptions, string category, ICollection<ILogProvider> additionalProviders)
+        public static string GetMessages(
+            this Queue<Exception> exceptions,
+            string category,
+            ICollection<ILogProvider> additionalProviders
+        )
         {
             var message = new StringBuilder();
 
@@ -63,13 +67,18 @@
 
                 if (counter > 0)
                 {
-                    message.Append("Exception rethrow at")
+                    message
+                        .Append("Exception rethrow at")
                         .Append(@" [")
                         .Append(counter)
                         .Append(@"]: ");
                 }
 
-                message.Append(current.Message).AppendFormat(" [{0}]", current.GetType().Name).AppendLine().AppendLine(current.StackTrace);
+                message
+                    .Append(current.Message)
+                    .AppendFormat(" [{0}]", current.GetType().Name)
+                    .AppendLine()
+                    .AppendLine(current.StackTrace);
 
                 counter++;
 

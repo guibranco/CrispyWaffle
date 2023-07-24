@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Serialization
 {
     using CrispyWaffle.Serialization;
@@ -45,7 +46,10 @@ namespace CrispyWaffle.Tests.Serialization
                 return true;
             }
 
-            return Code == other.Code && string.Equals(String, other.String, StringComparison.InvariantCultureIgnoreCase) && CorrelationId.Equals(other.CorrelationId) && Equals(StrongTyping, other.StrongTyping);
+            return Code == other.Code
+                && string.Equals(String, other.String, StringComparison.InvariantCultureIgnoreCase)
+                && CorrelationId.Equals(other.CorrelationId)
+                && Equals(StrongTyping, other.StrongTyping);
         }
 
         /// <summary>
@@ -77,6 +81,7 @@ namespace CrispyWaffle.Tests.Serialization
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
         public override int GetHashCode()
         {
             var hashCode = new HashCode();
@@ -134,6 +139,5 @@ namespace CrispyWaffle.Tests.Serialization
         /// </summary>
         /// <value>The strong typing.</value>
         public StrongTypingClass StrongTyping { get; set; }
-
     }
 }

@@ -22,8 +22,8 @@
             {
                 throw new ArgumentNullException(nameof(message));
             }
-
             // Jenkins one-at-a-time https://en.wikipedia.org/wiki/Jenkins_hash_function
+
             unchecked
             {
                 uint hash = 0;

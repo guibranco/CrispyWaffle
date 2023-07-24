@@ -11,12 +11,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Configuration
 {
     /// <summary>
     /// Connection credential interface
     /// </summary>
-
     public interface IConnectionCredential
     {
         /// <summary>

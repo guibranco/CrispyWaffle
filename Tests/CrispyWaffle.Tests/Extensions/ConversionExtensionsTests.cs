@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Tests.Extensions
 {
     using CrispyWaffle.Extensions;
@@ -27,7 +29,9 @@ namespace CrispyWaffle.Tests.Extensions
     {
         public ConversionExtensionsTests()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(
+                "en-US"
+            );
             var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
             var ci = new CultureInfo(currentCulture)
             {
@@ -111,7 +115,13 @@ namespace CrispyWaffle.Tests.Extensions
         [InlineData("551187654321", 55, 11, 87654321, false)]
         [InlineData("11987654321", 55, 11, 987654321, true)]
         [InlineData("1187654321", 55, 11, 87654321, false)]
-        public void ValidateParseBrazilianPhoneNumber(string phoneNumber, int countryCode, int regionCode, long number, bool isNinthDigit)
+        public void ValidateParseBrazilianPhoneNumber(
+            string phoneNumber,
+            int countryCode,
+            int regionCode,
+            long number,
+            bool isNinthDigit
+        )
         {
             var result = phoneNumber.ParseBrazilianPhoneNumber();
 
@@ -131,12 +141,19 @@ namespace CrispyWaffle.Tests.Extensions
         [InlineData("123456789123456789", "123456789123456789")]
         [InlineData("abc123def456", "123456")]
         [InlineData("190", "190")]
-        public void ValidateInvalidParseBrazilianPhoneNumber(string phoneNumber, string cleanPhoneNumber)
+        public void ValidateInvalidParseBrazilianPhoneNumber(
+            string phoneNumber,
+            string cleanPhoneNumber
+        )
         {
+            var result = Assert.Throws<InvalidTelephoneNumberException>(
+                () => phoneNumber.ParseBrazilianPhoneNumber()
+            );
 
-            var result = Assert.Throws<InvalidTelephoneNumberException>(() => phoneNumber.ParseBrazilianPhoneNumber());
-
-            Assert.Equal($"The value '{cleanPhoneNumber}' isn't a valid telephone number", result.Message);
+            Assert.Equal(
+                $"The value '{cleanPhoneNumber}' isn't a valid telephone number",
+                result.Message
+            );
         }
 
         /// <summary>
@@ -166,7 +183,6 @@ namespace CrispyWaffle.Tests.Extensions
             Assert.Equal(DateTime.Today, result);
         }
 
-
         /// <summary>
         /// Defines the test method ValidateYesterdayToDateTime.
         /// </summary>
@@ -177,7 +193,6 @@ namespace CrispyWaffle.Tests.Extensions
 
             Assert.Equal(DateTime.Today.AddDays(-1), result);
         }
-
 
         /// <summary>
         /// Defines the test method ValidateTomorrowToDateTime.
@@ -206,7 +221,16 @@ namespace CrispyWaffle.Tests.Extensions
         [InlineData("2020-09-07 7:50pm", 2020, 9, 7, 19, 50, 0)]
         [InlineData("01/01/2020", 2020, 1, 1, 0, 0, 0)]
         [InlineData("31/12/2020", 2020, 12, 31, 0, 0, 0)]
-        public void ValidateStringDateToDateTime(string input, int year, int month, int day, int hour, int minute, int seconds)
+        [SuppressMessage("ReSharper", "TooManyArguments")]
+        public void ValidateStringDateToDateTime(
+            string input,
+            int year,
+            int month,
+            int day,
+            int hour,
+            int minute,
+            int seconds
+        )
         {
             var expected = new DateTime(year, month, day, hour, minute, seconds);
 
@@ -221,7 +245,6 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateEmptyStringToDateTime()
         {
-
             var result = Assert.Throws<ArgumentNullException>(() => string.Empty.ToDateTime());
 
             Assert.Equal("Input value cannot be null (Parameter 'input')", result.Message);
@@ -237,7 +260,10 @@ namespace CrispyWaffle.Tests.Extensions
         {
             var result = Assert.Throws<ArgumentOutOfRangeException>(() => input.ToDateTime());
 
-            Assert.Equal($"Unable to parse the string to a valid datetime (Parameter 'input')\r\nActual value was {input}.", result.Message);
+            Assert.Equal(
+                $"Unable to parse the string to a valid datetime (Parameter 'input')\r\nActual value was {input}.",
+                result.Message
+            );
         }
 
         /// <summary>
@@ -342,14 +368,14 @@ namespace CrispyWaffle.Tests.Extensions
         [Theory]
         [InlineData(1, "R$ 1,00")]
         [InlineData(1000, "R$ 1000,00")]
-        [InlineData(11.33,"R$ 11,33")]
+        [InlineData(11.33, "R$ 11,33")]
         [InlineData(6547654.477, "R$ 6547654,48")]
         [InlineData(0, "No value")]
         public void ToMonetary_ValidInput_ReturnsValidString(decimal input, string expected)
         {
             var result = input.ToMonetary();
 
-            Assert.Equal(expected,result);
+            Assert.Equal(expected, result);
         }
     }
 }

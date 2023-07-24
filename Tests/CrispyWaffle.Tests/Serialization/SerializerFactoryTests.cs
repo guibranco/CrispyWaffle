@@ -31,7 +31,9 @@ namespace CrispyWaffle.Tests.Serialization
 
             var serializedResult = (string)deserialized.GetSerializer();
 
-            var deserializedResult = SerializerFactory.GetSerializer<SampleXmlClass>().Deserialize(serializedResult);
+            var deserializedResult = SerializerFactory
+                .GetSerializer<SampleXmlClass>()
+                .Deserialize(serializedResult);
 
             Assert.Equal(deserialized, deserializedResult);
         }
@@ -55,7 +57,9 @@ namespace CrispyWaffle.Tests.Serialization
 
             var serializedResult = (string)deserialized.GetSerializer();
 
-            var deserializedResult = SerializerFactory.GetSerializer<SampleJsonNotStrictClass>().Deserialize(serializedResult);
+            var deserializedResult = SerializerFactory
+                .GetSerializer<SampleJsonNotStrictClass>()
+                .Deserialize(serializedResult);
 
             Assert.Equal(deserialized, deserializedResult);
         }
@@ -99,9 +103,14 @@ namespace CrispyWaffle.Tests.Serialization
         {
             var deserialized = TestObjects.GetNonSerializable();
 
-            var result = Assert.Throws<InvalidOperationException>(() => deserialized.GetSerializer());
+            var result = Assert.Throws<InvalidOperationException>(
+                () => deserialized.GetSerializer()
+            );
 
-            Assert.Equal("The CrispyWaffle.Serialization.SerializerAttribute attribute was not found in the object of type CrispyWaffle.Tests.Serialization.SampleNonSerializableClass", result.Message);
+            Assert.Equal(
+                "The CrispyWaffle.Serialization.SerializerAttribute attribute was not found in the object of type CrispyWaffle.Tests.Serialization.SampleNonSerializableClass",
+                result.Message
+            );
         }
 
         [Fact]
@@ -125,7 +134,9 @@ namespace CrispyWaffle.Tests.Serialization
 
             var serializedResult = (string)deserialized.GetSerializer();
 
-            var deserializedResult = deserializedObject.GetSerializer().Deserialize(serializedResult);
+            var deserializedResult = deserializedObject
+                .GetSerializer()
+                .Deserialize(serializedResult);
 
             Assert.Equal(deserialized, deserializedResult);
         }

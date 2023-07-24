@@ -22,7 +22,11 @@
     /// <seealso cref="System.IEquatable{DynamicSerialization}" />
     [Serializable]
     [Serializer]
-    public class DynamicSerialization : DynamicObject, ISerializable, IXmlSerializable, IEquatable<DynamicSerialization>
+    public class DynamicSerialization
+        : DynamicObject,
+            ISerializable,
+            IXmlSerializable,
+            IEquatable<DynamicSerialization>
     {
         #region Protected fields
 
@@ -52,7 +56,6 @@
         /// Default constructor.
         /// </summary>
         /// <param name="keyFilter">The filter to serialize keys</param>
-
         public DynamicSerialization(DynamicSerializationOption keyFilter)
         {
             SerializationKeyFilter = keyFilter;
@@ -63,7 +66,6 @@
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
-
         public DynamicSerialization(SerializationInfo info, StreamingContext context)
         {
             SerializationKeyFilter = DynamicSerializationOption.None;
@@ -84,7 +86,6 @@
         /// <returns>The key filtered</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-
         private string Filter(string key)
         {
             switch (SerializationKeyFilter)
@@ -205,7 +206,6 @@
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-
         public override int GetHashCode()
         {
             unchecked
@@ -244,7 +244,6 @@
         /// <see cref="T:System.Object" />.</param>
         /// <returns>true if the specified <see cref="T:System.Object" /> is equal to the current
         /// <see cref="T:System.Object" />; otherwise, false.</returns>
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -252,7 +251,8 @@
                 return false;
             }
 
-            return ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
+            return ReferenceEquals(this, obj)
+                || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
         }
 
         /// <summary>
@@ -264,9 +264,9 @@
         /// <see cref="T:System.Object" />; otherwise, false.</returns>
         public bool Equals(DynamicSerialization other)
         {
-            return other != null &&
-                    Dictionary.SequenceEqual(other.Dictionary) &&
-                   SerializationKeyFilter == other.SerializationKeyFilter;
+            return other != null
+                && Dictionary.SequenceEqual(other.Dictionary)
+                && SerializationKeyFilter == other.SerializationKeyFilter;
         }
 
         #endregion
@@ -309,6 +309,7 @@
                     reader.Read();
                     continue;
                 }
+
                 Dictionary.Add(reader.LocalName, reader.ReadElementContentAsString());
             }
         }
@@ -317,7 +318,6 @@
         /// Converts an object into its XML representation.
         /// </summary>
         /// <param name="writer">The <see cref="T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
-
         public void WriteXml(XmlWriter writer)
         {
             foreach (var kvp in Dictionary)

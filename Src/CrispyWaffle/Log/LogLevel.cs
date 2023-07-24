@@ -9,9 +9,8 @@
     [Flags]
     public enum LogLevel
     {
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [HumanReadable("Fatal")]
         Fatal = 1,
@@ -19,24 +18,20 @@
         /// <summary>
         /// The error level
         /// </summary>
-
         [HumanReadable("Error")]
         Error = 1 << 1,
 
         /// <summary>
         /// The warning level
         /// </summary>
-
         [HumanReadable("Warning")]
         Warning = 1 << 2,
 
         /// <summary>
         /// The information level
         /// </summary>
-
         [HumanReadable("Information")]
         Info = 1 << 3,
-
 
         /// <summary>
         /// The information detailed level
@@ -47,14 +42,12 @@
         /// <summary>
         /// The debug level
         /// </summary>
-
         [HumanReadable("Debug")]
         Debug = 1 << 5,
 
         /// <summary>
         /// The production level (Error + Warning + Info)
         /// </summary>
-
         [HumanReadable("Production")]
         Production = Fatal | Error | Warning | Info,
 

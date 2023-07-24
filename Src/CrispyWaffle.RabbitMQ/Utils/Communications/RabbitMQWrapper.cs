@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
     using CrispyWaffle.Log;
@@ -34,7 +35,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// </summary>
         /// <param name="connector">The connector.</param>
         /// <exception cref="ArgumentNullException">connector</exception>
-        public RabbitMQWrapper(RabbitMQConnector connector) => _connector = connector ?? throw new ArgumentNullException(nameof(connector));
+        public RabbitMQWrapper(RabbitMQConnector connector) =>
+            _connector = connector ?? throw new ArgumentNullException(nameof(connector));
 
         /// <summary>
         /// Sends to exchange.
@@ -42,7 +44,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// <typeparam name="T"></typeparam>
         /// <param name="item">The item.</param>
         /// <param name="exchangeDeclareType">Type of the exchange declare.</param>
-        public void SendToExchange<T>(T item, string exchangeDeclareType = null) where T : class, IQueuing, new()
+        public void SendToExchange<T>(T item, string exchangeDeclareType = null)
+            where T : class, IQueuing, new()
         {
             var exchangeName = Extensions.GetExchangeName<T>();
 
@@ -72,7 +75,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// <typeparam name="T"></typeparam>
         /// <param name="item">The item.</param>
         /// <param name="queueDeclare">if set to <c>true</c> [queue declare].</param>
-        public void SendToQueue<T>(T item, bool queueDeclare = true) where T : class, IQueuing, new()
+        public void SendToQueue<T>(T item, bool queueDeclare = true)
+            where T : class, IQueuing, new()
         {
             var queueName = Extensions.GetQueueName<T>();
 

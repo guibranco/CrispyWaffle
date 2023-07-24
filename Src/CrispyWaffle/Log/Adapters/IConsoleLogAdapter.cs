@@ -4,6 +4,5 @@
     /// The console log adapter interface
     /// </summary>
     /// <seealso cref="ILogAdapter" />
-    public interface IConsoleLogAdapter : ILogAdapter
-    { }
+    public interface IConsoleLogAdapter : ILogAdapter { }
 }

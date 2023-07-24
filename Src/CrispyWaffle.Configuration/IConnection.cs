@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Configuration
 {
     using System.ComponentModel;
@@ -18,7 +19,6 @@ namespace CrispyWaffle.Configuration
     /// <summary>
     /// Connection data interface
     /// </summary>
-
     public interface IConnection
     {
         /// <summary>

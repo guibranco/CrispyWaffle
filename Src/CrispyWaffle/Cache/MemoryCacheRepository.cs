@@ -13,12 +13,15 @@
         /// <summary>
         /// The data
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> _data = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _data =
+            new ConcurrentDictionary<string, object>();
 
         /// <summary>
         /// The hash
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> _hash = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _hash =
+            new ConcurrentDictionary<string, object>();
+
         #endregion
 
         #region Implementation of ICacheRepository
@@ -88,14 +91,16 @@
             var finalKey = $@"{key}-{subKey}";
             if (!_hash.TryGetValue(finalKey, out var value))
             {
-                throw new InvalidOperationException($"Unable to get the item with key {key} and sub key {subKey}");
+                throw new InvalidOperationException(
+                    $"Unable to get the item with key {key} and sub key {subKey}"
+                );
             }
 
             return (T)value;
         }
 
         /// <summary>
-        /// Tries to get a value based on its key, if exists return true, else false. 
+        /// Tries to get a value based on its key, if exists return true, else false.
         /// The out parameter value is the object requested.
         /// </summary>
         /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
@@ -134,7 +139,6 @@
             value = (T)temp;
             return true;
         }
-
 
         /// <summary>
         /// Removes the specified key from the cache.

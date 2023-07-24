@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
     /// <summary>
@@ -24,11 +25,13 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// <typeparam name="T"></typeparam>
         /// <returns>System.String.</returns>
         public static string GetExchangeName<T>()
-        where T : class, IQueuing, new()
+            where T : class, IQueuing, new()
         {
             var type = typeof(T);
-            return type.GetCustomAttributes(typeof(ExchangeNameAttribute), true)
-                is ExchangeNameAttribute[] attributes && attributes.Length == 1
+            return
+                type.GetCustomAttributes(typeof(ExchangeNameAttribute), true)
+                    is ExchangeNameAttribute[] attributes
+                && attributes.Length == 1
                 ? attributes[0].ExchangeName
                 : type.Name.ToLower().Replace(@" ", @"-");
         }
@@ -43,8 +46,10 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         {
             var type = typeof(T);
 
-            return type.GetCustomAttributes(typeof(QueueNameAttribute), true)
-                is QueueNameAttribute[] attributes && attributes.Length == 1
+            return
+                type.GetCustomAttributes(typeof(QueueNameAttribute), true)
+                    is QueueNameAttribute[] attributes
+                && attributes.Length == 1
                 ? attributes[0].QueueName
                 : type.Name.ToLower().Replace(@" ", @"-");
         }

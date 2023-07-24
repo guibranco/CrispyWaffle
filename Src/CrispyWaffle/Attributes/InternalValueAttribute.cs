@@ -20,7 +20,7 @@
         /// Initializes a new instance of the <see cref="InternalValueAttribute" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public InternalValueAttribute([Localizable(false)]string value)
+        public InternalValueAttribute([Localizable(false)] string value)
         {
             InternalValue = value;
         }

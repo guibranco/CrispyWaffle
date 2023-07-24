@@ -33,15 +33,13 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Warning(string category, string message);
 
         /// <summary>
-        /// Logs the message with info level 
+        /// Logs the message with info level
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Info(string category, string message);
 
         /// <summary>
@@ -49,7 +47,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Trace(string category, string message);
 
         /// <summary>
@@ -72,7 +69,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Debug(string category, string message);
 
         /// <summary>
@@ -91,6 +87,7 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat) where T : class, new();
+        void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat)
+            where T : class, new();
     }
 }

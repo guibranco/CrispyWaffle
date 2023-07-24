@@ -13,7 +13,7 @@
 
     public class PubSubRedisLogProvider : ILogProvider
     {
-        #region Private fields 
+        #region Private fields
 
         /// <summary>
         /// The Redis connector
@@ -50,7 +50,11 @@
         /// <param name="redis">The redis.</param>
         /// <param name="propagationStrategy">The propagation strategy.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        public PubSubRedisLogProvider(RedisConnector redis, IPropagationStrategy propagationStrategy, CancellationToken cancellationToken)
+        public PubSubRedisLogProvider(
+            RedisConnector redis,
+            IPropagationStrategy propagationStrategy,
+            CancellationToken cancellationToken
+        )
         {
             _redis = redis;
             _propagationStrategy = propagationStrategy;
@@ -99,25 +103,31 @@
         /// <param name="message">The message.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns>System.String.</returns>
-        private static string Serialize(LogLevel level, string category, string message, string identifier = null)
+        private static string Serialize(
+            LogLevel level,
+            string category,
+            string message,
+            string identifier = null
+        )
         {
-            return (string)new LogMessage
-            {
-                Category = category,
-                Date = DateTime.Now,
-                Hostname = EnvironmentHelper.Host,
-                Id = Guid.NewGuid().ToString(),
-                IpAddress = EnvironmentHelper.IpAddress,
-                IpAddressRemote = EnvironmentHelper.IpAddressExternal,
-                Level = level.GetHumanReadableValue(),
-                Message = message,
-                MessageIdentifier = identifier,
-                Operation = EnvironmentHelper.Operation,
-                ProcessId = EnvironmentHelper.ProcessId,
-                UserAgent = EnvironmentHelper.UserAgent,
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
-                ThreadName = Thread.CurrentThread.Name
-            }.GetSerializer();
+            return (string)
+                new LogMessage
+                {
+                    Category = category,
+                    Date = DateTime.Now,
+                    Hostname = EnvironmentHelper.Host,
+                    Id = Guid.NewGuid().ToString(),
+                    IpAddress = EnvironmentHelper.IpAddress,
+                    IpAddressRemote = EnvironmentHelper.IpAddressExternal,
+                    Level = level.GetHumanReadableValue(),
+                    Message = message,
+                    MessageIdentifier = identifier,
+                    Operation = EnvironmentHelper.Operation,
+                    ProcessId = EnvironmentHelper.ProcessId,
+                    UserAgent = EnvironmentHelper.UserAgent,
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    ThreadName = Thread.CurrentThread.Name
+                }.GetSerializer();
         }
 
         /// <summary>
@@ -265,14 +275,11 @@
 
             do
             {
-
                 PropagateInternal(Serialize(LogLevel.Trace, category, exception.Message));
                 PropagateInternal(Serialize(LogLevel.Trace, category, exception.StackTrace));
 
                 exception = exception.InnerException;
-
             } while (exception != null);
-
         }
 
         /// <summary>
@@ -314,7 +321,13 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class, new()
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class, new()
         {
             if (!_level.HasFlag(LogLevel.Debug))
             {

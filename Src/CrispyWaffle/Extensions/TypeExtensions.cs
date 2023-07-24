@@ -13,7 +13,6 @@
     /// </summary>
     public static class TypeExtensions
     {
-
         /// <summary>
         /// Gets the name of the query string builder key.
         /// </summary>
@@ -21,10 +20,12 @@
         /// <returns></returns>
         public static string GetQueryStringBuilderKeyName(this PropertyInfo propertyInfo)
         {
-            return propertyInfo.GetCustomAttributes(typeof(QueryStringBuilderKeyNameAttribute), false) is
-                       QueryStringBuilderKeyNameAttribute[] attributes && attributes.Length > 0
-                       ? attributes[0].KeyName
-                       : null;
+            return
+                propertyInfo.GetCustomAttributes(typeof(QueryStringBuilderKeyNameAttribute), false)
+                    is QueryStringBuilderKeyNameAttribute[] attributes
+                && attributes.Length > 0
+                ? attributes[0].KeyName
+                : null;
         }
 
         /// <summary>
@@ -34,8 +35,12 @@
         /// <returns></returns>
         public static bool QueryStringBuilderIgnore(this PropertyInfo propertyInfo)
         {
-            return propertyInfo.GetCustomAttributes(typeof(QueryStringBuilderIgnoreAttribute), false) is
-                       QueryStringBuilderIgnoreAttribute[] attributes && attributes.Length > 0;
+            return propertyInfo.GetCustomAttributes(
+                    typeof(QueryStringBuilderIgnoreAttribute),
+                    false
+                )
+                    is QueryStringBuilderIgnoreAttribute[] attributes
+                && attributes.Length > 0;
         }
 
         /// <summary>
@@ -45,7 +50,8 @@
         /// <param name="currentObject">The current object.</param>
         /// <param name="newObject">The new object.</param>
         /// <returns>T.</returns>
-        public static T UpdateValues<T>(this T currentObject, T newObject) where T : IUpdateable
+        public static T UpdateValues<T>(this T currentObject, T newObject)
+            where T : IUpdateable
         {
             var type = currentObject.GetType();
             var defaultObject = (T)Activator.CreateInstance(type);
@@ -53,6 +59,7 @@
             {
                 UpdateValueInternal(currentObject, newObject, propertyInfo, defaultObject, type);
             }
+
             return currentObject;
         }
 
@@ -65,15 +72,23 @@
         /// <param name="propertyInfo">The property information.</param>
         /// <param name="defaultObject">The default object.</param>
         /// <param name="type">The type.</param>
-        private static void UpdateValueInternal<T>(T currentObject, T newObject, PropertyInfo propertyInfo, T defaultObject,
-            Type type) where T : IUpdateable
+        private static void UpdateValueInternal<T>(
+            T currentObject,
+            T newObject,
+            PropertyInfo propertyInfo,
+            T defaultObject,
+            Type type
+        )
+            where T : IUpdateable
         {
             var defaultValue = propertyInfo.GetValue(defaultObject);
             var newValue = propertyInfo.GetValue(newObject);
             var currentValue = propertyInfo.GetValue(currentObject);
             var shouldSerialize = false;
 
-            var shouldSerializeMethod = type.GetMethod(string.Concat(@"ShouldSerialize", propertyInfo.Name));
+            var shouldSerializeMethod = type.GetMethod(
+                string.Concat(@"ShouldSerialize", propertyInfo.Name)
+            );
             if (shouldSerializeMethod != null && shouldSerializeMethod.ReturnType == typeof(bool))
             {
                 shouldSerialize = (bool)shouldSerializeMethod.Invoke(newObject, null);
@@ -90,7 +105,11 @@
             }
             else if (typeof(IUpdateable).IsAssignableFrom(propertyInfo.PropertyType))
             {
-                propertyInfo.SetValue(currentObject, ((IUpdateable)currentValue).UpdateValues((IUpdateable)newValue), null);
+                propertyInfo.SetValue(
+                    currentObject,
+                    ((IUpdateable)currentValue).UpdateValues((IUpdateable)newValue),
+                    null
+                );
             }
         }
 
@@ -100,7 +119,8 @@
         /// <typeparam name="TInterface"></typeparam>
         /// <param name="source">The source.</param>
         /// <returns><c>true</c> if implements, false otherwise</returns>
-        public static bool Implements<TInterface>(this Type source) where TInterface : class
+        public static bool Implements<TInterface>(this Type source)
+            where TInterface : class
         {
             return typeof(TInterface).IsAssignableFrom(source);
         }
@@ -112,17 +132,18 @@
         /// <returns>Boolean.</returns>
         public static bool IsSimpleType(this Type type)
         {
-            return type.IsValueType ||
-                type.IsPrimitive ||
-                new[] {
-                typeof(string),
-                typeof(decimal),
-                typeof(DateTime),
-                typeof(DateTimeOffset),
-                typeof(TimeSpan),
-                typeof(Guid)
-            }.Contains(type) ||
-                Convert.GetTypeCode(type) != TypeCode.Object;
+            return type.IsValueType
+                || type.IsPrimitive
+                || new[]
+                {
+                    typeof(string),
+                    typeof(decimal),
+                    typeof(DateTime),
+                    typeof(DateTimeOffset),
+                    typeof(TimeSpan),
+                    typeof(Guid)
+                }.Contains(type)
+                || Convert.GetTypeCode(type) != TypeCode.Object;
         }
 
         /// <summary>
@@ -130,8 +151,17 @@
         /// </summary>
         private static readonly HashSet<TypeCode> _primitiveNumericTypes = new HashSet<TypeCode>
         {
-            TypeCode.Byte, TypeCode.SByte, TypeCode.UInt16, TypeCode.UInt32, TypeCode.UInt64, TypeCode.Int16,
-            TypeCode.Int32, TypeCode.Int64, TypeCode.Decimal, TypeCode.Double, TypeCode.Single
+            TypeCode.Byte,
+            TypeCode.SByte,
+            TypeCode.UInt16,
+            TypeCode.UInt32,
+            TypeCode.UInt64,
+            TypeCode.Int16,
+            TypeCode.Int32,
+            TypeCode.Int64,
+            TypeCode.Decimal,
+            TypeCode.Double,
+            TypeCode.Single
         };
 
         /// <summary>
@@ -156,7 +186,12 @@
                     return false;
                 }
 
-                if (type != null && (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Nullable<>)))
+                if (
+                    type != null
+                    && (
+                        !type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Nullable<>)
+                    )
+                )
                 {
                     return false;
                 }
@@ -189,7 +224,10 @@
                 return method.Name;
             }
 
-            if (excludeBegin && ns.StartsWith(@"CrispyWaffle", StringComparison.InvariantCultureIgnoreCase))
+            if (
+                excludeBegin
+                && ns.StartsWith(@"CrispyWaffle", StringComparison.InvariantCultureIgnoreCase)
+            )
             {
                 ns = ns.Substring(13);
             }
