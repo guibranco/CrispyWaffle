@@ -9,7 +9,6 @@
     /// This class provides a template repository based on application resources
     /// passed as reference to the constructor.
     /// </summary>
-
     public sealed class ResourceTemplateRepository : ITemplateRepository
     {
         #region Private Members

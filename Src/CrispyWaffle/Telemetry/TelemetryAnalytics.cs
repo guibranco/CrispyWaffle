@@ -172,6 +172,7 @@
                     break;
                 }
             }
+
             return result;
         }
 

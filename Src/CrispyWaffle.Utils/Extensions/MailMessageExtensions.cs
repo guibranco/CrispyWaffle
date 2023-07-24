@@ -28,7 +28,7 @@ namespace CrispyWaffle.Utils.Extensions
         /// The flags
         /// </summary>
 #pragma warning disable S3011
-        private const BindingFlags _flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
         /// <summary>
         /// The mail writer
@@ -41,7 +41,7 @@ namespace CrispyWaffle.Utils.Extensions
         /// The mail writer constructor
         /// </summary>
         private static readonly ConstructorInfo _mailWriterConstructor = _mailWriter.GetConstructor(
-            _flags,
+            Flags,
             null,
             new[] { typeof(Stream) },
             null
@@ -50,14 +50,14 @@ namespace CrispyWaffle.Utils.Extensions
         /// <summary>
         /// The close method
         /// </summary>
-        private static readonly MethodInfo _closeMethod = _mailWriter.GetMethod(@"Close", _flags);
+        private static readonly MethodInfo _closeMethod = _mailWriter.GetMethod(@"Close", Flags);
 
         /// <summary>
         /// The send method
         /// </summary>
         private static readonly MethodInfo _sendMethod = typeof(MailMessage).GetMethod(
             @"Send",
-            _flags
+            Flags
         );
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace CrispyWaffle.Utils.Extensions
             var mailWriter = _mailWriterConstructor.Invoke(new object[] { result });
             _sendMethod.Invoke(
                 self,
-                _flags,
+                Flags,
                 null,
                 _isRunningInDotNetFourPointFive
                     ? new[] { mailWriter, true, true }
@@ -88,7 +88,7 @@ namespace CrispyWaffle.Utils.Extensions
             result = new(result.ToArray());
             _closeMethod.Invoke(
                 mailWriter,
-                _flags,
+                Flags,
                 null,
                 Array.Empty<object>(),
                 CultureInfo.InvariantCulture

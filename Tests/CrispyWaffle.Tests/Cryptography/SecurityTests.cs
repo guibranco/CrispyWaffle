@@ -7,25 +7,25 @@
     [Collection("Cryptography collection")]
     public class SecurityTests
     {
-        private const string _passwordHash = "123456";
-        private const string _saltKey = "12345678";
-        private const string _viKey = "HZEM7|Ne2YGS/F41";
+        private const string PasswordHash = "123456";
+        private const string SaltKey = "12345678";
+        private const string ViKey = "HZEM7|Ne2YGS/F41";
 
-        private const string _plainText = nameof(_plainText);
-        private const string _encryptedText = "9WfrFwgvu4EBtS0ZnAtdxg==";
+        private const string PlainText = nameof(PlainText);
+        private const string EncryptedText = "9WfrFwgvu4EBtS0ZnAtdxg==";
 
         [Fact]
         public void Encrypt_Success()
         {
-            var result = Security.Encrypt(_plainText, _passwordHash, _saltKey, _viKey);
-            Assert.Equal(_encryptedText, result);
+            var result = Security.Encrypt(PlainText, PasswordHash, SaltKey, ViKey);
+            Assert.Equal(EncryptedText, result);
         }
 
         [Fact]
         public void Decrypt_Success()
         {
-            var result = Security.Decrypt(_encryptedText, _passwordHash, _saltKey, _viKey);
-            Assert.Equal(_plainText, result);
+            var result = Security.Decrypt(EncryptedText, PasswordHash, SaltKey, ViKey);
+            Assert.Equal(PlainText, result);
         }
 
         [Theory]
@@ -48,7 +48,7 @@
         )]
         public void Hash_Success(HashAlgorithmType type, string expectedHash)
         {
-            var result = Security.Hash(_plainText, type);
+            var result = Security.Hash(PlainText, type);
             Assert.Equal(expectedHash, result);
         }
 
@@ -56,7 +56,7 @@
         public void Hash_InvalidType()
         {
             var result = Assert.Throws<ArgumentOutOfRangeException>(
-                () => Security.Hash(_plainText, (HashAlgorithmType)10)
+                () => Security.Hash(PlainText, (HashAlgorithmType)10)
             );
 
             Assert.NotNull(result);

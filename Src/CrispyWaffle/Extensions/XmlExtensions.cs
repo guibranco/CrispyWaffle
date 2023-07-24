@@ -80,12 +80,14 @@
                     results.Add(string.Empty);
                     continue;
                 }
+
                 var item = nodesL.Item(0);
                 if (item != null)
                 {
                     results.Add(item.InnerText);
                 }
             }
+
             return string.Join<string>(@" ", results);
         }
     }

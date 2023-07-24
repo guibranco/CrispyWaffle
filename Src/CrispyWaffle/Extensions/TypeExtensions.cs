@@ -59,6 +59,7 @@
             {
                 UpdateValueInternal(currentObject, newObject, propertyInfo, defaultObject, type);
             }
+
             return currentObject;
         }
 

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Infrastructure
 {
     using Validations;
@@ -33,7 +34,6 @@ namespace CrispyWaffle.Infrastructure
     public static class EnvironmentHelper
     {
         #region ~Ctor
-
 
         /// <summary>
         /// Initializes static members of the <see cref="EnvironmentHelper"/> class.
@@ -92,6 +92,11 @@ namespace CrispyWaffle.Infrastructure
         /// Gets the ip address external.
         /// </summary>
         /// <returns>System.String.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Style",
+            "IDE0063:Use simple 'using' statement",
+            Justification = "Not compatible with .Net Standard 2.0"
+        )]
         private static string GetIpAddressExternal()
         {
             using (var wc = new WebClient { Encoding = Encoding.UTF8 })

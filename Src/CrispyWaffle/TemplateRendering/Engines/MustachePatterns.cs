@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.TemplateRendering.Engines
 {
     using System.Text.RegularExpressions;

@@ -17,22 +17,22 @@
         /// <summary>
         /// The application log name
         /// </summary>
-        private const string _applicationLogName = "Application";
+        private const string ApplicationLogName = "Application";
 
         /// <summary>
         /// The maximum payload length chars
         /// </summary>
-        const int _maximumPayloadLengthChars = 31839;
+        const int MaximumPayloadLengthChars = 31839;
 
         /// <summary>
         /// The maximum source name length chars
         /// </summary>
-        const int _maximumSourceNameLengthChars = 212;
+        const int MaximumSourceNameLengthChars = 212;
 
         /// <summary>
         /// The source moved event identifier
         /// </summary>
-        const int _sourceMovedEventId = 3;
+        const int SourceMovedEventId = 3;
 
         /// <summary>
         /// The event identifier provider
@@ -76,9 +76,9 @@
                 throw new ArgumentNullException(nameof(source));
             }
 
-            if (source.Length > _maximumSourceNameLengthChars)
+            if (source.Length > MaximumSourceNameLengthChars)
             {
-                source = source.Substring(0, _maximumSourceNameLengthChars);
+                source = source.Substring(0, MaximumSourceNameLengthChars);
             }
 
             source = source.Replace("<", "_");
@@ -88,7 +88,7 @@
                 eventIdProvider ?? throw new ArgumentNullException(nameof(eventIdProvider));
 
             _log = new EventLog(
-                string.IsNullOrWhiteSpace(logName) ? _applicationLogName : logName,
+                string.IsNullOrWhiteSpace(logName) ? ApplicationLogName : logName,
                 machineName
             );
 
@@ -177,7 +177,7 @@
                         + $"The source has been registered with this log, {log.Log}, however a computer restart may be required "
                         + $"before event logs will appear in {log.Log} with source {source}. Until then, messages may be logged to {oldLogName}.",
                     EventLogEntryType.Warning,
-                    _sourceMovedEventId
+                    SourceMovedEventId
                 );
             }
         }
@@ -221,9 +221,9 @@
 
             var type = LevelToEventLogEntryType(level);
 
-            if (message.Length > _maximumPayloadLengthChars)
+            if (message.Length > MaximumPayloadLengthChars)
             {
-                message = message.Substring(0, _maximumPayloadLengthChars);
+                message = message.Substring(0, MaximumPayloadLengthChars);
             }
 
             _log.WriteEntry(message, type, _eventIdProvider.ComputeEventId(message));
@@ -245,9 +245,9 @@
 
             var message = GetMessageFromException(exception);
 
-            if (message.Length > _maximumPayloadLengthChars)
+            if (message.Length > MaximumPayloadLengthChars)
             {
-                message = message.Substring(0, _maximumPayloadLengthChars);
+                message = message.Substring(0, MaximumPayloadLengthChars);
             }
 
             _log.WriteEntry(message, type, _eventIdProvider.ComputeEventId(message));

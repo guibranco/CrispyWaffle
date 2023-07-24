@@ -33,7 +33,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Warning(string category, string message);
 
         /// <summary>
@@ -41,7 +40,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Info(string category, string message);
 
         /// <summary>
@@ -49,7 +47,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Trace(string category, string message);
 
         /// <summary>
@@ -72,7 +69,6 @@
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-
         void Debug(string category, string message);
 
         /// <summary>

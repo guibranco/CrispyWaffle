@@ -6,7 +6,6 @@
     /// Attribute for serializer.
     /// </summary>
     /// <seealso cref="Attribute" />
-
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Interface,
         Inherited = false,

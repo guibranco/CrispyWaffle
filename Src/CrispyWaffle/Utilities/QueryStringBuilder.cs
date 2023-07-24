@@ -219,6 +219,7 @@
                 var value = property.GetValue(instance, null);
                 Add(propertyName, value?.ToString() ?? string.Empty);
             }
+
             return this;
         }
 
@@ -302,6 +303,7 @@
                         .Append(val);
                 }
             }
+
             return builder.ToString();
         }
 

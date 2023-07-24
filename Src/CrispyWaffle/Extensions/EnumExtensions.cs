@@ -145,6 +145,7 @@
                     .ToList();
                 return displayNames.Any() ? string.Join(flagsSeparator, displayNames) : "None";
             }
+
             var fieldInfo = type.GetField(value.ToString());
             if (fieldInfo == null)
             {

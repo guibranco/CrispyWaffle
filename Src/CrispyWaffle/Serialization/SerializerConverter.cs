@@ -66,6 +66,7 @@
             {
                 stream?.Dispose();
             }
+
             return xml;
         }
 
@@ -107,6 +108,7 @@
             {
                 textReader?.Dispose();
             }
+
             return null;
         }
 
@@ -178,11 +180,13 @@
 
                 return builder.ToString();
             }
+
             if (instance._formatter is JsonSerializerAdapter)
             {
                 JToken json = instance;
                 return json.ToString();
             }
+
             if (!(instance._formatter is BinarySerializerAdapter))
             {
                 throw new InvalidOperationException(

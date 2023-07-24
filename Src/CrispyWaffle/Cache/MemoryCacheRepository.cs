@@ -21,6 +21,7 @@
         /// </summary>
         private static readonly ConcurrentDictionary<string, object> _hash =
             new ConcurrentDictionary<string, object>();
+
         #endregion
 
         #region Implementation of ICacheRepository

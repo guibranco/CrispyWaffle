@@ -3,7 +3,6 @@
     /// <summary>
     /// Template repository interface
     /// </summary>
-
     public interface ITemplateRepository
     {
         /// <summary>

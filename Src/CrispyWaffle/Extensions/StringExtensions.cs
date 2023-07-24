@@ -107,7 +107,6 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>String.</returns>
-
         [Pure]
         public static string RemoveNonAlphanumeric(this string input)
         {
@@ -151,7 +150,6 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>String.</returns>
-
         [Pure]
         public static string ToCamelCase(this string input)
         {
@@ -168,6 +166,7 @@
                 c[0] = char.ToUpper(c[0]);
                 sb.Append(c).Append(@" ");
             }
+
             return sb.ToString().Trim();
         }
 
@@ -396,12 +395,10 @@
         /// <param name="uri">The URI to act on.</param>
         /// <returns>The file name.</returns>
         [Pure]
-        public static string GetFileName(this Uri uri)
-        {
-            return string.IsNullOrWhiteSpace(uri.LocalPath)
+        public static string GetFileName(this Uri uri) =>
+            string.IsNullOrWhiteSpace(uri.LocalPath)
                 ? string.Empty
                 : Path.GetFileName(uri.LocalPath);
-        }
 
         /// <summary>
         /// An URI extension method that gets file extension.
@@ -409,22 +406,16 @@
         /// <param name="uri">The URI to act on.</param>
         /// <returns>The file extension.</returns>
         [Pure]
-        public static string GetFileExtension(this Uri uri)
-        {
-            return uri.LocalPath.GetFileExtension();
-        }
+        public static string GetFileExtension(this Uri uri) => uri.LocalPath.GetFileExtension();
 
         /// <summary>
         /// Gets the file extension.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns>String.</returns>
-
         [Pure]
-        public static string GetFileExtension(this string fileName)
-        {
-            return string.IsNullOrWhiteSpace(fileName) ? string.Empty : Path.GetExtension(fileName);
-        }
+        public static string GetFileExtension(this string fileName) =>
+            string.IsNullOrWhiteSpace(fileName) ? string.Empty : Path.GetExtension(fileName);
 
         /// <summary>
         /// To the center.
@@ -437,7 +428,7 @@
         public static string ToCenter(this string input, char spacer, int lineSize)
         {
             var half = lineSize - input.Length / 2;
-            return $@"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? ++half : half)}";
+            return $@"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? half + 1 : half)}";
         }
 
         /// <summary>

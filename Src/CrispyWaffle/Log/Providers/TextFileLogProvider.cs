@@ -14,7 +14,6 @@
         /// <summary>
         /// Text file log adapter
         /// </summary>
-
         private readonly ITextFileLogAdapter _adapter;
 
         #endregion
@@ -38,7 +37,6 @@
         /// Sets the log level of the instance
         /// </summary>
         /// <param name="level">The log level</param>
-
         public void SetLevel(LogLevel level)
         {
             _adapter.SetLevel(level);

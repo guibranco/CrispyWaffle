@@ -102,6 +102,7 @@
 
                     return priority;
                 }
+
                 priority++;
             }
         }
@@ -332,6 +333,7 @@
 
                 return value;
             }
+
             throw new InvalidOperationException($"Unable to get the item with key {key}");
         }
 
@@ -368,6 +370,7 @@
 
                 return value;
             }
+
             throw new InvalidOperationException(
                 $"Unable to get the item with key {key} and sub key {subKey}"
             );
@@ -460,6 +463,7 @@
 
                 return true;
             }
+
             return false;
         }
 
@@ -501,6 +505,7 @@
 
                 return true;
             }
+
             return false;
         }
 
@@ -531,6 +536,7 @@
 
                 return currentResult;
             }
+
             return new TimeSpan(0);
         }
 

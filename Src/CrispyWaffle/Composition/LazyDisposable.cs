@@ -9,7 +9,6 @@
     /// <typeparam name="T">
     ///  The object being lazily created.
     /// </typeparam>
-
     public class LazyDisposable<T> : Lazy<T>, IDisposable
         where T : IDisposable
     {

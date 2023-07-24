@@ -87,8 +87,8 @@
 
             return CalculateDocumentDigits(
                 document,
-                Constants.BrazilianPersonDocumentName,
-                Constants.BrazilianPersonDocumentFullLength,
+                Constants._BrazilianPersonDocumentName,
+                Constants._BrazilianPersonDocumentFullLength,
                 multiplierFirstDigit,
                 multiplierSecondDigit
             );
@@ -107,8 +107,8 @@
 
             return CalculateDocumentDigits(
                 document,
-                Constants.BrazilianCorporateDocumentName,
-                Constants.BrazilianCorporateDocumentFullLength,
+                Constants._BrazilianCorporateDocumentName,
+                Constants._BrazilianCorporateDocumentFullLength,
                 multiplierFirstDigit,
                 multiplierSecondDigit
             );

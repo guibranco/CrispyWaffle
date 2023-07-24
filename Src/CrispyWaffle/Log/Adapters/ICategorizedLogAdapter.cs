@@ -6,7 +6,6 @@
     /// <summary>
     /// Categorized log adapter interface
     /// </summary>
-
     public interface ICategorizedLogAdapter : ILogAdapter
     {
         /// <summary>

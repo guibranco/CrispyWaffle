@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.ElasticSearch.Helpers
 {
     using System;
@@ -47,7 +48,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>System.String.</returns>
-
         public static string GetIndexName<T>()
             where T : class, IIndexable, new()
         {
@@ -68,7 +68,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <param name="alias">The alias.</param>
         /// <param name="indexName">Name of the index.</param>
         /// <returns>T.</returns>
-
         public static T Alias<T>(this T index, string alias, string indexName = null)
             where T : class, IIndexable, new()
         {
@@ -89,7 +88,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="index">The index.</param>
         /// <returns>T.</returns>
-
         public static T Delete<T>(this T index)
             where T : class, IIndexable, new()
         {
@@ -108,7 +106,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="index">The index.</param>
         /// <returns>T.</returns>
-
         public static T AutoMap<T>(this T index)
             where T : class, IIndexable, new()
         {
@@ -156,6 +153,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
 
             return result.Deleted;
         }
+
         #endregion
     }
 }

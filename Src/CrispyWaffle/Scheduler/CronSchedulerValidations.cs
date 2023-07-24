@@ -11,6 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System;
+
 namespace CrispyWaffle.Scheduler
 {
     using System.Text.RegularExpressions;
@@ -23,27 +26,37 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The divided regex
         /// </summary>
-        public static readonly Regex DividedRegex = new Regex(@"(\*/\d+)", RegexOptions.Compiled);
+        public static readonly Regex DividedRegex = new Regex(
+            @"(\*/\d+)",
+            RegexOptions.Compiled,
+            TimeSpan.FromSeconds(5)
+        );
 
         /// <summary>
         /// The range regex
         /// </summary>
         public static readonly Regex RangeRegex = new Regex(
             @"(\d+\-\d+)\/?(\d+)?",
-            RegexOptions.Compiled
+            RegexOptions.Compiled,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
         /// The wild regex
         /// </summary>
-        public static readonly Regex WildRegex = new Regex(@"(\*)", RegexOptions.Compiled);
+        public static readonly Regex WildRegex = new Regex(
+            @"(\*)",
+            RegexOptions.Compiled,
+            TimeSpan.FromSeconds(5)
+        );
 
         /// <summary>
         /// The list regex
         /// </summary>
         public static readonly Regex ListRegex = new Regex(
             @"(((\d+,)*\d+)+)",
-            RegexOptions.Compiled
+            RegexOptions.Compiled,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
@@ -51,7 +64,8 @@ namespace CrispyWaffle.Scheduler
         /// </summary>
         public static readonly Regex ValidationRegex = new Regex(
             DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex,
-            RegexOptions.Compiled
+            RegexOptions.Compiled,
+            TimeSpan.FromSeconds(5)
         );
     }
 }
