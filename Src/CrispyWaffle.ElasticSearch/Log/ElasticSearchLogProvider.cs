@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.ElasticSearch.Log
 {
     using System;
@@ -176,7 +177,6 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <summary>
         /// Aborts the garbage collector.
         /// </summary>
-
         public void AbortGarbageCollector() => _tokenSource.Cancel();
 
         #endregion

@@ -67,7 +67,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Warning(string category, string message)
         {
             _adapter.CategorizedWarning(category, message);
@@ -78,7 +77,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Info(string category, string message)
         {
             _adapter.CategorizedInfo(category, message);
@@ -89,7 +87,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Trace(string category, string message)
         {
             _adapter.CategorizedTrace(category, message);
@@ -121,7 +118,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Debug(string category, string message)
         {
             _adapter.CategorizedDebug(category, message);
@@ -133,7 +129,6 @@
         /// <param name="category">The category</param>
         /// <param name="content">The content to be stored</param>
         /// <param name="fileName">The name of the attachment.</param>
-
         public void Debug(string category, string content, string fileName)
         {
             _adapter.CategorizedDebug(category, content, fileName);
@@ -147,7 +142,6 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-
         public void Debug<T>(
             string category,
             T content,

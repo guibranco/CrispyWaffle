@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Configuration
 {
     using Composition;
@@ -33,7 +34,6 @@ namespace CrispyWaffle.Configuration
         /// The property changed event handler
         /// </summary>
         /// <returns></returns>
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
@@ -42,7 +42,6 @@ namespace CrispyWaffle.Configuration
         /// OnPropertyChanged event invoker
         /// </summary>
         /// <param name="propertyName">The property name that was changed</param>
-
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

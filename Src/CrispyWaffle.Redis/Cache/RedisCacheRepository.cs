@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Redis.Cache
 {
     using CrispyWaffle.Cache;
@@ -266,6 +267,7 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
+
             throw new InvalidOperationException(
                 string.Format(
                     CultureInfo.CurrentCulture,
@@ -306,6 +308,7 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
+
             throw new InvalidOperationException(
                 string.Format(
                     CultureInfo.CurrentCulture,
@@ -341,6 +344,7 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
+
             return false;
         }
 
@@ -439,6 +443,7 @@ namespace CrispyWaffle.Redis.Cache
 
                 HandleException(e);
             }
+
             return TimeSpan.Zero;
         }
 

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Configuration
 {
     using System;
@@ -18,7 +19,6 @@ namespace CrispyWaffle.Configuration
     /// <summary>
     /// Connection name attribute class. This class cannot be inherited.
     /// </summary>
-
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class ConnectionNameAttribute : Attribute
     {

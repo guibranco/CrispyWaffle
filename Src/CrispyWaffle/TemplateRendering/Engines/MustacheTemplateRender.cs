@@ -271,8 +271,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         private static string RenderProperties(Match match, IDictionary<string, object> properties)
         {
             var property = match.Groups["property"].Value.ToLower();
-            return properties.ContainsKey(property)
-                ? properties[property].ToString()
+            return properties.TryGetValue(property, out var property1)
+                ? property1.ToString()
                 : string.Empty;
         }
 

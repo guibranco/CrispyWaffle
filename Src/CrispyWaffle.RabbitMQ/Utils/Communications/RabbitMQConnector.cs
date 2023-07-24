@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
     using Configuration;

@@ -189,6 +189,7 @@
                             return _box.Value;
                         }
                 }
+
                 var b = new Box(InternalLoaded());
                 _box = b;
                 return b.Value;
