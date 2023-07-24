@@ -22,7 +22,8 @@ namespace CrispyWaffle.Validations
         /// </summary>
         public static readonly Regex PortuguesePrepositionPattern = new Regex(
             "^(da|de|do|das|dos|no|na|nos|nas|-|etapa)$",
-            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
+            RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(5)
         );
 
         /// <summary>
