@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Utils.Communications
 {
     using System;
@@ -179,6 +180,7 @@ namespace CrispyWaffle.Utils.Communications
             {
                 responseStream?.Dispose();
             }
+
             return result;
         }
 
@@ -242,6 +244,7 @@ namespace CrispyWaffle.Utils.Communications
                     Thread.Sleep(1000);
                 }
             }
+
             return result;
         }
 

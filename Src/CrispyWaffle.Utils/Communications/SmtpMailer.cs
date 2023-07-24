@@ -45,31 +45,26 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// The <see cref="SmtpClient" />
         /// </summary>
-
         private readonly SmtpClient _client;
 
         /// <summary>
         /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />
         /// </summary>
-
         private readonly MailMessage _message;
 
         /// <summary>
         /// True if disposed.
         /// </summary>
-
         private bool _disposed;
 
         /// <summary>
         /// True if message is already defined
         /// </summary>
-
         private bool _messageSet;
 
         /// <summary>
         /// The HTML version of the message
         /// </summary>
-
         private string _htmlMessage;
 
         /// <summary>

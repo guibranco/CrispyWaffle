@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Utils.GoodPractices
 {
     using System.Runtime.Serialization;
@@ -27,7 +28,6 @@ namespace CrispyWaffle.Utils.GoodPractices
         /// <summary>
         /// Default constructor.
         /// </summary>
-
         public NullMessageException()
             : base("Unable to set the attachment of message before the message itself") { }
 

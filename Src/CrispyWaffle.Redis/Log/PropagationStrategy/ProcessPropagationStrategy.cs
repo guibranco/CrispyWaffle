@@ -9,7 +9,6 @@
     /// The process propagation strategy
     /// </summary>
     /// <seealso cref="IPropagationStrategy" />
-
     public sealed class ProcessPropagation : IPropagationStrategy
     {
         #region Implementation of IPropagationStrategy

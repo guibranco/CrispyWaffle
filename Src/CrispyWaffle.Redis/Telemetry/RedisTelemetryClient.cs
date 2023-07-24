@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Redis.Telemetry
 {
     using Composition;
@@ -25,7 +26,6 @@ namespace CrispyWaffle.Redis.Telemetry
     /// The Redis telemetry client class.
     /// </summary>
     /// <seealso cref="ITelemetryClient" />
-
     public sealed class RedisTelemetryClient : ITelemetryClient
     {
         #region Private fields

@@ -9,7 +9,6 @@
     /// The operation propagation strategy class.
     /// </summary>
     /// <seealso cref="IPropagationStrategy" />
-
     public sealed class OperationPropagationStrategy : IPropagationStrategy
     {
         #region Implementation of IPropagationStrategy
