@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Fixtures
 {
     using CrispyWaffle.Composition;
@@ -31,7 +32,16 @@ namespace CrispyWaffle.Tests.Fixtures
         /// </summary>
         public ConfigurationFixture()
         {
-            ServiceLocator.Register<ISecureCredentialProvider>(() => new SecureCredentialProvider { PasswordHash = "Cr1$PTVV@FE13", SaltKey = "y48H85nH21", IVKey = "HZEM7|Ne2YGS/F41" }, LifeStyle.Singleton);
+            ServiceLocator.Register<ISecureCredentialProvider>(
+                () =>
+                    new SecureCredentialProvider
+                    {
+                        PasswordHash = "Cr1$PTVV@FE13",
+                        SaltKey = "y48H85nH21",
+                        IVKey = "HZEM7|Ne2YGS/F41"
+                    },
+                LifeStyle.Singleton
+            );
         }
 
         #region IDisposable Support

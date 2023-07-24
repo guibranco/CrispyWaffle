@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
     using Configuration;
@@ -30,8 +31,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// </summary>
         /// <param name="connection">The connection.</param>
         public RabbitMQConnector(IConnection connection)
-        : this(connection, "/", $"{EnvironmentHelper.ApplicationName}.logs")
-        { }
+            : this(connection, "/", $"{EnvironmentHelper.ApplicationName}.logs") { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RabbitMQConnector" /> class.
@@ -48,7 +48,11 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 throw new ArgumentNullException(nameof(connection));
             }
 
-            ConnectionFactory = new ConnectionFactory { HostName = connection.Host, Port = connection.Port };
+            ConnectionFactory = new ConnectionFactory
+            {
+                HostName = connection.Host,
+                Port = connection.Port
+            };
 
             if (!string.IsNullOrWhiteSpace(connection.Credentials?.UserName))
             {
@@ -60,7 +64,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 ConnectionFactory.Password = connection.Credentials.Password;
             }
 
-            ConnectionFactory.VirtualHost = virtualHost ?? throw new ArgumentNullException(nameof(virtualHost));
+            ConnectionFactory.VirtualHost =
+                virtualHost ?? throw new ArgumentNullException(nameof(virtualHost));
 
             DefaultExchangeName = defaultExchange;
         }

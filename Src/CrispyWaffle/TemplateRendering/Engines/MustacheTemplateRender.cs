@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.TemplateRendering.Engines
 {
     using Extensions;
@@ -26,7 +27,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
     /// <seealso cref="ITemplateRender" />
     public class MustacheTemplateRender : ITemplateRender
     {
-        #region Private fields 
+        #region Private fields
 
         /// <summary>
         /// The properties
@@ -45,8 +46,11 @@ namespace CrispyWaffle.TemplateRendering.Engines
         private static Dictionary<string, object> ParseObject(object data)
         {
             return data.GetType()
-                       .GetProperties()
-                       .ToDictionary(property => property.Name.ToLower(), property => property.GetValue(data, null));
+                .GetProperties()
+                .ToDictionary(
+                    property => property.Name.ToLower(),
+                    property => property.GetValue(data, null)
+                );
         }
 
         /// <summary>
@@ -85,7 +89,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return template.Replace(matchText, value);
         }
 
-
         /// <summary>
         /// Determines whether specified property is in dictionary
         /// </summary>
@@ -112,9 +115,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
 
             return typeof(string) == type
                 ? !string.IsNullOrWhiteSpace((string)value)
-                : type.IsSimpleType() ||
-                type.GetConstructors().Any(c => c.GetParameters().Length == 0) &&
-                Convert.ChangeType(value, type, CultureInfo.InvariantCulture) != Activator.CreateInstance(type);
+                : type.IsSimpleType()
+                    || type.GetConstructors().Any(c => c.GetParameters().Length == 0)
+                        && Convert.ChangeType(value, type, CultureInfo.InvariantCulture)
+                            != Activator.CreateInstance(type);
         }
 
         /// <summary>
@@ -168,8 +172,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.LoopPattern.IsMatch(template)
                 ? template
-                : MustachePatterns
-                    .LoopPattern.Matches(template)
+                : MustachePatterns.LoopPattern
+                    .Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessLoop(match, current));
@@ -199,8 +203,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
 
             var subType = type.GetElementType();
             return type.IsSimpleType() || subType.IsSimpleType()
-                       ? ProcessSimpleLoop(match, template, pattern, (string[])replacements)
-                       : ProcessComplexLoop(match, template, pattern, (object[])replacements);
+                ? ProcessSimpleLoop(match, template, pattern, (string[])replacements)
+                : ProcessComplexLoop(match, template, pattern, (object[])replacements);
         }
 
         /// <summary>
@@ -211,10 +215,19 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <param name="pattern">The pattern.</param>
         /// <param name="replacements">The replacements.</param>
         /// <returns>String.</returns>
-        private static string ProcessSimpleLoop(Capture match, string template, string pattern, IEnumerable<string> replacements)
+        private static string ProcessSimpleLoop(
+            Capture match,
+            string template,
+            string pattern,
+            IEnumerable<string> replacements
+        )
         {
             var result = string.Empty;
-            result = replacements.Aggregate(result, (current, value) => current + MustachePatterns.LoopPropertyPattern.Replace(pattern, value));
+            result = replacements.Aggregate(
+                result,
+                (current, value) =>
+                    current + MustachePatterns.LoopPropertyPattern.Replace(pattern, value)
+            );
             return template.Replace(match.Value, result);
         }
 
@@ -226,19 +239,26 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <param name="pattern">The pattern.</param>
         /// <param name="replacements">The replacements.</param>
         /// <returns>String.</returns>
-        private static string ProcessComplexLoop(Capture match, string template, string pattern, object[] replacements)
+        private static string ProcessComplexLoop(
+            Capture match,
+            string template,
+            string pattern,
+            object[] replacements
+        )
         {
             var result = string.Empty;
-            result = replacements.Aggregate(result,
-                                            (current, value) =>
-                                            {
-                                                var properties = ParseObject(value);
-                                                return current + MustachePatterns.PropertyPattern.Replace(
-                                                                                         pattern,
-                                                                                         patch => RenderProperties(
-                                                                                                                    patch,
-                                                                                                                    properties));
-                                            });
+            result = replacements.Aggregate(
+                result,
+                (current, value) =>
+                {
+                    var properties = ParseObject(value);
+                    return current
+                        + MustachePatterns.PropertyPattern.Replace(
+                            pattern,
+                            patch => RenderProperties(patch, properties)
+                        );
+                }
+            );
             return template.Replace(match.Value, result);
         }
 
@@ -251,9 +271,9 @@ namespace CrispyWaffle.TemplateRendering.Engines
         private static string RenderProperties(Match match, IDictionary<string, object> properties)
         {
             var property = match.Groups["property"].Value.ToLower();
-            return properties.ContainsKey(property)
-                       ? properties[property].ToString()
-                       : string.Empty;
+            return properties.TryGetValue(property, out var property1)
+                ? property1.ToString()
+                : string.Empty;
         }
 
         /// <summary>
@@ -268,7 +288,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 return template;
             }
 
-            template = MustachePatterns.PropertyPattern.Replace(template, match => RenderProperties(match, _properties));
+            template = MustachePatterns.PropertyPattern.Replace(
+                template,
+                match => RenderProperties(match, _properties)
+            );
             return template;
         }
 
@@ -295,7 +318,5 @@ namespace CrispyWaffle.TemplateRendering.Engines
         }
 
         #endregion
-
     }
 }
-

@@ -40,6 +40,8 @@ Documentation of the project: [Read the Docs](https://guibranco.github.io/Crispy
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=bugs)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle)
 
+[![DeepSource](https://app.deepsource.com/gh/guibranco/CrispyWaffle.svg/?label=active+issues&show_trend=true&token=r3XGa8MQHGZERdIhKB5EZXfL)](https://app.deepsource.com/gh/guibranco/CrispyWaffle/?ref=repository-badge)
+
 ---
 
 ## Installation
@@ -63,13 +65,13 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | **CrispyWaffle.Redis** | [![CrispyWaffle Redis NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Redis.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Redis/) | [![CrispyWaffle Redis NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Redis.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Redis/) |
 | **CrispyWaffle.Utils** | [![CrispyWaffle Utils NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Utils.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Utils/) | [![CrispyWaffle Utils NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Utils.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Utils/) |
 
-More information available [here](https://guibranco.github.io/CrispyWaffle/installation/).
+More information is available [here](https://guibranco.github.io/CrispyWaffle/installation/).
 
 ---
 
 ## User guide
 
-User guide is available [here](https://guibranco.github.io/CrispyWaffle/user-guide/basic-usage/).
+The user guide is available [here](https://guibranco.github.io/CrispyWaffle/user-guide/basic-usage/).
 
 ---
 

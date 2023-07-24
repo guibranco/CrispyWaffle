@@ -13,13 +13,16 @@
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        public static void Raise<TEvent>(TEvent @event) where TEvent : IEvent
+        public static void Raise<TEvent>(TEvent @event)
+            where TEvent : IEvent
         {
             var handlers = ServiceLocator.ResolveAll<IEventHandler<TEvent>>();
 
             foreach (var handler in handlers)
             {
-                LogConsumer.Trace($"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}");
+                LogConsumer.Trace(
+                    $"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}"
+                );
 
                 handler.Handle(@event);
             }

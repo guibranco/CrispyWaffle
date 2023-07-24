@@ -22,7 +22,9 @@
 
             var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json).Deserialize(json);
+            dynamic deserialized = SerializerFactory
+                .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
+                .Deserialize(json);
 
             var passwordEncrypted = (string)deserialized.Password;
 
@@ -30,7 +32,11 @@
 
             var secureCredentialProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-            var passwordDecrypted = passwordEncrypted.Decrypt(secureCredentialProvider.PasswordHash, secureCredentialProvider.SaltKey, secureCredentialProvider.IVKey);
+            var passwordDecrypted = passwordEncrypted.Decrypt(
+                secureCredentialProvider.PasswordHash,
+                secureCredentialProvider.SaltKey,
+                secureCredentialProvider.IVKey
+            );
 
             Assert.Equal(credential.Password, passwordDecrypted);
 
@@ -40,24 +46,19 @@
         [Fact]
         public void ValidateSecureCredentialProviderSetter()
         {
-            var credential = new Credentials
-            {
-                Password = "EchoFoxPapa"
-            };
+            var credential = new Credentials { Password = "EchoFoxPapa" };
 
             var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory.GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json).Deserialize(json);
+            dynamic deserialized = SerializerFactory
+                .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
+                .Deserialize(json);
 
             var passwordEncrypted = (string)deserialized.Password;
 
-            var credentialResult = new Credentials
-            {
-                PasswordInternal = passwordEncrypted
-            };
+            var credentialResult = new Credentials { PasswordInternal = passwordEncrypted };
 
             Assert.Equal(credential.Password, credentialResult.Password);
         }
-
     }
 }

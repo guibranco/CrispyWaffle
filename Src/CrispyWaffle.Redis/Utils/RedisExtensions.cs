@@ -16,7 +16,8 @@
         /// <summary>
         /// The connector
         /// </summary>
-        private static readonly RedisConnector _connector = ServiceLocator.Resolve<RedisConnector>();
+        private static readonly RedisConnector _connector =
+            ServiceLocator.Resolve<RedisConnector>();
 
         #endregion
 
@@ -34,7 +35,10 @@
 
             _connector.DefaultDatabase.KeyExpire(cacheKey, ttl, CommandFlags.FireAndForget);
 
-            return _connector.DefaultDatabase.StringGet(cacheKey, CommandFlags.PreferReplica).ToString().ToInt32();
+            return _connector.DefaultDatabase
+                .StringGet(cacheKey, CommandFlags.PreferReplica)
+                .ToString()
+                .ToInt32();
         }
 
         /// <summary>

@@ -11,7 +11,10 @@
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="ILazyResettable" />
-    [HostProtection(Action = SecurityAction.Demand, Resources = HostProtectionResource.Synchronization | HostProtectionResource.SharedState)]
+    [HostProtection(
+        Action = SecurityAction.Demand,
+        Resources = HostProtectionResource.Synchronization | HostProtectionResource.SharedState
+    )]
     public class LazyResettable<T> : ILazyResettable
     {
         #region Internal classes
@@ -42,14 +45,17 @@
         /// The mode
         /// </summary>
         private readonly LazyThreadSafetyMode _mode;
+
         /// <summary>
         /// The value factory
         /// </summary>
         private readonly Func<T> _valueFactory;
+
         /// <summary>
         /// The synchronize lock
         /// </summary>
         private readonly object _syncLock = new object();
+
         /// <summary>
         /// The box
         /// </summary>
@@ -74,7 +80,8 @@
         public LazyResettable(
             Func<T> valueFactory,
             LazyThreadSafetyMode mode = LazyThreadSafetyMode.PublicationOnly,
-            Type declaringType = null)
+            Type declaringType = null
+        )
         {
             _mode = mode;
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
@@ -182,11 +189,11 @@
                             return _box.Value;
                         }
                 }
+
                 var b = new Box(InternalLoaded());
                 _box = b;
                 return b.Value;
             }
-
         }
 
         /// <summary>

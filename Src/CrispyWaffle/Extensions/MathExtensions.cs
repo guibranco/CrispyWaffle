@@ -23,10 +23,13 @@
         /// <param name="multipleOf">The multiple of.</param>
         /// <param name="forceDifferentValue">The force different value.</param>
         /// <returns>Int32.</returns>
-        public static int RoundUp(this int currentValue, int multipleOf = 10, bool forceDifferentValue = false)
+        public static int RoundUp(
+            this int currentValue,
+            int multipleOf = 10,
+            bool forceDifferentValue = false
+        )
         {
-            return !forceDifferentValue &&
-                currentValue % multipleOf == 0
+            return !forceDifferentValue && currentValue % multipleOf == 0
                 ? currentValue
                 : multipleOf - currentValue % multipleOf + currentValue;
         }
@@ -41,10 +44,10 @@
         public static int RoundBest(
             this int currentValue,
             int multipleOf = 10,
-            bool forceDifferentValue = false)
+            bool forceDifferentValue = false
+        )
         {
-            if (!forceDifferentValue &&
-                currentValue % multipleOf == 0)
+            if (!forceDifferentValue && currentValue % multipleOf == 0)
             {
                 return currentValue;
             }
@@ -57,9 +60,7 @@
 
             var half = multipleOf / 2;
 
-            return left >= half
-                       ? currentValue - left + multipleOf
-                       : currentValue - left;
+            return left >= half ? currentValue - left + multipleOf : currentValue - left;
         }
     }
 }

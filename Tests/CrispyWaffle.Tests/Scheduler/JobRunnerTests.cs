@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Tests.Scheduler
 {
     using CrispyWaffle.Scheduler;
@@ -41,7 +42,13 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner("*", () => { sampler.Counter++; });
+            var runner = new JobRunner(
+                "*",
+                () =>
+                {
+                    sampler.Counter++;
+                }
+            );
 
             for (var i = 0; i < 10; i++)
             {
@@ -62,7 +69,13 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner("*/5", () => { sampler.Counter++; });
+            var runner = new JobRunner(
+                "*/5",
+                () =>
+                {
+                    sampler.Counter++;
+                }
+            );
 
             var date = DateTime.Parse("00:00:00");
 
@@ -88,15 +101,17 @@ namespace CrispyWaffle.Tests.Scheduler
 
             var sampler = new TestObjects();
 
-            var runner = new JobRunner("*", () =>
-            {
-                sampler.Counter++;
-                Thread.Sleep(sleepMilliseconds);
-            });
+            var runner = new JobRunner(
+                "*",
+                () =>
+                {
+                    sampler.Counter++;
+                    Thread.Sleep(sleepMilliseconds);
+                }
+            );
 
             runner.Execute(DateTime.Now);
             runner.Execute(DateTime.Now);
-
 
             Thread.Sleep(sleepMilliseconds * 2);
 

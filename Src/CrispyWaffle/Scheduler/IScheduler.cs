@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Scheduler
 {
     using System;
@@ -64,6 +65,5 @@ namespace CrispyWaffle.Scheduler
         /// </summary>
         /// <value>The minutes.</value>
         ICollection<int> Minutes { get; }
-
     }
 }

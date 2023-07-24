@@ -11,6 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Utils.Communications
 {
     using System;
@@ -45,31 +48,26 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// The <see cref="SmtpClient" />
         /// </summary>
-
         private readonly SmtpClient _client;
 
         /// <summary>
         /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />
         /// </summary>
-
         private readonly MailMessage _message;
 
         /// <summary>
         /// True if disposed.
         /// </summary>
-
         private bool _disposed;
 
         /// <summary>
         /// True if message is already defined
         /// </summary>
-
         private bool _messageSet;
 
         /// <summary>
         /// The HTML version of the message
         /// </summary>
-
         private string _htmlMessage;
 
         /// <summary>
@@ -88,27 +86,29 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="options"><see cref="SmtpMailerOptions" /></param>
         /// <exception cref="System.ArgumentNullException">connection</exception>
         /// <exception cref="System.ArgumentNullException">options</exception>
-
         public SmtpMailer(IConnection connection, SmtpMailerOptions options)
         {
             if (connection == null)
             {
                 throw new ArgumentNullException(nameof(connection));
             }
+
             _options = options ?? throw new ArgumentNullException(nameof(options));
 
             _client = new()
             {
                 Host = connection.Host,
                 Port = connection.Port,
-                Credentials = new NetworkCredential(connection.Credentials.UserName, connection.Credentials.Password),
+                Credentials = new NetworkCredential(
+                    connection.Credentials.UserName,
+                    connection.Credentials.Password
+                ),
                 Timeout = 300000,
                 EnableSsl = true
             };
             _message = new() { From = new(_options.FromAddress, _options.FromName) };
             _disposed = false;
         }
-
 
         /// <summary>
         /// Initializes a new instance of Mailer class.
@@ -119,20 +119,24 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="password">The password of the <paramref name="userName" /> to connect on SMTP server</param>
         /// <param name="senderDisplayName">The sender's display name</param>
         /// <param name="senderEmailAddress">The sender's e-mail address</param>
-
-        public SmtpMailer(string host,
-                  int port,
-                  string userName,
-                  string password,
-                  string senderDisplayName,
-                  string senderEmailAddress)
-        : this(new Connection
-        {
-            Credentials = new Credentials { Password = password, UserName = userName },
-            Host = host,
-            Port = port
-        }, new() { FromAddress = senderEmailAddress, FromName = senderDisplayName })
-        { }
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        public SmtpMailer(
+            string host,
+            int port,
+            string userName,
+            string password,
+            string senderDisplayName,
+            string senderEmailAddress
+        )
+            : this(
+                new Connection
+                {
+                    Credentials = new Credentials { Password = password, UserName = userName },
+                    Host = host,
+                    Port = port
+                },
+                new() { FromAddress = senderEmailAddress, FromName = senderDisplayName }
+            ) { }
 
         /// <summary>
         /// Finalizes an instance of the <see cref="SmtpMailer" /> class.
@@ -169,7 +173,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
         /// unmanaged resources.
         /// </summary>
-
         public void Dispose()
         {
             Dispose(true);
@@ -190,7 +193,10 @@ namespace CrispyWaffle.Utils.Communications
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))
             {
-                throw new ArgumentNullException(nameof(toEmailAddress), "The receiver's e-mail address cannot be null");
+                throw new ArgumentNullException(
+                    nameof(toEmailAddress),
+                    "The receiver's e-mail address cannot be null"
+                );
             }
 
             _message.To.Add(new MailAddress(toEmailAddress, toName));
@@ -206,7 +212,6 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="plainTextMessage">The plain text message.</param>
         /// <param name="htmlMessage">The HTML message.</param>
         /// <exception cref="CrispyWaffle.Utils.GoodPractices.MessageException"></exception>
-
         public void SetMessageBody(string plainTextMessage, string htmlMessage)
         {
             if (_messageSet)
@@ -223,7 +228,13 @@ namespace CrispyWaffle.Utils.Communications
                 return;
             }
 
-            _message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(htmlMessage, Encoding.UTF8, MediaTypeNames.Text.Html));
+            _message.AlternateViews.Add(
+                AlternateView.CreateAlternateViewFromString(
+                    htmlMessage,
+                    Encoding.UTF8,
+                    MediaTypeNames.Text.Html
+                )
+            );
             _htmlMessage = htmlMessage;
         }
 
@@ -258,7 +269,6 @@ namespace CrispyWaffle.Utils.Communications
         /// Sets the subject.
         /// </summary>
         /// <param name="subject">The subject.</param>
-
         public void SetSubject(string subject)
         {
             _message.Subject = subject;
@@ -270,7 +280,6 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="name">Name of the reply.</param>
         /// <param name="emailAddress">The reply email address.</param>
-
         public void SetReplyTo(string name, string emailAddress)
         {
             _message.ReplyToList.Add(new MailAddress(emailAddress, name));
@@ -282,15 +291,13 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="name">To name.</param>
         /// <param name="emailAddress">To email address.</param>
-
-        public void SetReadNotificationTo(string name, string emailAddress) => 
+        public void SetReadNotificationTo(string name, string emailAddress) =>
             _message.Headers.Add(@"Disposition-Notification-To", $@"{name} <{emailAddress}>");
 
         /// <summary>
         /// Sets the recipients.
         /// </summary>
         /// <param name="recipients">To list.</param>
-
         public void SetRecipients(Dictionary<string, string> recipients)
         {
             if (recipients == null)
@@ -308,14 +315,12 @@ namespace CrispyWaffle.Utils.Communications
         /// Sets the priority.
         /// </summary>
         /// <param name="priority">The priority.</param>
-
         public void SetPriority(MailPriority priority) => _message.Priority = priority;
 
         /// <summary>
         /// Sends the asynchronous.
         /// </summary>
         /// <returns>Task.</returns>
-
         public async Task SendAsync()
         {
             var cacheKey = TypeExtensions.GetCallingMethod();
@@ -327,11 +332,17 @@ namespace CrispyWaffle.Utils.Communications
                 eml = await sr.ReadToEndAsync().ConfigureAwait(false);
             }
 
-            var date = DateTime.Now.ToString(@"yyyy-MM-dd HH.mm.ss.ffffff", CultureInfo.InvariantCulture);
+            var date = DateTime.Now.ToString(
+                @"yyyy-MM-dd HH.mm.ss.ffffff",
+                CultureInfo.InvariantCulture
+            );
 
             if (_options.EnableDebug)
             {
-                LogConsumer.DebugTo<TextFileLogProvider>(eml, $@"{_message.Subject} {date}.{Guid.NewGuid()}.eml");
+                LogConsumer.DebugTo<TextFileLogProvider>(
+                    eml,
+                    $@"{_message.Subject} {date}.{Guid.NewGuid()}.eml"
+                );
             }
 
             if (_options.IsSandbox)
@@ -369,13 +380,14 @@ namespace CrispyWaffle.Utils.Communications
             var receivers = _message.To.Select(d => d).ToList();
             _message.CC.ToList().ForEach(receivers.Add);
 
-            LogConsumer.Trace("Sending email with subject {0} to the following recipients: {1}",
+            LogConsumer.Trace(
+                "Sending email with subject {0} to the following recipients: {1}",
                 _message.Subject,
-                string.Join(@",", receivers.Select(d => d.DisplayName)));
+                string.Join(@",", receivers.Select(d => d.DisplayName))
+            );
 
             await _client.SendMailAsync(_message).ConfigureAwait(false);
         }
-
 
         /// <summary>
         /// Handles the extension.
@@ -386,16 +398,20 @@ namespace CrispyWaffle.Utils.Communications
         private static bool HandleExtension(Exception e, string cacheKey)
         {
             TelemetryAnalytics.TrackMetric("SMTPError", e.Message);
-            if (e.InnerException?.InnerException is SocketException ||
-                e.Message.IndexOf(@"4.7.1", StringComparison.InvariantCultureIgnoreCase) != -1 ||
-                e.Message.IndexOf(@"5.0.3", StringComparison.InvariantCultureIgnoreCase) != -1)
+            if (
+                e.InnerException?.InnerException is SocketException
+                || e.Message.IndexOf(@"4.7.1", StringComparison.InvariantCultureIgnoreCase) != -1
+                || e.Message.IndexOf(@"5.0.3", StringComparison.InvariantCultureIgnoreCase) != -1
+            )
             {
                 CacheManager.Set(true, cacheKey, new TimeSpan(0, 15, 0));
                 return true;
             }
 
-            if (e.Message.IndexOf(@"4.4.2", StringComparison.InvariantCultureIgnoreCase) != -1 ||
-                e.Message.IndexOf(@"4.7.0", StringComparison.InvariantCultureIgnoreCase) != -1)
+            if (
+                e.Message.IndexOf(@"4.4.2", StringComparison.InvariantCultureIgnoreCase) != -1
+                || e.Message.IndexOf(@"4.7.0", StringComparison.InvariantCultureIgnoreCase) != -1
+            )
             {
                 return false;
             }

@@ -3,7 +3,6 @@
     /// <summary>
     /// An interface for template render engine.
     /// </summary>
-
     public interface ITemplateRender
     {
         /// <summary>

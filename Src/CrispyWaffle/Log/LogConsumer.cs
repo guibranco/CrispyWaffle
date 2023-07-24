@@ -23,7 +23,7 @@
         #region Private members
 
         /// <summary>
-        /// The log providers 
+        /// The log providers
         /// </summary>
         private static readonly ICollection<ILogProvider> _providers;
 
@@ -120,8 +120,10 @@
                 return true;
             }
 
-            if (ns.StartsWith(@"CrispyWaffle.Log") ||
-                ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
+            if (
+                ns.StartsWith(@"CrispyWaffle.Log")
+                || ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider")
+            )
             {
                 return false;
             }
@@ -144,7 +146,8 @@
         /// </summary>
         /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <returns></returns>
-        public static ILogProvider AddProvider<TLogProvider>() where TLogProvider : ILogProvider
+        public static ILogProvider AddProvider<TLogProvider>()
+            where TLogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
             _providers.Add(provider);
@@ -152,7 +155,7 @@
         }
 
         /// <summary>
-        /// Adds a provider to the providers lists and return the provider 
+        /// Adds a provider to the providers lists and return the provider
         /// </summary>
         /// <param name="provider"><see cref="ILogProvider"/></param>
         /// <returns>The <paramref name="provider"/></returns>
@@ -187,7 +190,8 @@
         /// <param name="level">The level of message to be logged.</param>
         /// <param name="message">The message to be logged.</param>
         /// <returns>True if the log provider exists in the providers list, false if not</returns>
-        public static bool LogTo<TLogProvider>(LogLevel level, string message) where TLogProvider : ILogProvider
+        public static bool LogTo<TLogProvider>(LogLevel level, string message)
+            where TLogProvider : ILogProvider
         {
             var type = typeof(TLogProvider);
 
@@ -218,7 +222,12 @@
         /// <param name="provider">The provider.</param>
         /// <param name="category">The category.</param>
         /// <exception cref="ArgumentOutOfRangeException">level - null</exception>
-        private static void LogToInternal(LogLevel level, string message, ILogProvider provider, string category)
+        private static void LogToInternal(
+            LogLevel level,
+            string message,
+            ILogProvider provider,
+            string category
+        )
         {
             switch (level)
             {
@@ -288,7 +297,8 @@
         public static bool DebugTo<TLogProvider, T>(
             T content,
             string identifier,
-            SerializerFormat customFormat = SerializerFormat.None)
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where TLogProvider : ILogProvider
             where T : class, new()
         {
@@ -321,8 +331,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, message)
+                        )
+                )
+            )
             {
                 provider.Debug(category, message);
             }
@@ -347,8 +363,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, content))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, content)
+                        )
+                )
+            )
             {
                 provider.Debug(category, content, identifier);
             }
@@ -361,13 +383,29 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public static void Debug<T>(T content, [Localizable(false)] string identifier, SerializerFormat customFormat = SerializerFormat.None)
+        public static void Debug<T>(
+            T content,
+            [Localizable(false)] string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where T : class, new()
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, string.Empty))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f =>
+                                f.Filter(
+                                    p.GetType().FullName,
+                                    LogLevel.Debug,
+                                    category,
+                                    string.Empty
+                                )
+                        )
+                )
+            )
             {
                 provider.Debug(category, content, identifier, customFormat);
             }
@@ -381,8 +419,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
+                        )
+                )
+            )
             {
                 provider.Trace(category, message);
             }
@@ -407,8 +451,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
+                        )
+                )
+            )
             {
                 provider.Trace(category, message, exception);
             }
@@ -433,8 +483,20 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, exception.Message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f =>
+                                f.Filter(
+                                    p.GetType().FullName,
+                                    LogLevel.Trace,
+                                    category,
+                                    exception.Message
+                                )
+                        )
+                )
+            )
             {
                 provider.Trace(category, exception);
             }
@@ -448,8 +510,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Info, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Info, category, message)
+                        )
+                )
+            )
             {
                 provider.Info(category, message);
             }
@@ -473,8 +541,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Warning, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Warning, category, message)
+                        )
+                )
+            )
             {
                 provider.Warning(category, message);
             }
@@ -498,8 +572,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Error, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Error, category, message)
+                        )
+                )
+            )
             {
                 provider.Error(category, message);
             }
@@ -523,8 +603,14 @@
         {
             var category = GetCategory();
 
-            foreach (var provider in _providers.Where(p =>
-                _filters.All(f => f.Filter(p.GetType().FullName, LogLevel.Fatal, category, message))))
+            foreach (
+                var provider in _providers.Where(
+                    p =>
+                        _filters.All(
+                            f => f.Filter(p.GetType().FullName, LogLevel.Fatal, category, message)
+                        )
+                )
+            )
             {
                 provider.Fatal(category, message);
             }
@@ -541,7 +627,7 @@
         }
 
         /// <summary>
-        /// Handle the exception with the exception handler set in the 
+        /// Handle the exception with the exception handler set in the
         /// </summary>
         /// <param name="exception">The exception to be handled</param>
         public static void Handle(Exception exception)
@@ -570,6 +656,5 @@
         }
 
         #endregion
-
     }
 }

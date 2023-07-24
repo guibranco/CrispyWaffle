@@ -6,8 +6,11 @@
     /// Attribute for serializer.
     /// </summary>
     /// <seealso cref="Attribute" />
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(
+        AttributeTargets.Class | AttributeTargets.Interface,
+        Inherited = false,
+        AllowMultiple = true
+    )]
     public sealed class SerializerAttribute : Attribute
     {
         /// <summary>
@@ -15,7 +18,10 @@
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="isStrict">if set to <c>true</c> [is strict].</param>
-        public SerializerAttribute(SerializerFormat format = SerializerFormat.Xml, bool isStrict = true)
+        public SerializerAttribute(
+            SerializerFormat format = SerializerFormat.Xml,
+            bool isStrict = true
+        )
         {
             Format = format;
             IsStrict = isStrict;

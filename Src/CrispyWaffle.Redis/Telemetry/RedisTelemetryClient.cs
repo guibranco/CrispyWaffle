@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Redis.Telemetry
 {
     using Composition;
@@ -25,7 +26,6 @@ namespace CrispyWaffle.Redis.Telemetry
     /// The Redis telemetry client class.
     /// </summary>
     /// <seealso cref="ITelemetryClient" />
-
     public sealed class RedisTelemetryClient : ITelemetryClient
     {
         #region Private fields
@@ -96,7 +96,9 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <returns>System.Int32.</returns>
         public int GetHit(string hitName)
         {
-            var result = _redis.GetDatabase(HitDatabase).StringGet(hitName, CommandFlags.PreferReplica);
+            var result = _redis
+                .GetDatabase(HitDatabase)
+                .StringGet(hitName, CommandFlags.PreferReplica);
             return result.HasValue ? result.ToString().ToInt32() : 0;
         }
 
@@ -125,12 +127,13 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <returns>TEvent.</returns>
-        public TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new()
+        public TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new()
         {
-            var valueBytes = _redis.GetDatabase(@event.Category).StringGet(@event.Name, CommandFlags.PreferReplica);
-            return !valueBytes.HasValue
-                ? null
-                : _redis.Serializer.Deserialize<TEvent>(valueBytes);
+            var valueBytes = _redis
+                .GetDatabase(@event.Category)
+                .StringGet(@event.Name, CommandFlags.PreferReplica);
+            return !valueBytes.HasValue ? null : _redis.Serializer.Deserialize<TEvent>(valueBytes);
         }
 
         /// <summary>
@@ -138,14 +141,18 @@ namespace CrispyWaffle.Redis.Telemetry
         /// </summary>
         /// <typeparam name="TEvent">The type of the t event.</typeparam>
         /// <param name="event">Name of the event.</param>
-        public void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new()
+        public void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new()
         {
-            _redis.GetDatabase(@event.Category).StringSet(
-                                                          @event.Name,
-                                                          (string)@event.Event.GetSerializer(),
-                                                          _defaultTTL,
-                                                          When.Always,
-                                                          CommandFlags.FireAndForget);
+            _redis
+                .GetDatabase(@event.Category)
+                .StringSet(
+                    @event.Name,
+                    (string)@event.Event.GetSerializer(),
+                    _defaultTTL,
+                    When.Always,
+                    CommandFlags.FireAndForget
+                );
         }
 
         /// <summary>
@@ -154,14 +161,18 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <param name="ttl">The TTL.</param>
-        public void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl) where TEvent : class, new()
+        public void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl)
+            where TEvent : class, new()
         {
-            _redis.GetDatabase(@event.Category).StringSet(
-                                                          @event.Name,
-                                                          (string)@event.Event.GetSerializer(),
-                                                          ttl,
-                                                          When.Always,
-                                                          CommandFlags.FireAndForget);
+            _redis
+                .GetDatabase(@event.Category)
+                .StringSet(
+                    @event.Name,
+                    (string)@event.Event.GetSerializer(),
+                    ttl,
+                    When.Always,
+                    CommandFlags.FireAndForget
+                );
         }
 
         /// <summary>
@@ -172,7 +183,9 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <returns>System.Int32.</returns>
         public int GetMetric(string metricName, string variation)
         {
-            var value = _redis.GetDatabase(MetricDatabase).HashGet(metricName, variation, CommandFlags.PreferReplica);
+            var value = _redis
+                .GetDatabase(MetricDatabase)
+                .HashGet(metricName, variation, CommandFlags.PreferReplica);
             return value.HasValue ? value.ToString().ToInt32() : 0;
         }
 
@@ -183,7 +196,9 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <param name="variation">The variation.</param>
         public void TrackMetric(string metricName, string variation)
         {
-            _redis.GetDatabase(MetricDatabase).HashIncrement(metricName, variation, 1, CommandFlags.FireAndForget);
+            _redis
+                .GetDatabase(MetricDatabase)
+                .HashIncrement(metricName, variation, 1, CommandFlags.FireAndForget);
         }
 
         /// <summary>
@@ -203,11 +218,14 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <param name="exceptionType">Type of the exception.</param>
         public void TrackException(Type exceptionType)
         {
-            _redis.GetDatabase(MetricDatabase).HashIncrement(
-               $"Exceptions_{_suffix}",
-                exceptionType.FullName,
-               1,
-               CommandFlags.FireAndForget);
+            _redis
+                .GetDatabase(MetricDatabase)
+                .HashIncrement(
+                    $"Exceptions_{_suffix}",
+                    exceptionType.FullName,
+                    1,
+                    CommandFlags.FireAndForget
+                );
         }
 
         /// <summary>
@@ -217,11 +235,14 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <param name="resolvedTimes">The resolved times.</param>
         public void TrackDependency(Type interfaceType, int resolvedTimes)
         {
-            _redis.GetDatabase(MetricDatabase).HashIncrement(
-                $"Dependencies_{_suffix}",
-                interfaceType.FullName,
-                resolvedTimes,
-                CommandFlags.FireAndForget);
+            _redis
+                .GetDatabase(MetricDatabase)
+                .HashIncrement(
+                    $"Dependencies_{_suffix}",
+                    interfaceType.FullName,
+                    resolvedTimes,
+                    CommandFlags.FireAndForget
+                );
         }
 
         #endregion

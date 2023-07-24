@@ -11,6 +11,9 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System.Diagnostics.CodeAnalysis;
+
 namespace CrispyWaffle.Redis.Utils.Communications
 {
     using Configuration;
@@ -52,8 +55,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="configuration">The configuration.</param>
         /// <param name="serializer">The serializer.</param>
         public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer)
-            : this(configuration.HostsList, configuration.Password, serializer)
-        { }
+            : this(configuration.HostsList, configuration.Password, serializer) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -63,7 +65,11 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="queuePrefix">The queue prefix.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(MasterSlaveConfiguration configuration, ISerializer serializer, string queuePrefix)
+        public RedisConnector(
+            MasterSlaveConfiguration configuration,
+            ISerializer serializer,
+            string queuePrefix
+        )
             : this(configuration.HostsList, configuration.Password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
@@ -73,8 +79,11 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="connection">The connection.</param>
         /// <param name="serializer">The serializer.</param>
         public RedisConnector(IConnection connection, ISerializer serializer)
-            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, serializer)
-        { }
+            : this(
+                string.Concat(connection.Host, @":", connection.Port),
+                connection.Credentials.Password,
+                serializer
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -85,8 +94,11 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
         public RedisConnector(IConnection connection, ISerializer serializer, string queuePrefix)
-            : this(string.Concat(connection.Host, @":", connection.Port), connection.Credentials.Password, serializer)
-            => QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
+            : this(
+                string.Concat(connection.Host, @":", connection.Port),
+                connection.Credentials.Password,
+                serializer
+            ) => QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -96,8 +108,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
         public RedisConnector(string host, int port, string password, ISerializer serializer)
-            : this(string.Concat(host, @":", port), password, serializer)
-        { }
+            : this(string.Concat(host, @":", port), password, serializer) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -109,7 +120,15 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="queuePrefix">The queue prefix.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(string host, int port, string password, ISerializer serializer, string queuePrefix)
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        public RedisConnector(
+            string host,
+            int port,
+            string password,
+            ISerializer serializer,
+            string queuePrefix
+        )
             : this(host, port, password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
@@ -122,7 +141,12 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="queuePrefix">The queue prefix.</param>
         /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
         /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        public RedisConnector(string hostsList, string password, ISerializer serializer, string queuePrefix)
+        public RedisConnector(
+            string hostsList,
+            string password,
+            ISerializer serializer,
+            string queuePrefix
+        )
             : this(hostsList, password, serializer) =>
             QueuePrefix = queuePrefix ?? throw new ArgumentNullException(nameof(queuePrefix));
 
@@ -139,26 +163,29 @@ namespace CrispyWaffle.Redis.Utils.Communications
                 AbortOnConnectFail = false,
                 AllowAdmin = true,
                 Password = password,
-                Hosts = hostsList.Split(',').Select(host =>
-                {
-                    var split = host.Split(':');
+                Hosts = hostsList
+                    .Split(',')
+                    .Select(host =>
+                    {
+                        var split = host.Split(':');
 
-                    var hostname = split[0];
-                    var port = split.Length > 1 ? int.Parse(split[1]) : 6379;
-                    return new RedisHost { Host = hostname, Port = port };
-                }).ToArray(),
+                        var hostname = split[0];
+                        var port = split.Length > 1 ? int.Parse(split[1]) : 6379;
+                        return new RedisHost { Host = hostname, Port = port };
+                    })
+                    .ToArray(),
                 ServerEnumerationStrategy = new ServerEnumerationStrategy
                 {
                     Mode = ServerEnumerationStrategy.ModeOptions.All,
                     TargetRole = ServerEnumerationStrategy.TargetRoleOptions.Any,
-                    UnreachableServerAction = ServerEnumerationStrategy.UnreachableServerActionOptions.Throw
+                    UnreachableServerAction = ServerEnumerationStrategy
+                        .UnreachableServerActionOptions
+                        .Throw
                 }
             };
 
-
             //TODO add LogConsumer to logger parameter.
             _connectionPoolManager = new RedisConnectionPoolManager(configuration);
-
 
             Serializer = serializer;
             Cache = new RedisClient(_connectionPoolManager, serializer, configuration);
@@ -232,7 +259,10 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// Gets the default server.
         /// </summary>
         /// <returns>IServer.</returns>
-        public IServer GetDefaultServer() => _connectionPoolManager.GetConnection().GetServer(_connectionPoolManager.GetConnection().GetEndPoints(true)[0]);
+        public IServer GetDefaultServer() =>
+            _connectionPoolManager
+                .GetConnection()
+                .GetServer(_connectionPoolManager.GetConnection().GetEndPoints(true)[0]);
 
         /// <summary>
         /// Gets the default database.
@@ -252,7 +282,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="databaseNumber">The database number.</param>
         /// <param name="asyncState">State of the asynchronous.</param>
         /// <returns>IDatabase.</returns>
-        public IDatabase GetDatabase(int databaseNumber, object asyncState = null) => _connectionPoolManager.GetConnection().GetDatabase(databaseNumber, asyncState);
+        public IDatabase GetDatabase(int databaseNumber, object asyncState = null) =>
+            _connectionPoolManager.GetConnection().GetDatabase(databaseNumber, asyncState);
 
         #endregion
     }

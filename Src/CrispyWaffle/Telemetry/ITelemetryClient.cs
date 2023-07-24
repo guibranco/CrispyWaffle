@@ -32,13 +32,15 @@
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <returns></returns>
-        TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new();
+        TEvent GetEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new();
 
         /// <summary>
         /// Tracks the event.
         /// </summary>
         /// <param name="event">The event.</param>
-        void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event) where TEvent : class, new();
+        void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event)
+            where TEvent : class, new();
 
         /// <summary>
         /// Tracks the event.
@@ -46,7 +48,8 @@
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
         /// <param name="ttl">The TTL.</param>
-        void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl) where TEvent : class, new();
+        void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event, TimeSpan ttl)
+            where TEvent : class, new();
 
         /// <summary>
         /// Gets the metric.

@@ -7,7 +7,5 @@
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class QueryStringBuilderIgnoreAttribute : Attribute
-    { }
-
+    public sealed class QueryStringBuilderIgnoreAttribute : Attribute { }
 }

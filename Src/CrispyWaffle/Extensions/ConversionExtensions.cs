@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Extensions
 {
     using GoodPractices;
@@ -51,7 +52,8 @@ namespace CrispyWaffle.Extensions
         /// <returns>The given data converted to a Boolean.</returns>
         public static bool ToBoolean(this string str, string validValueForTrue = "S")
         {
-            return str != null && str.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase);
+            return str != null
+                && str.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -87,10 +89,12 @@ namespace CrispyWaffle.Extensions
                 return result;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(input), input, "Unable to parse the string to a valid datetime");
+            throw new ArgumentOutOfRangeException(
+                nameof(input),
+                input,
+                "Unable to parse the string to a valid datetime"
+            );
         }
-
-
 
         /// <summary>
         /// Tries to convert string to date time.
@@ -145,7 +149,14 @@ namespace CrispyWaffle.Extensions
                         return true;
                     }
 
-                    return input.Length == 10 && DateTime.TryParseExact(input, @"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out value);
+                    return input.Length == 10
+                        && DateTime.TryParseExact(
+                            input,
+                            @"dd/MM/yyyy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out value
+                        );
             }
         }
 
@@ -161,7 +172,12 @@ namespace CrispyWaffle.Extensions
                 return 0;
             }
 
-            var success = int.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result);
+            var success = int.TryParse(
+                input,
+                NumberStyles.Number,
+                CultureInfo.CurrentCulture,
+                out var result
+            );
 
             return success ? result : 0;
         }
@@ -178,7 +194,12 @@ namespace CrispyWaffle.Extensions
                 return 0;
             }
 
-            var success = long.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result);
+            var success = long.TryParse(
+                input,
+                NumberStyles.Number,
+                CultureInfo.CurrentCulture,
+                out var result
+            );
 
             return success ? result : 0;
         }
@@ -195,7 +216,12 @@ namespace CrispyWaffle.Extensions
                 return 0M;
             }
 
-            return decimal.TryParse(input, NumberStyles.Number, CultureInfo.CurrentCulture, out var result)
+            return decimal.TryParse(
+                input,
+                NumberStyles.Number,
+                CultureInfo.CurrentCulture,
+                out var result
+            )
                 ? result
                 : 0M;
         }
@@ -242,8 +268,8 @@ namespace CrispyWaffle.Extensions
         public static DateTime FromUnixTimeStamp(this int epochTime)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                    .AddSeconds(Math.Round((double)epochTime / 1000))
-                    .ToLocalTime();
+                .AddSeconds(Math.Round((double)epochTime / 1000))
+                .ToLocalTime();
         }
 
         /// <summary>
@@ -281,19 +307,20 @@ namespace CrispyWaffle.Extensions
                 dirtyLength -= 2;
             }
 
-            if (dirtyLength < 10 ||
-                dirtyLength > 12)
+            if (dirtyLength < 10 || dirtyLength > 12)
             {
                 return false;
             }
 
-            var prefix = dirty.Substring(0, 1).Equals(@"0", StringComparison.InvariantCultureIgnoreCase) &&
-                         (dirtyLength == 11 || dirtyLength == 12)
-                             ? dirty.Substring(1, 2)
-                             : dirty.Substring(0, 2);
+            var prefix =
+                dirty.Substring(0, 1).Equals(@"0", StringComparison.InvariantCultureIgnoreCase)
+                && (dirtyLength == 11 || dirtyLength == 12)
+                    ? dirty.Substring(1, 2)
+                    : dirty.Substring(0, 2);
 
-            var hasNineDigits = dirty.Substring(dirtyLength - 9, 1)
-                                     .Equals(@"9", StringComparison.InvariantCultureIgnoreCase);
+            var hasNineDigits = dirty
+                .Substring(dirtyLength - 9, 1)
+                .Equals(@"9", StringComparison.InvariantCultureIgnoreCase);
 
             var allowedDigits = hasNineDigits ? 9 : 8;
 
@@ -402,9 +429,9 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         private static readonly Dictionary<int, string> _ordinalSuffix = new Dictionary<int, string>
         {
-            {1,"st"},
-            {2,"nd"},
-            {3,"rd"}
+            { 1, "st" },
+            { 2, "nd" },
+            { 3, "rd" }
         };
 
         /// <summary>
@@ -425,7 +452,6 @@ namespace CrispyWaffle.Extensions
             {
                 return $"{number}th";
             }
-
 
             var key = (int)number % 10;
             if (_ordinalSuffix.TryGetValue(key, out var value))
@@ -458,7 +484,8 @@ namespace CrispyWaffle.Extensions
                 return "Invalid document";
             }
 
-            var documentPattern = document.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
+            var documentPattern =
+                document.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
             return string.Format(documentPattern, document.RemoveNonNumeric().ToInt64());
         }
 
@@ -474,9 +501,13 @@ namespace CrispyWaffle.Extensions
                 return "Invalid zipcode";
             }
 
-
-            return Regex.Replace(zipCode.RemoveNonNumeric(), @"(\d{5})(\d{3})", "$1-$2", RegexOptions.Compiled,
-                TimeSpan.FromSeconds(10));
+            return Regex.Replace(
+                zipCode.RemoveNonNumeric(),
+                @"(\d{5})(\d{3})",
+                "$1-$2",
+                RegexOptions.Compiled,
+                TimeSpan.FromSeconds(10)
+            );
         }
 
         /// <summary>
@@ -490,7 +521,8 @@ namespace CrispyWaffle.Extensions
         {
             var type = typeof(T);
 
-            var constructors = type.GetConstructors().OrderByDescending(c => c.GetParameters().Length);
+            var constructors = type.GetConstructors()
+                .OrderByDescending(c => c.GetParameters().Length);
             var ctor = constructors.FirstOrDefault();
 
             if (ctor == null)
@@ -518,10 +550,18 @@ namespace CrispyWaffle.Extensions
         /// <param name="type">The type.</param>
         /// <param name="parameter">The parameter.</param>
         /// <param name="arguments">The arguments.</param>
-        private static void ParseParameters<T>(T instance, bool useNonPublic, Type type, ParameterInfo parameter, List<object> arguments)
+        private static void ParseParameters<T>(
+            T instance,
+            bool useNonPublic,
+            Type type,
+            ParameterInfo parameter,
+            List<object> arguments
+        )
         {
-            var property = type.GetProperty(parameter.Name,
-                BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance);
+            var property = type.GetProperty(
+                parameter.Name,
+                BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.Instance
+            );
 
             if (property == null && !useNonPublic)
             {
@@ -530,8 +570,10 @@ namespace CrispyWaffle.Extensions
 
             if (property == null)
             {
-                property = type.GetProperty(parameter.Name,
-                    BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance);
+                property = type.GetProperty(
+                    parameter.Name,
+                    BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.Instance
+                );
 
                 if (property == null)
                 {

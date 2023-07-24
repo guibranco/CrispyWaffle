@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Utils.Communications
 {
     using System;
@@ -75,6 +76,5 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="attachment">The attachment.</param>
         void AddAttachment(Attachment attachment);
-
     }
 }

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     using System;
@@ -32,8 +33,10 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// </summary>
         /// <param name="connection">The connection.</param>
         public ElasticConnector(IConnection connection)
-            : this(connection, $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}")
-        { }
+            : this(
+                connection,
+                $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}"
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector" /> class.
@@ -45,15 +48,32 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         {
             if (connection == null)
             {
-                throw new ArgumentNullException(nameof(connection), string.Format(CultureInfo.CurrentCulture, "A valid instance of {0} is required to initialize {1}!", typeof(IConnection).FullName, GetType().FullName));
+                throw new ArgumentNullException(
+                    nameof(connection),
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        "A valid instance of {0} is required to initialize {1}!",
+                        typeof(IConnection).FullName,
+                        GetType().FullName
+                    )
+                );
             }
 
-            var builder = new UriBuilder(connection.Port == 443 ? "https" : "http", connection.Host, connection.Port);
+            var builder = new UriBuilder(
+                connection.Port == 443 ? "https" : "http",
+                connection.Host,
+                connection.Port
+            );
             var settings = new ConnectionSettings(builder.Uri).DefaultIndex(defaultIndexName);
-            if (connection.Credentials != null &&
-                !string.IsNullOrWhiteSpace(connection.Credentials.UserName))
+            if (
+                connection.Credentials != null
+                && !string.IsNullOrWhiteSpace(connection.Credentials.UserName)
+            )
             {
-                settings.BasicAuthentication(connection.Credentials.UserName, connection.Credentials.Password);
+                settings.BasicAuthentication(
+                    connection.Credentials.UserName,
+                    connection.Credentials.Password
+                );
             }
 
             Client = new ElasticClient(settings);

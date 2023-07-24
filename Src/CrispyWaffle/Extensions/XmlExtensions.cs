@@ -15,16 +15,17 @@
         /// <param name="xmlReader">The XML reader.</param>
         /// <param name="cloneOne">The clone one.</param>
         /// <param name="cloneTwo">The clone two.</param>
-        public static void DuplicateReaders(this XmlReader xmlReader, out XmlReader cloneOne, out XmlReader cloneTwo)
+        public static void DuplicateReaders(
+            this XmlReader xmlReader,
+            out XmlReader cloneOne,
+            out XmlReader cloneTwo
+        )
         {
             var document = new XmlDocument();
             var stream = new MemoryStream();
             document.Load(xmlReader);
             document.Save(stream);
-            var settings = new XmlReaderSettings
-            {
-                IgnoreWhitespace = true
-            };
+            var settings = new XmlReaderSettings { IgnoreWhitespace = true };
             stream.Position = 0;
             cloneOne = XmlReader.Create(stream, settings);
             stream.Position = 0;
@@ -41,9 +42,7 @@
         public static XmlNode GetFirstElementByTagName(this XmlDocument document, string tagName)
         {
             var elements = document.GetElementsByTagName(tagName);
-            return elements.Count >= 1
-                       ? elements.Item(0)
-                       : null;
+            return elements.Count >= 1 ? elements.Item(0) : null;
         }
 
         /// <summary>
@@ -61,9 +60,7 @@
                 return string.Empty;
             }
 
-            return nodes.Count >= 1
-                ? item.InnerText
-                : string.Empty;
+            return nodes.Count >= 1 ? item.InnerText : string.Empty;
         }
 
         /// <summary>
@@ -78,18 +75,19 @@
             foreach (var node in nodes)
             {
                 var nodesL = xmlNode.SelectNodes(node);
-                if (nodesL == null ||
-                    nodesL.Count < 1)
+                if (nodesL == null || nodesL.Count < 1)
                 {
                     results.Add(string.Empty);
                     continue;
                 }
+
                 var item = nodesL.Item(0);
                 if (item != null)
                 {
                     results.Add(item.InnerText);
                 }
             }
+
             return string.Join<string>(@" ", results);
         }
     }

@@ -17,7 +17,6 @@
         public LazyResettableTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
             fixture.SetLogProvider(testOutputHelper);
 
-
         [Fact]
         public void LazyResettable_Success()
         {
@@ -44,7 +43,7 @@
 
             var stats = test.Stats();
 
-            Assert.Equal(1,stats.Resets);
+            Assert.Equal(1, stats.Resets);
             Assert.Equal(2, stats.Loads);
             Assert.Equal(3, stats.Hits);
         }

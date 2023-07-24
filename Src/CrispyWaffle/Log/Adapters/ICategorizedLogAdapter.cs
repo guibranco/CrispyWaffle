@@ -6,7 +6,6 @@
     /// <summary>
     /// Categorized log adapter interface
     /// </summary>
-
     public interface ICategorizedLogAdapter : ILogAdapter
     {
         /// <summary>
@@ -85,6 +84,8 @@
             string category,
             T content,
             string identifier,
-            SerializerFormat customFormat = SerializerFormat.None) where T : class;
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class;
     }
 }

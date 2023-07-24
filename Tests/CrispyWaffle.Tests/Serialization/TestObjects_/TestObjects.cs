@@ -19,7 +19,7 @@ namespace CrispyWaffle.Tests.Serialization
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// Class 
+    /// Class
     /// </summary>
     [ExcludeFromCodeCoverage]
     public static class TestObjects
@@ -45,12 +45,13 @@ namespace CrispyWaffle.Tests.Serialization
         /// </summary>
         /// <param name="correlationId">The correlation identifier.</param>
         /// <returns>StrongTypingClass.</returns>
-        public static StrongTypingClass GetStrongTyping(Guid correlationId) => new StrongTypingClass
-        {
-            CorrelationId = correlationId,
-            Date = DateTime.Now,
-            SomeText = DateTime.Now.ToString("O")
-        };
+        public static StrongTypingClass GetStrongTyping(Guid correlationId) =>
+            new StrongTypingClass
+            {
+                CorrelationId = correlationId,
+                Date = DateTime.Now,
+                SomeText = DateTime.Now.ToString("O")
+            };
 
         /// <summary>
         /// Gets the sample json.
@@ -74,20 +75,14 @@ namespace CrispyWaffle.Tests.Serialization
         /// </summary>
         /// <returns>SampleJsonNotStrictClass.</returns>
         public static SampleJsonNotStrictClass GetSampleJsonNotStrict() =>
-            new SampleJsonNotStrictClass
-            {
-                Date = DateTime.Now
-            };
+            new SampleJsonNotStrictClass { Date = DateTime.Now };
 
         /// <summary>
         /// Gets the non serializable.
         /// </summary>
         /// <returns>SampleNonSerializableClass.</returns>
-        internal static SampleNonSerializableClass GetNonSerializable()
-            => new SampleNonSerializableClass
-            {
-                Date = DateTime.Now
-            };
+        internal static SampleNonSerializableClass GetNonSerializable() =>
+            new SampleNonSerializableClass { Date = DateTime.Now };
 
         /// <summary>
         /// Gets the enumerable json.

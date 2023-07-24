@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 namespace CrispyWaffle.Log4Net
 {
     using Log;
@@ -25,7 +26,6 @@ namespace CrispyWaffle.Log4Net
     /// <seealso cref="ILogProvider" />
     public sealed class Log4NetLogProvider : ILogProvider
     {
-
         #region Private fields
 
         /// <summary>
@@ -170,7 +170,6 @@ namespace CrispyWaffle.Log4Net
                 _adapter.Info(exception.StackTrace);
 
                 exception = exception.InnerException;
-
             } while (exception != null);
         }
 
@@ -212,7 +211,13 @@ namespace CrispyWaffle.Log4Net
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None) where T : class, new()
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
+            where T : class, new()
         {
             if (!_level.HasFlag(LogLevel.Debug))
             {

@@ -7,46 +7,63 @@
     [Collection("Cryptography collection")]
     public class SecurityTests
     {
-        private const string _passwordHash = "123456";
-        private const string _saltKey = "12345678";
-        private const string _viKey = "HZEM7|Ne2YGS/F41";
+        private const string PasswordHash = "123456";
+        private const string SaltKey = "12345678";
+        private const string ViKey = "HZEM7|Ne2YGS/F41";
 
-        private const string _plainText = nameof(_plainText);
-        private const string _encryptedText = "9WfrFwgvu4EBtS0ZnAtdxg==";
+        private const string PlainText = nameof(PlainText);
+        private const string EncryptedText = "vBWW26e4f9QMRPjz4pXoEQ==";
+
+        private const string Md5Hash = "b7ebbf7f254ef646928dd58f62383a85";
+        private const string Sha1Hash = "5022439192242211661341747135888248197192199115101";
+
+        private const string Sha256Hash =
+            "43167247186156224140100585014234839723255150225212687216120565623113068401650";
+
+        private const string Sha384Hash =
+            "1971058120111222536871982354785921432042623733177161211966251132776513520695114214013371701731755877276711471261717729";
+
+        private const string Sha512Hash =
+            "2304016719818519658114181159661868266138285522924115715132174881042521481379823013415016323524141612161012211128317913263910513223439177961751431295019699470229117194212";
 
         [Fact]
         public void Encrypt_Success()
         {
-            var result = Security.Encrypt(_plainText, _passwordHash, _saltKey, _viKey);
-            Assert.Equal(_encryptedText, result);
+            var result = Security.Encrypt(PlainText, PasswordHash, SaltKey, ViKey);
+            Assert.Equal(EncryptedText, result);
         }
 
         [Fact]
         public void Decrypt_Success()
         {
-            var result = Security.Decrypt(_encryptedText, _passwordHash, _saltKey, _viKey);
-            Assert.Equal(_plainText, result);
+            var result = Security.Decrypt(EncryptedText, PasswordHash, SaltKey, ViKey);
+            Assert.Equal(PlainText, result);
         }
 
         [Theory]
-        [InlineData(HashAlgorithmType.Md5, "602968daf9a7f6497c955344de16047d")]
-        [InlineData(HashAlgorithmType.Sha1, "38681531422580109214230134523724815720823120684138176")]
-        [InlineData(HashAlgorithmType.Sha256, "243242351754210187222161691478133129221821245594511281561221051933421820827218108")]
-        [InlineData(HashAlgorithmType.Sha384, "18819110966203230156111301901121931672079821097524314857472551623171901902459320284234212024711253019014820160145161986531")]
-        [InlineData(HashAlgorithmType.Sha512, "33011189245236235605414944391021929124697831103203240125401495516621616410116812412413602221664610420200233113187224130153246152108180216236250118250186791341485154204")]
+        [InlineData(HashAlgorithmType.Md5, Md5Hash)]
+        [InlineData(HashAlgorithmType.Sha1, Sha1Hash)]
+        [InlineData(HashAlgorithmType.Sha256, Sha256Hash)]
+        [InlineData(HashAlgorithmType.Sha384, Sha384Hash)]
+        [InlineData(HashAlgorithmType.Sha512, Sha512Hash)]
         public void Hash_Success(HashAlgorithmType type, string expectedHash)
         {
-            var result = Security.Hash(_plainText, type);
+            var result = Security.Hash(PlainText, type);
             Assert.Equal(expectedHash, result);
         }
 
         [Fact]
         public void Hash_InvalidType()
         {
-            var result = Assert.Throws<ArgumentOutOfRangeException>(() => Security.Hash(_plainText, (HashAlgorithmType)10));
+            var result = Assert.Throws<ArgumentOutOfRangeException>(
+                () => Security.Hash(PlainText, (HashAlgorithmType)10)
+            );
 
             Assert.NotNull(result);
-            Assert.Equal("Invalid algorithm type (Parameter 'type')\r\nActual value was 10.", result.Message);
+            Assert.Equal(
+                "Invalid algorithm type (Parameter 'type')\r\nActual value was 10.",
+                result.Message
+            );
         }
     }
 }

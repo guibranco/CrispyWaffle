@@ -20,8 +20,7 @@
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(Exception exception)
-        { }
+        public void Handle(Exception exception) { }
 
         /// <summary>
         /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
@@ -31,16 +30,14 @@
         /// <param name="sender">The sender</param>
         /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(object sender, UnhandledExceptionEventArgs args)
-        { }
+        public void Handle(object sender, UnhandledExceptionEventArgs args) { }
 
         /// <summary>
         /// Handles the specified sender.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ThreadExceptionEventArgs" /> instance containing the event data.</param>
-        public void Handle(object sender, ThreadExceptionEventArgs args)
-        { }
+        public void Handle(object sender, ThreadExceptionEventArgs args) { }
 
         /// <summary>
         /// Adds the log provider.
@@ -48,7 +45,8 @@
         /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns></returns>
-        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type) where TLogProvider : ILogProvider
+        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
+            where TLogProvider : ILogProvider
         {
             return ServiceLocator.Resolve<TLogProvider>();
         }

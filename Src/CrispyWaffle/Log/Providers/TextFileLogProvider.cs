@@ -14,7 +14,6 @@
         /// <summary>
         /// Text file log adapter
         /// </summary>
-
         private readonly ITextFileLogAdapter _adapter;
 
         #endregion
@@ -38,7 +37,6 @@
         /// Sets the log level of the instance
         /// </summary>
         /// <param name="level">The log level</param>
-
         public void SetLevel(LogLevel level)
         {
             _adapter.SetLevel(level);
@@ -69,7 +67,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Warning(string category, string message)
         {
             _adapter.CategorizedWarning(category, message);
@@ -80,7 +77,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Info(string category, string message)
         {
             _adapter.CategorizedInfo(category, message);
@@ -91,7 +87,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Trace(string category, string message)
         {
             _adapter.CategorizedTrace(category, message);
@@ -123,7 +118,6 @@
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged.</param>
-
         public void Debug(string category, string message)
         {
             _adapter.CategorizedDebug(category, message);
@@ -135,7 +129,6 @@
         /// <param name="category">The category</param>
         /// <param name="content">The content to be stored</param>
         /// <param name="fileName">The name of the attachment.</param>
-
         public void Debug(string category, string content, string fileName)
         {
             _adapter.CategorizedDebug(category, content, fileName);
@@ -149,8 +142,12 @@
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
-
-        public void Debug<T>(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)
+        public void Debug<T>(
+            string category,
+            T content,
+            string identifier,
+            SerializerFormat customFormat = SerializerFormat.None
+        )
             where T : class, new()
         {
             _adapter.CategorizedDebug(category, content, identifier, customFormat);

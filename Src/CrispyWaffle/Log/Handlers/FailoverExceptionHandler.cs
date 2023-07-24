@@ -33,7 +33,11 @@
                     .AppendFormat("Original exception: {0}\r\n", GetMessage(exception))
                     .AppendFormat("Current exception: {0}", GetMessage(ex));
 
-                System.IO.File.WriteAllText($@"fatal-{DateTime.Now:yyyyMMddHHmmss}.log", builder.ToString(), Encoding.UTF8);
+                System.IO.File.WriteAllText(
+                    $@"fatal-{DateTime.Now:yyyyMMddHHmmss}.log",
+                    builder.ToString(),
+                    Encoding.UTF8
+                );
             }
         }
 
@@ -48,7 +52,12 @@
 
             while (ex != null)
             {
-                builder.AppendFormat(CultureInfo.InvariantCulture, "Message: {0}\r\nStackTrace: {1}\r\n", ex.Message, ex.StackTrace);
+                builder.AppendFormat(
+                    CultureInfo.InvariantCulture,
+                    "Message: {0}\r\nStackTrace: {1}\r\n",
+                    ex.Message,
+                    ex.StackTrace
+                );
 
                 if (ex is ReflectionTypeLoadException reflectionException)
                 {
@@ -74,7 +83,12 @@
 
             foreach (var exception in exceptions)
             {
-                builder.AppendFormat(CultureInfo.InvariantCulture, "#{0} exception: {1}\r\n", counter++, GetMessage(exception));
+                builder.AppendFormat(
+                    CultureInfo.InvariantCulture,
+                    "#{0} exception: {1}\r\n",
+                    counter++,
+                    GetMessage(exception)
+                );
             }
 
             return builder.ToString();

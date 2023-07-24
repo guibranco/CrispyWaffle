@@ -3,7 +3,5 @@
     /// <summary>
     /// Interface updateable
     /// </summary>
-    public interface IUpdateable
-    {
-    }
+    public interface IUpdateable { }
 }
