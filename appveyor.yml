@@ -106,21 +106,21 @@ after_build:
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Core.zip
+- path: $(SOLUTION_NAME).Core.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileCore
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Configuration.zip
+- path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileConfiguration
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.ElasticSearch.zip
+- path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileElasticSearch
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Elmah.zip
+- path: $(SOLUTION_NAME).ELMAH.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileElmah
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Log4Net.zip
+- path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileLog4Net
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.RabbitMQ.zip
+- path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileRabbitMQ
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Redis.zip
+- path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileRedis
-- path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Utils.zip
+- path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileUtils
 
 - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
