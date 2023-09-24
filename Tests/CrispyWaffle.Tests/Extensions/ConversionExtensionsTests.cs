@@ -162,12 +162,12 @@ namespace CrispyWaffle.Tests.Extensions
         [Fact]
         public void ValidateNowToDateTime()
         {
-            var date = DateTime.Now;
+            var date = DateTime.UtcNow;
 
             var result = "now".ToDateTime();
 
-            Assert.Equal(date.Date, result.Date);
-            Assert.Equal(date.Hour, result.Hour);
+            Assert.Equal(date.ToLocalTime().Date, result.Date);
+            Assert.Equal(date.ToLocalTime().Hour, result.Hour);
             Assert.Equal(date.Minute, result.Minute);
             Assert.Equal(date.Second, result.Second);
         }
@@ -221,7 +221,11 @@ namespace CrispyWaffle.Tests.Extensions
         [InlineData("2020-09-07 7:50pm", 2020, 9, 7, 19, 50, 0)]
         [InlineData("01/01/2020", 2020, 1, 1, 0, 0, 0)]
         [InlineData("31/12/2020", 2020, 12, 31, 0, 0, 0)]
-        [SuppressMessage("ReSharper", "TooManyArguments")]
+        [SuppressMessage(
+            "ReSharper",
+            "TooManyArguments",
+            Justification = "This is needed to validate each part of DateTime object"
+        )]
         public void ValidateStringDateToDateTime(
             string input,
             int year,
@@ -232,7 +236,15 @@ namespace CrispyWaffle.Tests.Extensions
             int seconds
         )
         {
-            var expected = new DateTime(year, month, day, hour, minute, seconds);
+            var expected = new DateTime(
+                year,
+                month,
+                day,
+                hour,
+                minute,
+                seconds,
+                DateTimeKind.Local
+            );
 
             var result = input.ToDateTime();
 
@@ -261,7 +273,7 @@ namespace CrispyWaffle.Tests.Extensions
             var result = Assert.Throws<ArgumentOutOfRangeException>(() => input.ToDateTime());
 
             Assert.Equal(
-                $"Unable to parse the string to a valid datetime (Parameter 'input')\r\nActual value was {input}.",
+                $"Unable to parse the string to a valid datetime (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
                 result.Message
             );
         }
