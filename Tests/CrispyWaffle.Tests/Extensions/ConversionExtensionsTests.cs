@@ -261,7 +261,7 @@ namespace CrispyWaffle.Tests.Extensions
             var result = Assert.Throws<ArgumentOutOfRangeException>(() => input.ToDateTime());
 
             Assert.Equal(
-                $"Unable to parse the string to a valid datetime (Parameter 'input')\r\nActual value was {input}.",
+                $"Unable to parse the string to a valid datetime (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
                 result.Message
             );
         }
