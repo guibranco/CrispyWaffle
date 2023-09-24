@@ -61,7 +61,7 @@
 
             Assert.NotNull(result);
             Assert.Equal(
-                "Invalid algorithm type (Parameter 'type')\r\nActual value was 10.",
+                $"Invalid algorithm type (Parameter 'type'){Environment.NewLine}Actual value was 10.",
                 result.Message
             );
         }
