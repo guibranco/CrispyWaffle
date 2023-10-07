@@ -1,9 +1,10 @@
 site_name: Crispy Waffle
 logo: logo.png
 repo_url: https://github.com/guibranco/crispywaffle
-extra_css: [extra.css]
+extra_css:
+  - extra.css
 theme:
-  namw: readthedocs
+  name: readthedocs
   icon:
     repo: fontawesome/brands/github
 plugins:
@@ -11,4 +12,3 @@ plugins:
   - git-committers:
       repository: guibranco/CrispyWaffle
       branch: main
-
