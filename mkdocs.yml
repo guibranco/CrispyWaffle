@@ -8,8 +8,3 @@ theme:
   favicon: images/favicon.png
   icon:
     repo: fontawesome/brands/github
-plugins:
-  - git-authors
-  - git-committers:
-      repository: guibranco/CrispyWaffle
-      branch: main
