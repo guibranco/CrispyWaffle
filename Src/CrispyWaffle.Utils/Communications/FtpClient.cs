@@ -85,7 +85,8 @@ namespace CrispyWaffle.Utils.Communications
                 ftp?.Credentials.UserName,
                 ftp?.Credentials.Password,
                 remoteDirectory
-            ) { }
+            )
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient" /> class.
@@ -133,58 +134,37 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.InvalidOperationException">Response stream is null</exception>
         private bool ExistsInternal(string path)
         {
-            var result = false;
-            Stream responseStream = null;
-
             try
             {
-                LogConsumer.Info(
-                    "Checking in FtpClient the path/file: {0}",
-                    path.GetPathOrFileName()
-                );
+                LogConsumer.Info("Checking in FtpClient the path/file: {0}", path.GetPathOrFileName());
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                    ? WebRequestMethods.Ftp.GetFileSize
-                    : WebRequestMethods.Ftp.ListDirectory;
+                request.Method = string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    ? WebRequestMethods.Ftp.ListDirectory
+                    : WebRequestMethods.Ftp.GetFileSize;
                 request.Timeout = 30000;
                 request.ReadWriteTimeout = 90000;
                 request.UsePassive = true;
-                var response = (FtpWebResponse)request.GetResponse();
-                var status = response.StatusCode;
-                responseStream = response.GetResponseStream();
-                if (responseStream == null)
+
+                using var response = (FtpWebResponse)request.GetResponse();
+                using (var responseStream = response.GetResponseStream())
                 {
-                    throw new InvalidOperationException("Response stream is null");
+                    using var reader = new StreamReader(responseStream);
+                    while (!reader.EndOfStream)
+                    {
+                        _files.Enqueue(reader.ReadLine());
+                    }
                 }
 
-                using var reader = new StreamReader(responseStream);
-                responseStream = null;
-                while (!reader.EndOfStream)
-                {
-                    _files.Enqueue(reader.ReadLine());
-                }
-
-                if (
-                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                        && status == FtpStatusCode.FileStatus
-                    || status == FtpStatusCode.OpeningData
-                )
-                {
-                    result = true;
-                }
+                return string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    ? response.StatusCode == FtpStatusCode.OpeningData
+                    : response.StatusCode == FtpStatusCode.FileStatus || response.StatusCode == FtpStatusCode.OpeningData;
             }
             catch (WebException)
             {
-                result = false;
+                return false;
             }
-            finally
-            {
-                responseStream?.Dispose();
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -197,55 +177,44 @@ namespace CrispyWaffle.Utils.Communications
         private bool CreateInternal(string path, byte[] bytes)
         {
             var result = false;
-            var attempts = 0;
-            while (true)
+            try
             {
-                attempts++;
-                try
+                LogConsumer.Info(
+                    "Uploading to FtpClient the file: {0}",
+                    path.GetPathOrFileName()
+                );
+                var uri = new Uri(path);
+                var request = (FtpWebRequest)WebRequest.Create(uri);
+                request.Credentials = new NetworkCredential(_userName, _password);
+                request.UsePassive = true;
+                if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()))
                 {
-                    LogConsumer.Info(
-                        "Uploading to FtpClient the file: {0}",
-                        path.GetPathOrFileName()
-                    );
-                    var uri = new Uri(path);
-                    var request = (FtpWebRequest)WebRequest.Create(uri);
-                    request.Credentials = new NetworkCredential(_userName, _password);
-                    request.UsePassive = true;
-                    if (!string.IsNullOrWhiteSpace(uri.GetFileExtension()))
-                    {
-                        request.Method = WebRequestMethods.Ftp.UploadFile;
-                        request.ContentLength = bytes.Length;
-                        var stream = request.GetRequestStream();
-                        stream.Write(bytes, 0, bytes.Length);
-                        stream.Close();
-                    }
-                    else
-                    {
-                        request.Method = WebRequestMethods.Ftp.MakeDirectory;
-                    }
-
-                    var response = (FtpWebResponse)request.GetResponse();
-                    if (
-                        !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                            && response.StatusCode == FtpStatusCode.ClosingData
-                        || response.StatusCode == FtpStatusCode.PathnameCreated
-                    )
-                    {
-                        result = true;
-                    }
-
-                    response.Close();
-                    break;
+                    request.Method = WebRequestMethods.Ftp.UploadFile;
+                    request.ContentLength = bytes.Length;
+                    var stream = request.GetRequestStream();
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.Close();
                 }
-                catch (WebException e)
+                else
                 {
-                    if (attempts >= 3)
-                    {
-                        throw new FtpClientException(path.GetPathOrFileName(), "create", e);
-                    }
-
-                    Thread.Sleep(1000);
+                    request.Method = WebRequestMethods.Ftp.MakeDirectory;
                 }
+
+                var response = (FtpWebResponse)request.GetResponse();
+                if (
+                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                        && response.StatusCode == FtpStatusCode.ClosingData
+                    || response.StatusCode == FtpStatusCode.PathnameCreated
+                )
+                {
+                    result = true;
+                }
+
+                response.Close();
+            }
+            catch (WebException e)
+            {
+                throw new FtpClientException(path.GetPathOrFileName(), "create", e);
             }
 
             return result;
