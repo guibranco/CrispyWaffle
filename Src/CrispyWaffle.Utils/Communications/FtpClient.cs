@@ -134,58 +134,38 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.InvalidOperationException">Response stream is null</exception>
         private bool ExistsInternal(string path)
         {
-            var result = false;
-            Stream responseStream = null;
-
             try
             {
-                LogConsumer.Info(
-                    "Checking in FtpClient the path/file: {0}",
-                    path.GetPathOrFileName()
-                );
+                LogConsumer.Info("Checking in FtpClient the path/file: {0}", path.GetPathOrFileName());
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
-                request.Method = !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                    ? WebRequestMethods.Ftp.GetFileSize
-                    : WebRequestMethods.Ftp.ListDirectory;
+                request.Method = string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    ? WebRequestMethods.Ftp.ListDirectory
+                    : WebRequestMethods.Ftp.GetFileSize;
                 request.Timeout = 30000;
                 request.ReadWriteTimeout = 90000;
                 request.UsePassive = true;
+
                 var response = (FtpWebResponse)request.GetResponse();
-                var status = response.StatusCode;
-                responseStream = response.GetResponseStream();
-                if (responseStream == null)
+                var responseStream = response.GetResponseStream();
+
+                using (var reader = new StreamReader(responseStream))
                 {
-                    throw new InvalidOperationException("Response stream is null");
+                    while (!reader.EndOfStream)
+                    {
+                        _files.Enqueue(reader.ReadLine());
+                    }
                 }
 
-                using var reader = new StreamReader(responseStream);
-                responseStream = null;
-                while (!reader.EndOfStream)
-                {
-                    _files.Enqueue(reader.ReadLine());
-                }
-
-                if (
-                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                        && status == FtpStatusCode.FileStatus
-                    || status == FtpStatusCode.OpeningData
-                )
-                {
-                    result = true;
-                }
+                return string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    ? response.StatusCode == FtpStatusCode.OpeningData
+                    : response.StatusCode == FtpStatusCode.FileStatus || response.StatusCode == FtpStatusCode.OpeningData;
             }
             catch (WebException)
             {
-                result = false;
+                return false;
             }
-            finally
-            {
-                responseStream?.Dispose();
-            }
-
-            return result;
         }
 
         /// <summary>
