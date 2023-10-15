@@ -147,11 +147,10 @@ namespace CrispyWaffle.Utils.Communications
                 request.ReadWriteTimeout = 90000;
                 request.UsePassive = true;
 
-                var response = (FtpWebResponse)request.GetResponse();
-                var responseStream = response.GetResponseStream();
-
-                using (var reader = new StreamReader(responseStream))
+                using var response = (FtpWebResponse)request.GetResponse();
+                using (var responseStream = response.GetResponseStream())
                 {
+                    using var reader = new StreamReader(responseStream);
                     while (!reader.EndOfStream)
                     {
                         _files.Enqueue(reader.ReadLine());
