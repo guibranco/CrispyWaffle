@@ -77,4 +77,14 @@ The user guide is available [here](https://guibranco.github.io/CrispyWaffle/user
 
 ## Changelog
 
-Changelog is available [here](https://guibranco.github.io/CrispyWaffle/changelog/).
+The changelog is available [here](https://guibranco.github.io/CrispyWaffle/changelog/).
+
+## Contributors
+
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -start -->
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
+
+## Bots
+
+<!-- readme: snyk-bot,bots -start -->
+<!-- readme: snyk-bot,bots -end -->
