@@ -85,8 +85,7 @@ namespace CrispyWaffle.Utils.Communications
                 ftp?.Credentials.UserName,
                 ftp?.Credentials.Password,
                 remoteDirectory
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient" /> class.
@@ -136,7 +135,10 @@ namespace CrispyWaffle.Utils.Communications
         {
             try
             {
-                LogConsumer.Info("Checking in FtpClient the path/file: {0}", path.GetPathOrFileName());
+                LogConsumer.Info(
+                    "Checking in FtpClient the path/file: {0}",
+                    path.GetPathOrFileName()
+                );
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
@@ -159,7 +161,8 @@ namespace CrispyWaffle.Utils.Communications
 
                 return string.IsNullOrWhiteSpace(uri.GetFileExtension())
                     ? response.StatusCode == FtpStatusCode.OpeningData
-                    : response.StatusCode == FtpStatusCode.FileStatus || response.StatusCode == FtpStatusCode.OpeningData;
+                    : response.StatusCode == FtpStatusCode.FileStatus
+                        || response.StatusCode == FtpStatusCode.OpeningData;
             }
             catch (WebException)
             {
@@ -179,10 +182,7 @@ namespace CrispyWaffle.Utils.Communications
             var result = false;
             try
             {
-                LogConsumer.Info(
-                    "Uploading to FtpClient the file: {0}",
-                    path.GetPathOrFileName()
-                );
+                LogConsumer.Info("Uploading to FtpClient the file: {0}", path.GetPathOrFileName());
                 var uri = new Uri(path);
                 var request = (FtpWebRequest)WebRequest.Create(uri);
                 request.Credentials = new NetworkCredential(_userName, _password);
