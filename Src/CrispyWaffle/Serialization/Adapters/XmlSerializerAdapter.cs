@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Serialization.Adapters
+namespace CrispyWaffle.Serialization.Adapters
 {
     using System;
     using System.Diagnostics.Contracts;
@@ -80,14 +80,6 @@
                 return Deserialize<T>(serialized);
             }
         }
-
-        /// <summary>
-        /// Serializes.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <param name="stream">[out] The stream.</param>
-        [Pure]
         public void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
