@@ -390,7 +390,7 @@ namespace CrispyWaffle.Extensions
         /// <returns>System.Int32.</returns>
         public static int ToModule10(this string input)
         {
-            var number = Regex.Replace(input, "[^0-9]", "");
+            var number = Regex.Replace(input, "[^0-9]", "", RegexOptions.Compiled, TimeSpan.FromSeconds(0.5));
 
             var sum = 0;
 
