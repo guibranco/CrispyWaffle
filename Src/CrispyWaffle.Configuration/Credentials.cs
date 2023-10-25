@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.Configuration
 // Author           : Guilherme Branco Stracini
 // Created          : 09-03-2020
@@ -141,7 +141,7 @@ namespace CrispyWaffle.Configuration
                     var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
                     _password =
-                        0 == StringComparer.OrdinalIgnoreCase.Compare(md5, check)
+                        StringComparer.OrdinalIgnoreCase.Compare(md5, check) ==                         0
                             ? password.Decrypt(
                                 secureProvider.PasswordHash,
                                 secureProvider.SaltKey,
