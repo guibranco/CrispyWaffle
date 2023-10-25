@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Serialization
+namespace CrispyWaffle.Serialization
 {
     using Adapters;
     using Composition;
@@ -46,7 +46,7 @@
         [Pure]
         public static implicit operator XmlDocument(SerializerConverter<T> instance)
         {
-            if (!(instance?._formatter is XmlSerializerAdapter))
+            if (instance?._formatter is not XmlSerializerAdapter)
             {
                 return null;
             }
@@ -79,7 +79,7 @@
         [Pure]
         public static implicit operator JToken(SerializerConverter<T> instance)
         {
-            if (!(instance._formatter is JsonSerializerAdapter))
+            if (instance._formatter is not JsonSerializerAdapter)
             {
                 return null;
             }
@@ -121,7 +121,7 @@
         [Pure]
         public static implicit operator byte[](SerializerConverter<T> instance)
         {
-            if (!(instance._formatter is BinarySerializerAdapter))
+            if (instance._formatter is not BinarySerializerAdapter)
             {
                 return null;
             }
@@ -187,7 +187,7 @@
                 return json.ToString();
             }
 
-            if (!(instance._formatter is BinarySerializerAdapter))
+            if (instance._formatter is not BinarySerializerAdapter)
             {
                 throw new InvalidOperationException(
                     $"he type {typeof(T).FullName} doesn't allow string explicit conversion"
