@@ -52,7 +52,7 @@ namespace CrispyWaffle.Extensions
         /// <returns>The given data converted to a Boolean.</returns>
         public static bool ToBoolean(this string str, string validValueForTrue = "S")
         {
-            return str?.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase) 
+            return str?.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase)
                 ?? false;
         }
 
