@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.Tests
 // Author           : Guilherme Branco Stracini
 // Created          : 09-05-2020
@@ -27,7 +27,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// <seealso cref="System.IEquatable{SampleJsonClass}" />
     [Serializer(SerializerFormat.Json)]
     [ExcludeFromCodeCoverage]
-    public class SampleJsonClass : IEquatable<SampleJsonClass>
+    public sealed class SampleJsonClass : IEquatable<SampleJsonClass>
     {
         #region Equality members
 

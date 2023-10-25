@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.Tests
 // Author           : Guilherme Branco Stracini
 // Created          : 09-05-2020
@@ -25,7 +25,7 @@ namespace CrispyWaffle.Tests.Serialization
     /// <seealso cref="System.IEquatable{SampleXmlClass}" />
     [Serializer]
     [ExcludeFromCodeCoverage]
-    public class SampleXmlClass : IEquatable<SampleXmlClass>
+    public sealed class SampleXmlClass : IEquatable<SampleXmlClass>
     {
         #region Equality members
 

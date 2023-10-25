@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Utilities
+namespace CrispyWaffle.Utilities
 {
     using Extensions;
     using Serialization;
@@ -22,7 +22,7 @@
     /// <seealso cref="System.IEquatable{DynamicSerialization}" />
     [Serializable]
     [Serializer]
-    public class DynamicSerialization
+    public sealed class DynamicSerialization
         : DynamicObject,
             ISerializable,
             IXmlSerializable,
