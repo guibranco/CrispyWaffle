@@ -141,7 +141,7 @@ namespace CrispyWaffle.Configuration
                     var secureProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
                     _password =
-                        StringComparer.OrdinalIgnoreCase.Compare(md5, check) ==                         0
+                        StringComparer.OrdinalIgnoreCase.Compare(md5, check) == 0
                             ? password.Decrypt(
                                 secureProvider.PasswordHash,
                                 secureProvider.SaltKey,
