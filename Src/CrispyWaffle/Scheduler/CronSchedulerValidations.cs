@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle
 // Author           : Guilherme Branco Stracini
 // Created          : 09-05-2020
@@ -27,47 +27,27 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The divided regex
         /// </summary>
-        public static readonly Regex DividedRegex = new Regex(
-            @"(\*/\d+)",
-            RegexOptions.Compiled,
-            TimeSpan.FromSeconds(5)
-        );
+        public static readonly Regex DividedRegex = new(@"(\*/\d+)", RegexOptions.Compiled, TimeSpan.FromSeconds(5));
 
         /// <summary>
         /// The range regex
         /// </summary>
-        public static readonly Regex RangeRegex = new Regex(
-            @"(\d+\-\d+)\/?(\d+)?",
-            RegexOptions.Compiled,
-            TimeSpan.FromSeconds(5)
-        );
+        public static readonly Regex RangeRegex = new(@"(\d+\-\d+)\/?(\d+)?", RegexOptions.Compiled, TimeSpan.FromSeconds(5));
 
         /// <summary>
         /// The wild regex
         /// </summary>
-        public static readonly Regex WildRegex = new Regex(
-            @"(\*)",
-            RegexOptions.Compiled,
-            TimeSpan.FromSeconds(5)
-        );
+        public static readonly Regex WildRegex = new(@"(\*)", RegexOptions.Compiled, TimeSpan.FromSeconds(5));
 
         /// <summary>
         /// The list regex
         /// </summary>
-        public static readonly Regex ListRegex = new Regex(
-            @"(((\d+,)*\d+)+)",
-            RegexOptions.Compiled,
-            TimeSpan.FromSeconds(5)
-        );
+        public static readonly Regex ListRegex = new(@"(((\d+,)*\d+)+)", RegexOptions.Compiled, TimeSpan.FromSeconds(5));
 
         /// <summary>
         /// The validation regex
         /// </summary>
         [SuppressMessage("ReSharper", "ComplexConditionExpression")]
-        public static readonly Regex ValidationRegex = new Regex(
-            DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex,
-            RegexOptions.Compiled,
-            TimeSpan.FromSeconds(5)
-        );
+        public static readonly Regex ValidationRegex = new(DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex, RegexOptions.Compiled, TimeSpan.FromSeconds(5));
     }
 }
