@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Tests.Infrastructure
+namespace CrispyWaffle.Tests.Infrastructure
 {
     using CrispyWaffle.Infrastructure;
     using System;
@@ -41,7 +41,7 @@
                 EnvironmentHelper.OperationalSystemVersion
             );
 
-            Assert.Equal(Process.GetCurrentProcess().Id, EnvironmentHelper.ProcessId);
+            Assert.Equal(Environment.ProcessId, EnvironmentHelper.ProcessId);
 
             var userAgent =
                 $"{EnvironmentHelper.ApplicationName}/{EnvironmentHelper.Version} (H:{EnvironmentHelper.Host}|P:{EnvironmentHelper.ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";

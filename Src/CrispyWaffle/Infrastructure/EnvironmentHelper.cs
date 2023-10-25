@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle
 // Author           : Guilherme Branco Stracini
 // Created          : 09-05-2020
@@ -56,7 +56,7 @@ namespace CrispyWaffle.Infrastructure
             );
             OperationalSystemVersion =
                 $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
-            ProcessId = Process.GetCurrentProcess().Id;
+            ProcessId = Environment.ProcessId;
         }
 
         #endregion
