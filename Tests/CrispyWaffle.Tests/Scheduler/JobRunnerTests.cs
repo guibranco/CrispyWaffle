@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.Tests
 // Author           : Guilherme Branco Stracini
 // Created          : 09-05-2020
@@ -42,13 +42,7 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner(
-                "*",
-                () =>
-                {
-                    sampler.Counter++;
-                }
-            );
+            var runner = new JobRunner("*", () => sampler.Counter++);
 
             for (var i = 0; i < 10; i++)
             {
@@ -69,13 +63,7 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner(
-                "*/5",
-                () =>
-                {
-                    sampler.Counter++;
-                }
-            );
+            var runner = new JobRunner("*/5", () => sampler.Counter++);
 
             var date = DateTime.Parse("00:00:00");
 
