@@ -42,10 +42,7 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner(
-                "*",
-                () => sampler.Counter++
-            );
+            var runner = new JobRunner("*", () => sampler.Counter++);
 
             for (var i = 0; i < 10; i++)
             {
