@@ -80,6 +80,13 @@ namespace CrispyWaffle.Serialization.Adapters
                 return Deserialize<T>(serialized);
             }
         }
+
+        /// <summary>
+        /// Serializes.
+        /// </summary>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="deserialized">The deserialized.</param>
+        /// <param name="stream">[out] The stream.</param>
         public void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
