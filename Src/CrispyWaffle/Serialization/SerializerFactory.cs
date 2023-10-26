@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Serialization
+namespace CrispyWaffle.Serialization
 {
     using Adapters;
     using Composition;
@@ -219,7 +219,6 @@
                         obj,
                         ServiceLocator.Resolve<XmlSerializerAdapter>()
                     );
-                case SerializerFormat.None:
                 default:
                     throw new InvalidOperationException(nameof(attribute.Format));
             }
