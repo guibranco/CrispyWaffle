@@ -63,10 +63,7 @@ namespace CrispyWaffle.Tests.Scheduler
         {
             var sampler = new TestObjects();
 
-            var runner = new JobRunner(
-                "*/5",
-                () => sampler.Counter++
-            );
+            var runner = new JobRunner("*/5", () => sampler.Counter++);
 
             var date = DateTime.Parse("00:00:00");
 
