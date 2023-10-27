@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Validations
+namespace CrispyWaffle.Validations
 {
     using System;
     using System.Globalization;
@@ -13,11 +13,12 @@
         /// <summary>
         /// The same number document pattern
         /// </summary>
-        public static readonly Regex SameNumberDocumentPattern = new Regex(
-            @"(\d)\1{10}",
-            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
-            TimeSpan.FromSeconds(10)
-        );
+        public static readonly Regex SameNumberDocumentPattern =
+            new(
+                @"(\d)\1{10}",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+                TimeSpan.FromSeconds(10)
+            );
 
         /// <summary>
         /// Validates the email address.
