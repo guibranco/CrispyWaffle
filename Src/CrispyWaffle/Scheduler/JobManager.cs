@@ -30,10 +30,7 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The timer
         /// </summary>
-        private readonly Timer _timer = new(30000)
-{
-    AutoReset = true
-};
+        private readonly Timer _timer = new(30000) { AutoReset = true };
 
         /// <summary>
         /// The job runners

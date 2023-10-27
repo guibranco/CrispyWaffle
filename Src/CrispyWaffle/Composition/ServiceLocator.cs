@@ -56,8 +56,7 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// The cancellation token source
         /// </summary>
-        private static readonly CancellationTokenSource _cancellationTokenSource =
-new();
+        private static readonly CancellationTokenSource _cancellationTokenSource = new();
 
         /// <summary>
         /// The not loaded assemblies
