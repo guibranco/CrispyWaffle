@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.ElasticSearch
 // Author           : Guilherme Branco Stracini
 // Created          : 10/09/2022
@@ -166,7 +166,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 Operation = EnvironmentHelper.Operation,
                 ProcessId = EnvironmentHelper.ProcessId,
                 UserAgent = EnvironmentHelper.UserAgent,
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
+                ThreadId = Environment.CurrentManagedThreadId,
                 ThreadName = Thread.CurrentThread.Name
             };
 
