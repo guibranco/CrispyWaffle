@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Redis.Log
+namespace CrispyWaffle.Redis.Log
 {
     using System;
     using System.Collections.Concurrent;
@@ -125,7 +125,7 @@
                     Operation = EnvironmentHelper.Operation,
                     ProcessId = EnvironmentHelper.ProcessId,
                     UserAgent = EnvironmentHelper.UserAgent,
-                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    ThreadId = Environment.CurrentManagedThreadId,
                     ThreadName = Thread.CurrentThread.Name
                 }.GetSerializer();
         }
