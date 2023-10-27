@@ -29,7 +29,7 @@ namespace CrispyWaffle.Tests.Serialization
     [ExcludeFromCodeCoverage]
     public sealed class SampleJsonNotStrictClass
         : SampleJsonClass,
-        IEquatable<SampleJsonNotStrictClass>
+            IEquatable<SampleJsonNotStrictClass>
     {
         #region Equality members
 
