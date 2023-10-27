@@ -223,7 +223,7 @@ namespace CrispyWaffle.Infrastructure
         /// <value>The user agent.</value>
         [Localizable(false)]
         public static string UserAgent =>
-            $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
+            $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Environment.CurrentManagedThreadId})";
 
         #endregion
     }

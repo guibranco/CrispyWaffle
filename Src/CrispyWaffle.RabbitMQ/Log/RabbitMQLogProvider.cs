@@ -1,4 +1,4 @@
-﻿// ***********************************************************************
+// ***********************************************************************
 // Assembly         : CrispyWaffle.RabbitMQ
 // Author           : Guilherme Branco Stracini
 // Created          : 03-31-2021
@@ -184,7 +184,7 @@ namespace CrispyWaffle.RabbitMQ.Log
                     Operation = EnvironmentHelper.Operation,
                     ProcessId = EnvironmentHelper.ProcessId,
                     UserAgent = EnvironmentHelper.UserAgent,
-                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    ThreadId = Environment.CurrentManagedThreadId,
                     ThreadName = Thread.CurrentThread.Name
                 }.GetSerializer();
         }
