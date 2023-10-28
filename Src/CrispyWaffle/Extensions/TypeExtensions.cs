@@ -17,13 +17,12 @@ namespace CrispyWaffle.Extensions
         /// Gets the name of the query string builder key.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns></returns>
+        /// <returns>string.</returns>
         public static string GetQueryStringBuilderKeyName(this PropertyInfo propertyInfo)
         {
             return
                 propertyInfo.GetCustomAttributes(typeof(QueryStringBuilderKeyNameAttribute), false)
-                    is QueryStringBuilderKeyNameAttribute[] attributes
-                && attributes.Length > 0
+                    is QueryStringBuilderKeyNameAttribute[] { Length: > 0 } attributes
                 ? attributes[0].KeyName
                 : null;
         }
@@ -32,21 +31,20 @@ namespace CrispyWaffle.Extensions
         /// Queries the string builder ignore.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns></returns>
+        /// <returns>Boolean.</returns>
         public static bool QueryStringBuilderIgnore(this PropertyInfo propertyInfo)
         {
             return propertyInfo.GetCustomAttributes(
-                    typeof(QueryStringBuilderIgnoreAttribute),
-                    false
-                )
-                    is QueryStringBuilderIgnoreAttribute[] attributes
-                && attributes.Length > 0;
+                typeof(QueryStringBuilderIgnoreAttribute),
+                false
+            )
+                is QueryStringBuilderIgnoreAttribute[] { Length: > 0 };
         }
 
         /// <summary>
         /// Updates the values.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The original type.</typeparam>
         /// <param name="currentObject">The current object.</param>
         /// <param name="newObject">The new object.</param>
         /// <returns>T.</returns>
@@ -66,7 +64,7 @@ namespace CrispyWaffle.Extensions
         /// <summary>
         /// Updates the value internal.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The original type.</typeparam>
         /// <param name="currentObject">The current object.</param>
         /// <param name="newObject">The new object.</param>
         /// <param name="propertyInfo">The property information.</param>
@@ -87,7 +85,7 @@ namespace CrispyWaffle.Extensions
             var shouldSerialize = false;
 
             var shouldSerializeMethod = type.GetMethod(
-                string.Concat(@"ShouldSerialize", propertyInfo.Name)
+                string.Concat("ShouldSerialize", propertyInfo.Name)
             );
             if (shouldSerializeMethod != null && shouldSerializeMethod.ReturnType == typeof(bool))
             {
@@ -114,11 +112,11 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Check whenever the type <paramref name="source"/> implements the <typeparamref name="TInterface"/>
+        /// Check whenever the type <paramref name="source"/> implements the <typeparamref name="TInterface"/>.
         /// </summary>
-        /// <typeparam name="TInterface"></typeparam>
+        /// <typeparam name="TInterface">The interface to check.</typeparam>
         /// <param name="source">The source.</param>
-        /// <returns><c>true</c> if implements, false otherwise</returns>
+        /// <returns><c>true</c> if implements, false otherwise.</returns>
         public static bool Implements<TInterface>(this Type source)
             where TInterface : class
         {
@@ -147,22 +145,23 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// The primitive numeric types
+        /// The primitive numeric types.
         /// </summary>
-        private static readonly HashSet<TypeCode> _primitiveNumericTypes = new HashSet<TypeCode>
-        {
-            TypeCode.Byte,
-            TypeCode.SByte,
-            TypeCode.UInt16,
-            TypeCode.UInt32,
-            TypeCode.UInt64,
-            TypeCode.Int16,
-            TypeCode.Int32,
-            TypeCode.Int64,
-            TypeCode.Decimal,
-            TypeCode.Double,
-            TypeCode.Single
-        };
+        private static readonly HashSet<TypeCode> _primitiveNumericTypes =
+            new()
+            {
+                TypeCode.Byte,
+                TypeCode.SByte,
+                TypeCode.UInt16,
+                TypeCode.UInt32,
+                TypeCode.UInt64,
+                TypeCode.Int16,
+                TypeCode.Int32,
+                TypeCode.Int64,
+                TypeCode.Decimal,
+                TypeCode.Double,
+                TypeCode.Single
+            };
 
         /// <summary>
         /// Determines whether [is numeric type] [the specified type].
@@ -208,14 +207,14 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="frame">The frame.</param>
         /// <param name="excludeBegin">if set to <c>true</c> [exclude begin].</param>
-        /// <returns></returns>
+        /// <returns>String.</returns>
         public static string GetCallingMethod(int frame = 1, bool excludeBegin = true)
         {
             var stack = new StackTrace();
             var method = stack.GetFrame(frame).GetMethod();
             if (method == null)
             {
-                return @"CrispyWaffle";
+                return "CrispyWaffle";
             }
 
             var ns = method.DeclaringType?.FullName;
@@ -226,13 +225,13 @@ namespace CrispyWaffle.Extensions
 
             if (
                 excludeBegin
-                && ns.StartsWith(@"CrispyWaffle", StringComparison.InvariantCultureIgnoreCase)
+                && ns.StartsWith("CrispyWaffle", StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 ns = ns.Substring(13);
             }
 
-            return $@"{ns}.{method.Name}";
+            return $"{ns}.{method.Name}";
         }
     }
 }
