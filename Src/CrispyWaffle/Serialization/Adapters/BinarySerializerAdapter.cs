@@ -15,11 +15,11 @@ namespace CrispyWaffle.Serialization.Adapters
     public sealed class BinarySerializerAdapter : BaseSerializerAdapter
     {
         /// <summary>
-        /// Deserialize a stream to a generic type
+        /// Deserialize a stream to a generic type.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter</typeparam>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
-        /// <param name="encoding">(Optional) Determines the encoding to read the stream (not used in BinarySerializerProvider)</param>
+        /// <param name="encoding">(Optional) Determines the encoding to read the stream (not used in BinarySerializerProvider).</param>
         /// <returns>A T.</returns>
         [Pure]
         public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
