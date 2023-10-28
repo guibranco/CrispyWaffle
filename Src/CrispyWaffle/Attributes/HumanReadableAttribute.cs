@@ -21,9 +21,6 @@ namespace CrispyWaffle.Attributes
         /// Initializes a new instance of the <see cref="HumanReadableAttribute"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public HumanReadableAttribute([Localizable(true)] string value)
-        {
-            StringValue = value;
-        }
+        public HumanReadableAttribute([Localizable(true)] string value) => StringValue = value;
     }
 }
