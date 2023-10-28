@@ -13,7 +13,7 @@ The Crispy Waffle project is divided into some packages:
 | **Log4Net** | The [Log4Net](https://github.com/apache/logging-log4net) log provider.<br /> Redirects the log output to Log4Net. |
 | **RabbitMQ** | The [RabbitMQ](https://www.rabbitmq.com/) extension package.<br /> Implements the RabbitMQ message broker client and log features. |
 | **Redis** | The [Redis](https://redis.io) extension package.<br /> Implements the Redis cache, log and telemetry features. |
-| **Utils** | The utility extension package.<br /> Implements the utilities classes (communications - FTP client, SMTP mailer). |
+| **Utils** | The utility extension package.<br /> Implements the utility classes (communications - FTP client, SMTP mailer). |
 
 ## Github Releases
 
