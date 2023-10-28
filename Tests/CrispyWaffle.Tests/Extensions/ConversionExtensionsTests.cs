@@ -368,10 +368,10 @@ public class ConversionExtensionsTests
     /// <param name="input">The input.</param>
     /// <param name="expected">The expected.</param>
     [Theory]
-    [InlineData(1, "R$ 1,00")]
-    [InlineData(1000, "R$ 1000,00")]
-    [InlineData(11.33, "R$ 11,33")]
-    [InlineData(6547654.477, "R$ 6547654,48")]
+    [InlineData(1, "$ 1,00")]
+    [InlineData(1000, "$ 1.000,00")]
+    [InlineData(11.33, "$ 11,33")]
+    [InlineData(6547654.477, "$ 6.547.654,48")]
     [InlineData(0, "No value")]
     public void ToMonetary_ValidInput_ReturnsValidString(decimal input, string expected)
     {
