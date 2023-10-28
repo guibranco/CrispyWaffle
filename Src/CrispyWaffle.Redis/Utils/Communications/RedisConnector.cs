@@ -56,8 +56,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="configuration">The configuration.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
-        /// <exception cref="ArgumentNullException">queuePrefix</exception>
+        /// <exception cref="ArgumentNullException">Throws when the queue prefix is null.</exception>
         public RedisConnector(
             MasterSlaveConfiguration configuration,
             ISerializer serializer,
