@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Text;
-using System.Xml;
-using CrispyWaffle.Composition;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log;
-using CrispyWaffle.Serialization.Adapters;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace CrispyWaffle.Serialization
 {
+    using Adapters;
+    using Composition;
+    using Extensions;
+    using Log;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Diagnostics.Contracts;
+    using System.IO;
+    using System.Text;
+    using System.Xml;
+
     /// <summary>
     /// A serializer extension.
     /// </summary>
@@ -46,7 +46,7 @@ namespace CrispyWaffle.Serialization
         [Pure]
         public static implicit operator XmlDocument(SerializerConverter<T> instance)
         {
-            if (!(instance?._formatter is XmlSerializerAdapter))
+            if (instance?._formatter is not XmlSerializerAdapter)
             {
                 return null;
             }
@@ -79,7 +79,7 @@ namespace CrispyWaffle.Serialization
         [Pure]
         public static implicit operator JToken(SerializerConverter<T> instance)
         {
-            if (!(instance._formatter is JsonSerializerAdapter))
+            if (instance._formatter is not JsonSerializerAdapter)
             {
                 return null;
             }
@@ -121,7 +121,7 @@ namespace CrispyWaffle.Serialization
         [Pure]
         public static implicit operator byte[](SerializerConverter<T> instance)
         {
-            if (!(instance._formatter is BinarySerializerAdapter))
+            if (instance._formatter is not BinarySerializerAdapter)
             {
                 return null;
             }
@@ -187,7 +187,7 @@ namespace CrispyWaffle.Serialization
                 return json.ToString();
             }
 
-            if (!(instance._formatter is BinarySerializerAdapter))
+            if (instance._formatter is not BinarySerializerAdapter)
             {
                 throw new InvalidOperationException(
                     $"he type {typeof(T).FullName} doesn't allow string explicit conversion"
