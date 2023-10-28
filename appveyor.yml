@@ -13,7 +13,7 @@ environment:
 
 dotnet_csproj: 
   patch: true
-  file: '**\*.csproj'
+  file: '**\*.props'
   version: '{version}'
   package_version: '{version}'
   assembly_version: '{version}'
