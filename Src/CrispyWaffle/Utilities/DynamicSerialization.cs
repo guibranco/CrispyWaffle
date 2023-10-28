@@ -34,12 +34,12 @@ namespace CrispyWaffle.Utilities
         protected readonly Dictionary<string, object> Dictionary = new Dictionary<string, object>();
 
         /// <summary>
-        /// The key serialization filter,
+        /// The key serialization filter.
         /// </summary>
         protected readonly DynamicSerializationOption SerializationKeyFilter;
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
         public DynamicSerialization()
         {
@@ -47,16 +47,16 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
-        /// <param name="keyFilter">The filter to serialize keys</param>
+        /// <param name="keyFilter">The key filter.</param>
         public DynamicSerialization(DynamicSerializationOption keyFilter)
         {
             SerializationKeyFilter = keyFilter;
         }
 
         /// <summary>
-        /// Specialized constructor for use only by derived classes.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
@@ -70,12 +70,10 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Filter the keys using a DynamicSerializationOption
+        /// Filters the specified key.
         /// </summary>
-        /// <param name="key">The key to applly the filter</param>
-        /// <returns>The key filtered</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
         private string Filter(string key)
         {
             switch (SerializationKeyFilter)
@@ -83,9 +81,9 @@ namespace CrispyWaffle.Utilities
                 case DynamicSerializationOption.None:
                     return key;
                 case DynamicSerializationOption.Lowercase:
-                    return key.ToLower();
+                    return key.ToLowerInvariant();
                 case DynamicSerializationOption.Uppercase:
-                    return key.ToUpper();
+                    return key.ToUpperInvariant();
                 case DynamicSerializationOption.Camelcase:
                     return key.ToCamelCase();
                 default:
@@ -98,7 +96,7 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <exception cref="DynamicSerializationException"></exception>
+        /// <exception cref="DynamicSerializationException">If the value is not found in the dictionary.</exception>
         public void SetMember(string key, object value)
         {
             try
@@ -197,7 +195,7 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Equals operator
+        /// Equals operator.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -208,7 +206,7 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Different operator
+        /// Different operator.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -234,7 +232,7 @@ namespace CrispyWaffle.Utilities
             }
 
             return ReferenceEquals(this, obj)
-                || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
+                || (obj.GetType() == GetType() && Equals((DynamicSerialization)obj));
         }
 
         /// <summary>
