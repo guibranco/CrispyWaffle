@@ -17,98 +17,97 @@ using System.Threading;
 using CrispyWaffle.Scheduler;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Scheduler
+namespace CrispyWaffle.Tests.Scheduler;
+
+/// <summary>
+/// Class JobRunnerTests.
+/// </summary>
+[Collection("JobRunner")]
+public class JobRunnerTests
 {
     /// <summary>
-    /// Class JobRunnerTests.
+    /// Defines the test method ValidateJobRunnerEmptyScheduler.
     /// </summary>
-    [Collection("JobRunner")]
-    public class JobRunnerTests
+    [Fact]
+    public void ValidateJobRunnerEmptyScheduler()
     {
-        /// <summary>
-        /// Defines the test method ValidateJobRunnerEmptyScheduler.
-        /// </summary>
-        [Fact]
-        public void ValidateJobRunnerEmptyScheduler()
+        Assert.Throws<ArgumentNullException>(() => new JobRunner(string.Empty, null));
+    }
+
+    /// <summary>
+    /// Defines the test method ValidateJobRunner.
+    /// </summary>
+    [Fact]
+    public void ValidateJobRunner()
+    {
+        var sampler = new TestObjects();
+
+        var runner = new JobRunner("*", () => sampler.Counter++);
+
+        for (var i = 0; i < 10; i++)
         {
-            Assert.Throws<ArgumentNullException>(() => new JobRunner(string.Empty, null));
+            runner.Execute(DateTime.Now);
+            Thread.Sleep(500);
         }
 
-        /// <summary>
-        /// Defines the test method ValidateJobRunner.
-        /// </summary>
-        [Fact]
-        public void ValidateJobRunner()
+        Thread.Sleep(1000);
+
+        Assert.Equal(10, sampler.Counter);
+    }
+
+    /// <summary>
+    /// Defines the test method ValidateOutOfScheduler.
+    /// </summary>
+    [Fact]
+    public void ValidateOutOfScheduler()
+    {
+        var sampler = new TestObjects();
+
+        var runner = new JobRunner("*/5", () => sampler.Counter++);
+
+        var date = DateTime.Parse("00:00:00");
+
+        for (var i = 0; i <= 10; i++)
         {
-            var sampler = new TestObjects();
+            runner.Execute(date);
+            Thread.Sleep(500);
+            date = date.AddMinutes(1);
+        }
 
-            var runner = new JobRunner("*", () => sampler.Counter++);
+        Thread.Sleep(1000);
 
-            for (var i = 0; i < 10; i++)
+        Assert.Equal(3, sampler.Counter);
+    }
+
+    /// <summary>
+    /// Defines the test method ValidateConcurrency.
+    /// </summary>
+    [Fact]
+    public void ValidateConcurrency()
+    {
+        const int sleepMilliseconds = 2000;
+
+        var sampler = new TestObjects();
+
+        var runner = new JobRunner(
+            "*",
+            () =>
             {
-                runner.Execute(DateTime.Now);
-                Thread.Sleep(500);
+                sampler.Counter++;
+                Thread.Sleep(sleepMilliseconds);
             }
+        );
 
-            Thread.Sleep(1000);
+        runner.Execute(DateTime.Now);
+        runner.Execute(DateTime.Now);
 
-            Assert.Equal(10, sampler.Counter);
-        }
+        Thread.Sleep(sleepMilliseconds * 2);
 
-        /// <summary>
-        /// Defines the test method ValidateOutOfScheduler.
-        /// </summary>
-        [Fact]
-        public void ValidateOutOfScheduler()
-        {
-            var sampler = new TestObjects();
+        runner.Execute(DateTime.Now);
+        runner.Execute(DateTime.Now);
 
-            var runner = new JobRunner("*/5", () => sampler.Counter++);
+        Thread.Sleep(sleepMilliseconds);
 
-            var date = DateTime.Parse("00:00:00");
-
-            for (var i = 0; i <= 10; i++)
-            {
-                runner.Execute(date);
-                Thread.Sleep(500);
-                date = date.AddMinutes(1);
-            }
-
-            Thread.Sleep(1000);
-
-            Assert.Equal(3, sampler.Counter);
-        }
-
-        /// <summary>
-        /// Defines the test method ValidateConcurrency.
-        /// </summary>
-        [Fact]
-        public void ValidateConcurrency()
-        {
-            const int sleepMilliseconds = 2000;
-
-            var sampler = new TestObjects();
-
-            var runner = new JobRunner(
-                "*",
-                () =>
-                {
-                    sampler.Counter++;
-                    Thread.Sleep(sleepMilliseconds);
-                }
-            );
-
-            runner.Execute(DateTime.Now);
-            runner.Execute(DateTime.Now);
-
-            Thread.Sleep(sleepMilliseconds * 2);
-
-            runner.Execute(DateTime.Now);
-            runner.Execute(DateTime.Now);
-
-            Thread.Sleep(sleepMilliseconds);
-
-            Assert.Equal(2, sampler.Counter);
-        }
+        Assert.Equal(2, sampler.Counter);
     }
 }

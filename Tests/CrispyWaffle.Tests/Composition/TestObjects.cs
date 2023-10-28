@@ -15,70 +15,69 @@
 using System;
 using System.Threading;
 
-namespace CrispyWaffle.Tests.Composition
+namespace CrispyWaffle.Tests.Composition;
+
+/// <summary>
+/// Class TestObjects.
+/// </summary>
+internal class TestObjects
 {
     /// <summary>
-    /// Class TestObjects.
+    /// Class SingletonTest. This class cannot be inherited.
     /// </summary>
-    internal class TestObjects
+    public sealed class SingletonTest
     {
         /// <summary>
-        /// Class SingletonTest. This class cannot be inherited.
+        /// Gets the date.
         /// </summary>
-        public sealed class SingletonTest
-        {
-            /// <summary>
-            /// Gets the date.
-            /// </summary>
-            /// <value>The date.</value>
-            public DateTime Date { get; }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="SingletonTest" /> class.
-            /// </summary>
-            public SingletonTest() => Date = DateTime.Now;
-        }
+        /// <value>The date.</value>
+        public DateTime Date { get; }
 
         /// <summary>
-        /// Class SingletonWithDependencyTest. This class cannot be inherited.
+        /// Initializes a new instance of the <see cref="SingletonTest" /> class.
         /// </summary>
-        public sealed class SingletonWithDependencyTest
-        {
-            /// <summary>
-            /// Gets the singleton.
-            /// </summary>
-            /// <value>The singleton.</value>
-            public SingletonTest Singleton { get; }
+        public SingletonTest() => Date = DateTime.Now;
+    }
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="SingletonWithDependencyTest" /> class.
-            /// </summary>
-            /// <param name="singleton">The singleton.</param>
-            public SingletonWithDependencyTest(SingletonTest singleton)
-            {
-                Singleton = singleton;
-            }
-        }
+    /// <summary>
+    /// Class SingletonWithDependencyTest. This class cannot be inherited.
+    /// </summary>
+    public sealed class SingletonWithDependencyTest
+    {
+        /// <summary>
+        /// Gets the singleton.
+        /// </summary>
+        /// <value>The singleton.</value>
+        public SingletonTest Singleton { get; }
 
         /// <summary>
-        /// Class CancellationTokenDependencyTest. This class cannot be inherited.
+        /// Initializes a new instance of the <see cref="SingletonWithDependencyTest" /> class.
         /// </summary>
-        public sealed class CancellationTokenDependencyTest
+        /// <param name="singleton">The singleton.</param>
+        public SingletonWithDependencyTest(SingletonTest singleton)
         {
-            /// <summary>
-            /// Gets the cancellation token.
-            /// </summary>
-            /// <value>The cancellation token.</value>
-            public CancellationToken CancellationToken { get; }
+            Singleton = singleton;
+        }
+    }
 
-            /// <summary>
-            /// Initializes a new instance of the <see cref="CancellationTokenDependencyTest" /> class.
-            /// </summary>
-            /// <param name="cancellationToken">The cancellation token.</param>
-            public CancellationTokenDependencyTest(CancellationToken cancellationToken)
-            {
-                CancellationToken = cancellationToken;
-            }
+    /// <summary>
+    /// Class CancellationTokenDependencyTest. This class cannot be inherited.
+    /// </summary>
+    public sealed class CancellationTokenDependencyTest
+    {
+        /// <summary>
+        /// Gets the cancellation token.
+        /// </summary>
+        /// <value>The cancellation token.</value>
+        public CancellationToken CancellationToken { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CancellationTokenDependencyTest" /> class.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public CancellationTokenDependencyTest(CancellationToken cancellationToken)
+        {
+            CancellationToken = cancellationToken;
         }
     }
 }

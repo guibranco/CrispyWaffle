@@ -16,84 +16,83 @@ using System.Threading;
 using CrispyWaffle.Scheduler;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Scheduler
+namespace CrispyWaffle.Tests.Scheduler;
+
+/// <summary>
+/// Class JobManagerTests.
+/// </summary>
+[Collection("JobManager")]
+public class JobManagerTests
 {
     /// <summary>
-    /// Class JobManagerTests.
+    /// Defines the test method ValidateJobManager.
     /// </summary>
-    [Collection("JobManager")]
-    public class JobManagerTests
+    [Fact]
+    public void ValidateJobManager()
     {
-        /// <summary>
-        /// Defines the test method ValidateJobManager.
-        /// </summary>
-        [Fact]
-        public void ValidateJobManager()
-        {
-            var manager = new JobManager();
+        var manager = new JobManager();
 
-            var sampler = new TestObjects();
+        var sampler = new TestObjects();
 
-            var syncRoot = new object();
+        var syncRoot = new object();
 
-            manager.AddJob(
-                "*",
-                () =>
+        manager.AddJob(
+            "*",
+            () =>
+            {
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        sampler.Counter++;
-                    }
+                    sampler.Counter++;
                 }
-            );
-            manager.AddJob(
-                "*",
-                () =>
+            }
+        );
+        manager.AddJob(
+            "*",
+            () =>
+            {
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        sampler.Counter++;
-                    }
+                    sampler.Counter++;
                 }
-            );
-            manager.AddJob(
-                "*",
-                () =>
+            }
+        );
+        manager.AddJob(
+            "*",
+            () =>
+            {
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        sampler.Counter++;
-                    }
+                    sampler.Counter++;
                 }
-            );
-            manager.AddJob(
-                "*",
-                () =>
+            }
+        );
+        manager.AddJob(
+            "*",
+            () =>
+            {
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        sampler.Counter++;
-                    }
+                    sampler.Counter++;
                 }
-            );
-            manager.AddJob(
-                "*",
-                () =>
+            }
+        );
+        manager.AddJob(
+            "*",
+            () =>
+            {
+                lock (syncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        sampler.Counter++;
-                    }
+                    sampler.Counter++;
                 }
-            );
+            }
+        );
 
-            manager.Start();
+        manager.Start();
 
-            Thread.Sleep(70 * 1000);
+        Thread.Sleep(70 * 1000);
 
-            manager.Stop();
+        manager.Stop();
 
-            Assert.Equal(5, sampler.Counter);
-        }
+        Assert.Equal(5, sampler.Counter);
     }
 }

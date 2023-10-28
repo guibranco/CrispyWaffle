@@ -90,7 +90,7 @@ namespace CrispyWaffle.Composition
             _registrations.AddOrUpdate(
                 cancellationToken,
                 () => _cancellationTokenSource.Token,
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -181,7 +181,7 @@ namespace CrispyWaffle.Composition
                         return lazy.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -236,7 +236,7 @@ namespace CrispyWaffle.Composition
                         return lazy.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -263,7 +263,7 @@ namespace CrispyWaffle.Composition
                         return lazyDisposable.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -291,7 +291,7 @@ namespace CrispyWaffle.Composition
                         return lazyDisposable.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -309,7 +309,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[contract]++;
                     return GetInstance(implementation);
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -331,7 +331,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[contract]++;
                     return instanceCreator();
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -602,7 +602,7 @@ namespace CrispyWaffle.Composition
             }
 
             var instance = GetInstance(types.Single());
-            _registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
+            _registrations.AddOrUpdate(type, () => instance, (_, _) => () => instance);
             return instance;
         }
 
@@ -650,7 +650,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[type]++;
                     return instance;
                 },
-                (key, existingVal) => () => existingVal
+                (_, existingVal) => () => existingVal
             );
         }
 

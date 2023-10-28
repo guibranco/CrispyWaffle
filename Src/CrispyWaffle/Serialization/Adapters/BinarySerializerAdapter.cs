@@ -28,7 +28,9 @@ namespace CrispyWaffle.Serialization.Adapters
             where T : class
         {
             var formatter = new BinaryFormatter();
+#pragma warning disable S5773
             var result = formatter.Deserialize(stream);
+#pragma warning restore S5773
             stream.Close();
             return (T)result;
         }
@@ -130,7 +132,7 @@ namespace CrispyWaffle.Serialization.Adapters
                         | NotifyFilters.Size,
                     EnableRaisingEvents = true
                 };
-                watcher.Changed += (o, e) => autoResetEvent.Set();
+                watcher.Changed += (_, _) => autoResetEvent.Set();
                 autoResetEvent.WaitOne(new TimeSpan(0, 0, 0, 30));
             }
             finally

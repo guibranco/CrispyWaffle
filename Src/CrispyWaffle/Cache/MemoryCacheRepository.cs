@@ -44,7 +44,7 @@ namespace CrispyWaffle.Cache
         /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements (<see cref="System.Int32.MaxValue" />).</exception>
         public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
-            _data.AddOrUpdate(key, value, (_, __) => value);
+            _data.AddOrUpdate(key, value, (_, _) => value);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace CrispyWaffle.Cache
         public void Set<T>(T value, string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";
-            _hash.AddOrUpdate(finalKey, value, (_, __) => value);
+            _hash.AddOrUpdate(finalKey, value, (_, _) => value);
         }
 
         /// <summary>

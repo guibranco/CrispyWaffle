@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text;
@@ -11,10 +10,8 @@ namespace CrispyWaffle.Serialization.Adapters
     /// A serializer xml.
     /// </summary>
     /// <seealso cref="ISerializerAdapter" />
-    public sealed class XmlSerializerAdapter : ISerializerAdapter
+    public sealed class XmlSerializerAdapter : BaseSerializerAdapter
     {
-        #region Implemetation of ISerializerAdapter
-
         /// <summary>
         /// Deserialize a stream to a generic type
         /// </summary>
@@ -23,7 +20,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+        public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
         {
             return new XmlSerializer(typeof(T)).Deserialize(
@@ -38,7 +35,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T Deserialize<T>(object serialized)
+        public override T Deserialize<T>(object serialized)
             where T : class
         {
             var document = serialized as XmlDocument;
@@ -48,46 +45,12 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Loads the given file and Deserialize its.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <returns>A T.</returns>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        /// <exception cref="LocalFileNotFoundException">Thrown when an Arquivo Nao Encontrado error condition occurs.</exception>
-        [Pure]
-        public T Load<T>(string file)
-            where T : class
-        {
-            var fileName = Path.GetFileName(file);
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                throw new ArgumentNullException(nameof(file), "Supply a valid filename");
-            }
-
-            if (!File.Exists(file))
-            {
-                throw new LocalFileNotFoundException(
-                    file,
-                    Path.GetDirectoryName(Path.GetFullPath(file))
-                );
-            }
-
-            using (var sr = new StreamReader(file, Encoding.UTF8))
-            {
-                var serialized = sr.ReadToEnd();
-
-                return Deserialize<T>(serialized);
-            }
-        }
-
-        /// <summary>
         /// Serializes.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
-        public void Serialize<T>(T deserialized, out Stream stream)
+        public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
             stream = new MemoryStream();
@@ -119,7 +82,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="file">The file.</param>
         /// <param name="deserialized">The deserialized.</param>
         /// <exception cref="LocalFileNotFoundException">null - null</exception>
-        public void Save<T>(string file, T deserialized)
+        public override void Save<T>(string file, T deserialized)
             where T : class
         {
             Stream stream = null;
@@ -154,7 +117,5 @@ namespace CrispyWaffle.Serialization.Adapters
                 stream?.Dispose();
             }
         }
-
-        #endregion
     }
 }

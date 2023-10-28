@@ -8,61 +8,60 @@ using System.Threading;
 using CrispyWaffle.Infrastructure;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Infrastructure
+namespace CrispyWaffle.Tests.Infrastructure;
+
+public class EnvironmentHelperTests
 {
-    public class EnvironmentHelperTests
+    [Fact]
+    public void ValidateEnvironmentHelperProperties()
     {
-        [Fact]
-        public void ValidateEnvironmentHelperProperties()
-        {
-            EnvironmentHelper.SetApplicationName("CrispyWaffle");
-            EnvironmentHelper.SetDisplayApplicationName("Crispy Waffle");
+        EnvironmentHelper.SetApplicationName("CrispyWaffle");
+        EnvironmentHelper.SetDisplayApplicationName("Crispy Waffle");
 
-            Assert.Equal("CrispyWaffle", EnvironmentHelper.ApplicationName);
-            Assert.Equal("Crispy Waffle", EnvironmentHelper.DisplayApplicationName);
+        Assert.Equal("CrispyWaffle", EnvironmentHelper.ApplicationName);
+        Assert.Equal("Crispy Waffle", EnvironmentHelper.DisplayApplicationName);
 
-            Assert.NotEmpty(EnvironmentHelper.ExecutionPath);
+        Assert.NotEmpty(EnvironmentHelper.ExecutionPath);
 
-            Assert.Equal(Environment.MachineName, EnvironmentHelper.Host);
+        Assert.Equal(Environment.MachineName, EnvironmentHelper.Host);
 
-            var ipAddressRegex = new Regex(
-                @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$",
-                RegexOptions.Compiled
-            );
+        var ipAddressRegex = new Regex(
+            @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$",
+            RegexOptions.Compiled
+        );
 
-            Assert.NotEmpty(EnvironmentHelper.IpAddress);
-            Assert.Matches(ipAddressRegex, EnvironmentHelper.IpAddress);
+        Assert.NotEmpty(EnvironmentHelper.IpAddress);
+        Assert.Matches(ipAddressRegex, EnvironmentHelper.IpAddress);
 
-            Assert.NotEmpty(EnvironmentHelper.IpAddressExternal);
-            Assert.Matches(ipAddressRegex, EnvironmentHelper.IpAddressExternal);
+        Assert.NotEmpty(EnvironmentHelper.IpAddressExternal);
+        Assert.Matches(ipAddressRegex, EnvironmentHelper.IpAddressExternal);
 
-            Assert.EndsWith(
-                Environment.Is64BitOperatingSystem ? @"x64" : @"x86",
-                EnvironmentHelper.OperationalSystemVersion
-            );
+        Assert.EndsWith(
+            Environment.Is64BitOperatingSystem ? @"x64" : @"x86",
+            EnvironmentHelper.OperationalSystemVersion
+        );
 
-            Assert.Equal(Process.GetCurrentProcess().Id, EnvironmentHelper.ProcessId);
+        Assert.Equal(Process.GetCurrentProcess().Id, EnvironmentHelper.ProcessId);
 
-            var userAgent =
-                $"{EnvironmentHelper.ApplicationName}/{EnvironmentHelper.Version} (H:{EnvironmentHelper.Host}|P:{EnvironmentHelper.ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
+        var userAgent =
+            $"{EnvironmentHelper.ApplicationName}/{EnvironmentHelper.Version} (H:{EnvironmentHelper.Host}|P:{EnvironmentHelper.ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
 
-            Assert.Equal(userAgent, EnvironmentHelper.UserAgent);
-            Assert.Equal(Environment.UserName, EnvironmentHelper.UserName);
+        Assert.Equal(userAgent, EnvironmentHelper.UserAgent);
+        Assert.Equal(Environment.UserName, EnvironmentHelper.UserName);
 
-            var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
+        var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
 
-            var version = !string.IsNullOrWhiteSpace(assembly.Location)
-                ? FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion
-                : string.Empty;
+        var version = !string.IsNullOrWhiteSpace(assembly.Location)
+            ? FileVersionInfo.GetVersionInfo(assembly.Location).ProductVersion
+            : string.Empty;
 
-            Assert.Equal(version, EnvironmentHelper.Version);
+        Assert.Equal(version, EnvironmentHelper.Version);
 
-            var versionDate = new FileInfo(assembly.Location).LastWriteTime.ToString(
-                @"dd/MM/yyyy HH:mm:ss",
-                CultureInfo.InvariantCulture
-            );
+        var versionDate = new FileInfo(assembly.Location).LastWriteTime.ToString(
+            @"dd/MM/yyyy HH:mm:ss",
+            CultureInfo.InvariantCulture
+        );
 
-            Assert.Equal(versionDate, EnvironmentHelper.VersionDate);
-        }
+        Assert.Equal(versionDate, EnvironmentHelper.VersionDate);
     }
 }
