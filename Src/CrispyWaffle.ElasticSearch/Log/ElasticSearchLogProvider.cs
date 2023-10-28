@@ -168,11 +168,11 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <summary>
         /// Sets the log level of the instance.
         /// </summary>
-        /// <param name="level">The log level</param>
+        /// <param name="level">The log level.</param>
         public void SetLevel(LogLevel level) => _level = level;
 
         /// <summary>
-        /// Logs the message with fatal level
+        /// Logs the message with fatal level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message.</param>
@@ -206,10 +206,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message with warning level
+        /// Logs the message with warning level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Warning(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Warning))
@@ -223,10 +223,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message with info level
+        /// Logs the message with info level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Info(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Info))
@@ -240,10 +240,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message with trace level
+        /// Logs the message with trace level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Trace(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Trace))
@@ -322,7 +322,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="content">The content to be stored.</param>
-        /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
+        /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation.</param>
         public void Debug(string category, string content, string identifier)
         {
             if (!_level.HasFlag(LogLevel.Debug))
@@ -339,11 +339,11 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <summary>
         /// Logs the message as a file/attachment with a file name/identifier with debug level using a custom serializer or default.
         /// </summary>
-        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
+        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format.</typeparam>
         /// <param name="category">The category.</param>
-        /// <param name="content">The object to be serialized</param>
-        /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
-        /// <param name="customFormat">(Optional) the custom serializer format</param>
+        /// <param name="content">The object to be serialized.</param>
+        /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
+        /// <param name="customFormat">(Optional) the custom serializer format.</param>
         public void Debug<T>(
             string category,
             T content,

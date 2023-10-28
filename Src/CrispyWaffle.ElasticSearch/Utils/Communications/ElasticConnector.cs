@@ -21,7 +21,7 @@ using Nest;
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     /// <summary>
-    /// The Elasticsearch connector class
+    /// The Elasticsearch connector class.
     /// </summary>
     [ConnectionName("ElasticSearch")]
     public sealed class ElasticConnector
@@ -41,7 +41,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="defaultIndexName">Default name of the index.</param>
-        /// <exception cref="ArgumentNullException">connection</exception>
+        /// <exception cref="ArgumentNullException">connection.</exception>
         public ElasticConnector(IConnection connection, string defaultIndexName)
         {
             if (connection == null)

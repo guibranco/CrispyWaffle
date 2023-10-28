@@ -28,7 +28,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// The connector.
         /// </summary>
-
         private static readonly ElasticConnector _connector =
             ServiceLocator.Resolve<ElasticConnector>();
 
