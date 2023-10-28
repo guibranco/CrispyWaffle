@@ -34,7 +34,7 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="search">The search.</param>
-        /// <param name="replace">The replace.</param>
+        /// <param name="replace">The replacement.</param>
         /// <returns>String.</returns>
         [Pure]
         public static string ReplaceFirst(this string input, string search, string replace)
@@ -45,9 +45,7 @@ namespace CrispyWaffle.Extensions
             }
 
             var pos = input.IndexOf(search, StringComparison.Ordinal);
-            return pos < 0
-                ? input
-                : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
+            return pos < 0 ? input : input[..pos] + replace + input[(pos + search.Length)..];
         }
 
         /// <summary>
@@ -180,7 +178,13 @@ namespace CrispyWaffle.Extensions
         {
             return string.IsNullOrWhiteSpace(input)
                 ? string.Empty
-                : Regex.Replace(input.ToLower(), @"(?:^|\s|/|[0-9])[a-z]", m => m.Value.ToUpper());
+                : Regex.Replace(
+                    input.ToLower(),
+                    @"(?:^|\s|/|[0-9])[a-z]",
+                    m => m.Value.ToUpper(),
+                    RegexOptions.Compiled,
+                    TimeSpan.FromSeconds(5)
+                );
         }
 
         /// <summary>
