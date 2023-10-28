@@ -9,9 +9,7 @@ namespace CrispyWaffle.Tests.Serialization;
 
 public class JsonSerializerAdapterTests
 {
-    private readonly JsonSerializerAdapter _serializer;
-
-    public JsonSerializerAdapterTests() => _serializer = new JsonSerializerAdapter();
+    private readonly JsonSerializerAdapter _serializer = new();
 
     [Fact]
     public void ValidateSaveToFile()
