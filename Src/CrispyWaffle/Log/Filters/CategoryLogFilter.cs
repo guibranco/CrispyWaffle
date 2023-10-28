@@ -10,7 +10,7 @@ namespace CrispyWaffle.Log.Filters
     public class CategoryLogFilter : ILogFilter
     {
         /// <summary>
-        /// The type
+        /// The type.
         /// </summary>
         private readonly string _provider;
 

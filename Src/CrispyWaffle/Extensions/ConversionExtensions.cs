@@ -53,8 +53,7 @@ namespace CrispyWaffle.Extensions
         /// <returns>The given data converted to a Boolean.</returns>
         public static bool ToBoolean(this string str, string validValueForTrue = "S")
         {
-            return str?.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase)
-                == true;
+            return str?.Equals(validValueForTrue, StringComparison.OrdinalIgnoreCase) == true;
         }
 
         /// <summary>
@@ -314,14 +313,14 @@ namespace CrispyWaffle.Extensions
             }
 
             var prefix =
-                dirty.Substring(0, 1).Equals(@"0", StringComparison.InvariantCultureIgnoreCase)
+                dirty.Substring(0, 1).Equals(@"0", StringComparison.OrdinalIgnoreCase)
                 && (dirtyLength == 11 || dirtyLength == 12)
                     ? dirty.Substring(1, 2)
                     : dirty.Substring(0, 2);
 
             var hasNineDigits = dirty
                 .Substring(dirtyLength - 9, 1)
-                .Equals(@"9", StringComparison.InvariantCultureIgnoreCase);
+                .Equals(@"9", StringComparison.OrdinalIgnoreCase);
 
             var allowedDigits = hasNineDigits ? 9 : 8;
 
