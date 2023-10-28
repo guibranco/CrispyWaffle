@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 4.3 [2023-10-28]
+
+- Remove retry rules from `FtpClient` - [issue #211](https://github.com/guibranco/CrispyWaffle/issues/211) by [@Yousef-Majidi](https://github.com/Yousef-Majidi)
+- Create `BaseSerializerAdapter` - [issue #185](https://github.com/guibranco/CrispyWaffle/issues/185)
+- Adjust namespaces
+- Fix some code smells
+
 ## Version 4.2 [2023-07-24]
 
 - Fix SonarCloud reports - [issue #182](https://github.com/guibranco/CrispyWaffle/issues/182) by [@viktoriussuwandi](https://github.com/viktoriussuwandi)
