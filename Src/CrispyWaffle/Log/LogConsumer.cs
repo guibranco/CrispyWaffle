@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log.Filters;
 using CrispyWaffle.Log.Handlers;

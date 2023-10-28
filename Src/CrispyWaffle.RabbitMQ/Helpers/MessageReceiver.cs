@@ -12,10 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using CrispyWaffle.Log;
 using CrispyWaffle.RabbitMQ.Utils.Communications;
 using RabbitMQ.Client;

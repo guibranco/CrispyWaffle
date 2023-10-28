@@ -12,8 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using CrispyWaffle.Cache;
 using CrispyWaffle.Log;

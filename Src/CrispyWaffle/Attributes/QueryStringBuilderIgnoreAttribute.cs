@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Attributes
+﻿namespace CrispyWaffle.Attributes
 {
     /// <summary>
     /// The query string builder ignore attribute class

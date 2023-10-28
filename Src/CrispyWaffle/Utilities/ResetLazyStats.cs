@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Utilities
+﻿namespace CrispyWaffle.Utilities
 {
     public class ResetLazyStats
     {

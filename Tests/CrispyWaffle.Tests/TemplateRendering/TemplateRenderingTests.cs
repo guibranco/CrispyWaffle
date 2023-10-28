@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
 using CrispyWaffle.Composition;
 using CrispyWaffle.TemplateRendering.Engines;
 using CrispyWaffle.Tests.Fixtures;

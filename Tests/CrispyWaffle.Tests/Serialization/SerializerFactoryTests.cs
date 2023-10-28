@@ -12,8 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using System.Linq;
 using CrispyWaffle.Serialization;
 using Xunit;
 

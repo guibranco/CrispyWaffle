@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Utilities
+﻿namespace CrispyWaffle.Utilities
 {
     /// <summary>
     /// The interface for the resettable lazy classes.

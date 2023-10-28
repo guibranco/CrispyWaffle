@@ -12,13 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Log.Providers;

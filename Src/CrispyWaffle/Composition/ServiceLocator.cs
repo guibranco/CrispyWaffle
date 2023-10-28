@@ -1,10 +1,6 @@
-﻿using System.Threading;
-using CrispyWaffle.Extensions;
+﻿using CrispyWaffle.Extensions;
 using CrispyWaffle.Log;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using CrispyWaffle.Telemetry;
 

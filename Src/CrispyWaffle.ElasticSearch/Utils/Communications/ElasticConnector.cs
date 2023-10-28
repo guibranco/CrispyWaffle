@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
 using System.Globalization;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;

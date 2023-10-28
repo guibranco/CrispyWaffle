@@ -1,5 +1,4 @@
-﻿using System;
-using CrispyWaffle.Configuration;
+﻿using CrispyWaffle.Configuration;
 
 namespace CrispyWaffle.Redis.Utils
 {

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using CrispyWaffle.Infrastructure;
+﻿using CrispyWaffle.Infrastructure;
 using StackExchange.Redis;
 
 namespace CrispyWaffle.Redis.Log.PropagationStrategy

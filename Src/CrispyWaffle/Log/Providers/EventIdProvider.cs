@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Log.Providers
+﻿namespace CrispyWaffle.Log.Providers
 {
     /// <summary>
     /// Class EventIdProvider.

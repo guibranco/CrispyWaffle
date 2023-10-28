@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Serialization
+﻿namespace CrispyWaffle.Serialization
 {
     /// <summary>
     /// Attribute for serializer.

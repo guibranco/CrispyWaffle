@@ -1,5 +1,4 @@
-﻿using System;
-using CrispyWaffle.Tests.Fixtures;
+﻿using CrispyWaffle.Tests.Fixtures;
 using CrispyWaffle.Utilities;
 using Xunit;
 using Xunit.Abstractions;

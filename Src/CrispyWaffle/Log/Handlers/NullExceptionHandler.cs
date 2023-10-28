@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using CrispyWaffle.Composition;
+﻿using CrispyWaffle.Composition;
 using CrispyWaffle.Log.Providers;
 
 namespace CrispyWaffle.Log.Handlers

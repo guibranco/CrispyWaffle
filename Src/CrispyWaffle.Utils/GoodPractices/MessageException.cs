@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
 using System.Runtime.Serialization;
 
 namespace CrispyWaffle.Utils.GoodPractices

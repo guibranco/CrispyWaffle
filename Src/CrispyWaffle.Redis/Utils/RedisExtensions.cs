@@ -1,5 +1,4 @@
-﻿using System;
-using CrispyWaffle.Composition;
+﻿using CrispyWaffle.Composition;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Redis.Utils.Communications;
 using StackExchange.Redis;

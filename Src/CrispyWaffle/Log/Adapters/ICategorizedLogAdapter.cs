@@ -1,5 +1,4 @@
-﻿using System;
-using CrispyWaffle.Serialization;
+﻿using CrispyWaffle.Serialization;
 
 namespace CrispyWaffle.Log.Adapters
 {

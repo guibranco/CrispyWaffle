@@ -1,5 +1,4 @@
-﻿using System;
-using CrispyWaffle.Attributes;
+﻿using CrispyWaffle.Attributes;
 
 namespace CrispyWaffle.Log
 {

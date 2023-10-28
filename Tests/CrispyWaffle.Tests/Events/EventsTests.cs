@@ -12,7 +12,6 @@
 // <summary></summary>
 // ***********************************************************************
 
-using System;
 using CrispyWaffle.Events;
 using Xunit;
 

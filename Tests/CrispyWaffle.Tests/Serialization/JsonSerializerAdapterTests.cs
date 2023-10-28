@@ -1,8 +1,5 @@
 ﻿using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Serialization;

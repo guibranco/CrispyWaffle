@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Cache
+﻿namespace CrispyWaffle.Cache
 {
     /// <summary>
     /// The cache repository interface

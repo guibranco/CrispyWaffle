@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CrispyWaffle.Telemetry
+﻿namespace CrispyWaffle.Telemetry
 {
     /// <summary>
     /// The telemetry client interface.
