@@ -36,27 +36,27 @@ namespace CrispyWaffle.Utils.Communications
         private readonly object _syncRoot = new();
 
         /// <summary>
-        /// The host
+        /// The host.
         /// </summary>
         private readonly string _host;
 
         /// <summary>
-        /// The port
+        /// The port.
         /// </summary>
         private readonly int _port;
 
         /// <summary>
-        /// The user name
+        /// The username.
         /// </summary>
         private readonly string _userName;
 
         /// <summary>
-        /// The password
+        /// The password.
         /// </summary>
         private readonly string _password;
 
         /// <summary>
-        /// The sub directory
+        /// The directory.
         /// </summary>
         private readonly string _remoteDirectory;
 
@@ -86,9 +86,8 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="port">The port.</param>
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
-        /// <param name="remoteDirectory">The sub directory.</param>
-        /// <exception cref="System.ArgumentNullException">remoteDirectory</exception>
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        /// <param name="remoteDirectory">The directory.</param>
+        /// <exception cref="System.ArgumentNullException">remoteDirectory.</exception>
         public FtpClient(
             string host,
             int port,
@@ -118,7 +117,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="System.InvalidOperationException">Response stream is null</exception>
+        /// <exception cref="System.InvalidOperationException">Response stream is null.</exception>
         private bool ExistsInternal(string path)
         {
             try
@@ -162,12 +161,12 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Creates the file in the FtpClient host
+        /// Creates the file in the FtpClient host.
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <param name="bytes">The bytes.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">create</exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">create.</exception>
         private bool CreateInternal(string path, byte[] bytes)
         {
             var result = false;
@@ -216,7 +215,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <returns>true if it succeeds, false if it fails.</returns>
-        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">remove</exception>
+        /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">remove.</exception>
         private void RemoveInternal(string path)
         {
             try
@@ -262,7 +261,7 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Check if a file or directory exists in the FtpClient endpoint
+        /// Check if a file or directory exists in the FtpClient endpoint.
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool Exists() => ExistsInternal(GetFtpUrl().ToString());
@@ -314,9 +313,9 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="bytes">The bytes.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// <exception cref="System.ArgumentNullException">fileName</exception>
-        /// <exception cref="System.ArgumentNullException">bytes</exception>
+        /// <returns><c>true</c> if successfully upload the file, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentNullException">fileName.</exception>
+        /// <exception cref="System.ArgumentNullException">bytes.</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
             if (fileName == null)

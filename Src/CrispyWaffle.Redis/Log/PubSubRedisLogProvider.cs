@@ -188,7 +188,7 @@ namespace CrispyWaffle.Redis.Log
         /// Logs the message with warning level.
         /// </summary>
         /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="message">The message to be logged.</param>
         public void Warning(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Warning))

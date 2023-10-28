@@ -104,15 +104,14 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Initializes a new instance of Mailer class.
+        /// Initializes a new instance of the <see cref="SmtpMailer"/> class.
         /// </summary>
-        /// <param name="host">The SMTP server address (IP or hostname)</param>
-        /// <param name="port">The SMTP server port</param>
-        /// <param name="userName">The SMTP username (or e-mail address to authenticate)</param>
-        /// <param name="password">The password of the <paramref name="userName" /> to connect on SMTP server</param>
-        /// <param name="senderDisplayName">The sender's display name</param>
-        /// <param name="senderEmailAddress">The sender's e-mail address</param>
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        /// <param name="host">The host.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="senderDisplayName">Display name of the sender.</param>
+        /// <param name="senderEmailAddress">The sender email address.</param>
         public SmtpMailer(
             string host,
             int port,
@@ -173,7 +172,7 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="toName">To name.</param>
         /// <param name="toEmailAddress">To email address.</param>
-        /// <exception cref="System.ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null</exception>
+        /// <exception cref="ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null.</exception>
         private void SetRecipient(string toName, string toEmailAddress)
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))
@@ -220,10 +219,10 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Adds the attachment.
+        /// Adds the attachment. First sets the message.
         /// </summary>
         /// <param name="attachment">The attachment.</param>
-        /// <exception cref="CrispyWaffle.Utils.GoodPractices.NullMessageException"></exception>
+        /// <exception cref="NullMessageException">Throws when the message was not set before.</exception>
         public void AddAttachment(Attachment attachment)
         {
             if (!_messageSet)
@@ -231,7 +230,7 @@ namespace CrispyWaffle.Utils.Communications
                 throw new NullMessageException();
             }
 
-            if (_htmlMessage.Length > 150000)
+            if (_htmlMessage.Length > 150_000)
             {
                 return;
             }
