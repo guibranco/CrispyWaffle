@@ -45,7 +45,9 @@ namespace CrispyWaffle.Extensions
             }
 
             var pos = input.IndexOf(search, StringComparison.Ordinal);
-            return pos < 0 ? input : input[..pos] + replace + input[(pos + search.Length)..];
+            return pos < 0
+                ? input
+                : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
         }
 
         /// <summary>
