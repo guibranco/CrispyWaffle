@@ -2,7 +2,7 @@
 
 ## Definition
 
-The Crispy Waffle provides some logs providers/adapters for loggin purproses.
+The Crispy Waffle provides some log providers/adapters.
 
 Default providers:
 
@@ -16,17 +16,17 @@ Default adapters:
 
 - StandardConsoleLogAdapter: Colored console output.
 - StandardTextFileLogAdapter: Simple text file output.
-- RollingTextFileLogAdapter: Text file output, rolling to another file every time each reaches defined size.
+- RollingTextFileLogAdapter: Text file output, rolling to another file every time each reaches a defined size.
 - ...
 
 ## Examples
 
-A simple `console application` with simple (*colored console output*) logging example:
+A simple `console application` with simple (*coloured console output*) logging example:
 
 ```cs
 static void Main(string[] args)
 {
-    //Registering the standard console log adapter to be used by console log provider. 
+    //Registering the standard console log adapter to be used by the console log provider. 
     ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(LifeStyle.SINGLETON);
 
     //Registering the null exception handler for the method LogConsumer.Handle, this means that no action will be executed for exceptions handled by LogConsumer.
