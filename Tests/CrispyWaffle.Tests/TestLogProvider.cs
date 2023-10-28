@@ -44,8 +44,6 @@ internal class TestLogProvider : ILogProvider
         _testOutputHelper =
             testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
-    #region Implementation of ILogProvider
-
     /// <summary>
     /// Sets the log level of the instance
     /// </summary>
@@ -168,8 +166,6 @@ internal class TestLogProvider : ILogProvider
         _testOutputHelper.WriteLine("Error: {0} - {1}", category, identifier);
         _testOutputHelper.WriteLine((string)content.GetCustomSerializer(customFormat));
     }
-
-    #endregion
 
     /// <summary>
     /// Writes the exception details.

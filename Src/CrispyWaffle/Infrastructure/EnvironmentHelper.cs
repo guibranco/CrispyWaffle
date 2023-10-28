@@ -33,8 +33,6 @@ namespace CrispyWaffle.Infrastructure
     /// </summary>
     public static class EnvironmentHelper
     {
-        #region ~Ctor
-
         /// <summary>
         /// Initializes static members of the <see cref="EnvironmentHelper"/> class.
         /// </summary>
@@ -58,10 +56,6 @@ namespace CrispyWaffle.Infrastructure
                 $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
             ProcessId = Process.GetCurrentProcess().Id;
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Gets the ip address local.
@@ -117,10 +111,6 @@ namespace CrispyWaffle.Infrastructure
             }
         }
 
-        #endregion
-
-        #region Public methods
-
         /// <summary>
         /// Sets the name of the application.
         /// </summary>
@@ -140,10 +130,6 @@ namespace CrispyWaffle.Infrastructure
         /// </summary>
         /// <param name="operation">The operation.</param>
         public static void SetOperation(string operation) => Operation = operation;
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// Gets the host.
@@ -224,7 +210,5 @@ namespace CrispyWaffle.Infrastructure
         [Localizable(false)]
         public static string UserAgent =>
             $"{ApplicationName}/{Version} (H:{Host}|P:{ProcessId}|T:{Environment.CurrentManagedThreadId})";
-
-        #endregion
     }
 }

@@ -27,8 +27,6 @@ namespace CrispyWaffle.Utilities
         /// <value>The error list.</value>
         public Dictionary<string, IEnumerable<string>> ErrorList { get; set; }
 
-        #region Implementation of IAPIResponse
-
         /// <summary>
         /// Gets the code.
         /// </summary>
@@ -40,7 +38,5 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <value>The error message.</value>
         public string ErrorMessage { get; set; }
-
-        #endregion
     }
 }

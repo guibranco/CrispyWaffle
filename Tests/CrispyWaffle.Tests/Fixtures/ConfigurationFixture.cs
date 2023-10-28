@@ -44,8 +44,6 @@ public class ConfigurationFixture : IDisposable
         );
     }
 
-    #region IDisposable Support
-
     /// <summary>
     /// The disposed value
     /// </summary>
@@ -79,6 +77,4 @@ public class ConfigurationFixture : IDisposable
         // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         Dispose(true);
     }
-
-    #endregion
 }

@@ -28,15 +28,11 @@ namespace CrispyWaffle.Configuration
     /// <seealso cref="INotifyPropertyChanged" />
     public sealed class Credentials : IConnectionCredential, INotifyPropertyChanged
     {
-        #region Implementation of INotifyPropertyChanged
-
         /// <summary>
         /// The property changed event handler
         /// </summary>
         /// <returns></returns>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
 
         /// <summary>
         /// OnPropertyChanged event invoker

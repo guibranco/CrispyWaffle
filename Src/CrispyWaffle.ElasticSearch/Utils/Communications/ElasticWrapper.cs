@@ -22,26 +22,16 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
     /// </summary>
     public sealed class ElasticWrapper
     {
-        #region Private fields
-
         /// <summary>
         /// The elastic
         /// </summary>
         private readonly ElasticClient _elastic;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticWrapper" /> class.
         /// </summary>
         /// <param name="elastic">The elastic.</param>
         public ElasticWrapper(ElasticConnector elastic) => _elastic = elastic.Client;
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Indexes the exists.
@@ -106,7 +96,5 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="indexName">Name of the index.</param>
         public void SetDocumentTo<T>(T document, string indexName)
             where T : class, new() => _elastic.Index(document, i => i.Index(indexName));
-
-        #endregion
     }
 }

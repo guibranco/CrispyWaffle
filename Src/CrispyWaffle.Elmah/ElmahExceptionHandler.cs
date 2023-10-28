@@ -31,18 +31,12 @@ namespace CrispyWaffle.Elmah
     /// <seealso cref="IExceptionHandler" />
     public sealed class ElmahExceptionHandler : IExceptionHandler
     {
-        #region Private fields
-
         /// <summary>
         /// The additional providers
         /// </summary>
         private static readonly ICollection<
             Tuple<ILogProvider, ExceptionLogType>
         > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Gets the category.
@@ -110,10 +104,6 @@ namespace CrispyWaffle.Elmah
             ElmahExtensions.RaiseError(exception);
         }
 
-        #endregion
-
-        #region Implementation of IExceptionHandler
-
         /// <summary>
         /// Logs a exception as ERROR level.
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
@@ -165,7 +155,5 @@ namespace CrispyWaffle.Elmah
 
             return provider;
         }
-
-        #endregion
     }
 }

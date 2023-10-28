@@ -25,8 +25,6 @@ namespace CrispyWaffle.Tests.Serialization;
 [ExcludeFromCodeCoverage]
 public class StrongTypingClass : IEquatable<StrongTypingClass>
 {
-    #region Equality members
-
     /// <summary>
     /// Indicates whether the current object is equal to another object of the same type.
     /// </summary>
@@ -109,8 +107,6 @@ public class StrongTypingClass : IEquatable<StrongTypingClass>
     {
         return !Equals(left, right);
     }
-
-    #endregion
 
     /// <summary>
     /// Gets or sets the correlation identifier.

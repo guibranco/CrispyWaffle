@@ -9,8 +9,6 @@ namespace CrispyWaffle.Log.Filters
     /// <seealso cref="ILogFilter" />
     public class CategoryLogFilter : ILogFilter
     {
-        #region Private fields
-
         /// <summary>
         /// The type
         /// </summary>
@@ -26,10 +24,6 @@ namespace CrispyWaffle.Log.Filters
         /// </summary>
         private readonly bool _isExclusive;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryLogFilter"/> class.
         /// </summary>
@@ -42,10 +36,6 @@ namespace CrispyWaffle.Log.Filters
             _provider = provider?.FullName ?? provider?.Name ?? string.Empty;
         }
 
-        #endregion
-
-        #region Public methods
-
         /// <summary>
         /// Adds the category.
         /// </summary>
@@ -56,10 +46,6 @@ namespace CrispyWaffle.Log.Filters
             _categories.Add(category);
             return this;
         }
-
-        #endregion
-
-        #region Implementation of ILogFilter
 
         /// <summary>
         /// Filters the specified provider type.
@@ -78,7 +64,5 @@ namespace CrispyWaffle.Log.Filters
 
             return _isExclusive ? !_categories.Contains(category) : _categories.Contains(category);
         }
-
-        #endregion
     }
 }

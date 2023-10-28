@@ -9,8 +9,6 @@ namespace CrispyWaffle.Log.Providers
     /// </summary>
     public sealed class ConsoleLogProvider : ILogProvider
     {
-        #region Private fields
-
         /// <summary>
         /// The synchronize lock
         /// </summary>
@@ -20,10 +18,6 @@ namespace CrispyWaffle.Log.Providers
         /// The adapter
         /// </summary>
         private static IConsoleLogAdapter _adapter;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleLogProvider"/> class.
@@ -43,10 +37,6 @@ namespace CrispyWaffle.Log.Providers
                 }
             }
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the log level of the instance
@@ -167,7 +157,5 @@ namespace CrispyWaffle.Log.Providers
         {
             _adapter.Debug(content, identifier, customFormat);
         }
-
-        #endregion
     }
 }

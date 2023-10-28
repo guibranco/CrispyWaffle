@@ -28,8 +28,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
     /// </summary>
     public static class Extensions
     {
-        #region Private fields
-
         /// <summary>
         /// The connector
         /// </summary>
@@ -38,10 +36,6 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// </summary>
         private static readonly ElasticConnector _connector =
             ServiceLocator.Resolve<ElasticConnector>();
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Gets the name of the index.
@@ -153,7 +147,5 @@ namespace CrispyWaffle.ElasticSearch.Helpers
 
             return result.Deleted;
         }
-
-        #endregion
     }
 }

@@ -30,8 +30,6 @@ namespace CrispyWaffle.Utils.Communications
     /// </summary>
     public class FtpClient
     {
-        #region Private fields
-
         /// <summary>
         /// The synchronize root.
         /// </summary>
@@ -66,10 +64,6 @@ namespace CrispyWaffle.Utils.Communications
         /// The files.
         /// </summary>
         private readonly Queue<string> _files = new();
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient" /> class.
@@ -118,10 +112,6 @@ namespace CrispyWaffle.Utils.Communications
                 _remoteDirectory = _remoteDirectory.Substring(0, _remoteDirectory.Length - 1);
             }
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Check if the path/file exists in the FtpClient host.
@@ -294,10 +284,6 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         private void CreateDirectory() => CreateInternal(GetFtpUrl().ToString(), null);
 
-        #endregion
-
-        #region Public methods
-
         /// <summary>
         /// Removes the specified path.
         /// </summary>
@@ -381,7 +367,5 @@ namespace CrispyWaffle.Utils.Communications
                 CreateDirectory();
             }
         }
-
-        #endregion
     }
 }

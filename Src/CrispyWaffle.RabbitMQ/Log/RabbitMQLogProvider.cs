@@ -35,8 +35,6 @@ namespace CrispyWaffle.RabbitMQ.Log
     /// <seealso cref="System.IDisposable" />
     public class RabbitMQLogProvider : ILogProvider, IDisposable
     {
-        #region Private fields
-
         /// <summary>
         /// The level
         /// </summary>
@@ -62,10 +60,6 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// </summary>
         private readonly ConcurrentQueue<string> _queue;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RabbitMQLogProvider" /> class.
         /// </summary>
@@ -90,10 +84,6 @@ namespace CrispyWaffle.RabbitMQ.Log
         {
             Dispose(false);
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Workers this instance.
@@ -198,10 +188,6 @@ namespace CrispyWaffle.RabbitMQ.Log
             _queue.Enqueue(message);
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -210,10 +196,6 @@ namespace CrispyWaffle.RabbitMQ.Log
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the level.
@@ -403,7 +385,5 @@ namespace CrispyWaffle.RabbitMQ.Log
 
             PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
-
-        #endregion
     }
 }

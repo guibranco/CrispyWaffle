@@ -12,8 +12,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
     /// <seealso cref="ITemplateRender" />
     public sealed class XmlTemplateRender : ITemplateRender
     {
-        #region Implementation of ITemplateRender
-
         /// <summary>
         /// The render method, that receives the template and the data to process.
         /// </summary>
@@ -37,7 +35,5 @@ namespace CrispyWaffle.TemplateRendering.Engines
 
             return stringBuilder.ToString();
         }
-
-        #endregion
     }
 }

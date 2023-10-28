@@ -21,8 +21,6 @@ namespace CrispyWaffle.Configuration
     /// <seealso cref="CrispyWaffle.Configuration.ISecureCredentialProvider" />
     public class SecureCredentialProvider : ISecureCredentialProvider
     {
-        #region Implementation of ISecureCredentialProvider
-
         /// <summary>
         /// Gets or sets the password hash.
         /// </summary>
@@ -40,7 +38,5 @@ namespace CrispyWaffle.Configuration
         /// </summary>
         /// <value>The initialization vector key.</value>
         public string IVKey { get; set; }
-
-        #endregion
     }
 }

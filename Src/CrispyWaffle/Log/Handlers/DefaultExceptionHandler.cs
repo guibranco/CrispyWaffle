@@ -32,8 +32,6 @@ namespace CrispyWaffle.Log.Handlers
     /// <seealso cref="IExceptionHandler" />
     public class DefaultExceptionHandler : IExceptionHandler
     {
-        #region Private fields
-
         /// <summary>
         /// The additional providers
         /// </summary>
@@ -41,10 +39,6 @@ namespace CrispyWaffle.Log.Handlers
             Tuple<ILogProvider, ExceptionLogType>
         > _additionalProviders = _additionalProviders =
             new List<Tuple<ILogProvider, ExceptionLogType>>();
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Gets the category.
@@ -136,10 +130,6 @@ namespace CrispyWaffle.Log.Handlers
             }
         }
 
-        #endregion
-
-        #region Implementation of IExceptionHandler
-
         /// <summary>
         /// Logs a exception as ERROR level.
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
@@ -190,10 +180,6 @@ namespace CrispyWaffle.Log.Handlers
 
             return provider;
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Tries the add console log provider.
@@ -253,7 +239,5 @@ namespace CrispyWaffle.Log.Handlers
                 //ignore handling
             }
         }
-
-        #endregion
     }
 }

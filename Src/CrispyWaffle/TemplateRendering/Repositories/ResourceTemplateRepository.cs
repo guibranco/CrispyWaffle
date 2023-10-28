@@ -11,16 +11,10 @@ namespace CrispyWaffle.TemplateRendering.Repositories
     /// </summary>
     public sealed class ResourceTemplateRepository : ITemplateRepository
     {
-        #region Private Members
-
         /// <summary>
         /// The resource manager, source of the content.
         /// </summary>
         private readonly ResourceManager _manager;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Default constructor.
@@ -30,10 +24,6 @@ namespace CrispyWaffle.TemplateRendering.Repositories
         {
             _manager = manager;
         }
-
-        #endregion
-
-        #region Implementation of ITemplateRepository
 
         /// <summary>
         /// Register a template using a unique identifier
@@ -69,7 +59,5 @@ namespace CrispyWaffle.TemplateRendering.Repositories
 
             return result;
         }
-
-        #endregion
     }
 }

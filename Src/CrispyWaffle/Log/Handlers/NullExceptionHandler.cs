@@ -11,8 +11,6 @@ namespace CrispyWaffle.Log.Handlers
     /// <seealso cref="IExceptionHandler" />
     public sealed class NullExceptionHandler : IExceptionHandler
     {
-        #region Implementation of IExceptionHandler
-
         /// <summary>
         /// Logs a exception as ERROR level.
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
@@ -50,7 +48,5 @@ namespace CrispyWaffle.Log.Handlers
         {
             return ServiceLocator.Resolve<TLogProvider>();
         }
-
-        #endregion
     }
 }

@@ -8,8 +8,6 @@ namespace CrispyWaffle.Cache
     /// </summary>
     public class MemoryCacheRepository : ICacheRepository
     {
-        #region Private fields
-
         /// <summary>
         /// The data
         /// </summary>
@@ -21,10 +19,6 @@ namespace CrispyWaffle.Cache
         /// </summary>
         private static readonly ConcurrentDictionary<string, object> _hash =
             new ConcurrentDictionary<string, object>();
-
-        #endregion
-
-        #region Implementation of ICacheRepository
 
         /// <summary>
         /// Gets or sets a value indicating whether [should propagate exceptions].
@@ -187,7 +181,5 @@ namespace CrispyWaffle.Cache
             _data.Clear();
             _hash.Clear();
         }
-
-        #endregion
     }
 }

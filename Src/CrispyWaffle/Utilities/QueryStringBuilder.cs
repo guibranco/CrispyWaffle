@@ -19,8 +19,6 @@ namespace CrispyWaffle.Utilities
     [Serializable]
     public class QueryStringBuilder : NameValueCollection
     {
-        #region ~Ctor
-
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -42,10 +40,6 @@ namespace CrispyWaffle.Utilities
         /// <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> object that contains the source and destination of the serialized stream associated with the new <see cref="T:System.Collections.Specialized.NameValueCollection" /> instance.</param>
         protected QueryStringBuilder(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// extracts a querystring from a full URL.
@@ -85,10 +79,6 @@ namespace CrispyWaffle.Utilities
             }
         }
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// overrides the default.
         /// </summary>
@@ -102,10 +92,6 @@ namespace CrispyWaffle.Utilities
         /// <param name="index">The index.</param>
         /// <returns>the associated decoded value for the specified index.</returns>
         public new string this[int index] => HttpUtility.UrlDecode(base[index]);
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// adds a name value pair to the collection.
@@ -306,7 +292,5 @@ namespace CrispyWaffle.Utilities
 
             return builder.ToString();
         }
-
-        #endregion
     }
 }

@@ -11,16 +11,10 @@ namespace CrispyWaffle.Telemetry
     /// </summary>
     public static class TelemetryAnalytics
     {
-        #region Private fields
-
         /// <summary>
         /// The clients
         /// </summary>
         private static readonly List<ITelemetryClient> _clients = new List<ITelemetryClient>();
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Adds the client.
@@ -241,7 +235,5 @@ namespace CrispyWaffle.Telemetry
                 client.TrackDependency(interfaceType, resolvedTimes);
             }
         }
-
-        #endregion
     }
 }

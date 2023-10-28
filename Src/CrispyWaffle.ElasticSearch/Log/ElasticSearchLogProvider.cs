@@ -32,8 +32,6 @@ namespace CrispyWaffle.ElasticSearch.Log
     /// <seealso cref="ILogProvider" />
     public class ElasticSearchLogProvider : ILogProvider, IDisposable
     {
-        #region Private fields
-
         /// <summary>
         /// The level
         /// </summary>
@@ -68,10 +66,6 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// </summary>
         private readonly int _logRetentionDays;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticSearchLogProvider"/> class.
         /// </summary>
@@ -90,10 +84,6 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// Finalizes an instance of the <see cref="ElasticSearchLogProvider" /> class.
         /// </summary>
         ~ElasticSearchLogProvider() => Dispose(false);
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
@@ -170,18 +160,10 @@ namespace CrispyWaffle.ElasticSearch.Log
                 ThreadName = Thread.CurrentThread.Name
             };
 
-        #endregion
-
-        #region Public methods
-
         /// <summary>
         /// Aborts the garbage collector.
         /// </summary>
         public void AbortGarbageCollector() => _tokenSource.Cancel();
-
-        #endregion
-
-        #region Implementation of IDisposable
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -191,10 +173,6 @@ namespace CrispyWaffle.ElasticSearch.Log
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the log level of the instance
@@ -406,7 +384,5 @@ namespace CrispyWaffle.ElasticSearch.Log
                     )
             );
         }
-
-        #endregion
     }
 }

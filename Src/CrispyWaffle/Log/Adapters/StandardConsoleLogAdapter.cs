@@ -14,8 +14,6 @@ namespace CrispyWaffle.Log.Adapters
     /// <seealso cref="ILogAdapter" />
     public sealed class StandardConsoleLogAdapter : IConsoleLogAdapter
     {
-        #region Consts
-
         /// <summary>
         /// The default color
         /// </summary>
@@ -45,10 +43,6 @@ namespace CrispyWaffle.Log.Adapters
         /// The error color
         /// </summary>
         private const ConsoleColor ErrorColor = ConsoleColor.Red;
-
-        #endregion
-
-        #region Private Members
 
         /// <summary>
         /// The synchronize root
@@ -81,10 +75,6 @@ namespace CrispyWaffle.Log.Adapters
         /// </summary>
         private LogLevel _level;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardConsoleLogAdapter" /> class.
         /// </summary>
@@ -105,10 +95,6 @@ namespace CrispyWaffle.Log.Adapters
         {
             Dispose();
         }
-
-        #endregion
-
-        #region Private Methods
 
         /// <summary>
         /// Writes the internal.
@@ -160,10 +146,6 @@ namespace CrispyWaffle.Log.Adapters
             }
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -171,10 +153,6 @@ namespace CrispyWaffle.Log.Adapters
         {
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Implementation of ILogAdapter
 
         /// <summary>
         /// Change the LogLevel of Log Adapter instance.
@@ -306,7 +284,5 @@ namespace CrispyWaffle.Log.Adapters
         {
             WriteInternal(LogLevel.Fatal, message);
         }
-
-        #endregion
     }
 }

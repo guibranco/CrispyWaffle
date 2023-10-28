@@ -42,8 +42,6 @@ namespace CrispyWaffle.Utils.Communications
     [ConnectionName("SMTP")]
     public class SmtpMailer : IMailer
     {
-        #region Private fields
-
         /// <summary>
         /// The <see cref="SmtpClient" />
         /// </summary>
@@ -73,10 +71,6 @@ namespace CrispyWaffle.Utils.Communications
         /// The options.
         /// </summary>
         private readonly SmtpMailerOptions _options;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of Mailer class.
@@ -164,10 +158,6 @@ namespace CrispyWaffle.Utils.Communications
             _disposed = true;
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
         /// unmanaged resources.
@@ -177,10 +167,6 @@ namespace CrispyWaffle.Utils.Communications
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Sets the recipient.
@@ -200,10 +186,6 @@ namespace CrispyWaffle.Utils.Communications
 
             _message.To.Add(new MailAddress(toEmailAddress, toName));
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Sets the message body
@@ -418,7 +400,5 @@ namespace CrispyWaffle.Utils.Communications
             LogConsumer.Handle(e);
             return true;
         }
-
-        #endregion
     }
 }

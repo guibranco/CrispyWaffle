@@ -32,8 +32,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
     [ConnectionName("Redis")]
     public class RedisConnector : IDisposable
     {
-        #region Private fields
-
         /// <summary>
         /// The disposed
         /// </summary>
@@ -43,10 +41,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// The connection pool manager
         /// </summary>
         private readonly IRedisConnectionPoolManager _connectionPoolManager;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -219,10 +213,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
             _disposed = true;
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -231,10 +221,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// Gets the serializer.
@@ -283,7 +269,5 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <returns>IDatabase.</returns>
         public IDatabase GetDatabase(int databaseNumber, object asyncState = null) =>
             _connectionPoolManager.GetConnection().GetDatabase(databaseNumber, asyncState);
-
-        #endregion
     }
 }

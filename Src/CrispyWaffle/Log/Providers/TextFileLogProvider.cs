@@ -9,16 +9,10 @@ namespace CrispyWaffle.Log.Providers
     /// </summary>
     public sealed class TextFileLogProvider : ILogProvider
     {
-        #region Private fields
-
         /// <summary>
         /// Text file log adapter
         /// </summary>
         private readonly ITextFileLogAdapter _adapter;
-
-        #endregion
-
-        #region ~Ctors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextFileLogProvider"/> class.
@@ -28,10 +22,6 @@ namespace CrispyWaffle.Log.Providers
         {
             _adapter = adapter;
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the log level of the instance
@@ -152,7 +142,5 @@ namespace CrispyWaffle.Log.Providers
         {
             _adapter.CategorizedDebug(category, content, identifier, customFormat);
         }
-
-        #endregion
     }
 }

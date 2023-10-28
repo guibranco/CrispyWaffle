@@ -11,29 +11,11 @@ namespace CrispyWaffle.Log.Adapters
     /// <seealso cref="CrispyWaffle.Log.Adapters.ITextFileLogAdapter" />
     public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
-        #region Private fields
-
-        #endregion
-
-        #region ~Ctors
-
-        #endregion
-
-        #region Private methods
-
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <inheritdoc />
         public void Dispose()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
-
-        #region Implementation of ILogAdapter
 
         /// <inheritdoc />
         public void SetLevel(LogLevel level)
@@ -106,10 +88,6 @@ namespace CrispyWaffle.Log.Adapters
             throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region Implementation of ICategorizedLogAdapter
-
         /// <inheritdoc />
         public void CategorizedFatal(string category, string message)
         {
@@ -175,7 +153,5 @@ namespace CrispyWaffle.Log.Adapters
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

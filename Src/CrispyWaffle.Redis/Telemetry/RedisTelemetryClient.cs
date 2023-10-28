@@ -28,8 +28,6 @@ namespace CrispyWaffle.Redis.Telemetry
     /// <seealso cref="ITelemetryClient" />
     public sealed class RedisTelemetryClient : ITelemetryClient
     {
-        #region Private fields
-
         /// <summary>
         /// The redis
         /// </summary>
@@ -44,10 +42,6 @@ namespace CrispyWaffle.Redis.Telemetry
         /// The suffix
         /// </summary>
         private readonly string _suffix;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisTelemetryClient" /> class.
@@ -69,10 +63,6 @@ namespace CrispyWaffle.Redis.Telemetry
             _suffix = suffix;
         }
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// Gets or sets the hit database.
         /// </summary>
@@ -84,10 +74,6 @@ namespace CrispyWaffle.Redis.Telemetry
         /// </summary>
         /// <value>The metric database.</value>
         public int MetricDatabase { get; set; }
-
-        #endregion
-
-        #region Implementation of ITelemetryClient
 
         /// <summary>
         /// Gets the hit.
@@ -244,7 +230,5 @@ namespace CrispyWaffle.Redis.Telemetry
                     CommandFlags.FireAndForget
                 );
         }
-
-        #endregion
     }
 }

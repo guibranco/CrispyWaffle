@@ -32,8 +32,6 @@ namespace CrispyWaffle.Redis.Cache
     /// <seealso cref="System.IDisposable" />
     public class RedisCacheRepository : ICacheRepository, IDisposable
     {
-        #region Private fields
-
         /// <summary>
         /// The connector
         /// </summary>
@@ -44,10 +42,6 @@ namespace CrispyWaffle.Redis.Cache
         /// </summary>
         private readonly IRedisClient _cacheClient;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisCacheRepository" /> class.
         /// </summary>
@@ -57,10 +51,6 @@ namespace CrispyWaffle.Redis.Cache
             _connector = connector;
             _cacheClient = connector.Cache;
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Handles the exception.
@@ -77,10 +67,6 @@ namespace CrispyWaffle.Redis.Cache
                 LogConsumer.Handle(e);
             }
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Sets to database.
@@ -171,10 +157,6 @@ namespace CrispyWaffle.Redis.Cache
         {
             _connector.GetDatabase(databaseNumber).KeyDelete(key);
         }
-
-        #endregion
-
-        #region Implementation of ICacheRepository
 
         /// <summary>
         /// Gets or sets a value indicating whether [should propagate exceptions].
@@ -467,10 +449,6 @@ namespace CrispyWaffle.Redis.Cache
             }
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -478,7 +456,5 @@ namespace CrispyWaffle.Redis.Cache
         {
             _connector.Dispose();
         }
-
-        #endregion
     }
 }

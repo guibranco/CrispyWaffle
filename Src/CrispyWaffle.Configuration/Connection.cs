@@ -27,8 +27,6 @@ namespace CrispyWaffle.Configuration
     [Serializer]
     public sealed class Connection : IConnection
     {
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection" /> class.
         /// </summary>
@@ -36,10 +34,6 @@ namespace CrispyWaffle.Configuration
         {
             Credentials = new Credentials();
         }
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// The credentials
@@ -82,7 +76,5 @@ namespace CrispyWaffle.Configuration
         /// </summary>
         /// <value>The port.</value>
         public int Port { get; set; }
-
-        #endregion
     }
 }

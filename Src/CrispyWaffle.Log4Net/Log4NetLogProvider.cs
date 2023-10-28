@@ -26,8 +26,6 @@ namespace CrispyWaffle.Log4Net
     /// <seealso cref="ILogProvider" />
     public sealed class Log4NetLogProvider : ILogProvider
     {
-        #region Private fields
-
         /// <summary>
         /// The level
         /// </summary>
@@ -38,10 +36,6 @@ namespace CrispyWaffle.Log4Net
         /// </summary>
         private readonly ILog _adapter;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Log4NetLogProvider" /> class.
         /// </summary>
@@ -50,10 +44,6 @@ namespace CrispyWaffle.Log4Net
         {
             _adapter = adapter;
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the log level of the instance
@@ -234,7 +224,5 @@ namespace CrispyWaffle.Log4Net
                 _adapter.Debug((string)content.GetCustomSerializer(customFormat));
             }
         }
-
-        #endregion
     }
 }

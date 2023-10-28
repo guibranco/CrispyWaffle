@@ -12,8 +12,6 @@ namespace CrispyWaffle.Cache
     /// </summary>
     public static class CacheManager
     {
-        #region Private fields
-
         /// <summary>
         /// The repositories
         /// </summary>
@@ -34,10 +32,6 @@ namespace CrispyWaffle.Cache
         /// The is memory repository in list
         /// </summary>
         private static bool _isMemoryRepositoryInList;
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Adds the repository.
@@ -106,8 +100,6 @@ namespace CrispyWaffle.Cache
                 priority++;
             }
         }
-
-        #region Set
 
         /// <summary>
         /// Stores the specified key.
@@ -298,10 +290,6 @@ namespace CrispyWaffle.Cache
             repository.Set(value, key, subKey);
         }
 
-        #endregion
-
-        #region Get
-
         /// <summary>
         /// Gets the object with the specified key.
         /// </summary>
@@ -426,10 +414,6 @@ namespace CrispyWaffle.Cache
             return repository.Get<TValue>(key, subKey);
         }
 
-        #endregion
-
-        #region Try get
-
         /// <summary>
         /// Tries to get a value based on its key, if exists in any repository return true, else false.
         /// The out parameter value is the object requested.
@@ -509,10 +493,6 @@ namespace CrispyWaffle.Cache
             return false;
         }
 
-        #endregion
-
-        #region TTL
-
         /// <summary>
         /// TTLs the specified key.
         /// </summary>
@@ -539,10 +519,6 @@ namespace CrispyWaffle.Cache
 
             return new TimeSpan(0);
         }
-
-        #endregion
-
-        #region Remove
 
         /// <summary>
         /// Removes the specified key.
@@ -629,9 +605,5 @@ namespace CrispyWaffle.Cache
 
             repository.Remove(key, subKey);
         }
-
-        #endregion
-
-        #endregion
     }
 }

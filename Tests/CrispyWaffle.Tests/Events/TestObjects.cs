@@ -66,8 +66,6 @@ internal class TestObjects
     /// <seealso cref="IEventHandler{TEvent}" />
     public sealed class LogDoneEvent : IEventHandler<TestDoneEvent>
     {
-        #region Implementation of IEventHandler<SampleDoneAction>
-
         /// <summary>
         /// Handles the specified arguments.
         /// </summary>
@@ -81,8 +79,6 @@ internal class TestObjects
                 args.CreatedDateTIme
             );
         }
-
-        #endregion
     }
 
     ///// <summary>
@@ -142,8 +138,6 @@ internal class TestObjects
     /// <seealso cref="IEventHandler{ExceptionEvent}" />
     public sealed class ThrowExceptionEvent : IEventHandler<ExceptionEvent>
     {
-        #region Implementation of IEventHandler<SampleExceptionAction>
-
         /// <summary>
         /// Handles the specified arguments.
         /// </summary>
@@ -153,7 +147,5 @@ internal class TestObjects
         {
             throw new NotImplementedException(args.Identifier.ToString());
         }
-
-        #endregion
     }
 }

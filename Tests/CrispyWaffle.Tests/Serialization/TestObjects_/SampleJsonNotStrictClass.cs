@@ -29,8 +29,6 @@ namespace CrispyWaffle.Tests.Serialization;
 [ExcludeFromCodeCoverage]
 public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNotStrictClass>
 {
-    #region Equality members
-
     /// <summary>
     /// Indicates whether the current object is equal to another object of the same type.
     /// </summary>
@@ -111,8 +109,6 @@ public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNo
     {
         return !Equals(left, right);
     }
-
-    #endregion
 
     /// <summary>
     /// Gets or sets the text.

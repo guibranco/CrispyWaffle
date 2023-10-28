@@ -26,8 +26,6 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
     [ConnectionName("ElasticSearch")]
     public sealed class ElasticConnector
     {
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector" /> class.
         /// </summary>
@@ -80,10 +78,6 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             DefaultIndexName = defaultIndexName;
         }
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// Gets the client.
         /// </summary>
@@ -95,7 +89,5 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// </summary>
         /// <value>The default name of the index.</value>
         public string DefaultIndexName { get; }
-
-        #endregion
     }
 }

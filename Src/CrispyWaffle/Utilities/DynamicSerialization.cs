@@ -28,10 +28,8 @@ namespace CrispyWaffle.Utilities
             IXmlSerializable,
             IEquatable<DynamicSerialization>
     {
-        #region Protected fields
-
         /// <summary>
-        /// The dicionario.
+        /// The dictionary.
         /// </summary>
         protected readonly Dictionary<string, object> Dictionary = new Dictionary<string, object>();
 
@@ -39,10 +37,6 @@ namespace CrispyWaffle.Utilities
         /// The key serialization filter,
         /// </summary>
         protected readonly DynamicSerializationOption SerializationKeyFilter;
-
-        #endregion
-
-        #region ~Ctors
 
         /// <summary>
         /// Default constructor.
@@ -75,10 +69,6 @@ namespace CrispyWaffle.Utilities
             }
         }
 
-        #endregion
-
-        #region Private methdos
-
         /// <summary>
         /// Filter the keys using a DynamicSerializationOption
         /// </summary>
@@ -102,10 +92,6 @@ namespace CrispyWaffle.Utilities
                     return key;
             }
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Sets the member.
@@ -198,10 +184,6 @@ namespace CrispyWaffle.Utilities
             return Dictionary;
         }
 
-        #endregion
-
-        #region Equality members
-
         /// <summary>
         /// Serves as the default hash function.
         /// </summary>
@@ -269,10 +251,6 @@ namespace CrispyWaffle.Utilities
                 && SerializationKeyFilter == other.SerializationKeyFilter;
         }
 
-        #endregion
-
-        #region Implementation of IXmlSerializable
-
         /// <summary>
         /// This method is reserved and should not be used.When implementing the IXmlSerializable
         /// interface, you should return null (Nothing in Visual Basic) from this method, and instead,
@@ -327,7 +305,5 @@ namespace CrispyWaffle.Utilities
                 writer.WriteEndElement();
             }
         }
-
-        #endregion
     }
 }

@@ -15,8 +15,6 @@ namespace CrispyWaffle.Composition
     /// </summary>
     public static class ServiceLocator
     {
-        #region Private fields
-
         /// <summary>
         /// The locks
         /// </summary>
@@ -65,10 +63,6 @@ namespace CrispyWaffle.Composition
         private static readonly IDictionary<string, Exception> _notLoadedAssemblies =
             new Dictionary<string, Exception>();
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes the <see cref="ServiceLocator"/> class.
         /// </summary>
@@ -93,10 +87,6 @@ namespace CrispyWaffle.Composition
                 (_, existingValue) => () => existingValue
             );
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Loads the missing assemblies.
@@ -606,10 +596,6 @@ namespace CrispyWaffle.Composition
             return instance;
         }
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// Gets or sets the types cache.
         /// </summary>
@@ -617,12 +603,6 @@ namespace CrispyWaffle.Composition
         /// The types cache.
         /// </value>
         public static List<Type> TypesCache { get; }
-
-        #endregion
-
-        #region Public methods
-
-        #region Registrators
 
         /// <summary>
         /// A method for registering a bootstrapper class
@@ -718,10 +698,6 @@ namespace CrispyWaffle.Composition
             _dependenciesResolvers.Add(typeof(TContract), resolver);
         }
 
-        #endregion
-
-        #region Finalizers
-
         /// <summary>
         /// Disposes all registrations.
         /// </summary>
@@ -752,10 +728,6 @@ namespace CrispyWaffle.Composition
                 ((IDisposable)instance.Value()).Dispose();
             }
         }
-
-        #endregion
-
-        #region Resolvers
 
         /// <summary>
         /// Resolves a interface, returning a instance of its implementation.
@@ -850,10 +822,6 @@ namespace CrispyWaffle.Composition
             return !contract.IsAbstract ? CreateInstance(contract) : TryAutoRegistration(contract);
         }
 
-        #endregion
-
-        #region Helpers
-
         /// <summary>
         /// Requests the cancellation.
         /// </summary>
@@ -868,9 +836,5 @@ namespace CrispyWaffle.Composition
             _cancellationTokenSource.Cancel();
             return true;
         }
-
-        #endregion
-
-        #endregion
     }
 }

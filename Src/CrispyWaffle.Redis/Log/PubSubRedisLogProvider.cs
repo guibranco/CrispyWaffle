@@ -13,8 +13,6 @@ namespace CrispyWaffle.Redis.Log
 {
     public class PubSubRedisLogProvider : ILogProvider
     {
-        #region Private fields
-
         /// <summary>
         /// The Redis connector
         /// </summary>
@@ -40,10 +38,6 @@ namespace CrispyWaffle.Redis.Log
         /// </summary>
         private readonly ConcurrentQueue<string> _queue;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PubSubRedisLogProvider" /> class.
         /// </summary>
@@ -63,10 +57,6 @@ namespace CrispyWaffle.Redis.Log
             var thread = new Thread(Worker);
             thread.Start();
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Workers this instance.
@@ -154,10 +144,6 @@ namespace CrispyWaffle.Redis.Log
         {
             _queue.Enqueue(message);
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the level.
@@ -346,7 +332,5 @@ namespace CrispyWaffle.Redis.Log
 
             PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
-
-        #endregion
     }
 }

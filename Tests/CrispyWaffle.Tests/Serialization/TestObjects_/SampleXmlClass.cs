@@ -27,8 +27,6 @@ namespace CrispyWaffle.Tests.Serialization;
 [ExcludeFromCodeCoverage]
 public class SampleXmlClass : IEquatable<SampleXmlClass>
 {
-    #region Equality members
-
     /// <summary>
     /// Indicates whether the current object is equal to another object of the same type.
     /// </summary>
@@ -113,8 +111,6 @@ public class SampleXmlClass : IEquatable<SampleXmlClass>
     {
         return !Equals(left, right);
     }
-
-    #endregion
 
     /// <summary>
     /// Gets or sets the code.

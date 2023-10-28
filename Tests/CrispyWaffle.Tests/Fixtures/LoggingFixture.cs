@@ -50,8 +50,6 @@ public class LoggingFixture : IDisposable
         LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.All);
     }
 
-    #region IDisposable Support
-
     /// <summary>
     /// The disposed value
     /// </summary>
@@ -85,6 +83,4 @@ public class LoggingFixture : IDisposable
         // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         Dispose(true);
     }
-
-    #endregion
 }

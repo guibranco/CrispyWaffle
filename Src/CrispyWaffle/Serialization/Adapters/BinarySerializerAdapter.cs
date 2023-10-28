@@ -14,8 +14,6 @@ namespace CrispyWaffle.Serialization.Adapters
     /// <seealso cref="ISerializerAdapter" />
     public sealed class BinarySerializerAdapter : ISerializerAdapter
     {
-        #region Implemetation of ISerializerAdapter
-
         /// <summary>
         /// Deserialize a stream to a generic type
         /// </summary>
@@ -206,7 +204,5 @@ namespace CrispyWaffle.Serialization.Adapters
                 stream?.Dispose();
             }
         }
-
-        #endregion
     }
 }

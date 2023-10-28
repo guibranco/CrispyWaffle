@@ -21,8 +21,6 @@ namespace CrispyWaffle.Serialization
     public sealed class SerializerConverter<T>
         where T : class
     {
-        #region Private fields
-
         /// <summary>
         /// The object.
         /// </summary>
@@ -32,10 +30,6 @@ namespace CrispyWaffle.Serialization
         /// The formatter.
         /// </summary>
         private readonly ISerializerAdapter _formatter;
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// XmlDocument casting operator.
@@ -258,10 +252,6 @@ namespace CrispyWaffle.Serialization
             return instance._obj;
         }
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -272,10 +262,6 @@ namespace CrispyWaffle.Serialization
             _obj = obj;
             _formatter = formatter;
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Serializes the given stream.
@@ -330,7 +316,5 @@ namespace CrispyWaffle.Serialization
         {
             _formatter.Save(file, _obj);
         }
-
-        #endregion
     }
 }
