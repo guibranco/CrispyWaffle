@@ -12,7 +12,7 @@ namespace CrispyWaffle.Serialization.Adapters
     /// Class BinarySerializerAdapter. This class cannot be inherited.
     /// </summary>
     /// <seealso cref="ISerializerAdapter" />
-    public sealed class BinarySerializerAdapter : ISerializerAdapter
+    public sealed class BinarySerializerAdapter : BaseSerializerAdapter
     {
         /// <summary>
         /// Deserialize a stream to a generic type
@@ -53,7 +53,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="file">The file.</param>
         /// <returns>A T.</returns>
         /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        /// <exception cref="LocalFileNotFoundException"></exception>
+        /// <exception cref="LocalFileNotFoundException">Throws when the file doesn't exist.</exception>
         [Pure]
         public T Load<T>(string file)
             where T : class
@@ -159,49 +159,6 @@ namespace CrispyWaffle.Serialization.Adapters
                 streamTemp.Seek(0, SeekOrigin.Begin);
                 streamTemp.CopyTo(stream);
                 stream.Seek(0, SeekOrigin.Begin);
-            }
-        }
-
-        /// <summary>
-        /// Serialize the deserialized Object and Saves the given file.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        public void Save<T>(string file, T deserialized)
-            where T : class
-        {
-            Stream stream = null;
-            try
-            {
-                if (string.IsNullOrWhiteSpace(file))
-                {
-                    throw new ArgumentNullException(nameof(file), "Supply a valid filename");
-                }
-
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-
-                using (
-                    var fileStream = new FileStream(
-                        file,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None
-                    )
-                )
-                {
-                    Serialize(deserialized, out stream);
-
-                    stream.CopyTo(fileStream);
-                }
-            }
-            finally
-            {
-                stream?.Dispose();
             }
         }
     }

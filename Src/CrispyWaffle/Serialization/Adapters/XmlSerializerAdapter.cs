@@ -74,48 +74,5 @@ namespace CrispyWaffle.Serialization.Adapters
 
             stream.Seek(0, SeekOrigin.Begin);
         }
-
-        /// <summary>
-        /// Serialize the deserialized Object and Saves the given file.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <exception cref="LocalFileNotFoundException">null - null</exception>
-        public override void Save<T>(string file, T deserialized)
-            where T : class
-        {
-            Stream stream = null;
-            try
-            {
-                if (string.IsNullOrWhiteSpace(file))
-                {
-                    throw new LocalFileNotFoundException(null, null);
-                }
-
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-
-                using (
-                    var fileStream = new FileStream(
-                        file,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None
-                    )
-                )
-                {
-                    Serialize(deserialized, out stream);
-
-                    stream.CopyTo(fileStream);
-                }
-            }
-            finally
-            {
-                stream?.Dispose();
-            }
-        }
     }
 }

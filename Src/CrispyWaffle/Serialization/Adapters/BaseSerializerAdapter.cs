@@ -90,10 +90,40 @@ public abstract class BaseSerializerAdapter : ISerializerAdapter
     /// <typeparam name="T">Generic type parameter.</typeparam>
     /// <param name="file">The file.</param>
     /// <param name="deserialized">The deserialized.</param>
-    /// <exception cref="System.NotImplementedException"></exception>
+    /// <exception cref="System.ArgumentNullException">file - Supply a valid filename</exception>
     public virtual void Save<T>(string file, T deserialized)
         where T : class
     {
-        throw new NotImplementedException();
+        Stream stream = null;
+        try
+        {
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                throw new ArgumentNullException(nameof(file), "Supply a valid filename");
+            }
+
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+
+            using (
+                var fileStream = new FileStream(
+                    file,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None
+                )
+            )
+            {
+                Serialize(deserialized, out stream);
+
+                stream.CopyTo(fileStream);
+            }
+        }
+        finally
+        {
+            stream?.Dispose();
+        }
     }
 }
