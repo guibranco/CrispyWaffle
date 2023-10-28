@@ -78,7 +78,7 @@ public static class TestObjects
         new SampleJsonNotStrictClass { Date = DateTime.Now };
 
     /// <summary>
-    /// Gets the non serializable.
+    /// Gets the non-serializable.
     /// </summary>
     /// <returns>SampleNonSerializableClass.</returns>
     internal static SampleNonSerializableClass GetNonSerializable() =>
