@@ -25,8 +25,6 @@ namespace CrispyWaffle.Scheduler
     /// <seealso cref="CrispyWaffle.Scheduler.IScheduler" />
     public class CronScheduler : IScheduler
     {
-        #region Private fields
-
         /// <summary>
         /// The expression
         /// </summary>
@@ -57,10 +55,6 @@ namespace CrispyWaffle.Scheduler
         /// </summary>
         private readonly HashSet<int> _minutes = new HashSet<int>();
 
-        #endregion
-
-        #region ~Ctors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CronScheduler"/> class.
         /// </summary>
@@ -85,10 +79,6 @@ namespace CrispyWaffle.Scheduler
 
             GenerateData();
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Generates the data.
@@ -219,10 +209,6 @@ namespace CrispyWaffle.Scheduler
         private static List<int> GenerateList(string value) =>
             value.Split(',').Select(int.Parse).ToList();
 
-        #endregion
-
-        #region Implementation of IScheduler
-
         /// <summary>
         /// Gets the days of week.
         /// </summary>
@@ -276,7 +262,5 @@ namespace CrispyWaffle.Scheduler
                 && _months.Contains(dateTime.Month)
                 && _daysOfWeek.Contains((int)dateTime.DayOfWeek);
         }
-
-        #endregion
     }
 }

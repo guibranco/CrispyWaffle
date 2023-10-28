@@ -6,59 +6,58 @@ using CrispyWaffle.Serialization;
 using CrispyWaffle.Utilities;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Configuration
+namespace CrispyWaffle.Tests.Configuration;
+
+[Collection("Configuration collection")]
+public class CredentialTests
 {
-    [Collection("Configuration collection")]
-    public class CredentialTests
+    [Fact]
+    public void ValidateSecureCredentialProvider()
     {
-        [Fact]
-        public void ValidateSecureCredentialProvider()
+        var credential = new Credentials
         {
-            var credential = new Credentials
-            {
-                Password = "DeltaBravoZulu",
-                UserName = EnvironmentHelper.UserName
-            };
+            Password = "DeltaBravoZulu",
+            UserName = EnvironmentHelper.UserName
+        };
 
-            var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
+        var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory
-                .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
-                .Deserialize(json);
+        dynamic deserialized = SerializerFactory
+            .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
+            .Deserialize(json);
 
-            var passwordEncrypted = (string)deserialized.Password;
+        var passwordEncrypted = (string)deserialized.Password;
 
-            passwordEncrypted = passwordEncrypted.Substring(0, passwordEncrypted.Length - 32);
+        passwordEncrypted = passwordEncrypted.Substring(0, passwordEncrypted.Length - 32);
 
-            var secureCredentialProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
+        var secureCredentialProvider = ServiceLocator.Resolve<ISecureCredentialProvider>();
 
-            var passwordDecrypted = passwordEncrypted.Decrypt(
-                secureCredentialProvider.PasswordHash,
-                secureCredentialProvider.SaltKey,
-                secureCredentialProvider.IVKey
-            );
+        var passwordDecrypted = passwordEncrypted.Decrypt(
+            secureCredentialProvider.PasswordHash,
+            secureCredentialProvider.SaltKey,
+            secureCredentialProvider.IVKey
+        );
 
-            Assert.Equal(credential.Password, passwordDecrypted);
+        Assert.Equal(credential.Password, passwordDecrypted);
 
-            Assert.Equal(credential.UserName, (string)deserialized.UserName);
-        }
+        Assert.Equal(credential.UserName, (string)deserialized.UserName);
+    }
 
-        [Fact]
-        public void ValidateSecureCredentialProviderSetter()
-        {
-            var credential = new Credentials { Password = "EchoFoxPapa" };
+    [Fact]
+    public void ValidateSecureCredentialProviderSetter()
+    {
+        var credential = new Credentials { Password = "EchoFoxPapa" };
 
-            var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
+        var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
 
-            dynamic deserialized = SerializerFactory
-                .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
-                .Deserialize(json);
+        dynamic deserialized = SerializerFactory
+            .GetCustomSerializer<DynamicSerialization>(SerializerFormat.Json)
+            .Deserialize(json);
 
-            var passwordEncrypted = (string)deserialized.Password;
+        var passwordEncrypted = (string)deserialized.Password;
 
-            var credentialResult = new Credentials { PasswordInternal = passwordEncrypted };
+        var credentialResult = new Credentials { PasswordInternal = passwordEncrypted };
 
-            Assert.Equal(credential.Password, credentialResult.Password);
-        }
+        Assert.Equal(credential.Password, credentialResult.Password);
     }
 }

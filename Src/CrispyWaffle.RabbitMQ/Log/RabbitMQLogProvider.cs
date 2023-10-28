@@ -28,50 +28,44 @@ namespace CrispyWaffle.RabbitMQ.Log
 {
     /// <summary>
     /// Class RabbitMQLogProvider.
-    /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
-    /// Implements the <see cref="System.IDisposable" />
+    /// Implements the <see cref="ILogProvider" />
+    /// Implements the <see cref="IDisposable" />.
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="ILogProvider" />
+    /// <seealso cref="IDisposable" />
     public class RabbitMQLogProvider : ILogProvider, IDisposable
     {
-        #region Private fields
-
         /// <summary>
-        /// The level
+        /// The level.
         /// </summary>
         private LogLevel _level;
 
         /// <summary>
-        /// The connector
+        /// The connector.
         /// </summary>
         private readonly RabbitMQConnector _connector;
 
         /// <summary>
-        /// The channel
+        /// The channel.
         /// </summary>
         private readonly IModel _channel;
 
         /// <summary>
-        /// The cancellation token
+        /// The cancellation token.
         /// </summary>
         private readonly CancellationToken _cancellationToken;
 
         /// <summary>
-        /// The queue
+        /// The queue.
         /// </summary>
         private readonly ConcurrentQueue<string> _queue;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RabbitMQLogProvider" /> class.
         /// </summary>
         /// <param name="connector">The connector.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <exception cref="ArgumentNullException">connector</exception>
+        /// <exception cref="ArgumentNullException">connector.</exception>
         public RabbitMQLogProvider(RabbitMQConnector connector, CancellationToken cancellationToken)
         {
             _connector = connector ?? throw new ArgumentNullException(nameof(connector));
@@ -90,10 +84,6 @@ namespace CrispyWaffle.RabbitMQ.Log
         {
             Dispose(false);
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Workers this instance.
@@ -131,7 +121,7 @@ namespace CrispyWaffle.RabbitMQ.Log
             try
             {
                 var body = Encoding.UTF8.GetBytes(message);
-                _channel.BasicPublish(_connector.DefaultExchangeName, "", null, body);
+                _channel.BasicPublish(_connector.DefaultExchangeName, string.Empty, null, body);
             }
             catch (Exception e)
             {
@@ -198,10 +188,6 @@ namespace CrispyWaffle.RabbitMQ.Log
             _queue.Enqueue(message);
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -210,10 +196,6 @@ namespace CrispyWaffle.RabbitMQ.Log
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the level.
@@ -372,7 +354,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// <summary>
         /// Debugs the specified category.
         /// </summary>
-        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
+        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format.</typeparam>
         /// <param name="category">The category.</param>
         /// <param name="content">The content.</param>
         /// <param name="identifier">The identifier.</param>
@@ -403,7 +385,5 @@ namespace CrispyWaffle.RabbitMQ.Log
 
             PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
-
-        #endregion
     }
 }

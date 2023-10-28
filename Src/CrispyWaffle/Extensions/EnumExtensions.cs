@@ -43,11 +43,11 @@ namespace CrispyWaffle.Extensions
                         item.Attr != null
                             && item.Attr.StringValue.Equals(
                                 humanReadableValue,
-                                StringComparison.InvariantCultureIgnoreCase
+                                StringComparison.OrdinalIgnoreCase
                             )
                         || item.Field.Name.Equals(
                             humanReadableValue,
-                            StringComparison.InvariantCultureIgnoreCase
+                            StringComparison.OrdinalIgnoreCase
                         )
                 )
                 .Select(item => item.Field)
@@ -100,12 +100,9 @@ namespace CrispyWaffle.Extensions
                         item.Attr != null
                             && item.Attr.InternalValue.Equals(
                                 internalValue,
-                                StringComparison.InvariantCultureIgnoreCase
+                                StringComparison.OrdinalIgnoreCase
                             )
-                        || item.Field.Name.Equals(
-                            internalValue,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+                        || item.Field.Name.Equals(internalValue, StringComparison.OrdinalIgnoreCase)
                 )
                 .Select(item => item.Field)
                 .SingleOrDefault();

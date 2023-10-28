@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -42,15 +41,13 @@ namespace CrispyWaffle.Utils.Communications
     [ConnectionName("SMTP")]
     public class SmtpMailer : IMailer
     {
-        #region Private fields
-
         /// <summary>
-        /// The <see cref="SmtpClient" />
+        /// The <see cref="SmtpClient" />.
         /// </summary>
         private readonly SmtpClient _client;
 
         /// <summary>
-        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />
+        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />.
         /// </summary>
         private readonly MailMessage _message;
 
@@ -60,12 +57,12 @@ namespace CrispyWaffle.Utils.Communications
         private bool _disposed;
 
         /// <summary>
-        /// True if message is already defined
+        /// True if message is already defined.
         /// </summary>
         private bool _messageSet;
 
         /// <summary>
-        /// The HTML version of the message
+        /// The HTML version of the message.
         /// </summary>
         private string _htmlMessage;
 
@@ -74,17 +71,13 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         private readonly SmtpMailerOptions _options;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
-        /// Initializes a new instance of Mailer class.
+        /// Initializes a new instance of the <see cref="SmtpMailer"/> class.
         /// </summary>
-        /// <param name="connection"><see cref="IConnection" /></param>
-        /// <param name="options"><see cref="SmtpMailerOptions" /></param>
-        /// <exception cref="System.ArgumentNullException">connection</exception>
-        /// <exception cref="System.ArgumentNullException">options</exception>
+        /// <param name="connection">The connection.</param>
+        /// <param name="options">The options.</param>
+        /// <exception cref="ArgumentNullException">Throws when the connection is null.</exception>
+        /// <exception cref="ArgumentNullException">Throws when the options are null.</exception>
         public SmtpMailer(IConnection connection, SmtpMailerOptions options)
         {
             if (connection == null)
@@ -110,15 +103,14 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Initializes a new instance of Mailer class.
+        /// Initializes a new instance of the <see cref="SmtpMailer"/> class.
         /// </summary>
-        /// <param name="host">The SMTP server address (IP or hostname)</param>
-        /// <param name="port">The SMTP server port</param>
-        /// <param name="userName">The SMTP username (or e-mail address to authenticate)</param>
-        /// <param name="password">The password of the <paramref name="userName" /> to connect on SMTP server</param>
-        /// <param name="senderDisplayName">The sender's display name</param>
-        /// <param name="senderEmailAddress">The sender's e-mail address</param>
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        /// <param name="host">The host.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="senderDisplayName">Display name of the sender.</param>
+        /// <param name="senderEmailAddress">The sender email address.</param>
         public SmtpMailer(
             string host,
             int port,
@@ -164,10 +156,6 @@ namespace CrispyWaffle.Utils.Communications
             _disposed = true;
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting
         /// unmanaged resources.
@@ -178,16 +166,12 @@ namespace CrispyWaffle.Utils.Communications
             GC.SuppressFinalize(this);
         }
 
-        #endregion
-
-        #region Private methods
-
         /// <summary>
         /// Sets the recipient.
         /// </summary>
         /// <param name="toName">To name.</param>
         /// <param name="toEmailAddress">To email address.</param>
-        /// <exception cref="System.ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null</exception>
+        /// <exception cref="ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null.</exception>
         private void SetRecipient(string toName, string toEmailAddress)
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))
@@ -200,10 +184,6 @@ namespace CrispyWaffle.Utils.Communications
 
             _message.To.Add(new MailAddress(toEmailAddress, toName));
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Sets the message body
@@ -238,10 +218,10 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Adds the attachment.
+        /// Adds the attachment. First sets the message.
         /// </summary>
         /// <param name="attachment">The attachment.</param>
-        /// <exception cref="CrispyWaffle.Utils.GoodPractices.NullMessageException"></exception>
+        /// <exception cref="NullMessageException">Throws when the message was not set before.</exception>
         public void AddAttachment(Attachment attachment)
         {
             if (!_messageSet)
@@ -249,7 +229,7 @@ namespace CrispyWaffle.Utils.Communications
                 throw new NullMessageException();
             }
 
-            if (_htmlMessage.Length > 150000)
+            if (_htmlMessage.Length > 150_000)
             {
                 return;
             }
@@ -418,7 +398,5 @@ namespace CrispyWaffle.Utils.Communications
             LogConsumer.Handle(e);
             return true;
         }
-
-        #endregion
     }
 }

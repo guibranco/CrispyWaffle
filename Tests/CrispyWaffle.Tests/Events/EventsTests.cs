@@ -16,33 +16,32 @@ using System;
 using CrispyWaffle.Events;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Events
+namespace CrispyWaffle.Tests.Events;
+
+/// <summary>
+/// Class EventsTests.
+/// </summary>
+public class EventsTests
 {
     /// <summary>
-    /// Class EventsTests.
+    /// Defines the test method ValidateRaiseEvent.
     /// </summary>
-    public class EventsTests
+    [Fact]
+    public void ValidateRaiseEvent()
     {
-        /// <summary>
-        /// Defines the test method ValidateRaiseEvent.
-        /// </summary>
-        [Fact]
-        public void ValidateRaiseEvent()
-        {
-            var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
-            EventsConsumer.Raise(@event);
-            Assert.Equal("Sample test", @event.Text);
-        }
+        var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
+        EventsConsumer.Raise(@event);
+        Assert.Equal("Sample test", @event.Text);
+    }
 
-        /// <summary>
-        /// Defines the test method ValidateRaiseEventWithException.
-        /// </summary>
-        [Fact]
-        public void ValidateRaiseEventWithException()
-        {
-            var @event = new TestObjects.ExceptionEvent(Guid.NewGuid());
-            var result = Assert.Throws<NotImplementedException>(() => EventsConsumer.Raise(@event));
-            Assert.Equal(@event.Identifier.ToString(), result.Message);
-        }
+    /// <summary>
+    /// Defines the test method ValidateRaiseEventWithException.
+    /// </summary>
+    [Fact]
+    public void ValidateRaiseEventWithException()
+    {
+        var @event = new TestObjects.ExceptionEvent(Guid.NewGuid());
+        var result = Assert.Throws<NotImplementedException>(() => EventsConsumer.Raise(@event));
+        Assert.Equal(@event.Identifier.ToString(), result.Message);
     }
 }

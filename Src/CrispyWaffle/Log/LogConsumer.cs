@@ -20,8 +20,6 @@ namespace CrispyWaffle.Log
     /// </summary>
     public static class LogConsumer
     {
-        #region Private members
-
         /// <summary>
         /// The log providers
         /// </summary>
@@ -37,10 +35,6 @@ namespace CrispyWaffle.Log
         /// </summary>
         private static IExceptionHandler _handler;
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// The storage directory/
         /// </summary>
@@ -50,10 +44,6 @@ namespace CrispyWaffle.Log
         /// The debug directory
         /// </summary>
         public static readonly string DebugDirectory;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes the <see cref="LogConsumer"/> class.
@@ -74,10 +64,6 @@ namespace CrispyWaffle.Log
                 _handler.Handle(e);
             }
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Gets the category.
@@ -136,10 +122,6 @@ namespace CrispyWaffle.Log
             category = ns;
             return true;
         }
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Adds the provider.
@@ -654,7 +636,5 @@ namespace CrispyWaffle.Log
         {
             _handler?.Handle(sender, args);
         }
-
-        #endregion
     }
 }

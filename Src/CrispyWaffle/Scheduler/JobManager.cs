@@ -64,8 +64,6 @@ namespace CrispyWaffle.Scheduler
             }
         }
 
-        #region Implementation of IJobManager
-
         /// <summary>
         /// Adds the job.
         /// </summary>
@@ -86,7 +84,5 @@ namespace CrispyWaffle.Scheduler
         /// </summary>
         /// <exception cref="System.NotImplementedException"></exception>
         public void Stop() => _timer.Stop();
-
-        #endregion
     }
 }

@@ -45,15 +45,11 @@ namespace CrispyWaffle.Log.Providers
             }
         }
 
-        #region Implementation of IEventIdProvider
-
         /// <summary>
         /// Computes the event identifier.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>System.UInt16.</returns>
         public ushort ComputeEventId(string message) => (ushort)Compute(message);
-
-        #endregion
     }
 }

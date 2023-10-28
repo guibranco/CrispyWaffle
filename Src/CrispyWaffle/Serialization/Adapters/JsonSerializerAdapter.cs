@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
@@ -10,18 +9,12 @@ namespace CrispyWaffle.Serialization.Adapters
     /// A serializer json.
     /// </summary>
     /// <seealso cref="ISerializerAdapter" />
-    public sealed class JsonSerializerAdapter : ISerializerAdapter
+    public sealed class JsonSerializerAdapter : BaseSerializerAdapter
     {
-        #region Private fields
-
         /// <summary>
-        /// The settings
+        /// The settings.
         /// </summary>
         private readonly JsonSerializerSettings _settings;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerAdapter"/> class.
@@ -46,21 +39,17 @@ namespace CrispyWaffle.Serialization.Adapters
             _settings = settings;
         }
 
-        #endregion
-
-        #region Implementation of ISerializerAdapter
-
         /// <summary>
-        /// Deserialize a stream to a generic type
+        /// Deserialize a stream to a generic type.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter</typeparam>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
         /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
         /// <returns>
         /// A T.
         /// </returns>
-        /// <exception cref="NotNullObserverException"></exception>
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+        /// <exception cref="NotNullObserverException">Throws when a field marked as NotNullObserver finds a value.</exception>
+        public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
         {
             try
@@ -77,15 +66,15 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Deserializes the serialized object to a generic type
+        /// Deserializes the serialized object to a generic type.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="serialized">The serialized.</param>
         /// <returns>
         /// A T.
         /// </returns>
-        /// <exception cref="NotNullObserverException"></exception>
-        public T Deserialize<T>(object serialized)
+        /// <exception cref="NotNullObserverException">Throws when a field marked as NotNullObserver finds a value.</exception>
+        public override T Deserialize<T>(object serialized)
             where T : class
         {
             try
@@ -99,45 +88,12 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Loads the given file and Deserialize its.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <returns>A T.</returns>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        /// <exception cref="LocalFileNotFoundException"></exception>
-        public T Load<T>(string file)
-            where T : class
-        {
-            var fileName = Path.GetFileName(file);
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                throw new ArgumentNullException(nameof(file), "Supply a valid filename");
-            }
-
-            if (!File.Exists(file))
-            {
-                throw new LocalFileNotFoundException(
-                    file,
-                    Path.GetDirectoryName(Path.GetFullPath(file))
-                );
-            }
-
-            using (var sr = new StreamReader(file, Encoding.UTF8))
-            {
-                var serialized = sr.ReadToEnd();
-
-                return Deserialize<T>(serialized);
-            }
-        }
-
-        /// <summary>
         /// Serializes.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[in,out] The stream.</param>
-        public void Serialize<T>(T deserialized, out Stream stream)
+        public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
             var jsonSerializer = new JsonSerializer();
@@ -157,50 +113,5 @@ namespace CrispyWaffle.Serialization.Adapters
                 stream.Seek(0, SeekOrigin.Begin);
             }
         }
-
-        /// <summary>
-        /// Serialize the deserialized Object and Saves the given file.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        public void Save<T>(string file, T deserialized)
-            where T : class
-        {
-            Stream stream = null;
-            try
-            {
-                if (string.IsNullOrWhiteSpace(file))
-                {
-                    throw new ArgumentNullException(nameof(file), "Supply a valid filename");
-                }
-
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-
-                using (
-                    var fileStream = new FileStream(
-                        file,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None
-                    )
-                )
-                {
-                    Serialize(deserialized, out stream);
-
-                    stream.CopyTo(fileStream);
-                }
-            }
-            finally
-            {
-                stream?.Dispose();
-            }
-        }
-
-        #endregion
     }
 }

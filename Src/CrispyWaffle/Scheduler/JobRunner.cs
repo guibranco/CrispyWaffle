@@ -85,8 +85,6 @@ namespace CrispyWaffle.Scheduler
             _thread.Start();
         }
 
-        #region Implementation of IJobRunner
-
         /// <summary>
         /// Executes the specified date time.
         /// </summary>
@@ -98,7 +96,5 @@ namespace CrispyWaffle.Scheduler
                 ExecuteInternal(dateTime);
             }
         }
-
-        #endregion
     }
 }

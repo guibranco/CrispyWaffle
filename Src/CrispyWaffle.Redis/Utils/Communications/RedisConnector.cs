@@ -26,27 +26,21 @@ namespace CrispyWaffle.Redis.Utils.Communications
 {
     /// <summary>
     /// Class RedisConnector.
-    /// Implements the <see cref="System.IDisposable" />
+    /// Implements the <see cref="System.IDisposable" />.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     [ConnectionName("Redis")]
     public class RedisConnector : IDisposable
     {
-        #region Private fields
-
         /// <summary>
-        /// The disposed
+        /// The disposed.
         /// </summary>
         private bool _disposed;
 
         /// <summary>
-        /// The connection pool manager
+        /// The connection pool manager.
         /// </summary>
         private readonly IRedisConnectionPoolManager _connectionPoolManager;
-
-        #endregion
-
-        #region ~Ctor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnector" /> class.
@@ -62,8 +56,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="configuration">The configuration.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
-        /// <exception cref="ArgumentNullException">queuePrefix</exception>
+        /// <exception cref="ArgumentNullException">Throws when the queue prefix is null.</exception>
         public RedisConnector(
             MasterSlaveConfiguration configuration,
             ISerializer serializer,
@@ -90,8 +83,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="connection">The connection.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
-        /// <exception cref="ArgumentNullException">queuePrefix</exception>
+        /// <exception cref="ArgumentNullException">Throws when the queue prefix is null.</exception>
         public RedisConnector(IConnection connection, ISerializer serializer, string queuePrefix)
             : this(
                 string.Concat(connection.Host, @":", connection.Port),
@@ -219,10 +211,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
             _disposed = true;
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -231,10 +219,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// Gets the serializer.
@@ -283,7 +267,5 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <returns>IDatabase.</returns>
         public IDatabase GetDatabase(int databaseNumber, object asyncState = null) =>
             _connectionPoolManager.GetConnection().GetDatabase(databaseNumber, asyncState);
-
-        #endregion
     }
 }

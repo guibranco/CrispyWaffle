@@ -21,13 +21,11 @@ using Nest;
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     /// <summary>
-    /// The Elastic Search connector class
+    /// The Elasticsearch connector class.
     /// </summary>
     [ConnectionName("ElasticSearch")]
     public sealed class ElasticConnector
     {
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector" /> class.
         /// </summary>
@@ -43,7 +41,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="defaultIndexName">Default name of the index.</param>
-        /// <exception cref="ArgumentNullException">connection</exception>
+        /// <exception cref="ArgumentNullException">connection.</exception>
         public ElasticConnector(IConnection connection, string defaultIndexName)
         {
             if (connection == null)
@@ -80,10 +78,6 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             DefaultIndexName = defaultIndexName;
         }
 
-        #endregion
-
-        #region Public properties
-
         /// <summary>
         /// Gets the client.
         /// </summary>
@@ -95,7 +89,5 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// </summary>
         /// <value>The default name of the index.</value>
         public string DefaultIndexName { get; }
-
-        #endregion
     }
 }

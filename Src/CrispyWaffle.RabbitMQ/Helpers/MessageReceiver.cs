@@ -29,7 +29,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
     public class MessageReceiver
     {
         /// <summary>
-        /// The connector
+        /// The connector.
         /// </summary>
         private readonly RabbitMQConnector _connector;
 
@@ -37,12 +37,12 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         /// Initializes a new instance of the <see cref="MessageReceiver" /> class.
         /// </summary>
         /// <param name="connector">The connector.</param>
-        /// <exception cref="ArgumentNullException">connector</exception>
+        /// <exception cref="ArgumentNullException">connector.</exception>
         public MessageReceiver(RabbitMQConnector connector) =>
             _connector = connector ?? throw new ArgumentNullException(nameof(connector));
 
         /// <summary>
-        /// Delegate MessageReceivedHandler
+        /// Delegate MessageReceivedHandler.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
@@ -114,7 +114,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
 
                 if (!string.IsNullOrWhiteSpace(exchange))
                 {
-                    channel.QueueBind(queueName, exchange, "");
+                    channel.QueueBind(queueName, exchange, string.Empty);
                 }
 
                 consumer.Received += (_, args) =>

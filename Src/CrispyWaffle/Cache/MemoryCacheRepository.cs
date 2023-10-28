@@ -8,8 +8,6 @@ namespace CrispyWaffle.Cache
     /// </summary>
     public class MemoryCacheRepository : ICacheRepository
     {
-        #region Private fields
-
         /// <summary>
         /// The data
         /// </summary>
@@ -21,10 +19,6 @@ namespace CrispyWaffle.Cache
         /// </summary>
         private static readonly ConcurrentDictionary<string, object> _hash =
             new ConcurrentDictionary<string, object>();
-
-        #endregion
-
-        #region Implementation of ICacheRepository
 
         /// <summary>
         /// Gets or sets a value indicating whether [should propagate exceptions].
@@ -44,7 +38,7 @@ namespace CrispyWaffle.Cache
         /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements (<see cref="System.Int32.MaxValue" />).</exception>
         public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
-            _data.AddOrUpdate(key, value, (_, __) => value);
+            _data.AddOrUpdate(key, value, (_, _) => value);
         }
 
         /// <summary>
@@ -58,7 +52,7 @@ namespace CrispyWaffle.Cache
         public void Set<T>(T value, string key, string subKey)
         {
             var finalKey = $@"{key}-{subKey}";
-            _hash.AddOrUpdate(finalKey, value, (_, __) => value);
+            _hash.AddOrUpdate(finalKey, value, (_, _) => value);
         }
 
         /// <summary>
@@ -187,7 +181,5 @@ namespace CrispyWaffle.Cache
             _data.Clear();
             _hash.Clear();
         }
-
-        #endregion
     }
 }

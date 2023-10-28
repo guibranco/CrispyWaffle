@@ -27,16 +27,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
     /// <seealso cref="ITemplateRender" />
     public class MustacheTemplateRender : ITemplateRender
     {
-        #region Private fields
-
         /// <summary>
         /// The properties
         /// </summary>
         private Dictionary<string, object> _properties;
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Parses the object.
@@ -295,10 +289,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return template;
         }
 
-        #endregion
-
-        #region Implementation of ITemplateRender
-
         /// <summary>
         /// Render a template using the object data as the values/condition checks
         /// </summary>
@@ -316,7 +306,5 @@ namespace CrispyWaffle.TemplateRendering.Engines
             _properties = ParseObject(data);
             return RenderData(ProcessLoop(ProcessWith(EvaluateConditional(template))));
         }
-
-        #endregion
     }
 }

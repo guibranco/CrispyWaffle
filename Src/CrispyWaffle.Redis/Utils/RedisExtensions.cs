@@ -11,17 +11,11 @@ namespace CrispyWaffle.Redis.Utils
     /// </summary>
     public static class RedisExtensions
     {
-        #region Private fields
-
         /// <summary>
         /// The connector
         /// </summary>
         private static readonly RedisConnector _connector =
             ServiceLocator.Resolve<RedisConnector>();
-
-        #endregion
-
-        #region Public methods
 
         /// <summary>
         /// Temporaries increase the desired cache key in the default connector database.
@@ -49,7 +43,5 @@ namespace CrispyWaffle.Redis.Utils
         {
             _connector.GetDefaultServer().FlushDatabase(database);
         }
-
-        #endregion
     }
 }

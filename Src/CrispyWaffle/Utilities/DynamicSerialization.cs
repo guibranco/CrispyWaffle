@@ -28,24 +28,18 @@ namespace CrispyWaffle.Utilities
             IXmlSerializable,
             IEquatable<DynamicSerialization>
     {
-        #region Protected fields
-
         /// <summary>
-        /// The dicionario.
+        /// The dictionary.
         /// </summary>
-        protected readonly Dictionary<string, object> Dictionary = new Dictionary<string, object>();
+        protected readonly Dictionary<string, object> Dictionary = new();
 
         /// <summary>
-        /// The key serialization filter,
+        /// The key serialization filter.
         /// </summary>
         protected readonly DynamicSerializationOption SerializationKeyFilter;
 
-        #endregion
-
-        #region ~Ctors
-
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
         public DynamicSerialization()
         {
@@ -53,16 +47,16 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
-        /// <param name="keyFilter">The filter to serialize keys</param>
+        /// <param name="keyFilter">The key filter.</param>
         public DynamicSerialization(DynamicSerializationOption keyFilter)
         {
             SerializationKeyFilter = keyFilter;
         }
 
         /// <summary>
-        /// Specialized constructor for use only by derived classes.
+        /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
@@ -75,17 +69,11 @@ namespace CrispyWaffle.Utilities
             }
         }
 
-        #endregion
-
-        #region Private methdos
-
         /// <summary>
-        /// Filter the keys using a DynamicSerializationOption
+        /// Filters the specified key.
         /// </summary>
-        /// <param name="key">The key to applly the filter</param>
-        /// <returns>The key filtered</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
         private string Filter(string key)
         {
             switch (SerializationKeyFilter)
@@ -93,9 +81,9 @@ namespace CrispyWaffle.Utilities
                 case DynamicSerializationOption.None:
                     return key;
                 case DynamicSerializationOption.Lowercase:
-                    return key.ToLower();
+                    return key.ToLowerInvariant();
                 case DynamicSerializationOption.Uppercase:
-                    return key.ToUpper();
+                    return key.ToUpperInvariant();
                 case DynamicSerializationOption.Camelcase:
                     return key.ToCamelCase();
                 default:
@@ -103,16 +91,12 @@ namespace CrispyWaffle.Utilities
             }
         }
 
-        #endregion
-
-        #region Public methods
-
         /// <summary>
         /// Sets the member.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <exception cref="DynamicSerializationException"></exception>
+        /// <exception cref="DynamicSerializationException">If the value is not found in the dictionary.</exception>
         public void SetMember(string key, object value)
         {
             try
@@ -127,14 +111,14 @@ namespace CrispyWaffle.Utilities
 
         /// <summary>
         /// Provides the implementation for operations that get member values. Classes derived from
-        /// the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to
+        /// the <see cref="DynamicObject" /> class can override this method to
         /// specify dynamic behavior for operations such as getting a value for a property.
         /// </summary>
         /// <param name="binder">Provides information about the object that called the dynamic operation. The binder.Name
         /// property provides the name of the member on which the dynamic operation is performed. For
         /// example, for the Console.WriteLine(sampleObject.SampleProperty) statement, where
         /// sampleObject is an instance of the class derived from the
-        /// <see cref="T:System.Dynamic.DynamicObject" /> class, binder.Name returns
+        /// <see cref="DynamicObject" /> class, binder.Name returns
         /// "SampleProperty". The binder.IgnoreCase property specifies whether the member name is
         /// case-sensitive.</param>
         /// <param name="result">The result of the get operation. For example, if the method is called for a property, you
@@ -151,18 +135,18 @@ namespace CrispyWaffle.Utilities
 
         /// <summary>
         /// Provides the implementation for operations that set member values. Classes derived from
-        /// the <see cref="T:System.Dynamic.DynamicObject" /> class can override this method to
+        /// the <see cref="DynamicObject" /> class can override this method to
         /// specify dynamic behavior for operations such as setting a value for a property.
         /// </summary>
         /// <param name="binder">Provides information about the object that called the dynamic operation. The binder.Name
         /// property provides the name of the member to which the value is being assigned. For
         /// example, for the statement sampleObject.SampleProperty = "Test", where sampleObject is an
-        /// instance of the class derived from the <see cref="T:System.Dynamic.DynamicObject" />
+        /// instance of the class derived from the <see cref="DynamicObject" />
         /// class, binder.Name returns "SampleProperty". The binder.IgnoreCase property specifies
         /// whether the member name is case-sensitive.</param>
         /// <param name="value">The value to set to the member. For example, for sampleObject.SampleProperty = "Test",
         /// where sampleObject is an instance of the class derived from the
-        /// <see cref="T:System.Dynamic.DynamicObject" /> class, the <paramref name="value" /> is
+        /// <see cref="DynamicObject" /> class, the <paramref name="value" /> is
         /// "Test".</param>
         /// <returns>true if the operation is successful; otherwise, false. If this method returns false, the
         /// run-time binder of the language determines the behavior. (In most cases, a language-
@@ -174,7 +158,7 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with the data
+        /// Populates a <see cref="SerializationInfo" /> with the data.
         /// needed to serialize the target object.
         /// </summary>
         /// <param name="info">The information.</param>
@@ -198,10 +182,6 @@ namespace CrispyWaffle.Utilities
             return Dictionary;
         }
 
-        #endregion
-
-        #region Equality members
-
         /// <summary>
         /// Serves as the default hash function.
         /// </summary>
@@ -215,7 +195,7 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Equals operator
+        /// Equals operator.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -226,7 +206,7 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Different operator
+        /// Different operator.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -237,13 +217,13 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="T:System.Object" /> is equal to the current
-        /// <see cref="T:System.Object" />.
+        /// Determines whether the specified <see cref="object" /> is equal to the current
+        /// <see cref="object" />.
         /// </summary>
-        /// <param name="obj">The <see cref="T:System.Object" /> to compare with the current
-        /// <see cref="T:System.Object" />.</param>
-        /// <returns>true if the specified <see cref="T:System.Object" /> is equal to the current
-        /// <see cref="T:System.Object" />; otherwise, false.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with the current
+        /// <see cref="object" />.</param>
+        /// <returns>true if the specified <see cref="object" /> is equal to the current
+        /// <see cref="object" />; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -252,16 +232,16 @@ namespace CrispyWaffle.Utilities
             }
 
             return ReferenceEquals(this, obj)
-                || obj.GetType() == GetType() && Equals((DynamicSerialization)obj);
+                || (obj.GetType() == GetType() && Equals((DynamicSerialization)obj));
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="T:System.Object" /> is equal to the current
-        /// <see cref="T:System.Object" />.
+        /// Determines whether the specified <see cref="object" /> is equal to the current
+        /// <see cref="object" />.
         /// </summary>
         /// <param name="other">The dynamic serialization to compare to this object.</param>
-        /// <returns>true if the specified <see cref="T:System.Object" /> is equal to the current
-        /// <see cref="T:System.Object" />; otherwise, false.</returns>
+        /// <returns>true if the specified <see cref="object" /> is equal to the current
+        /// <see cref="object" />; otherwise, false.</returns>
         public bool Equals(DynamicSerialization other)
         {
             return other != null
@@ -269,21 +249,17 @@ namespace CrispyWaffle.Utilities
                 && SerializationKeyFilter == other.SerializationKeyFilter;
         }
 
-        #endregion
-
-        #region Implementation of IXmlSerializable
-
         /// <summary>
         /// This method is reserved and should not be used.When implementing the IXmlSerializable
         /// interface, you should return null (Nothing in Visual Basic) from this method, and instead,
         /// if specifying a custom schema is required, apply the
-        /// <see cref="T:System.Xml.Serialization.XmlSchemaProviderAttribute" /> to the class.
+        /// <see cref="XmlSchemaProviderAttribute" /> to the class.
         /// </summary>
-        /// <returns>An <see cref="T:System.Xml.Schema.XmlSchema" /> that describes the XML representation of
+        /// <returns>An <see cref="XmlSchema" /> that describes the XML representation of
         /// the object that is produced by the
-        /// <see cref="M:System.Xml.Serialization.IXmlSerializable.WriteXml(System.Xml.XmlWriter)" />
+        /// <see cref="WriteXml(XmlWriter)" />
         /// method and consumed by the
-        /// <see cref="M:System.Xml.Serialization.IXmlSerializable.ReadXml(System.Xml.XmlReader)" />
+        /// <see cref="ReadXml(XmlReader)" />
         /// method.</returns>
         public XmlSchema GetSchema()
         {
@@ -293,7 +269,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Generates an object from its XML representation.
         /// </summary>
-        /// <param name="reader">The <see cref="T:System.Xml.XmlReader" /> stream from which the object is deserialized.</param>
+        /// <param name="reader">The <see cref="XmlReader" /> stream from which the object is deserialized.</param>
         public void ReadXml(XmlReader reader)
         {
             if (reader.MoveToContent() != XmlNodeType.Element)
@@ -317,7 +293,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Converts an object into its XML representation.
         /// </summary>
-        /// <param name="writer">The <see cref="T:System.Xml.XmlWriter" /> stream to which the object is serialized.</param>
+        /// <param name="writer">The <see cref="XmlWriter" /> stream to which the object is serialized.</param>
         public void WriteXml(XmlWriter writer)
         {
             foreach (var kvp in Dictionary)
@@ -327,7 +303,5 @@ namespace CrispyWaffle.Utilities
                 writer.WriteEndElement();
             }
         }
-
-        #endregion
     }
 }

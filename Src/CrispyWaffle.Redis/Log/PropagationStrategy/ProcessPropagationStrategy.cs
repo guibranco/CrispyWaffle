@@ -11,8 +11,6 @@ namespace CrispyWaffle.Redis.Log.PropagationStrategy
     /// <seealso cref="IPropagationStrategy" />
     public sealed class ProcessPropagation : IPropagationStrategy
     {
-        #region Implementation of IPropagationStrategy
-
         /// <summary>
         /// Propagates the specified message using specific strategy to the publisher.
         /// </summary>
@@ -52,7 +50,5 @@ namespace CrispyWaffle.Redis.Log.PropagationStrategy
                 .PublishAsync($"{queuePrefix}-{EnvironmentHelper.ProcessId}", message)
                 .ConfigureAwait(false);
         }
-
-        #endregion
     }
 }

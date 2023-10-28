@@ -12,23 +12,23 @@ namespace CrispyWaffle.Serialization.Adapters
     /// Class BinarySerializerAdapter. This class cannot be inherited.
     /// </summary>
     /// <seealso cref="ISerializerAdapter" />
-    public sealed class BinarySerializerAdapter : ISerializerAdapter
+    public sealed class BinarySerializerAdapter : BaseSerializerAdapter
     {
-        #region Implemetation of ISerializerAdapter
-
         /// <summary>
-        /// Deserialize a stream to a generic type
+        /// Deserialize a stream to a generic type.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter</typeparam>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
-        /// <param name="encoding">(Optional) Determines the encoding to read the stream (not used in BinarySerializerProvider)</param>
+        /// <param name="encoding">(Optional) Determines the encoding to read the stream (not used in BinarySerializerProvider).</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+        public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
         {
             var formatter = new BinaryFormatter();
+#pragma warning disable S5773
             var result = formatter.Deserialize(stream);
+#pragma warning restore S5773
             stream.Close();
             return (T)result;
         }
@@ -40,7 +40,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T Deserialize<T>(object serialized)
+        public override T Deserialize<T>(object serialized)
             where T : class
         {
             return DeserializeFromStream<T>((Stream)serialized);
@@ -52,10 +52,10 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>A T.</returns>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        /// <exception cref="LocalFileNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException">file - Supply a valid filename.</exception>
+        /// <exception cref="LocalFileNotFoundException">Throws when the file doesn't exist.</exception>
         [Pure]
-        public T Load<T>(string file)
+        public override T Load<T>(string file)
             where T : class
         {
             if (string.IsNullOrWhiteSpace(file))
@@ -130,7 +130,7 @@ namespace CrispyWaffle.Serialization.Adapters
                         | NotifyFilters.Size,
                     EnableRaisingEvents = true
                 };
-                watcher.Changed += (o, e) => autoResetEvent.Set();
+                watcher.Changed += (_, _) => autoResetEvent.Set();
                 autoResetEvent.WaitOne(new TimeSpan(0, 0, 0, 30));
             }
             finally
@@ -145,7 +145,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
-        public void Serialize<T>(T deserialized, out Stream stream)
+        public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
             stream = new MemoryStream();
@@ -161,50 +161,5 @@ namespace CrispyWaffle.Serialization.Adapters
                 stream.Seek(0, SeekOrigin.Begin);
             }
         }
-
-        /// <summary>
-        /// Serialize the deserialized Object and Saves the given file.
-        /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="file">The file.</param>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
-        public void Save<T>(string file, T deserialized)
-            where T : class
-        {
-            Stream stream = null;
-            try
-            {
-                if (string.IsNullOrWhiteSpace(file))
-                {
-                    throw new ArgumentNullException(nameof(file), "Supply a valid filename");
-                }
-
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-
-                using (
-                    var fileStream = new FileStream(
-                        file,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None
-                    )
-                )
-                {
-                    Serialize(deserialized, out stream);
-
-                    stream.CopyTo(fileStream);
-                }
-            }
-            finally
-            {
-                stream?.Dispose();
-            }
-        }
-
-        #endregion
     }
 }

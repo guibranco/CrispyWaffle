@@ -17,8 +17,6 @@ namespace CrispyWaffle.Utilities
     )]
     public class LazyResettable<T> : ILazyResettable
     {
-        #region Internal classes
-
         /// <summary>
         /// The internal class box
         /// </summary>
@@ -36,10 +34,6 @@ namespace CrispyWaffle.Utilities
             /// <param name="value">The value.</param>
             public Box(T value) => Value = value;
         }
-
-        #endregion
-
-        #region Private fields
 
         /// <summary>
         /// The mode
@@ -66,10 +60,6 @@ namespace CrispyWaffle.Utilities
         public int Resets;
         public TimeSpan SumLoadTime;
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LazyResettable{T}"/> class.
         /// </summary>
@@ -87,10 +77,6 @@ namespace CrispyWaffle.Utilities
             _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
             DeclaringType = declaringType ?? valueFactory.Method.DeclaringType;
         }
-
-        #endregion
-
-        #region Implementation of ILazyResettable
 
         public event EventHandler OnReset;
 
@@ -139,10 +125,6 @@ namespace CrispyWaffle.Utilities
                 Loads = Loads,
                 Resets = Resets,
             };
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// Gets the value.
@@ -204,10 +186,6 @@ namespace CrispyWaffle.Utilities
         /// </value>
         public bool IsValueCreated => _box != null;
 
-        #endregion
-
-        #region Private methods
-
         private T InternalLoaded()
         {
             var sw = Stopwatch.StartNew();
@@ -217,7 +195,5 @@ namespace CrispyWaffle.Utilities
             Interlocked.Increment(ref Loads);
             return result;
         }
-
-        #endregion
     }
 }

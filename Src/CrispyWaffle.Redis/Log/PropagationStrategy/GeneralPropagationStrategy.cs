@@ -10,8 +10,6 @@ namespace CrispyWaffle.Redis.Log.PropagationStrategy
     /// <seealso cref="IPropagationStrategy" />
     public sealed class GeneralPropagation : IPropagationStrategy
     {
-        #region Implementation of IPropagationStrategy
-
         /// <summary>
         /// Propagates the specified message using specific strategy to the publisher.
         /// </summary>
@@ -47,7 +45,5 @@ namespace CrispyWaffle.Redis.Log.PropagationStrategy
             await publisher.PublishAsync($"{queuePrefix}-queues", "general").ConfigureAwait(false);
             await publisher.PublishAsync($"{queuePrefix}-general", message).ConfigureAwait(false);
         }
-
-        #endregion
     }
 }

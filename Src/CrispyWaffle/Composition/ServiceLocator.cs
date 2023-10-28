@@ -1,11 +1,11 @@
-﻿using System.Threading;
+﻿using System;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Log;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using CrispyWaffle.Telemetry;
 
 namespace CrispyWaffle.Composition
@@ -15,8 +15,6 @@ namespace CrispyWaffle.Composition
     /// </summary>
     public static class ServiceLocator
     {
-        #region Private fields
-
         /// <summary>
         /// The locks
         /// </summary>
@@ -65,10 +63,6 @@ namespace CrispyWaffle.Composition
         private static readonly IDictionary<string, Exception> _notLoadedAssemblies =
             new Dictionary<string, Exception>();
 
-        #endregion
-
-        #region ~Ctor
-
         /// <summary>
         /// Initializes the <see cref="ServiceLocator"/> class.
         /// </summary>
@@ -90,13 +84,9 @@ namespace CrispyWaffle.Composition
             _registrations.AddOrUpdate(
                 cancellationToken,
                 () => _cancellationTokenSource.Token,
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Loads the missing assemblies.
@@ -181,7 +171,7 @@ namespace CrispyWaffle.Composition
                         return lazy.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -236,7 +226,7 @@ namespace CrispyWaffle.Composition
                         return lazy.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -263,7 +253,7 @@ namespace CrispyWaffle.Composition
                         return lazyDisposable.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -291,7 +281,7 @@ namespace CrispyWaffle.Composition
                         return lazyDisposable.Value;
                     }
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -309,7 +299,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[contract]++;
                     return GetInstance(implementation);
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -331,7 +321,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[contract]++;
                     return instanceCreator();
                 },
-                (key, existingValue) => () => existingValue
+                (_, existingValue) => () => existingValue
             );
         }
 
@@ -602,13 +592,9 @@ namespace CrispyWaffle.Composition
             }
 
             var instance = GetInstance(types.Single());
-            _registrations.AddOrUpdate(type, () => instance, (key, existingVal) => () => instance);
+            _registrations.AddOrUpdate(type, () => instance, (_, _) => () => instance);
             return instance;
         }
-
-        #endregion
-
-        #region Public properties
 
         /// <summary>
         /// Gets or sets the types cache.
@@ -617,12 +603,6 @@ namespace CrispyWaffle.Composition
         /// The types cache.
         /// </value>
         public static List<Type> TypesCache { get; }
-
-        #endregion
-
-        #region Public methods
-
-        #region Registrators
 
         /// <summary>
         /// A method for registering a bootstrapper class
@@ -650,7 +630,7 @@ namespace CrispyWaffle.Composition
                     _registrationsCalls[type]++;
                     return instance;
                 },
-                (key, existingVal) => () => existingVal
+                (_, existingVal) => () => existingVal
             );
         }
 
@@ -718,10 +698,6 @@ namespace CrispyWaffle.Composition
             _dependenciesResolvers.Add(typeof(TContract), resolver);
         }
 
-        #endregion
-
-        #region Finalizers
-
         /// <summary>
         /// Disposes all registrations.
         /// </summary>
@@ -752,10 +728,6 @@ namespace CrispyWaffle.Composition
                 ((IDisposable)instance.Value()).Dispose();
             }
         }
-
-        #endregion
-
-        #region Resolvers
 
         /// <summary>
         /// Resolves a interface, returning a instance of its implementation.
@@ -850,10 +822,6 @@ namespace CrispyWaffle.Composition
             return !contract.IsAbstract ? CreateInstance(contract) : TryAutoRegistration(contract);
         }
 
-        #endregion
-
-        #region Helpers
-
         /// <summary>
         /// Requests the cancellation.
         /// </summary>
@@ -868,9 +836,5 @@ namespace CrispyWaffle.Composition
             _cancellationTokenSource.Cancel();
             return true;
         }
-
-        #endregion
-
-        #endregion
     }
 }

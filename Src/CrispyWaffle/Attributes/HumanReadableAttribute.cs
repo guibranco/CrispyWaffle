@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace CrispyWaffle.Attributes
 {
     /// <summary>
-    ///     <para>This attribute is used to show a human readable text of the description of the field</para>
+    /// This attribute is used to show a human-readable text of the description of the field.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
     [Localizable(true)]
@@ -22,9 +22,6 @@ namespace CrispyWaffle.Attributes
         /// Initializes a new instance of the <see cref="HumanReadableAttribute"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public HumanReadableAttribute([Localizable(true)] string value)
-        {
-            StringValue = value;
-        }
+        public HumanReadableAttribute([Localizable(true)] string value) => StringValue = value;
     }
 }

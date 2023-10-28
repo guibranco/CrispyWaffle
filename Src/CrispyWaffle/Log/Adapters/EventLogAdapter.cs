@@ -13,8 +13,6 @@ namespace CrispyWaffle.Log.Adapters
     /// <seealso cref="CrispyWaffle.Log.Adapters.ILogAdapter" />
     public sealed class EventLogAdapter : ILogAdapter
     {
-        #region Consts
-
         /// <summary>
         /// The application log name
         /// </summary>
@@ -49,10 +47,6 @@ namespace CrispyWaffle.Log.Adapters
         /// The level
         /// </summary>
         private LogLevel _level;
-
-        #endregion
-
-        #region ~Ctors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogAdapter"/> class.
@@ -103,10 +97,6 @@ namespace CrispyWaffle.Log.Adapters
                 _log.Source = source;
             }
         }
-
-        #endregion
-
-        #region Private methods
 
         /// <summary>
         /// Configures the source.
@@ -277,16 +267,8 @@ namespace CrispyWaffle.Log.Adapters
             return message;
         }
 
-        #endregion
-
-        #region Implementation of IDisposable
-
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose() { }
-
-        #endregion
-
-        #region Implementation of ILogAdapter
 
         /// <summary>
         /// Change the LogLevel of Log Adapter instance.
@@ -415,7 +397,5 @@ namespace CrispyWaffle.Log.Adapters
         {
             WriteInternal(LogLevel.Fatal, message);
         }
-
-        #endregion
     }
 }

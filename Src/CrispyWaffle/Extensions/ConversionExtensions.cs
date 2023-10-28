@@ -28,7 +28,7 @@ using Formatting = Newtonsoft.Json.Formatting;
 namespace CrispyWaffle.Extensions
 {
     /// <summary>
-    /// Helper class for generic conversions
+    /// Class ConversionExtensions.
     /// </summary>
     public static class ConversionExtensions
     {
@@ -53,8 +53,7 @@ namespace CrispyWaffle.Extensions
         /// <returns>The given data converted to a Boolean.</returns>
         public static bool ToBoolean(this string str, string validValueForTrue = "S")
         {
-            return str?.Equals(validValueForTrue, StringComparison.InvariantCultureIgnoreCase)
-                == true;
+            return str?.Equals(validValueForTrue, StringComparison.OrdinalIgnoreCase) == true;
         }
 
         /// <summary>
@@ -111,32 +110,27 @@ namespace CrispyWaffle.Extensions
                 return false;
             }
 
-            input = input.ToLower().Trim();
+            input = input.ToLowerInvariant().Trim();
             switch (input)
             {
-                case "agora":
                 case "now":
 
                     value = DateTime.Now;
 
                     return true;
 
-                case "hoje":
                 case "today":
 
                     value = DateTime.Today;
 
                     return true;
 
-                case "ontem":
                 case "yesterday":
 
                     value = DateTime.Today.AddDays(-1);
 
                     return true;
 
-                case "amanhã":
-                case "amanha":
                 case "tomorrow":
 
                     value = DateTime.Today.AddDays(1);
@@ -240,13 +234,16 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Converts a decimal input to monetary readable format (PT-BR - BRL)
+        /// Converts to monetary.
         /// </summary>
         /// <param name="input">The input.</param>
+        /// <param name="cultureInfo">The culture information.</param>
         /// <returns>System.String.</returns>
-        public static string ToMonetary(this decimal input)
+        public static string ToMonetary(this decimal input, CultureInfo cultureInfo = null)
         {
-            return input == 0 ? "No value" : $@"R$ {input:#0.00}";
+            return input == 0
+                ? "No value"
+                : string.Format(cultureInfo ?? CultureInfo.CurrentCulture, "{0:C}", input);
         }
 
         /// <summary>
@@ -296,13 +293,16 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="result">The result.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if is valid phone number, <c>false</c> otherwise.</returns>
         public static bool TryParseBrazilianPhoneNumber(this string number, ref PhoneNumber result)
         {
             var dirty = number.RemoveNonNumeric();
             var dirtyLength = dirty.Length;
 
-            if (dirty.StartsWith(@"55") && dirtyLength > 11 && dirtyLength < 15)
+            if (
+                dirty.StartsWith("55", StringComparison.OrdinalIgnoreCase)
+                && dirtyLength is > 11 and < 15
+            )
             {
                 dirty = dirty.Remove(0, 2);
                 dirtyLength -= 2;
@@ -314,14 +314,14 @@ namespace CrispyWaffle.Extensions
             }
 
             var prefix =
-                dirty.Substring(0, 1).Equals(@"0", StringComparison.InvariantCultureIgnoreCase)
+                dirty.Substring(0, 1).Equals(@"0", StringComparison.OrdinalIgnoreCase)
                 && (dirtyLength == 11 || dirtyLength == 12)
                     ? dirty.Substring(1, 2)
                     : dirty.Substring(0, 2);
 
             var hasNineDigits = dirty
                 .Substring(dirtyLength - 9, 1)
-                .Equals(@"9", StringComparison.InvariantCultureIgnoreCase);
+                .Equals(@"9", StringComparison.OrdinalIgnoreCase);
 
             var allowedDigits = hasNineDigits ? 9 : 8;
 

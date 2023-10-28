@@ -2,43 +2,15 @@
 
   <PropertyGroup>
     <ProjectGuid>C86C7297-1E8D-4611-B01A-08FC4FDF1D62</ProjectGuid>    
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>latest</LangVersion>
-    <Authors>Guilherme Branco Stracini</Authors>
-    <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>    
     <Description>The CrispyWaffle Utils package</Description>
-    <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
-    <RepositoryType>GIT</RepositoryType>
-    <PackageTags>toolkit sdk framework library lib utils communications mail smtp ftp</PackageTags>
-    <PackageIcon>logo.png</PackageIcon>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Company>Guilherme Branco Stracini ME</Company>
-    <PackageReleaseNotes>Utils release</PackageReleaseNotes>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>toolkit sdk framework library lib utils communications mail smtp ftp</PackageTags>    
+    <PackageReleaseNotes>Utils release</PackageReleaseNotes>    
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

@@ -17,8 +17,6 @@ namespace CrispyWaffle.Log.Providers
         /// </summary>
         private readonly EventLogAdapter _adapter;
 
-        #region ~Ctors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class.
         /// </summary>
@@ -83,10 +81,6 @@ namespace CrispyWaffle.Log.Providers
                 provider
             );
         }
-
-        #endregion
-
-        #region Implementation of ILogProvider
 
         /// <summary>
         /// Sets the log level of the instance
@@ -207,7 +201,5 @@ namespace CrispyWaffle.Log.Providers
         {
             _adapter.Debug(content, identifier, customFormat);
         }
-
-        #endregion
     }
 }

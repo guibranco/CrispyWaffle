@@ -15,18 +15,17 @@
 using CrispyWaffle.Tests.Fixtures;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Collections
+namespace CrispyWaffle.Tests.Collections;
+
+/// <summary>
+/// Class ServiceLocatorCollection.
+/// Implements the <see cref="Xunit.ICollectionFixture{BootstrapFixture}" />
+/// </summary>
+/// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
+[CollectionDefinition("Logged collection")]
+public class LoggedCollection : ICollectionFixture<LoggingFixture>
 {
-    /// <summary>
-    /// Class ServiceLocatorCollection.
-    /// Implements the <see cref="Xunit.ICollectionFixture{BootstrapFixture}" />
-    /// </summary>
-    /// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
-    [CollectionDefinition("Logged collection")]
-    public class LoggedCollection : ICollectionFixture<LoggingFixture>
-    {
-        // This class has no code, and is never created. Its purpose is simply
-        // to be the place to apply [CollectionDefinition] and all the
-        // ICollectionFixture<> interfaces.
-    }
+    // This class has no code, and is never created. Its purpose is simply
+    // to be the place to apply [CollectionDefinition] and all the
+    // ICollectionFixture<> interfaces.
 }

@@ -11,8 +11,6 @@ namespace CrispyWaffle.Serialization
     /// <seealso cref="JsonConverter" />
     public sealed class NotNullObserverConverter : JsonConverter
     {
-        #region Overrides of JsonConverter
-
         /// <summary>Writes the JSON representation of the object.</summary>
         /// <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param>
         /// <param name="value">The value.</param>
@@ -68,7 +66,5 @@ namespace CrispyWaffle.Serialization
         {
             return objectType == typeof(NotNullObserver);
         }
-
-        #endregion
     }
 }
