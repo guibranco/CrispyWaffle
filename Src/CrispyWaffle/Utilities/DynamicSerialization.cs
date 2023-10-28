@@ -31,7 +31,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// The dictionary.
         /// </summary>
-        protected readonly Dictionary<string, object> Dictionary = new Dictionary<string, object>();
+        protected readonly Dictionary<string, object> Dictionary = new();
 
         /// <summary>
         /// The key serialization filter.

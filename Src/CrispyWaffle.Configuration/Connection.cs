@@ -20,9 +20,8 @@ namespace CrispyWaffle.Configuration
 {
     /// <summary>
     /// Class Connection. This class cannot be inherited.
-    /// Implements the <see cref="CrispyWaffle.Configuration.IConnection" />
+    /// Implements the <see cref="IConnection" />.
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Configuration.IConnection" />
     /// <seealso cref="IConnection" />
     [Serializer]
     public sealed class Connection : IConnection
@@ -36,17 +35,16 @@ namespace CrispyWaffle.Configuration
         }
 
         /// <summary>
-        /// The credentials
+        /// Gets or sets the credentials.
         /// </summary>
         /// <value>The credentials.</value>
         [XmlIgnore]
         public IConnectionCredential Credentials { get; set; }
 
         /// <summary>
-        /// The credentials
+        /// Gets or sets the credentials internal.
         /// </summary>
         /// <value>The credentials internal.</value>
-        /// <remarks>For XML Serialization</remarks>
         [XmlElement("Credentials")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -57,14 +55,14 @@ namespace CrispyWaffle.Configuration
         }
 
         /// <summary>
-        /// The host
+        /// Gets or sets the host.
         /// </summary>
         /// <value>The host.</value>
         [Localizable(false)]
         public string Host { get; set; }
 
         /// <summary>
-        /// The connection name/identifier
+        /// The connection name/identifier.
         /// </summary>
         /// <value>The name.</value>
         [XmlAttribute(AttributeName = "Name")]
@@ -72,7 +70,7 @@ namespace CrispyWaffle.Configuration
         public string Name { get; set; }
 
         /// <summary>
-        /// The host port
+        /// Gets or sets the port.
         /// </summary>
         /// <value>The port.</value>
         public int Port { get; set; }
