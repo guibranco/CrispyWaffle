@@ -43,10 +43,10 @@ public class JsonSerializerAdapterTests
         instance.Should().BeEquivalentTo(GenerateSampleData());
     }
 
-    private string GetStringContent() =>
+    private static string GetStringContent() =>
         "{\r\n  \"Id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"Date\": \"2023-10-28T10:15:00\",\r\n  \"ListStrong\": [\r\n    {\r\n      \"CorrelationId\": \"00000000-0000-0000-0000-000000000000\",\r\n      \"SomeText\": \"Test\",\r\n      \"Date\": \"2023-10-28T10:15:00\"\r\n    }\r\n  ]\r\n}";
 
-    private SampleJsonClass GenerateSampleData() =>
+    private static SampleJsonClass GenerateSampleData() =>
         new()
         {
             Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
