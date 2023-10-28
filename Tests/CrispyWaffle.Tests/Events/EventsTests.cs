@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using CrispyWaffle.Events;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Events
 {
-    using CrispyWaffle.Events;
-    using System;
-    using Xunit;
-
     /// <summary>
     /// Class EventsTests.
     /// </summary>

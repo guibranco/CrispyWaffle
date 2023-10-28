@@ -12,20 +12,20 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Infrastructure;
+using CrispyWaffle.Log;
+using CrispyWaffle.Log.Providers;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+using CrispyWaffle.Serialization;
+using global::RabbitMQ.Client;
+using System;
+using System.Collections.Concurrent;
+using System.Text;
+using System.Threading;
+
 namespace CrispyWaffle.RabbitMQ.Log
 {
-    using Extensions;
-    using Infrastructure;
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Log.Providers;
-    using Utils.Communications;
-    using Serialization;
-    using global::RabbitMQ.Client;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Text;
-    using System.Threading;
-
     /// <summary>
     /// Class RabbitMQLogProvider.
     /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />

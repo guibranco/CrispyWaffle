@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.GoodPractices
-{
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
+namespace CrispyWaffle.GoodPractices
+{
     /// <summary>
     /// Class InvalidTelephoneNumberException. This class cannot be inherited.
     /// </summary>

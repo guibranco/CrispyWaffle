@@ -1,10 +1,10 @@
-﻿namespace CrispyWaffle.Validations
-{
-    using System;
-    using System.Globalization;
-    using Extensions;
-    using System.Text.RegularExpressions;
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using CrispyWaffle.Extensions;
 
+namespace CrispyWaffle.Validations
+{
     /// <summary>
     /// Class PersonalDataValidation.
     /// </summary>

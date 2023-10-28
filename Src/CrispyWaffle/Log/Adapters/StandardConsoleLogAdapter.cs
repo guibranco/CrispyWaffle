@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.Log.Adapters
-{
-    using Extensions;
-    using Serialization;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Log.Adapters
+{
     /// <summary>
     /// Class ConsoleLogAdapter.
     /// Redirects log to Console Window.

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.Validations
 {
-    using System.IO;
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Provides strings validations for commons patterns.
     /// </summary>

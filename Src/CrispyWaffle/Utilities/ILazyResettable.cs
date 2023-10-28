@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using System;
+﻿using System;
 
+namespace CrispyWaffle.Utilities
+{
     /// <summary>
     /// The interface for the resettable lazy classes.
     /// </summary>

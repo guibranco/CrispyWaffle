@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Log.Adapters
-{
-    using Serialization;
-    using System;
+﻿using System;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Log.Adapters
+{
     //TODO issue #37
     /// <summary>
     /// Class RollingTextFileLogAdapter. This class cannot be inherited.

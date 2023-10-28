@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.Utilities;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Utilities
 {
-    using CrispyWaffle.Utilities;
-    using Xunit;
-
     /// <summary>
     /// Class PhoneNumberTests.
     /// </summary>

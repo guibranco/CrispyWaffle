@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Tests.Cryptography
-{
-    using System;
-    using CrispyWaffle.Cryptography;
-    using Xunit;
+﻿using System;
+using CrispyWaffle.Cryptography;
+using Xunit;
 
+namespace CrispyWaffle.Tests.Cryptography
+{
     [Collection("Cryptography collection")]
     public class SecurityTests
     {
@@ -29,14 +29,14 @@
         [Fact]
         public void Encrypt_Success()
         {
-            var result = Security.Encrypt(PlainText, PasswordHash, SaltKey, ViKey);
+            var result = PlainText.Encrypt(PasswordHash, SaltKey, ViKey);
             Assert.Equal(EncryptedText, result);
         }
 
         [Fact]
         public void Decrypt_Success()
         {
-            var result = Security.Decrypt(EncryptedText, PasswordHash, SaltKey, ViKey);
+            var result = EncryptedText.Decrypt(PasswordHash, SaltKey, ViKey);
             Assert.Equal(PlainText, result);
         }
 

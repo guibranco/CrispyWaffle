@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Log.Providers
-{
-    using System;
-    using Adapters;
-    using Serialization;
+﻿using System;
+using CrispyWaffle.Log.Adapters;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Log.Providers
+{
     /// <summary>
     /// Console log provider
     /// </summary>

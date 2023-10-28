@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.ComponentModel;
+
 namespace CrispyWaffle.Configuration
 {
-    using System.ComponentModel;
-
     /// <summary>
     /// Connection data interface
     /// </summary>

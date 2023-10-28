@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.Attributes;
+
 namespace CrispyWaffle.Tests.Extensions
 {
-    using Attributes;
-
     /// <summary>
     /// Enum TestEnum
     /// </summary>

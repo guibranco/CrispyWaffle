@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Linq.Expressions;
+using CrispyWaffle.Composition;
+using CrispyWaffle.ElasticSearch.Utils.Communications;
+using Nest;
+
 namespace CrispyWaffle.ElasticSearch.Helpers
 {
-    using System;
-    using System.Linq.Expressions;
-    using Composition;
-    using Utils.Communications;
-    using Nest;
-
     /// <summary>
     /// The extensions class.
     /// </summary>

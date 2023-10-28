@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+
 namespace CrispyWaffle.Scheduler
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Interface IScheduler
     /// </summary>

@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Threading;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Tests.Fixtures;
+using Xunit;
+using Xunit.Abstractions;
+
 namespace CrispyWaffle.Tests.Composition
 {
-    using CrispyWaffle.Composition;
-    using System.Threading;
-    using Fixtures;
-    using Xunit;
-    using Xunit.Abstractions;
-
     /// <summary>
     /// Class ServiceLocatorTests.
     /// </summary>

@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Serialization
-{
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-    using System;
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
+namespace CrispyWaffle.Serialization
+{
     /// <summary>
     /// The not null observer converter class.
     /// This class notifies when a usual null property receives a value.

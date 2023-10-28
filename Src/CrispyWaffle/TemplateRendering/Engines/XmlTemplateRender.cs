@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.TemplateRendering.Engines
-{
-    using System.IO;
-    using System.Text;
-    using System.Xml;
-    using System.Xml.Linq;
-    using System.Xml.Xsl;
+﻿using System.IO;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Xsl;
 
+namespace CrispyWaffle.TemplateRendering.Engines
+{
     /// <summary>
     /// The xml template render class.
     /// </summary>

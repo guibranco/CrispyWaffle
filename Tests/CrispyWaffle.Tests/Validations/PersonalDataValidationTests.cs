@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.Validations;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Validations
 {
-    using CrispyWaffle.Validations;
-    using Xunit;
-
     /// <summary>
     /// Class PersonalDataValidationTests.
     /// </summary>

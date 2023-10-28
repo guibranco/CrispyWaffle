@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Composition
-{
-    using System;
-    using System.Threading;
+﻿using System;
+using System.Threading;
 
+namespace CrispyWaffle.Composition
+{
     /// <summary>
     ///  A <see cref="Lazy{T}"/> object that implements <see cref="IDisposable"/>.
     /// </summary>

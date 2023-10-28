@@ -1,13 +1,13 @@
-﻿namespace CrispyWaffle.Cryptography
-{
-    using System.Collections.Generic;
-    using System;
-    using System.ComponentModel;
-    using System.Globalization;
-    using System.IO;
-    using System.Security.Cryptography;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
+namespace CrispyWaffle.Cryptography
+{
     /// <summary>
     /// Class Security.
     /// </summary>

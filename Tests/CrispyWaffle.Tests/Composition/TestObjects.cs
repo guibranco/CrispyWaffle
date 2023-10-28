@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
+
 namespace CrispyWaffle.Tests.Composition
 {
-    using System;
-    using System.Threading;
-
     /// <summary>
     /// Class TestObjects.
     /// </summary>

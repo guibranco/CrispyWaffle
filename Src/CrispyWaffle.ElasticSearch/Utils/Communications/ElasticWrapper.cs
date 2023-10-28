@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.ElasticSearch.Helpers;
+using Nest;
+
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
-    using Helpers;
-    using Nest;
-
     /// <summary>
     /// The Elastic Search wrapper class.
     /// </summary>

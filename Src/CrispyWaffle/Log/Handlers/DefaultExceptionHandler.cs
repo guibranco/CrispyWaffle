@@ -12,20 +12,20 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log.Providers;
+using CrispyWaffle.Telemetry;
+
 namespace CrispyWaffle.Log.Handlers
 {
-    using System.Reflection;
-    using Composition;
-    using Extensions;
-    using Providers;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Threading;
-    using Telemetry;
-
     /// <summary>
     /// Handle the exception and log it using the available log providers of the log consumer.
     /// </summary>

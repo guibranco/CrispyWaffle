@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Redis.Utils
-{
-    using Configuration;
-    using System;
+﻿using System;
+using CrispyWaffle.Configuration;
 
+namespace CrispyWaffle.Redis.Utils
+{
     /// <summary>
     /// The Redis master/slave connection configuration class.
     /// </summary>

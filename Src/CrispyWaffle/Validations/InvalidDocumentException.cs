@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Validations
-{
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
+namespace CrispyWaffle.Validations
+{
     /// <summary>
     /// Class InvalidDocumentException. This class cannot be inherited.
     /// </summary>

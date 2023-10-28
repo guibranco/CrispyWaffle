@@ -1,12 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using CrispyWaffle.Log.Providers;
+using CrispyWaffle.Serialization;
 
 namespace CrispyWaffle.Log.Adapters
 {
-    using Providers;
-    using Serialization;
-    using System;
-    using System.Diagnostics;
-
     /// <summary>
     /// Class EventLogAdapter. This class cannot be inherited.
     /// Implements the <see cref="CrispyWaffle.Log.Adapters.ILogAdapter" />

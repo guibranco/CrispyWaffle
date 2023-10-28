@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Cache
-{
-    using System;
+﻿using System;
 
+namespace CrispyWaffle.Cache
+{
     /// <summary>
     /// The cache repository interface
     /// </summary>

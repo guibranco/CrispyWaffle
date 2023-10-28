@@ -1,15 +1,15 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using Extensions;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Globalization;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using System.Text;
-    using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Web;
+using CrispyWaffle.Extensions;
 
+namespace CrispyWaffle.Utilities
+{
     /// <summary>
     /// A chainable query string helper class. Example usage : string strQuery =
     /// QueryString.Current.Add("id", "179").ToString();

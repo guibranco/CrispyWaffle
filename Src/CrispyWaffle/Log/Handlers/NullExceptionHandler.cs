@@ -1,10 +1,10 @@
-﻿namespace CrispyWaffle.Log.Handlers
-{
-    using Composition;
-    using System;
-    using System.Threading;
-    using Providers;
+﻿using System;
+using System.Threading;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Log.Providers;
 
+namespace CrispyWaffle.Log.Handlers
+{
     /// <summary>
     /// The null exception handler.
     /// </summary>

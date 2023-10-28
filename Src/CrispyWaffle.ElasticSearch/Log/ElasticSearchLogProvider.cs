@@ -12,20 +12,20 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using CrispyWaffle.ElasticSearch.Utils.Communications;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Infrastructure;
+using CrispyWaffle.Log;
+using CrispyWaffle.Log.Providers;
+using CrispyWaffle.Serialization;
+using Nest;
+using LogLevel = CrispyWaffle.Log.LogLevel;
+
 namespace CrispyWaffle.ElasticSearch.Log
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Utils.Communications;
-    using Extensions;
-    using Infrastructure;
-    using CrispyWaffle.Log;
-    using CrispyWaffle.Log.Providers;
-    using Serialization;
-    using Nest;
-    using LogLevel = CrispyWaffle.Log.LogLevel;
-
     /// <summary>
     /// The Elastic Search log provider class.
     /// </summary>

@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using CrispyWaffle.Events;
+using CrispyWaffle.Log;
+
 namespace CrispyWaffle.Tests.Events
 {
-    using CrispyWaffle.Events;
-    using Log;
-    using System;
-
     /// <summary>
     /// Class TestObjects.
     /// </summary>

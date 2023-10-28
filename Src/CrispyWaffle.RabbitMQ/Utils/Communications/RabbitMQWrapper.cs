@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Text;
+using CrispyWaffle.Log;
+using CrispyWaffle.RabbitMQ.Helpers;
+using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
 {
-    using CrispyWaffle.Log;
-    using Helpers;
-    using Serialization;
-    using System;
-    using System.Text;
-
     /// <summary>
     /// Class RabbitMQWrapper.
     /// </summary>

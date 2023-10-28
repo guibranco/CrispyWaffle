@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Events
-{
-    using Log;
-    using Composition;
+﻿using CrispyWaffle.Composition;
+using CrispyWaffle.Log;
 
+namespace CrispyWaffle.Events
+{
     /// <summary>
     /// Manage events raising
     /// </summary>

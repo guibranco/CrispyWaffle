@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.Telemetry
-{
-    using Composition;
-    using Log;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Log;
 
+namespace CrispyWaffle.Telemetry
+{
     /// <summary>
     /// The telemetry analytics class.
     /// </summary>

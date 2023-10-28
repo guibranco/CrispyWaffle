@@ -12,15 +12,15 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Cryptography;
+using Newtonsoft.Json;
+
 namespace CrispyWaffle.Configuration
 {
-    using Composition;
-    using Cryptography;
-    using Newtonsoft.Json;
-    using System;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
-
     /// <summary>
     /// The credentials class.
     /// </summary>

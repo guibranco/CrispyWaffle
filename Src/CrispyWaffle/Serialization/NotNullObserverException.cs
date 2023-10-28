@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Serialization
-{
-    using Newtonsoft.Json;
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
+namespace CrispyWaffle.Serialization
+{
     /// <summary>
     /// The not null observer exception class.
     /// This class cannot be inherited.

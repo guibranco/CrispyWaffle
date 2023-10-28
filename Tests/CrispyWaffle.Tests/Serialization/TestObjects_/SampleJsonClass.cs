@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.Tests.Serialization
 {
-    using CrispyWaffle.Serialization;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-
     /// <summary>
     /// Class SampleJsonClass.
     /// Implements the <see cref="System.IEquatable{SampleJsonClass}" />

@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+
 namespace CrispyWaffle.ElasticSearch.Helpers
 {
-    using System;
-
     /// <summary>
     /// The index name attribute
     /// </summary>

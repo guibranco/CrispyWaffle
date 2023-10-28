@@ -14,11 +14,10 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.Scheduler
 {
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Class CronSchedulerValidations.
     /// </summary>

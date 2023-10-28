@@ -12,20 +12,21 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
+using CrispyWaffle.GoodPractices;
+using CrispyWaffle.Utilities;
+using Newtonsoft.Json.Linq;
+using Formatting = Newtonsoft.Json.Formatting;
+
 namespace CrispyWaffle.Extensions
 {
-    using GoodPractices;
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Xml;
-    using Utilities;
-
     /// <summary>
     /// Helper class for generic conversions
     /// </summary>
@@ -350,7 +351,7 @@ namespace CrispyWaffle.Extensions
 
             var parsedJson = JToken.Parse(json);
 
-            return parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
+            return parsedJson.ToString(Formatting.Indented);
         }
 
         /// <summary>

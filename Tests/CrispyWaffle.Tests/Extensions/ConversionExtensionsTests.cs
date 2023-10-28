@@ -12,16 +12,16 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Threading;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.GoodPractices;
+using Xunit;
 
 namespace CrispyWaffle.Tests.Extensions
 {
-    using CrispyWaffle.Extensions;
-    using GoodPractices;
-    using System;
-    using System.Globalization;
-    using Xunit;
-
     /// <summary>
     /// Class ConversionExtensionsTests.
     /// </summary>
@@ -29,17 +29,15 @@ namespace CrispyWaffle.Tests.Extensions
     {
         public ConversionExtensionsTests()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(
-                "en-US"
-            );
-            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var ci = new CultureInfo(currentCulture)
             {
                 NumberFormat = { NumberDecimalSeparator = ",", NumberGroupSeparator = " " },
                 DateTimeFormat = { DateSeparator = "/" }
             };
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
         }
 
         /// <summary>

@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.Validations
 {
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Class network validations.
     /// </summary>

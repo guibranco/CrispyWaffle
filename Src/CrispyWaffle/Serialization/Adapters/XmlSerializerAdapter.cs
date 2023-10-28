@@ -1,12 +1,12 @@
+using System;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
+
 namespace CrispyWaffle.Serialization.Adapters
 {
-    using System;
-    using System.Diagnostics.Contracts;
-    using System.IO;
-    using System.Text;
-    using System.Xml;
-    using System.Xml.Serialization;
-
     /// <summary>
     /// A serializer xml.
     /// </summary>

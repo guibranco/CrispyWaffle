@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+
 namespace CrispyWaffle.Scheduler
 {
-    using System;
-
     /// <summary>
     /// Interface IJobRunner
     /// </summary>

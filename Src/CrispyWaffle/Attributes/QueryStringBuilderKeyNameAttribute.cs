@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Attributes
-{
-    using System;
+﻿using System;
 
+namespace CrispyWaffle.Attributes
+{
     /// <summary>
     /// The query string key name attribute
     /// </summary>

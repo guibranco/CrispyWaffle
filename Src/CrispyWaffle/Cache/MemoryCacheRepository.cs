@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Cache
-{
-    using System;
-    using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 
+namespace CrispyWaffle.Cache
+{
     /// <summary>
     /// The memory cache helper class
     /// </summary>

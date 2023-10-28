@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
-    using System;
-
     /// <summary>
     /// Class QueueNameAttribute. This class cannot be inherited.
     /// Implements the <see cref="System.Attribute" />
