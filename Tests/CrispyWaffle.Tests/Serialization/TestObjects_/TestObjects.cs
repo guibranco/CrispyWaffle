@@ -50,7 +50,7 @@ public static class TestObjects
         {
             CorrelationId = correlationId,
             Date = DateTime.Now,
-            SomeText = DateTime.Today.ToString("O")
+            SomeText = DateTime.Today.ToString("R")
         };
 
     /// <summary>
