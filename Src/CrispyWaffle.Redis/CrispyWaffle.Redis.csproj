@@ -3,22 +3,10 @@
   <PropertyGroup>
     <ProjectGuid>47DB173E-BC2B-4C16-B2A9-9506E57D6D9E</ProjectGuid>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>latest</LangVersion>
-    <Authors>Guilherme Branco Stracini</Authors>
-    <Copyright>© 2023 Guilherme Branco Stracini. All rights reserved.</Copyright>
     <Description>The CrispyWaffle Redis package</Description>
-    <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
-    <RepositoryType>GIT</RepositoryType>
     <PackageTags>toolkit sdk framework library lib redis cache telemetry log provider</PackageTags>
-    <PackageIcon>logo.png</PackageIcon>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>Guilherme Branco Stracini ME</Company>
     <PackageReleaseNotes>Redis release</PackageReleaseNotes>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
