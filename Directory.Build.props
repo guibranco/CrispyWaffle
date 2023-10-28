@@ -1,5 +1,4 @@
 <Project>
-  <Import Project="dependencies.props" />
 
   <PropertyGroup>
     <Authors>Guilherme Branco Stracini</Authors>
