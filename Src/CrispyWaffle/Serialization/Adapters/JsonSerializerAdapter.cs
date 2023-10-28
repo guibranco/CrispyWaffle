@@ -12,7 +12,7 @@ namespace CrispyWaffle.Serialization.Adapters
     public sealed class JsonSerializerAdapter : BaseSerializerAdapter
     {
         /// <summary>
-        /// The settings
+        /// The settings.
         /// </summary>
         private readonly JsonSerializerSettings _settings;
 
@@ -40,9 +40,9 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Deserialize a stream to a generic type
+        /// Deserialize a stream to a generic typ.e
         /// </summary>
-        /// <typeparam name="T">Generic type parameter</typeparam>
+        /// <typeparam name="T">Generic type paramet.er</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
         /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
         /// <returns>

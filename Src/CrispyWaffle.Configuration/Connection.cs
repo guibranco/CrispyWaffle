@@ -20,7 +20,7 @@ namespace CrispyWaffle.Configuration
 {
     /// <summary>
     /// Class Connection. This class cannot be inherited.
-    /// Implements the <see cref="IConnection" />
+    /// Implements the <see cref="IConnection" />.
     /// </summary>
     /// <seealso cref="IConnection" />
     [Serializer]

@@ -22,7 +22,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="encoding">(Optional) Determines the encoding to read the stream (not used in BinarySerializerProvider)</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
+        public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
         {
             var formatter = new BinaryFormatter();
@@ -40,7 +40,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <param name="serialized">The serialized.</param>
         /// <returns>A T.</returns>
         [Pure]
-        public T Deserialize<T>(object serialized)
+        public override T Deserialize<T>(object serialized)
             where T : class
         {
             return DeserializeFromStream<T>((Stream)serialized);
@@ -55,7 +55,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <exception cref="ArgumentNullException">file - Supply a valid filename.</exception>
         /// <exception cref="LocalFileNotFoundException">Throws when the file doesn't exist.</exception>
         [Pure]
-        public T Load<T>(string file)
+        public override T Load<T>(string file)
             where T : class
         {
             if (string.IsNullOrWhiteSpace(file))
@@ -145,7 +145,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="deserialized">The deserialized.</param>
         /// <param name="stream">[out] The stream.</param>
-        public void Serialize<T>(T deserialized, out Stream stream)
+        public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
             stream = new MemoryStream();

@@ -13,9 +13,9 @@ namespace CrispyWaffle.Serialization.Adapters
     public sealed class XmlSerializerAdapter : BaseSerializerAdapter
     {
         /// <summary>
-        /// Deserialize a stream to a generic type
+        /// Deserialize a stream to a generic type.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter</typeparam>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
         /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
         /// <returns>A T.</returns>

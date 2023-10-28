@@ -6,7 +6,7 @@ namespace CrispyWaffle.Serialization.Adapters;
 
 /// <summary>
 /// Class BaseSerializerAdapter.
-/// Implements the <see cref="ISerializerAdapter" />
+/// Implements the <see cref="ISerializerAdapter" />.
 /// </summary>
 /// <seealso cref="ISerializerAdapter" />
 public abstract class BaseSerializerAdapter : ISerializerAdapter
@@ -18,12 +18,9 @@ public abstract class BaseSerializerAdapter : ISerializerAdapter
     /// <param name="stream">The serialized object as stream.</param>
     /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
     /// <returns>A T.</returns>
-    /// <exception cref="System.NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">This method is not implemented in the base class. Use the derived one.</exception>
     public virtual T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
-        where T : class
-    {
-        throw new NotImplementedException();
-    }
+        where T : class => throw new NotImplementedException();
 
     /// <summary>
     /// Deserializes the serialized object to a generic type
@@ -31,12 +28,9 @@ public abstract class BaseSerializerAdapter : ISerializerAdapter
     /// <typeparam name="T">Generic type parameter.</typeparam>
     /// <param name="serialized">The serialized.</param>
     /// <returns>A T.</returns>
-    /// <exception cref="System.NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">This method is not implemented in the base class. Use the derived one.</exception>
     public virtual T Deserialize<T>(object serialized)
-        where T : class
-    {
-        throw new NotImplementedException();
-    }
+        where T : class => throw new NotImplementedException();
 
     /// <summary>
     /// Loads the given file and Deserialize its.
@@ -44,8 +38,8 @@ public abstract class BaseSerializerAdapter : ISerializerAdapter
     /// <typeparam name="T">Generic type parameter.</typeparam>
     /// <param name="file">The file.</param>
     /// <returns>A T.</returns>
-    /// <exception cref="System.ArgumentNullException">file - Supply a valid filename</exception>
-    /// <exception cref="CrispyWaffle.Serialization.Adapters.LocalFileNotFoundException"></exception>
+    /// <exception cref="ArgumentNullException">Throws when the file parameter is null or whitespace.</exception>
+    /// <exception cref="LocalFileNotFoundException">Throws when the file does not exist.</exception>
     public virtual T Load<T>(string file)
         where T : class
     {
@@ -77,12 +71,9 @@ public abstract class BaseSerializerAdapter : ISerializerAdapter
     /// <typeparam name="T">Generic type parameter.</typeparam>
     /// <param name="deserialized">The deserialized.</param>
     /// <param name="stream">[out] The stream.</param>
-    /// <exception cref="System.NotImplementedException"></exception>
+    /// <exception cref="NotImplementedException">This method is not implemented in the base class. Use the derived one.</exception>
     public virtual void Serialize<T>(T deserialized, out Stream stream)
-        where T : class
-    {
-        throw new NotImplementedException();
-    }
+        where T : class => throw new NotImplementedException();
 
     /// <summary>
     /// Serialize the deserialized Object and Saves the given file.
