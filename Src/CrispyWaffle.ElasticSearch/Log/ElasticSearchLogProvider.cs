@@ -12,6 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using CrispyWaffle.ElasticSearch.Utils.Communications;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Infrastructure;

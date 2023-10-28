@@ -1,4 +1,7 @@
-﻿using CrispyWaffle.Serialization.Adapters;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
 using Xunit;
 

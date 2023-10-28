@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Threading;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Tests.Fixtures;
 using Xunit;

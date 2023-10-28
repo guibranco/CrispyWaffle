@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.Contracts;
+using System.IO;
 using System.Text;
 
 namespace CrispyWaffle.Serialization.Adapters

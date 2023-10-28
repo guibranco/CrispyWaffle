@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;

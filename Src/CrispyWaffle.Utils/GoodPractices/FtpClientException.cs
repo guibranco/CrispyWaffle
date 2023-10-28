@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.Globalization;
 using System.Net;
 using System.Runtime.Serialization;

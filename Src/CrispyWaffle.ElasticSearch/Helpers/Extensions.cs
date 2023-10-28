@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.Linq.Expressions;
 using CrispyWaffle.Composition;
 using CrispyWaffle.ElasticSearch.Utils.Communications;

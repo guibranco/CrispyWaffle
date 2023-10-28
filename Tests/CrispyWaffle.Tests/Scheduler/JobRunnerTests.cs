@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
 using CrispyWaffle.Scheduler;
 using Xunit;
 

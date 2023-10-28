@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Redis.Utils.Communications;

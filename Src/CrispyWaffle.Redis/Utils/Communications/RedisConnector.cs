@@ -12,7 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using CrispyWaffle.Configuration;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core;

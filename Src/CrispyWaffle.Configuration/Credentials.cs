@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using CrispyWaffle.Composition;

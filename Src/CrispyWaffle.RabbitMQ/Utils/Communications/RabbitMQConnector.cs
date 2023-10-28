@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
 using RabbitMQ.Client;

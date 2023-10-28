@@ -12,6 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
 

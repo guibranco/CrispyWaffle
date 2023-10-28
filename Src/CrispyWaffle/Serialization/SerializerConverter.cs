@@ -1,3 +1,4 @@
+using System;
 using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Extensions;
@@ -7,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Text;
 using System.Xml;
 

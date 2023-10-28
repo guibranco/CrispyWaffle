@@ -1,4 +1,7 @@
-﻿using CrispyWaffle.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using CrispyWaffle.Extensions;
 using CrispyWaffle.Serialization;
 
 namespace CrispyWaffle.Log.Adapters

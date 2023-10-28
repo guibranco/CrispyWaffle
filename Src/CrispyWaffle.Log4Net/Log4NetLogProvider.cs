@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using CrispyWaffle.Log;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;

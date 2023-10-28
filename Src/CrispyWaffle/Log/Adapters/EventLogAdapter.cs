@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;

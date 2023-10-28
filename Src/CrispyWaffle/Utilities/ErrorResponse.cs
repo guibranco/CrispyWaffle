@@ -12,6 +12,8 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Collections.Generic;
+
 namespace CrispyWaffle.Utilities
 {
     /// <summary>

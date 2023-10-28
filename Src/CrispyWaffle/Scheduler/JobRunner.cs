@@ -12,6 +12,9 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
+
 namespace CrispyWaffle.Scheduler
 {
     /// <summary>

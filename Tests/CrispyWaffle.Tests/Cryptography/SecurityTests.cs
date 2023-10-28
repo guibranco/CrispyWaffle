@@ -1,4 +1,5 @@
-﻿using CrispyWaffle.Cryptography;
+﻿using System;
+using CrispyWaffle.Cryptography;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Cryptography;
