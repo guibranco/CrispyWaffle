@@ -23,7 +23,7 @@ public class SampleItemDto
 
 static void Main(string[] args)
 {
-    //Registering the RabbitMq connector as singleton lifecycle.
+    //Registering the RabbitMq connector as a singleton lifecycle.
     ServiceLocator.Register<RabbitMQConnector>(LifeStyle.SINGLETON);
 
     var data = new SampleItemDto 
@@ -43,7 +43,7 @@ static void Main(string[] args)
 }
 ```
 
-Send message to a RabbitMq queue:
+Send a message to a RabbitMq queue:
 
 ```cs
 
@@ -60,7 +60,7 @@ public class SampleItemDto
 
 static void Main(string[] args)
 {
-    //Registering the RabbitMq connector as singleton lifecycle.
+    //Registering the RabbitMq connector as a singleton lifecycle.
     ServiceLocator.Register<RabbitMQConnector>(LifeStyle.SINGLETON);
 
     var data = new SampleItemDto 
