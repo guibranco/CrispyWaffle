@@ -29,7 +29,7 @@ public class ConversionExtensionsTests
 {
     public ConversionExtensionsTests()
     {
-        var currentCulture = CultureInfo.GetCultureInfo("en_US").Name;
+        var currentCulture = CultureInfo.GetCultureInfo("en-US").Name;
         var ci = new CultureInfo(currentCulture)
         {
             NumberFormat =
