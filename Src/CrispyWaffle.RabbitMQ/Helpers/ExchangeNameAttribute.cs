@@ -18,9 +18,10 @@ namespace CrispyWaffle.RabbitMQ.Helpers
 {
     /// <summary>
     /// Class ExchangeNameAttribute. This class cannot be inherited.
-    /// Implements the <see cref="System.Attribute" />
+    /// Implements the <see cref="Attribute" />.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
+    /// <seealso cref="Attribute" />.
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class ExchangeNameAttribute : Attribute
     {
         /// <summary>

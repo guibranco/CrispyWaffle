@@ -21,7 +21,7 @@ using Nest;
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     /// <summary>
-    /// The Elastic Search connector class
+    /// The Elasticsearch connector class
     /// </summary>
     [ConnectionName("ElasticSearch")]
     public sealed class ElasticConnector

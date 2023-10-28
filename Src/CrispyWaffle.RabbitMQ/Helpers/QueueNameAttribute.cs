@@ -18,9 +18,10 @@ namespace CrispyWaffle.RabbitMQ.Helpers
 {
     /// <summary>
     /// Class QueueNameAttribute. This class cannot be inherited.
-    /// Implements the <see cref="System.Attribute" />
+    /// Implements the <see cref="Attribute" />.
     /// </summary>
-    /// <seealso cref="System.Attribute" />
+    /// <seealso cref="System.Attribute" />.
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class QueueNameAttribute : Attribute
     {
         /// <summary>

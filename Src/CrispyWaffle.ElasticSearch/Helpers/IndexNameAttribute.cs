@@ -17,7 +17,7 @@ using System;
 namespace CrispyWaffle.ElasticSearch.Helpers
 {
     /// <summary>
-    /// The index name attribute
+    /// The index name attribute.
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class)]

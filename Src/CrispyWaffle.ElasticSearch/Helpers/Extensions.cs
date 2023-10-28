@@ -23,17 +23,12 @@ namespace CrispyWaffle.ElasticSearch.Helpers
     /// <summary>
     /// The extensions class.
     /// </summary>
-    /// <summary>
-    /// Class Extensions.
-    /// </summary>
     public static class Extensions
     {
         /// <summary>
-        /// The connector
+        /// The connector.
         /// </summary>
-        /// <summary>
-        /// The connector
-        /// </summary>
+
         private static readonly ElasticConnector _connector =
             ServiceLocator.Resolve<ElasticConnector>();
 

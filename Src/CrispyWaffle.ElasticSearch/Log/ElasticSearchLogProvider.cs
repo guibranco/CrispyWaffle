@@ -27,42 +27,33 @@ using LogLevel = CrispyWaffle.Log.LogLevel;
 namespace CrispyWaffle.ElasticSearch.Log
 {
     /// <summary>
-    /// The Elastic Search log provider class.
+    /// The Elasticsearch log provider class.
     /// </summary>
     /// <seealso cref="ILogProvider" />
     public class ElasticSearchLogProvider : ILogProvider, IDisposable
     {
         /// <summary>
-        /// The level
-        /// </summary>
-        /// <summary>
-        /// The level
+        /// The level.
         /// </summary>
         private LogLevel _level;
 
         /// <summary>
-        /// The client
-        /// </summary>
-        /// <summary>
-        /// The client
+        /// The client.
         /// </summary>
         private readonly ElasticClient _client;
 
         /// <summary>
-        /// The index name
-        /// </summary>
-        /// <summary>
-        /// The index name
+        /// The index name.
         /// </summary>
         private readonly string _indexName;
 
         /// <summary>
-        /// The token source
+        /// The token source.
         /// </summary>
         private readonly CancellationTokenSource _tokenSource;
 
         /// <summary>
-        /// The log retention days
+        /// The log retention days.
         /// </summary>
         private readonly int _logRetentionDays;
 
@@ -132,7 +123,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// Serializes the specified level.
         /// </summary>
         /// <param name="level">The level.</param>
-        /// <param name="category">The category</param>
+        /// <param name="category">The category.</param>
         /// <param name="message">The message.</param>
         /// <param name="identifier">The identifier.</param>
         /// <returns>LogMessage.</returns>
@@ -175,7 +166,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Sets the log level of the instance
+        /// Sets the log level of the instance.
         /// </summary>
         /// <param name="level">The log level</param>
         public void SetLevel(LogLevel level) => _level = level;
@@ -198,10 +189,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message with error level
+        /// Logs the message with error level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Error(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Error))
@@ -310,10 +301,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message with debug level
+        /// Logs the message with debug level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Debug(string category, string message)
         {
             if (!_level.HasFlag(LogLevel.Debug))
@@ -327,10 +318,10 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level
+        /// Logs the message as a file/attachment with a file name/identifier with debug level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="content">The content to be stored</param>
+        /// <param name="category">The category.</param>
+        /// <param name="content">The content to be stored.</param>
         /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
         public void Debug(string category, string content, string identifier)
         {
@@ -349,7 +340,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// Logs the message as a file/attachment with a file name/identifier with debug level using a custom serializer or default.
         /// </summary>
         /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
-        /// <param name="category">The category</param>
+        /// <param name="category">The category.</param>
         /// <param name="content">The object to be serialized</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
         /// <param name="customFormat">(Optional) the custom serializer format</param>
