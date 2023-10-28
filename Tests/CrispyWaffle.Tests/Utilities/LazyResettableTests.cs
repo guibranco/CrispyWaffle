@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.Tests.Utilities
-{
-    using System;
-    using Fixtures;
-    using CrispyWaffle.Utilities;
-    using Xunit;
-    using Xunit.Abstractions;
+﻿using System;
+using CrispyWaffle.Tests.Fixtures;
+using CrispyWaffle.Utilities;
+using Xunit;
+using Xunit.Abstractions;
 
+namespace CrispyWaffle.Tests.Utilities
+{
     [Collection("Logged collection")]
     public class LazyResettableTests
     {

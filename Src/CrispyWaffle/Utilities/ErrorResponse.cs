@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.Collections.Generic;
+
 namespace CrispyWaffle.Utilities
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// The error response class.
     /// </summary>

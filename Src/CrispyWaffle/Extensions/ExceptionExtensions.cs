@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.Extensions
-{
-    using Log.Providers;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CrispyWaffle.Log.Providers;
 
+namespace CrispyWaffle.Extensions
+{
     /// <summary>
     /// The exception extension class.
     /// </summary>

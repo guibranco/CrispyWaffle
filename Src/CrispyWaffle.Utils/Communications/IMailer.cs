@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Net.Mail;
+using System.Threading.Tasks;
+
 namespace CrispyWaffle.Utils.Communications
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Mail;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// Interface IMailer
     /// Implements the <see cref="IDisposable" />

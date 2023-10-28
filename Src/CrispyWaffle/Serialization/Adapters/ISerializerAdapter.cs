@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Serialization.Adapters
-{
-    using System.Diagnostics.Contracts;
-    using System.IO;
-    using System.Text;
+﻿using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
 
+namespace CrispyWaffle.Serialization.Adapters
+{
     /// <summary>
     /// Interface for serializer.
     /// </summary>

@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.Tests.Serialization
 {
-    using CrispyWaffle.Serialization;
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-
     /// <summary>
     /// Class SampleJsonNotStrictClass.
     /// Implements the <see cref="SampleJsonClass" />

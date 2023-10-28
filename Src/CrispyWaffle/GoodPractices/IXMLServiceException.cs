@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.GoodPractices
-{
-    using System.Xml;
+﻿using System.Xml;
 
+namespace CrispyWaffle.GoodPractices
+{
     /// <summary>
     /// Interface xml service exception
     /// </summary>

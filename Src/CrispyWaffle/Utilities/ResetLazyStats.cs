@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using System;
+﻿using System;
 
+namespace CrispyWaffle.Utilities
+{
     public class ResetLazyStats
     {
         public ResetLazyStats(Type type)

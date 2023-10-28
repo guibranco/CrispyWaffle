@@ -1,13 +1,13 @@
-﻿namespace CrispyWaffle.Tests.Configuration
-{
-    using CrispyWaffle.Composition;
-    using CrispyWaffle.Configuration;
-    using CrispyWaffle.Cryptography;
-    using CrispyWaffle.Infrastructure;
-    using CrispyWaffle.Serialization;
-    using CrispyWaffle.Utilities;
-    using Xunit;
+﻿using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Cryptography;
+using CrispyWaffle.Infrastructure;
+using CrispyWaffle.Serialization;
+using CrispyWaffle.Utilities;
+using Xunit;
 
+namespace CrispyWaffle.Tests.Configuration
+{
     [Collection("Configuration collection")]
     public class CredentialTests
     {

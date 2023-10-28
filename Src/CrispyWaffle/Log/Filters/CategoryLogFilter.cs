@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Log.Filters
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace CrispyWaffle.Log.Filters
+{
     /// <summary>
     /// The category log filter class.
     /// </summary>

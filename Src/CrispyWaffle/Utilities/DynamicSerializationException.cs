@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
+namespace CrispyWaffle.Utilities
+{
     /// <summary>
     /// The dynamic serialization exception class.
     /// This class cannot be inherited.

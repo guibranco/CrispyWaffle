@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Log.Providers
-{
-    using System;
+﻿using System;
 
+namespace CrispyWaffle.Log.Providers
+{
     /// <summary>
     /// Class EventIdProvider.
     /// Implements the <see cref="CrispyWaffle.Log.Providers.IEventIdProvider" />

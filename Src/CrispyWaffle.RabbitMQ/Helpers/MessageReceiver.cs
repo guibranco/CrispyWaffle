@@ -12,17 +12,17 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using CrispyWaffle.Log;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
-    using CrispyWaffle.Log;
-    using Utils.Communications;
-    using global::RabbitMQ.Client;
-    using global::RabbitMQ.Client.Events;
-    using System;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// Class MessageReceiver.
     /// </summary>

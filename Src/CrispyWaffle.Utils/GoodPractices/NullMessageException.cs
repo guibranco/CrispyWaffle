@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Runtime.Serialization;
+
 namespace CrispyWaffle.Utils.GoodPractices
 {
-    using System.Runtime.Serialization;
-    using System;
-
     /// <summary>
     /// Class NullMessageException.
     /// Implements the <see cref="Exception" />

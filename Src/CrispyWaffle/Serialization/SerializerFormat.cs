@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Serialization
-{
-    using Attributes;
+﻿using CrispyWaffle.Attributes;
 
+namespace CrispyWaffle.Serialization
+{
     /// <summary>
     ///     Values that represent SerializerFormat.
     /// </summary>

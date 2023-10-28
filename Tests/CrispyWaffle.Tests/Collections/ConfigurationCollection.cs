@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using CrispyWaffle.Tests.Fixtures;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Collections
 {
-    using Fixtures;
-    using Xunit;
-
     /// <summary>
     /// Class ConfigurationCollection.
     /// Implements the <see cref="Xunit.ICollectionFixture{TFixture}" />

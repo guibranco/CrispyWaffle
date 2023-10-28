@@ -12,12 +12,12 @@
 // <summary></summary>
 // ************************************************************************
 
+using System.Text;
+using CrispyWaffle.Extensions;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Extensions
 {
-    using CrispyWaffle.Extensions;
-    using System.Text;
-    using Xunit;
-
     /// <summary>
     /// Class StringExtensionsTests.
     /// </summary>

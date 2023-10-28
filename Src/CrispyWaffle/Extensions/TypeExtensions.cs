@@ -1,13 +1,13 @@
-﻿namespace CrispyWaffle.Extensions
-{
-    using System.Collections.Generic;
-    using Attributes;
-    using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Reflection;
-    using Utilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using CrispyWaffle.Attributes;
+using CrispyWaffle.Utilities;
 
+namespace CrispyWaffle.Extensions
+{
     /// <summary>
     /// Class TypeExtensions.
     /// </summary>

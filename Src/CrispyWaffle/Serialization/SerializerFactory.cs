@@ -1,13 +1,13 @@
+using System;
+using System.Collections;
+using System.Diagnostics.Contracts;
+using System.Globalization;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Serialization.Adapters;
+using Newtonsoft.Json;
+
 namespace CrispyWaffle.Serialization
 {
-    using Adapters;
-    using Composition;
-    using Newtonsoft.Json;
-    using System;
-    using System.Collections;
-    using System.Diagnostics.Contracts;
-    using System.Globalization;
-
     /// <summary>
     /// The serializer factory class.
     /// </summary>

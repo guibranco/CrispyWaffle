@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Attributes
-{
-    using System;
-    using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
+namespace CrispyWaffle.Attributes
+{
     /// <summary>
     /// Class InternalValueAttribute. This class cannot be inherited.
     /// </summary>

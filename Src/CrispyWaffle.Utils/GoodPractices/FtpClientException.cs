@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Globalization;
+using System.Net;
+using System.Runtime.Serialization;
+
 namespace CrispyWaffle.Utils.GoodPractices
 {
-    using System;
-    using System.Globalization;
-    using System.Net;
-    using System.Runtime.Serialization;
-
     /// <summary>
     /// Class FtpClientException.
     /// Implements the <see cref="Exception" />

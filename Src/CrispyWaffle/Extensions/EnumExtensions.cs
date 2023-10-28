@@ -1,10 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using CrispyWaffle.Attributes;
+
 namespace CrispyWaffle.Extensions
 {
-    using Attributes;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     /// <summary>
     /// A Enum extensions class.
     /// </summary>

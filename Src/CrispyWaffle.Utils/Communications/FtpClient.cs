@@ -12,21 +12,19 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Net;
+using System.Text;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
+using CrispyWaffle.Utils.GoodPractices;
 
 namespace CrispyWaffle.Utils.Communications
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
-    using System.Text;
-    using System.Threading;
-    using Configuration;
-    using CrispyWaffle.Extensions;
-    using Log;
-    using GoodPractices;
-
     /// <summary>
     /// Class FtpClient.
     /// </summary>
@@ -152,7 +150,10 @@ namespace CrispyWaffle.Utils.Communications
                 using var response = (FtpWebResponse)request.GetResponse();
                 using (var responseStream = response.GetResponseStream())
                 {
-                    using var reader = new StreamReader(responseStream);
+                    using var reader = new StreamReader(
+                        responseStream
+                            ?? throw new InvalidOperationException("Null response stream")
+                    );
                     while (!reader.EndOfStream)
                     {
                         _files.Enqueue(reader.ReadLine());

@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.TemplateRendering.Repositories
-{
-    using System;
-    using System.Globalization;
-    using System.Resources;
+﻿using System;
+using System.Globalization;
+using System.Resources;
 
+namespace CrispyWaffle.TemplateRendering.Repositories
+{
     /// <summary>
     /// The resource template repository class.
     /// This class provides a template repository based on application resources

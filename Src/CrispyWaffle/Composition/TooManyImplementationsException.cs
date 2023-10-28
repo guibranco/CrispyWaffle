@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Composition
-{
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
+namespace CrispyWaffle.Composition
+{
     /// <summary>
     /// The too many implementations exception class.
     /// This exception is thrown when there is too many implementation of a type available for auto registration.

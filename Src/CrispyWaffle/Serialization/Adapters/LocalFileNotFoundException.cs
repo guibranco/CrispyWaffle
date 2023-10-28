@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Serialization.Adapters
-{
-    using System;
-    using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
+namespace CrispyWaffle.Serialization.Adapters
+{
     /// <summary>
     /// The local file not found exception class.
     /// </summary>

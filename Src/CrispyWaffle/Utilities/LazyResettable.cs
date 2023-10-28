@@ -1,10 +1,10 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using System;
-    using System.Diagnostics;
-    using System.Security.Permissions;
-    using System.Threading;
+﻿using System;
+using System.Diagnostics;
+using System.Security.Permissions;
+using System.Threading;
 
+namespace CrispyWaffle.Utilities
+{
     /// <summary>
     /// The resettable lazy class.
     /// This class is based on https://stackoverflow.com/a/6255398/1890220

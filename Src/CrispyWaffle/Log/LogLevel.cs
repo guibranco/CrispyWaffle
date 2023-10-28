@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Log
-{
-    using Attributes;
-    using System;
+﻿using System;
+using CrispyWaffle.Attributes;
 
+namespace CrispyWaffle.Log
+{
     /// <summary>
     /// Bitfield of flags for specifying log level.
     /// </summary>

@@ -12,13 +12,13 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Linq;
+using CrispyWaffle.Scheduler;
+using Xunit;
+
 namespace CrispyWaffle.Tests.Scheduler
 {
-    using CrispyWaffle.Scheduler;
-    using System;
-    using System.Linq;
-    using Xunit;
-
     /// <summary>
     /// Class CronSchedulerTests.
     /// </summary>

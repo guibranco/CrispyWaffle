@@ -1,15 +1,15 @@
+﻿using System.Threading;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using CrispyWaffle.Telemetry;
+
 namespace CrispyWaffle.Composition
 {
-    using System.Threading;
-    using Extensions;
-    using Log;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using Telemetry;
-
     /// <summary>
     /// The service locator class.
     /// </summary>
@@ -56,7 +56,8 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// The cancellation token source
         /// </summary>
-        private static readonly CancellationTokenSource _cancellationTokenSource = new();
+        private static readonly CancellationTokenSource _cancellationTokenSource =
+            new CancellationTokenSource();
 
         /// <summary>
         /// The not loaded assemblies

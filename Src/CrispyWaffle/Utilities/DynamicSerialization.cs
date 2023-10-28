@@ -1,18 +1,18 @@
-﻿namespace CrispyWaffle.Utilities
-{
-    using Extensions;
-    using Serialization;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-    using System.Dynamic;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using System.Security.Permissions;
-    using System.Xml;
-    using System.Xml.Schema;
-    using System.Xml.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Dynamic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Utilities
+{
     /// <summary>
     /// A dynamic serialization.
     /// </summary>

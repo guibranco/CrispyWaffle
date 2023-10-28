@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Globalization;
+using System.IO;
+using System.Net.Mail;
+using System.Reflection;
+
 namespace CrispyWaffle.Utils.Extensions
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Net.Mail;
-    using System.Reflection;
-
     /// <summary>
     /// Class MailMessageExtensions.
     /// </summary>

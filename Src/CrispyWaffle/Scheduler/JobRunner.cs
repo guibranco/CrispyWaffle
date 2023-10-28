@@ -12,11 +12,11 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Threading;
+
 namespace CrispyWaffle.Scheduler
 {
-    using System;
-    using System.Threading;
-
     /// <summary>
     /// Class JobRunner.
     /// Implements the <see cref="CrispyWaffle.Scheduler.IJobRunner" />

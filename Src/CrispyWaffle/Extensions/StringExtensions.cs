@@ -1,15 +1,15 @@
-﻿namespace CrispyWaffle.Extensions
-{
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.Contracts;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using Validations;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using CrispyWaffle.Validations;
+using Newtonsoft.Json.Linq;
 
+namespace CrispyWaffle.Extensions
+{
     /// <summary>
     /// Class StringExtensions.
     /// </summary>
@@ -34,7 +34,7 @@
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="search">The search.</param>
-        /// <param name="replace">The replace.</param>
+        /// <param name="replace">The replacement.</param>
         /// <returns>String.</returns>
         [Pure]
         public static string ReplaceFirst(this string input, string search, string replace)
@@ -180,7 +180,13 @@
         {
             return string.IsNullOrWhiteSpace(input)
                 ? string.Empty
-                : Regex.Replace(input.ToLower(), @"(?:^|\s|/|[0-9])[a-z]", m => m.Value.ToUpper());
+                : Regex.Replace(
+                    input.ToLower(),
+                    @"(?:^|\s|/|[0-9])[a-z]",
+                    m => m.Value.ToUpper(),
+                    RegexOptions.Compiled,
+                    TimeSpan.FromSeconds(5)
+                );
         }
 
         /// <summary>
@@ -509,7 +515,7 @@
 
             foreach (var let in source)
             {
-                inside = StripTagInternal(@let, inside, array, ref arrayIndex);
+                inside = StripTagInternal(let, inside, array, ref arrayIndex);
             }
 
             return new string(array, 0, arrayIndex);
@@ -524,13 +530,13 @@
         /// <param name="arrayIndex">Index of the array.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool StripTagInternal(
-            char @let,
+            char let,
             bool inside,
             char[] array,
             ref int arrayIndex
         )
         {
-            switch (@let)
+            switch (let)
             {
                 case '<':
                     return true;
@@ -542,7 +548,7 @@
                         return true;
                     }
 
-                    array[arrayIndex] = @let;
+                    array[arrayIndex] = let;
                     arrayIndex++;
 
                     break;

@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Log
-{
-    using Serialization;
-    using System;
+﻿using System;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Log
+{
     /// <summary>
     /// The log message class.
     /// </summary>

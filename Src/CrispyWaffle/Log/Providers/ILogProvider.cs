@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Log.Providers
-{
-    using System;
-    using Serialization;
+﻿using System;
+using CrispyWaffle.Serialization;
 
+namespace CrispyWaffle.Log.Providers
+{
     /// <summary>
     /// Log provider interface
     /// </summary>

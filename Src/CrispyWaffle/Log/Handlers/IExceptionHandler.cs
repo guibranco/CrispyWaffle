@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Log.Handlers
-{
-    using Providers;
-    using System;
-    using System.Threading;
+﻿using System;
+using System.Threading;
+using CrispyWaffle.Log.Providers;
 
+namespace CrispyWaffle.Log.Handlers
+{
     /// <summary>
     /// The the Exception handler interface.
     /// </summary>

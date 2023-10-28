@@ -12,12 +12,12 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.Configuration
 {
-    using Serialization;
-    using System.ComponentModel;
-    using System.Xml.Serialization;
-
     /// <summary>
     /// Class Connection. This class cannot be inherited.
     /// Implements the <see cref="CrispyWaffle.Configuration.IConnection" />

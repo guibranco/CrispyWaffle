@@ -1,11 +1,11 @@
-﻿namespace CrispyWaffle.Serialization.Adapters
-{
-    using Newtonsoft.Json;
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Text;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
 
+namespace CrispyWaffle.Serialization.Adapters
+{
     /// <summary>
     /// A serializer json.
     /// </summary>

@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Globalization;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Infrastructure;
+using Nest;
+
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
-    using System;
-    using System.Globalization;
-    using Configuration;
-    using Infrastructure;
-    using Nest;
-
     /// <summary>
     /// The Elastic Search connector class
     /// </summary>

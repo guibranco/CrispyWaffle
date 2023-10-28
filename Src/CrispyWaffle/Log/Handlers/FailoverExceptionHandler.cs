@@ -1,12 +1,13 @@
-﻿namespace CrispyWaffle.Log.Handlers
-{
-    using Composition;
-    using Providers;
-    using System;
-    using System.Globalization;
-    using System.Reflection;
-    using System.Text;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Log.Providers;
 
+namespace CrispyWaffle.Log.Handlers
+{
     /// <summary>
     /// The failover exception handler
     /// </summary>
@@ -33,7 +34,7 @@
                     .AppendFormat("Original exception: {0}\r\n", GetMessage(exception))
                     .AppendFormat("Current exception: {0}", GetMessage(ex));
 
-                System.IO.File.WriteAllText(
+                File.WriteAllText(
                     $@"fatal-{DateTime.Now:yyyyMMddHHmmss}.log",
                     builder.ToString(),
                     Encoding.UTF8

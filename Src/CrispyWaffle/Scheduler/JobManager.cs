@@ -12,14 +12,14 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Timers;
+using Timer = System.Timers.Timer;
+
 namespace CrispyWaffle.Scheduler
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Timers;
-    using Timer = System.Timers.Timer;
-
     /// <summary>
     /// Class JobManager.
     /// Implements the <see cref="CrispyWaffle.Scheduler.IJobManager" />
@@ -35,7 +35,7 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The job runners
         /// </summary>
-        private readonly List<IJobRunner> _jobRunners = new List<IJobRunner>();
+        private readonly List<IJobRunner> _jobRunners = new();
 
         private DateTime _lastRun = DateTime.Now;
 

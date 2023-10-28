@@ -13,11 +13,10 @@
 // ***********************************************************************
 
 using System;
+using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.TemplateRendering.Engines
 {
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Class MustachePatterns.
     /// </summary>

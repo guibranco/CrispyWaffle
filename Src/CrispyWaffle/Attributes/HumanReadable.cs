@@ -1,8 +1,8 @@
-﻿namespace CrispyWaffle.Attributes
-{
-    using System;
-    using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
+namespace CrispyWaffle.Attributes
+{
     /// <summary>
     ///     <para>This attribute is used to show a human readable text of the description of the field</para>
     /// </summary>

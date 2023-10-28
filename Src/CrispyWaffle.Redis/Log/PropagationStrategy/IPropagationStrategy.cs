@@ -1,9 +1,9 @@
-﻿namespace CrispyWaffle.Redis.Log.PropagationStrategy
-{
-    using StackExchange.Redis;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using StackExchange.Redis;
 
+namespace CrispyWaffle.Redis.Log.PropagationStrategy
+{
     /// <summary>
     /// The propagation strategy interface
     /// </summary>

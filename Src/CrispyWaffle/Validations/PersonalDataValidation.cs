@@ -1,10 +1,10 @@
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using CrispyWaffle.Extensions;
+
 namespace CrispyWaffle.Validations
 {
-    using System;
-    using System.Globalization;
-    using Extensions;
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// Class PersonalDataValidation.
     /// </summary>
@@ -13,12 +13,11 @@ namespace CrispyWaffle.Validations
         /// <summary>
         /// The same number document pattern
         /// </summary>
-        public static readonly Regex SameNumberDocumentPattern =
-            new(
-                @"(\d)\1{10}",
-                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
-                TimeSpan.FromSeconds(10)
-            );
+        public static readonly Regex SameNumberDocumentPattern = new Regex(
+            @"(\d)\1{10}",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+            TimeSpan.FromSeconds(10)
+        );
 
         /// <summary>
         /// Validates the email address.

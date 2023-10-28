@@ -12,19 +12,19 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log.Handlers;
+using CrispyWaffle.Log.Providers;
+using ElmahCore;
+
 namespace CrispyWaffle.Elmah
 {
-    using Composition;
-    using Extensions;
-    using Log.Handlers;
-    using Log.Providers;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading;
-    using ElmahCore;
-
     /// <summary>
     /// The Elmah exception handler class
     /// </summary>

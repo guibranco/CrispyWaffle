@@ -1,12 +1,12 @@
-﻿namespace CrispyWaffle.Cache
-{
-    using Composition;
-    using Log;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Log;
 
+namespace CrispyWaffle.Cache
+{
     /// <summary>
     /// The cache manager class.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Composition
-{
-    using Attributes;
+﻿using CrispyWaffle.Attributes;
 
+namespace CrispyWaffle.Composition
+{
     /// <summary>
     /// The life style of an instance in the service locator
     /// </summary>
