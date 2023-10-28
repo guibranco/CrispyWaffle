@@ -1,19 +1,19 @@
+using CrispyWaffle.Serialization.Adapters;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Text;
+using System.Xml;
+
 namespace CrispyWaffle.Serialization
 {
-    using Adapters;
-    using Composition;
-    using Extensions;
-    using Log;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Diagnostics.Contracts;
-    using System.IO;
-    using System.Text;
-    using System.Xml;
-
     /// <summary>
     /// A serializer extension.
     /// </summary>

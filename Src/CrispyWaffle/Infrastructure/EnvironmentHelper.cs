@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
-using CrispyWaffle.Validations;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -24,6 +24,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
+using CrispyWaffle.Validations;
 
 namespace CrispyWaffle.Infrastructure
 {
@@ -91,7 +92,7 @@ namespace CrispyWaffle.Infrastructure
         /// Gets the ip address external.
         /// </summary>
         /// <returns>System.String.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        [SuppressMessage(
             "Style",
             "IDE0063:Use simple 'using' statement",
             Justification = "Not compatible with .Net Standard 2.0"

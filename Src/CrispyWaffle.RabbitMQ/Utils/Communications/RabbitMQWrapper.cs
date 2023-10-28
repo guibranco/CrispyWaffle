@@ -47,7 +47,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         public void SendToExchange<T>(T item, string exchangeDeclareType = null)
             where T : class, IQueuing, new()
         {
-            var exchangeName = Extensions.GetExchangeName<T>();
+            var exchangeName = Helpers.Extensions.GetExchangeName<T>();
 
             using (var connection = _connector.ConnectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -78,7 +78,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         public void SendToQueue<T>(T item, bool queueDeclare = true)
             where T : class, IQueuing, new()
         {
-            var queueName = Extensions.GetQueueName<T>();
+            var queueName = Helpers.Extensions.GetQueueName<T>();
 
             using (var connection = _connector.ConnectionFactory.CreateConnection())
             using (var channel = connection.CreateModel())

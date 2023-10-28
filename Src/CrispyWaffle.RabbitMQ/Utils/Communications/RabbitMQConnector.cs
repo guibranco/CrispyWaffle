@@ -12,10 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 
+using System;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
-using System;
-using global::RabbitMQ.Client;
+using RabbitMQ.Client;
 using IConnection = CrispyWaffle.Configuration.IConnection;
 
 namespace CrispyWaffle.RabbitMQ.Utils.Communications

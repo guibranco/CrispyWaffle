@@ -18,7 +18,7 @@ using Nest;
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
     /// <summary>
-    /// The Elastic Search wrapper class.
+    /// The Elasticsearch wrapper class.
     /// </summary>
     public sealed class ElasticWrapper
     {
@@ -50,7 +50,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <returns><c>true</c> if exists, <c>false</c> otherwise.</returns>
         public bool IndexExists<T>()
             where T : class, IIndexable, new() =>
-            _elastic.Indices.Exists(Extensions.GetIndexName<T>()).Exists;
+            _elastic.Indices.Exists(Helpers.Extensions.GetIndexName<T>()).Exists;
 
         /// <summary>
         /// Gets the document.
@@ -69,7 +69,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <returns>T.</returns>
         public T GetDocumentWithResolver<T>(object id)
             where T : class, IIndexable, new() =>
-            _elastic.Get<T>(new GetRequest(Extensions.GetIndexName<T>(), (Id)id)).Source;
+            _elastic.Get<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id)).Source;
 
         /// <summary>
         /// Gets the document from.
@@ -96,7 +96,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="document">The document.</param>
         public void SetDocumentWithResolver<T>(T document)
             where T : class, IIndexable, new() =>
-            _elastic.Index(document, i => i.Index(Extensions.GetIndexName<T>()));
+            _elastic.Index(document, i => i.Index(Helpers.Extensions.GetIndexName<T>()));
 
         /// <summary>
         /// Sets the document to.
