@@ -95,14 +95,14 @@ after_build:
 - xcopy Tests\%SOLUTION_NAME%.Tests\*.json Coverage\
 - xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
 
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Core.zip" Build\Core
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Configuration.zip" Build\Configuration
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.ElasticSearch.zip" Build\ElasticSearch
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Elmah.zip" Build\Elmah
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Log4Net.zip" Build\Log4Net
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.RabbitMQ.zip" Build\RabbitMQ
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Redis.zip" Build\Redis
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Utils.zip" Build\Utils
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Core.%APPVEYOR_BUILD_VERSION%.zip" Build\Core
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.zip" Build\Configuration
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip" Build\ElasticSearch
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.zip" Build\Elmah
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.zip" Build\Log4Net
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip" Build\RabbitMQ
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.zip" Build\Redis
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.zip" Build\Utils
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
