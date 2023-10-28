@@ -5,9 +5,9 @@
 Events are a way to execute one or more actions based on a class (the event itself).
 Events are defined as a simple class, inherited from `IEvent` interface.
 
-Each event can be handled by one, two or infinite number of event handlers.
+Each event can be handled by one, two or an infinite number of event handlers.
 
-Event handler class inherit from `IEventHandler<TEvent>` interface and must implement the `Handle(TEvent evt)` method.
+The event handler class inherit from `IEventHandler<TEvent>` interface and must implement the `Handle(TEvent evt)` method.
 The `TEvent` generic type is the type of `IEvent` that will be handled.
 
 For example, the `HelloWorldEvent` class, defined below is a simple class without methods, properties or fields and is used to trigger `HelloWorldEventHandler`: 
@@ -39,7 +39,7 @@ EventsConsumer.Raise(new HelloWorldEvent());
 
 Each event handler can handle many kinds of events, just need to implement each interface and each method `Handle`.
 
-Event handling is currently done synchronously. There are plans to do async, issue [#XX](https://github.com/guibranco/CrispyWaffle/issues/XX).
+Event handling is currently done synchronously. There are plans to do an async, issue [#XX](https://github.com/guibranco/CrispyWaffle/issues/XX).
 
 ---
 
