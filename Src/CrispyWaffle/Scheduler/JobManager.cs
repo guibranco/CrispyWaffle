@@ -35,7 +35,7 @@ namespace CrispyWaffle.Scheduler
         /// <summary>
         /// The job runners
         /// </summary>
-        private readonly List<IJobRunner> _jobRunners = new List<IJobRunner>();
+        private readonly List<IJobRunner> _jobRunners = new();
 
         private DateTime _lastRun = DateTime.Now;
 

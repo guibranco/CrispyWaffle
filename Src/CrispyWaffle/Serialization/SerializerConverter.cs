@@ -55,7 +55,9 @@ namespace CrispyWaffle.Serialization
             var xml = new XmlDocument();
             try
             {
+#pragma warning disable S2259
                 instance._formatter.Serialize(instance._obj, out stream);
+#pragma warning restore S2259
                 xml.Load(stream);
             }
             catch (InvalidOperationException e)
@@ -97,7 +99,7 @@ namespace CrispyWaffle.Serialization
 
                     return typeof(IEnumerable).IsAssignableFrom(type)
                         ? JArray.Load(jsonReader)
-                        : (JToken)JObject.Load(jsonReader);
+                        : JObject.Load(jsonReader);
                 }
             }
             catch (InvalidOperationException e)
