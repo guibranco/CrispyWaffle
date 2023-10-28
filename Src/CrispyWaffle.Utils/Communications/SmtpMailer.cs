@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -43,12 +42,12 @@ namespace CrispyWaffle.Utils.Communications
     public class SmtpMailer : IMailer
     {
         /// <summary>
-        /// The <see cref="SmtpClient" />
+        /// The <see cref="SmtpClient" />.
         /// </summary>
         private readonly SmtpClient _client;
 
         /// <summary>
-        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />
+        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />.
         /// </summary>
         private readonly MailMessage _message;
 
@@ -58,12 +57,12 @@ namespace CrispyWaffle.Utils.Communications
         private bool _disposed;
 
         /// <summary>
-        /// True if message is already defined
+        /// True if message is already defined.
         /// </summary>
         private bool _messageSet;
 
         /// <summary>
-        /// The HTML version of the message
+        /// The HTML version of the message.
         /// </summary>
         private string _htmlMessage;
 
@@ -73,12 +72,12 @@ namespace CrispyWaffle.Utils.Communications
         private readonly SmtpMailerOptions _options;
 
         /// <summary>
-        /// Initializes a new instance of Mailer class.
+        /// Initializes a new instance of the <see cref="SmtpMailer"/> class.
         /// </summary>
-        /// <param name="connection"><see cref="IConnection" /></param>
-        /// <param name="options"><see cref="SmtpMailerOptions" /></param>
-        /// <exception cref="System.ArgumentNullException">connection</exception>
-        /// <exception cref="System.ArgumentNullException">options</exception>
+        /// <param name="connection">The connection.</param>
+        /// <param name="options">The options.</param>
+        /// <exception cref="ArgumentNullException">Throws when the connection is null.</exception>
+        /// <exception cref="ArgumentNullException">Throws when the options are null.</exception>
         public SmtpMailer(IConnection connection, SmtpMailerOptions options)
         {
             if (connection == null)

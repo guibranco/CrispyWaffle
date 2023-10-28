@@ -12,7 +12,7 @@ namespace CrispyWaffle.Serialization.Adapters;
 public abstract class BaseSerializerAdapter : ISerializerAdapter
 {
     /// <summary>
-    /// Deserialize a stream to a generic type
+    /// Deserialize a stream to a generic type.
     /// </summary>
     /// <typeparam name="T">Generic type parameter</typeparam>
     /// <param name="stream">The serialized object as stream.</param>

@@ -16,10 +16,10 @@ namespace CrispyWaffle.Serialization
         /// <summary>
         /// Gets the type of the serializer from.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the class.</typeparam>
         /// <param name="obj">The object.</param>
         /// <returns>SerializerConverter&lt;T&gt;.</returns>
-        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        /// <exception cref="InvalidOperationException">Invalid array subtype.</exception>
         /// <exception cref="InvalidOperationException">The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}</exception>
         [Pure]
         private static SerializerConverter<T> GetSerializerFromType<T>(T obj)

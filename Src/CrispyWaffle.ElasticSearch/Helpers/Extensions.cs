@@ -34,7 +34,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// Gets the name of the index.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to be indexed.</typeparam>
         /// <returns>System.String.</returns>
         public static string GetIndexName<T>()
             where T : class, IIndexable, new()
@@ -51,7 +51,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// Adds the alias.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to be indexed.</typeparam>
         /// <param name="index">The index.</param>
         /// <param name="alias">The alias.</param>
         /// <param name="indexName">Name of the index.</param>
@@ -73,7 +73,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// Deletes the specified index.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to be indexed.</typeparam>
         /// <param name="index">The index.</param>
         /// <returns>T.</returns>
         public static T Delete<T>(this T index)
@@ -91,7 +91,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// Automatics the map.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to be indexed.</typeparam>
         /// <param name="index">The index.</param>
         /// <returns>T.</returns>
         public static T AutoMap<T>(this T index)
@@ -112,7 +112,7 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <summary>
         /// Deletes the by query.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to be indexed.</typeparam>
         /// <param name="index">The index.</param>
         /// <param name="field">The field.</param>
         /// <param name="indexPattern">The index pattern.</param>

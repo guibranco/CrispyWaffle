@@ -29,11 +29,15 @@ public class ConversionExtensionsTests
 {
     public ConversionExtensionsTests()
     {
-        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
-        var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+        var currentCulture = CultureInfo.GetCultureInfo("en_US").Name;
         var ci = new CultureInfo(currentCulture)
         {
-            NumberFormat = { NumberDecimalSeparator = ",", NumberGroupSeparator = " " },
+            NumberFormat =
+            {
+                NumberDecimalSeparator = ",",
+                NumberGroupSeparator = " ",
+                CurrencySymbol = "$"
+            },
             DateTimeFormat = { DateSeparator = "/" }
         };
         Thread.CurrentThread.CurrentCulture = ci;
@@ -368,10 +372,10 @@ public class ConversionExtensionsTests
     /// <param name="input">The input.</param>
     /// <param name="expected">The expected.</param>
     [Theory]
-    [InlineData(1, "$ 1,00")]
-    [InlineData(1000, "$ 1.000,00")]
-    [InlineData(11.33, "$ 11,33")]
-    [InlineData(6547654.477, "$ 6.547.654,48")]
+    [InlineData(1, "$1.00")]
+    [InlineData(1000, "$1,000.00")]
+    [InlineData(11.33, "$11.33")]
+    [InlineData(6547654.477, "$6,547,654.48")]
     [InlineData(0, "No value")]
     public void ToMonetary_ValidInput_ReturnsValidString(decimal input, string expected)
     {
