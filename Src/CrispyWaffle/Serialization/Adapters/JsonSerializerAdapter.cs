@@ -66,7 +66,7 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Deserializes the serialized object to a generic type
+        /// Deserializes the serialized object to a generic type.
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="serialized">The serialized.</param>

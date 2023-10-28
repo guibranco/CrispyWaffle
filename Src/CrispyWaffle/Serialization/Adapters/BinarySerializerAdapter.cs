@@ -52,7 +52,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="file">The file.</param>
         /// <returns>A T.</returns>
-        /// <exception cref="ArgumentNullException">file - Supply a valid filename</exception>
+        /// <exception cref="ArgumentNullException">file - Supply a valid filename.</exception>
         /// <exception cref="LocalFileNotFoundException">Throws when the file doesn't exist.</exception>
         [Pure]
         public T Load<T>(string file)
