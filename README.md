@@ -140,6 +140,13 @@ The changelog is available [here](https://guibranco.github.io/CrispyWaffle/chang
             <br />
             <sub><b>deepsource-autofix[bot]</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/stack-file[bot]">
+            <img src="https://avatars.githubusercontent.com/in/408123?v=4" width="100;" alt="stack-file[bot]"/>
+            <br />
+            <sub><b>stack-file[bot]</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: snyk-bot,bots -end -->
