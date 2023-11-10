@@ -23,7 +23,7 @@ public class JsonSerializerAdapterTests
 
         // Assert
         var content = File.ReadAllText(fileName);
-        content.Replace("\r\n","\n").Should().Be(GetStringContent());
+        content.Replace("\r\n", "\n").Should().Be(GetStringContent());
     }
 
     [Fact]
