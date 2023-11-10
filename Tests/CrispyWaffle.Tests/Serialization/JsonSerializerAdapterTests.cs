@@ -23,7 +23,7 @@ public class JsonSerializerAdapterTests
 
         // Assert
         var content = File.ReadAllText(fileName);
-        content.Should().Be(GetStringContent());
+        content.Replace("\r\n","\n").Should().Be(GetStringContent());
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public class JsonSerializerAdapterTests
     }
 
     private static string GetStringContent() =>
-        "{\r\n  \"Id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"Date\": \"2023-10-28T10:15:00\",\r\n  \"ListStrong\": [\r\n    {\r\n      \"CorrelationId\": \"00000000-0000-0000-0000-000000000000\",\r\n      \"SomeText\": \"Test\",\r\n      \"Date\": \"2023-10-28T10:15:00\"\r\n    }\r\n  ]\r\n}";
+        "{\n  \"Id\": \"00000000-0000-0000-0000-000000000000\",\n  \"Date\": \"2023-10-28T10:15:00\",\n  \"ListStrong\": [\n    {\n      \"CorrelationId\": \"00000000-0000-0000-0000-000000000000\",\n      \"SomeText\": \"Test\",\n      \"Date\": \"2023-10-28T10:15:00\"\n    }\n  ]\n}";
 
     private static SampleJsonClass GenerateSampleData() =>
         new()
