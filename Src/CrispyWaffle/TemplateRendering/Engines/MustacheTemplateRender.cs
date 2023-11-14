@@ -56,7 +56,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.ConditionalPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.ConditionalPattern
+                : MustachePatterns
+                    .ConditionalPattern
                     .Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
@@ -124,7 +125,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.WithPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.WithPattern
+                : MustachePatterns
+                    .WithPattern
                     .Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
@@ -166,7 +168,8 @@ namespace CrispyWaffle.TemplateRendering.Engines
         {
             return !MustachePatterns.LoopPattern.IsMatch(template)
                 ? template
-                : MustachePatterns.LoopPattern
+                : MustachePatterns
+                    .LoopPattern
                     .Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
@@ -247,10 +250,9 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 {
                     var properties = ParseObject(value);
                     return current
-                        + MustachePatterns.PropertyPattern.Replace(
-                            pattern,
-                            patch => RenderProperties(patch, properties)
-                        );
+                        + MustachePatterns
+                            .PropertyPattern
+                            .Replace(pattern, patch => RenderProperties(patch, properties));
                 }
             );
             return template.Replace(match.Value, result);
@@ -282,10 +284,9 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 return template;
             }
 
-            template = MustachePatterns.PropertyPattern.Replace(
-                template,
-                match => RenderProperties(match, _properties)
-            );
+            template = MustachePatterns
+                .PropertyPattern
+                .Replace(template, match => RenderProperties(match, _properties));
             return template;
         }
 

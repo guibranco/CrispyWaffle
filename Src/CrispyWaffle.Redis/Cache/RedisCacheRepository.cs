@@ -276,7 +276,8 @@ namespace CrispyWaffle.Redis.Cache
                     _cacheClient.Db0.HashExistsAsync(key, subKey, CommandFlags.PreferReplica).Result
                 )
                 {
-                    return _cacheClient.Db0
+                    return _cacheClient
+                        .Db0
                         .HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
                         .Result;
                 }
@@ -343,7 +344,8 @@ namespace CrispyWaffle.Redis.Cache
             value = default;
             try
             {
-                value = _cacheClient.Db0
+                value = _cacheClient
+                    .Db0
                     .HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
                     .Result;
                 return _cacheClient.Db0.HashExistsAsync(key, subKey).Result;
