@@ -1,11 +1,11 @@
 ﻿using System;
-using CrispyWaffle.Extensions;
-using CrispyWaffle.Log;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
 using CrispyWaffle.Telemetry;
 
 namespace CrispyWaffle.Composition
@@ -69,7 +69,8 @@ namespace CrispyWaffle.Composition
         static ServiceLocator()
         {
             LoadMissingAssemblies();
-            TypesCache = AppDomain.CurrentDomain
+            TypesCache = AppDomain
+                .CurrentDomain
                 .GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .Where(

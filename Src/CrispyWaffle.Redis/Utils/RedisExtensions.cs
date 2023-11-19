@@ -29,7 +29,8 @@ namespace CrispyWaffle.Redis.Utils
 
             _connector.DefaultDatabase.KeyExpire(cacheKey, ttl, CommandFlags.FireAndForget);
 
-            return _connector.DefaultDatabase
+            return _connector
+                .DefaultDatabase
                 .StringGet(cacheKey, CommandFlags.PreferReplica)
                 .ToString()
                 .ToInt32();

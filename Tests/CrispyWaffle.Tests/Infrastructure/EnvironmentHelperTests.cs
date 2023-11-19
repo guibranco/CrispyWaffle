@@ -57,10 +57,9 @@ public class EnvironmentHelperTests
 
         Assert.Equal(version, EnvironmentHelper.Version);
 
-        var versionDate = new FileInfo(assembly.Location).LastWriteTime.ToString(
-            @"dd/MM/yyyy HH:mm:ss",
-            CultureInfo.InvariantCulture
-        );
+        var versionDate = new FileInfo(assembly.Location)
+            .LastWriteTime
+            .ToString(@"dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
 
         Assert.Equal(versionDate, EnvironmentHelper.VersionDate);
     }

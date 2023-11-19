@@ -102,7 +102,8 @@ namespace CrispyWaffle.Cryptography
                 decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
             }
 
-            return Encoding.UTF8
+            return Encoding
+                .UTF8
                 .GetString(plainTextBytes, 0, decryptedByteCount)
                 .TrimEnd("\0".ToCharArray());
         }
