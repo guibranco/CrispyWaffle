@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ProjectGuid>C86C7297-1E8D-4611-B01A-08FC4FDF1D62</ProjectGuid>    
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>    
+    <ProjectGuid>C86C7297-1E8D-4611-B01A-08FC4FDF1D62</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0; net7.0; net8.0</TargetFrameworks>
     <Description>The CrispyWaffle Utils package</Description>
-    <PackageTags>toolkit sdk framework library lib utils communications mail smtp ftp</PackageTags>    
-    <PackageReleaseNotes>Utils release</PackageReleaseNotes>    
+    <PackageTags>toolkit sdk framework library lib utils communications mail smtp ftp</PackageTags>
+    <PackageReleaseNotes>Utils release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
