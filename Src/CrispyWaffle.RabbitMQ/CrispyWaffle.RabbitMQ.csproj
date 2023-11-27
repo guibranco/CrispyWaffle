@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>D0B119A8-91C1-4350-AB68-CDD831D2F9BE</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0; net7.0; net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
     <Description>The CrispyWaffle.RabbitMQ package</Description>
     <PackageTags>toolkit sdk framework library lib rabbitmq queueing queue message broker messaging log provider</PackageTags>
     <PackageReleaseNotes>RabbitMQ release</PackageReleaseNotes>
