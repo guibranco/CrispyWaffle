@@ -25,6 +25,8 @@ init:
 - SET PATH=%JAVA_HOME%\bin;%PATH%
 
 before_build:
+- ps: (New-Object System.Net.WebClient).DownloadFile('https://dot.net/v1/dotnet-install.ps1', "$env:appveyor_build_folder\dotnet-install.ps1")
+- ps: ./dotnet-install.ps1 -Channel LTS
 - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
 - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
 - ps: $env:SONAR_ORGANIZATION = "$env:APPVEYOR_REPO_NAME" -replace "/.*$","-github"
