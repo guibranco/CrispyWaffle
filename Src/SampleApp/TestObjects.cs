@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using CrispyWaffle.Events;
 using CrispyWaffle.Log;
 
-namespace CrispyWaffle.Tests.Events;
+namespace SampleApp;
 
 /// <summary>
 /// Class TestObjects.
