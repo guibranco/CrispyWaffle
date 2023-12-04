@@ -30,8 +30,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.ElasticSearch"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Utils", "Src\CrispyWaffle.Utils\CrispyWaffle.Utils.csproj", "{C86C7297-1E8D-4611-B01A-08FC4FDF1D62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp", "Src\SampleApp\SampleApp.csproj", "{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,10 +72,6 @@ Global
 		{C86C7297-1E8D-4611-B01A-08FC4FDF1D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C86C7297-1E8D-4611-B01A-08FC4FDF1D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C86C7297-1E8D-4611-B01A-08FC4FDF1D62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,7 +86,6 @@ Global
 		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC} = {AA14B952-E519-4983-BF49-E106490AAF1F}
 		{A4C3BBE2-F33F-4752-97C4-206D7C4D6DDD} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
 		{C86C7297-1E8D-4611-B01A-08FC4FDF1D62} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
-		{AAFA0E8C-9F2A-4C34-B0C3-9EDA31D1AB0A} = {2FD912BD-34A5-4F9E-8192-CD7AEFD572B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FAE960DB-B996-4FB3-858C-61BA7C7CD86E}
