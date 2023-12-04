@@ -13,6 +13,7 @@
 // ***********************************************************************
 
 using System;
+using System.Threading.Tasks;
 using CrispyWaffle.Events;
 using Xunit;
 
@@ -31,6 +32,17 @@ public class EventsTests
     {
         var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
         EventsConsumer.Raise(@event);
+        Assert.Equal("Sample test", @event.Text);
+    }
+
+    /// <summary>
+    /// Defines the test method ValidateRaiseAsyncEvent.
+    /// </summary>
+    [Fact]
+    public async Task ValidateRaiseEventAsync()
+    {
+        var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
+        await EventsConsumer.RaiseAsync(@event);
         Assert.Equal("Sample test", @event.Text);
     }
 
