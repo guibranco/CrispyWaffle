@@ -25,10 +25,13 @@ namespace CrispyWaffle.Serialization.Adapters
         public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
         {
+#pragma warning disable SYSLIB0011
             var formatter = new BinaryFormatter();
 #pragma warning disable S5773
+
             var result = formatter.Deserialize(stream);
 #pragma warning restore S5773
+
             stream.Close();
             return (T)result;
         }
