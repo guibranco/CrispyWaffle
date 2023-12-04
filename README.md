@@ -111,6 +111,13 @@ The changelog is available [here](https://guibranco.github.io/CrispyWaffle/chang
             <br />
             <sub><b>Yousef</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/akhtareimon">
+            <img src="https://avatars.githubusercontent.com/u/15952495?v=4" width="100;" alt="akhtareimon"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
