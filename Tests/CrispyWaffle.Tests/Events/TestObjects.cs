@@ -87,15 +87,11 @@ internal class TestObjects
         /// <param name="args">The arguments.</param>
         public async Task HandleAsync(TestDoneEvent args)
         {
-            await Task.Run(() =>
-            {
-                LogConsumer.Info(
-                    @"Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}",
-                    args.Identifier,
-                    args.Text,
-                    args.CreatedDateTIme
-                );
-            });
+            await Task.Run(() => LogConsumer.Info(
+                @"Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}",
+                args.Identifier,
+                args.Text,
+                args.CreatedDateTIme));
         }
     }
 

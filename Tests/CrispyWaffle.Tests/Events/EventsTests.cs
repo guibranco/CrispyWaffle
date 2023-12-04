@@ -39,7 +39,7 @@ public class EventsTests
     /// Defines the test method ValidateRaiseAsyncEvent.
     /// </summary>
     [Fact]
-    public async Task ValidateRaiseAsyncEvent()
+    public async Task ValidateRaiseEventAsync()
     {
         var @event = new TestObjects.TestDoneEvent(Guid.NewGuid(), @"Sample test");
         await EventsConsumer.RaiseAsync(@event);

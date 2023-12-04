@@ -46,7 +46,6 @@ namespace CrispyWaffle.Events
                          $"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}"
                         );
                     handler.HandleAsync(@event);
-
                 }
             });
         }
