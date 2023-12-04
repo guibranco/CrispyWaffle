@@ -43,8 +43,8 @@ namespace CrispyWaffle.Events
                 foreach (var handler in handlers)
                 {
                     LogConsumer.Trace(
-                         $"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}"
-                        );
+                        $"Calling {handler.GetType().FullName} for event {@event.GetType().FullName}"
+                    );
                     handler.HandleAsync(@event);
                 }
             });
