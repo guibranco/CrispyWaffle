@@ -207,15 +207,13 @@ namespace CrispyWaffle.Utils.Communications
                 return;
             }
 
-            _message
-                .AlternateViews
-                .Add(
-                    AlternateView.CreateAlternateViewFromString(
-                        htmlMessage,
-                        Encoding.UTF8,
-                        MediaTypeNames.Text.Html
-                    )
-                );
+            _message.AlternateViews.Add(
+                AlternateView.CreateAlternateViewFromString(
+                    htmlMessage,
+                    Encoding.UTF8,
+                    MediaTypeNames.Text.Html
+                )
+            );
             _htmlMessage = htmlMessage;
         }
 
@@ -313,9 +311,10 @@ namespace CrispyWaffle.Utils.Communications
                 eml = await sr.ReadToEndAsync().ConfigureAwait(false);
             }
 
-            var date = DateTime
-                .Now
-                .ToString(@"yyyy-MM-dd HH.mm.ss.ffffff", CultureInfo.InvariantCulture);
+            var date = DateTime.Now.ToString(
+                @"yyyy-MM-dd HH.mm.ss.ffffff",
+                CultureInfo.InvariantCulture
+            );
 
             if (_options.EnableDebug)
             {

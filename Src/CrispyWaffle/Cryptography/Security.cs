@@ -103,8 +103,7 @@ namespace CrispyWaffle.Cryptography
             }
 
             return Encoding
-                .UTF8
-                .GetString(plainTextBytes, 0, decryptedByteCount)
+                .UTF8.GetString(plainTextBytes, 0, decryptedByteCount)
                 .TrimEnd("\0".ToCharArray());
         }
 

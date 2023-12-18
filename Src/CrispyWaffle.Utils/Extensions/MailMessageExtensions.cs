@@ -34,9 +34,9 @@ namespace CrispyWaffle.Utils.Extensions
         /// <summary>
         /// The mail writer
         /// </summary>
-        private static readonly Type _mailWriter = typeof(SmtpClient)
-            .Assembly
-            .GetType(@"System.Net.Mail.MailWriter");
+        private static readonly Type _mailWriter = typeof(SmtpClient).Assembly.GetType(
+            @"System.Net.Mail.MailWriter"
+        );
 
         /// <summary>
         /// The mail writer constructor

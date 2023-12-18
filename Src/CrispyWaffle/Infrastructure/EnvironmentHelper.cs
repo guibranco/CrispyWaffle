@@ -48,9 +48,10 @@ namespace CrispyWaffle.Infrastructure
             Version = !string.IsNullOrWhiteSpace(ExecutionPath)
                 ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
                 : string.Empty;
-            VersionDate = new FileInfo(ExecutionPath)
-                .LastWriteTime
-                .ToString(@"dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(
+                @"dd/MM/yyyy HH:mm:ss",
+                CultureInfo.InvariantCulture
+            );
             OperationalSystemVersion =
                 $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
             ProcessId = Process.GetCurrentProcess().Id;

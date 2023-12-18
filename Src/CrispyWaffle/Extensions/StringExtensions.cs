@@ -242,8 +242,7 @@ namespace CrispyWaffle.Extensions
 
             var bytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(input);
             return Encoding
-                .UTF8
-                .GetString(bytes)
+                .UTF8.GetString(bytes)
                 .Replace(@"-", string.Empty)
                 .Replace(@".", string.Empty)
                 .RemoveExcessSpaces()

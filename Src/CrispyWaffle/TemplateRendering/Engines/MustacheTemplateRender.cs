@@ -57,8 +57,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return !MustachePatterns.ConditionalPattern.IsMatch(template)
                 ? template
                 : MustachePatterns
-                    .ConditionalPattern
-                    .Matches(template)
+                    .ConditionalPattern.Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => EvaluateConditional(match, current));
@@ -126,8 +125,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return !MustachePatterns.WithPattern.IsMatch(template)
                 ? template
                 : MustachePatterns
-                    .WithPattern
-                    .Matches(template)
+                    .WithPattern.Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessWith(match, current));
@@ -169,8 +167,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return !MustachePatterns.LoopPattern.IsMatch(template)
                 ? template
                 : MustachePatterns
-                    .LoopPattern
-                    .Matches(template)
+                    .LoopPattern.Matches(template)
                     // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessLoop(match, current));
@@ -250,9 +247,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 {
                     var properties = ParseObject(value);
                     return current
-                        + MustachePatterns
-                            .PropertyPattern
-                            .Replace(pattern, patch => RenderProperties(patch, properties));
+                        + MustachePatterns.PropertyPattern.Replace(
+                            pattern,
+                            patch => RenderProperties(patch, properties)
+                        );
                 }
             );
             return template.Replace(match.Value, result);
@@ -284,9 +282,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 return template;
             }
 
-            template = MustachePatterns
-                .PropertyPattern
-                .Replace(template, match => RenderProperties(match, _properties));
+            template = MustachePatterns.PropertyPattern.Replace(
+                template,
+                match => RenderProperties(match, _properties)
+            );
             return template;
         }
 
