@@ -70,8 +70,7 @@ namespace CrispyWaffle.Composition
         {
             LoadMissingAssemblies();
             TypesCache = AppDomain
-                .CurrentDomain
-                .GetAssemblies()
+                .CurrentDomain.GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .Where(
                     a =>
