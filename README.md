@@ -99,6 +99,13 @@ The changelog is available [here](https://guibranco.github.io/CrispyWaffle/chang
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/tiagoschaffer">
+            <img src="https://avatars.githubusercontent.com/u/12534089?v=4" width="100;" alt="tiagoschaffer"/>
+            <br />
+            <sub><b>Tiago Schäffer</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/viktoriussuwandi">
             <img src="https://avatars.githubusercontent.com/u/68414300?v=4" width="100;" alt="viktoriussuwandi"/>
             <br />
