@@ -7,7 +7,7 @@ The CrispyWaffle project - a toolkit for .NET projects.
 
 ![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/logo.png)
 
-Documentation of the project: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
+Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ---
 
