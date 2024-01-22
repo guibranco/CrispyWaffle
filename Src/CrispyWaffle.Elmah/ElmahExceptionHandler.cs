@@ -93,8 +93,8 @@ namespace CrispyWaffle.Elmah
             );
 
             foreach (
-                var additionalProvider in _additionalProviders.Where(
-                    p => p.Item2 == ExceptionLogType.Full
+                var additionalProvider in _additionalProviders.Where(p =>
+                    p.Item2 == ExceptionLogType.Full
                 )
             )
             {

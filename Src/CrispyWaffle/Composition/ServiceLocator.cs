@@ -72,11 +72,9 @@ namespace CrispyWaffle.Composition
             TypesCache = AppDomain
                 .CurrentDomain.GetAssemblies()
                 .SelectMany(a => a.GetTypes())
-                .Where(
-                    a =>
-                        a != null
-                        && a.Name.IndexOf(@"_canon", StringComparison.InvariantCultureIgnoreCase)
-                            == -1
+                .Where(a =>
+                    a != null
+                    && a.Name.IndexOf(@"_canon", StringComparison.InvariantCultureIgnoreCase) == -1
                 )
                 .ToList();
             var cancellationToken = typeof(CancellationToken);
@@ -526,13 +524,9 @@ namespace CrispyWaffle.Composition
         )
         {
             var candidates = constructors
-                .Where(
-                    c =>
-                        c.GetParameters()
-                            .All(
-                                p =>
-                                    !p.ParameterType.IsSimpleType() && p.ParameterType != parentType
-                            )
+                .Where(c =>
+                    c.GetParameters()
+                        .All(p => !p.ParameterType.IsSimpleType() && p.ParameterType != parentType)
                 )
                 .ToList();
 
@@ -545,22 +539,20 @@ namespace CrispyWaffle.Composition
                 default:
                     return candidates
                         .OrderByDescending(c => c.GetParameters().Length)
-                        .First(
-                            c =>
-                                c.GetParameters()
-                                    .Select((p, i) => new { p.ParameterType, Index = i })
-                                    .All(
-                                        p =>
-                                            (
-                                                parentType == null
-                                                    ? GetInstance(p.ParameterType)
-                                                    : GetInstanceWithContext(
-                                                        p.ParameterType,
-                                                        parentType,
-                                                        p.Index
-                                                    )
-                                            ) != null
-                                    )
+                        .First(c =>
+                            c.GetParameters()
+                                .Select((p, i) => new { p.ParameterType, Index = i })
+                                .All(p =>
+                                    (
+                                        parentType == null
+                                            ? GetInstance(p.ParameterType)
+                                            : GetInstanceWithContext(
+                                                p.ParameterType,
+                                                parentType,
+                                                p.Index
+                                            )
+                                    ) != null
+                                )
                         );
             }
         }
@@ -574,11 +566,10 @@ namespace CrispyWaffle.Composition
         private static object TryAutoRegistration(Type type)
         {
             var types = TypesCache
-                .Where(
-                    t =>
-                        !t.IsAbstract
-                        && type.IsAssignableFrom(t)
-                        && t.GetConstructors().Any(c => !c.GetParameters().Any())
+                .Where(t =>
+                    !t.IsAbstract
+                    && type.IsAssignableFrom(t)
+                    && t.GetConstructors().Any(c => !c.GetParameters().Any())
                 )
                 .ToList();
             if (types.Count == 0)
@@ -713,13 +704,11 @@ namespace CrispyWaffle.Composition
             var type = typeof(IDisposable);
             var instances = _registrationsCalls
                 .Where(call => call.Value > 0)
-                .SelectMany(
-                    call =>
-                        _registrations.Where(
-                            implementation =>
-                                type.IsAssignableFrom(implementation.Key)
-                                && call.Key.IsAssignableFrom(implementation.Key)
-                        )
+                .SelectMany(call =>
+                    _registrations.Where(implementation =>
+                        type.IsAssignableFrom(implementation.Key)
+                        && call.Key.IsAssignableFrom(implementation.Key)
+                    )
                 )
                 .ToList();
 
