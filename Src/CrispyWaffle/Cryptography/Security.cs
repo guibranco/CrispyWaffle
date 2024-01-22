@@ -144,7 +144,7 @@ namespace CrispyWaffle.Cryptography
         private static Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms =
             new Dictionary<HashAlgorithmType, HashAlgorithm>
             {
-                { HashAlgorithmType.Md5, new MD5CryptoServiceProvider() },
+                { HashAlgorithmType.Md5, MD5.Create() },
                 { HashAlgorithmType.Sha1, SHA1.Create() },
                 { HashAlgorithmType.Sha256, SHA256.Create() },
                 { HashAlgorithmType.Sha384, SHA384.Create() },
