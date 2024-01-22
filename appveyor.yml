@@ -7,7 +7,7 @@ environment:
   SONAR_TOKEN: 
     secure: xLias5AyRmfrqKEmZIn9+wbX1ynwrdfkQJFNrLb0RWIdYPuVQgvrfCFHNgu5bqfw
   CODACY_PROJECT_TOKEN:
-    secure: nYmcIWVZOv0EJovfOVz341SHgcc1MxydwKUGOGO6vgjMEkw4GQ9L/N8553uqtICr
+    secure: jnMb4omhql9hTakO66WDP0rkcIObnlo6gE3kDf4D8mrzUetaU84PuYD9A1lR6k4i
   CODECLIMATE_TOKEN:
     secure: 09lSf1NeQ4QhlPM1gerlkaaG8kIPvf/VyOUj81AUZ93uonHUuoADgfJv773g8Dhikm+s/Nx0jjAPQqEA0dqoDUMBULuueYTAquzQII0jlPo=
 
