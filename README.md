@@ -7,7 +7,7 @@ The CrispyWaffle project - a toolkit for .NET projects.
 
 ![Crispy Waffle logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/logo.png)
 
-Documentation of the project: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
+Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ---
 
@@ -96,6 +96,13 @@ The changelog is available [here](https://guibranco.github.io/CrispyWaffle/chang
             <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
             <br />
             <sub><b>João V. Valadares</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/tiagoschaffer">
+            <img src="https://avatars.githubusercontent.com/u/12534089?v=4" width="100;" alt="tiagoschaffer"/>
+            <br />
+            <sub><b>Tiago Schäffer</b></sub>
         </a>
     </td>
     <td align="center">
