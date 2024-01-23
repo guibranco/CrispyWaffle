@@ -29,26 +29,22 @@ namespace CrispyWaffle.Extensions
             }
 
             var field = type.GetFields()
-                .Select(
-                    f =>
-                        new
-                        {
-                            Field = f,
-                            Attr = Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute))
-                                as HumanReadableAttribute
-                        }
-                )
-                .Where(
-                    item =>
-                        item.Attr != null
-                            && item.Attr.StringValue.Equals(
-                                humanReadableValue,
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        || item.Field.Name.Equals(
+                .Select(f => new
+                {
+                    Field = f,
+                    Attr = Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute))
+                        as HumanReadableAttribute
+                })
+                .Where(item =>
+                    item.Attr != null
+                        && item.Attr.StringValue.Equals(
                             humanReadableValue,
                             StringComparison.OrdinalIgnoreCase
                         )
+                    || item.Field.Name.Equals(
+                        humanReadableValue,
+                        StringComparison.OrdinalIgnoreCase
+                    )
                 )
                 .Select(item => item.Field)
                 .SingleOrDefault();
@@ -86,23 +82,19 @@ namespace CrispyWaffle.Extensions
             }
 
             var field = type.GetFields()
-                .Select(
-                    f =>
-                        new
-                        {
-                            Field = f,
-                            Attr = Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute))
-                                as InternalValueAttribute
-                        }
-                )
-                .Where(
-                    item =>
-                        item.Attr != null
-                            && item.Attr.InternalValue.Equals(
-                                internalValue,
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        || item.Field.Name.Equals(internalValue, StringComparison.OrdinalIgnoreCase)
+                .Select(f => new
+                {
+                    Field = f,
+                    Attr = Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute))
+                        as InternalValueAttribute
+                })
+                .Where(item =>
+                    item.Attr != null
+                        && item.Attr.InternalValue.Equals(
+                            internalValue,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    || item.Field.Name.Equals(internalValue, StringComparison.OrdinalIgnoreCase)
                 )
                 .Select(item => item.Field)
                 .SingleOrDefault();

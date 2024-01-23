@@ -64,8 +64,8 @@ namespace CrispyWaffle.ElasticSearch.Helpers
                 indexName = GetIndexName<T>();
             }
 
-            _connector.Client.Indices.BulkAlias(
-                a => a.Add(add => add.Index(indexName).Alias(alias))
+            _connector.Client.Indices.BulkAlias(a =>
+                a.Add(add => add.Index(indexName).Alias(alias))
             );
             return index;
         }
@@ -126,17 +126,13 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         )
             where T : class, new()
         {
-            var result = _connector.Client.DeleteByQuery<T>(
-                d =>
-                    d.Index(indexPattern)
-                        .Query(
-                            q =>
-                                q.DateRange(
-                                    g =>
-                                        g.Field(field)
-                                            .LessThan(DateMath.Now.Subtract($@"{daysBefore}d"))
-                                )
+            var result = _connector.Client.DeleteByQuery<T>(d =>
+                d.Index(indexPattern)
+                    .Query(q =>
+                        q.DateRange(g =>
+                            g.Field(field).LessThan(DateMath.Now.Subtract($@"{daysBefore}d"))
                         )
+                    )
             );
 
             return result.Deleted;

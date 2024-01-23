@@ -314,11 +314,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Debug, category, message)
+                    )
                 )
             )
             {
@@ -346,11 +345,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Debug, category, content)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Debug, category, content)
+                    )
                 )
             )
             {
@@ -375,17 +373,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f =>
-                                f.Filter(
-                                    p.GetType().FullName,
-                                    LogLevel.Debug,
-                                    category,
-                                    string.Empty
-                                )
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Debug, category, string.Empty)
+                    )
                 )
             )
             {
@@ -402,11 +393,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
+                    )
                 )
             )
             {
@@ -434,11 +424,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Trace, category, message)
+                    )
                 )
             )
             {
@@ -466,17 +455,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f =>
-                                f.Filter(
-                                    p.GetType().FullName,
-                                    LogLevel.Trace,
-                                    category,
-                                    exception.Message
-                                )
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Trace, category, exception.Message)
+                    )
                 )
             )
             {
@@ -493,11 +475,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Info, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Info, category, message)
+                    )
                 )
             )
             {
@@ -524,11 +505,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Warning, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Warning, category, message)
+                    )
                 )
             )
             {
@@ -555,11 +535,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Error, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Error, category, message)
+                    )
                 )
             )
             {
@@ -586,11 +565,10 @@ namespace CrispyWaffle.Log
             var category = GetCategory();
 
             foreach (
-                var provider in _providers.Where(
-                    p =>
-                        _filters.All(
-                            f => f.Filter(p.GetType().FullName, LogLevel.Fatal, category, message)
-                        )
+                var provider in _providers.Where(p =>
+                    _filters.All(f =>
+                        f.Filter(p.GetType().FullName, LogLevel.Fatal, category, message)
+                    )
                 )
             )
             {

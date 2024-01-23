@@ -104,17 +104,14 @@ namespace CrispyWaffle.ElasticSearch.Log
             }
 
             var retentionDays = _logRetentionDays;
-            _client.DeleteByQuery<LogMessage>(
-                d =>
-                    d.Index(_indexName)
-                        .Query(
-                            q =>
-                                q.DateRange(
-                                    g =>
-                                        g.Field(f => f.Date)
-                                            .LessThan(DateMath.Now.Subtract($@"{retentionDays}d"))
-                                )
+            _client.DeleteByQuery<LogMessage>(d =>
+                d.Index(_indexName)
+                    .Query(q =>
+                        q.DateRange(g =>
+                            g.Field(f => f.Date)
+                                .LessThan(DateMath.Now.Subtract($@"{retentionDays}d"))
                         )
+                    )
             );
             return null;
         }
