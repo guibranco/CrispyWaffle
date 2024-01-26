@@ -19,6 +19,6 @@ jobs:
         uses: mhausenblas/mkdocs-deploy-gh-pages@1.26
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EXTRA_PACKAGES: build-base
+          EXTRA_PACKAGES: build-base, mkdocs-dracula-theme
           REQUIREMENTS: requirements.txt
           CONFIG_FILE: mkdocs.yml
