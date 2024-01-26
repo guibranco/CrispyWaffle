@@ -11,11 +11,25 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ---
 
+## Table of Contents
+
+- [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
+- [Code Quality](#code-quality): Metrics from some tools about code quality.
+- [Installation](#installation): How to install/download this tool.
+- [User guide](#user-guide): How to set up, configure and use this tool.
+- [Change log](#changelog): Changelog containing the changes that were done in this project.
+- [Support](#support): How to get support.
+- [Contributing](#contributing): How to contribute.
+
+---
+
 ## CI/CD
 
 | Build status | Last commit | Tests | Coverage | Code Smells | LoC | 
 |--------------|-------------|-------|----------|-------------|-----|
 | [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/main?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/main?compact_message)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main/tests) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | 
+
+---
 
 ## Code Quality
 
@@ -79,7 +93,19 @@ The user guide is available [here](https://guibranco.github.io/CrispyWaffle/user
 
 The changelog is available [here](https://guibranco.github.io/CrispyWaffle/changelog/).
 
-## Contributors
+---
+
+## Support
+
+Please [open an issue](https://github.com/guibranco/crispywaffle/issues/new) for support.
+
+---
+
+## Contributing
+
+Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this project!
+
+### Contributors
 
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -start -->
 <table>
@@ -129,7 +155,7 @@ The changelog is available [here](https://guibranco.github.io/CrispyWaffle/chang
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
 
-## Bots
+### Bots
 
 <!-- readme: snyk-bot,bots -start -->
 <table>
