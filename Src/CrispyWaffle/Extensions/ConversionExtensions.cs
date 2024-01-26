@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 07-29-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-07-2020
-// ***********************************************************************
-// <copyright file="ConversionExtensions.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,7 +19,8 @@ namespace CrispyWaffle.Extensions
     public static class ConversionExtensions
     {
         /// <summary>
-        /// An IEnumerable&lt;String&gt; extension method that converts a binary representation string to the bytes.
+        /// An IEnumerable&lt;String&gt; extension method that converts a binary representation
+        /// string to the bytes.
         /// </summary>
         /// <param name="input">The string to act on.</param>
         /// <returns>string in binary representation as a Byte[].</returns>
@@ -44,8 +31,8 @@ namespace CrispyWaffle.Extensions
 
         /// <summary>
         /// A String extension method that converts this object to a boolean. This method assumes
-        /// that <b>any</b> value other than stated in the optional parameter toTrue will be valid as
-        /// false. It is useful for converting binary flags that can only take on two distinct
+        /// that <b>any</b> value other than stated in the optional parameter toTrue will be valid
+        /// as false. It is useful for converting binary flags that can only take on two distinct
         /// values​​, or that only one value represents success and any other is invalid.
         /// </summary>
         /// <param name="str">The str to act on.</param>
@@ -69,14 +56,14 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// To the date time.
+        /// Converts to datetime.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>DateTime.</returns>
         /// <exception cref="System.ArgumentNullException">input - Input value cannot be null</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">input - Unable to parse the string to a valid datetime</exception>
-        /// <exception cref="ArgumentNullException">input</exception>
-        /// <exception cref="ArgumentOutOfRangeException">input</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// input - Unable to parse the string to a valid datetime
+        /// </exception>
         public static DateTime ToDateTime(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -156,10 +143,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Convert a string representation of Int32 to Int32 type
+        /// Converts to int32.
         /// </summary>
-        /// <param name="input">The string representation of a Int32</param>
-        /// <returns>The string as Int32</returns>
+        /// <param name="input">The input.</param>
+        /// <returns>System.Int32.</returns>
         public static int ToInt32(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -222,9 +209,8 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// An IEnumerable&lt;Byte&gt; extension method
-        /// that converts the bytes to a binary string representation
-        /// string.
+        /// An IEnumerable&lt;Byte&gt; extension method that converts the bytes to a binary string
+        /// representation string.
         /// </summary>
         /// <param name="bytes">The bytes to act on.</param>
         /// <returns>bytes as a Binary String[] representation.</returns>
@@ -247,22 +233,26 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Converts a DateTime instance to Unix Timestamp (number of seconds that have elapsed since
-        /// 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970)
+        /// Converts a DateTime instance to Unix Timestamp (number of seconds that have elapsed
+        /// since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970).
         /// </summary>
         /// <param name="dateTime">The date time.</param>
         /// <returns>System.Int32.</returns>
         public static int ToUnixTimeStamp(this DateTime dateTime)
         {
-            return (int)dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            return (int)
+                dateTime
+                    .ToUniversalTime()
+                    .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))
+                    .TotalSeconds;
         }
 
         /// <summary>
-        /// Converts a Unix Timestamp (number of seconds that have elapsed since 00:00:00 Coordinated
-        /// Universal Time (UTC), Thursday, 1 January 1970) to a DateTime instance
+        /// Converts a Unix Timestamp (number of seconds that have elapsed since 00:00:00
+        /// Coordinated Universal Time (UTC), Thursday, 1 January 1970) to a DateTime instance.
         /// </summary>
-        /// <param name="epochTime">The Unix Timestamp</param>
-        /// <returns>A DateTime instance of the epochTime</returns>
+        /// <param name="epochTime">The Unix Timestamp.</param>
+        /// <returns>A DateTime instance of the epochTime.</returns>
         public static DateTime FromUnixTimeStamp(this int epochTime)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
@@ -275,7 +265,9 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns>PhoneNumber.</returns>
-        /// <exception cref="InvalidTelephoneNumberException"></exception>
+        /// <exception cref="InvalidTelephoneNumberException">
+        /// The value '{telephoneNumber}' isn't a valid telephone number.
+        /// </exception>
         public static PhoneNumber ParseBrazilianPhoneNumber(this string number)
         {
             var result = new PhoneNumber(0, 0, 0);

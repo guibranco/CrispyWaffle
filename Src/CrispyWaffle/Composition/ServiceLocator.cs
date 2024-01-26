@@ -16,55 +16,49 @@ namespace CrispyWaffle.Composition
     public static class ServiceLocator
     {
         /// <summary>
-        /// The locks
+        /// The locks.
         /// </summary>
-        private static readonly ConcurrentDictionary<string, object> _locks =
-            new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _locks = new();
 
         /// <summary>
-        /// The registrations calls log
+        /// The registrations calls log.
         /// </summary>
-        private static readonly IDictionary<Type, int> _registrationsCalls =
-            new Dictionary<Type, int>();
+        private static readonly Dictionary<Type, int> _registrationsCalls = new();
 
         /// <summary>
-        /// The dictionary holding the types and its implementations
+        /// The dictionary holding the types and its implementations.
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, Func<object>> _registrations =
-            new ConcurrentDictionary<Type, Func<object>>();
+        private static readonly ConcurrentDictionary<Type, Func<object>> _registrations = new();
 
         /// <summary>
-        /// The dictionary holding the types and its dependency resolver implementations
+        /// The dictionary holding the types and its dependency resolver implementations.
         /// </summary>
-        private static readonly IDictionary<Type, IDependencyResolver> _dependenciesResolvers =
-            new Dictionary<Type, IDependencyResolver>();
+        private static readonly Dictionary<Type, IDependencyResolver> _dependenciesResolvers =
+            new();
 
         /// <summary>
-        /// The dictionary holding the types and its dependencies as a cache system for new instances (auto registration)
+        /// The dictionary holding the types and its dependencies as a cache system for new
+        /// instances (auto registration).
         /// </summary>
-        private static readonly IDictionary<Type, Type[]> _dependenciesCache =
-            new Dictionary<Type, Type[]>();
+        private static readonly Dictionary<Type, Type[]> _dependenciesCache = new();
 
         /// <summary>
-        /// The instances resolved cache
+        /// The instances resolved cache.
         /// </summary>
-        private static readonly ConcurrentDictionary<Type, List<Type>> _instances =
-            new ConcurrentDictionary<Type, List<Type>>();
+        private static readonly ConcurrentDictionary<Type, List<Type>> _instances = new();
 
         /// <summary>
-        /// The cancellation token source
+        /// The cancellation token source.
         /// </summary>
-        private static readonly CancellationTokenSource _cancellationTokenSource =
-            new CancellationTokenSource();
+        private static readonly CancellationTokenSource _cancellationTokenSource = new();
 
         /// <summary>
-        /// The not loaded assemblies
+        /// The not loaded assemblies.
         /// </summary>
-        private static readonly IDictionary<string, Exception> _notLoadedAssemblies =
-            new Dictionary<string, Exception>();
+        private static readonly Dictionary<string, Exception> _notLoadedAssemblies = new();
 
         /// <summary>
-        /// Initializes the <see cref="ServiceLocator"/> class.
+        /// Initializes static members of the <see cref="ServiceLocator"/> class.
         /// </summary>
         static ServiceLocator()
         {
@@ -72,10 +66,7 @@ namespace CrispyWaffle.Composition
             TypesCache = AppDomain
                 .CurrentDomain.GetAssemblies()
                 .SelectMany(a => a.GetTypes())
-                .Where(a =>
-                    a != null
-                    && a.Name.IndexOf(@"_canon", StringComparison.InvariantCultureIgnoreCase) == -1
-                )
+                .Where(a => a != null)
                 .ToList();
             var cancellationToken = typeof(CancellationToken);
             _registrationsCalls.Add(cancellationToken, 0);
@@ -112,28 +103,32 @@ namespace CrispyWaffle.Composition
             }
             catch (Exception e)
             {
-                if (!_notLoadedAssemblies.Keys.Contains(missingAssembly.FullName))
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+                _notLoadedAssemblies.TryAdd(missingAssembly.FullName, e);
+#else
+                if (!_notLoadedAssemblies.ContainsKey(missingAssembly.FullName))
                 {
                     _notLoadedAssemblies.Add(missingAssembly.FullName, e);
                 }
+#endif
             }
         }
 
         /// <summary>
         /// Registers the life styled internal.
         /// </summary>
-        /// <param name="lifeStyle">The life style.</param>
+        /// <param name="lifestyle">The lifestyle.</param>
         /// <param name="contract">The contract.</param>
         /// <param name="implementation">The implementation.</param>
         private static void RegisterLifeStyledInternal(
-            LifeStyle lifeStyle,
+            LifeStyle lifestyle,
             Type contract,
             Type implementation
         )
         {
             _registrationsCalls.Add(contract, 0);
 
-            if (lifeStyle == LifeStyle.Transient)
+            if (lifestyle == LifeStyle.Transient)
             {
                 RegisterTransientInternal(contract, implementation);
                 return;
@@ -174,20 +169,20 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the lifeStyled creator internal.
+        /// Registers the lifestyled creator internal.
         /// </summary>
         /// <typeparam name="TContract">The type of the contract.</typeparam>
-        /// <param name="lifeStyle">The life style.</param>
+        /// <param name="lifestyle">The life style.</param>
         /// <param name="instanceCreator">The instance creator.</param>
         private static void RegisterLifeStyledCreatorInternal<TContract>(
-            LifeStyle lifeStyle,
+            LifeStyle lifestyle,
             Func<TContract> instanceCreator
         )
         {
             var contract = typeof(TContract);
             _registrationsCalls.Add(contract, 0);
 
-            if (lifeStyle == LifeStyle.Transient)
+            if (lifestyle == LifeStyle.Transient)
             {
                 RegisterTransientInternal(instanceCreator, contract);
                 return;
@@ -324,10 +319,10 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Get all instances for a contract
+        /// Gets all instances.
         /// </summary>
-        /// <param name="contract"></param>
-        /// <returns></returns>
+        /// <param name="contract">The contract.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         private static IEnumerable<object> GetAllInstances(Type contract)
         {
             if (!_instances.ContainsKey(contract))
@@ -358,12 +353,21 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Get the instance of a contract based on where it is requested (parent contract) using a dependency resolver if any available for the type to get a context for the dependency.
+        /// Get the instance of a contract based on where it is requested (parent contract) using a
+        /// dependency resolver if any available for the type to get a context for the dependency.
         /// </summary>
-        /// <param name="contract">The interface looking implementation</param>
-        /// <param name="parentContract">The interface where the contract is requested and requires a context</param>
-        /// <param name="order">The order of the <paramref name="contract"></paramref> in the <paramref name="parentContract"/> arguments list</param>
-        /// <returns>The implementation of <paramref name="contract" /> from the <see cref="IDependencyResolver"/> or from the method <see cref="GetInstance"/></returns>
+        /// <param name="contract">The interface looking implementation.</param>
+        /// <param name="parentContract">
+        /// The interface where the contract is requested and requires a context.
+        /// </param>
+        /// <param name="order">
+        /// The order of the <paramref name="contract"></paramref> in the <paramref
+        /// name="parentContract"/> arguments list.
+        /// </param>
+        /// <returns>
+        /// The implementation of <paramref name="contract"/> from the <see
+        /// cref="IDependencyResolver"/> or from the method <see cref="GetInstance"/>.
+        /// </returns>
         private static object GetInstanceWithContext(Type contract, Type parentContract, int order)
         {
             try
@@ -379,10 +383,10 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Creates a new instance of a type <paramref name="implementationType" />
+        /// Creates a new instance of a type <paramref name="implementationType"/>.
         /// </summary>
-        /// <param name="implementationType">The type to create a new instance</param>
-        /// <returns>A new instance of <paramref name="implementationType" /></returns>
+        /// <param name="implementationType">The type to create a new instance.</param>
+        /// <returns>A new instance of <paramref name="implementationType"/>.</returns>
         private static object CreateInstance(Type implementationType)
         {
             try
@@ -402,7 +406,7 @@ namespace CrispyWaffle.Composition
         /// Creates the instance internal.
         /// </summary>
         /// <param name="implementationType">Type of the implementation.</param>
-        /// <returns></returns>
+        /// <returns>System.Object.</returns>
         private static object CreateInstanceInternal(Type implementationType)
         {
             if (_dependenciesCache.TryGetValue(implementationType, out var dependencies))
@@ -457,12 +461,14 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Creates the instance with.
+        /// Creates the instance with parameters.
         /// </summary>
         /// <param name="implementationType">Type of the implementation.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Unable to create instance of type {implementationType.FullName} using parameters.
+        /// </exception>
         private static object CreateInstanceWith(
             Type implementationType,
             Dictionary<int, object> parameters
@@ -482,11 +488,11 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Creates the instance with internal.
+        /// Creates the instance with parameters internal.
         /// </summary>
         /// <param name="implementationType">Type of the implementation.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
+        /// <returns>System.Object.</returns>
         private static object CreateInstanceWithInternal(
             Type implementationType,
             Dictionary<int, object> parameters
@@ -513,10 +519,10 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Resolves implementation with multiple constructors
+        /// Resolves implementation with multiple constructors.
         /// </summary>
-        /// <param name="constructors">Array of <see cref="ConstructorInfo"/> to be resolved</param>
-        /// <param name="parentType">The parent type</param>
+        /// <param name="constructors">Array of <see cref="ConstructorInfo"/> to be resolved.</param>
+        /// <param name="parentType">The parent type.</param>
         /// <returns>A single instance of <see cref="ConstructorInfo"/>. The winner of the resolution.</returns>
         private static ConstructorInfo ResolveMultipleConstructors(
             ConstructorInfo[] constructors,
@@ -534,8 +540,10 @@ namespace CrispyWaffle.Composition
             {
                 case 0:
                     return null;
+
                 case 1:
                     return candidates[0];
+
                 default:
                     return candidates
                         .OrderByDescending(c => c.GetParameters().Length)
@@ -561,8 +569,11 @@ namespace CrispyWaffle.Composition
         /// Tries the automatic registration.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns></returns>
-        /// <exception cref="TooManyImplementationsException">Thrown when more than one implementation is available for the same type</exception>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="TooManyImplementationsException">
+        /// The type {type.FullName} has many implementations available, please consider registering
+        /// one of them.
+        /// </exception>
         private static object TryAutoRegistration(Type type)
         {
             var types = TypesCache
@@ -588,17 +599,15 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Gets or sets the types cache.
+        /// Gets the types cache.
         /// </summary>
-        /// <value>
-        /// The types cache.
-        /// </value>
+        /// <value>The types cache.</value>
         public static List<Type> TypesCache { get; }
 
         /// <summary>
-        /// A method for registering a bootstrapper class
+        /// A method for registering a bootstrapper class.
         /// </summary>
-        /// <typeparam name="TBootstrapper">The bootstrapper class that inherits <see cref="IBootstrapper"/></typeparam>
+        /// <typeparam name="TBootstrapper">The bootstrapper class that inherits <see cref="IBootstrapper"/>.</typeparam>
         public static void RegisterBootstrapper<TBootstrapper>()
             where TBootstrapper : class, IBootstrapper, new()
         {
@@ -606,10 +615,10 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Register an instance for a contract/implementation as a singleton
+        /// Register an instance for a contract/implementation as a singleton.
         /// </summary>
-        /// <typeparam name="TContract">The type of implementation/contract</typeparam>
-        /// <param name="instance">The singleton instance of the contract</param>
+        /// <typeparam name="TContract">The type of implementation/contract.</typeparam>
+        /// <param name="instance">The singleton instance of the contract.</param>
         public static void Register<TContract>(TContract instance)
         {
             var type = typeof(TContract);
@@ -626,43 +635,47 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the specified lifeStyle.
+        /// Registers the specified lifestyle.
         /// </summary>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
-        /// <param name="lifeStyle">The life style.</param>
-        public static void Register<TImplementation>(LifeStyle lifeStyle = LifeStyle.Transient)
+        /// <param name="lifestyle">The life style.</param>
+        public static void Register<TImplementation>(LifeStyle lifestyle = LifeStyle.Transient)
         {
             var type = typeof(TImplementation);
-            RegisterLifeStyledInternal(lifeStyle, type, type);
+            RegisterLifeStyledInternal(lifestyle, type, type);
         }
 
         /// <summary>
         /// The basic register for an interface and for its implementation.
         /// </summary>
-        /// <typeparam name="TContract">The interface binding implementation</typeparam>
-        /// <typeparam name="TImplementation">The concrete implementation of <typeparamref name="TContract" /></typeparam>
+        /// <typeparam name="TContract">The interface binding implementation.</typeparam>
+        /// <typeparam name="TImplementation">
+        /// The concrete implementation of <typeparamref name="TContract"/>.
+        /// </typeparam>
         public static void Register<TContract, TImplementation>(
-            LifeStyle lifeStyle = LifeStyle.Transient
+            LifeStyle lifestyle = LifeStyle.Transient
         )
             where TImplementation : TContract
         {
             var contract = typeof(TContract);
             var implementation = typeof(TImplementation);
-            RegisterLifeStyledInternal(lifeStyle, contract, implementation);
+            RegisterLifeStyledInternal(lifestyle, contract, implementation);
         }
 
         /// <summary>
         /// A register with a custom instance creator as a function.
         /// </summary>
-        /// <typeparam name="TContract">The interface binding implementation</typeparam>
-        /// <param name="instanceCreator">The instance creator for an implementation onf <typeparamref name="TContract" /></param>
-        /// <param name="lifeStyle">The lifecycle lifeStyle of the registration </param>
+        /// <typeparam name="TContract">The interface binding implementation.</typeparam>
+        /// <param name="instanceCreator">
+        /// The instance creator for an implementation onf <typeparamref name="TContract"/>.
+        /// </param>
+        /// <param name="lifestyle">The lifecycle lifestyle of the registration.</param>
         public static void Register<TContract>(
             Func<TContract> instanceCreator,
-            LifeStyle lifeStyle = LifeStyle.Transient
+            LifeStyle lifestyle = LifeStyle.Transient
         )
         {
-            RegisterLifeStyledCreatorInternal(lifeStyle, instanceCreator);
+            RegisterLifeStyledCreatorInternal(lifestyle, instanceCreator);
         }
 
         /// <summary>
@@ -680,10 +693,10 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Register a dependency resolver of <typeparamref name="TContract"></typeparamref>
+        /// Register a dependency resolver of <typeparamref name="TContract"></typeparamref>.
         /// </summary>
-        /// <typeparam name="TContract">The interface binding dependency resolver</typeparam>
-        /// <param name="resolver">The <see cref="IDependencyResolver"/> implementation</param>
+        /// <typeparam name="TContract">The interface binding dependency resolver.</typeparam>
+        /// <param name="resolver">The <see cref="IDependencyResolver"/> implementation.</param>
         public static void RegisterDependencyResolver<TContract>(IDependencyResolver resolver)
         {
             _dependenciesResolvers.Add(typeof(TContract), resolver);
@@ -721,8 +734,11 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// Resolves a interface, returning a instance of its implementation.
         /// </summary>
-        /// <typeparam name="T">The interface looking implementation</typeparam>
-        /// <returns>The implementation of a <typeparamref name="T" />, creating new instance or return a singleton instance (depending how it was registered)</returns>
+        /// <typeparam name="T">The interface looking implementation.</typeparam>
+        /// <returns>
+        /// The implementation of a <typeparamref name="T"/>, creating new instance or return a
+        /// singleton instance (depending on how it was registered).
+        /// </returns>
         public static T Resolve<T>()
         {
             return (T)GetInstance(typeof(T));
@@ -731,8 +747,8 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// Tries the resolve.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">The generic type to resolve.</typeparam>
+        /// <returns>T.</returns>
         public static T TryResolve<T>()
         {
             var instance = TryGetInstance(typeof(T));
@@ -740,21 +756,24 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Resolves a interface, returning all instances of its implementations
+        /// Resolves an interface, returning all instances of its implementations.
         /// </summary>
-        /// <typeparam name="T">The interface looking implementation</typeparam>
-        /// <returns>All implementations of a <typeparamref name="T" />, creating new instances or returning singleton instances (depending how it was registered)</returns>
+        /// <typeparam name="T">The interface looking implementation.</typeparam>
+        /// <returns>
+        /// All implementations of a <typeparamref name="T"/>, creating new instances or returning
+        /// singleton instances (depending on how it was registered).
+        /// </returns>
         public static IEnumerable<T> ResolveAll<T>()
         {
             return GetAllInstances(typeof(T)).Cast<T>();
         }
 
         /// <summary>
-        /// Resolves the with.
+        /// Resolves the with parameters.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The generic type to resolve.</typeparam>
         /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
+        /// <returns>T.</returns>
         public static T ResolveWith<T>(Dictionary<int, object> parameters)
         {
             return (T)GetInstanceWith(typeof(T), parameters);
@@ -763,10 +782,13 @@ namespace CrispyWaffle.Composition
         /// <summary>
         /// Get the instance of a contract.
         /// </summary>
-        /// <param name="contract">The interface looking implementation</param>
-        /// <returns>The implementation of <paramref name="contract" />, a new instance or the singleton instance, based on registered method</returns>
-        /// <exception cref="InvalidOperationException">No registrations for " + contract</exception>
-        /// <exception cref="InvalidOperationException">No registration for " + contract</exception>
+        /// <param name="contract">The interface looking implementation.</param>
+        /// <returns>
+        /// The implementation of <paramref name="contract"/>, a new instance or the singleton
+        /// instance, based on registered method.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">No registrations for " + contract.</exception>
+        /// <exception cref="InvalidOperationException">No registration for " + contract.</exception>
         public static object GetInstance(Type contract)
         {
             var instance = TryGetInstance(contract);
@@ -783,8 +805,8 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <param name="contract">The contract.</param>
         /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.InvalidOperationException">No registrations for {contract}</exception>
         public static object GetInstanceWith(Type contract, Dictionary<int, object> parameters)
         {
             var instance = CreateInstanceWith(contract, parameters);
@@ -800,7 +822,7 @@ namespace CrispyWaffle.Composition
         /// Tries the get instance.
         /// </summary>
         /// <param name="contract">The contract.</param>
-        /// <returns></returns>
+        /// <returns>System.Object.</returns>
         public static object TryGetInstance(Type contract)
         {
             if (_registrations.TryGetValue(contract, out var creator))
