@@ -3,7 +3,7 @@ repo_url: https://github.com/guibranco/crispywaffle
 extra_css:
   - extra.css
 theme:
-  name: readthedocs
+  name: dracula
   logo: logo.png
   favicon: images/favicon.png
   icon:
