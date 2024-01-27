@@ -1,15 +1,12 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 07-29-2020
+﻿// *********************************************************************** Assembly :
+// CrispyWaffle.Tests Author : Guilherme Branco Stracini Created : 07-29-2020
 //
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 21/03/2023
-// ***********************************************************************
+// Last Modified By : Guilherme Branco Stracini Last Modified On : 21/03/2023 ***********************************************************************
 // <copyright file="ConversionExtensionsTests.cs" company="Guilherme Branco Stracini ME">
 //     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
 // </copyright>
-// <summary></summary>
+// <summary>
+// </summary>
 // ***********************************************************************
 
 using System;
@@ -153,7 +150,7 @@ public class ConversionExtensionsTests
         );
 
         Assert.Equal(
-            $"The value '{cleanPhoneNumber}' isn't a valid telephone number",
+            $"The value '{cleanPhoneNumber}' isn't a valid telephone number.",
             result.Message
         );
     }
@@ -253,7 +250,7 @@ public class ConversionExtensionsTests
     {
         var result = Assert.Throws<ArgumentNullException>(() => string.Empty.ToDateTime());
 
-        Assert.Equal("Input value cannot be null (Parameter 'input')", result.Message);
+        Assert.Equal("Input value cannot be null. (Parameter 'input')", result.Message);
     }
 
     /// <summary>
@@ -267,7 +264,7 @@ public class ConversionExtensionsTests
         var result = Assert.Throws<ArgumentOutOfRangeException>(() => input.ToDateTime());
 
         Assert.Equal(
-            $"Unable to parse the string to a valid datetime (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
+            $"Unable to parse the string to a valid datetime. (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
             result.Message
         );
     }

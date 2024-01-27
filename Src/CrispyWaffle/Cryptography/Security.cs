@@ -14,13 +14,13 @@ namespace CrispyWaffle.Cryptography
     public static class Security
     {
         /// <summary>
-        /// Encrypts the specified plain text.
+        /// Encrypts the specified password hash.
         /// </summary>
         /// <param name="plainText">The plain text.</param>
-        /// <param name="passwordHash">The password hash</param>
-        /// <param name="saltKey">The salt key</param>
-        /// <param name="viKey">The vi key</param>
-        /// <returns>String.</returns>
+        /// <param name="passwordHash">The password hash.</param>
+        /// <param name="saltKey">The salt key.</param>
+        /// <param name="viKey">The vi key.</param>
+        /// <returns>System.String.</returns>
         public static string Encrypt(
             this string plainText,
             string passwordHash,
@@ -62,13 +62,13 @@ namespace CrispyWaffle.Cryptography
         }
 
         /// <summary>
-        /// Decrypts the specified encrypted text.
+        /// Decrypts the specified password hash.
         /// </summary>
         /// <param name="encryptedText">The encrypted text.</param>
-        /// <param name="passwordHash">The password hash</param>
-        /// <param name="saltKey">The salt key</param>
-        /// <param name="viKey">The vi key</param>
-        /// <returns>String.</returns>
+        /// <param name="passwordHash">The password hash.</param>
+        /// <param name="saltKey">The salt key.</param>
+        /// <param name="viKey">The vi key.</param>
+        /// <returns>System.String.</returns>
         [Localizable(false)]
         public static string Decrypt(
             this string encryptedText,
@@ -108,11 +108,11 @@ namespace CrispyWaffle.Cryptography
         }
 
         /// <summary>
-        /// Generates a hash for the requested value using the desired hash algorithm
+        /// Generates a hash for the requested value using the desired hash algorithm.
         /// </summary>
-        /// <param name="value">The value to compute the hash</param>
-        /// <param name="type">The hash algorithm</param>
-        /// <returns>The hash of the value</returns>
+        /// <param name="value">The value to compute the hash.</param>
+        /// <param name="type">The hash algorithm.</param>
+        /// <returns>The hash of the value.</returns>
         public static string Hash(string value, HashAlgorithmType type)
         {
             if (!_hashAlgorithms.ContainsKey(type))
@@ -139,10 +139,10 @@ namespace CrispyWaffle.Cryptography
         }
 
         /// <summary>
-        /// The hash algorithms
+        /// The hash algorithms.
         /// </summary>
-        private static Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms =
-            new Dictionary<HashAlgorithmType, HashAlgorithm>
+        private static readonly Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms =
+            new()
             {
                 { HashAlgorithmType.Md5, MD5.Create() },
                 { HashAlgorithmType.Sha1, SHA1.Create() },

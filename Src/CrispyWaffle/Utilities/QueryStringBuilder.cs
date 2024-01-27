@@ -12,20 +12,20 @@ namespace CrispyWaffle.Utilities
 {
     /// <summary>
     /// A chainable query string helper class. Example usage : string strQuery =
-    /// QueryString.Current.Add("id", "179").ToString();
-    /// string strQuery = new QueryString().Add("id", "179").ToString();
+    /// QueryString.Current.Add("id", "179").ToString(); string strQuery = new
+    /// QueryString().Add("id", "179").ToString().
     /// </summary>
-    /// <seealso cref="NameValueCollection" />
+    /// <seealso cref="NameValueCollection"/>
     [Serializable]
     public class QueryStringBuilder : NameValueCollection
     {
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the <see cref="QueryStringBuilder"/> class.
         /// </summary>
         public QueryStringBuilder() { }
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the <see cref="QueryStringBuilder"/> class.
         /// </summary>
         /// <param name="queryString">The query string.</param>
         public QueryStringBuilder(string queryString)
@@ -36,8 +36,14 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryStringBuilder"/> class.
         /// </summary>
-        /// <param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object that contains the information required to serialize the new <see cref="T:System.Collections.Specialized.NameValueCollection" /> instance.</param>
-        /// <param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext" /> object that contains the source and destination of the serialized stream associated with the new <see cref="T:System.Collections.Specialized.NameValueCollection" /> instance.</param>
+        /// <param name="info">
+        /// A <see cref="SerializationInfo"/> object that contains the information required to
+        /// serialize the new <see cref="NameValueCollection"/> instance.
+        /// </param>
+        /// <param name="context">
+        /// A <see cref="StreamingContext"/> object that contains the source and destination of the
+        /// serialized stream associated with the new <see cref="NameValueCollection"/> instance.
+        /// </param>
         protected QueryStringBuilder(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
@@ -53,14 +59,13 @@ namespace CrispyWaffle.Utilities
                 return s;
             }
 
-            return s.Substring(s.IndexOf(@"?", StringComparison.Ordinal) + 1);
+            return s.Substring(s.IndexOf("?", StringComparison.Ordinal) + 1);
         }
 
         /// <summary>
         /// returns a querystring object based on a string.
         /// </summary>
         /// <param name="s">the string to parse.</param>
-        /// <returns>the QueryString object.</returns>
         private void FillFromString(string s)
         {
             Clear();
@@ -75,7 +80,7 @@ namespace CrispyWaffle.Utilities
                 select keyValuePair.Split('=')
             )
             {
-                base.Add(split[0], split.Length == 2 ? split[1] : "");
+                base.Add(split[0], split.Length == 2 ? split[1] : string.Empty);
             }
         }
 
@@ -98,8 +103,9 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <param name="name">the name.</param>
         /// <param name="value">the value associated to the name.</param>
-        /// <param name="isUnique">true if the name is unique within the querystring. This allows us to override existing
-        /// values.</param>
+        /// <param name="isUnique">
+        /// true if the name is unique within the querystring. This allows us to override existing values.
+        /// </param>
         /// <returns>the QueryString object.</returns>
         /// <exception cref="ArgumentNullException">.</exception>
         public QueryStringBuilder Add(string name, string value, bool isUnique = false)
@@ -126,7 +132,7 @@ namespace CrispyWaffle.Utilities
             }
             else
             {
-                base[name] += @"," + urlEncoded;
+                base[name] += "," + urlEncoded;
             }
 
             return this;
@@ -137,8 +143,9 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <param name="name">the name.</param>
         /// <param name="value">the value associated to the name.</param>
-        /// <param name="isUnique">true if the name is unique within the querystring. This allows us to override existing
-        /// values.</param>
+        /// <param name="isUnique">
+        /// true if the name is unique within the querystring. This allows us to override existing values.
+        /// </param>
         /// <returns>the QueryString object.</returns>
         public QueryStringBuilder Add(string name, object value, bool isUnique = false)
         {
@@ -149,8 +156,9 @@ namespace CrispyWaffle.Utilities
         /// Adds a range to 'isUnique'.
         /// </summary>
         /// <param name="items">The items.</param>
-        /// <param name="isUnique">true if the name is unique within the querystring. This allows us to override existing
-        /// values.</param>
+        /// <param name="isUnique">
+        /// true if the name is unique within the querystring. This allows us to override existing values.
+        /// </param>
         /// <returns>A QueryString.</returns>
         public QueryStringBuilder AddRange(Dictionary<string, string> items, bool isUnique = false)
         {
@@ -190,7 +198,9 @@ namespace CrispyWaffle.Utilities
                         propertyName.Select(
                             (x, i) =>
                                 i > 0 && char.IsUpper(x)
-                                    ? @"_" + x.ToString(CultureInfo.InvariantCulture).ToLower()
+                                    ? "_"
+                                        + x.ToString(CultureInfo.InvariantCulture)
+                                            .ToLowerInvariant()
                                     : x.ToString(CultureInfo.InvariantCulture)
                         )
                     );
@@ -199,7 +209,7 @@ namespace CrispyWaffle.Utilities
                 if (propertyName.StartsWith(type.Name, StringComparison.InvariantCultureIgnoreCase))
                 {
                     propertyName =
-                        $@"{type.Name.ToLower()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
+                        $"{type.Name.ToLowerInvariant()}[{propertyName.Substring(type.Name.Length + (convertCamelCaseToUnderscore ? 1 : 0))}]";
                 }
 
                 var value = property.GetValue(instance, null);
@@ -226,9 +236,9 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// clears the collection
+        /// clears the collection.
         /// </summary>
-        /// <returns>the QueryString object</returns>
+        /// <returns>the QueryString object.</returns>
         public QueryStringBuilder Reset()
         {
             Clear();
@@ -285,7 +295,7 @@ namespace CrispyWaffle.Utilities
                     builder
                         .Append(builder.Length == 0 ? @"?" : @"&")
                         .Append(HttpUtility.UrlEncode(Keys[i]))
-                        .Append(@"=")
+                        .Append('=')
                         .Append(val);
                 }
             }

@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 07-29-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 07-29-2020
-// ***********************************************************************
-// <copyright file="DefaultExceptionHandler.cs" company="Guilherme Branco Stracini ME">
-//     © 2020 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -29,11 +15,11 @@ namespace CrispyWaffle.Log.Handlers
     /// <summary>
     /// Handle the exception and log it using the available log providers of the log consumer.
     /// </summary>
-    /// <seealso cref="IExceptionHandler" />
+    /// <seealso cref="IExceptionHandler"/>
     public class DefaultExceptionHandler : IExceptionHandler
     {
         /// <summary>
-        /// The additional providers
+        /// The additional providers.
         /// </summary>
         private static readonly ICollection<
             Tuple<ILogProvider, ExceptionLogType>
@@ -83,7 +69,7 @@ namespace CrispyWaffle.Log.Handlers
                 return true;
             }
 
-            if (ns.StartsWith(@"CrispyWaffle.Log"))
+            if (ns.StartsWith(@"CrispyWaffle.Log", StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
@@ -131,9 +117,9 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Logs a exception as ERROR level.
-        /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
-        /// but this behavior depends on the Adapter implementation.
+        /// Logs a exception as ERROR level. Exception is logged generally with Message, StackTrace
+        /// and Type.FullName, and it's inner exception until no one more is available, but this
+        /// behavior depends on the Adapter implementation.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
@@ -143,12 +129,12 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
-        /// and then call <seealso cref="Handle(Exception)" />.
-        /// This is the default behavior, each implementation can have it own behavior!
+        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject"/> as Exception and then
+        /// call <seealso cref="Handle(Exception)"/>. This is the default behavior, each
+        /// implementation can have it own behavior!
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs"/>.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args)
         {
@@ -159,7 +145,9 @@ namespace CrispyWaffle.Log.Handlers
         /// Handles the specified sender.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="ThreadExceptionEventArgs" /> instance containing the event data.</param>
+        /// <param name="args">
+        /// The <see cref="ThreadExceptionEventArgs"/> instance containing the event data.
+        /// </param>
         public void Handle(object sender, ThreadExceptionEventArgs args)
         {
             HandleInternal(args.Exception);
@@ -214,7 +202,7 @@ namespace CrispyWaffle.Log.Handlers
             }
             catch (Exception)
             {
-                //ignore handling
+                // ignore handling
             }
         }
 
@@ -236,7 +224,7 @@ namespace CrispyWaffle.Log.Handlers
             }
             catch (Exception)
             {
-                //ignore handling
+                // ignore handling
             }
         }
     }

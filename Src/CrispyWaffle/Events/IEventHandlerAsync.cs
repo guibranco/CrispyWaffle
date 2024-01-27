@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace CrispyWaffle.Events;
 
 /// <summary>
-/// The asynchronous event handler interface
+/// The asynchronous event handler interface.
 /// </summary>
 /// <typeparam name="TEvent">The type of the event.</typeparam>
 public interface IEventHandlerAsync<in TEvent>
