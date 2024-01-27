@@ -169,12 +169,12 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// Registers the lifestyled creator internal.
+        /// Registers the lifestyle creator internal.
         /// </summary>
         /// <typeparam name="TContract">The type of the contract.</typeparam>
-        /// <param name="lifestyle">The life style.</param>
+        /// <param name="lifestyle">The lifestyle.</param>
         /// <param name="instanceCreator">The instance creator.</param>
-        private static void RegisterLifeStyledCreatorInternal<TContract>(
+        private static void RegisterLifestyleCreatorInternal<TContract>(
             LifeStyle lifestyle,
             Func<TContract> instanceCreator
         )
@@ -580,7 +580,7 @@ namespace CrispyWaffle.Composition
                 .Where(t =>
                     !t.IsAbstract
                     && type.IsAssignableFrom(t)
-                    && t.GetConstructors().Any(c => !c.GetParameters().Any())
+                    && t.GetConstructors().Any(c => c.GetParameters().Length == 0)
                 )
                 .ToList();
             if (types.Count == 0)
@@ -638,7 +638,7 @@ namespace CrispyWaffle.Composition
         /// Registers the specified lifestyle.
         /// </summary>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
-        /// <param name="lifestyle">The life style.</param>
+        /// <param name="lifestyle">The lifestyle.</param>
         public static void Register<TImplementation>(LifeStyle lifestyle = LifeStyle.Transient)
         {
             var type = typeof(TImplementation);
@@ -646,12 +646,11 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// The basic register for an interface and for its implementation.
+        /// Registers the specified lifestyle.
         /// </summary>
-        /// <typeparam name="TContract">The interface binding implementation.</typeparam>
-        /// <typeparam name="TImplementation">
-        /// The concrete implementation of <typeparamref name="TContract"/>.
-        /// </typeparam>
+        /// <typeparam name="TContract">The type of the t contract.</typeparam>
+        /// <typeparam name="TImplementation">The type of the t implementation.</typeparam>
+        /// <param name="lifestyle">The lifestyle.</param>
         public static void Register<TContract, TImplementation>(
             LifeStyle lifestyle = LifeStyle.Transient
         )
@@ -675,7 +674,7 @@ namespace CrispyWaffle.Composition
             LifeStyle lifestyle = LifeStyle.Transient
         )
         {
-            RegisterLifeStyledCreatorInternal(lifestyle, instanceCreator);
+            RegisterLifestyleCreatorInternal(lifestyle, instanceCreator);
         }
 
         /// <summary>
@@ -806,7 +805,7 @@ namespace CrispyWaffle.Composition
         /// <param name="contract">The contract.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>System.Object.</returns>
-        /// <exception cref="System.InvalidOperationException">No registrations for {contract}</exception>
+        /// <exception cref="System.InvalidOperationException">No registrations for {contract}.</exception>
         public static object GetInstanceWith(Type contract, Dictionary<int, object> parameters)
         {
             var instance = CreateInstanceWith(contract, parameters);

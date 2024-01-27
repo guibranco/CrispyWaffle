@@ -411,7 +411,7 @@ namespace CrispyWaffle.Extensions
                 counter--;
             }
 
-            var digit = 10 - sum % 10;
+            var digit = 10 - (sum % 10);
 
             if (digit == 10)
             {
