@@ -250,7 +250,7 @@ public class ConversionExtensionsTests
     {
         var result = Assert.Throws<ArgumentNullException>(() => string.Empty.ToDateTime());
 
-        Assert.Equal("Input value cannot be null (Parameter 'input')", result.Message);
+        Assert.Equal("Input value cannot be null. (Parameter 'input')", result.Message);
     }
 
     /// <summary>
@@ -264,7 +264,7 @@ public class ConversionExtensionsTests
         var result = Assert.Throws<ArgumentOutOfRangeException>(() => input.ToDateTime());
 
         Assert.Equal(
-            $"Unable to parse the string to a valid datetime (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
+            $"Unable to parse the string to a valid datetime. (Parameter 'input'){Environment.NewLine}Actual value was {input}.",
             result.Message
         );
     }

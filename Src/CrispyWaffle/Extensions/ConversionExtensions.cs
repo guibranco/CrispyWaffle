@@ -60,7 +60,7 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="input">The input.</param>
         /// <returns>DateTime.</returns>
-        /// <exception cref="System.ArgumentNullException">input - Input value cannot be null</exception>
+        /// <exception cref="System.ArgumentNullException">input - Input value cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// input - Unable to parse the string to a valid datetime
         /// </exception>
@@ -68,7 +68,7 @@ namespace CrispyWaffle.Extensions
         {
             if (string.IsNullOrWhiteSpace(input))
             {
-                throw new ArgumentNullException(nameof(input), "Input value cannot be null");
+                throw new ArgumentNullException(nameof(input), "Input value cannot be null.");
             }
 
             if (input.TryToDateTime(out var result))
@@ -79,7 +79,7 @@ namespace CrispyWaffle.Extensions
             throw new ArgumentOutOfRangeException(
                 nameof(input),
                 input,
-                "Unable to parse the string to a valid datetime"
+                "Unable to parse the string to a valid datetime."
             );
         }
 
@@ -88,7 +88,7 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="input">The input string a valid DateTime format.</param>
         /// <param name="value">The DateTime value.</param>
-        /// <returns><b>True</b> if success, <b>false</b> otherwise</returns>
+        /// <returns><b>True</b> if success, <b>false</b> otherwise.</returns>
         public static bool TryToDateTime(this string input, out DateTime value)
         {
             value = DateTime.MinValue;
@@ -238,14 +238,12 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="dateTime">The date time.</param>
         /// <returns>System.Int32.</returns>
-        public static int ToUnixTimeStamp(this DateTime dateTime)
-        {
-            return (int)
+        public static int ToUnixTimeStamp(this DateTime dateTime) =>
+            (int)
                 dateTime
                     .ToUniversalTime()
                     .Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Unspecified))
                     .TotalSeconds;
-        }
 
         /// <summary>
         /// Converts a Unix Timestamp (number of seconds that have elapsed since 00:00:00
