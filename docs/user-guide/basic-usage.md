@@ -19,3 +19,8 @@ The Crispy Waffle has the following features:
 ## Examples
 
 Most methods are tested and have usage examples in [test project source code](https://github.com/guibranco/CrispyWaffle).
+
+
+## Class diagram
+
+<script src="https://zoomhub.net/alVEz.js?width=800px&height=auto&border=none"></script>
