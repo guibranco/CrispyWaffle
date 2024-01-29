@@ -3,7 +3,7 @@
 ## Reporting Security Issues
 If you believe you have found a security vulnerability in this repository, please report it to us through coordinated disclosure.
 
-Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests whether this could lead to leaked security breaches.
+Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests because this could lead to leaked security breaches.
 
 Instead, please send an email to opensource-security[@]straccini.com.
 
