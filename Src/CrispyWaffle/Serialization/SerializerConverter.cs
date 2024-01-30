@@ -1,16 +1,15 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Xml;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.Log;
 using CrispyWaffle.Serialization.Adapters;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CrispyWaffle.Serialization
 {
@@ -41,9 +40,7 @@ namespace CrispyWaffle.Serialization
         public static implicit operator XmlDocument(SerializerConverter<T> instance)
         {
             if (instance?._formatter is not XmlSerializerAdapter)
-            {
                 return null;
-            }
 
             Stream stream = null;
             var xml = new XmlDocument();
@@ -73,54 +70,48 @@ namespace CrispyWaffle.Serialization
         /// <returns>The result of the conversion.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         [Pure]
-        public static implicit operator JToken(SerializerConverter<T> instance)
+        public static implicit operator JsonElement(SerializerConverter<T> instance)
         {
             if (instance._formatter is not JsonSerializerAdapter)
             {
-                return null;
+                return default;
             }
 
-            TextReader textReader = null;
             try
             {
                 instance._formatter.Serialize(instance._obj, out var stream);
-                textReader = new StreamReader(stream);
-
-                using (JsonReader jsonReader = new JsonTextReader(textReader))
+                stream.Seek(0, SeekOrigin.Begin);
+                using (var doc = JsonDocument.Parse(stream))
                 {
-                    textReader = null;
                     var type = instance._obj.GetType();
 
-                    return typeof(IEnumerable).IsAssignableFrom(type)
-                        ? JArray.Load(jsonReader)
-                        : JObject.Load(jsonReader);
+                    if (typeof(IEnumerable).IsAssignableFrom(type))
+                        return doc.RootElement.Clone();
+                    else
+                    {
+                        return doc.RootElement.Clone();
+                    }
                 }
             }
             catch (InvalidOperationException e)
             {
                 LogConsumer.Handle(e);
             }
-            finally
-            {
-                textReader?.Dispose();
-            }
 
-            return null;
+            return default;
         }
 
         /// <summary>
         /// Byte[] casting operator.
         /// </summary>
-        /// <param name="instance">The classe.</param>
+        /// <param name="instance">The class.</param>
         /// <returns>The result of the conversion.</returns>
         /// <exception cref="InvalidOperationException">Thrown when the requested operation is invalid.</exception>
         [Pure]
         public static implicit operator byte[](SerializerConverter<T> instance)
         {
             if (instance._formatter is not BinarySerializerAdapter)
-            {
                 return null;
-            }
 
             Stream stream = null;
             MemoryStream memoryStream = null;
@@ -179,14 +170,14 @@ namespace CrispyWaffle.Serialization
 
             if (instance._formatter is JsonSerializerAdapter)
             {
-                JToken json = instance;
+                JsonElement json = instance;
                 return json.ToString();
             }
 
             if (instance._formatter is not BinarySerializerAdapter)
             {
                 throw new InvalidOperationException(
-                    $"he type {typeof(T).FullName} doesn't allow string explicit conversion"
+                    $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
                 );
             }
 
@@ -217,7 +208,7 @@ namespace CrispyWaffle.Serialization
         /// <param name="json">The JSON.</param>
         /// <returns>The result of the conversion.</returns>
         [Pure]
-        public static implicit operator SerializerConverter<T>(JObject json)
+        public static implicit operator SerializerConverter<T>(JsonElement json)
         {
             var serializer = new SerializerConverter<T>(
                 default,

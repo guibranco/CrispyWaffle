@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Text.Json;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
 using Xunit;
-
+using CrispyWaffle.Serialization.SystemTextJson;
+using CrispyWaffle.Serialization;
 namespace CrispyWaffle.Tests.Serialization;
 
 public class JsonSerializerAdapterTests
@@ -39,6 +42,84 @@ public class JsonSerializerAdapterTests
         // Assert
         instance.Should().NotBeNull();
         instance.Should().BeEquivalentTo(GenerateSampleData());
+    }
+
+    [Fact]
+    public void Serialize_WithNonNullObject_ReturnsValidJson()
+    {
+        // Arrange
+        var testObject = new TestObject { Property = "Test" };
+        Stream resultStream;
+
+        // Act
+        _serializer.Serialize(testObject, out resultStream);
+        resultStream.Seek(0, SeekOrigin.Begin);
+        var serializedJson = new StreamReader(resultStream).ReadToEnd();
+
+        // Assert
+        Assert.Contains("{\r\n  \"Property\": \"Test\"\r\n}", serializedJson);
+    }
+
+    [Fact]
+    public void Deserialize_WithValidJson_ReturnsObject()
+    {
+        // Arrange
+        var json = "{\"Property\":\"Test\"}";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+
+        // Act
+        var result = _serializer.DeserializeFromStream<TestObject>(stream);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal("Test", result.Property);
+    }
+
+    [Fact]
+    public void Deserialize_NonEmptyJson_ThrowsNotNullObserverException()
+    {
+        // Arrange
+        var json = "{\"UnknownProperty\":\"Value\"}";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+
+        // Act & Assert
+        Assert.Throws<NotNullObserverException>(() =>
+            _serializer.DeserializeFromStream<NotNullObserver>(stream));
+    }
+
+    [Fact]
+    public void Serialize_WithNullValue_IgnoresNullProperty()
+    {
+        // Arrange
+        var testObject = new TestObject { Property = null };
+        Stream resultStream;
+
+        // Act
+        _serializer.Serialize(testObject, out resultStream);
+        resultStream.Seek(0, SeekOrigin.Begin);
+        var serializedJson = new StreamReader(resultStream).ReadToEnd();
+
+        // Assert
+        Assert.DoesNotContain("\"Property\":", serializedJson);
+    }
+
+    [Fact]
+    public void Deserialize_WithInvalidJson_ThrowsException()
+    {
+        // Arrange
+        var invalidJson = "Invalid JSON";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(invalidJson));
+
+        // Act & Assert
+        Assert.Throws<JsonException>(() =>
+            _serializer.DeserializeFromStream<TestObject>(stream));
+    }
+
+    // Additional tests for Custom Converter, Error Handling, etc.
+
+    private class TestObject
+    {
+        public string Property { get; set; }
     }
 
     private static string GetStringContent() =>
