@@ -5,12 +5,12 @@ Resolves #ISSUE_NUMBER
 ----
 
 ### Before the change?
-<!-- Please describe the current behaviour that you are modifying. -->
+<!-- Please describe the current behavior that you are modifying. -->
 
 * 
 
 ### After the change?
-<!-- Please describe the behaviour or changes that are being added by this PR. -->
+<!-- Please describe the behavior or changes that are being added by this PR. -->
 
 * 
 
