@@ -52,9 +52,7 @@ public class LoggingFixture : IDisposable
             return;
         }
 
-        if (disposing)
-        {
-        }
+        if (disposing) { }
 
         _disposedValue = true;
     }

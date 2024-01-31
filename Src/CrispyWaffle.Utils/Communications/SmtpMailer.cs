@@ -113,8 +113,7 @@ namespace CrispyWaffle.Utils.Communications
                     Port = port
                 },
                 new() { FromAddress = senderEmailAddress, FromName = senderDisplayName }
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Finalizes an instance of the <see cref="SmtpMailer"/> class.

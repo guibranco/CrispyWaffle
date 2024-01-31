@@ -200,9 +200,7 @@ namespace CrispyWaffle.Log.Handlers
                     );
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
 
         /// <summary>
@@ -221,9 +219,7 @@ namespace CrispyWaffle.Log.Handlers
                     );
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
     }
 }

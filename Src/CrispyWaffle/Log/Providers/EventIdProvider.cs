@@ -22,7 +22,6 @@ namespace CrispyWaffle.Log.Providers
             {
                 throw new ArgumentNullException(nameof(message));
             }
-
             unchecked
             {
                 uint hash = 0;

@@ -61,7 +61,8 @@ public class SerializerFactoryTests
 
         var serializedResult = (string)deserialized.GetSerializer();
 
-        var deserializedResult = SerializerFactory.GetSerializer(deserializedInstance)
+        var deserializedResult = SerializerFactory
+            .GetSerializer(deserializedInstance)
             .Deserialize(serializedResult);
 
         Assert.Equal(deserialized, deserializedResult);

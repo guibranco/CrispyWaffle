@@ -20,8 +20,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             : this(
                 connection,
                 $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}"
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector"/> class.

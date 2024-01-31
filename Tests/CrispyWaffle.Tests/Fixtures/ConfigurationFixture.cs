@@ -46,9 +46,7 @@ public class ConfigurationFixture : IDisposable
             return;
         }
 
-        if (disposing)
-        {
-        }
+        if (disposing) { }
 
         _disposedValue = true;
     }

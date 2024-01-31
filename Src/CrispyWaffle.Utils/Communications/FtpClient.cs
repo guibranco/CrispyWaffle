@@ -62,8 +62,7 @@ namespace CrispyWaffle.Utils.Communications
                 ftp?.Credentials.Username,
                 ftp?.Credentials.Password,
                 remoteDirectory
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient"/> class.

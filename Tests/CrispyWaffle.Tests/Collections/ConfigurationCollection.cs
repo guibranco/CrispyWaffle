@@ -9,6 +9,4 @@ namespace CrispyWaffle.Tests.Collections;
 /// </summary>
 /// <seealso cref="Xunit.ICollectionFixture{TFixture}" />
 [CollectionDefinition("Configuration collection")]
-public class ConfigurationCollection : ICollectionFixture<ConfigurationFixture>
-{
-}
+public class ConfigurationCollection : ICollectionFixture<ConfigurationFixture> { }

@@ -9,6 +9,4 @@ namespace CrispyWaffle.Tests.Collections;
 /// </summary>
 /// <seealso cref="Xunit.ICollectionFixture{BootstrapFixture}" />
 [CollectionDefinition("Logged collection")]
-public class LoggedCollection : ICollectionFixture<LoggingFixture>
-{
-}
+public class LoggedCollection : ICollectionFixture<LoggingFixture> { }
