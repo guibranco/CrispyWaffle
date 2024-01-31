@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using CrispyWaffle.Serialization;
 using CrispyWaffle.Serialization.Adapters;
+using CrispyWaffle.Serialization.SystemTextJson;
 using FluentAssertions;
 using Xunit;
-using CrispyWaffle.Serialization.SystemTextJson;
-using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.Tests.Serialization;
 
 public class JsonSerializerAdapterTests
@@ -83,8 +84,9 @@ public class JsonSerializerAdapterTests
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
 
         // Act & Assert
-        Assert.Throws<NotNullObserverException>(() =>
-            _serializer.DeserializeFromStream<NotNullObserver>(stream));
+        Assert.Throws<NotNullObserverException>(
+            () => _serializer.DeserializeFromStream<NotNullObserver>(stream)
+        );
     }
 
     [Fact]
@@ -111,8 +113,7 @@ public class JsonSerializerAdapterTests
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(invalidJson));
 
         // Act & Assert
-        Assert.Throws<JsonException>(() =>
-            _serializer.DeserializeFromStream<TestObject>(stream));
+        Assert.Throws<JsonException>(() => _serializer.DeserializeFromStream<TestObject>(stream));
     }
 
     // Additional tests for Custom Converter, Error Handling, etc.

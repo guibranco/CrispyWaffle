@@ -21,8 +21,7 @@ namespace CrispyWaffle.Serialization.NewtonsoftJson
         public NotNullObserverException(JsonToken type, object value, string path)
             : base(
                 $"Not null observer found a not null value in path {path} of type {type}: {value}"
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotNullObserverException"/> class.
@@ -33,8 +32,7 @@ namespace CrispyWaffle.Serialization.NewtonsoftJson
             : base(
                 $"Unable to serialize type {parentType.FullName}. Constraints: Not null observer",
                 innerException
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotNullObserverException"/> class.

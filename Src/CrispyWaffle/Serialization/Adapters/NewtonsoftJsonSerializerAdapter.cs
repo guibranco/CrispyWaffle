@@ -2,8 +2,8 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Newtonsoft.Json;
 using CrispyWaffle.Serialization.NewtonsoftJson;
+using Newtonsoft.Json;
 
 namespace CrispyWaffle.Serialization.Adapters
 {
