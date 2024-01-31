@@ -40,7 +40,7 @@ public class CredentialTests
 
         Assert.Equal(credential.Password, passwordDecrypted);
 
-        Assert.Equal(credential.Username, (string)deserialized.UserName);
+        Assert.Equal(credential.Username, (string)deserialized.Username);
     }
 
     [Fact]

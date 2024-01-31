@@ -79,7 +79,7 @@ namespace CrispyWaffle.Serialization
         [Pure]
         public static implicit operator JToken(SerializerConverter<T> instance)
         {
-            if (instance._formatter is not JsonSerializerAdapter)
+            if (instance._formatter is not NewtonsoftJsonSerializerAdapter)
             {
                 return null;
             }
@@ -185,7 +185,7 @@ namespace CrispyWaffle.Serialization
                 return builder.ToString();
             }
 
-            if (instance._formatter is JsonSerializerAdapter)
+            if (instance._formatter is NewtonsoftJsonSerializerAdapter)
             {
                 JToken json = instance;
                 return json.ToString();
