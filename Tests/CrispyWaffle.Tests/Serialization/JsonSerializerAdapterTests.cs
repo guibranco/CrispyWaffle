@@ -59,7 +59,9 @@ public class JsonSerializerAdapterTests
 
         // Assert
         serializedJson.Should().NotBeNullOrEmpty();
-        serializedJson.Should().BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}".ReplaceLineEndings());
+        serializedJson
+            .Should()
+            .BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}".ReplaceLineEndings());
     }
 
     [Fact]
