@@ -11,9 +11,16 @@ jobs:
     name: Update files
 
     steps:
-      - name: Contribute List
+      - name: Contribute List in README.md
         uses: akhilmhdh/contributors-readme-action@v2.3.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           readme_path: README.md
+
+      - name: Contribute List in docs/contributing.md
+        uses: akhilmhdh/contributors-readme-action@v2.3.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          readme_path: docs/contributing.md
