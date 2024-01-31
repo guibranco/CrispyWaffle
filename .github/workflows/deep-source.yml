@@ -42,6 +42,6 @@ jobs:
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
         run: |
-          dotnet build -c Debug --verbosity minimal
-          dotnet test  -c Debug --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura"
+          dotnet build -c Release --verbosity minimal
+          dotnet test  -c Release --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura"
           ./bin/deepsource report --analyzer test-coverage --key csharp --value-file ./Tests/CrispyWaffle.Tests/coverage.cobertura.xml
