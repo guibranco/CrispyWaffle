@@ -15,11 +15,11 @@ Resolves #ISSUE_NUMBER
 * 
 
 ### Pull request checklist
-- [ ] Tests for the changes have been added (for bug fixes / features)
-- [ ] Docs have been reviewed and added / updated if needed (for bug fixes / features)
+- [ ] Tests for the changes have been added (for bug fixes/features)
+- [ ] Docs have been reviewed and added/updated if needed (for bug fixes/features)
 
 ### Does this introduce a breaking change?
-<!-- If this introduces a breaking change make sure to note it here any what the impact might be -->
+<!-- If this introduces a breaking change, make sure to note it here and what the impact might be -->
 
 - [ ] Yes
 - [ ] No
