@@ -27,7 +27,7 @@ public class JsonSerializerAdapterTests
 
         // Assert
         var content = File.ReadAllText(fileName);
-        content.Replace("\r\n", "\n").Should().Be(GetStringContent());
+        content.ReplaceLineEndings().Should().Be(GetStringContent());
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class JsonSerializerAdapterTests
 
         // Assert
         serializedJson.Should().NotBeNullOrEmpty();
-        serializedJson.Should().BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}");
+        serializedJson.Should().BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}".ReplaceLineEndings());
     }
 
     [Fact]
