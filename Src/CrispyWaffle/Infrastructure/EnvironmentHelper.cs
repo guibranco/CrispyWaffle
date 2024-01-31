@@ -79,7 +79,6 @@ namespace CrispyWaffle.Infrastructure
         )]
         private static string GetIpAddressExternal()
         {
-            // ReSharper disable once ConvertToUsingDeclaration
             using (var wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;

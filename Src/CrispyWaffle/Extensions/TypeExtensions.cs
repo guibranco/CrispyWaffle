@@ -168,7 +168,6 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>Boolean.</returns>
-        // ReSharper disable once CognitiveComplexity
         public static bool IsNumericType(this Type type)
         {
             while (true)

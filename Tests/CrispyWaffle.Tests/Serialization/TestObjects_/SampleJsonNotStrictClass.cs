@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 09-05-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="SampleJsonNotStrictClass.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Serialization;
 

@@ -1,17 +1,3 @@
-// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 19/04/2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 19/04/2020
-// ***********************************************************************
-// <copyright file="ErrorResponse.cs" company="Guilherme Branco Stracini ME">
-//     © 2020 Guilherme Branco Stracini, All Rights Reserved
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
 using System.Collections.Generic;
 
 namespace CrispyWaffle.Utilities

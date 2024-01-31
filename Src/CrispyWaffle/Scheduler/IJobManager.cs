@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 09-05-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="IJobManager.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System.Threading;
+﻿using System.Threading;
 
 namespace CrispyWaffle.Scheduler
 {

@@ -1,17 +1,3 @@
-// ***********************************************************************
-// Assembly         : CrispyWaffle.Configuration
-// Author           : Guilherme Branco Stracini
-// Created          : 09-03-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-06-2020
-// ***********************************************************************
-// <copyright file="Credentials.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -24,8 +10,8 @@ namespace CrispyWaffle.Configuration
     /// <summary>
     /// The credentials class.
     /// </summary>
-    /// <seealso cref="IConnectionCredential" />
-    /// <seealso cref="INotifyPropertyChanged" />
+    /// <seealso cref="IConnectionCredential"/>
+    /// <seealso cref="INotifyPropertyChanged"/>
     public sealed class Credentials : IConnectionCredential, INotifyPropertyChanged
     {
         /// <summary>
@@ -44,28 +30,28 @@ namespace CrispyWaffle.Configuration
         }
 
         /// <summary>
-        /// The user name
+        /// The username.
         /// </summary>
-        private string _userName;
+        private string _username;
 
         /// <summary>
-        /// The password
+        /// The password.
         /// </summary>
         private string _password;
 
         /// <summary>
-        /// Gets or sets the user name.
+        /// Gets or sets the username.
         /// </summary>
-        /// <value>The user name.</value>
+        /// <value>The username.</value>
 
         [Localizable(false)]
-        public string UserName
+        public string Username
         {
-            get => _userName;
+            get => _username;
             set
             {
-                _userName = value;
-                OnPropertyChanged(nameof(UserName));
+                _username = value;
+                OnPropertyChanged(nameof(Username));
             }
         }
 
@@ -75,7 +61,8 @@ namespace CrispyWaffle.Configuration
         /// <value>The password.</value>
 
         [XmlIgnore]
-        [JsonIgnore]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         [Localizable(false)]
         public string Password
         {
@@ -95,6 +82,7 @@ namespace CrispyWaffle.Configuration
         [EditorBrowsable(EditorBrowsableState.Never)]
         [XmlElement("Password")]
         [JsonProperty("Password")]
+        [System.Text.Json.Serialization.JsonPropertyName("Password")]
         [Localizable(false)]
         public string PasswordInternal
         {

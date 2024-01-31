@@ -16,10 +16,10 @@ namespace CrispyWaffle.Utilities
     /// <summary>
     /// A dynamic serialization.
     /// </summary>
-    /// <seealso cref="DynamicObject" />
-    /// <seealso cref="ISerializable" />
-    /// <seealso cref="IXmlSerializable" />
-    /// <seealso cref="System.IEquatable{DynamicSerialization}" />
+    /// <seealso cref="DynamicObject"/>
+    /// <seealso cref="ISerializable"/>
+    /// <seealso cref="IXmlSerializable"/>
+    /// <seealso cref="System.IEquatable{DynamicSerialization}"/>
     [Serializable]
     [Serializer]
     public class DynamicSerialization
@@ -80,12 +80,16 @@ namespace CrispyWaffle.Utilities
             {
                 case DynamicSerializationOption.None:
                     return key;
+
                 case DynamicSerializationOption.Lowercase:
                     return key.ToLowerInvariant();
+
                 case DynamicSerializationOption.Uppercase:
                     return key.ToUpperInvariant();
+
                 case DynamicSerializationOption.Camelcase:
                     return key.ToCamelCase();
+
                 default:
                     return key;
             }
@@ -96,7 +100,9 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <exception cref="DynamicSerializationException">If the value is not found in the dictionary.</exception>
+        /// <exception cref="DynamicSerializationException">
+        /// If the value is not found in the dictionary.
+        /// </exception>
         public void SetMember(string key, object value)
         {
             try
@@ -111,21 +117,26 @@ namespace CrispyWaffle.Utilities
 
         /// <summary>
         /// Provides the implementation for operations that get member values. Classes derived from
-        /// the <see cref="DynamicObject" /> class can override this method to
-        /// specify dynamic behavior for operations such as getting a value for a property.
+        /// the <see cref="DynamicObject"/> class can override this method to specify dynamic
+        /// behavior for operations such as getting a value for a property.
         /// </summary>
-        /// <param name="binder">Provides information about the object that called the dynamic operation. The binder.Name
-        /// property provides the name of the member on which the dynamic operation is performed. For
-        /// example, for the Console.WriteLine(sampleObject.SampleProperty) statement, where
-        /// sampleObject is an instance of the class derived from the
-        /// <see cref="DynamicObject" /> class, binder.Name returns
-        /// "SampleProperty". The binder.IgnoreCase property specifies whether the member name is
-        /// case-sensitive.</param>
-        /// <param name="result">The result of the get operation. For example, if the method is called for a property, you
-        /// can assign the property value to <paramref name="result" />.</param>
-        /// <returns>true if the operation is successful; otherwise, false. If this method returns false, the
+        /// <param name="binder">
+        /// Provides information about the object that called the dynamic operation. The binder.Name
+        /// property provides the name of the member on which the dynamic operation is performed.
+        /// For example, for the Console.WriteLine(sampleObject.SampleProperty) statement, where
+        /// sampleObject is an instance of the class derived from the <see cref="DynamicObject"/>
+        /// class, binder.Name returns "SampleProperty". The binder.IgnoreCase property specifies
+        /// whether the member name is case-sensitive.
+        /// </param>
+        /// <param name="result">
+        /// The result of the get operation. For example, if the method is called for a property,
+        /// you can assign the property value to <paramref name="result"/>.
+        /// </param>
+        /// <returns>
+        /// true if the operation is successful; otherwise, false. If this method returns false, the
         /// run-time binder of the language determines the behavior. (In most cases, a run-time
-        /// exception is thrown.)</returns>
+        /// exception is thrown.)
+        /// </returns>
         [Pure]
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
@@ -135,22 +146,27 @@ namespace CrispyWaffle.Utilities
 
         /// <summary>
         /// Provides the implementation for operations that set member values. Classes derived from
-        /// the <see cref="DynamicObject" /> class can override this method to
-        /// specify dynamic behavior for operations such as setting a value for a property.
+        /// the <see cref="DynamicObject"/> class can override this method to specify dynamic
+        /// behavior for operations such as setting a value for a property.
         /// </summary>
-        /// <param name="binder">Provides information about the object that called the dynamic operation. The binder.Name
+        /// <param name="binder">
+        /// Provides information about the object that called the dynamic operation. The binder.Name
         /// property provides the name of the member to which the value is being assigned. For
-        /// example, for the statement sampleObject.SampleProperty = "Test", where sampleObject is an
-        /// instance of the class derived from the <see cref="DynamicObject" />
-        /// class, binder.Name returns "SampleProperty". The binder.IgnoreCase property specifies
-        /// whether the member name is case-sensitive.</param>
-        /// <param name="value">The value to set to the member. For example, for sampleObject.SampleProperty = "Test",
-        /// where sampleObject is an instance of the class derived from the
-        /// <see cref="DynamicObject" /> class, the <paramref name="value" /> is
-        /// "Test".</param>
-        /// <returns>true if the operation is successful; otherwise, false. If this method returns false, the
-        /// run-time binder of the language determines the behavior. (In most cases, a language-
-        /// specific run-time exception is thrown.)</returns>
+        /// example, for the statement sampleObject.SampleProperty = "Test", where sampleObject is
+        /// an instance of the class derived from the <see cref="DynamicObject"/> class, binder.Name
+        /// returns "SampleProperty". The binder.IgnoreCase property specifies whether the member
+        /// name is case-sensitive.
+        /// </param>
+        /// <param name="value">
+        /// The value to set to the member. For example, for sampleObject.SampleProperty = "Test",
+        /// where sampleObject is an instance of the class derived from the <see
+        /// cref="DynamicObject"/> class, the <paramref name="value"/> is "Test".
+        /// </param>
+        /// <returns>
+        /// true if the operation is successful; otherwise, false. If this method returns false, the
+        /// run-time binder of the language determines the behavior. (In most cases, a
+        /// language-specific run-time exception is thrown.)
+        /// </returns>
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             Dictionary.Add(binder.Name, value);
@@ -158,8 +174,8 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Populates a <see cref="SerializationInfo" /> with the data.
-        /// needed to serialize the target object.
+        /// Populates a <see cref="SerializationInfo"/> with the data. needed to serialize the
+        /// target object.
         /// </summary>
         /// <param name="info">The information.</param>
         /// <param name="context">The context.</param>
@@ -217,13 +233,13 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="object" /> is equal to the current
-        /// <see cref="object" />.
+        /// Determines whether the specified <see cref="object"/> is equal to the current <see cref="object"/>.
         /// </summary>
-        /// <param name="obj">The <see cref="object" /> to compare with the current
-        /// <see cref="object" />.</param>
-        /// <returns>true if the specified <see cref="object" /> is equal to the current
-        /// <see cref="object" />; otherwise, false.</returns>
+        /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="object"/>.</param>
+        /// <returns>
+        /// true if the specified <see cref="object"/> is equal to the current <see cref="object"/>;
+        /// otherwise, false.
+        /// </returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -236,12 +252,13 @@ namespace CrispyWaffle.Utilities
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="object" /> is equal to the current
-        /// <see cref="object" />.
+        /// Determines whether the specified <see cref="object"/> is equal to the current <see cref="object"/>.
         /// </summary>
         /// <param name="other">The dynamic serialization to compare to this object.</param>
-        /// <returns>true if the specified <see cref="object" /> is equal to the current
-        /// <see cref="object" />; otherwise, false.</returns>
+        /// <returns>
+        /// true if the specified <see cref="object"/> is equal to the current <see cref="object"/>;
+        /// otherwise, false.
+        /// </returns>
         public bool Equals(DynamicSerialization other)
         {
             return other != null
@@ -251,16 +268,15 @@ namespace CrispyWaffle.Utilities
 
         /// <summary>
         /// This method is reserved and should not be used.When implementing the IXmlSerializable
-        /// interface, you should return null (Nothing in Visual Basic) from this method, and instead,
-        /// if specifying a custom schema is required, apply the
-        /// <see cref="XmlSchemaProviderAttribute" /> to the class.
+        /// interface, you should return null (Nothing in Visual Basic) from this method, and
+        /// instead, if specifying a custom schema is required, apply the <see
+        /// cref="XmlSchemaProviderAttribute"/> to the class.
         /// </summary>
-        /// <returns>An <see cref="XmlSchema" /> that describes the XML representation of
-        /// the object that is produced by the
-        /// <see cref="WriteXml(XmlWriter)" />
-        /// method and consumed by the
-        /// <see cref="ReadXml(XmlReader)" />
-        /// method.</returns>
+        /// <returns>
+        /// An <see cref="XmlSchema"/> that describes the XML representation of the object that is
+        /// produced by the <see cref="WriteXml(XmlWriter)"/> method and consumed by the <see
+        /// cref="ReadXml(XmlReader)"/> method.
+        /// </returns>
         public XmlSchema GetSchema()
         {
             return null;
@@ -269,7 +285,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Generates an object from its XML representation.
         /// </summary>
-        /// <param name="reader">The <see cref="XmlReader" /> stream from which the object is deserialized.</param>
+        /// <param name="reader">The <see cref="XmlReader"/> stream from which the object is deserialized.</param>
         public void ReadXml(XmlReader reader)
         {
             if (reader.MoveToContent() != XmlNodeType.Element)
@@ -293,7 +309,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Converts an object into its XML representation.
         /// </summary>
-        /// <param name="writer">The <see cref="XmlWriter" /> stream to which the object is serialized.</param>
+        /// <param name="writer">The <see cref="XmlWriter"/> stream to which the object is serialized.</param>
         public void WriteXml(XmlWriter writer)
         {
             foreach (var kvp in Dictionary)

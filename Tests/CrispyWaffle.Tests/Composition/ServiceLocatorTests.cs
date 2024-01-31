@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 05-28-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="ServiceLocatorTests.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System.Threading;
+﻿using System.Threading;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Tests.Fixtures;
 using Xunit;

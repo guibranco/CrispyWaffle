@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 09-04-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-04-2020
-// ***********************************************************************
-// <copyright file="MustacheTemplateRender.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -58,7 +44,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns
                     .ConditionalPattern.Matches(template)
-                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => EvaluateConditional(match, current));
         }
@@ -126,7 +111,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns
                     .WithPattern.Matches(template)
-                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessWith(match, current));
         }
@@ -168,7 +152,6 @@ namespace CrispyWaffle.TemplateRendering.Engines
                 ? template
                 : MustachePatterns
                     .LoopPattern.Matches(template)
-                    // ReSharper disable once RedundantEnumerableCastCall
                     .Cast<Match>()
                     .Aggregate(template, (current, match) => ProcessLoop(match, current));
         }

@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.RabbitMQ
-// Author           : Guilherme Branco Stracini
-// Created          : 03-31-2021
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 05-05-2021
-// ***********************************************************************
-// <copyright file="RabbitMqConnector.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
 using RabbitMQ.Client;
@@ -27,14 +13,14 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
     public sealed class RabbitMQConnector
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQConnector" /> class.
+        /// Initializes a new instance of the <see cref="RabbitMQConnector"/> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         public RabbitMQConnector(IConnection connection)
             : this(connection, "/", $"{EnvironmentHelper.ApplicationName}.logs") { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RabbitMQConnector" /> class.
+        /// Initializes a new instance of the <see cref="RabbitMQConnector"/> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="virtualHost">The virtual host.</param>
@@ -54,9 +40,9 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 Port = connection.Port
             };
 
-            if (!string.IsNullOrWhiteSpace(connection.Credentials?.UserName))
+            if (!string.IsNullOrWhiteSpace(connection.Credentials?.Username))
             {
-                ConnectionFactory.UserName = connection.Credentials.UserName;
+                ConnectionFactory.UserName = connection.Credentials.Username;
             }
 
             if (!string.IsNullOrWhiteSpace(connection.Credentials?.Password))

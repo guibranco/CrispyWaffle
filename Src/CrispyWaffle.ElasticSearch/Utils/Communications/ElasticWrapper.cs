@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.ElasticSearch
-// Author           : Guilherme Branco Stracini
-// Created          : 10/09/2022
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 10/09/2022
-// ***********************************************************************
-// <copyright file="ElasticWrapper.cs" company="Guilherme Branco Stracini ME">
-//     © 2022 Guilherme Branco Stracini, All Rights Reserved
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using CrispyWaffle.ElasticSearch.Helpers;
+﻿using CrispyWaffle.ElasticSearch.Helpers;
 using Nest;
 
 namespace CrispyWaffle.ElasticSearch.Utils.Communications

@@ -17,7 +17,7 @@ public class CredentialTests
         var credential = new Credentials
         {
             Password = "DeltaBravoZulu",
-            UserName = EnvironmentHelper.UserName
+            Username = EnvironmentHelper.UserName
         };
 
         var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
@@ -40,7 +40,7 @@ public class CredentialTests
 
         Assert.Equal(credential.Password, passwordDecrypted);
 
-        Assert.Equal(credential.UserName, (string)deserialized.UserName);
+        Assert.Equal(credential.Username, (string)deserialized.UserName);
     }
 
     [Fact]

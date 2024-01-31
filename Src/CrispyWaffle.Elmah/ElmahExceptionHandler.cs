@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Elmah
-// Author           : Guilherme Branco Stracini
-// Created          : 09-04-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 24/01/2023
-// ***********************************************************************
-// <copyright file="ElmahExceptionHandler.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

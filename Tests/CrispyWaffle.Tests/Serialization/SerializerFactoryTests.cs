@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 09-05-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="SerializerFactoryTests.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Linq;
 using CrispyWaffle.Serialization;
 using Xunit;
@@ -75,9 +61,7 @@ public class SerializerFactoryTests
 
         var serializedResult = (string)deserialized.GetSerializer();
 
-        var deserializedResult = SerializerFactory
-            // ReSharper disable once InvokeAsExtensionMethod
-            .GetSerializer(deserializedInstance)
+        var deserializedResult = SerializerFactory.GetSerializer(deserializedInstance)
             .Deserialize(serializedResult);
 
         Assert.Equal(deserialized, deserializedResult);

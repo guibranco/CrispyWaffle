@@ -127,7 +127,6 @@ namespace CrispyWaffle.Log.Adapters
                     )
                 )
                 {
-                    // Remove the source from the previous log so we can associate it with the current log name
                     EventLog.DeleteEventSource(source, log.MachineName);
                     oldLogName = existingLogWithSourceName;
                 }

@@ -202,7 +202,6 @@ namespace CrispyWaffle.Log.Handlers
             }
             catch (Exception)
             {
-                // ignore handling
             }
         }
 
@@ -224,7 +223,6 @@ namespace CrispyWaffle.Log.Handlers
             }
             catch (Exception)
             {
-                // ignore handling
             }
         }
     }

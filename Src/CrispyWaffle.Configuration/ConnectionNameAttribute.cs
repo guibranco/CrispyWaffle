@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Configuration
-// Author           : Guilherme Branco Stracini
-// Created          : 09-03-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-03-2020
-// ***********************************************************************
-// <copyright file="ConnectionNameAttribute.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 
 namespace CrispyWaffle.Configuration
 {

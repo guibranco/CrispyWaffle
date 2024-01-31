@@ -1,17 +1,3 @@
-// ***********************************************************************
-// Assembly         : CrispyWaffle
-// Author           : Guilherme Branco Stracini
-// Created          : 09-04-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 07-06-2020
-// ***********************************************************************
-// <copyright file="MustachePatterns.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
 using System;
 using System.Text.RegularExpressions;
 

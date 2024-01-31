@@ -1,28 +1,35 @@
 <Project>
+  <PropertyGroup Label="SDK Versions">
+    <DotNetVersion>net8.0</DotNetVersion>
+  </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Label="NuGet package">
     <Authors>Guilherme Branco Stracini</Authors>
     <Company>Guilherme Branco Stracini ME</Company>
     <Copyright>© $([System.DateTime]::Now.Year) Guilherme Branco Stracini. All rights reserved.</Copyright>
     <PackageProjectUrl>https://guibranco.github.io/CrispyWaffle</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <RepositoryType>GIT</RepositoryType>
+    <RepositoryUrl>https://github.com/guibranco/CrispyWaffle</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Build">
+    <UpdateVersionProperties>true</UpdateVersionProperties>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>disabled</ImplicitUsings>
     <Nullable>disable</Nullable>
     <DebugType>full</DebugType>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>    
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <UpdateVersionProperties>true</UpdateVersionProperties>
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
     <NoWarn>$(NoWarn);1591;NU5105;SA1633;CA1711</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
@@ -31,7 +38,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <GenerateDependencyFile>true</GenerateDependencyFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
   <PropertyGroup Label="Analysis settings">

@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 07-29-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-06-2020
-// ***********************************************************************
-// <copyright file="LoggingFixture.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
@@ -53,7 +39,7 @@ public class LoggingFixture : IDisposable
     /// <summary>
     /// The disposed value
     /// </summary>
-    private bool _disposedValue; // To detect redundant calls
+    private bool _disposedValue;
 
     /// <summary>
     /// Releases unmanaged and - optionally - managed resources.
@@ -68,19 +54,16 @@ public class LoggingFixture : IDisposable
 
         if (disposing)
         {
-            //ServiceLocator.DisposeAllRegistrations();
         }
 
         _disposedValue = true;
     }
 
-    // This code added to correctly implement the disposable pattern.
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
-        // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         Dispose(true);
     }
 }

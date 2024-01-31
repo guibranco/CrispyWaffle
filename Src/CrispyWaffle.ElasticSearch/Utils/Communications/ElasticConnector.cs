@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.ElasticSearch
-// Author           : Guilherme Branco Stracini
-// Created          : 10/09/2022
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 10/09/2022
-// ***********************************************************************
-// <copyright file="ElasticConnector.cs" company="Guilherme Branco Stracini ME">
-//     © 2022 Guilherme Branco Stracini, All Rights Reserved
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Globalization;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
@@ -27,17 +13,18 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
     public sealed class ElasticConnector
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElasticConnector" /> class.
+        /// Initializes a new instance of the <see cref="ElasticConnector"/> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         public ElasticConnector(IConnection connection)
             : this(
                 connection,
                 $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}"
-            ) { }
+            )
+        { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElasticConnector" /> class.
+        /// Initializes a new instance of the <see cref="ElasticConnector"/> class.
         /// </summary>
         /// <param name="connection">The connection.</param>
         /// <param name="defaultIndexName">Default name of the index.</param>
@@ -65,11 +52,11 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             var settings = new ConnectionSettings(builder.Uri).DefaultIndex(defaultIndexName);
             if (
                 connection.Credentials != null
-                && !string.IsNullOrWhiteSpace(connection.Credentials.UserName)
+                && !string.IsNullOrWhiteSpace(connection.Credentials.Username)
             )
             {
                 settings.BasicAuthentication(
-                    connection.Credentials.UserName,
+                    connection.Credentials.Username,
                     connection.Credentials.Password
                 );
             }
