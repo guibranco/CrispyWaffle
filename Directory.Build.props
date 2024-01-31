@@ -1,8 +1,4 @@
 <Project>
-  <PropertyGroup Label="SDK Versions">
-    <DotNetVersion>net8.0</DotNetVersion>
-  </PropertyGroup>
-
   <PropertyGroup Label="NuGet package">
     <Authors>Guilherme Branco Stracini</Authors>
     <Company>Guilherme Branco Stracini ME</Company>
@@ -39,6 +35,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <GenerateDependencyFile>true</GenerateDependencyFile>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Label="Analysis settings">
