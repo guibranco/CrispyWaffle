@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Serialization.Adapters;
-using Newtonsoft.Json;
+using CrispyWaffle.Serialization.SystemTextJson;
 
 namespace CrispyWaffle.Serialization
 {
@@ -206,14 +208,12 @@ namespace CrispyWaffle.Serialization
                         ServiceLocator.Resolve<JsonSerializerAdapter>()
                     );
                 case SerializerFormat.Json when !attribute.IsStrict:
-                    var settings = new JsonSerializerSettings
+                    var options = new JsonSerializerOptions
                     {
                         Converters = { new NotNullObserverConverter() },
-                        Culture = CultureInfo.GetCultureInfo("pt-br"),
-                        MissingMemberHandling = MissingMemberHandling.Ignore,
-                        NullValueHandling = NullValueHandling.Ignore
+                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                     };
-                    return new SerializerConverter<T>(obj, new JsonSerializerAdapter(settings));
+                    return new SerializerConverter<T>(obj, new JsonSerializerAdapter(options));
                 case SerializerFormat.Xml:
                     return new SerializerConverter<T>(
                         obj,

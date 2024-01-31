@@ -1,17 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
-    <Description>The CrispyWaffle toolkit for .NET projects</Description>
-    <PackageTags>toolkit sdk framework library lib</PackageTags>
-    <PackageReleaseNotes>CancellationToken support in ServiceLocator</PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Description>The CrispyWaffle toolkit for .NET projects</Description>
+		<PackageTags>toolkit sdk framework library lib</PackageTags>
+		<PackageReleaseNotes>CancellationToken support in ServiceLocator</PackageReleaseNotes>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Diagnostics.EventLog" Version="[6.0.0,7.0.0)" />
-    <PackageReference Include="System.Security.Permissions" Version="[6.0.0,7.0.0)" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Diagnostics.EventLog" Version="[6.0.0,7.0.0)" />
+		<PackageReference Include="System.Security.Permissions" Version="[6.0.0,7.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="8.0.0" />
+	</ItemGroup>
 
 </Project>
