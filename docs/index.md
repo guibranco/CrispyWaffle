@@ -10,15 +10,8 @@ Source code available at: [GitHub ![GitHub stars](https://img.shields.io/github/
 
 Currently opened issues: [![GitHub issues](https://img.shields.io/github/issues/guibranco/crispywaffle)](https://github.com/guibranco/crispywaffle/issues)
 
-## Build status
+## Project status
 
-
-| Build status | Last commit | Tests |
-|:------------:|:-----------:|:-----:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/main?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/main?compact_message)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main/tests) |
-
-## Code quality
-
-|  Coverage | Code Smells | LoC |
-|:---------:|:-----------:|:---:|
-|[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
+| Build status | Last commit | Tests |  Coverage | Code Smells | LoC |
+|:------------:|:-----------:|:-----:|:---------:|:-----------:|:---:|
+| [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/main?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/main?compact_message)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main/tests) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
