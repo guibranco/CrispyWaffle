@@ -58,7 +58,8 @@ public class JsonSerializerAdapterTests
         var serializedJson = new StreamReader(resultStream).ReadToEnd();
 
         // Assert
-        Assert.Contains("{\r\n  \"Property\": \"Test\"\r\n}", serializedJson);
+        serializedJson.Should().NotBeNullOrEmpty();
+        serializedJson.Should().BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}");
     }
 
     [Fact]
@@ -72,8 +73,9 @@ public class JsonSerializerAdapterTests
         var result = _serializer.DeserializeFromStream<TestObject>(stream);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Equal("Test", result.Property);
+        result.Should().NotBeNull();
+        result.Should().BeOfType<TestObject>();
+        result.Property.Should().Be("Test");
     }
 
     [Fact]
@@ -102,7 +104,8 @@ public class JsonSerializerAdapterTests
         var serializedJson = new StreamReader(resultStream).ReadToEnd();
 
         // Assert
-        Assert.DoesNotContain("\"Property\":", serializedJson);
+        serializedJson.Should().NotBeNull();
+        serializedJson.Should().NotContain("\"Property\":");
     }
 
     [Fact]
