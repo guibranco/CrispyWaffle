@@ -165,7 +165,7 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Bots
 
-<!-- readme: snyk-bot,bots -start -->
+<!-- readme: bots,snyk-bot -start -->
 <table>
 <tr>
     <td align="center">
@@ -204,4 +204,4 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
         </a>
     </td></tr>
 </table>
-<!-- readme: snyk-bot,bots -end -->
+<!-- readme: bots,snyk-bot -end -->
