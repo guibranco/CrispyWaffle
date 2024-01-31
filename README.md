@@ -118,6 +118,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/Looseling">
+            <img src="https://avatars.githubusercontent.com/u/69507148?v=4" width="100;" alt="Looseling"/>
+            <br />
+            <sub><b>Batyrkhan Akzholov</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/joaovaladares">
             <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
             <br />
@@ -144,7 +151,8 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
             <br />
             <sub><b>Yousef</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/akhtareimon">
             <img src="https://avatars.githubusercontent.com/u/15952495?v=4" width="100;" alt="akhtareimon"/>
@@ -157,16 +165,9 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Bots
 
-<!-- readme: snyk-bot,bots -start -->
+<!-- readme: bots,snyk-bot -start -->
 <table>
 <tr>
-    <td align="center">
-        <a href="https://github.com/snyk-bot">
-            <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100;" alt="snyk-bot"/>
-            <br />
-            <sub><b>Snyk Bot</b></sub>
-        </a>
-    </td>
     <td align="center">
         <a href="https://github.com/dependabot[bot]">
             <img src="https://avatars.githubusercontent.com/in/29110?v=4" width="100;" alt="dependabot[bot]"/>
@@ -194,6 +195,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
             <br />
             <sub><b>stack-file[bot]</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/snyk-bot">
+            <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100;" alt="snyk-bot"/>
+            <br />
+            <sub><b>Snyk Bot</b></sub>
+        </a>
     </td></tr>
 </table>
-<!-- readme: snyk-bot,bots -end -->
+<!-- readme: bots,snyk-bot -end -->
