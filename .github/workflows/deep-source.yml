@@ -30,4 +30,4 @@ jobs:
         run: |
           dotnet build -c Debug --verbosity minimal
           dotnet test  -c Debug --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura"
-          ./bin/deepsource report --analyzer test-coverage --key csharp --value-file ./Tests/VTEX.Tests/coverage.cobertura.xml
+          ./bin/deepsource report --analyzer test-coverage --key csharp --value-file ./Tests/CrispyWaffle.Tests/coverage.cobertura.xml
