@@ -23,7 +23,7 @@ public class NewtonsoftJsonSerializerAdapterTests
 
         // Assert
         var content = File.ReadAllText(fileName);
-        content.Replace("\r\n", "\n").Should().Be(GetStringContent());
+        content.ReplaceLineEndings().Should().Be(GetStringContent());
     }
 
     [Fact]
