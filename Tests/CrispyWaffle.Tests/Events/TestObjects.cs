@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 07-29-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-05-2020
-// ***********************************************************************
-// <copyright file="TestObjects.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using CrispyWaffle.Events;
 using CrispyWaffle.Log;
@@ -100,35 +86,6 @@ internal class TestObjects
             );
         }
     }
-
-    ///// <summary>
-    ///// The mail done event class.
-    ///// </summary>
-    ///// <seealso cref="IEventHandler{TestDoneEvent}" />
-
-    //public sealed class MailDoneEvent : IEventHandler<TestDoneEvent>
-    //{
-    //    #region Implementation of IEventHandler<SampleDoneAction>
-
-    //    /// <summary>
-    //    /// Handles the specified arguments.
-    //    /// </summary>
-    //    /// <param name="args">The arguments.</param>
-    //    public void Handle(TestDoneEvent args)
-    //    {
-    //        NotificationConsumer.Notify(new ExceptionNotification
-    //        {
-    //            Date = DateTime.Now,
-    //            Operation = Operation.NONE,
-    //            Messages = new[]
-    //                                        {
-    //                                            @"Test"
-    //                                        }
-    //        });
-    //    }
-
-    //    #endregion
-    //}
 
     /// <summary>
     /// The exception event class.

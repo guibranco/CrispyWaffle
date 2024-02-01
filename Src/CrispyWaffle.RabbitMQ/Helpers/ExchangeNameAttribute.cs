@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.RabbitMQ
-// Author           : Guilherme Branco Stracini
-// Created          : 09-28-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 05-05-2021
-// ***********************************************************************
-// <copyright file="ExchangeNameAttribute.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 
 namespace CrispyWaffle.RabbitMQ.Helpers
 {

@@ -18,10 +18,7 @@ namespace CrispyWaffle.Serialization.SystemTextJson
         /// <param name="type">The type.</param>
         /// <param name="value">The value.</param>
         public NotNullObserverException(JsonTokenType type, object value)
-            : base(
-                $"Not null observer found a not null value of type {type}: {value}"
-            )
-        { }
+            : base($"Not null observer found a not null value of type {type}: {value}") { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotNullObserverException"/> class.
@@ -32,8 +29,7 @@ namespace CrispyWaffle.Serialization.SystemTextJson
             : base(
                 $"Unable to serialize type {parentType.FullName}. Constraints: Not null observer",
                 innerException
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotNullObserverException"/> class.

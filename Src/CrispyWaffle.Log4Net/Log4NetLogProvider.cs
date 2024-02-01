@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Log4Net
-// Author           : Guilherme Branco Stracini
-// Created          : 09-04-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-04-2020
-// ***********************************************************************
-// <copyright file="Log4NetLogProvider.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using CrispyWaffle.Log;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;

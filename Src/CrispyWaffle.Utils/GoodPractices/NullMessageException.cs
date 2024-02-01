@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Utils
-// Author           : Guilherme Branco Stracini
-// Created          : 22/03/2023
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 22/03/2023
-// ***********************************************************************
-// <copyright file="NullMessageException.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Runtime.Serialization;
 
 namespace CrispyWaffle.Utils.GoodPractices

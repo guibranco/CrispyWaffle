@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Redis
-// Author           : Guilherme Branco Stracini
-// Created          : 09-06-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-06-2020
-// ***********************************************************************
-// <copyright file="RedisCacheRepository.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using CrispyWaffle.Cache;

@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Serialization.Adapters;
-using CrispyWaffle.Serialization.SystemTextJson;
+using CrispyWaffle.Serialization.NewtonsoftJson;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CrispyWaffle.Serialization
 {
@@ -22,17 +22,14 @@ namespace CrispyWaffle.Serialization
         /// <param name="obj">The object.</param>
         /// <returns>SerializerConverter&lt;T&gt;.</returns>
         /// <exception cref="InvalidOperationException">Invalid array subtype.</exception>
-        /// <exception cref="InvalidOperationException">The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}</exception>
+        /// <exception cref="InvalidOperationException">
+        /// The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}
+        /// </exception>
         [Pure]
         private static SerializerConverter<T> GetSerializerFromType<T>(T obj)
             where T : class
         {
             var type = obj.GetType();
-
-            //if (!type.IsClass)
-            //{
-            //    throw new InvalidOperationException($"Unable to serializer the object of type '{type.FullName}'");
-            //}
 
             if (
                 Attribute.GetCustomAttribute(type, typeof(SerializerAttribute))
@@ -150,19 +147,11 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        ///     Gets the serializer.
+        /// Gets the serializer.
         /// </summary>
-        ///
-        /// <typeparam name="T">
-        ///     Generic type parameter.
-        /// </typeparam>
-        /// <param name="obj">
-        ///     The object.
-        /// </param>
-        ///
-        /// <returns>
-        ///     The serializer&lt; t&gt;
-        /// </returns>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>The serializer&lt; t&gt;</returns>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>(this T obj)
             where T : class
@@ -202,45 +191,44 @@ namespace CrispyWaffle.Serialization
                         obj,
                         ServiceLocator.Resolve<BinarySerializerAdapter>()
                     );
+
                 case SerializerFormat.Json when attribute.IsStrict:
                     return new SerializerConverter<T>(
                         obj,
-                        ServiceLocator.Resolve<JsonSerializerAdapter>()
+                        ServiceLocator.Resolve<NewtonsoftJsonSerializerAdapter>()
                     );
+
                 case SerializerFormat.Json when !attribute.IsStrict:
-                    var options = new JsonSerializerOptions
+                    var settings = new JsonSerializerSettings
                     {
                         Converters = { new NotNullObserverConverter() },
-                        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+                        Culture = CultureInfo.GetCultureInfo("pt-br"),
+                        MissingMemberHandling = MissingMemberHandling.Ignore,
+                        NullValueHandling = NullValueHandling.Ignore
                     };
-                    return new SerializerConverter<T>(obj, new JsonSerializerAdapter(options));
+                    return new SerializerConverter<T>(
+                        obj,
+                        new NewtonsoftJsonSerializerAdapter(settings)
+                    );
+
                 case SerializerFormat.Xml:
                     return new SerializerConverter<T>(
                         obj,
                         ServiceLocator.Resolve<XmlSerializerAdapter>()
                     );
+
                 default:
                     throw new InvalidOperationException(nameof(attribute.Format));
             }
         }
 
         /// <summary>
-        ///     A T extension method that gets custom serializer.
+        /// A T extension method that gets custom serializer.
         /// </summary>
-        ///
-        /// <typeparam name="T">
-        ///     Generic type parameter.
-        /// </typeparam>
-        /// <param name="obj">
-        ///     The object.
-        /// </param>
-        /// <param name="format">
-        ///     Describes the format to use.
-        /// </param>
-        ///
-        /// <returns>
-        ///     The custom serializer&lt; t&gt;
-        /// </returns>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="format">Describes the format to use.</param>
+        /// <returns>The custom serializer&lt; t&gt;</returns>
         [Pure]
         public static SerializerConverter<T> GetCustomSerializer<T>(
             this T obj,
@@ -252,19 +240,11 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// 	A T extension method that gets custom serializer.
+        /// A T extension method that gets custom serializer.
         /// </summary>
-        ///
-        /// <typeparam name="T">
-        /// 	Generic type parameter.
-        /// </typeparam>
-        /// <param name="format">
-        /// 	Describes the format to use.
-        /// </param>
-        ///
-        /// <returns>
-        /// 	The custom serializer&lt; t&gt;
-        /// </returns>
+        /// <typeparam name="T">Generic type parameter.</typeparam>
+        /// <param name="format">Describes the format to use.</param>
+        /// <returns>The custom serializer&lt; t&gt;</returns>
         [Pure]
         public static SerializerConverter<T> GetCustomSerializer<T>(SerializerFormat format)
             where T : class

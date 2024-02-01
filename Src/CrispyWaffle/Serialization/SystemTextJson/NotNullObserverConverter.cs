@@ -19,7 +19,8 @@ namespace CrispyWaffle.Serialization.SystemTextJson
         public override NotNullObserver Read(
             ref Utf8JsonReader reader,
             Type typeToConvert,
-            JsonSerializerOptions options)
+            JsonSerializerOptions options
+        )
         {
             var type = reader.TokenType;
 
@@ -32,12 +33,21 @@ namespace CrispyWaffle.Serialization.SystemTextJson
             {
                 var root = doc.RootElement;
 
-                if (root.ValueKind == JsonValueKind.String && string.IsNullOrWhiteSpace(root.GetString()))
+                if (
+                    root.ValueKind == JsonValueKind.String
+                    && string.IsNullOrWhiteSpace(root.GetString())
+                )
                 {
                     return null;
                 }
 
-                if (!root.EnumerateObject().Any() && (root.ValueKind == JsonValueKind.Array || root.ValueKind == JsonValueKind.Object))
+                if (
+                    !root.EnumerateObject().Any()
+                    && (
+                        root.ValueKind == JsonValueKind.Array
+                        || root.ValueKind == JsonValueKind.Object
+                    )
+                )
                 {
                     return null;
                 }
@@ -50,7 +60,11 @@ namespace CrispyWaffle.Serialization.SystemTextJson
         /// <param name="writer">The <see cref="Utf8JsonWriter" /> to write to.</param>
         /// <param name="value">The value.</param>
         /// <param name="options">The calling serializer.</param>
-        public override void Write(Utf8JsonWriter writer, NotNullObserver value, JsonSerializerOptions options)
+        public override void Write(
+            Utf8JsonWriter writer,
+            NotNullObserver value,
+            JsonSerializerOptions options
+        )
         {
             JsonSerializer.Serialize(writer, value, options);
         }

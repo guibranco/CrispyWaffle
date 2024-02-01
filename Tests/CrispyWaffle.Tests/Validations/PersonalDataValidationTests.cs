@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 21/03/2023
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 21/03/2023
-// ***********************************************************************
-// <copyright file="PersonalDataValidationTests.cs" company="CrispyWaffle.Tests">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using CrispyWaffle.Validations;
+﻿using CrispyWaffle.Validations;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Validations;

@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Utils
-// Author           : Guilherme Branco Stracini
-// Created          : 23/12/2022
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 22/03/2023
-// ***********************************************************************
-// <copyright file="SmtpMailer.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -37,17 +23,17 @@ namespace CrispyWaffle.Utils.Communications
     /// <summary>
     /// The SMTP mailer class.
     /// </summary>
-    /// <seealso cref="IMailer" />
+    /// <seealso cref="IMailer"/>
     [ConnectionName("SMTP")]
     public class SmtpMailer : IMailer
     {
         /// <summary>
-        /// The <see cref="SmtpClient" />.
+        /// The <see cref="SmtpClient"/>.
         /// </summary>
         private readonly SmtpClient _client;
 
         /// <summary>
-        /// The <see cref="MailMessage" /> to be sent by the <see cref="SmtpClient" />.
+        /// The <see cref="MailMessage"/> to be sent by the <see cref="SmtpClient"/>.
         /// </summary>
         private readonly MailMessage _message;
 
@@ -92,7 +78,7 @@ namespace CrispyWaffle.Utils.Communications
                 Host = connection.Host,
                 Port = connection.Port,
                 Credentials = new NetworkCredential(
-                    connection.Credentials.UserName,
+                    connection.Credentials.Username,
                     connection.Credentials.Password
                 ),
                 Timeout = 300000,
@@ -122,7 +108,7 @@ namespace CrispyWaffle.Utils.Communications
             : this(
                 new Connection
                 {
-                    Credentials = new Credentials { Password = password, UserName = userName },
+                    Credentials = new Credentials { Password = password, Username = userName },
                     Host = host,
                     Port = port
                 },
@@ -130,16 +116,17 @@ namespace CrispyWaffle.Utils.Communications
             ) { }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="SmtpMailer" /> class.
+        /// Finalizes an instance of the <see cref="SmtpMailer"/> class.
         /// </summary>
         ~SmtpMailer() => Dispose(false);
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing,
-        /// releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
-        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged
-        /// resources.</param>
+        /// <param name="disposing">
+        /// true to release both managed and unmanaged resources; false to release only unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -171,7 +158,9 @@ namespace CrispyWaffle.Utils.Communications
         /// </summary>
         /// <param name="toName">To name.</param>
         /// <param name="toEmailAddress">To email address.</param>
-        /// <exception cref="ArgumentNullException">toEmailAddress - The receiver's e-mail address cannot be null.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// toEmailAddress - The receiver's e-mail address cannot be null.
+        /// </exception>
         private void SetRecipient(string toName, string toEmailAddress)
         {
             if (string.IsNullOrWhiteSpace(toEmailAddress))

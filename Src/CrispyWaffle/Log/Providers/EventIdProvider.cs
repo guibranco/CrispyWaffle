@@ -22,8 +22,6 @@ namespace CrispyWaffle.Log.Providers
             {
                 throw new ArgumentNullException(nameof(message));
             }
-            // Jenkins one-at-a-time https://en.wikipedia.org/wiki/Jenkins_hash_function
-
             unchecked
             {
                 uint hash = 0;
@@ -39,8 +37,6 @@ namespace CrispyWaffle.Log.Providers
                 hash ^= (hash >> 11);
                 hash += (hash << 15);
 
-                //even though the api is type int, eventID must be between 0 and 65535
-                //https://msdn.microsoft.com/en-us/library/d3159s0c(v=vs.110).aspx
                 return (ushort)hash;
             }
         }

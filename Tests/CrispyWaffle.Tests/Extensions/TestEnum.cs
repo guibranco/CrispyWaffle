@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Tests
-// Author           : Guilherme Branco Stracini
-// Created          : 09-06-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-06-2020
-// ***********************************************************************
-// <copyright file="TestEnum.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using CrispyWaffle.Attributes;
+﻿using CrispyWaffle.Attributes;
 
 namespace CrispyWaffle.Tests.Extensions;
 

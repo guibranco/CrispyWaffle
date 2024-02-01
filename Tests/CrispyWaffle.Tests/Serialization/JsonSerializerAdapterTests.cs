@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using CrispyWaffle.Serialization;
 using CrispyWaffle.Serialization.Adapters;
+using CrispyWaffle.Serialization.SystemTextJson;
 using FluentAssertions;
 using Xunit;
-using CrispyWaffle.Serialization.SystemTextJson;
-using CrispyWaffle.Serialization;
+
 namespace CrispyWaffle.Tests.Serialization;
 
 public class JsonSerializerAdapterTests
@@ -26,7 +27,7 @@ public class JsonSerializerAdapterTests
 
         // Assert
         var content = File.ReadAllText(fileName);
-        content.Replace("\r\n", "\n").Should().Be(GetStringContent());
+        content.ReplaceLineEndings().Should().Be(GetStringContent().ReplaceLineEndings());
     }
 
     [Fact]
@@ -57,7 +58,11 @@ public class JsonSerializerAdapterTests
         var serializedJson = new StreamReader(resultStream).ReadToEnd();
 
         // Assert
-        Assert.Contains("{\r\n  \"Property\": \"Test\"\r\n}", serializedJson);
+        serializedJson.Should().NotBeNullOrEmpty();
+        serializedJson
+            .ReplaceLineEndings()
+            .Should()
+            .BeEquivalentTo("{\r\n  \"Property\": \"Test\"\r\n}".ReplaceLineEndings());
     }
 
     [Fact]
@@ -71,8 +76,9 @@ public class JsonSerializerAdapterTests
         var result = _serializer.DeserializeFromStream<TestObject>(stream);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Equal("Test", result.Property);
+        result.Should().NotBeNull();
+        result.Should().BeOfType<TestObject>();
+        result.Property.Should().Be("Test");
     }
 
     [Fact]
@@ -83,8 +89,9 @@ public class JsonSerializerAdapterTests
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
 
         // Act & Assert
-        Assert.Throws<NotNullObserverException>(() =>
-            _serializer.DeserializeFromStream<NotNullObserver>(stream));
+        Assert.Throws<NotNullObserverException>(
+            () => _serializer.DeserializeFromStream<NotNullObserver>(stream)
+        );
     }
 
     [Fact]
@@ -100,7 +107,8 @@ public class JsonSerializerAdapterTests
         var serializedJson = new StreamReader(resultStream).ReadToEnd();
 
         // Assert
-        Assert.DoesNotContain("\"Property\":", serializedJson);
+        serializedJson.Should().NotBeNull();
+        serializedJson.Should().NotContain("\"Property\":");
     }
 
     [Fact]
@@ -111,8 +119,7 @@ public class JsonSerializerAdapterTests
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(invalidJson));
 
         // Act & Assert
-        Assert.Throws<JsonException>(() =>
-            _serializer.DeserializeFromStream<TestObject>(stream));
+        Assert.Throws<JsonException>(() => _serializer.DeserializeFromStream<TestObject>(stream));
     }
 
     // Additional tests for Custom Converter, Error Handling, etc.

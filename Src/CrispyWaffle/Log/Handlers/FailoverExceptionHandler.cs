@@ -21,7 +21,6 @@ namespace CrispyWaffle.Log.Handlers
         {
             try
             {
-                //Tries to log the exception using CrispyWaffle framework behavior
                 ServiceLocator
                     .Resolve<DefaultExceptionHandler>()
                     .AddLogProvider<EventLogProvider>(ExceptionLogType.Full);

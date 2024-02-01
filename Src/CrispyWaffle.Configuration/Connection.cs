@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Configuration
-// Author           : Guilherme Branco Stracini
-// Created          : 09-03-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-03-2020
-// ***********************************************************************
-// <copyright file="Connection.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 using CrispyWaffle.Serialization;
 

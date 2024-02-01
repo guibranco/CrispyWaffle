@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 5.0 [2024-01-31]
+
+- Replaced MD5CryptoServiceProvider to MD5.Create - [issue #155](https://github.com/guibranco/CrispyWaffle/issues/155) by [@tiagoschaffer](https://github.com/tiagoschaffer)
+- Add System.Text.Json serialization - [issue #192](https://github.com/guibranco/CrispyWaffle/issues/192) by [@Looseling](https://github.com/Looseling)
+
 ## Version 4.3 [2023-10-28]
 
 - Remove retry rules from `FtpClient` - [issue #211](https://github.com/guibranco/CrispyWaffle/issues/211) by [@Yousef-Majidi](https://github.com/Yousef-Majidi)

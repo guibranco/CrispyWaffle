@@ -10,7 +10,7 @@ namespace CrispyWaffle.Serialization.Adapters
     /// <summary>
     /// A serializer json.
     /// </summary>
-    /// <seealso cref="ISerializerAdapter" />
+    /// <seealso cref="ISerializerAdapter"/>
     public sealed class JsonSerializerAdapter : BaseSerializerAdapter
     {
         /// <summary>
@@ -46,11 +46,13 @@ namespace CrispyWaffle.Serialization.Adapters
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="stream">The serialized object as stream.</param>
-        /// <param name="encoding">(Optional)  The encoding to read the stream. If null Encoding.UTF8 will be used.</param>
-        /// <returns>
-        /// A T.
-        /// </returns>
-        /// <exception cref="NotNullObserverException">Throws when a field marked as NotNullObserver finds a value.</exception>
+        /// <param name="encoding">
+        /// (Optional) The encoding to read the stream. If null Encoding.UTF8 will be used.
+        /// </param>
+        /// <returns>A T.</returns>
+        /// <exception cref="NotNullObserverException">
+        /// Throws when a field marked as NotNullObserver finds a value.
+        /// </exception>
         /// <exception cref="ArgumentNullException">Throws when a stream is null.</exception>
         public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
             where T : class
@@ -79,10 +81,10 @@ namespace CrispyWaffle.Serialization.Adapters
         /// </summary>
         /// <typeparam name="T">Generic type parameter.</typeparam>
         /// <param name="serialized">The serialized.</param>
-        /// <returns>
-        /// A T.
-        /// </returns>
-        /// <exception cref="NotNullObserverException">Throws when a field marked as NotNullObserver finds a value.</exception>
+        /// <returns>A T.</returns>
+        /// <exception cref="NotNullObserverException">
+        /// Throws when a field marked as NotNullObserver finds a value.
+        /// </exception>
         public override T Deserialize<T>(object serialized)
             where T : class
         {
@@ -106,20 +108,19 @@ namespace CrispyWaffle.Serialization.Adapters
             where T : class
         {
             stream = new MemoryStream();
-            if (deserialized != null)
+            if (deserialized == null)
             {
-                var writerOptions = new JsonWriterOptions
-                {
-                    Indented = _settings.WriteIndented,
-                };
-
-                using (var jsonWriter = new Utf8JsonWriter(stream, writerOptions))
-                {
-                    JsonSerializer.Serialize(jsonWriter, deserialized, _settings);
-                }
-
-                stream.Seek(0, SeekOrigin.Begin);
+                return;
             }
+
+            var writerOptions = new JsonWriterOptions { Indented = _settings.WriteIndented, };
+
+            using (var jsonWriter = new Utf8JsonWriter(stream, writerOptions))
+            {
+                JsonSerializer.Serialize(jsonWriter, deserialized, _settings);
+            }
+
+            stream.Seek(0, SeekOrigin.Begin);
         }
     }
 }

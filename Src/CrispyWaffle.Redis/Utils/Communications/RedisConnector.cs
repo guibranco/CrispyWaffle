@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Redis
-// Author           : Guilherme Branco Stracini
-// Created          : 09-06-2020
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 09-06-2020
-// ***********************************************************************
-// <copyright file="RedisConnector.cs" company="Guilherme Branco Stracini ME">
-//     Copyright (c) Guilherme Branco Stracini ME. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CrispyWaffle.Configuration;
@@ -175,7 +161,6 @@ namespace CrispyWaffle.Redis.Utils.Communications
                 }
             };
 
-            //TODO add LogConsumer to logger parameter.
             _connectionPoolManager = new RedisConnectionPoolManager(configuration);
 
             Serializer = serializer;

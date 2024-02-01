@@ -1,18 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : CrispyWaffle.Utils
-// Author           : Guilherme Branco Stracini
-// Created          : 23/12/2022
-//
-// Last Modified By : Guilherme Branco Stracini
-// Last Modified On : 22/03/2023
-// ***********************************************************************
-// <copyright file="FtpClient.cs" company="Guilherme Branco Stracini ME">
-//     © 2023 Guilherme Branco Stracini. All rights reserved.
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -65,7 +51,7 @@ namespace CrispyWaffle.Utils.Communications
         private readonly Queue<string> _files = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FtpClient" /> class.
+        /// Initializes a new instance of the <see cref="FtpClient"/> class.
         /// </summary>
         /// <param name="ftp">The FtpClient.</param>
         /// <param name="remoteDirectory">The remote directory.</param>
@@ -73,13 +59,13 @@ namespace CrispyWaffle.Utils.Communications
             : this(
                 ftp?.Host,
                 ftp?.Port ?? 0,
-                ftp?.Credentials.UserName,
+                ftp?.Credentials.Username,
                 ftp?.Credentials.Password,
                 remoteDirectory
             ) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FtpClient" /> class.
+        /// Initializes a new instance of the <see cref="FtpClient"/> class.
         /// </summary>
         /// <param name="host">The host.</param>
         /// <param name="port">The port.</param>
