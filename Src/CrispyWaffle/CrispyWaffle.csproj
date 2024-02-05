@@ -12,7 +12,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="System.Diagnostics.EventLog" Version="[6.0.0,7.0.0)" />
 		<PackageReference Include="System.Security.Permissions" Version="[6.0.0,7.0.0)" />
-		<PackageReference Include="System.Text.Json" Version="8.0.0" />
+		<PackageReference Include="System.Text.Json" Version="8.0.1" />
 	</ItemGroup>
 
 </Project>
