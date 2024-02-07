@@ -12,4 +12,8 @@
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.19.0.84025" />
+  </ItemGroup>
+
 </Project>

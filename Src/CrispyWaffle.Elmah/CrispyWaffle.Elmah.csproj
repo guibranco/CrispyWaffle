@@ -17,4 +17,8 @@
 	  <PackageReference Include="ElmahCore" Version="2.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.19.0.84025" />
+  </ItemGroup>
+
 </Project>

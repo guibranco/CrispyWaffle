@@ -80,7 +80,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
                 var properties = channel.CreateBasicProperties();
                 properties.Persistent = true;
 
-                channel.BasicPublish("", queueName, false, properties, body);
+                channel.BasicPublish(string.Empty, queueName, false, properties, body);
 
                 LogConsumer.Trace("Sent to queue {0} the item: {1}", queueName, json);
             }

@@ -56,7 +56,7 @@ namespace CrispyWaffle.Serialization.Adapters
             stream = new MemoryStream();
 
             var ns = new XmlSerializerNamespaces();
-            ns.Add("", "");
+            ns.Add(string.Empty, string.Empty);
 
             var xmlConfig = new XmlWriterSettings
             {

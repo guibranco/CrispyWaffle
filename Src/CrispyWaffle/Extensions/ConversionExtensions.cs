@@ -384,7 +384,7 @@ namespace CrispyWaffle.Extensions
             var number = Regex.Replace(
                 input,
                 "[^0-9]",
-                "",
+                string.Empty,
                 RegexOptions.Compiled,
                 TimeSpan.FromSeconds(0.5)
             );
@@ -422,7 +422,7 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// The ordinal suffix
+        /// The ordinal suffix.
         /// </summary>
         private static readonly Dictionary<int, string> _ordinalSuffix = new Dictionary<int, string>
         {
@@ -440,7 +440,7 @@ namespace CrispyWaffle.Extensions
         {
             if (number < 0)
             {
-                return number.ToString();
+                return number.ToString(CultureInfo.CurrentCulture);
             }
 
             var rem = number % 100;
@@ -510,7 +510,7 @@ namespace CrispyWaffle.Extensions
         /// <summary>
         /// Deeps the clone.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type parameter.</typeparam>
         /// <param name="instance">The instance.</param>
         /// <param name="useNonPublic">if set to <c>true</c> [use non public].</param>
         /// <returns>T.</returns>
@@ -541,7 +541,7 @@ namespace CrispyWaffle.Extensions
         /// <summary>
         /// Parses the parameters.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type parameter.</typeparam>
         /// <param name="instance">The instance.</param>
         /// <param name="useNonPublic">if set to <c>true</c> [use non public].</param>
         /// <param name="type">The type.</param>
