@@ -1,7 +1,12 @@
 site_name: Crispy Waffle
-repo_url: https://github.com/guibranco/crispywaffle
+repo_name: guibranco/CrispyWaffle
+repo_url: https://github.com/guibranco/CrispyWaffle
+site_url: http://guilhermebranco.com.br
+copyright: Guilherme Branco Stracini
+
 extra_css:
   - extra.css
+
 theme:
   name: dracula
   logo: logo.png
