@@ -1,6 +1,6 @@
-# CrispyWaffle
+# Crispy Waffle
 
-The CrispyWaffle project - a toolkit for .NET projects. 
+The Crispy Waffle project - a toolkit for .NET projects. 
 
 [![GitHub license](https://img.shields.io/github/license/guibranco/CrispyWaffle)](https://github.com/guibranco/CrispyWaffle)
 [![Time tracker](https://wakatime.com/badge/github/guibranco/CrispyWaffle.svg)](https://wakatime.com/badge/github/guibranco/CrispyWaffle)
