@@ -1,4 +1,4 @@
-# Welcome to Crispy Waffle
+# Crispy Waffle project
 
 A toolkit for .NET projects.
 
