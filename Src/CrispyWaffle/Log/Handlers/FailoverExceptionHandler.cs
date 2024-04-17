@@ -23,7 +23,7 @@ namespace CrispyWaffle.Log.Handlers
             {
                 ServiceLocator
                     .Resolve<DefaultExceptionHandler>()
-                    .AddLogProvider<EventLogProvider>(ExceptionLogType.Full);
+                    .AddLogProvider<TextFileLogProvider>(ExceptionLogType.Full);
 
                 LogConsumer.Handle(exception);
             }
