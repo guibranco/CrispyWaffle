@@ -132,6 +132,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/SimranGil">
+            <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
+            <br />
+            <sub><b>Simran Gill</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/tiagoschaffer">
             <img src="https://avatars.githubusercontent.com/u/12534089?v=4" width="100;" alt="tiagoschaffer"/>
             <br />
@@ -144,15 +151,15 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
             <br />
             <sub><b>Viktorius Suwandi</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Yousef-Majidi">
             <img src="https://avatars.githubusercontent.com/u/28239685?v=4" width="100;" alt="Yousef-Majidi"/>
             <br />
             <sub><b>Yousef</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/akhtareimon">
             <img src="https://avatars.githubusercontent.com/u/15952495?v=4" width="100;" alt="akhtareimon"/>
