@@ -9,6 +9,17 @@
 
 - The pull request and commit should have a useful title.
 
+## Breaking changes
+
+If your changes are breaking changes, please update the major version of the library in the [appveyor.yml](appveyor.yml)
+
+
+## Documentation
+
+Please don't forget to update the `docs` directory with any new/removed/updated changes you make in the code.
+Sometimes, no public API changes occur, and there is no need to update the docs.
+
+
 **After your pull request is merged**
 
 After your pull request is merged, you can safely delete your branch.
