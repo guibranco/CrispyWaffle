@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.ElasticSearch"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Utils", "Src\CrispyWaffle.Utils\CrispyWaffle.Utils.csproj", "{C86C7297-1E8D-4611-B01A-08FC4FDF1D62}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Eventlog", "Src\CrispyWaffle.EventLog\CrispyWaffle.Eventlog.csproj", "{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Eventlog", "Src\CrispyWaffle.Eventlog\CrispyWaffle.Eventlog.csproj", "{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
