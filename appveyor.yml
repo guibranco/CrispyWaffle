@@ -1,4 +1,4 @@
-version: 5.0.{build}
+version: 6.0.{build}
 skip_tags: true
 image: Visual Studio 2022
 configuration: Release
@@ -72,6 +72,8 @@ after_build:
 - xcopy Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* Build\Configuration\
 - xcopy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\netstandard2.0\*.* Build\ElasticSearch\
 - xcopy Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* Build\Elmah\
+- xcopy Src\%SOLUTION_NAME%.EventLog\bin\Release\netstandard2.0\*.* Build\EventLog\
+- xcopy Src\%SOLUTION_NAME%.I18n.PtBr\bin\Release\netstandard2.0\*.* Build\i18n\PtBr\
 - xcopy Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* Build\Log4Net\
 - xcopy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* Build\RabbitMQ\
 - xcopy Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* Build\Redis\
@@ -81,6 +83,8 @@ after_build:
 - copy Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.EventLog\bin\Release\%SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.nupkg
+- copy Src\%SOLUTION_NAME%.I18n.PtBr\bin\Release\%SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
 - copy Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
@@ -95,10 +99,13 @@ after_build:
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.zip" Build\Configuration
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip" Build\ElasticSearch
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.zip" Build\Elmah
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.zip" Build\EventLog
+- 7z a -tzip -mx9 "%SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.zip" Build\i18n\PtBr
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.zip" Build\Log4Net
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip" Build\RabbitMQ
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.zip" Build\Redis
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.zip" Build\Utils
+
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
@@ -110,6 +117,10 @@ artifacts:
   name: ZipFileElasticSearch
 - path: $(SOLUTION_NAME).ELMAH.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileElmah
+- path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.zip
+  name: ZipFileEventLog
+- path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.zip
+  name: ZipFileI18nPtBr
 - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.zip
   name: ZipFileLog4Net
 - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip
@@ -127,6 +138,10 @@ artifacts:
   name: PackageElasticSearch
 - path: $(SOLUTION_NAME).Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageElmah
+- path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageEventLog
+- path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg
+  name: PackageI18nPtBr
 - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
   name: PackageLog4Net
 - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
