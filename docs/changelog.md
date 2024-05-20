@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 6.0 [2024-05-20]
+
+- Create i18n package - PT-BR - [issue #315](https://github.com/guibranco/CrispyWaffle/issues/315)
+
 ## Version 5.0 [2024-01-31]
 
 - Replaced MD5CryptoServiceProvider to MD5.Create - [issue #155](https://github.com/guibranco/CrispyWaffle/issues/155) by [@tiagoschaffer](https://github.com/tiagoschaffer)

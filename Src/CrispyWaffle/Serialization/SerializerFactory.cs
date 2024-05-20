@@ -6,7 +6,6 @@ using CrispyWaffle.Composition;
 using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Serialization.NewtonsoftJson;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace CrispyWaffle.Serialization
 {

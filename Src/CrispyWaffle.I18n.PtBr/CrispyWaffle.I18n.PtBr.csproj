@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ProjectGuid>0EB3767D-0830-5559-B54D-7AA26286F0BD</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <Description>The CrispyWaffle i18n pt-br package</Description>
+    <PackageTags>toolkit sdk framework library lib i18n pt-br</PackageTags>
+        <PackageReleaseNotes>i18n pt-br release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
+  </ItemGroup>
+
+</Project>

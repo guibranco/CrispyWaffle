@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Eventlog.Log.Adapters;
-using CrispyWaffle.Log.Adapters;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;
 using LogLevel = CrispyWaffle.Log.LogLevel;
