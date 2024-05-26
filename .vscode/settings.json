@@ -22,5 +22,17 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "guibranco-github",
         "projectKey": "guibranco_CrispyWaffle"
-    }
+    },
+    "cSpell.words": [
+        "choco",
+        "cobertura",
+        "CODACY",
+        "codecov",
+        "Elmah",
+        "Fullname",
+        "lcov",
+        "opencover",
+        "pullrequest",
+        "sonarscanner"
+    ]
 }

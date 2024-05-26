@@ -1,4 +1,4 @@
-version: 6.0.{build}
+version: 6.1.{build}
 skip_tags: true
 image: Visual Studio 2022
 configuration: Release
@@ -68,27 +68,23 @@ build_script:
 - if %LOCAL_PR% EQU 1 dotnet sonarscanner end /d:sonar.token="%SONAR_TOKEN%"
 
 after_build:
-- xcopy Src\%SOLUTION_NAME%\bin\Release\netstandard2.0\*.* Build\Core\
-- xcopy Src\%SOLUTION_NAME%.Configuration\bin\Release\netstandard2.0\*.* Build\Configuration\
-- xcopy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\netstandard2.0\*.* Build\ElasticSearch\
-- xcopy Src\%SOLUTION_NAME%.Elmah\bin\Release\netstandard2.0\*.* Build\Elmah\
-- xcopy Src\%SOLUTION_NAME%.EventLog\bin\Release\netstandard2.0\*.* Build\EventLog\
-- xcopy Src\%SOLUTION_NAME%.I18n.PtBr\bin\Release\netstandard2.0\*.* Build\i18n\PtBr\
-- xcopy Src\%SOLUTION_NAME%.Log4Net\bin\Release\netstandard2.0\*.* Build\Log4Net\
-- xcopy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\netstandard2.0\*.* Build\RabbitMQ\
-- xcopy Src\%SOLUTION_NAME%.Redis\bin\Release\netstandard2.0\*.* Build\Redis\
-- xcopy Src\%SOLUTION_NAME%.Utils\bin\Release\netstandard2.0\*.* Build\Utils\
-
+- ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net7.0", "net8.0")
+- ps: $PROJECTS = ("Configuration", "ElasticSearch", "Elmah", "EventLog", "I18n.PtBr", "Log4Net", "RabbitMQ", "Redis", "Utils")
+- ps: |
+    foreach($version in $VERSIONS)
+    {
+        xcopy Src\%SOLUTION_NAME%\bin\Release\$version\*.* Build\Core\ /s
+        foreach($project in $PROJECTS)
+        {
+            xcopy Src\%SOLUTION_NAME%.$project\bin\Release\$version\*.* Build\$project\ /s
+        }
+    }
 - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.Configuration\bin\Release\%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.ElasticSearch\bin\Release\%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.Elmah\bin\Release\%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.EventLog\bin\Release\%SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.I18n.PtBr\bin\Release\%SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.Log4Net\bin\Release\%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.RabbitMQ\bin\Release\%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.Redis\bin\Release\%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.nupkg
-- copy Src\%SOLUTION_NAME%.Utils\bin\Release\%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.nupkg
+- ps: |
+    foreach($project in $PROJECTS)
+    {
+      copy Src\%SOLUTION_NAME%.$project\bin\Release\%SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.nupkg
+    }
 
 - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
 - xcopy Tests\%SOLUTION_NAME%.Tests\*.xml Coverage\
@@ -96,16 +92,11 @@ after_build:
 - xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
 
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.Core.%APPVEYOR_BUILD_VERSION%.zip" Build\Core
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.Configuration.%APPVEYOR_BUILD_VERSION%.zip" Build\Configuration
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip" Build\ElasticSearch
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.Elmah.%APPVEYOR_BUILD_VERSION%.zip" Build\Elmah
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.EventLog.%APPVEYOR_BUILD_VERSION%.zip" Build\EventLog
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.I18n.PtBr.%APPVEYOR_BUILD_VERSION%.zip" Build\i18n\PtBr
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.Log4Net.%APPVEYOR_BUILD_VERSION%.zip" Build\Log4Net
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip" Build\RabbitMQ
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.Redis.%APPVEYOR_BUILD_VERSION%.zip" Build\Redis
-- 7z a -tzip -mx9 "%SOLUTION_NAME%.Utils.%APPVEYOR_BUILD_VERSION%.zip" Build\Utils
-
+- ps: |
+    foreach($project in $PROJECTS)
+    {
+      7z a -tzip -mx9 "%SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.zip" Build\$project
+    }
 - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
 artifacts:
