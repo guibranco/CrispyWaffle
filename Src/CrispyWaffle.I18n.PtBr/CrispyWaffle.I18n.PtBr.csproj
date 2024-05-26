@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>0EB3767D-0830-5559-B54D-7AA26286F0BD</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle i18n pt-br package</Description>
     <PackageTags>toolkit sdk framework library lib i18n pt-br</PackageTags>
         <PackageReleaseNotes>i18n pt-br release</PackageReleaseNotes>
@@ -11,9 +11,4 @@
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    
-  </ItemGroup>
-
 </Project>

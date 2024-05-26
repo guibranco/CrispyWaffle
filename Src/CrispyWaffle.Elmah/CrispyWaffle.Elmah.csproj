@@ -2,23 +2,17 @@
 
   <PropertyGroup>
     <ProjectGuid>687F6153-2295-40A6-8673-1359482F928B</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle ELMAH bridge package</Description>
     <PackageTags>toolkit sdk framework library lib ELMAH bridge log provider exception handler</PackageTags>
     <PackageReleaseNotes>ELMAH release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-	  <!-- ReSharper disable once VulnerablePackage -->
 	  <PackageReference Include="ElmahCore" />
   </ItemGroup>
 
   <ItemGroup>
-    
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
 </Project>

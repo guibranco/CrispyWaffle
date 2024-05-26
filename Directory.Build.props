@@ -1,4 +1,9 @@
 <Project>
+  <PropertyGroup Label="SDK Versions">
+    <DotNetVersions>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</DotNetVersions>
+    <DotNetTestVersion>net8.0</DotNetTestVersion>
+  </PropertyGroup>
+
   <PropertyGroup Label="NuGet package">
     <Authors>Guilherme Branco Stracini</Authors>
     <Company>Guilherme Branco Stracini ME</Company>
@@ -15,6 +20,12 @@
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet">
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <NuGetAuditMode>all</NuGetAuditMode>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
@@ -43,8 +54,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.0.90414" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
+    <PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="all"
+      Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
   </ItemGroup>
 
   <ItemGroup>

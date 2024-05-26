@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>D6164E04-F1C9-4D86-9B9C-41036B816C4A</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle Log4Net bridge package</Description>
     <PackageTags>toolkit sdk framework library lib log4net bridge log provider</PackageTags>
     <PackageReleaseNotes>Log4Net release</PackageReleaseNotes>
@@ -15,9 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    
-  </ItemGroup>
-
 </Project>
