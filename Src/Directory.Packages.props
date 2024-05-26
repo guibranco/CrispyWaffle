@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Elasticsearch.Net" Version="7.17.5" />
+    <PackageVersion Include="ElmahCore" Version="2.1.2" />
+    <PackageVersion Include="log4net" Version="2.0.17" />
+    <PackageVersion Include="NEST" Version="7.17.5" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="RabbitMQ.Client" Version="6.8.1" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.7.33" />
+    <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
+    <PackageVersion Include="System.Diagnostics.EventLog" Version="8.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.3" />
+  </ItemGroup>
+</Project>

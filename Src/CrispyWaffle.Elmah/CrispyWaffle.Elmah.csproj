@@ -14,11 +14,11 @@
 
   <ItemGroup>
 	  <!-- ReSharper disable once VulnerablePackage -->
-	  <PackageReference Include="ElmahCore" Version="2.1.2" />
+	  <PackageReference Include="ElmahCore" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
+    
   </ItemGroup>
 
 </Project>

@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elasticsearch.Net" Version="7.17.5" />
-    <PackageReference Include="NEST" Version="7.17.5" />
+    <PackageReference Include="Elasticsearch.Net" />
+    <PackageReference Include="NEST" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
+    
   </ItemGroup>
 
 </Project>
