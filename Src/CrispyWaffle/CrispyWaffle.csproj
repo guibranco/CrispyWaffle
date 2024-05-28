@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
+	  <ProjectGuid>9A19103F-16F7-4668-BE54-9A1E7A4F7556</ProjectGuid>
 	  <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
 	  <Description>The CrispyWaffle toolkit for .NET projects</Description>
 	  <PackageTags>toolkit sdk framework library lib</PackageTags>
