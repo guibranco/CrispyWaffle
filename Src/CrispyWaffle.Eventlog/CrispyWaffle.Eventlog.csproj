@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle EventLog bridge package</Description>
     <PackageTags>toolkit sdk framework library lib event log provider</PackageTags>
     <PackageReleaseNotes>EventLog release</PackageReleaseNotes>
@@ -15,9 +15,5 @@
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
-  </ItemGroup>
-
+  
 </Project>

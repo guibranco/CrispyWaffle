@@ -2,18 +2,14 @@
 
   <PropertyGroup>
     <ProjectGuid>0EB3767D-0830-4059-B54D-7AA26286F0BD</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle configuration package</Description>
     <PackageTags>toolkit sdk framework library lib configuration</PackageTags>
-        <PackageReleaseNotes>Configuration release</PackageReleaseNotes>
+    <PackageReleaseNotes>Configuration release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
-  </ItemGroup>
-
-</Project>
+</Project>F
