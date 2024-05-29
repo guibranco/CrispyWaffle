@@ -73,17 +73,17 @@ after_build:
   - ps: |
       foreach($version in $VERSIONS)
       {
-          xcopy Src\%SOLUTION_NAME%\bin\Release\$version\*.* Build\Core\ /s
+          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\ /s
           foreach($project in $PROJECTS)
           {
-              xcopy Src\%SOLUTION_NAME%.$project\bin\Release\$version\*.* Build\$project\ /s
+              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\ /s
           }
       }
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
   - ps: |
       foreach($project in $PROJECTS)
       {
-        copy Src\%SOLUTION_NAME%.$project\bin\Release\%SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.nupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSIO%.nupkg
       }
 
   - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
@@ -95,7 +95,7 @@ after_build:
   - ps: |
       foreach($project in $PROJECTS)
       {
-        7z a -tzip -mx9 "%SOLUTION_NAME%.$project.%APPVEYOR_BUILD_VERSION%.zip" Build\$project
+        7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project
       }
   - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
