@@ -5,10 +5,11 @@
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle configuration package</Description>
     <PackageTags>toolkit sdk framework library lib configuration</PackageTags>
-        <PackageReleaseNotes>Configuration release</PackageReleaseNotes>
+    <PackageReleaseNotes>Configuration release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
+
 </Project>

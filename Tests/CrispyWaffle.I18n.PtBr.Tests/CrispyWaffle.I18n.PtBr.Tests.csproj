@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>DAE04EC0-911F-11D3-BF4B-00C04F79EFBC</ProjectGuid>
-    <TargetFramework>$(DotNetTestVersion)</TargetFramework>
+    <TargetFramework>$(DotNetVersionTests)</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
