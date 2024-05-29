@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ProjectGuid>47DB173E-BC2B-4C16-B2A9-9506E57D6D9E</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle Redis package</Description>
     <PackageTags>toolkit sdk framework library lib redis cache telemetry log provider</PackageTags>
     <Company>Guilherme Branco Stracini ME</Company>
@@ -18,24 +18,5 @@
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
-  </ItemGroup>
-
+  
 </Project>

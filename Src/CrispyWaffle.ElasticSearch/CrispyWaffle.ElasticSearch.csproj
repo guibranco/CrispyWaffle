@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <ProjectGuid>A4C3BBE2-F33F-4752-97C4-206D7C4D6DDD</ProjectGuid>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle.ElasticSearch package</Description>
     <PackageTags>toolkit sdk framework library lib elasticsearch nosql database log provider</PackageTags>
-    <Company>Guilherme Branco Stracini ME</Company>
     <PackageReleaseNotes>ElasticSearch release</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -17,10 +16,6 @@
   <ItemGroup>
     <PackageReference Include="Elasticsearch.Net" Version="7.17.5" />
     <PackageReference Include="NEST" Version="7.17.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
   </ItemGroup>
 
 </Project>

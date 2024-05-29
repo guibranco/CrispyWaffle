@@ -2,15 +2,9 @@
 
   <PropertyGroup>
     <ProjectGuid>DAE04EC0-911F-11D3-BF4B-00C04F79EFBC</ProjectGuid>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>$(DotNetVersionTests)</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="ElasticSearch\**" />
-    <EmbeddedResource Remove="ElasticSearch\**" />
-    <None Remove="ElasticSearch\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="6.0.2">
