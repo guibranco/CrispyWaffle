@@ -87,8 +87,8 @@ after_build:
   - ps: |
       foreach($project in $PROJECTS)
       {
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSIO%.nupkg
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSIO%.snupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg
       }
   - echo "Generating coverage artifact"
   - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
