@@ -78,7 +78,7 @@ after_build:
           xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\$version\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           foreach($project in $PROJECTS)
           {
-              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\$version /s /f /e /r /k /y /EXCLUDE:exclusions.txt
+              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\$version\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           }
       }
 
@@ -106,11 +106,11 @@ after_build:
   - ps: |
       foreach($version in $VERSIONS)
       {
-        7z a -tzip -mx9 "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip" Build\Core\$version
+        7z a -tzip -mx9 "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip" Build\Core\$version\
         Push-AppveyorArtifact "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip"
         foreach($project in $PROJECTS)
         {
-          7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project\$version
+          7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project\$version\
           Push-AppveyorArtifact "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip"
         }
       }
