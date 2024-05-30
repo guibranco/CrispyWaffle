@@ -68,29 +68,34 @@ build_script:
   - if %LOCAL_PR% EQU 1 dotnet sonarscanner end /d:sonar.token="%SONAR_TOKEN%"
 
 after_build:
+  - echo refs > exclusions.txt
+  - echo "Generating binaries artifacts"
   - ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net7.0", "net8.0")
   - ps: $PROJECTS = ("Configuration", "ElasticSearch", "Elmah", "EventLog", "I18n.PtBr", "Log4Net", "RabbitMQ", "Redis", "Utils")
   - ps: |
       foreach($version in $VERSIONS)
       {
-          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\ /s
+          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           foreach($project in $PROJECTS)
           {
-              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\ /s
+              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           }
       }
+  - echo "Generating nupkg and snupkg artifacts"
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
+  - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg
   - ps: |
       foreach($project in $PROJECTS)
       {
         copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSIO%.nupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSIO%.snupkg
       }
-
+  - echo "Generating coverage artifact"
   - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.xml Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.json Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
-
+  - echo "Generating compressed artifacts files"
   - 7z a -tzip -mx9 "%SOLUTION_NAME%.Core.%APPVEYOR_BUILD_VERSION%.zip" Build\Core
   - ps: |
       foreach($project in $PROJECTS)
