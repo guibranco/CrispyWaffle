@@ -75,40 +75,46 @@ after_build:
   - ps: |
       foreach($version in $VERSIONS)
       {
-          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
+          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\$version\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           foreach($project in $PROJECTS)
           {
-              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
+              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\$version /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           }
       }
+
   - echo "Generating nupkg and snupkg artifacts"
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg
   - ps: |
       foreach($project in $PROJECTS)
       {
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg
       }
+  - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\*.snupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
   - echo "Generating coverage artifact"
   - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.xml Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.json Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
-  - echo "Generating compressed artifacts files"
-  - 7z a -tzip -mx9 "%SOLUTION_NAME%.Core.%APPVEYOR_BUILD_VERSION%.zip" Build\Core
-  - ps: |
-      foreach($project in $PROJECTS)
-      {
-        7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project
-      }
   - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
+  - appveyor PushArtifact "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip"
 
-  - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-  - ps: Get-ChildItem .\*.snupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-  - ps: Get-ChildItem .\Build\*.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-  - ps: Get-ChildItem .\Coverage.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-  
+  - echo "Generating compressed artifacts files"
+  - ps: |
+      foreach($version in $VERSIONS)
+      {
+        7z a -tzip -mx9 "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip" Build\Core\$version
+        Push-AppveyorArtifact "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip"
+        foreach($project in $PROJECTS)
+        {
+          7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project\$version
+          Push-AppveyorArtifact "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip"
+        }
+      }
+
 deploy:
   - provider: NuGet
     api_key: $(NUGET_TOKEN)
