@@ -75,80 +75,45 @@ after_build:
   - ps: |
       foreach($version in $VERSIONS)
       {
-          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
+          xcopy Src\$env:SOLUTION_NAME\bin\Release\$version\*.* Build\Core\$version\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           foreach($project in $PROJECTS)
           {
-              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
+              xcopy Src\$env:SOLUTION_NAME.$project\bin\Release\$version\*.* Build\$project\$version\ /s /f /e /r /k /y /EXCLUDE:exclusions.txt
           }
       }
+
   - echo "Generating nupkg and snupkg artifacts"
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.nupkg
   - copy Src\%SOLUTION_NAME%\bin\Release\%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg %SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.snupkg
   - ps: |
       foreach($project in $PROJECTS)
       {
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).nupkg
-        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg $($env:SOLUTION_NAME).$($project).$($env:APPVEYOR_BUILD_VERSION).snupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.nupkg
+        copy Src\$env:SOLUTION_NAME.$project\bin\Release\$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg $env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.snupkg
       }
+  - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\*.snupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
   - echo "Generating coverage artifact"
   - rd /s /q Src\%SOLUTION_NAME%\bin\Release\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.xml Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.json Coverage\
   - xcopy Tests\%SOLUTION_NAME%.Tests\*.info Coverage\
-  - echo "Generating compressed artifacts files"
-  - 7z a -tzip -mx9 "%SOLUTION_NAME%.Core.%APPVEYOR_BUILD_VERSION%.zip" Build\Core
-  - ps: |
-      foreach($project in $PROJECTS)
-      {
-        7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project
-      }
   - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
+  - appveyor PushArtifact "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip"
 
-artifacts:
-  - path: $(SOLUTION_NAME).Core.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileCore
-  - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileConfiguration
-  - path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileElasticSearch
-  - path: $(SOLUTION_NAME).ELMAH.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileElmah
-  - path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileEventLog
-  - path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileI18nPtBr
-  - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileLog4Net
-  - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileRabbitMQ
-  - path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileRedis
-  - path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileUtils
-
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageCore
-  - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageConfiguration
-  - path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageElasticSearch
-  - path: $(SOLUTION_NAME).Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageElmah
-  - path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageEventLog
-  - path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageI18nPtBr
-  - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageLog4Net
-  - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageRabbitMQ
-  - path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageRedis
-  - path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageUtils
-
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
-    name: Coverage
+  - echo "Generating compressed artifacts files"
+  - ps: |
+      foreach($version in $VERSIONS)
+      {
+        7z a -tzip -mx9 "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip" Build\Core\$version\
+        Push-AppveyorArtifact "$env:SOLUTION_NAME.Core.$version.$env:APPVEYOR_BUILD_VERSION:.zip"
+        foreach($project in $PROJECTS)
+        {
+          7z a -tzip -mx9 "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip" Build\$project\$version\
+          Push-AppveyorArtifact "$env:SOLUTION_NAME.$project.$version.$env:APPVEYOR_BUILD_VERSION.zip"
+        }
+      }
 
 deploy:
   - provider: NuGet
