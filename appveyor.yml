@@ -104,52 +104,11 @@ after_build:
       }
   - 7z a -tzip -mx9 "%SOLUTION_NAME%.%APPVEYOR_BUILD_VERSION%.Coverage.zip" Coverage
 
-artifacts:
-  - path: $(SOLUTION_NAME).Core.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileCore
-  - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileConfiguration
-  - path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileElasticSearch
-  - path: $(SOLUTION_NAME).ELMAH.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileElmah
-  - path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileEventLog
-  - path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileI18nPtBr
-  - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileLog4Net
-  - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileRabbitMQ
-  - path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileRedis
-  - path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.zip
-    name: ZipFileUtils
-
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageCore
-  - path: $(SOLUTION_NAME).Configuration.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageConfiguration
-  - path: $(SOLUTION_NAME).ElasticSearch.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageElasticSearch
-  - path: $(SOLUTION_NAME).Elmah.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageElmah
-  - path: $(SOLUTION_NAME).EventLog.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageEventLog
-  - path: $(SOLUTION_NAME).I18n.PtBr.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageI18nPtBr
-  - path: $(SOLUTION_NAME).Log4Net.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageLog4Net
-  - path: $(SOLUTION_NAME).RabbitMQ.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageRabbitMQ
-  - path: $(SOLUTION_NAME).Redis.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageRedis
-  - path: $(SOLUTION_NAME).Utils.%APPVEYOR_BUILD_VERSION%.nupkg
-    name: PackageUtils
-
-  - path: $(SOLUTION_NAME).%APPVEYOR_BUILD_VERSION%.Coverage.zip
-    name: Coverage
-
+  - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\*.snupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\Build\*.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\Coverage.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  
 deploy:
   - provider: NuGet
     api_key: $(NUGET_TOKEN)
