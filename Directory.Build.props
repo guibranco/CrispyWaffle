@@ -22,6 +22,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <PropertyGroup Label="NuGet">
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+    <NuGetAuditMode>all</NuGetAuditMode>
+  </PropertyGroup>
+
   <PropertyGroup Label="Build">
     <UpdateVersionProperties>true</UpdateVersionProperties>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
