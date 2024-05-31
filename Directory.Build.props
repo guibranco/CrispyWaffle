@@ -48,8 +48,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.25.1.91650" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
+    <PackageReference Include="StyleCop.Analyzers" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
+    <PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="all" Condition="$(MSBuildProjectExtension) == '.csproj' And $(IsTestProject) != 'true'" />
   </ItemGroup>
 
   <ItemGroup>

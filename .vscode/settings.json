@@ -20,7 +20,7 @@
     },
     "peacock.color": "#f9e64f",
     "sonarlint.connectedMode.project": {
-        "connectionId": "guibranco-github",
+        "connectionId": "guibranco",
         "projectKey": "guibranco_CrispyWaffle"
     }
 }

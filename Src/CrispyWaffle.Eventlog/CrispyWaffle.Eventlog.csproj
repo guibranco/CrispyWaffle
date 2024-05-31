@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <ProjectGuid>{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}</ProjectGuid>
@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.0" />
+    <PackageReference Include="System.Diagnostics.EventLog" />
   </ItemGroup>
 
   <ItemGroup>
