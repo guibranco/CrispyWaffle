@@ -9,8 +9,8 @@
 	</PropertyGroup>
   
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" />
-		<PackageReference Include="System.Security.Permissions" />
-		<PackageReference Include="System.Text.Json" />
+	  <PackageReference Include="Newtonsoft.Json" />
+	  <PackageReference Include="System.Security.Permissions" />
+	  <PackageReference Include="System.Text.Json" />
 	</ItemGroup>
 </Project>
