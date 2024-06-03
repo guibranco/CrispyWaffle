@@ -38,12 +38,6 @@ before_build:
   - cmd: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-windows-amd64 > codeclimate-test-reporter.exe
   - cmd: dotnet tool install --global dotnet-sonarscanner
 
-build:
-  publish_nuget: true
-  include_nuget_references: true
-  parallel: true
-  verbosity: normal
-
 build_script:
   - ps: $Params =  "/k:`"$env:SONAR_PROJECT`"", "/o:`"$env:SONAR_ORGANIZATION`"", "/v:`"$env:APPVEYOR_BUILD_NUMBER`""
   - ps: $Params += "/d:sonar.host.url=`"https://sonarcloud.io`""
