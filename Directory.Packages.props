@@ -13,7 +13,7 @@
     <PackageVersion Include="NEST" Version="7.17.5" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.8.1" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.25.1.91650" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.26.0.92422" />
     <PackageVersion Include="StackExchange.Redis" Version="2.7.33" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
