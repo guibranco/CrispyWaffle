@@ -54,8 +54,9 @@ build_script:
       foreach($testProject in $TEST_PROJECTS)
       {
           dotnet test $testProject --no-build --verbosity minimal /p:CollectCoverage=true "/p:CoverletOutputFormat=\`"cobertura,opencover,lcov\`"" --logger:"junit;LogFilePath=test-results.xml"
+          $path = Split-Path $testProject
           $wc = New-Object 'System.Net.WebClient'
-          $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $(Split-Path $testProject)/test-results.xml))          
+          $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $path/test-results.xml))          
       }
   - if %LOCAL_PR% EQU 1 codecov -f "Tests\%SOLUTION_NAME%.Tests\coverage.net8.0.opencover.xml"
   - if %LOCAL_PR% EQU 1 codeclimate-test-reporter format-coverage -t lcov -o "Tests\%SOLUTION_NAME%.Tests\code-climate.json" "Tests\%SOLUTION_NAME%.Tests\coverage.net8.0.info"
