@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using CrispyWaffle.Commands;
 
@@ -28,7 +28,6 @@ internal class TestObjects
         /// </summary>
         /// <value>The text.</value>
         public string Text { get; } = text;
-
 
         /// <summary>
         /// Gets the created date at IME.
