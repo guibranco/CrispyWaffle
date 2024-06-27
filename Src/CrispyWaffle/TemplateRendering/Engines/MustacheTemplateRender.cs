@@ -286,7 +286,10 @@ namespace CrispyWaffle.TemplateRendering.Engines
 #if NET6_0_OR_GREATER
             ArgumentNullException.ThrowIfNull(data);
 #else
-            ArgumentNullException.ThrowIfNull(data);
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
 #endif
 
             _properties = ParseObject(data);
