@@ -61,15 +61,27 @@ internal class TestObjects
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns>Result of the handled command.</returns>
-        TestDoneResultCommand ICommandHandler<TestDoneCommand, TestDoneResultCommand>.Handle(TestDoneCommand command) =>
-            new($"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}");
+        TestDoneResultCommand ICommandHandler<TestDoneCommand, TestDoneResultCommand>.Handle(
+            TestDoneCommand command
+        ) =>
+            new(
+                $"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}"
+            );
 
         /// <summary>
         /// Handles the specified command asynchronously.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <returns>Result of the handled command.</returns>
-        Task<TestDoneResultCommand> ICommandHandlerAsync<TestDoneCommand, TestDoneResultCommand>.HandleAsync(TestDoneCommand command) =>
-            Task.Run(() => new TestDoneResultCommand($"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}"));
+        Task<TestDoneResultCommand> ICommandHandlerAsync<
+            TestDoneCommand,
+            TestDoneResultCommand
+        >.HandleAsync(TestDoneCommand command) =>
+            Task.Run(
+                () =>
+                    new TestDoneResultCommand(
+                        $"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}"
+                    )
+            );
     }
 }

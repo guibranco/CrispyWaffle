@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -95,9 +95,11 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return typeof(string) == type
                 ? !string.IsNullOrWhiteSpace((string)value)
                 : type.IsSimpleType()
-                    || type.GetConstructors().Any(c => c.GetParameters().Length == 0)
+                    || (
+                        type.GetConstructors().Any(c => c.GetParameters().Length == 0)
                         && Convert.ChangeType(value, type, CultureInfo.InvariantCulture)
-                            != Activator.CreateInstance(type);
+                            != Activator.CreateInstance(type)
+                    );
         }
 
         /// <summary>
@@ -281,10 +283,14 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <exception cref="ArgumentNullException">data</exception>
         public string Render(string template, object data)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(data);
+#else
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
+#endif
 
             _properties = ParseObject(data);
             return RenderData(ProcessLoop(ProcessWith(EvaluateConditional(template))));

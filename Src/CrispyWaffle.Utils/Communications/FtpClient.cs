@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -16,7 +16,7 @@ namespace CrispyWaffle.Utils.Communications
     public class FtpClient
     {
         /// <summary>
-        /// The synchronize root.
+        /// The synchronized root.
         /// </summary>
         private readonly object _syncRoot = new();
 
@@ -53,14 +53,14 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient"/> class.
         /// </summary>
-        /// <param name="ftp">The FtpClient.</param>
+        /// <param name="connection">The connection.</param>
         /// <param name="remoteDirectory">The remote directory.</param>
-        public FtpClient(IConnection ftp, string remoteDirectory)
+        public FtpClient(IConnection connection, string remoteDirectory)
             : this(
-                ftp?.Host,
-                ftp?.Port ?? 0,
-                ftp?.Credentials.Username,
-                ftp?.Credentials.Password,
+                connection?.Host,
+                connection?.Port ?? 21,
+                connection?.Credentials.Username,
+                connection?.Credentials.Password,
                 remoteDirectory
             ) { }
 
@@ -146,7 +146,7 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Creates the file in the FtpClient host.
+        /// Creates the file in the host.
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <param name="bytes">The bytes.</param>
@@ -177,8 +177,10 @@ namespace CrispyWaffle.Utils.Communications
 
                 var response = (FtpWebResponse)request.GetResponse();
                 if (
-                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                    (
+                        !string.IsNullOrWhiteSpace(uri.GetFileExtension())
                         && response.StatusCode == FtpStatusCode.ClosingData
+                    )
                     || response.StatusCode == FtpStatusCode.PathnameCreated
                 )
                 {
@@ -238,11 +240,11 @@ namespace CrispyWaffle.Utils.Communications
             var str = new StringBuilder();
             return str.Append(@"ftp://")
                 .Append(_host)
-                .Append(@":")
+                .Append(':')
                 .Append(_port)
-                .Append(@"/")
+                .Append('/')
                 .Append(_remoteDirectory)
-                .Append(@"/");
+                .Append('/');
         }
 
         /// <summary>
@@ -289,7 +291,7 @@ namespace CrispyWaffle.Utils.Communications
         {
             lock (_syncRoot)
             {
-                return CreateInternal(GetFtpUrl().Append(name).Append(@"/").ToString(), null);
+                return CreateInternal(GetFtpUrl().Append(name).Append('/').ToString(), null);
             }
         }
 
@@ -303,6 +305,10 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.ArgumentNullException">bytes.</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(fileName);
+            ArgumentNullException.ThrowIfNull(bytes);
+#else
             if (fileName == null)
             {
                 throw new ArgumentNullException(nameof(fileName));
@@ -312,6 +318,7 @@ namespace CrispyWaffle.Utils.Communications
             {
                 throw new ArgumentNullException(nameof(bytes));
             }
+#endif
 
             lock (_syncRoot)
             {

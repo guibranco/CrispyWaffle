@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -108,7 +108,7 @@ namespace CrispyWaffle.Log
 
             if (
                 ns.StartsWith(@"CrispyWaffle.Log")
-                || ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider")
+                || (ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
             )
             {
                 return false;

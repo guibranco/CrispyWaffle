@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -164,7 +164,7 @@ namespace CrispyWaffle.Extensions
             {
                 var c = w.ToLower().ToCharArray();
                 c[0] = char.ToUpper(c[0]);
-                sb.Append(c).Append(@" ");
+                sb.Append(c).Append(' ');
             }
 
             return sb.ToString().Trim();
@@ -201,14 +201,14 @@ namespace CrispyWaffle.Extensions
         {
             var result = new StringBuilder();
 
-            if (!input.Any())
+            if (input.Length == 0)
             {
                 return string.Empty;
             }
 
             foreach (var s in input)
             {
-                result.Append(@" ");
+                result.Append(' ');
 
                 if (toUpper.Contains(s.ToUpper()))
                 {
@@ -432,7 +432,7 @@ namespace CrispyWaffle.Extensions
         [Pure]
         public static string ToCenter(this string input, char spacer, int lineSize)
         {
-            var half = lineSize - input.Length / 2;
+            var half = lineSize - (input.Length / 2);
             return $@"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? half + 1 : half)}";
         }
 
