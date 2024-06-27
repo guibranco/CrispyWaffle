@@ -16,7 +16,7 @@ namespace CrispyWaffle.Utils.Communications
     public class FtpClient
     {
         /// <summary>
-        /// The synchronize root.
+        /// The synchronized root.
         /// </summary>
         private readonly object _syncRoot = new();
 
@@ -53,14 +53,14 @@ namespace CrispyWaffle.Utils.Communications
         /// <summary>
         /// Initializes a new instance of the <see cref="FtpClient"/> class.
         /// </summary>
-        /// <param name="ftp">The FtpClient.</param>
+        /// <param name="connection">The connection.</param>
         /// <param name="remoteDirectory">The remote directory.</param>
-        public FtpClient(IConnection ftp, string remoteDirectory)
+        public FtpClient(IConnection connection, string remoteDirectory)
             : this(
-                ftp?.Host,
-                ftp?.Port ?? 0,
-                ftp?.Credentials.Username,
-                ftp?.Credentials.Password,
+                conneciton?.Host,
+                conneciton?.Port ?? 21,
+                conneciton?.Credentials.Username,
+                conneciton?.Credentials.Password,
                 remoteDirectory
             ) { }
 
@@ -146,7 +146,7 @@ namespace CrispyWaffle.Utils.Communications
         }
 
         /// <summary>
-        /// Creates the file in the FtpClient host.
+        /// Creates the file in the host.
         /// </summary>
         /// <param name="path">The path String.</param>
         /// <param name="bytes">The bytes.</param>
@@ -305,10 +305,21 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.ArgumentNullException">bytes.</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
+            #if NET6_0_OR_GREATER
             ArgumentNullException.ThrowIfNull(fileName);
-
             ArgumentNullException.ThrowIfNull(bytes);
+            #else
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
 
+            if (bytes == null)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
+            #endif
+            
             lock (_syncRoot)
             {
                 if (!Exists())
