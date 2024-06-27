@@ -305,21 +305,15 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.ArgumentNullException">bytes.</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
-            #if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
             ArgumentNullException.ThrowIfNull(fileName);
             ArgumentNullException.ThrowIfNull(bytes);
-            #else
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+#else
+            ArgumentNullException.ThrowIfNull(fileName);
 
-            if (bytes == null)
-            {
-                throw new ArgumentNullException(nameof(bytes));
-            }
-            #endif
-            
+            ArgumentNullException.ThrowIfNull(bytes);
+#endif
+
             lock (_syncRoot)
             {
                 if (!Exists())
