@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -177,8 +177,8 @@ namespace CrispyWaffle.Utils.Communications
 
                 var response = (FtpWebResponse)request.GetResponse();
                 if (
-                    !string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                        && response.StatusCode == FtpStatusCode.ClosingData
+                    (!string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                        && response.StatusCode == FtpStatusCode.ClosingData)
                     || response.StatusCode == FtpStatusCode.PathnameCreated
                 )
                 {
@@ -238,11 +238,11 @@ namespace CrispyWaffle.Utils.Communications
             var str = new StringBuilder();
             return str.Append(@"ftp://")
                 .Append(_host)
-                .Append(@":")
+                .Append(':')
                 .Append(_port)
-                .Append(@"/")
+                .Append('/')
                 .Append(_remoteDirectory)
-                .Append(@"/");
+                .Append('/');
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace CrispyWaffle.Utils.Communications
         {
             lock (_syncRoot)
             {
-                return CreateInternal(GetFtpUrl().Append(name).Append(@"/").ToString(), null);
+                return CreateInternal(GetFtpUrl().Append(name).Append('/').ToString(), null);
             }
         }
 
@@ -303,15 +303,9 @@ namespace CrispyWaffle.Utils.Communications
         /// <exception cref="System.ArgumentNullException">bytes.</exception>
         public bool Upload(string fileName, byte[] bytes)
         {
-            if (fileName == null)
-            {
-                throw new ArgumentNullException(nameof(fileName));
-            }
+            ArgumentNullException.ThrowIfNull(fileName);
 
-            if (bytes == null)
-            {
-                throw new ArgumentNullException(nameof(bytes));
-            }
+            ArgumentNullException.ThrowIfNull(bytes);
 
             lock (_syncRoot)
             {

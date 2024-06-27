@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -41,10 +41,10 @@ public class EnvironmentHelperTests
             EnvironmentHelper.OperationalSystemVersion
         );
 
-        Assert.Equal(Process.GetCurrentProcess().Id, EnvironmentHelper.ProcessId);
+        Assert.Equal(Environment.ProcessId, EnvironmentHelper.ProcessId);
 
         var userAgent =
-            $"{EnvironmentHelper.ApplicationName}/{EnvironmentHelper.Version} (H:{EnvironmentHelper.Host}|P:{EnvironmentHelper.ProcessId}|T:{Thread.CurrentThread.ManagedThreadId})";
+            $"{EnvironmentHelper.ApplicationName}/{EnvironmentHelper.Version} (H:{EnvironmentHelper.Host}|P:{EnvironmentHelper.ProcessId}|T:{Environment.CurrentManagedThreadId})";
 
         Assert.Equal(userAgent, EnvironmentHelper.UserAgent);
         Assert.Equal(Environment.UserName, EnvironmentHelper.UserName);

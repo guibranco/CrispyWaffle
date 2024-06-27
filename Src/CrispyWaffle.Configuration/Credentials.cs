@@ -43,7 +43,6 @@ namespace CrispyWaffle.Configuration
         /// Gets or sets the username.
         /// </summary>
         /// <value>The username.</value>
-
         [Localizable(false)]
         public string Username
         {
@@ -59,7 +58,6 @@ namespace CrispyWaffle.Configuration
         /// Gets or sets the password.
         /// </summary>
         /// <value>The password.</value>
-
         [XmlIgnore]
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]

@@ -1,4 +1,4 @@
-﻿namespace CrispyWaffle.Extensions
+namespace CrispyWaffle.Extensions
 {
     /// <summary>
     /// The math extensions class.
@@ -13,7 +13,7 @@
         /// <returns>Int32.</returns>
         public static int RoundDown(this int currentValue, int multipleOf = 10)
         {
-            return currentValue - currentValue % multipleOf;
+            return currentValue - (currentValue % multipleOf);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         {
             return !forceDifferentValue && currentValue % multipleOf == 0
                 ? currentValue
-                : multipleOf - currentValue % multipleOf + currentValue;
+                : multipleOf - (currentValue % multipleOf) + currentValue;
         }
 
         /// <summary>
