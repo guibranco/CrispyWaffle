@@ -57,10 +57,10 @@ namespace CrispyWaffle.Utils.Communications
         /// <param name="remoteDirectory">The remote directory.</param>
         public FtpClient(IConnection connection, string remoteDirectory)
             : this(
-                conneciton?.Host,
-                conneciton?.Port ?? 21,
-                conneciton?.Credentials.Username,
-                conneciton?.Credentials.Password,
+                connection?.Host,
+                connection?.Port ?? 21,
+                connection?.Credentials.Username,
+                connection?.Credentials.Password,
                 remoteDirectory
             ) { }
 
