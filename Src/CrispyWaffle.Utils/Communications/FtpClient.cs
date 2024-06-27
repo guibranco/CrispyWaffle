@@ -309,8 +309,15 @@ namespace CrispyWaffle.Utils.Communications
             ArgumentNullException.ThrowIfNull(fileName);
             ArgumentNullException.ThrowIfNull(bytes);
 #else
-            ArgumentNullException.ThrowIfNull(fileName);
-            ArgumentNullException.ThrowIfNull(bytes);
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (bytes == null)
+            {
+                throw new ArgumentNullException(nameof(bytes));
+            }
 #endif
 
             lock (_syncRoot)
