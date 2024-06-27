@@ -281,10 +281,14 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <exception cref="ArgumentNullException">data</exception>
         public string Render(string template, object data)
         {
+#if NET6_0_OR_GREATER
+            ArgumentNullException.ThrowIfNull(data);
+#else
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
+#endif
 
             _properties = ParseObject(data);
             return RenderData(ProcessLoop(ProcessWith(EvaluateConditional(template))));
