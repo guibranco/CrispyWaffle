@@ -177,8 +177,10 @@ namespace CrispyWaffle.Utils.Communications
 
                 var response = (FtpWebResponse)request.GetResponse();
                 if (
-                    (!string.IsNullOrWhiteSpace(uri.GetFileExtension())
-                        && response.StatusCode == FtpStatusCode.ClosingData)
+                    (
+                        !string.IsNullOrWhiteSpace(uri.GetFileExtension())
+                        && response.StatusCode == FtpStatusCode.ClosingData
+                    )
                     || response.StatusCode == FtpStatusCode.PathnameCreated
                 )
                 {

@@ -36,11 +36,13 @@ namespace CrispyWaffle.Extensions
                         as HumanReadableAttribute
                 })
                 .Where(item =>
-                    (item.Attr != null
+                    (
+                        item.Attr != null
                         && item.Attr.StringValue.Equals(
                             humanReadableValue,
                             StringComparison.OrdinalIgnoreCase
-                        ))
+                        )
+                    )
                     || item.Field.Name.Equals(
                         humanReadableValue,
                         StringComparison.OrdinalIgnoreCase
@@ -89,12 +91,13 @@ namespace CrispyWaffle.Extensions
                         as InternalValueAttribute
                 })
                 .Where(item =>
-                    (item.Attr != null
+                    (
+                        item.Attr != null
                         && item.Attr.InternalValue.Equals(
                             internalValue,
                             StringComparison.OrdinalIgnoreCase
-                        ))
-                    || item.Field.Name.Equals(internalValue, StringComparison.OrdinalIgnoreCase)
+                        )
+                    ) || item.Field.Name.Equals(internalValue, StringComparison.OrdinalIgnoreCase)
                 )
                 .Select(item => item.Field)
                 .SingleOrDefault();

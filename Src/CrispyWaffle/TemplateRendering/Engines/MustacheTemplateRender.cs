@@ -95,9 +95,11 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return typeof(string) == type
                 ? !string.IsNullOrWhiteSpace((string)value)
                 : type.IsSimpleType()
-                    || (type.GetConstructors().Any(c => c.GetParameters().Length == 0)
+                    || (
+                        type.GetConstructors().Any(c => c.GetParameters().Length == 0)
                         && Convert.ChangeType(value, type, CultureInfo.InvariantCulture)
-                            != Activator.CreateInstance(type));
+                            != Activator.CreateInstance(type)
+                    );
         }
 
         /// <summary>
