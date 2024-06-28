@@ -114,8 +114,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Contributors
 
-### Contributors
-
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -start -->
 
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
