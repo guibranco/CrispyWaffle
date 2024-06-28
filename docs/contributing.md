@@ -4,7 +4,7 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 
 ### Contributors
 
-<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -start -->
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -start -->
 <table>
 	<tbody>
 		<tr>
@@ -76,11 +76,11 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 		</tr>
 	<tbody>
 </table>
-<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -end -->
 
 ### Bots
 
-<!-- readme: bots,snyk-bot -start -->
+<!-- readme: bots,snyk-bot,codefactor-io[bot] -start -->
 <table>
 	<tbody>
 		<tr>
@@ -122,4 +122,4 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 		</tr>
 	<tbody>
 </table>
-<!-- readme: bots,snyk-bot -end -->
+<!-- readme: bots,snyk-bot,codefactor-io[bot] -end -->
