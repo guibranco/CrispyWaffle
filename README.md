@@ -114,7 +114,7 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Contributors
 
-<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -start -->
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -start -->
 <table>
 	<tbody>
 		<tr>
@@ -186,11 +186,11 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 		</tr>
 	<tbody>
 </table>
-<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/- -end -->
+<!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -end -->
 
 ### Bots
 
-<!-- readme: bots,snyk-bot -start -->
+<!-- readme: bots,snyk-bot,codefactor-io[bot] -start -->
 <table>
 	<tbody>
 		<tr>
@@ -232,4 +232,4 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 		</tr>
 	<tbody>
 </table>
-<!-- readme: bots,snyk-bot -end -->
+<!-- readme: bots,snyk-bot,codefactor-io[bot] -end -->
