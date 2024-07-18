@@ -8,15 +8,15 @@ on:
     types: [opened, synchronize, reopened]
   
 jobs:
-  CIChecks:
-    name: CI Checks
+  SonarCloudAnalysis:
+    name: Sonar Cloud Analysis
     runs-on: windows-latest
     steps:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 19.0.2+7   
+          java-version: 21
       
       - uses: actions/checkout@v4
         with:
