@@ -4,7 +4,6 @@ namespace CrispyWaffle.Configuration
 {
     /// <summary>
     /// Class ConnectionNameAttribute. This class cannot be inherited.
-    /// Implements the <see cref="Attribute" />
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
