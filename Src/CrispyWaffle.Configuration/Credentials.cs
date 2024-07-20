@@ -15,15 +15,15 @@ namespace CrispyWaffle.Configuration
     public sealed class Credentials : IConnectionCredential, INotifyPropertyChanged
     {
         /// <summary>
-        /// The property changed event handler
+        /// The property changed event handler.
         /// </summary>
         /// <returns></returns>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// OnPropertyChanged event invoker
+        /// OnPropertyChanged event invoker.
         /// </summary>
-        /// <param name="propertyName">The property name that was changed</param>
+        /// <param name="propertyName">The property name that was changed.</param>
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -73,7 +73,7 @@ namespace CrispyWaffle.Configuration
         }
 
         /// <summary>
-        /// Safe-to-store password, encrypted and hashed validated
+        /// Safe-to-store password, encrypted and hashed validated.
         /// </summary>
         /// <value>The password internal.</value>
         [Browsable(false)]
