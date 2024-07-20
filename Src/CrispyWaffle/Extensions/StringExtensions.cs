@@ -16,11 +16,11 @@ namespace CrispyWaffle.Extensions
     public static class StringExtensions
     {
         /// <summary>
-        /// Replaces the non alphanumeric.
+        /// Replaces the non-alphanumeric.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="replaceWith">The replace with.</param>
-        /// <returns>String.</returns>
+        /// <param name="replaceWith">The replacement text.</param>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ReplaceNonAlphanumeric(this string input, string replaceWith)
         {
@@ -34,10 +34,10 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="search">The search.</param>
-        /// <param name="replace">The replacement.</param>
-        /// <returns>String.</returns>
+        /// <param name="replaceWith">The replacement text.</param>
+        /// <returns>System.String.</returns>
         [Pure]
-        public static string ReplaceFirst(this string input, string search, string replace)
+        public static string ReplaceFirst(this string input, string search, string replaceWith)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
@@ -47,14 +47,14 @@ namespace CrispyWaffle.Extensions
             var pos = input.IndexOf(search, StringComparison.Ordinal);
             return pos < 0
                 ? input
-                : input.Substring(0, pos) + replace + input.Substring(pos + search.Length);
+                : input.Substring(0, pos) + replaceWith + input.Substring(pos + search.Length);
         }
 
         /// <summary>
         /// Removes the non numeric.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string RemoveNonNumeric(this string input)
         {
@@ -67,7 +67,7 @@ namespace CrispyWaffle.Extensions
         /// Removes the diacritics.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string RemoveDiacritics(this string input)
         {
@@ -80,7 +80,7 @@ namespace CrispyWaffle.Extensions
         /// Removes the spaces.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string RemoveSpaces(this string input)
         {
@@ -93,7 +93,7 @@ namespace CrispyWaffle.Extensions
         /// Removes the excess spaces.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string RemoveExcessSpaces(this string input)
         {
@@ -103,10 +103,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Removes the non alphanumeric.
+        /// Removes the non-alphanumeric.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string RemoveNonAlphanumeric(this string input)
         {
@@ -121,7 +121,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="input">The input.</param>
         /// <param name="maxCharacters">The maximum characters.</param>
         /// <param name="addEllipsis">if set to <c>true</c> [add ellipsis].</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string Abbreviate(
             this string input,
@@ -141,15 +141,15 @@ namespace CrispyWaffle.Extensions
 
             return string.Concat(
                 input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters),
-                addEllipsis ? @"..." : string.Empty
+                addEllipsis ? "..." : string.Empty
             );
         }
 
         /// <summary>
-        /// To the camel case.
+        /// Converts to camelcase.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToCamelCase(this string input)
         {
@@ -171,10 +171,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// To the uc words.
+        /// Converts to uppercase each word in the text.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToUcWords(this string input)
         {
@@ -190,12 +190,12 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Upper case the words.
+        /// Converts to uppercase each word in the text.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="toUpper">To upper.</param>
         /// <param name="toLower">To lower.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string UcWords(this string[] input, string[] toUpper, string[] toLower)
         {
@@ -228,10 +228,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// A String extension method that takes a string safely for inclusion in a Uri.
+        /// Converts to safe-url.
         /// </summary>
-        /// <param name="input">The input String to act on.</param>
-        /// <returns>str as a String.</returns>
+        /// <param name="input">The input.</param>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToSafeUrl(this string input)
         {
@@ -243,19 +243,19 @@ namespace CrispyWaffle.Extensions
             var bytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(input);
             return Encoding
                 .UTF8.GetString(bytes)
-                .Replace(@"-", string.Empty)
-                .Replace(@".", string.Empty)
+                .Replace("-", string.Empty)
+                .Replace(".", string.Empty)
                 .RemoveExcessSpaces()
                 .Trim()
-                .ReplaceNonAlphanumeric(@"-")
+                .ReplaceNonAlphanumeric("-")
                 .Trim('-');
         }
 
         /// <summary>
-        /// Encodes a string to base64 using UTF-8
+        /// Converts to base64.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToBase64(this string input)
         {
@@ -269,11 +269,11 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Decodes a base64 string using the specified encoding set
+        /// Decode text from base 64.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="encoding">The encoding.</param>
-        /// <returns></returns>
+        /// <param name="encoding">The encoding. Default is ISO-8859-1</param>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string FromBase64(this string input, string encoding = "ISO-8859-1")
         {
@@ -287,10 +287,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Converts a string from ISO-8859-2 encoding to UTF-8 encoding
+        /// Convert text from ISO-8859-1 to UTF-8.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string FromISO2UTF8(this string input)
         {
@@ -308,10 +308,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// To the name of the valid file.
+        /// Converts to valid filename.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToValidFileName(this string fileName)
         {
@@ -319,11 +319,11 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// A String extension method that calculates Levenshtein distance.
+        /// Calculates the Levenshtein distance between two strings.
         /// </summary>
-        /// <param name="input">The string to be compared.</param>
-        /// <param name="inputToCompare">The string to compare.</param>
-        /// <returns>An Int32.</returns>
+        /// <param name="input">The input.</param>
+        /// <param name="inputToCompare">The input to compare.</param>
+        /// <returns>System.Int32.</returns>
         [Pure]
         public static int Levenshtein(this string input, string inputToCompare)
         {
@@ -368,11 +368,11 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// A String extension method that calculates levenshtein distance with invariant culture and insensitive case.
+        /// Calculates the Levenshtein distance between two strings removing diacritics in the string and converting to lowercase.
         /// </summary>
-        /// <param name="input">The string to be compared.</param>
-        /// <param name="inputToCompare">The string to compare.</param>
-        /// <returns>An Int32.</returns>
+        /// <param name="input">The input.</param>
+        /// <param name="inputToCompare">The input to compare.</param>
+        /// <returns>System.Int32.</returns>
         [Pure]
         public static int LevenshteinInvariantCulture(this string input, string inputToCompare)
         {
@@ -384,7 +384,7 @@ namespace CrispyWaffle.Extensions
         /// Gets the name of the path or file.
         /// </summary>
         /// <param name="url">The URL.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string GetPathOrFileName(this string url)
         {
@@ -395,10 +395,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// An URI extension method that gets file name.
+        /// Gets the name of the file.
         /// </summary>
-        /// <param name="uri">The URI to act on.</param>
-        /// <returns>The file name.</returns>
+        /// <param name="uri">The URI.</param>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string GetFileName(this Uri uri) =>
             string.IsNullOrWhiteSpace(uri.LocalPath)
@@ -406,10 +406,10 @@ namespace CrispyWaffle.Extensions
                 : Path.GetFileName(uri.LocalPath);
 
         /// <summary>
-        /// An URI extension method that gets file extension.
+        /// Gets the file extension.
         /// </summary>
-        /// <param name="uri">The URI to act on.</param>
-        /// <returns>The file extension.</returns>
+        /// <param name="uri">The URI.</param>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string GetFileExtension(this Uri uri) => uri.LocalPath.GetFileExtension();
 
@@ -417,30 +417,30 @@ namespace CrispyWaffle.Extensions
         /// Gets the file extension.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string GetFileExtension(this string fileName) =>
             string.IsNullOrWhiteSpace(fileName) ? string.Empty : Path.GetExtension(fileName);
 
         /// <summary>
-        /// To the center.
+        /// Converts to center.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="spacer">The spacer.</param>
         /// <param name="lineSize">Size of the line.</param>
-        /// <returns>String.</returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string ToCenter(this string input, char spacer, int lineSize)
         {
             var half = lineSize - (input.Length / 2);
-            return $@"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? half + 1 : half)}";
+            return $"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? half + 1 : half)}";
         }
 
         /// <summary>
-        /// Determines whether the string is a valid JSON object
+        /// Determines whether [is valid json] [the specified json raw].
         /// </summary>
-        /// <param name="jsonRaw">The raw json string.</param>
-        /// <returns>Boolean.</returns>
+        /// <param name="jsonRaw">The json raw.</param>
+        /// <returns><c>true</c> if [is valid json] [the specified json raw]; otherwise, <c>false</c>.</returns>
         [Pure]
         public static bool IsValidJson(this string jsonRaw)
         {
@@ -448,8 +448,8 @@ namespace CrispyWaffle.Extensions
             {
                 jsonRaw = jsonRaw.Trim();
 
-                var isObject = jsonRaw.StartsWith(@"{") && jsonRaw.EndsWith(@"}");
-                var isArray = jsonRaw.StartsWith(@"[") && jsonRaw.EndsWith(@"]");
+                var isObject = jsonRaw.StartsWith("{") && jsonRaw.EndsWith("}");
+                var isArray = jsonRaw.StartsWith("[") && jsonRaw.EndsWith("]");
 
                 if (!isObject && !isArray)
                 {
@@ -467,17 +467,18 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Split the string by chuck length,
+        /// Splits the by.
         /// </summary>
-        /// <param name="str"></param>
-        /// <param name="chunkLength"></param>
-        /// <returns></returns>
+        /// <param name="str">The string.</param>
+        /// <param name="chunkLength">Length of the chunk.</param>
+        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
+        /// <exception cref="ArgumentException">Invalid chuck length - chunkLength</exception>
         [Pure]
         public static IEnumerable<string> SplitBy(this string str, int chunkLength)
         {
             if (chunkLength < 1)
             {
-                throw new ArgumentException(@"Invalid chuck length", nameof(chunkLength));
+                throw new ArgumentException("Invalid chuck length", nameof(chunkLength));
             }
 
             if (string.IsNullOrWhiteSpace(str))
@@ -499,7 +500,7 @@ namespace CrispyWaffle.Extensions
         /// Strips the tags.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns></returns>
+        /// <returns>System.String.</returns>
         [Pure]
         public static string StripTags(this string source)
         {
@@ -527,7 +528,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="inside">if set to <c>true</c> [inside].</param>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if inside tag, <c>false</c> otherwise.</returns>
         private static bool StripTagInternal(
             char let,
             bool inside,
