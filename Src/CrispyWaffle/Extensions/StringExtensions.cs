@@ -433,7 +433,7 @@ namespace CrispyWaffle.Extensions
         public static string ToCenter(this string input, char spacer, int lineSize)
         {
             var half = lineSize - (input.Length / 2);
-            return $"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 1 ? half + 1 : half)}";
+            return $"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 0 ? half : half + 1)}";
         }
 
         /// <summary>
