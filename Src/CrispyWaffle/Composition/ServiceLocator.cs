@@ -685,17 +685,22 @@ namespace CrispyWaffle.Composition
         }
 
         /// <summary>
-        /// A register with a custom instance creator as a function.
+        /// Registers the specified instance creator.
         /// </summary>
-        /// <typeparam name="TContract">The interface binding implementation.</typeparam>
-        /// <param name="instanceCreator">
-        /// The instance creator for an implementation onf <typeparamref name="TContract"/>.
-        /// </param>
-        /// <param name="lifetime">The lifecycle lifetime of the registration.</param>
-        public static void Register<TContract>(
-            Func<TContract> instanceCreator,
-            Lifetime lifetime = Lifetime.Transient
-        )
+        /// <typeparam name="TContract">The type of the t contract.</typeparam>
+        /// <param name="instanceCreator">The instance creator.</param>
+        public static void Register<TContract>(Func<TContract> instanceCreator)
+        {
+            RegisterWithLifetimeCreatorInternal(Lifetime.Transient, instanceCreator);
+        }
+
+        /// <summary>
+        /// Registers the specified instance creator.
+        /// </summary>
+        /// <typeparam name="TContract">The type of the t contract.</typeparam>
+        /// <param name="instanceCreator">The instance creator.</param>
+        /// <param name="lifetime">The lifetime.</param>
+        public static void Register<TContract>(Func<TContract> instanceCreator, Lifetime lifetime)
         {
             RegisterWithLifetimeCreatorInternal(lifetime, instanceCreator);
         }
