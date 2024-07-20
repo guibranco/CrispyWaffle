@@ -1,10 +1,10 @@
 version = 1
 
 [[analyzers]]
-name = "secrets"
+name = "csharp"
 
 [[analyzers]]
-name = "csharp"
+name = "secrets"
 
 [[analyzers]]
 name = "test-coverage"

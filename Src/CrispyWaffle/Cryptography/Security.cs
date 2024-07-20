@@ -32,7 +32,8 @@ namespace CrispyWaffle.Cryptography
 
             var keyBytes = new Rfc2898DeriveBytes(
                 passwordHash,
-                Encoding.ASCII.GetBytes(saltKey)
+                Encoding.ASCII.GetBytes(saltKey),
+                100_000
             ).GetBytes(256 / 8);
             var symmetricKey = new RijndaelManaged
             {
@@ -80,7 +81,8 @@ namespace CrispyWaffle.Cryptography
             var cipherTextBytes = Convert.FromBase64String(encryptedText);
             var keyBytes = new Rfc2898DeriveBytes(
                 passwordHash,
-                Encoding.ASCII.GetBytes(saltKey)
+                Encoding.ASCII.GetBytes(saltKey),
+                100_000
             ).GetBytes(256 / 8);
             var symmetricKey = new RijndaelManaged
             {
