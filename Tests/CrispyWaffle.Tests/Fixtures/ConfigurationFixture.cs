@@ -26,7 +26,7 @@ public class ConfigurationFixture : IDisposable
                     SaltKey = "y48H85nH21",
                     IVKey = "HZEM7|Ne2YGS/F41"
                 },
-            LifeStyle.Singleton
+            Lifetime.Singleton
         );
     }
 

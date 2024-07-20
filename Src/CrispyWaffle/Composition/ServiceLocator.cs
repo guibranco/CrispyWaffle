@@ -125,14 +125,14 @@ namespace CrispyWaffle.Composition
         /// <param name="contract">The contract.</param>
         /// <param name="implementation">The implementation.</param>
         private static void RegisterLifeStyledInternal(
-            LifeStyle lifestyle,
+            Lifetime lifestyle,
             Type contract,
             Type implementation
         )
         {
             _registrationsCalls.Add(contract, 0);
 
-            if (lifestyle == LifeStyle.Transient)
+            if (lifestyle == Lifetime.Transient)
             {
                 RegisterTransientInternal(contract, implementation);
                 return;
@@ -179,14 +179,14 @@ namespace CrispyWaffle.Composition
         /// <param name="lifestyle">The lifestyle.</param>
         /// <param name="instanceCreator">The instance creator.</param>
         private static void RegisterLifestyleCreatorInternal<TContract>(
-            LifeStyle lifestyle,
+            Lifetime lifestyle,
             Func<TContract> instanceCreator
         )
         {
             var contract = typeof(TContract);
             _registrationsCalls.Add(contract, 0);
 
-            if (lifestyle == LifeStyle.Transient)
+            if (lifestyle == Lifetime.Transient)
             {
                 RegisterTransientInternal(instanceCreator, contract);
                 return;
@@ -643,7 +643,7 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         /// <param name="lifestyle">The lifestyle.</param>
-        public static void Register<TImplementation>(LifeStyle lifestyle = LifeStyle.Transient)
+        public static void Register<TImplementation>(Lifetime lifestyle = Lifetime.Transient)
         {
             var type = typeof(TImplementation);
             RegisterLifeStyledInternal(lifestyle, type, type);
@@ -656,7 +656,7 @@ namespace CrispyWaffle.Composition
         /// <typeparam name="TImplementation">The type of the t implementation.</typeparam>
         /// <param name="lifestyle">The lifestyle.</param>
         public static void Register<TContract, TImplementation>(
-            LifeStyle lifestyle = LifeStyle.Transient
+            Lifetime lifestyle = Lifetime.Transient
         )
             where TImplementation : TContract
         {
@@ -675,7 +675,7 @@ namespace CrispyWaffle.Composition
         /// <param name="lifestyle">The lifecycle lifestyle of the registration.</param>
         public static void Register<TContract>(
             Func<TContract> instanceCreator,
-            LifeStyle lifestyle = LifeStyle.Transient
+            Lifetime lifestyle = Lifetime.Transient
         )
         {
             RegisterLifestyleCreatorInternal(lifestyle, instanceCreator);
