@@ -7,18 +7,18 @@ using log4net;
 namespace CrispyWaffle.Log4Net
 {
     /// <summary>
-    /// The Log4Net log provider
+    /// The Log4Net log provider.
     /// </summary>
     /// <seealso cref="ILogProvider" />
     public sealed class Log4NetLogProvider : ILogProvider
     {
         /// <summary>
-        /// The level
+        /// The level.
         /// </summary>
         private LogLevel _level;
 
         /// <summary>
-        /// The adapter
+        /// The adapter.
         /// </summary>
         private readonly ILog _adapter;
 
@@ -32,7 +32,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Sets the log level of the instance
+        /// Sets the log level of the instance.
         /// </summary>
         /// <param name="level">The log level</param>
         public void SetLevel(LogLevel level)
@@ -41,7 +41,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Fatals the specified category.
+        /// Logs the message with fatal level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message.</param>
@@ -54,7 +54,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message with error level
+        /// Logs the message with error level.
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
@@ -67,7 +67,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message with warning level
+        /// Logs the message with warning level.
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
@@ -80,7 +80,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message with info level
+        /// Logs the message with info level.
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
@@ -93,7 +93,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message with trace level
+        /// Logs the message with trace level.
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
@@ -150,7 +150,7 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message with debug level
+        /// Logs the message with debug level.
         /// </summary>
         /// <param name="category">The category</param>
         /// <param name="message">The message to be logged</param>
@@ -163,11 +163,11 @@ namespace CrispyWaffle.Log4Net
         }
 
         /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level
+        /// Logs the message as a file/attachment with a file name/identifier with debug level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="content">The content to be stored</param>
-        /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
+        /// <param name="category">The category.</param>
+        /// <param name="content">The content to be stored.</param>
+        /// <param name="identifier">The file name of the content. This can be a filename, a key, an identifier. Depends upon each implementation.</param>
         public void Debug(string category, string content, string identifier)
         {
             if (!_level.HasFlag(LogLevel.Debug))
@@ -182,11 +182,11 @@ namespace CrispyWaffle.Log4Net
         /// <summary>
         /// Logs the message as a file/attachment with a file name/identifier with debug level using a custom serializer or default.
         /// </summary>
-        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
-        /// <param name="category">The category</param>
-        /// <param name="content">The object to be serialized</param>
-        /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
-        /// <param name="customFormat">(Optional) the custom serializer format</param>
+        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format.</typeparam>
+        /// <param name="category">The category.</param>
+        /// <param name="content">The object to be serialized.</param>
+        /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
+        /// <param name="customFormat">(Optional) the custom serializer format.</param>
         public void Debug<T>(
             string category,
             T content,

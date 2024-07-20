@@ -12,13 +12,13 @@ using ElmahCore;
 namespace CrispyWaffle.Elmah
 {
     /// <summary>
-    /// The Elmah exception handler class
+    /// The Elmah exception handler class.
     /// </summary>
     /// <seealso cref="IExceptionHandler" />
     public sealed class ElmahExceptionHandler : IExceptionHandler
     {
         /// <summary>
-        /// The additional providers
+        /// The additional providers.
         /// </summary>
         private static readonly ICollection<
             Tuple<ILogProvider, ExceptionLogType>
@@ -34,10 +34,10 @@ namespace CrispyWaffle.Elmah
             var counter = 1;
             while (true)
             {
-                var method = stack.GetFrame(counter++).GetMethod();
+                var method = stack.GetFrame(counter++)?.GetMethod();
                 if (method == null)
                 {
-                    return @"CrispyWaffle";
+                    return "CrispyWaffle";
                 }
 
                 var ns = method.DeclaringType?.FullName;
@@ -46,12 +46,12 @@ namespace CrispyWaffle.Elmah
                     return method.Name;
                 }
 
-                if (ns.StartsWith(@"CrispyWaffle"))
+                if (ns.StartsWith("CrispyWaffle"))
                 {
                     continue;
                 }
 
-                if (ns.StartsWith(@"CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
+                if (ns.StartsWith("CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
                 {
                     ns = ns.Substring(18);
                 }
@@ -91,7 +91,7 @@ namespace CrispyWaffle.Elmah
         }
 
         /// <summary>
-        /// Logs a exception as ERROR level.
+        /// Logs an exception as ERROR level.
         /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
         /// but this behavior depends on the Adapter implementation.
         /// </summary>
@@ -103,12 +103,11 @@ namespace CrispyWaffle.Elmah
         }
 
         /// <summary>
-        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception
-        /// and then call <seealso cref="IExceptionHandler.Handle(Exception)" />.
+        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception and then call <seealso cref="IExceptionHandler.Handle(Exception)" />.
         /// This is the default behavior, each implementation can have it own behavior!
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="args">A instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
+        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args)
         {
@@ -128,7 +127,7 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// Adds the log provider.
         /// </summary>
-        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
+        /// <typeparam name="TLogProvider">The type of the log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
         /// <exception cref="NotImplementedException"></exception>
