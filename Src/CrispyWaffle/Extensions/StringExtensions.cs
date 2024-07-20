@@ -272,7 +272,7 @@ namespace CrispyWaffle.Extensions
         /// Decode text from base 64.
         /// </summary>
         /// <param name="input">The input.</param>
-        /// <param name="encoding">The encoding. Default is ISO-8859-1</param>
+        /// <param name="encoding">The encoding. Default is ISO-8859-1.</param>
         /// <returns>System.String.</returns>
         [Pure]
         public static string FromBase64(this string input, string encoding = "ISO-8859-1")
@@ -472,7 +472,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="str">The string.</param>
         /// <param name="chunkLength">Length of the chunk.</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
-        /// <exception cref="ArgumentException">Invalid chuck length - chunkLength</exception>
+        /// <exception cref="ArgumentException">Invalid chuck length - chunkLength.</exception>
         [Pure]
         public static IEnumerable<string> SplitBy(this string str, int chunkLength)
         {

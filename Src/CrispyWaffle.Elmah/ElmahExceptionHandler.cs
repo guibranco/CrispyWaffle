@@ -107,7 +107,7 @@ namespace CrispyWaffle.Elmah
         /// This is the default behavior, each implementation can have it own behavior!
         /// </summary>
         /// <param name="sender">The sender</param>
-        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs" /></param>
+        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs" />.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args)
         {
