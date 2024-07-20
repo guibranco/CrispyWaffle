@@ -73,6 +73,7 @@ namespace CrispyWaffle.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the password internal.
         /// Safe-to-store password, encrypted and hashed validated.
         /// </summary>
         /// <value>The password internal.</value>
