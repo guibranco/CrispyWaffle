@@ -57,6 +57,10 @@ namespace CrispyWaffle.Composition
         /// </summary>
         private static readonly Dictionary<string, Exception> _notLoadedAssemblies = new();
 
+#pragma warning disable S1144 // Unused private types or members should be removed
+        private static readonly Destructor _finalise = new();
+#pragma warning restore S1144 // Unused private types or members should be removed
+
         /// <summary>
         /// Initializes static members of the <see cref="ServiceLocator"/> class.
         /// </summary>
@@ -845,6 +849,18 @@ namespace CrispyWaffle.Composition
 
             _cancellationTokenSource.Cancel();
             return true;
+        }
+
+        /// <summary>
+        /// Class Destructor. This class cannot be inherited.
+        /// </summary>
+        private sealed class Destructor
+        {
+            ~Destructor()
+            {
+                DisposeAllRegistrations();
+                _cancellationTokenSource.Dispose();
+            }
         }
     }
 }

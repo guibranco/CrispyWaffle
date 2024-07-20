@@ -3,25 +3,27 @@
 namespace CrispyWaffle.Configuration
 {
     /// <summary>
-    /// Connection name attribute class. This class cannot be inherited.
+    /// Class ConnectionNameAttribute. This class cannot be inherited.
+    /// Implements the <see cref="Attribute" />
     /// </summary>
+    /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class ConnectionNameAttribute : Attribute
     {
         /// <summary>
-        /// The connection name
+        /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
         public string Name { get; }
 
         /// <summary>
-        /// Gets or sets the order of the connection in the constructor parameters, index based on zero.
+        /// Gets or sets the order.
         /// </summary>
         /// <value>The order.</value>
         public int Order { get; set; }
 
         /// <summary>
-        /// Initializes a new instance o ConnectionNameAttribute class
+        /// Initializes a new instance of the <see cref="ConnectionNameAttribute"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
         public ConnectionNameAttribute(string name)
