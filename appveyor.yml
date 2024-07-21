@@ -69,7 +69,7 @@ build_script:
 after_build:
   - echo refs > exclusions.txt
   - echo "Generating binaries artifacts"
-  - ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net7.0", "net8.0")
+  - ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net8.0")
   - ps: $PROJECTS = ("Configuration", "ElasticSearch", "Elmah", "EventLog", "I18n.PtBr", "Log4Net", "RabbitMQ", "Redis", "Utils")
   - ps: |
       foreach($version in $VERSIONS)

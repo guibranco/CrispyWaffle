@@ -18,7 +18,7 @@ public class LazyResettableTests
         fixture.SetLogProvider(testOutputHelper);
 
     [Fact]
-    public void LazyResettable_Success()
+    public void LazyResettableSuccess()
     {
         var guid = Guid.NewGuid();
 

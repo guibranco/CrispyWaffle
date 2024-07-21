@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Cryptography;
@@ -81,7 +82,7 @@ namespace CrispyWaffle.Configuration
         [EditorBrowsable(EditorBrowsableState.Never)]
         [XmlElement("Password")]
         [JsonProperty("Password")]
-        [System.Text.Json.Serialization.JsonPropertyName("Password")]
+        [JsonPropertyName("Password")]
         [Localizable(false)]
         public string PasswordInternal
         {
