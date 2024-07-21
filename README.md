@@ -115,11 +115,9 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 ### Contributors
 
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -start -->
-
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io[bot]/- -end -->
 
 ### Bots
 
 <!-- readme: bots,snyk-bot,codefactor-io[bot] -start -->
-
 <!-- readme: bots,snyk-bot,codefactor-io[bot] -end -->
