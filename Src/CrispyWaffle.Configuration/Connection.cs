@@ -29,7 +29,7 @@ namespace CrispyWaffle.Configuration
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the host
+        /// Gets or sets the host.
         /// </summary>
         /// <value>The host.</value>
         [Localizable(false)]

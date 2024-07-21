@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Utilities
 {
     /// <summary>
-    /// Interface updateable
+    /// Interface updateable.
     /// </summary>
     public interface IUpdateable { }
 }

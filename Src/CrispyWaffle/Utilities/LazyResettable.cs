@@ -6,8 +6,7 @@ using System.Threading;
 namespace CrispyWaffle.Utilities
 {
     /// <summary>
-    /// The resettable lazy class.
-    /// This class is based on https://stackoverflow.com/a/6255398/1890220
+    /// The resettable lazy class. This class is based on https://stackoverflow.com/a/6255398/1890220.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="ILazyResettable" />
@@ -18,50 +17,65 @@ namespace CrispyWaffle.Utilities
     public class LazyResettable<T> : ILazyResettable
     {
         /// <summary>
-        /// The internal class box
+        /// The internal class box.
         /// </summary>
         /// <seealso cref="ILazyResettable" />
         private sealed class Box
         {
             /// <summary>
-            /// The value
+            /// The value.
             /// </summary>
             public readonly T Value;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="Box"/> class.
+            /// Initializes a new instance of the <see cref="Box" /> class.
             /// </summary>
             /// <param name="value">The value.</param>
             public Box(T value) => Value = value;
         }
 
         /// <summary>
-        /// The mode
+        /// The mode.
         /// </summary>
         private readonly LazyThreadSafetyMode _mode;
 
         /// <summary>
-        /// The value factory
+        /// The value factory.
         /// </summary>
         private readonly Func<T> _valueFactory;
 
         /// <summary>
-        /// The synchronize lock
+        /// The synchronize lock.
         /// </summary>
         private readonly object _syncLock = new object();
 
         /// <summary>
-        /// The box
+        /// The box.
         /// </summary>
         private Box _box;
 
+        /// <summary>
+        /// The loads.
+        /// </summary>
         public int Loads;
+
+        /// <summary>
+        /// The hits.
+        /// </summary>
         public int Hits;
+
+        /// <summary>
+        /// The resets.
+        /// </summary>
         public int Resets;
+
+        /// <summary>
+        /// The sum load time.
+        /// </summary>
         public TimeSpan SumLoadTime;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LazyResettable{T}"/> class.
+        /// Initializes a new instance of the <see cref="LazyResettable{T}" /> class.
         /// </summary>
         /// <param name="valueFactory">The value factory.</param>
         /// <param name="mode">The mode.</param>
@@ -78,6 +92,9 @@ namespace CrispyWaffle.Utilities
             DeclaringType = declaringType ?? valueFactory.Method.DeclaringType;
         }
 
+        /// <summary>
+        /// Occurs when [on reset].
+        /// </summary>
         public event EventHandler OnReset;
 
         /// <summary>
@@ -112,11 +129,13 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Gets the type of the declaring.
         /// </summary>
-        /// <value>
-        /// The type of the declaring.
-        /// </value>
+        /// <value>The type of the declaring.</value>
         public Type DeclaringType { get; }
 
+        /// <summary>
+        /// Stats this instance.
+        /// </summary>
+        /// <returns>ResetLazyStats.</returns>
         public ResetLazyStats Stats() =>
             new ResetLazyStats(typeof(T))
             {
@@ -129,9 +148,7 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Gets the value.
         /// </summary>
-        /// <value>
-        /// The value.
-        /// </value>
+        /// <value>The value.</value>
         public T Value
         {
             get
@@ -181,11 +198,13 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Gets a value indicating whether this instance is value created.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is value created; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if this instance is value created; otherwise, <c>false</c>.</value>
         public bool IsValueCreated => _box != null;
 
+        /// <summary>
+        /// Internals the loaded.
+        /// </summary>
+        /// <returns>T.</returns>
         private T InternalLoaded()
         {
             var sw = Stopwatch.StartNew();

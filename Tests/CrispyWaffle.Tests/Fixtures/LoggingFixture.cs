@@ -21,8 +21,8 @@ public class LoggingFixture : IDisposable
     /// </summary>
     public LoggingFixture()
     {
-        ServiceLocator.Register<TestObjects.SingletonTest>(LifeStyle.Singleton);
-        ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(LifeStyle.Singleton);
+        ServiceLocator.Register<TestObjects.SingletonTest>(Lifetime.Singleton);
+        ServiceLocator.Register<TestObjects.SingletonWithDependencyTest>(Lifetime.Singleton);
 
         ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
     }

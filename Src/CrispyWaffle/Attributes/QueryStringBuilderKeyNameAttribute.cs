@@ -3,7 +3,7 @@
 namespace CrispyWaffle.Attributes
 {
     /// <summary>
-    /// The query string key name attribute
+    /// The query string key name attribute.
     /// </summary>
     /// <seealso cref="Attribute" />
     [AttributeUsage(AttributeTargets.Property)]

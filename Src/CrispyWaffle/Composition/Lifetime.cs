@@ -3,9 +3,9 @@
 namespace CrispyWaffle.Composition
 {
     /// <summary>
-    /// The life style of an instance in the service locator
+    /// The lifetime of an instance in the service locator.
     /// </summary>
-    public enum LifeStyle
+    public enum Lifetime
     {
         /// <summary>
         /// The transient

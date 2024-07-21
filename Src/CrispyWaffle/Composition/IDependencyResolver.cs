@@ -3,7 +3,7 @@
 namespace CrispyWaffle.Composition
 {
     /// <summary>
-    /// A dependency resolver interface
+    /// A dependency resolver interface.
     /// </summary>
     public interface IDependencyResolver
     {

@@ -1,12 +1,12 @@
 ﻿namespace CrispyWaffle.Composition
 {
     /// <summary>
-    /// Interface for bootstrap application
+    /// Interface for bootstrap application.
     /// </summary>
     public interface IBootstrapper
     {
         /// <summary>
-        /// Register the services used by a application.
+        /// Register the services used by an application.
         /// </summary>
         void RegisterServices();
     }
