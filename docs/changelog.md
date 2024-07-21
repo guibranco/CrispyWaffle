@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 7.0 [2024-07-21]
+
+- Rename LifeStyle to Lifetime - [pull request #445](https://github.com/guibranco/CrispyWaffle/pull/445)
+- Fix build warnings
+
 ## Version 6.0 [2024-05-20]
 
 - Create i18n package - PT-BR - [issue #315](https://github.com/guibranco/CrispyWaffle/issues/315)
