@@ -80,7 +80,7 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 
 ### Bots
 
-<!-- readme: snyk-bot,codefactor-io,bots -start -->
+<!-- readme: bots,snyk-bot -start -->
 <table>
 	<tbody>
 		<tr>
@@ -138,4 +138,4 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 		</tr>
 	<tbody>
 </table>
-<!-- readme: snyk-bot,codefactor-io,bots -end -->
+<!-- readme: bots,snyk-bot -end -->
