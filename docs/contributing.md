@@ -9,5 +9,5 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 
 ### Bots
 
-<!-- readme: bots,snyk-bot,codefactor-io[bot] -start -->
-<!-- readme: bots,snyk-bot,codefactor-io[bot] -end -->
+<!-- readme: snyk-bot,codefactor-io[bot],bots -start -->
+<!-- readme: snyk-bot,codefactor-io[bot],bots -end -->
