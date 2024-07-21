@@ -1,30 +1,22 @@
 name: README.md contributors
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
+        paths-ignore:
+          - 'README.md'
+          - 'docs/contributing.md'
 
 jobs:
-  contrib-readme-job:
-    runs-on: ubuntu-latest
-    name: Update files
-    permissions:
-      contents: write
-      pull-requests: write
+    contrib-readme-job:
+        runs-on: ubuntu-latest
+        name: Update files
 
-    steps:
-      - name: Contribute List in README.md
-        uses: akhilmhdh/contributors-readme-action@v2.3.10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          readme_path: README.md
-
-      - name: Contribute List in docs/contributing.md
-        uses: akhilmhdh/contributors-readme-action@v2.3.10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          readme_path: docs/contributing.md
+        steps:
+            - name: Contribute List in README.md
+              uses: akhilmhdh/contributors-readme-action@v2.3.10
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  readme_path: README.md
