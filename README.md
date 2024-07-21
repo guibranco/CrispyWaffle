@@ -190,7 +190,7 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Bots
 
-<!-- readme: snyk-bot,codefactor-io,bots -start -->
+<!-- readme: bots,snyk-bot -start -->
 <table>
 	<tbody>
 		<tr>
@@ -248,5 +248,5 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 		</tr>
 	<tbody>
 </table>
-<!-- readme: snyk-bot,codefactor-io,bots -end -->
+<!-- readme: bots,snyk-bot -end -->
 
