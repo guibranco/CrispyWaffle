@@ -1,6 +1,7 @@
 name: README.md contributors
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
