@@ -46,7 +46,7 @@ public class JsonSerializerAdapterTests
     }
 
     [Fact]
-    public void Serialize_WithNonNullObject_ReturnsValidJson()
+    public void SerializeWithNonNullObjectReturnsValidJson()
     {
         // Arrange
         var testObject = new TestObject { Property = "Test" };
@@ -66,7 +66,7 @@ public class JsonSerializerAdapterTests
     }
 
     [Fact]
-    public void Deserialize_WithValidJson_ReturnsObject()
+    public void DeserializeWithValidJsonReturnsObject()
     {
         // Arrange
         var json = "{\"Property\":\"Test\"}";
@@ -82,7 +82,7 @@ public class JsonSerializerAdapterTests
     }
 
     [Fact]
-    public void Deserialize_NonEmptyJson_ThrowsNotNullObserverException()
+    public void DeserializeNonEmptyJsonThrowsNotNullObserverException()
     {
         // Arrange
         var json = "{\"UnknownProperty\":\"Value\"}";
@@ -95,7 +95,7 @@ public class JsonSerializerAdapterTests
     }
 
     [Fact]
-    public void Serialize_WithNullValue_IgnoresNullProperty()
+    public void SerializeWithNullValueIgnoresNullProperty()
     {
         // Arrange
         var testObject = new TestObject { Property = null };
@@ -112,7 +112,7 @@ public class JsonSerializerAdapterTests
     }
 
     [Fact]
-    public void Deserialize_WithInvalidJson_ThrowsException()
+    public void DeserializeWithInvalidJsonThrowsException()
     {
         // Arrange
         var invalidJson = "Invalid JSON";
@@ -137,7 +137,7 @@ public class JsonSerializerAdapterTests
         {
             Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
             Id = Guid.Empty,
-            ListStrong = new List<StrongTypingClass>()
+            ListStrong = new List<StrongTypingClass>
             {
                 new()
                 {

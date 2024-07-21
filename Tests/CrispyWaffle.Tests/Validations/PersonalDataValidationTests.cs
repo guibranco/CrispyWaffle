@@ -18,7 +18,7 @@ public class PersonalDataValidationTests
     [InlineData("nobody@example.combr", "nobody@example.com.br")]
     [InlineData("nobody@example,com", "nobody@example.com")]
     [InlineData("jane.doe.123456@example.com", "jane.doe.123456@example.com")]
-    public void ValidateEmailAddress_ValidEmailAddress_ReturnsValidEmailAddress(
+    public void ValidateEmailAddressValidEmailAddressReturnsValidEmailAddress(
         string inputEmail,
         string expectedEmail
     )
@@ -35,7 +35,7 @@ public class PersonalDataValidationTests
     [InlineData("")]
     [InlineData("invalid.address")]
     [InlineData("test@@domain.com")]
-    public void ValidateEmailAddress_InvalidEmailAddress_ThrowsException(string inputEmail)
+    public void ValidateEmailAddressInvalidEmailAddressThrowsException(string inputEmail)
     {
         var exception = Assert.Throws<InvalidEmailAddressException>(
             inputEmail.ValidateEmailAddress
@@ -56,7 +56,7 @@ public class PersonalDataValidationTests
     [InlineData("47428440092")]
     [InlineData("43045197000")]
     [InlineData("91290461066")]
-    public void IsValidBrazilianPersonDocument_ValidInput_ReturnsTrue(string inputDocument)
+    public void IsValidBrazilianPersonDocumentValidInputReturnsTrue(string inputDocument)
     {
         var result = inputDocument.IsValidBrazilianPersonDocument();
         Assert.True(result);
@@ -79,7 +79,7 @@ public class PersonalDataValidationTests
     [InlineData("99999999999")]
     [InlineData("00000000000")]
     [InlineData("1")]
-    public void IsValidBrazilianPersonDocument_InvalidInput_ThrowsException(string inputDocument)
+    public void IsValidBrazilianPersonDocumentInvalidInputThrowsException(string inputDocument)
     {
         var exception = Assert.Throws<InvalidDocumentException>(
             () => inputDocument.IsValidBrazilianPersonDocument()
@@ -100,7 +100,7 @@ public class PersonalDataValidationTests
     [InlineData("06010416000177")]
     [InlineData("22295895000171")]
     [InlineData("48382658000131")]
-    public void IsValidBrazilianCorporateDocument_ValidInput_ReturnsTrue(string inputDocument)
+    public void IsValidBrazilianCorporateDocumentValidInputReturnsTrue(string inputDocument)
     {
         var result = inputDocument.IsValidBrazilianCorporateDocument();
         Assert.True(result);
@@ -123,7 +123,7 @@ public class PersonalDataValidationTests
     [InlineData("99999999999999")]
     [InlineData("00000000000000")]
     [InlineData("1")]
-    public void IsValidBrazilianCorporateDocument_InvalidInput_ThrowsException(string inputDocument)
+    public void IsValidBrazilianCorporateDocumentInvalidInputThrowsException(string inputDocument)
     {
         var exception = Assert.Throws<InvalidDocumentException>(
             () => inputDocument.IsValidBrazilianCorporateDocument()

@@ -27,14 +27,14 @@ public class SecurityTests
         "2304016719818519658114181159661868266138285522924115715132174881042521481379823013415016323524141612161012211128317913263910513223439177961751431295019699470229117194212";
 
     [Fact]
-    public void Encrypt_Success()
+    public void EncryptSuccess()
     {
         var result = PlainText.Encrypt(PasswordHash, SaltKey, ViKey);
         Assert.Equal(EncryptedText, result);
     }
 
     [Fact]
-    public void Decrypt_Success()
+    public void DecryptSuccess()
     {
         var result = EncryptedText.Decrypt(PasswordHash, SaltKey, ViKey);
         Assert.Equal(PlainText, result);
@@ -46,14 +46,14 @@ public class SecurityTests
     [InlineData(HashAlgorithmType.Sha256, Sha256Hash)]
     [InlineData(HashAlgorithmType.Sha384, Sha384Hash)]
     [InlineData(HashAlgorithmType.Sha512, Sha512Hash)]
-    public void Hash_Success(HashAlgorithmType type, string expectedHash)
+    public void HashSuccess(HashAlgorithmType type, string expectedHash)
     {
         var result = Security.Hash(PlainText, type);
         Assert.Equal(expectedHash, result);
     }
 
     [Fact]
-    public void Hash_InvalidType()
+    public void HashInvalidType()
     {
         var result = Assert.Throws<ArgumentOutOfRangeException>(
             () => Security.Hash(PlainText, (HashAlgorithmType)10)

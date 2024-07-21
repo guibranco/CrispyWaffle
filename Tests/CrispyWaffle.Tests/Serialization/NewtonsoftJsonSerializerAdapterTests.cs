@@ -41,11 +41,6 @@ public class NewtonsoftJsonSerializerAdapterTests
         instance.Should().BeEquivalentTo(GenerateSampleData());
     }
 
-    private class TestObject
-    {
-        public string Property { get; set; }
-    }
-
     private static string GetStringContent() =>
         "{\n  \"Id\": \"00000000-0000-0000-0000-000000000000\",\n  \"Date\": \"2023-10-28T10:15:00\",\n  \"ListStrong\": [\n    {\n      \"CorrelationId\": \"00000000-0000-0000-0000-000000000000\",\n      \"SomeText\": \"Test\",\n      \"Date\": \"2023-10-28T10:15:00\"\n    }\n  ]\n}";
 
@@ -54,7 +49,7 @@ public class NewtonsoftJsonSerializerAdapterTests
         {
             Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
             Id = Guid.Empty,
-            ListStrong = new List<StrongTypingClass>()
+            ListStrong = new List<StrongTypingClass>
             {
                 new()
                 {
