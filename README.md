@@ -119,5 +119,5 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 
 ### Bots
 
-<!-- readme: bots,snyk-bot,codefactor-io[bot] -start -->
-<!-- readme: bots,snyk-bot,codefactor-io[bot] -end -->
+<!-- readme: snyk-bot,codefactor-io[bot],bots -start -->
+<!-- readme: snyk-bot,codefactor-io[bot],bots -end -->
