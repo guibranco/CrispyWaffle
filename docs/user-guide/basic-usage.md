@@ -12,7 +12,7 @@ The Crispy Waffle has the following features:
 - [Logging](logging.md)
 - [Messaging](messaging.md)
 - [Scheduled task execution](scheduled-jobs.md)
-- Serialization helpers for binary, JSON and XML formats
+- Serialization helpers for JSON and XML formats
 - [Service locator (acts like a Dependency Injection and IoC container)](service-locator.md)
 - String extensions
 

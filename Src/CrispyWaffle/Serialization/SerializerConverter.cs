@@ -71,7 +71,7 @@ namespace CrispyWaffle.Serialization
         /// <summary>
         /// JObject casting operator.
         /// </summary>
-        /// <param name="instance">The classe.</param>
+        /// <param name="instance">The class.</param>
         /// <returns>The result of the conversion.</returns>
         /// <exception cref="InvalidOperationException">
         /// Thrown when the requested operation is invalid.
@@ -113,49 +113,6 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Byte[] casting operator.
-        /// </summary>
-        /// <param name="instance">The class.</param>
-        /// <returns>The result of the conversion.</returns>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown when the requested operation is invalid.
-        /// </exception>
-        [Pure]
-        public static implicit operator byte[](SerializerConverter<T> instance)
-        {
-            if (instance._formatter is not BinarySerializerAdapter)
-            {
-                return null;
-            }
-
-            Stream stream = null;
-            MemoryStream memoryStream = null;
-            byte[] bytes = null;
-
-            try
-            {
-                instance._formatter.Serialize(instance._obj, out stream);
-
-                memoryStream = new MemoryStream();
-
-                stream.CopyTo(memoryStream);
-
-                bytes = memoryStream.ToArray();
-            }
-            catch (InvalidOperationException e)
-            {
-                LogConsumer.Handle(e);
-            }
-            finally
-            {
-                stream?.Dispose();
-                memoryStream?.Dispose();
-            }
-
-            return bytes;
-        }
-
-        /// <summary>
         /// String casting operator.
         /// </summary>
         /// <param name="instance">The classe.</param>
@@ -191,16 +148,9 @@ namespace CrispyWaffle.Serialization
                 return json.ToString();
             }
 
-            if (instance._formatter is not BinarySerializerAdapter)
-            {
-                throw new InvalidOperationException(
+            throw new InvalidOperationException(
                     $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
                 );
-            }
-
-            byte[] bytes = instance;
-            var binary = bytes.ToBinaryString();
-            return string.Join(@" ", binary);
         }
 
         /// <summary>
@@ -232,20 +182,6 @@ namespace CrispyWaffle.Serialization
                 ServiceLocator.Resolve<NewtonsoftJsonSerializerAdapter>()
             );
             serializer.Deserialize(json.ToString());
-            return serializer;
-        }
-
-        /// <summary>
-        /// SerializerExtension casting operator.
-        /// </summary>
-        /// <param name="bytes">The bytes.</param>
-        /// <returns>The result of the conversion.</returns>
-        [Pure]
-        public static implicit operator SerializerConverter<T>(byte[] bytes)
-        {
-            var serializer = new SerializerConverter<T>(default, new BinarySerializerAdapter());
-            var stream = new MemoryStream(bytes);
-            serializer.Deserialize(stream);
             return serializer;
         }
 
