@@ -149,8 +149,8 @@ namespace CrispyWaffle.Serialization
             }
 
             throw new InvalidOperationException(
-                    $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
-                );
+                $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
+            );
         }
 
         /// <summary>
