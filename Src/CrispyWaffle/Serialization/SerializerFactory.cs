@@ -43,11 +43,6 @@ namespace CrispyWaffle.Serialization
                 return serializerConverter;
             }
 
-            if (type.IsSerializable)
-            {
-                return GetSerializer(obj, new SerializerAttribute(SerializerFormat.Binary));
-            }
-
             throw new InvalidOperationException(
                 $"The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}"
             );
@@ -185,12 +180,6 @@ namespace CrispyWaffle.Serialization
         {
             switch (attribute.Format)
             {
-                case SerializerFormat.Binary:
-                    return new SerializerConverter<T>(
-                        obj,
-                        ServiceLocator.Resolve<BinarySerializerAdapter>()
-                    );
-
                 case SerializerFormat.Json when attribute.IsStrict:
                     return new SerializerConverter<T>(
                         obj,
