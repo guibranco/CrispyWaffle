@@ -119,13 +119,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/Mohammad-Haris">
-                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
-                    <br />
-                    <sub><b>Mohammad Haris</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/guibranco">
                     <img src="https://avatars.githubusercontent.com/u/3362854?v=4" width="100;" alt="guibranco"/>
                     <br />
@@ -144,6 +137,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
                     <br />
                     <sub><b>João Vítor Valadares</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Mohammad-Haris">
+                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
+                    <br />
+                    <sub><b>Mohammad Haris</b></sub>
                 </a>
             </td>
             <td align="center">
