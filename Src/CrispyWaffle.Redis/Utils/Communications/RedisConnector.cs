@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CrispyWaffle.Configuration;
 using StackExchange.Redis;
@@ -95,10 +94,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
-        /// <exception cref="ArgumentNullException">queuePrefix</exception>
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        /// <exception cref="ArgumentNullException">queuePrefix.</exception>
         public RedisConnector(
             string host,
             int port,
@@ -116,8 +112,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         /// <param name="password">The password.</param>
         /// <param name="serializer">The serializer.</param>
         /// <param name="queuePrefix">The queue prefix.</param>
-        /// <exception cref="System.ArgumentNullException">queuePrefix</exception>
-        /// <exception cref="ArgumentNullException">queuePrefix</exception>
+        /// <exception cref="ArgumentNullException">queuePrefix.</exception>
         public RedisConnector(
             string hostsList,
             string password,
@@ -166,6 +161,26 @@ namespace CrispyWaffle.Redis.Utils.Communications
             Serializer = serializer;
             Cache = new RedisClient(_connectionPoolManager, serializer, configuration);
             QueuePrefix = "crispy-waffle";
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RedisConnector"/> class.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="connectionPoolManager">The connection pool manager.</param>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="queuePrefix">The queue prefix.</param>
+        public RedisConnector(
+            IRedisClient client,
+            IRedisConnectionPoolManager connectionPoolManager,
+            ISerializer serializer,
+            string queuePrefix
+        )
+        {
+            _connectionPoolManager = connectionPoolManager;
+            Serializer = serializer;
+            Cache = client;
+            QueuePrefix = queuePrefix;
         }
 
         /// <summary>

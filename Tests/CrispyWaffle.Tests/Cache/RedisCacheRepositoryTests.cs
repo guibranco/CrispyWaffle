@@ -1,62 +1,87 @@
 using System;
+using System.Text;
 using CrispyWaffle.Redis.Cache;
 using CrispyWaffle.Redis.Utils.Communications;
-using Moq;
+using FluentAssertions;
+using NSubstitute;
+using StackExchange.Redis;
+using StackExchange.Redis.Extensions.Core;
 using StackExchange.Redis.Extensions.Core.Abstractions;
+using StackExchange.Redis.Extensions.Core.Implementations;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Cache
+namespace CrispyWaffle.Tests.Cache;
+
+public class RedisCacheRepositoryTests
 {
-    public class RedisCacheRepositoryTests
+    private readonly IDatabase _database;
+    private readonly IRedisClient _client;
+    private readonly RedisConnector _connector;
+    private readonly RedisCacheRepository _repository;
+
+    public RedisCacheRepositoryTests()
     {
-        private readonly RedisCacheRepository _repository;
-        private readonly Mock<IRedisClient> _mockCacheClient;
+        const string key = "test-key";
+        const string value = "test-value";
 
-        public RedisCacheRepositoryTests()
-        {
-            var mockConnector = new Mock<RedisConnector>();
-            _mockCacheClient = new Mock<IRedisClient>();
-            mockConnector.Setup(m => m.Cache).Returns(_mockCacheClient.Object);
-            _repository = new RedisCacheRepository(mockConnector.Object);
-        }
+        _database = Substitute.For<IDatabase>();
+        _database.StringGet(key, CommandFlags.PreferReplica).Returns(new RedisValue(value));
+        var connectionPoolManager = Substitute.For<IRedisConnectionPoolManager>();
+        connectionPoolManager.GetConnection().GetDatabase(0).Returns(_database);
+        var serializer = Substitute.For<ISerializer>();
+        serializer.Deserialize<string>(Arg.Any<byte[]>()).Returns(value);
+        serializer.Serialize(Arg.Is(value)).Returns(Encoding.UTF8.GetBytes(value));
+        _client = Substitute.For<IRedisClient>();
+        _connector = Substitute.For<RedisConnector>(
+            _client,
+            connectionPoolManager,
+            serializer,
+            "prefix"
+        );
+        _repository = new RedisCacheRepository(_connector);
+    }
 
-        [Fact]
-        public void SetToDatabase_ShouldStoreValue()
-        {
-            var key = "test-key";
-            var value = "test-value";
+    [Fact]
+    public void SetToDatabase_ShouldStoreValue()
+    {
+        // Arrange
+        var key = "test-key";
+        var value = "test-value";
 
-            _repository.SetToDatabase(value, key, 0);
+        // Act
+        _repository.SetToDatabase(value, key, 0);
 
-            _mockCacheClient.Verify(
-                m => m.Db0.StringSet(key, It.IsAny<byte[]>(), null, When.Always, CommandFlags.None),
-                Times.Once
-            );
-        }
+        // Assert
+        _connector.Received(1).GetDatabase(0);
+        _database
+            .Received(1)
+            .StringSet(key, Arg.Any<RedisValue>(), null, When.Always, CommandFlags.None);
+    }
 
-        [Fact]
-        public void GetFromDatabase_ShouldReturnStoredValue()
-        {
-            var key = "test-key";
-            var expectedValue = "test-value";
-            var valueBytes = System.Text.Encoding.UTF8.GetBytes(expectedValue);
-            _mockCacheClient
-                .Setup(m => m.Db0.StringGet(key, CommandFlags.PreferReplica))
-                .Returns(valueBytes);
+    [Fact]
+    public void GetFromDatabase_ShouldReturnStoredValue()
+    {
+        // Arrange
+        var key = "test-key";
+        var expectedValue = "test-value";
 
-            var actualValue = _repository.GetFromDatabase<string>(key, 0);
+        // Act
+        var actualValue = _repository.GetFromDatabase<string>(key, 0);
 
-            Assert.Equal(expectedValue, actualValue);
-        }
+        // Assert
+        actualValue.Should().Be(expectedValue);
+    }
 
-        [Fact]
-        public void RemoveFromDatabase_ShouldRemoveValue()
-        {
-            var key = "test-key";
+    [Fact]
+    public void RemoveFromDatabase_ShouldRemoveValue()
+    {
+        // Arrange
+        var key = "test-key";
 
-            _repository.RemoveFromDatabase(key, 0);
+        // Act
+        _repository.RemoveFromDatabase(key, 0);
 
-            _mockCacheClient.Verify(m => m.Db0.KeyDelete(key), Times.Once);
-        }
+        // Assert
+        _connector.Received(1).GetDatabase(0).KeyDelete(key, CommandFlags.FireAndForget);
     }
 }
