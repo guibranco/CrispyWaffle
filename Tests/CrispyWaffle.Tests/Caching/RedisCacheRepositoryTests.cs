@@ -5,7 +5,7 @@ using Moq;
 using StackExchange.Redis.Extensions.Core.Abstractions;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Caching
+namespace CrispyWaffle.Tests.Cache
 {
     public class RedisCacheRepositoryTests
     {
