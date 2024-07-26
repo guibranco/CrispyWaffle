@@ -28,7 +28,10 @@ namespace CrispyWaffle.Tests.Cache
 
             _repository.SetToDatabase(value, key, 0);
 
-            _mockCacheClient.Verify(m => m.Db0.StringSet(key, It.IsAny<byte[]>(), null, When.Always, CommandFlags.None), Times.Once);
+            _mockCacheClient.Verify(
+                m => m.Db0.StringSet(key, It.IsAny<byte[]>(), null, When.Always, CommandFlags.None),
+                Times.Once
+            );
         }
 
         [Fact]
@@ -37,7 +40,9 @@ namespace CrispyWaffle.Tests.Cache
             var key = "test-key";
             var expectedValue = "test-value";
             var valueBytes = System.Text.Encoding.UTF8.GetBytes(expectedValue);
-            _mockCacheClient.Setup(m => m.Db0.StringGet(key, CommandFlags.PreferReplica)).Returns(valueBytes);
+            _mockCacheClient
+                .Setup(m => m.Db0.StringGet(key, CommandFlags.PreferReplica))
+                .Returns(valueBytes);
 
             var actualValue = _repository.GetFromDatabase<string>(key, 0);
 
