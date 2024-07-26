@@ -2,7 +2,7 @@ using System;
 using CrispyWaffle.Cache;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Caching
+namespace CrispyWaffle.Tests.Cache
 {
     public class MemoryCacheRepositoryTests
     {
