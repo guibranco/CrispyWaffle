@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using CrispyWaffle.Redis.Cache;
 using CrispyWaffle.Redis.Utils.Communications;
@@ -7,7 +6,6 @@ using NSubstitute;
 using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core;
 using StackExchange.Redis.Extensions.Core.Abstractions;
-using StackExchange.Redis.Extensions.Core.Implementations;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Cache;
@@ -15,7 +13,6 @@ namespace CrispyWaffle.Tests.Cache;
 public class RedisCacheRepositoryTests
 {
     private readonly IDatabase _database;
-    private readonly IRedisClient _client;
     private readonly RedisConnector _connector;
     private readonly RedisCacheRepository _repository;
 
@@ -31,9 +28,9 @@ public class RedisCacheRepositoryTests
         var serializer = Substitute.For<ISerializer>();
         serializer.Deserialize<string>(Arg.Any<byte[]>()).Returns(value);
         serializer.Serialize(Arg.Is(value)).Returns(Encoding.UTF8.GetBytes(value));
-        _client = Substitute.For<IRedisClient>();
+        var client = Substitute.For<IRedisClient>();
         _connector = Substitute.For<RedisConnector>(
-            _client,
+            client,
             connectionPoolManager,
             serializer,
             "prefix"
