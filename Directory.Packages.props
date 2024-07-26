@@ -14,6 +14,7 @@
     <PackageVersion Include="JunitXml.TestLogger" Version="3.1.12" />
     <PackageVersion Include="log4net" Version="2.0.17" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="Moq" Version="4.20.70" />
     <PackageVersion Include="NEST" Version="7.17.5" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.8.1" />
