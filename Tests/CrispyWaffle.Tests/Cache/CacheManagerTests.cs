@@ -27,8 +27,8 @@ namespace CrispyWaffle.Tests.Cache
 
             CacheManager.Set(value, key);
 
-            _mockRepository1.Verify(m => m.Set(value, key, null), Times.Once);
-            _mockRepository2.Verify(m => m.Set(value, key, null), Times.Once);
+            _mockRepository1.Verify(m => m.Set(value, key, (TimeSpan?)null), Times.Once);
+            _mockRepository2.Verify(m => m.Set(value, key, (TimeSpan?)null), Times.Once);
         }
 
         [Fact]
