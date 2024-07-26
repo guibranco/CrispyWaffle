@@ -4,7 +4,7 @@ using CrispyWaffle.Cache;
 using Moq;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Caching
+namespace CrispyWaffle.Tests.Cache
 {
     public class CacheManagerTests
     {
