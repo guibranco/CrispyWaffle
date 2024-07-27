@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using CrispyWaffle.Composition;
-using CrispyWaffle.Extensions;
 using CrispyWaffle.Log;
 using CrispyWaffle.Serialization.Adapters;
 using Newtonsoft.Json;
