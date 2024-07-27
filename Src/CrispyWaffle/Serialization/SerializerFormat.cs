@@ -14,21 +14,15 @@ namespace CrispyWaffle.Serialization
         None = 0,
 
         /// <summary>
-        /// 	An enum constant representing the binary option.
-        /// </summary>
-        [HumanReadable("Binary")]
-        Binary = 1,
-
-        /// <summary>
-        /// 	An enum constant representing the JSON option.
+        ///     An enum constant representing the JSON option.
         /// </summary>
         [HumanReadable("JSON")]
-        Json = 2,
+        Json,
 
         /// <summary>
-        /// 	An enum constant representing the XML option.
+        ///     An enum constant representing the XML option.
         /// </summary>
         [HumanReadable("XML")]
-        Xml = 3
+        Xml
     }
 }

@@ -147,6 +147,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Mohammad-Haris">
+                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
+                    <br />
+                    <sub><b>Mohammad Haris</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/SimranGil">
                     <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
                     <br />
