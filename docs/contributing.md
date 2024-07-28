@@ -9,17 +9,17 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/Mohammad-Haris">
-                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
-                    <br />
-                    <sub><b>Mohammad Haris</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/guibranco">
                     <img src="https://avatars.githubusercontent.com/u/3362854?v=4" width="100;" alt="guibranco"/>
                     <br />
                     <sub><b>Guilherme Branco Stracini</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Mohammad-Haris">
+                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
+                    <br />
+                    <sub><b>Mohammad Haris</b></sub>
                 </a>
             </td>
             <td align="center">
