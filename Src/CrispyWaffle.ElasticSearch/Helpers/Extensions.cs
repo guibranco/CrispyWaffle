@@ -44,7 +44,11 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         /// <param name="alias">The alias.</param>
         /// <param name="indexName">Name of the index.</param>
         /// <returns>T.</returns>
-        public static async Task<T> AliasAsync<T>(this T index, string alias, string indexName = null)
+        public static async Task<T> AliasAsync<T>(
+            this T index,
+            string alias,
+            string indexName = null
+        )
             where T : class, IIndexable, new()
         {
             if (string.IsNullOrWhiteSpace(indexName))
@@ -53,10 +57,8 @@ namespace CrispyWaffle.ElasticSearch.Helpers
             }
 
             await _connector.Client.Indices.UpdateAliasesAsync(aliases =>
-                aliases.Actions(
-                    actions => actions.Add(
-                        new AddAction() { Index = indexName, Alias = alias }
-                    )
+                aliases.Actions(actions =>
+                    actions.Add(new AddAction() { Index = indexName, Alias = alias })
                 )
             );
 
@@ -100,14 +102,15 @@ namespace CrispyWaffle.ElasticSearch.Helpers
         {
             var result = await _connector.Client.DeleteByQueryAsync<T>(
                 indexPattern,
-                d => d.Query(
-                    q => q.Range(
-                        r => r.DateRange(
-                            dr => dr.Field(field).Lt(DateMath.Now.Subtract($@"{daysBefore}d"))
+                d =>
+                    d.Query(q =>
+                        q.Range(r =>
+                            r.DateRange(dr =>
+                                dr.Field(field).Lt(DateMath.Now.Subtract($@"{daysBefore}d"))
                             )
                         )
                     )
-                );
+            );
 
             return result.Deleted;
         }

@@ -21,8 +21,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             : this(
                 connection,
                 $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}"
-            )
-        { }
+            ) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector"/> class.
@@ -50,14 +49,19 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
                 connection.Host,
                 connection.Port
             );
-            var settings = new ElasticsearchClientSettings(builder.Uri).DefaultIndex(defaultIndexName);
+            var settings = new ElasticsearchClientSettings(builder.Uri).DefaultIndex(
+                defaultIndexName
+            );
             if (
                 connection.Credentials != null
                 && !string.IsNullOrWhiteSpace(connection.Credentials.Username)
             )
             {
                 settings.Authentication(
-                    new BasicAuthentication(connection.Credentials.Username, connection.Credentials.Password)
+                    new BasicAuthentication(
+                        connection.Credentials.Username,
+                        connection.Credentials.Password
+                    )
                 );
             }
 

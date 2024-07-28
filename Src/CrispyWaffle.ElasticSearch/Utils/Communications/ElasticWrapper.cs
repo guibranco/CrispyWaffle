@@ -64,7 +64,9 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <returns>T.</returns>
         public T GetDocumentWithResolver<T>(object id)
             where T : class, IIndexable, new() =>
-            _elastic.GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id)).Result.Source;
+            _elastic
+                .GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id))
+                .Result.Source;
 
         /// <summary>
         /// Gets the document with resolver.
@@ -74,7 +76,11 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <returns>T.</returns>
         public async Task<T> GetDocumentWithResolverAsync<T>(object id)
             where T : class, IIndexable, new() =>
-            (await _elastic.GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id))).Source;
+            (
+                await _elastic.GetAsync<T>(
+                    new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id)
+                )
+            ).Source;
 
         /// <summary>
         /// Gets the document from.
@@ -84,7 +90,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="indexName">Name of the index.</param>
         /// <returns>T.</returns>
         public T GetDocumentFrom<T>(object id, string indexName)
-            where T : class, new() => _elastic.GetAsync<T>(new GetRequest(indexName, (Id)id)).Result.Source;
+            where T : class, new() =>
+            _elastic.GetAsync<T>(new GetRequest(indexName, (Id)id)).Result.Source;
 
         /// <summary>
         /// Gets the document from.
@@ -121,7 +128,9 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// <param name="document">The document.</param>
         public void SetDocumentWithResolver<T>(T document)
             where T : class, IIndexable, new() =>
-            _elastic.IndexAsync(document, i => i.Index(Helpers.Extensions.GetIndexName<T>())).Wait();
+            _elastic
+                .IndexAsync(document, i => i.Index(Helpers.Extensions.GetIndexName<T>()))
+                .Wait();
 
         /// <summary>
         /// Sets the document with resolver.
