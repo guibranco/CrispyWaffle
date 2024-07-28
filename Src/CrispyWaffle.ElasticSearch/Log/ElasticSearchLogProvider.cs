@@ -93,13 +93,15 @@ namespace CrispyWaffle.ElasticSearch.Log
 
             _client.DeleteByQueryAsync<LogMessage>(
                 _indexName,
-                d => d.Query(
-                    q => q.Range(
-                        r => r.DateRange(
-                            dr => dr.Field(f => f.Date).Lt(DateMath.Now.Subtract($@"{retentionDays}d"))
+                d =>
+                    d.Query(q =>
+                        q.Range(r =>
+                            r.DateRange(dr =>
+                                dr.Field(f => f.Date)
+                                    .Lt(DateMath.Now.Subtract($@"{retentionDays}d"))
+                            )
                         )
                     )
-                )
             );
 
             return Task.CompletedTask;
@@ -255,7 +257,11 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="exception">The exception.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1500:Braces for multi-line statements should not share line", Justification = "Enhances readability.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "StyleCop.CSharp.LayoutRules",
+            "SA1500:Braces for multi-line statements should not share line",
+            Justification = "Enhances readability."
+        )]
         public void Trace(string category, Exception exception)
         {
             if (!_level.HasFlag(LogLevel.Trace))
@@ -311,7 +317,11 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <param name="content">The object to be serialized.</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
         /// <param name="customFormat">(Optional) the custom serializer format.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S1006:Method overrides should not change parameter defaults", Justification = "Keeping it for now.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Critical Code Smell",
+            "S1006:Method overrides should not change parameter defaults",
+            Justification = "Keeping it for now."
+        )]
         public void Debug<T>(
             string category,
             T content,
