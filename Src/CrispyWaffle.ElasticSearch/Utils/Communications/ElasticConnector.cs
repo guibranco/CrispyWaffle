@@ -2,7 +2,8 @@
 using System.Globalization;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
-using Nest;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 
 namespace CrispyWaffle.ElasticSearch.Utils.Communications
 {
@@ -20,7 +21,8 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
             : this(
                 connection,
                 $"logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}"
-            ) { }
+            )
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElasticConnector"/> class.
@@ -48,19 +50,18 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
                 connection.Host,
                 connection.Port
             );
-            var settings = new ConnectionSettings(builder.Uri).DefaultIndex(defaultIndexName);
+            var settings = new ElasticsearchClientSettings(builder.Uri).DefaultIndex(defaultIndexName);
             if (
                 connection.Credentials != null
                 && !string.IsNullOrWhiteSpace(connection.Credentials.Username)
             )
             {
-                settings.BasicAuthentication(
-                    connection.Credentials.Username,
-                    connection.Credentials.Password
+                settings.Authentication(
+                    new BasicAuthentication(connection.Credentials.Username, connection.Credentials.Password)
                 );
             }
 
-            Client = new ElasticClient(settings);
+            Client = new ElasticsearchClient(settings);
             DefaultIndexName = defaultIndexName;
         }
 
@@ -68,7 +69,7 @@ namespace CrispyWaffle.ElasticSearch.Utils.Communications
         /// Gets the client.
         /// </summary>
         /// <value>The client.</value>
-        public ElasticClient Client { get; }
+        public ElasticsearchClient Client { get; }
 
         /// <summary>
         /// Gets the default name of the index.

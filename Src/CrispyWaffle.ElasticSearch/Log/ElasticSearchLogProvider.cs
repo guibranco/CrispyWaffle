@@ -7,7 +7,7 @@ using CrispyWaffle.Infrastructure;
 using CrispyWaffle.Log;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;
-using Nest;
+using Elastic.Clients.Elasticsearch;
 using LogLevel = CrispyWaffle.Log.LogLevel;
 
 namespace CrispyWaffle.ElasticSearch.Log
@@ -26,7 +26,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <summary>
         /// The client.
         /// </summary>
-        private readonly ElasticClient _client;
+        private readonly ElasticsearchClient _client;
 
         /// <summary>
         /// The index name.
@@ -86,20 +86,23 @@ namespace CrispyWaffle.ElasticSearch.Log
         {
             if (_tokenSource.Token.IsCancellationRequested)
             {
-                return null;
+                return Task.FromCanceled(_tokenSource.Token);
             }
 
             var retentionDays = _logRetentionDays;
-            _client.DeleteByQuery<LogMessage>(d =>
-                d.Index(_indexName)
-                    .Query(q =>
-                        q.DateRange(g =>
-                            g.Field(f => f.Date)
-                                .LessThan(DateMath.Now.Subtract($@"{retentionDays}d"))
+
+            _client.DeleteByQueryAsync<LogMessage>(
+                _indexName,
+                d => d.Query(
+                    q => q.Range(
+                        r => r.DateRange(
+                            dr => dr.Field(f => f.Date).Lt(DateMath.Now.Subtract($@"{retentionDays}d"))
                         )
                     )
+                )
             );
-            return null;
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -166,9 +169,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Fatal, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Fatal, category, message));
         }
 
         /// <summary>
@@ -183,9 +184,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Error, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Error, category, message));
         }
 
         /// <summary>
@@ -200,9 +199,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Warning, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Warning, category, message));
         }
 
         /// <summary>
@@ -217,9 +214,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Info, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Info, category, message));
         }
 
         /// <summary>
@@ -234,9 +229,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Trace, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Trace, category, message));
         }
 
         /// <summary>
@@ -252,9 +245,8 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Trace, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Trace, category, message));
+
             Trace(category, exception);
         }
 
@@ -263,6 +255,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="exception">The exception.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1500:Braces for multi-line statements should not share line", Justification = "Enhances readability.")]
         public void Trace(string category, Exception exception)
         {
             if (!_level.HasFlag(LogLevel.Trace))
@@ -273,12 +266,8 @@ namespace CrispyWaffle.ElasticSearch.Log
             do
             {
                 var ex = exception;
-                Task.Factory.StartNew(() =>
-                {
-                    _client.IndexDocument(Serialize(LogLevel.Trace, category, ex.Message));
-                    _client.IndexDocument(Serialize(LogLevel.Trace, category, ex.StackTrace));
-                });
-
+                _client.IndexAsync(Serialize(LogLevel.Trace, category, ex.Message));
+                _client.IndexAsync(Serialize(LogLevel.Trace, category, ex.StackTrace));
                 exception = exception.InnerException;
             } while (exception != null);
         }
@@ -295,9 +284,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () => _client.IndexDocument(Serialize(LogLevel.Debug, category, message))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Debug, category, message));
         }
 
         /// <summary>
@@ -313,10 +300,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 return;
             }
 
-            Task.Factory.StartNew(
-                () =>
-                    _client.IndexDocument(Serialize(LogLevel.Debug, category, content, identifier))
-            );
+            _client.IndexAsync(Serialize(LogLevel.Debug, category, content, identifier));
         }
 
         /// <summary>
@@ -327,6 +311,7 @@ namespace CrispyWaffle.ElasticSearch.Log
         /// <param name="content">The object to be serialized.</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
         /// <param name="customFormat">(Optional) the custom serializer format.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S1006:Method overrides should not change parameter defaults", Justification = "Keeping it for now.")]
         public void Debug<T>(
             string category,
             T content,
@@ -351,12 +336,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 serialized = (string)content.GetCustomSerializer(customFormat);
             }
 
-            Task.Factory.StartNew(
-                () =>
-                    _client.IndexDocument(
-                        Serialize(LogLevel.Debug, category, serialized, identifier)
-                    )
-            );
+            _client.IndexAsync(Serialize(LogLevel.Debug, category, serialized, identifier));
         }
     }
 }
