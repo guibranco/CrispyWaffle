@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 8.0 [2024-07-28]
+
+- Replace NEST and ElasticSearch.Net with Elastic.Clients.Elasticsearch - [issue #444](https://github.com/guibranco/CrispyWaffle/issues/444) and [pull request #470](https://github.com/guibranco/CrispyWaffle/pull/470) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
+- Remove binary serializer - [issue #462](https://github.com/guibranco/CrispyWaffle/issues/462) and [pull request #463](https://github.com/guibranco/CrispyWaffle/pull/463) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
+
 ## Version 7.0 [2024-07-21]
 
 - Rename LifeStyle to Lifetime - [pull request #445](https://github.com/guibranco/CrispyWaffle/pull/445)

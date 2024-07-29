@@ -11,20 +11,20 @@ namespace CrispyWaffle.Redis.Cache
 {
     /// <summary>
     /// Class RedisCacheRepository.
-    /// Implements the <see cref="CrispyWaffle.Cache.ICacheRepository" />
-    /// Implements the <see cref="System.IDisposable" />
+    /// Implements the <see cref="CrispyWaffle.Cache.ICacheRepository" />.
+    /// Implements the <see cref="System.IDisposable" />.
     /// </summary>
     /// <seealso cref="CrispyWaffle.Cache.ICacheRepository" />
     /// <seealso cref="System.IDisposable" />
     public class RedisCacheRepository : ICacheRepository, IDisposable
     {
         /// <summary>
-        /// The connector
+        /// The connector.
         /// </summary>
         private readonly RedisConnector _connector;
 
         /// <summary>
-        /// The cache client
+        /// The cache client.
         /// </summary>
         private readonly IRedisClient _cacheClient;
 
@@ -57,7 +57,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Sets to database.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the parameter.</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="databaseNumber">The database number.</param>
@@ -86,12 +86,11 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Gets from database.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the parameter.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="databaseNumber">The database number.</param>
         /// <returns>T.</returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="System.InvalidOperationException">Invalid operation.</exception>
         public T GetFromDatabase<T>(string key, int databaseNumber)
         {
             var valueBytes = _connector
@@ -441,6 +440,7 @@ namespace CrispyWaffle.Redis.Cache
         public void Dispose()
         {
             _connector.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

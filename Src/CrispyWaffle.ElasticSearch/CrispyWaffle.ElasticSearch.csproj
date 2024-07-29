@@ -9,13 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
-    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+    <PackageReference Include="Elastic.Clients.Elasticsearch" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elasticsearch.Net" />
-    <PackageReference Include="NEST" />
+    <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
 
 </Project>
