@@ -5,9 +5,9 @@ namespace CrispyWaffle.Log.Adapters
 {
     /// <summary>
     /// Class RollingTextFileLogAdapter. This class cannot be inherited.
-    /// Implements the <see cref="CrispyWaffle.Log.Adapters.ITextFileLogAdapter" />
+    /// Implements the <see cref="ITextFileLogAdapter" />.
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Log.Adapters.ITextFileLogAdapter" />
+    /// <seealso cref="ITextFileLogAdapter" />
     public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
         /// <inheritdoc />
