@@ -19,10 +19,10 @@ namespace CrispyWaffle.Log.Adapters
         /// Save the serializer version of <paramref name="content" /> in the file <paramref name="identifier" />,
         /// using default SerializerFormat, or a custom serializer format provided by <paramref name="customFormat" />.
         /// </summary>
-        /// <typeparam name="T">The type of the parameter <paramref name="content" /></typeparam>
+        /// <typeparam name="T">The type of the parameter <paramref name="content" />.</typeparam>
         /// <param name="content">The object/instance of a class to be serialized and saved in a disk file.</param>
         /// <param name="identifier">The file name to be persisted to disk with the content.</param>
-        /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type.</param>
+        /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different than one that is default for type.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
         void Debug<T>(
             T content,
