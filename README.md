@@ -119,17 +119,17 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/Mohammad-Haris">
-                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
-                    <br />
-                    <sub><b>Mohammad Haris</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/guibranco">
                     <img src="https://avatars.githubusercontent.com/u/3362854?v=4" width="100;" alt="guibranco"/>
                     <br />
                     <sub><b>Guilherme Branco Stracini</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Mohammad-Haris">
+                    <img src="https://avatars.githubusercontent.com/u/34305911?v=4" width="100;" alt="Mohammad-Haris"/>
+                    <br />
+                    <sub><b>Mohammad Haris</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -236,6 +236,15 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>codefactor-io[bot]</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/gitauto-ai[bot]">
+                    <img src="https://avatars.githubusercontent.com/in/844909?v=4" width="100;" alt="gitauto-ai[bot]"/>
+                    <br />
+                    <sub><b>gitauto-ai[bot]</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/snyk-bot">
                     <img src="https://avatars.githubusercontent.com/u/19733683?v=4" width="100;" alt="snyk-bot"/>
