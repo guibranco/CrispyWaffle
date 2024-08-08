@@ -154,6 +154,6 @@ public class RollingTextFileLogAdapterTests
 
     private static void Clean(List<string> files)
     {
-        files.ForEach(f => File.Delete(f));
+        files.ForEach(File.Delete);
     }
 }
