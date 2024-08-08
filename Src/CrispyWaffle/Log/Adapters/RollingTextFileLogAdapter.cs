@@ -284,7 +284,7 @@ namespace CrispyWaffle.Log.Adapters
             {
                 Application = EnvironmentHelper.ApplicationName,
                 Category = category == default ? _defaultCategory : category,
-                Date = DateTime.Now,
+                Date = DateTime.UtcNow,
                 Hostname = EnvironmentHelper.Host,
                 Id = Guid.NewGuid().ToString(),
                 IpAddress = EnvironmentHelper.IpAddress,
