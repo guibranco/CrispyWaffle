@@ -14,7 +14,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
     public class MustacheTemplateRender : ITemplateRender
     {
         /// <summary>
-        /// The properties
+        /// The properties.
         /// </summary>
         private Dictionary<string, object> _properties;
 
@@ -59,17 +59,24 @@ namespace CrispyWaffle.TemplateRendering.Engines
             var condition = match.Groups["condition"].Value.ToLower();
             var matchText = match.ToString();
 
-            var value = IsPropertyInDictionary(condition)
-                ? match.Groups["innerContent"].Value
-                : match.Groups["elseInnerContent"].Success
+            string value;
+
+            if (IsPropertyInDictionary(condition))
+            {
+                value = match.Groups["innerContent"].Value;
+            }
+            else
+            {
+                value = match.Groups["elseInnerContent"].Success
                     ? match.Groups["elseInnerContent"].Value
                     : string.Empty;
+            }
 
             return template.Replace(matchText, value);
         }
 
         /// <summary>
-        /// Determines whether specified property is in dictionary
+        /// Determines whether specified property is in dictionary.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>Boolean.</returns>
@@ -275,12 +282,12 @@ namespace CrispyWaffle.TemplateRendering.Engines
         }
 
         /// <summary>
-        /// Render a template using the object data as the values/condition checks
+        /// Render a template using the object data as the values/condition checks.
         /// </summary>
-        /// <param name="template">The template to be rendered</param>
-        /// <param name="data">The properties to replace in template</param>
-        /// <returns>The template with conditions resolved and the properties replaced with value</returns>
-        /// <exception cref="ArgumentNullException">data</exception>
+        /// <param name="template">The template to be rendered.</param>
+        /// <param name="data">The properties to replace in template.</param>
+        /// <returns>The template with conditions resolved and the properties replaced with value.</returns>
+        /// <exception cref="ArgumentNullException">data.</exception>
         public string Render(string template, object data)
         {
 #if NET6_0_OR_GREATER

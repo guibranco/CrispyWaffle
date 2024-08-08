@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using CrispyWaffle.Eventlog.Log.Adapters;
+using CrispyWaffle.EventLog.Log.Adapters;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Serialization;
 using LogLevel = CrispyWaffle.Log.LogLevel;
 
-namespace CrispyWaffle.Eventlog.Log.Providers
+namespace CrispyWaffle.EventLog.Log.Providers
 {
     /// <summary>
     /// Class EventLogProvider. This class cannot be inherited.
-    /// Implements the <see cref="CrispyWaffle.Log.Providers.ILogProvider" />
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Log.Providers.ILogProvider" />
     public sealed class EventLogProvider : ILogProvider
     {
         /// <summary>
@@ -64,8 +61,6 @@ namespace CrispyWaffle.Eventlog.Log.Providers
         /// <param name="machineName">Name of the machine.</param>
         /// <param name="manageEventSource">if set to <c>true</c> [manage event source].</param>
         /// <param name="eventIdProvider">The event identifier provider.</param>
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
         public EventLogProvider(
             string source,
             string logName,
@@ -85,9 +80,9 @@ namespace CrispyWaffle.Eventlog.Log.Providers
         }
 
         /// <summary>
-        /// Sets the log level of the instance
+        /// Sets the log level of the instance.
         /// </summary>
-        /// <param name="level">The log level</param>
+        /// <param name="level">The log level.</param>
         public void SetLevel(LogLevel level)
         {
             _adapter.SetLevel(level);
@@ -104,40 +99,40 @@ namespace CrispyWaffle.Eventlog.Log.Providers
         }
 
         /// <summary>
-        /// Logs the message with error level
+        /// Logs the message with error level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Error(string category, string message)
         {
             _adapter.Error(message);
         }
 
         /// <summary>
-        /// Logs the message with warning level
+        /// Logs the message with warning level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Warning(string category, string message)
         {
             _adapter.Warning(message);
         }
 
         /// <summary>
-        /// Logs the message with info level
+        /// Logs the message with info level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Info(string category, string message)
         {
             _adapter.Info(message);
         }
 
         /// <summary>
-        /// Logs the message with trace level
+        /// Logs the message with trace level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Trace(string category, string message)
         {
             _adapter.Trace(message);
@@ -165,34 +160,34 @@ namespace CrispyWaffle.Eventlog.Log.Providers
         }
 
         /// <summary>
-        /// Logs the message with debug level
+        /// Logs the message with debug level.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
+        /// <param name="category">The category.</param>
+        /// <param name="message">The message to be logged.</param>
         public void Debug(string category, string message)
         {
             _adapter.Debug(message);
         }
 
         /// <summary>
-        /// Does nothing
+        /// Does nothing.
         /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="content">Not used</param>
-        /// <param name="fileName">Not used</param>
+        /// <param name="category">The category.</param>
+        /// <param name="content">Not used.</param>
+        /// <param name="fileName">Not used.</param>
         public void Debug(string category, string content, string fileName)
         {
             _adapter.Debug(content, fileName);
         }
 
         /// <summary>
-        /// Does nothing
+        /// Does nothing.
         /// </summary>
-        /// <typeparam name="T">Not used</typeparam>
-        /// <param name="category">The category</param>
-        /// <param name="content">Not used</param>
-        /// <param name="identifier">Not used</param>
-        /// <param name="customFormat">Not used</param>
+        /// <typeparam name="T">Not used.</typeparam>
+        /// <param name="category">The category.</param>
+        /// <param name="content">Not used.</param>
+        /// <param name="identifier">Not used.</param>
+        /// <param name="customFormat">Not used.</param>
         public void Debug<T>(
             string category,
             T content,

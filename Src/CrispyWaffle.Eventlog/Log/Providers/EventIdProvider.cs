@@ -1,12 +1,10 @@
 ﻿using System;
 
-namespace CrispyWaffle.Eventlog.Log.Providers
+namespace CrispyWaffle.EventLog.Log.Providers
 {
     /// <summary>
     /// Class EventIdProvider.
-    /// Implements the <see cref="CrispyWaffle.Log.Providers.IEventIdProvider" />
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Log.Providers.IEventIdProvider" />
     public class EventIdProvider : IEventIdProvider
     {
         /// <summary>
@@ -16,7 +14,7 @@ namespace CrispyWaffle.Eventlog.Log.Providers
         /// </summary>
         /// <param name="message">A message template.</param>
         /// <returns>A 32-bit hash of the template.</returns>
-        static int Compute(string message)
+        private static int Compute(string message)
         {
             if (message == null)
             {

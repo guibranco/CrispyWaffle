@@ -1,52 +1,49 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using CrispyWaffle.Eventlog.Log.Providers;
+using CrispyWaffle.EventLog.Log.Providers;
 using CrispyWaffle.Log.Adapters;
 using CrispyWaffle.Serialization;
 using LogLevel = CrispyWaffle.Log.LogLevel;
 
-namespace CrispyWaffle.Eventlog.Log.Adapters
+namespace CrispyWaffle.EventLog.Log.Adapters
 {
     /// <summary>
     /// Class EventLogAdapter. This class cannot be inherited.
-    /// Implements the <see cref="CrispyWaffle.Log.Adapters.ILogAdapter" />
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Log.Adapters.ILogAdapter" />
     public sealed class EventLogAdapter : ILogAdapter
     {
         /// <summary>
-        /// The application log name
+        /// The application log name.
         /// </summary>
         private const string ApplicationLogName = "Application";
 
         /// <summary>
-        /// The maximum payload length chars
+        /// The maximum payload length chars.
         /// </summary>
-        const int MaximumPayloadLengthChars = 31839;
+        private const int MaximumPayloadLengthChars = 31839;
 
         /// <summary>
-        /// The maximum source name length chars
+        /// The maximum source name length chars.
         /// </summary>
-        const int MaximumSourceNameLengthChars = 212;
+        private const int MaximumSourceNameLengthChars = 212;
 
         /// <summary>
-        /// The source moved event identifier
+        /// The source moved event identifier.
         /// </summary>
-        const int SourceMovedEventId = 3;
+        private const int SourceMovedEventId = 3;
 
         /// <summary>
-        /// The event identifier provider
+        /// The event identifier provider.
         /// </summary>
-        readonly IEventIdProvider _eventIdProvider;
+        private readonly IEventIdProvider _eventIdProvider;
 
         /// <summary>
-        /// The log
+        /// The log.
         /// </summary>
-        readonly EventLog _log;
+        private readonly System.Diagnostics.EventLog _log;
 
         /// <summary>
-        /// The level
+        /// The level.
         /// </summary>
         private LogLevel _level;
 
@@ -58,9 +55,8 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         /// <param name="machineName">Name of the machine.</param>
         /// <param name="manageEventSource">if set to <c>true</c> [manage event source].</param>
         /// <param name="eventIdProvider">The event identifier provider.</param>
-        /// <exception cref="ArgumentNullException">source</exception>
-        /// <exception cref="ArgumentNullException">eventIdProvider</exception>
-        [SuppressMessage("ReSharper", "TooManyDependencies")]
+        /// <exception cref="ArgumentNullException">source.</exception>
+        /// <exception cref="ArgumentNullException">eventIdProvider.</exception>
         public EventLogAdapter(
             string source,
             string logName,
@@ -85,7 +81,7 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
             _eventIdProvider =
                 eventIdProvider ?? throw new ArgumentNullException(nameof(eventIdProvider));
 
-            _log = new EventLog(
+            _log = new System.Diagnostics.EventLog(
                 string.IsNullOrWhiteSpace(logName) ? ApplicationLogName : logName,
                 machineName
             );
@@ -105,7 +101,7 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         /// </summary>
         /// <param name="log">The log.</param>
         /// <param name="source">The source.</param>
-        private static void ConfigureSource(EventLog log, string source)
+        private static void ConfigureSource(System.Diagnostics.EventLog log, string source)
         {
             var sourceData = new EventSourceCreationData(source, log.Log)
             {
@@ -114,9 +110,9 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
 
             string oldLogName = null;
 
-            if (EventLog.SourceExists(source, log.MachineName))
+            if (System.Diagnostics.EventLog.SourceExists(source, log.MachineName))
             {
-                var existingLogWithSourceName = EventLog.LogNameFromSourceName(
+                var existingLogWithSourceName = System.Diagnostics.EventLog.LogNameFromSourceName(
                     source,
                     log.MachineName
                 );
@@ -129,13 +125,13 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
                     )
                 )
                 {
-                    EventLog.DeleteEventSource(source, log.MachineName);
+                    System.Diagnostics.EventLog.DeleteEventSource(source, log.MachineName);
                     oldLogName = existingLogWithSourceName;
                 }
             }
             else
             {
-                EventLog.CreateEventSource(sourceData);
+                System.Diagnostics.EventLog.CreateEventSource(sourceData);
             }
 
             NotifyLogSourceChange(log, source, oldLogName);
@@ -149,14 +145,18 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         /// <param name="log">The log.</param>
         /// <param name="source">The source.</param>
         /// <param name="oldLogName">Old name of the log.</param>
-        private static void NotifyLogSourceChange(EventLog log, string source, string oldLogName)
+        private static void NotifyLogSourceChange(
+            System.Diagnostics.EventLog log,
+            string source,
+            string oldLogName
+        )
         {
             if (oldLogName != null)
             {
                 var metaSource = $"serilog-{log.Log}";
-                if (!EventLog.SourceExists(metaSource, log.MachineName))
+                if (!System.Diagnostics.EventLog.SourceExists(metaSource, log.MachineName))
                 {
-                    EventLog.CreateEventSource(
+                    System.Diagnostics.EventLog.CreateEventSource(
                         new EventSourceCreationData(metaSource, log.Log)
                         {
                             MachineName = log.MachineName
@@ -274,7 +274,7 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         /// <summary>
         /// Change the LogLevel of Log Adapter instance.
         /// </summary>
-        /// <param name="level">The new <seealso cref="LogLevel" /> level of the instance</param>
+        /// <param name="level">The new <seealso cref="LogLevel" /> level of the instance.</param>
         public void SetLevel(LogLevel level)
         {
             _level = level;
@@ -284,11 +284,11 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         /// Save the serializer version of <paramref name="content" /> in the file <paramref name="identifier" />,
         /// using default SerializerFormat, or a custom serializer format provided by <paramref name="customFormat" />.
         /// </summary>
-        /// <typeparam name="T">The type of the parameter <paramref name="content" /></typeparam>
-        /// <param name="content">The object/instance of a class to be serialized and saved in a disk file</param>
-        /// <param name="identifier">The file name to be persisted to disk with the content</param>
-        /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type</param>
-        /// <remarks>Requires LogLevel.DEBUG flag</remarks>
+        /// <typeparam name="T">The type of the parameter <paramref name="content" />.</typeparam>
+        /// <param name="content">The object/instance of a class to be serialized and saved in a disk file.</param>
+        /// <param name="identifier">The file name to be persisted to disk with the content.</param>
+        /// <param name="customFormat">Whatever or not to use a custom Serializer adapter different that one that is default for type.</param>
+        /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
         public void Debug<T>(
             T content,
             string identifier,
@@ -310,18 +310,18 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         }
 
         /// <summary>
-        /// Save the string <paramref name="content" /> into a file with name <paramref name="fileName" />
+        /// Save the string <paramref name="content" /> into a file with name <paramref name="fileName" />.
         /// </summary>
-        /// <param name="content">The file content</param>
-        /// <param name="fileName">The file name</param>
-        /// <remarks>Requires LogLevel.DEBUG flag</remarks>
+        /// <param name="content">The file content.</param>
+        /// <param name="fileName">The file name.</param>
+        /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
         public void Debug(string content, string fileName)
         {
             WriteInternal(LogLevel.Debug, $"{fileName}: {content}");
         }
 
         /// <summary>
-        /// Logs a message as DEBUG level
+        /// Logs a message as DEBUG level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
@@ -351,7 +351,7 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         }
 
         /// <summary>
-        /// Logs a message as TRACE level
+        /// Logs a message as TRACE level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
@@ -361,7 +361,7 @@ namespace CrispyWaffle.Eventlog.Log.Adapters
         }
 
         /// <summary>
-        /// Logs a message as INFO level
+        /// Logs a message as INFO level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.INFO flag.</remarks>

@@ -254,7 +254,7 @@ namespace CrispyWaffle.Utils.Communications
         private bool Exists() => ExistsInternal(GetFtpUrl().ToString());
 
         /// <summary>
-        /// Check if the path exists in the FtpClient endpoint
+        /// Check if the path exists in the FtpClient endpoint.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
