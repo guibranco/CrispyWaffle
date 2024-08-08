@@ -29,7 +29,7 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
         var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(x => regexFileName.IsMatch(x)).ToList();
+            .Where(regexFileName.IsMatch).ToList();
 
         foreach (var file in files)
         {
@@ -57,7 +57,7 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
         var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(x => regexFileName.IsMatch(x)).ToList();
+            .Where(regexFileName.IsMatch).ToList();
 
         Assert.True(files.Count == 10);
 
@@ -86,7 +86,7 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
         var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(x => regexFileName.IsMatch(x)).ToList();
+            .Where(regexFileName.IsMatch).ToList();
 
         Assert.True(files.Count == 50);
 
@@ -122,7 +122,7 @@ public class RollingTextFileLogAdapterTests
         var messageSet = new HashSet<string>();
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
         var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(x => regexFileName.IsMatch(x)).ToList();
+            .Where(regexFileName.IsMatch).ToList();
 
         Assert.True(files.Count == 4);
 
