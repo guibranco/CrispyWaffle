@@ -85,7 +85,11 @@ namespace CrispyWaffle.Log.Adapters
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Design decision.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Naming",
+            "CA1716:Identifiers should not match keywords",
+            Justification = "Design decision."
+        )]
         void Error(string message);
 
         /// <summary>

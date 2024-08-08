@@ -48,19 +48,27 @@ namespace CrispyWaffle.Log.Adapters
             {
                 checked
                 {
-                    _maxFileSize = maxFileSize.size * (long)maxFileSize.unit > MaxFileSizeAllowed || maxFileSize.size * (long)maxFileSize.unit < MinFileSizeAllowed
-                    ? throw new ArgumentOutOfRangeException($"Max file size cannot be greater than {MaxFileSizeAllowed}!")
-                    : maxFileSize.size * (long)maxFileSize.unit;
+                    _maxFileSize =
+                        maxFileSize.size * (long)maxFileSize.unit > MaxFileSizeAllowed
+                        || maxFileSize.size * (long)maxFileSize.unit < MinFileSizeAllowed
+                            ? throw new ArgumentOutOfRangeException(
+                                $"Max file size cannot be greater than {MaxFileSizeAllowed}!"
+                            )
+                            : maxFileSize.size * (long)maxFileSize.unit;
                 }
             }
             catch
             {
-                throw new ArgumentOutOfRangeException($"Max file size cannot be greater than {MaxFileSizeAllowed}!");
+                throw new ArgumentOutOfRangeException(
+                    $"Max file size cannot be greater than {MaxFileSizeAllowed}!"
+                );
             }
 
             if (maxMessageCount < 1)
             {
-                throw new ArgumentOutOfRangeException($"Max message count cannot be less than 1. Current value: ${maxMessageCount}!");
+                throw new ArgumentOutOfRangeException(
+                    $"Max message count cannot be less than 1. Current value: ${maxMessageCount}!"
+                );
             }
 
             _maxMessageCount = maxMessageCount;
@@ -92,7 +100,9 @@ namespace CrispyWaffle.Log.Adapters
         public void SetLevel(LogLevel level)
         {
             _level = level;
-            Warning($"Level updated from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}.");
+            Warning(
+                $"Level updated from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}."
+            );
         }
 
         /// <inheritdoc />
@@ -110,7 +120,11 @@ namespace CrispyWaffle.Log.Adapters
                 return;
             }
 
-            WriteToFile(LogLevel.Debug, (string)content.GetCustomSerializer(customFormat), fileName: identifier);
+            WriteToFile(
+                LogLevel.Debug,
+                (string)content.GetCustomSerializer(customFormat),
+                fileName: identifier
+            );
         }
 
         /// <inheritdoc />
@@ -234,12 +248,22 @@ namespace CrispyWaffle.Log.Adapters
         {
             if (customFormat == SerializerFormat.None)
             {
-                WriteToFile(LogLevel.Debug, (string)content.GetSerializer(), fileName: identifier, category: category);
+                WriteToFile(
+                    LogLevel.Debug,
+                    (string)content.GetSerializer(),
+                    fileName: identifier,
+                    category: category
+                );
 
                 return;
             }
 
-            WriteToFile(LogLevel.Debug, (string)content.GetCustomSerializer(customFormat), fileName: identifier, category: category);
+            WriteToFile(
+                LogLevel.Debug,
+                (string)content.GetCustomSerializer(customFormat),
+                fileName: identifier,
+                category: category
+            );
         }
 
         /// <inheritdoc />
@@ -273,31 +297,37 @@ namespace CrispyWaffle.Log.Adapters
             WriteToFile(level, exMessage.ToString(), category);
         }
 
-        private void WriteToFile(LogLevel level, string content, string fileName = default, string category = default)
+        private void WriteToFile(
+            LogLevel level,
+            string content,
+            string fileName = default,
+            string category = default
+        )
         {
             if (!_level.HasFlag(level))
             {
                 return;
             }
 
-            var message = (string)new LogMessage()
-            {
-                Application = EnvironmentHelper.ApplicationName,
-                Category = category == default ? _defaultCategory : category,
-                Date = DateTime.UtcNow,
-                Hostname = EnvironmentHelper.Host,
-                Id = Guid.NewGuid().ToString(),
-                IpAddress = EnvironmentHelper.IpAddress,
-                IpAddressRemote = EnvironmentHelper.IpAddressExternal,
-                Level = level.GetHumanReadableValue(),
-                Message = content,
-                MessageIdentifier = fileName == default ? currentFileName : fileName,
-                Operation = EnvironmentHelper.Operation,
-                ProcessId = EnvironmentHelper.ProcessId,
-                UserAgent = EnvironmentHelper.UserAgent,
-                ThreadId = Environment.CurrentManagedThreadId,
-                ThreadName = Thread.CurrentThread.Name
-            }.GetSerializer();
+            var message = (string)
+                new LogMessage()
+                {
+                    Application = EnvironmentHelper.ApplicationName,
+                    Category = category == default ? _defaultCategory : category,
+                    Date = DateTime.UtcNow,
+                    Hostname = EnvironmentHelper.Host,
+                    Id = Guid.NewGuid().ToString(),
+                    IpAddress = EnvironmentHelper.IpAddress,
+                    IpAddressRemote = EnvironmentHelper.IpAddressExternal,
+                    Level = level.GetHumanReadableValue(),
+                    Message = content,
+                    MessageIdentifier = fileName == default ? currentFileName : fileName,
+                    Operation = EnvironmentHelper.Operation,
+                    ProcessId = EnvironmentHelper.ProcessId,
+                    UserAgent = EnvironmentHelper.UserAgent,
+                    ThreadId = Environment.CurrentManagedThreadId,
+                    ThreadName = Thread.CurrentThread.Name
+                }.GetSerializer();
 
             lock (_syncRoot)
             {
@@ -310,12 +340,18 @@ namespace CrispyWaffle.Log.Adapters
 
                 if (fileMessageCount > 0)
                 {
-                    currentFileStream.SetLength(currentFileStream.Length - 1 - Environment.NewLine.Length);
-                    messageBytes = UTF8Encoding.UTF8.GetBytes($",{Environment.NewLine}{message}{Environment.NewLine}]");
+                    currentFileStream.SetLength(
+                        currentFileStream.Length - 1 - Environment.NewLine.Length
+                    );
+                    messageBytes = UTF8Encoding.UTF8.GetBytes(
+                        $",{Environment.NewLine}{message}{Environment.NewLine}]"
+                    );
                 }
                 else
                 {
-                    messageBytes = UTF8Encoding.UTF8.GetBytes($"[{Environment.NewLine}{message}{Environment.NewLine}]");
+                    messageBytes = UTF8Encoding.UTF8.GetBytes(
+                        $"[{Environment.NewLine}{message}{Environment.NewLine}]"
+                    );
                 }
 
                 currentFileStream.Write(messageBytes, 0, messageBytes.Length);

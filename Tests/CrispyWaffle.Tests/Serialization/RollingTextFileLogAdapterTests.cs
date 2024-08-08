@@ -17,7 +17,12 @@ public class RollingTextFileLogAdapterTests
     public void BasicSaveLogsToFileTest()
     {
         var fileNameSeed = "basicLogs";
-        var adapter = new RollingTextFileLogAdapter(AppDomain.CurrentDomain.BaseDirectory, fileNameSeed, 100, (Unit.KByte, 10));
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            100,
+            (Unit.KByte, 10)
+        );
         var message = new string(Enumerable.Repeat('0', 1000).ToArray());
 
         for (int i = 0; i < 100; i++)
@@ -28,8 +33,10 @@ public class RollingTextFileLogAdapterTests
         adapter.Dispose();
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
-        var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(regexFileName.IsMatch).ToList();
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .Where(regexFileName.IsMatch)
+            .ToList();
 
         foreach (var file in files)
         {
@@ -44,7 +51,12 @@ public class RollingTextFileLogAdapterTests
     public void MaxMessageConstraintTest()
     {
         var fileNameSeed = "maxMessageLogs";
-        var adapter = new RollingTextFileLogAdapter(AppDomain.CurrentDomain.BaseDirectory, fileNameSeed, 100, (Unit.MByte, 1));
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            100,
+            (Unit.MByte, 1)
+        );
         adapter.SetLevel(Log.LogLevel.Debug);
         var message = "Message";
 
@@ -56,8 +68,10 @@ public class RollingTextFileLogAdapterTests
         adapter.Dispose();
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
-        var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(regexFileName.IsMatch).ToList();
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .Where(regexFileName.IsMatch)
+            .ToList();
 
         Assert.True(files.Count == 10);
 
@@ -74,7 +88,12 @@ public class RollingTextFileLogAdapterTests
     public void MaxSizeConstraintTest()
     {
         var fileNameSeed = "maxSizeLogs";
-        var adapter = new RollingTextFileLogAdapter(AppDomain.CurrentDomain.BaseDirectory, fileNameSeed, 100000, (Unit.KByte, 1));
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            100000,
+            (Unit.KByte, 1)
+        );
         var message = new string(Enumerable.Repeat('0', 990).ToArray());
 
         for (int i = 0; i < 50; i++)
@@ -85,8 +104,10 @@ public class RollingTextFileLogAdapterTests
         adapter.Dispose();
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
-        var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(regexFileName.IsMatch).ToList();
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .Where(regexFileName.IsMatch)
+            .ToList();
 
         Assert.True(files.Count == 50);
 
@@ -100,11 +121,20 @@ public class RollingTextFileLogAdapterTests
     }
 
     [Fact]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "xUnit1031:Do not use blocking task operations in test method", Justification = "Testing.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Usage",
+        "xUnit1031:Do not use blocking task operations in test method",
+        Justification = "Testing."
+    )]
     public void MultiThreadedTest()
     {
         var fileNameSeed = "multiThreadedLogs";
-        var adapter = new RollingTextFileLogAdapter(AppDomain.CurrentDomain.BaseDirectory, fileNameSeed, 10, (Unit.MByte, 100));
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            10,
+            (Unit.MByte, 100)
+        );
         var tasks = new Task[40];
 
         for (int i = 0; i < 40; i += 4)
@@ -121,8 +151,10 @@ public class RollingTextFileLogAdapterTests
 
         var messageSet = new HashSet<string>();
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
-        var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
-            .Where(regexFileName.IsMatch).ToList();
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .Where(regexFileName.IsMatch)
+            .ToList();
 
         Assert.True(files.Count == 4);
 
