@@ -68,14 +68,14 @@ namespace CrispyWaffle.Log
         /// <summary>
         /// Gets the category.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The category.</returns>
         private static string GetCategory()
         {
             var stack = new StackTrace();
             var counter = 1;
             while (true)
             {
-                var method = stack.GetFrame(counter++).GetMethod();
+                var method = stack.GetFrame(counter++)?.GetMethod();
 
                 if (method == null)
                 {
@@ -94,7 +94,7 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="method">The method.</param>
         /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if namespace is different from restrict ones, <c>false</c> otherwise.</returns>
         private static bool GetNamespace(MethodBase method, out string category)
         {
             category = string.Empty;

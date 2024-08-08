@@ -343,13 +343,13 @@ namespace CrispyWaffle.Log.Adapters
                     currentFileStream.SetLength(
                         currentFileStream.Length - 1 - Environment.NewLine.Length
                     );
-                    messageBytes = UTF8Encoding.UTF8.GetBytes(
+                    messageBytes = Encoding.UTF8.GetBytes(
                         $",{Environment.NewLine}{message}{Environment.NewLine}]"
                     );
                 }
                 else
                 {
-                    messageBytes = UTF8Encoding.UTF8.GetBytes(
+                    messageBytes = Encoding.UTF8.GetBytes(
                         $"[{Environment.NewLine}{message}{Environment.NewLine}]"
                     );
                 }
