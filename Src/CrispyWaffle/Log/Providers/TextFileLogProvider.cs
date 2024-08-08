@@ -132,7 +132,11 @@ namespace CrispyWaffle.Log.Providers
         /// <param name="content">The object to be serialized.</param>
         /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
         /// <param name="customFormat">(Optional) the custom serializer format.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S1006:Method overrides should not change parameter defaults", Justification = "Needed here.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Critical Code Smell",
+            "S1006:Method overrides should not change parameter defaults",
+            Justification = "Needed here."
+        )]
         public void Debug<T>(
             string category,
             T content,
