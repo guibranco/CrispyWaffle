@@ -16,6 +16,7 @@ namespace CrispyWaffle.Log.Adapters
     /// <seealso cref="ITextFileLogAdapter" />
     public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
+        private const long MinFileSizeAllowed = 1L * 1024;
         private const long MaxFileSizeAllowed = 10L * 1024 * 1024 * 1024;
         private readonly int _maxMessageCount;
         private readonly string _folderPath;
@@ -27,7 +28,7 @@ namespace CrispyWaffle.Log.Adapters
         private int fileMessageCount;
         private string currentFileName;
         private LogLevel _level;
-        private StreamWriter currentFileStream;
+        private FileStream currentFileStream;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RollingTextFileLogAdapter"/> class.
@@ -47,7 +48,7 @@ namespace CrispyWaffle.Log.Adapters
             {
                 checked
                 {
-                    _maxFileSize = maxFileSize.size * (long)maxFileSize.unit > MaxFileSizeAllowed
+                    _maxFileSize = maxFileSize.size * (long)maxFileSize.unit > MaxFileSizeAllowed || maxFileSize.size * (long)maxFileSize.unit < MinFileSizeAllowed
                     ? throw new ArgumentOutOfRangeException($"Max file size cannot be greater than {MaxFileSizeAllowed}!")
                     : maxFileSize.size * (long)maxFileSize.unit;
                 }
@@ -57,9 +58,13 @@ namespace CrispyWaffle.Log.Adapters
                 throw new ArgumentOutOfRangeException($"Max file size cannot be greater than {MaxFileSizeAllowed}!");
             }
 
-            fileNumber = 1;
-            fileMessageCount = 0;
+            if (maxMessageCount < 1)
+            {
+                throw new ArgumentOutOfRangeException($"Max message count cannot be less than 1. Current value: ${maxMessageCount}!");
+            }
+
             _maxMessageCount = maxMessageCount;
+            fileNumber = 1;
             _fileNameSeed = fileNameSeed;
             _level = LogLevel.Production;
             _defaultCategory = "Not Specified";
@@ -301,7 +306,20 @@ namespace CrispyWaffle.Log.Adapters
                     UpdateFileStream();
                 }
 
-                currentFileStream.Write($"{message}{Environment.NewLine}");
+                byte[] messageBytes;
+
+                if (fileMessageCount > 0)
+                {
+                    currentFileStream.SetLength(currentFileStream.Length - 1 - Environment.NewLine.Length);
+                    messageBytes = UTF8Encoding.UTF8.GetBytes($",{Environment.NewLine}{message}{Environment.NewLine}]");
+                }
+                else
+                {
+                    messageBytes = UTF8Encoding.UTF8.GetBytes($"[{Environment.NewLine}{message}{Environment.NewLine}]");
+                }
+
+                currentFileStream.Write(messageBytes, 0, messageBytes.Length);
+                currentFileStream.Flush();
                 fileMessageCount++;
             }
         }
@@ -318,24 +336,26 @@ namespace CrispyWaffle.Log.Adapters
 
         private void CreateNewFileName()
         {
+            fileMessageCount = 0;
+            currentFileName = $"LogFile-{_fileNameSeed}-[{fileNumber}].json";
+
             while (File.Exists(Path.Combine(_folderPath, currentFileName)))
             {
                 fileNumber++;
-                fileMessageCount = 0;
                 currentFileName = $"LogFile-{_fileNameSeed}-[{fileNumber}].json";
             }
         }
 
-        private bool IsValidSize(StreamWriter stream)
+        private bool IsValidSize(FileStream stream)
         {
             stream.Flush();
 
-            return (fileMessageCount < _maxMessageCount) && (stream.BaseStream.Length < _maxFileSize);
+            return (fileMessageCount < _maxMessageCount) && (stream.Length < _maxFileSize);
         }
 
-        private StreamWriter GetFile()
+        private FileStream GetFile()
         {
-            return new StreamWriter(Path.Combine(_folderPath, currentFileName));
+            return File.Create(Path.Combine(_folderPath, currentFileName));
         }
     }
 
