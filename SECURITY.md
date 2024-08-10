@@ -5,7 +5,7 @@ If you believe you have found a security vulnerability in this repository, pleas
 
 Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests because this could lead to leaked security breaches.
 
-Instead, please email opensource-security[@]straccini.com.
+Instead, please email opensource-security@straccini.com.
 
 Please include as much of the information listed below as you can to help us better understand and resolve the issue:
 
