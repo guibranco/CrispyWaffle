@@ -1,7 +1,7 @@
-﻿namespace CrispyWaffle.Eventlog.Log.Providers
+﻿namespace CrispyWaffle.EventLog.Log.Providers
 {
     /// <summary>
-    /// Interface IEventIdProvider
+    /// Interface IEventIdProvider.
     /// </summary>
     public interface IEventIdProvider
     {

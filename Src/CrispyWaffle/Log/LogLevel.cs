@@ -10,7 +10,7 @@ namespace CrispyWaffle.Log
     public enum LogLevel
     {
         /// <summary>
-        ///
+        /// The fatal level
         /// </summary>
         [HumanReadable("Fatal")]
         Fatal = 1,
@@ -46,7 +46,7 @@ namespace CrispyWaffle.Log
         Debug = 1 << 5,
 
         /// <summary>
-        /// The production level (Error + Warning + Info)
+        /// The production level (Fatal + Error + Warning + Info)
         /// </summary>
         [HumanReadable("Production")]
         Production = Fatal | Error | Warning | Info,
