@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 8.1 [2024-08-08]
+
+- Implement rolling text file log adapter - [issue #37](https://github.com/guibranco/CrispyWaffle/issues/37) and [pull request #479](https://github.com/guibranco/CrispyWaffle/pull/479) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
+
 ## Version 8.0 [2024-07-28]
 
 - Replace NEST and ElasticSearch.Net with Elastic.Clients.Elasticsearch - [issue #444](https://github.com/guibranco/CrispyWaffle/issues/444) and [pull request #470](https://github.com/guibranco/CrispyWaffle/pull/470) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
