@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CrispyWaffle.Extensions;
 using CrispyWaffle.Log.Adapters;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -14,14 +15,97 @@ namespace CrispyWaffle.Tests.Serialization;
 public class RollingTextFileLogAdapterTests
 {
     [Fact]
-    public void BasicSaveLogsToFileTest()
+    public void BasicSaveLogsToTextFileTest()
     {
-        var fileNameSeed = "basicLogs";
+        var fileNameSeed = "basicTextLogs";
         var adapter = new RollingTextFileLogAdapter(
             AppDomain.CurrentDomain.BaseDirectory,
             fileNameSeed,
             100,
             (Unit.KByte, 10)
+        );
+        var message = new string(Enumerable.Repeat('0', 100).ToArray());
+
+        for (int i = 0; i < 100; i++)
+        {
+            adapter.Info(message);
+        }
+
+        adapter.Dispose();
+
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.Text));
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.Text.GetInternalValue()}")
+            .Where(x => regexFileName.IsMatch(x))
+            .ToList();
+
+        foreach (var file in files)
+        {
+            Assert.True(File.ReadLines(file).Any());
+        }
+
+        Clean(files);
+    }
+
+    [Fact]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Usage",
+        "CA2201:Do not raise reserved exception types",
+        Justification = "Testing."
+    )]
+    public void ExceptionLogsToTextFileTest()
+    {
+        var fileNameSeed = "exceptionTextLogs";
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            100,
+            (Unit.KByte, 10)
+        );
+        var exception = new ApplicationException(
+            "Main",
+            new ArgumentOutOfRangeException(
+                "AOOR Exception",
+                new AccessViolationException("AW Exception")
+            )
+        );
+
+        adapter.SetLevel(Log.LogLevel.Development);
+
+        for (int i = 0; i < 100; i++)
+        {
+            adapter.Trace(exception);
+        }
+
+        adapter.Dispose();
+
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.Text));
+        var files = Directory
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.Text.GetInternalValue()}")
+            .Where(x => regexFileName.IsMatch(x))
+            .ToList();
+        var exMsgCount = 0;
+
+        foreach (var file in files)
+        {
+            exMsgCount += Regex.Matches(File.ReadAllText(file), $"\\[MainException\\]\\[{exception.GetType()}\\]: {exception.Message}").Count;
+        }
+
+        Assert.True(exMsgCount == 100);
+
+        Clean(files);
+    }
+
+    [Fact]
+    public void BasicSaveLogsToJsonFileTest()
+    {
+        var fileNameSeed = "basicJsonLogs";
+        var adapter = new RollingTextFileLogAdapter(
+            AppDomain.CurrentDomain.BaseDirectory,
+            fileNameSeed,
+            100,
+            (Unit.KByte, 10),
+            LogFileType.JSON
         );
         var message = new string(Enumerable.Repeat('0', 1000).ToArray());
 
@@ -32,15 +116,14 @@ public class RollingTextFileLogAdapterTests
 
         adapter.Dispose();
 
-        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
         foreach (var file in files)
         {
-            Assert.True(File.Exists(file));
             Assert.True(JArray.Parse(File.ReadAllText(file)) is not null);
         }
 
@@ -55,7 +138,8 @@ public class RollingTextFileLogAdapterTests
             AppDomain.CurrentDomain.BaseDirectory,
             fileNameSeed,
             100,
-            (Unit.MByte, 1)
+            (Unit.MByte, 1),
+            LogFileType.JSON
         );
         adapter.SetLevel(Log.LogLevel.Debug);
         var message = "Message";
@@ -67,9 +151,9 @@ public class RollingTextFileLogAdapterTests
 
         adapter.Dispose();
 
-        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -77,7 +161,6 @@ public class RollingTextFileLogAdapterTests
 
         foreach (var file in files)
         {
-            Assert.True(File.Exists(file));
             Assert.True(JArray.Parse(File.ReadAllText(file)) is not null);
         }
 
@@ -92,7 +175,8 @@ public class RollingTextFileLogAdapterTests
             AppDomain.CurrentDomain.BaseDirectory,
             fileNameSeed,
             100000,
-            (Unit.KByte, 1)
+            (Unit.KByte, 1),
+            LogFileType.JSON
         );
         var message = new string(Enumerable.Repeat('0', 990).ToArray());
 
@@ -103,9 +187,9 @@ public class RollingTextFileLogAdapterTests
 
         adapter.Dispose();
 
-        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -113,7 +197,6 @@ public class RollingTextFileLogAdapterTests
 
         foreach (var file in files)
         {
-            Assert.True(File.Exists(file));
             Assert.True(JArray.Parse(File.ReadAllText(file)) is not null);
         }
 
@@ -133,7 +216,8 @@ public class RollingTextFileLogAdapterTests
             AppDomain.CurrentDomain.BaseDirectory,
             fileNameSeed,
             10,
-            (Unit.MByte, 100)
+            (Unit.MByte, 100),
+            LogFileType.JSON
         );
         var tasks = new Task[40];
 
@@ -150,9 +234,9 @@ public class RollingTextFileLogAdapterTests
         adapter.Dispose();
 
         var messageSet = new HashSet<string>();
-        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed));
+        var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.json")
+            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -161,8 +245,6 @@ public class RollingTextFileLogAdapterTests
         JArray jsonArray;
         foreach (var file in files)
         {
-            Assert.True(File.Exists(file));
-
             jsonArray = JArray.Parse(File.ReadAllText(file));
 
             Assert.True(jsonArray is not null);
@@ -179,13 +261,13 @@ public class RollingTextFileLogAdapterTests
         Clean(files);
     }
 
-    private static string GetFileNameRegex(string fileNameSeed)
+    private static string GetFileNameRegex(string fileNameSeed, LogFileType fileType)
     {
-        return $"LogFile-{fileNameSeed}-\\[[0-9]+\\].json";
+        return $"LogFile-{fileNameSeed}-\\[[0-9]+\\].{fileType.GetInternalValue()}";
     }
 
     private static void Clean(List<string> files)
     {
-        files.ForEach(f => File.Delete(f));
+        files.ForEach(File.Delete);
     }
 }
