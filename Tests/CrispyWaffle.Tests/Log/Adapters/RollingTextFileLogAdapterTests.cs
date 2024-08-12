@@ -35,7 +35,10 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.Text));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.Text.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.Text.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -81,14 +84,22 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.Text));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.Text.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.Text.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
         var exMsgCount = 0;
 
         foreach (var file in files)
         {
-            exMsgCount += Regex.Matches(File.ReadAllText(file), $"\\[MainException\\]\\[{exception.GetType()}\\]: {exception.Message}").Count;
+            exMsgCount += Regex
+                .Matches(
+                    File.ReadAllText(file),
+                    $"\\[MainException\\]\\[{exception.GetType()}\\]: {exception.Message}"
+                )
+                .Count;
         }
 
         Assert.True(exMsgCount == 100);
@@ -118,7 +129,10 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.JSON.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -153,7 +167,10 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.JSON.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -189,7 +206,10 @@ public class RollingTextFileLogAdapterTests
 
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.JSON.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
@@ -236,7 +256,10 @@ public class RollingTextFileLogAdapterTests
         var messageSet = new HashSet<string>();
         var regexFileName = new Regex(GetFileNameRegex(fileNameSeed, LogFileType.JSON));
         var files = Directory
-            .GetFiles(AppDomain.CurrentDomain.BaseDirectory, $"*.{LogFileType.JSON.GetInternalValue()}")
+            .GetFiles(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"*.{LogFileType.JSON.GetInternalValue()}"
+            )
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 

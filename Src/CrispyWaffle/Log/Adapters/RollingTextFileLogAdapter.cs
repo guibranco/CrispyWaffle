@@ -385,20 +385,29 @@ namespace CrispyWaffle.Log.Adapters
             return messageBytes;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Private method.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Performance",
+            "CA1822:Mark members as static",
+            Justification = "Private method."
+        )]
         private byte[] WriteToTxt(LogMessage message)
         {
             var props = typeof(LogMessage).GetProperties();
             var messageStr = new StringBuilder();
             string val;
 
-            messageStr.AppendFormat(CultureInfo.InvariantCulture, $"{Environment.NewLine}----------{Environment.NewLine}");
+            messageStr.AppendFormat(
+                CultureInfo.InvariantCulture,
+                $"{Environment.NewLine}----------{Environment.NewLine}"
+            );
 
             foreach (var prop in props)
             {
-                val = prop.GetValue(message) == null || prop.GetValue(message).ToString() == string.Empty
-                    ? "N.A."
-                    : prop.GetValue(message).ToString();
+                val =
+                    prop.GetValue(message) == null
+                    || prop.GetValue(message).ToString() == string.Empty
+                        ? "N.A."
+                        : prop.GetValue(message).ToString();
 
                 messageStr.AppendFormat(
                     CultureInfo.InvariantCulture,
@@ -422,12 +431,14 @@ namespace CrispyWaffle.Log.Adapters
         private void CreateNewFileName()
         {
             fileMessageCount = 0;
-            currentFileName = $"LogFile-{_fileNameSeed}-[{fileNumber}].{_fileType.GetInternalValue()}";
+            currentFileName =
+                $"LogFile-{_fileNameSeed}-[{fileNumber}].{_fileType.GetInternalValue()}";
 
             while (File.Exists(Path.Combine(_folderPath, currentFileName)))
             {
                 fileNumber++;
-                currentFileName = $"LogFile-{_fileNameSeed}-[{fileNumber}].{_fileType.GetInternalValue()}";
+                currentFileName =
+                    $"LogFile-{_fileNameSeed}-[{fileNumber}].{_fileType.GetInternalValue()}";
             }
         }
 
