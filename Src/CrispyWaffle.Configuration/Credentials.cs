@@ -102,7 +102,6 @@ namespace CrispyWaffle.Configuration
                 );
                 return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.Md5)}";
             }
-            
             set
             {
                 try

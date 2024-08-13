@@ -20,9 +20,8 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// The additional providers.
         /// </summary>
-        private static readonly IList<
-            Tuple<ILogProvider, ExceptionLogType>
-        > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+        private static readonly IList<Tuple<ILogProvider, ExceptionLogType>> _additionalProviders =
+            new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         /// <summary>
         /// Gets the category.
