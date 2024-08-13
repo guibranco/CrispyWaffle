@@ -25,8 +25,8 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
         /// <param name="connection">The connection.</param>
         /// <param name="virtualHost">The virtual host.</param>
         /// <param name="defaultExchange">The default exchange.</param>
-        /// <exception cref="ArgumentNullException">connection</exception>
-        /// <exception cref="ArgumentNullException">defaultExchange</exception>
+        /// <exception cref="ArgumentNullException">connection.</exception>
+        /// <exception cref="ArgumentNullException">defaultExchange.</exception>
         public RabbitMQConnector(IConnection connection, string virtualHost, string defaultExchange)
         {
             if (connection == null)

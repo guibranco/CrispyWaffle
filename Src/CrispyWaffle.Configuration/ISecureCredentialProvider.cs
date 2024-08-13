@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Configuration
 {
     /// <summary>
-    /// Interface ISecureCredentialProvider
+    /// Interface ISecureCredentialProvider.
     /// </summary>
     public interface ISecureCredentialProvider
     {

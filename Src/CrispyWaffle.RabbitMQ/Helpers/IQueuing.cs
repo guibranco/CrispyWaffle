@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.RabbitMQ.Helpers
 {
     /// <summary>
-    /// Interface IQueuing
+    /// Interface IQueuing.
     /// </summary>
     public interface IQueuing { }
 }

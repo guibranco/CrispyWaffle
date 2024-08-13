@@ -17,7 +17,7 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         public QueueNameAttribute(string queueName) => QueueName = queueName;
 
         /// <summary>
-        /// Gets or sets the name of the queue.
+        /// Gets the name of the queue.
         /// </summary>
         /// <value>The name of the queue.</value>
         public string QueueName { get; }
