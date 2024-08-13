@@ -3,7 +3,7 @@
 namespace CrispyWaffle.Configuration
 {
     /// <summary>
-    /// Interface IConnection
+    /// Interface IConnection.
     /// </summary>
     public interface IConnection
     {
