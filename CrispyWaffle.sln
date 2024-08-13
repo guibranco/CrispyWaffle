@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.ElasticSearch"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Elmah", "Src\CrispyWaffle.Elmah\CrispyWaffle.Elmah.csproj", "{687F6153-2295-40A6-8673-1359482F928B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.EventLog", "Src\CrispyWaffle.Eventlog\CrispyWaffle.EventLog.csproj", "{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.EventLog", "Src\CrispyWaffle.EventLog\CrispyWaffle.EventLog.csproj", "{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrispyWaffle.Log4Net", "Src\CrispyWaffle.Log4Net\CrispyWaffle.Log4Net.csproj", "{D6164E04-F1C9-4D86-9B9C-41036B816C4A}"
 EndProject
