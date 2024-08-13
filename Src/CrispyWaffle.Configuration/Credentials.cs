@@ -80,9 +80,9 @@ namespace CrispyWaffle.Configuration
         /// <value>The password internal.</value>
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        [XmlElement("Password")]
-        [JsonProperty("Password")]
-        [JsonPropertyName("Password")]
+        [XmlElement(nameof(Password))]
+        [JsonProperty(nameof(Password))]
+        [JsonPropertyName(nameof(Password))]
         [Localizable(false)]
         public string PasswordInternal
         {
@@ -102,6 +102,7 @@ namespace CrispyWaffle.Configuration
                 );
                 return $"{encrypt}{Security.Hash(encrypt, HashAlgorithmType.Md5)}";
             }
+            
             set
             {
                 try
