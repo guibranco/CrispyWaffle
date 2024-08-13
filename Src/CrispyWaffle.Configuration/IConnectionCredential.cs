@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Configuration
 {
     /// <summary>
-    /// Connection credential interface
+    /// Connection credential interface.
     /// </summary>
     public interface IConnectionCredential
     {
