@@ -20,7 +20,7 @@ namespace CrispyWaffle.Elmah
         /// <summary>
         /// The additional providers.
         /// </summary>
-        private static readonly ICollection<
+        private static readonly IList<
             Tuple<ILogProvider, ExceptionLogType>
         > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
@@ -92,10 +92,9 @@ namespace CrispyWaffle.Elmah
 
         /// <summary>
         /// Logs an exception as ERROR level.
-        /// Exception is logged generally with Message, StackTrace and Type.FullName, and it's inner exception until no one more is available,
-        /// but this behavior depends on the Adapter implementation.
+        /// Exception is logged generally with Message, StackTrace, and Type.FullName and its inner exception until no one more is available, but this behavior depends on the Adapter implementation.
         /// </summary>
-        /// <param name="exception">The exception to be logged</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(Exception exception)
         {
@@ -104,9 +103,9 @@ namespace CrispyWaffle.Elmah
 
         /// <summary>
         /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception and then call <seealso cref="IExceptionHandler.Handle(Exception)" />.
-        /// This is the default behavior, each implementation can have it own behavior!
+        /// This is the default behavior; each implementation can have its behavior.
         /// </summary>
-        /// <param name="sender">The sender</param>
+        /// <param name="sender">The sender.</param>
         /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs" />.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args)
@@ -130,7 +129,6 @@ namespace CrispyWaffle.Elmah
         /// <typeparam name="TLogProvider">The type of the log provider.</typeparam>
         /// <param name="type">The type.</param>
         /// <returns>ILogProvider.</returns>
-        /// <exception cref="NotImplementedException"></exception>
         public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
             where TLogProvider : ILogProvider
         {
