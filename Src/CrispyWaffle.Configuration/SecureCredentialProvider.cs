@@ -2,9 +2,7 @@
 {
     /// <summary>
     /// Class SecureCredentialProvider.
-    /// Implements the <see cref="CrispyWaffle.Configuration.ISecureCredentialProvider" />
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Configuration.ISecureCredentialProvider" />
     public class SecureCredentialProvider : ISecureCredentialProvider
     {
         /// <summary>
