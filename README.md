@@ -18,7 +18,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 - [.NET support](#.NET-support): Supported .NET version. 
 - [Installation](#installation): How to install/download this tool.
 - [User guide](#user-guide): How to set up, configure and use this tool.
-- [Change log](#changelog): Changelog containing the changes that were done in this project.
+- [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Contributing](#contributing): How to contribute.
 
@@ -68,8 +68,8 @@ As of August 2024, this toolkit is currently published in the following `.NET` v
 - .NET 6.0
 - .NET 8.0
 
-This is an official Microsoft [.NET-supported versions](https://dotnet.microsoft.com/en-us/platform/dotnet-standard) table:
-![image](https://github.com/user-attachments/assets/8c212daa-7715-489c-bc60-836152443fe0)
+This is an official Microsoft [.NET-supported versions](https://dotnet.microsoft.com/en-us/platform/dotnet-standard) table based on the lowest target version (.NET Standard 2.0):
+![Supported version as of Aug/2024](docs/images/supported-versions-2024-08.png)
 
 ---
 
