@@ -37,7 +37,7 @@ namespace CrispyWaffle.RabbitMQ.Utils.Communications
             ConnectionFactory = new ConnectionFactory
             {
                 HostName = connection.Host,
-                Port = connection.Port
+                Port = connection.Port,
             };
 
             if (!string.IsNullOrWhiteSpace(connection.Credentials?.Username))

@@ -24,7 +24,7 @@ public class ConfigurationFixture : IDisposable
                 {
                     PasswordHash = "Cr1$PTVV@FE13",
                     SaltKey = "y48H85nH21",
-                    IVKey = "HZEM7|Ne2YGS/F41"
+                    IVKey = "HZEM7|Ne2YGS/F41",
                 },
             Lifetime.Singleton
         );

@@ -23,6 +23,6 @@ namespace CrispyWaffle.Serialization
         ///     An enum constant representing the XML option.
         /// </summary>
         [HumanReadable("XML")]
-        Xml
+        Xml,
     }
 }

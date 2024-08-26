@@ -23,6 +23,6 @@
         /// <summary>
         /// The camelcase
         /// </summary>
-        Camelcase
+        Camelcase,
     }
 }
