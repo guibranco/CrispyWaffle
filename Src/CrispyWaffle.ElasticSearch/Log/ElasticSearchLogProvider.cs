@@ -108,13 +108,21 @@ namespace CrispyWaffle.ElasticSearch.Log
         }
 
         /// <summary>
-        /// Serializes the specified level.
+        /// Serializes log information into a <see cref="LogMessage"/> object.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="identifier">The identifier.</param>
-        /// <returns>LogMessage.</returns>
+        /// <param name="level">The log level indicating the severity of the log message.</param>
+        /// <param name="category">The category under which the log message falls.</param>
+        /// <param name="message">The actual log message content.</param>
+        /// <param name="identifier">An optional identifier for the log message.</param>
+        /// <returns>A <see cref="LogMessage"/> object containing the serialized log information.</returns>
+        /// <remarks>
+        /// This method creates a new instance of the <see cref="LogMessage"/> class, populating its properties
+        /// with relevant information such as application name, category, current date and time, hostname,
+        /// IP addresses, log level, message content, and additional contextual information like process ID
+        /// and thread details. The method utilizes helper classes to retrieve environment-specific data,
+        /// ensuring that the log message is enriched with context that can be useful for debugging and monitoring.
+        /// The optional parameter <paramref name="identifier"/> allows for additional categorization of the log message.
+        /// </remarks>
         private static LogMessage Serialize(
             LogLevel level,
             string category,
