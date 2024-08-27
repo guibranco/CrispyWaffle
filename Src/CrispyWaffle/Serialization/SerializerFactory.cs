@@ -192,7 +192,7 @@ namespace CrispyWaffle.Serialization
                         Converters = { new NotNullObserverConverter() },
                         Culture = CultureInfo.GetCultureInfo("pt-br"),
                         MissingMemberHandling = MissingMemberHandling.Ignore,
-                        NullValueHandling = NullValueHandling.Ignore
+                        NullValueHandling = NullValueHandling.Ignore,
                     };
                     return new SerializerConverter<T>(
                         obj,

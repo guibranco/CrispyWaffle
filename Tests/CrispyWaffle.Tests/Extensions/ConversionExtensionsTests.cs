@@ -24,9 +24,9 @@ public class ConversionExtensionsTests
             {
                 NumberDecimalSeparator = ",",
                 NumberGroupSeparator = " ",
-                CurrencySymbol = "$"
+                CurrencySymbol = "$",
             },
-            DateTimeFormat = { DateSeparator = "/" }
+            DateTimeFormat = { DateSeparator = "/" },
         };
         Thread.CurrentThread.CurrentCulture = ci;
         Thread.CurrentThread.CurrentUICulture = ci;

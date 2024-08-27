@@ -13,6 +13,6 @@
         /// <summary>
         /// The full
         /// </summary>
-        Full
+        Full,
     }
 }

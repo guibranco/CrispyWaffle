@@ -105,7 +105,7 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         {
             var sourceData = new EventSourceCreationData(source, log.Log)
             {
-                MachineName = log.MachineName
+                MachineName = log.MachineName,
             };
 
             string oldLogName = null;
@@ -159,7 +159,7 @@ namespace CrispyWaffle.EventLog.Log.Adapters
                     System.Diagnostics.EventLog.CreateEventSource(
                         new EventSourceCreationData(metaSource, log.Log)
                         {
-                            MachineName = log.MachineName
+                            MachineName = log.MachineName,
                         }
                     );
                 }

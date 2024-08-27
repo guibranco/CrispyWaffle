@@ -27,7 +27,7 @@ namespace CrispyWaffle.Serialization.Adapters
                 Converters = { new NotNullObserverConverter() },
                 Culture = CultureInfo.GetCultureInfo("pt-br"),
                 MissingMemberHandling = MissingMemberHandling.Error,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
             };
         }
 

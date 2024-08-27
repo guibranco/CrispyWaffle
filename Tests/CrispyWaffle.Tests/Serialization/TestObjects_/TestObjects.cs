@@ -22,7 +22,7 @@ public static class TestObjects
             Code = new Random().Next(1, 99999),
             CorrelationId = correlationId,
             String = "Some text",
-            StrongTyping = GetStrongTyping(correlationId)
+            StrongTyping = GetStrongTyping(correlationId),
         };
     }
 
@@ -36,7 +36,7 @@ public static class TestObjects
         {
             CorrelationId = correlationId,
             Date = DateTime.Now,
-            SomeText = DateTime.Today.ToString("R")
+            SomeText = DateTime.Today.ToString("R"),
         };
 
     /// <summary>
@@ -52,8 +52,8 @@ public static class TestObjects
             {
                 GetStrongTyping(Guid.Empty),
                 GetStrongTyping(Guid.NewGuid()),
-                GetStrongTyping(Guid.NewGuid())
-            }
+                GetStrongTyping(Guid.NewGuid()),
+            },
         };
 
     /// <summary>
