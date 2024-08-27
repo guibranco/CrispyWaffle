@@ -45,11 +45,18 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Serializes.
+        /// Serializes an object of type <typeparamref name="T"/> into an XML format and outputs it to a stream.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <param name="stream">[out] The stream.</param>
+        /// <typeparam name="T">The type of the object to be serialized, which must be a class.</typeparam>
+        /// <param name="deserialized">The object to be serialized.</param>
+        /// <param name="stream">An output parameter that will contain the stream with the serialized XML data.</param>
+        /// <remarks>
+        /// This method uses the <see cref="XmlSerializer"/> class to convert the provided object into XML format.
+        /// It creates a new <see cref="MemoryStream"/> to hold the serialized data and configures the XML writer settings for proper formatting.
+        /// The method also initializes an <see cref="XmlSerializerNamespaces"/> instance to handle XML namespaces, ensuring that no namespace is added to the serialized output.
+        /// After serialization, the stream's position is reset to the beginning, allowing for immediate reading of the serialized data.
+        /// This method does not throw any exceptions, but it assumes that the provided object is serializable.
+        /// </remarks>
         public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {
