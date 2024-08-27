@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -13,7 +13,6 @@ namespace CrispyWaffle.Cryptography
     /// </summary>
     public static class Security
     {
-
         /// <summary>
         /// Encrypts the provided plain text using a password hash, salt key, and initialization vector key.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using CrispyWaffle.Composition;
+using CrispyWaffle.Composition;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Cryptography;
 using CrispyWaffle.Infrastructure;
@@ -11,7 +11,6 @@ namespace CrispyWaffle.Tests.Configuration;
 [Collection("Configuration collection")]
 public class CredentialTests
 {
-
     /// <summary>
     /// Validates the secure credential provider by checking if the decrypted password matches the original password
     /// and if the username is correctly deserialized.

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -10,7 +10,6 @@ namespace CrispyWaffle.Tests.Serialization;
 [ExcludeFromCodeCoverage]
 public static class TestObjects
 {
-
     /// <summary>
     /// Generates a new instance of <see cref="SampleXmlClass"/> with populated properties.
     /// </summary>

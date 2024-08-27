@@ -10,7 +10,6 @@ namespace CrispyWaffle.Extensions
     /// </summary>
     public static class EnumExtensions
     {
-
         /// <summary>
         /// Retrieves the enum value associated with a specified human-readable string representation.
         /// </summary>
