@@ -33,5 +33,5 @@ public enum TestEnum
     /// </summary>
     [InternalValue("три")]
     [HumanReadable("Três")]
-    Three = 3
+    Three = 3,
 }

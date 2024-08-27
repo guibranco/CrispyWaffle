@@ -130,7 +130,7 @@ namespace CrispyWaffle.Serialization
                 {
                     OmitXmlDeclaration = true,
                     Indent = true,
-                    NewLineOnAttributes = true
+                    NewLineOnAttributes = true,
                 };
 
                 using (var xmlWriter = XmlWriter.Create(builder, settings))

@@ -152,8 +152,8 @@ namespace CrispyWaffle.Redis.Utils.Communications
                     TargetRole = ServerEnumerationStrategy.TargetRoleOptions.Any,
                     UnreachableServerAction = ServerEnumerationStrategy
                         .UnreachableServerActionOptions
-                        .Throw
-                }
+                        .Throw,
+                },
             };
 
             _connectionPoolManager = new RedisConnectionPoolManager(configuration);

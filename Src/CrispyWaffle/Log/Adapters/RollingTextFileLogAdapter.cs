@@ -332,7 +332,7 @@ namespace CrispyWaffle.Log.Adapters
                 ProcessId = EnvironmentHelper.ProcessId,
                 UserAgent = EnvironmentHelper.UserAgent,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ThreadName = Thread.CurrentThread.Name
+                ThreadName = Thread.CurrentThread.Name,
             };
 
             lock (_syncRoot)
@@ -478,7 +478,7 @@ namespace CrispyWaffle.Log.Adapters
         /// <summary>
         /// Represents the unit giga byte.
         /// </summary>
-        GByte = 1024 * 1024 * 1024
+        GByte = 1024 * 1024 * 1024,
     }
 
     /// <summary>
@@ -496,6 +496,6 @@ namespace CrispyWaffle.Log.Adapters
         /// The .json file type.
         /// </summary>
         [InternalValue("json")]
-        JSON
+        JSON,
     }
 }
