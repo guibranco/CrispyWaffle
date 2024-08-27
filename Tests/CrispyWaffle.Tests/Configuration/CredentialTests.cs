@@ -17,7 +17,7 @@ public class CredentialTests
         var credential = new Credentials
         {
             Password = "DeltaBravoZulu",
-            Username = EnvironmentHelper.UserName
+            Username = EnvironmentHelper.UserName,
         };
 
         var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);

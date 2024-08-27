@@ -33,7 +33,7 @@ namespace CrispyWaffle.Extensions
                 {
                     Field = f,
                     Attr = Attribute.GetCustomAttribute(f, typeof(HumanReadableAttribute))
-                        as HumanReadableAttribute
+                        as HumanReadableAttribute,
                 })
                 .Where(item =>
                     (
@@ -88,7 +88,7 @@ namespace CrispyWaffle.Extensions
                 {
                     Field = f,
                     Attr = Attribute.GetCustomAttribute(f, typeof(InternalValueAttribute))
-                        as InternalValueAttribute
+                        as InternalValueAttribute,
                 })
                 .Where(item =>
                     (

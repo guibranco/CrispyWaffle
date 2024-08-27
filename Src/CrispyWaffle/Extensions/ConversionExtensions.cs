@@ -297,7 +297,7 @@ namespace CrispyWaffle.Extensions
                 Indent = true,
                 IndentChars = "\t",
                 NewLineChars = "\r\n",
-                NewLineHandling = NewLineHandling.Replace
+                NewLineHandling = NewLineHandling.Replace,
             };
 
             using (var writer = XmlWriter.Create(builder, settings))
@@ -362,7 +362,7 @@ namespace CrispyWaffle.Extensions
         {
             { 1, "st" },
             { 2, "nd" },
-            { 3, "rd" }
+            { 3, "rd" },
         };
 
         /// <summary>

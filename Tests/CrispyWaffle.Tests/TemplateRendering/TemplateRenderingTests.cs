@@ -125,7 +125,7 @@ public class TemplateRenderingTests
                 new { FirstName = "John", LastName = "Doe" },
                 new { FirstName = "Jane", LastName = "Doe" },
                 new { FirstName = "Joe", LastName = "Public" },
-            }
+            },
         };
         var expected =
             $"<ul><li>{data.Person[0].FirstName} {data.Person[0].LastName}</li><li>{data.Person[1].FirstName} {data.Person[1].LastName}</li><li>{data.Person[2].FirstName} {data.Person[2].LastName}</li></ul>";
@@ -150,8 +150,8 @@ public class TemplateRenderingTests
             {
                 Street = "Avenida Paulista",
                 Number = 1000,
-                City = "São Paulo"
-            }
+                City = "São Paulo",
+            },
         };
         var expected =
             $"{data.Name} lives in {data.Address.Street}, {data.Address.Number} at {data.Address.City}";
