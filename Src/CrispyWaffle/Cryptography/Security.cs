@@ -37,7 +37,7 @@ namespace CrispyWaffle.Cryptography
             var symmetricKey = new RijndaelManaged
             {
                 Mode = CipherMode.CBC,
-                Padding = PaddingMode.Zeros
+                Padding = PaddingMode.Zeros,
             };
             var encryption = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
 
@@ -85,7 +85,7 @@ namespace CrispyWaffle.Cryptography
             var symmetricKey = new RijndaelManaged
             {
                 Mode = CipherMode.CBC,
-                Padding = PaddingMode.None
+                Padding = PaddingMode.None,
             };
 
             var decryption = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(viKey));
@@ -148,7 +148,7 @@ namespace CrispyWaffle.Cryptography
                 { HashAlgorithmType.Sha1, SHA1.Create() },
                 { HashAlgorithmType.Sha256, SHA256.Create() },
                 { HashAlgorithmType.Sha384, SHA384.Create() },
-                { HashAlgorithmType.Sha512, SHA512.Create() }
+                { HashAlgorithmType.Sha512, SHA512.Create() },
             };
     }
 }

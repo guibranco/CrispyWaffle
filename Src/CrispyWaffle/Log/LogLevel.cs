@@ -61,6 +61,6 @@ namespace CrispyWaffle.Log
         /// All levels together
         /// </summary>
         [HumanReadable("All")]
-        All = Development | Debug
+        All = Development | Debug,
     }
 }

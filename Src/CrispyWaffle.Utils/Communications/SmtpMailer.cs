@@ -82,7 +82,7 @@ namespace CrispyWaffle.Utils.Communications
                     connection.Credentials.Password
                 ),
                 Timeout = 300000,
-                EnableSsl = true
+                EnableSsl = true,
             };
             _message = new() { From = new(_options.FromAddress, _options.FromName) };
             _disposed = false;
@@ -110,7 +110,7 @@ namespace CrispyWaffle.Utils.Communications
                 {
                     Credentials = new Credentials { Password = password, Username = userName },
                     Host = host,
-                    Port = port
+                    Port = port,
                 },
                 new() { FromAddress = senderEmailAddress, FromName = senderDisplayName }
             ) { }

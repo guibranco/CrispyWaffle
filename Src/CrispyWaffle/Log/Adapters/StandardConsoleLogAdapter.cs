@@ -62,7 +62,7 @@ namespace CrispyWaffle.Log.Adapters
             { LogLevel.Warning, WarningColor },
             { LogLevel.Info, InfoColor },
             { LogLevel.Trace, TraceColor },
-            { LogLevel.Debug, DebugColor }
+            { LogLevel.Debug, DebugColor },
         };
 
         /// <summary>
