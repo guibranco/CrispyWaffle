@@ -28,6 +28,6 @@
         /// <summary>
         /// The sh a512
         /// </summary>
-        Sha512
+        Sha512,
     }
 }

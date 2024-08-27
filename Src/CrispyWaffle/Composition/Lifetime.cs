@@ -17,6 +17,6 @@ namespace CrispyWaffle.Composition
         /// The singleton
         /// </summary>
         [HumanReadable("Singleton")]
-        Singleton
+        Singleton,
     }
 }

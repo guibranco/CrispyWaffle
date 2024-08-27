@@ -136,7 +136,7 @@ namespace CrispyWaffle.ElasticSearch.Log
                 ProcessId = EnvironmentHelper.ProcessId,
                 UserAgent = EnvironmentHelper.UserAgent,
                 ThreadId = Environment.CurrentManagedThreadId,
-                ThreadName = Thread.CurrentThread.Name
+                ThreadName = Thread.CurrentThread.Name,
             };
 
         /// <summary>

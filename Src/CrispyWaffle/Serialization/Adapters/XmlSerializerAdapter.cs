@@ -62,7 +62,7 @@ namespace CrispyWaffle.Serialization.Adapters
             {
                 Indent = true,
                 Encoding = Encoding.UTF8,
-                OmitXmlDeclaration = false
+                OmitXmlDeclaration = false,
             };
             var xmlStream = XmlWriter.Create(stream, xmlConfig);
 
