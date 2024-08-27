@@ -143,8 +143,8 @@ public class JsonSerializerAdapterTests
                 {
                     CorrelationId = Guid.Empty,
                     Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
-                    SomeText = "Test"
-                }
-            }
+                    SomeText = "Test",
+                },
+            },
         };
 }

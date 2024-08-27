@@ -113,7 +113,7 @@ namespace CrispyWaffle.Serialization.Adapters
                 return;
             }
 
-            var writerOptions = new JsonWriterOptions { Indented = _settings.WriteIndented, };
+            var writerOptions = new JsonWriterOptions { Indented = _settings.WriteIndented };
 
             using (var jsonWriter = new Utf8JsonWriter(stream, writerOptions))
             {

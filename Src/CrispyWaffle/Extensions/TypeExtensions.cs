@@ -139,7 +139,7 @@ namespace CrispyWaffle.Extensions
                     typeof(DateTime),
                     typeof(DateTimeOffset),
                     typeof(TimeSpan),
-                    typeof(Guid)
+                    typeof(Guid),
                 }.Contains(type)
                 || Convert.GetTypeCode(type) != TypeCode.Object;
         }
@@ -160,7 +160,7 @@ namespace CrispyWaffle.Extensions
                 TypeCode.Int64,
                 TypeCode.Decimal,
                 TypeCode.Double,
-                TypeCode.Single
+                TypeCode.Single,
             };
 
         /// <summary>
