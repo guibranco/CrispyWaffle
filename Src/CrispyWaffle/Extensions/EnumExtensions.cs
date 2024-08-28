@@ -11,13 +11,26 @@ namespace CrispyWaffle.Extensions
     public static class EnumExtensions
     {
         /// <summary>
-        /// Gets the enum by human readable attribute.
+        /// Retrieves the enum value associated with a specified human-readable string representation.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="humanReadableValue">The human readable value.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException">humanReadableValue</exception>
+        /// <typeparam name="T">The enum type from which to retrieve the value.</typeparam>
+        /// <param name="humanReadableValue">The human-readable string representation of the enum value.</param>
+        /// <returns>The enum value of type <typeparamref name="T"/> that corresponds to the specified human-readable string.</returns>
+        /// <remarks>
+        /// This method checks if the provided type <typeparamref name="T"/> is an enum. If it is not, an
+        /// <see cref="InvalidOperationException"/> is thrown. It then searches through the fields of the enum
+        /// type to find a field that matches the provided human-readable value either by its custom attribute
+        /// <see cref="HumanReadableAttribute"/> or by its name. If no matching field is found, an
+        /// <see cref="ArgumentOutOfRangeException"/> is thrown indicating that the specified value does not
+        /// correspond to any field in the enum. This method is useful for converting user-friendly strings
+        /// into their corresponding enum values, enhancing the usability of enums in applications.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the type <typeparamref name="T"/> is not an enum type.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when no field in the enum matches the specified human-readable value.
+        /// </exception>
         public static T GetEnumByHumanReadableAttribute<T>(string humanReadableValue)
         {
             var type = typeof(T);
@@ -63,11 +76,22 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the enum by internal value attribute.
+        /// Retrieves an enumeration value based on the specified internal value attribute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="internalValue">The internal value.</param>
-        /// <returns></returns>
+        /// <typeparam name="T">The enum type from which to retrieve the value.</typeparam>
+        /// <param name="internalValue">The internal value associated with the desired enum field.</param>
+        /// <returns>The enum value corresponding to the specified internal value attribute.</returns>
+        /// <remarks>
+        /// This method checks if the provided type <typeparamref name="T"/> is an enum. If it is not, an
+        /// <see cref="InvalidOperationException"/> is thrown. If the <paramref name="internalValue"/> is null,
+        /// the method returns the default value for the enum type. It then searches through the fields of the
+        /// enum type for a field that has an <see cref="InternalValueAttribute"/> with a matching internal value
+        /// or a field name that matches the provided internal value. If no matching field is found, an
+        /// <see cref="ArgumentOutOfRangeException"/> is thrown. If a match is found, the corresponding enum
+        /// value is returned.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown when the type <typeparamref name="T"/> is not an enum type.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when no field with the specified internal value is found.</exception>
         public static T GetEnumByInternalValueAttribute<T>(string internalValue)
         {
             var type = typeof(T);

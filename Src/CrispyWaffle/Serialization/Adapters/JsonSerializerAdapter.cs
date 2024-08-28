@@ -99,11 +99,18 @@ namespace CrispyWaffle.Serialization.Adapters
         }
 
         /// <summary>
-        /// Serializes.
+        /// Serializes an object of type <typeparamref name="T"/> into a JSON format and outputs it to a stream.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="deserialized">The deserialized.</param>
-        /// <param name="stream">[in,out] The stream.</param>
+        /// <typeparam name="T">The type of the object to be serialized, which must be a class.</typeparam>
+        /// <param name="deserialized">The object to serialize. If this is null, the method will not perform any serialization.</param>
+        /// <param name="stream">An output parameter that will contain the stream with the serialized JSON data.</param>
+        /// <remarks>
+        /// This method creates a new <see cref="MemoryStream"/> to hold the serialized JSON data.
+        /// If the provided <paramref name="deserialized"/> object is null, the method simply returns without performing any serialization.
+        /// Otherwise, it uses a <see cref="Utf8JsonWriter"/> to write the JSON representation of the object to the stream.
+        /// The JSON writer is configured with options that determine whether the output is indented based on the settings provided.
+        /// After serialization, the stream's position is reset to the beginning, allowing for subsequent reads from the start of the stream.
+        /// </remarks>
         public override void Serialize<T>(T deserialized, out Stream stream)
             where T : class
         {

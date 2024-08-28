@@ -280,6 +280,20 @@ namespace CrispyWaffle.Log.Adapters
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Writes a log message to a specified file, including various metadata about the application and the log entry.
+        /// </summary>
+        /// <param name="level">The log level indicating the severity of the log message.</param>
+        /// <param name="content">The content of the log message to be written to the file.</param>
+        /// <param name="fileName">Optional. The name of the file to which the log message will be written. If not provided, the current file name will be used.</param>
+        /// <param name="category">Optional. The category of the log message. If not provided, a default category will be used.</param>
+        /// <remarks>
+        /// This method constructs a log message containing various details such as the application name, category, timestamp, hostname,
+        /// unique identifier, IP addresses, log level, and the actual message content. It checks if the specified log level is enabled
+        /// before proceeding to write the log entry. The method ensures that the log file does not exceed a certain size by updating
+        /// the file stream as necessary. Depending on the specified file type, it formats the log message either as JSON or plain text
+        /// before writing it to the current file stream. The method is thread-safe and uses a lock to prevent concurrent write operations.
+        /// </remarks>
         private void WriteToFile(LogLevel level, Exception exception, string category = default)
         {
             var exMessage = new StringBuilder();
