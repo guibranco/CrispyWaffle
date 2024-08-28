@@ -97,10 +97,18 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         }
 
         /// <summary>
-        /// Configures the source.
+        /// Configures the event log source for the specified event log.
         /// </summary>
-        /// <param name="log">The log.</param>
-        /// <param name="source">The source.</param>
+        /// <param name="log">The event log to configure.</param>
+        /// <param name="source">The name of the source to be configured.</param>
+        /// <remarks>
+        /// This method checks if the specified source already exists for the given event log.
+        /// If the source exists but is associated with a different log, it deletes the existing source
+        /// and creates a new one with the specified log. If the source does not exist, it creates a new
+        /// event source for the specified log. After configuring the source, it notifies any changes
+        /// made to the log source. The method updates the event log's source property to reflect the
+        /// new source name.
+        /// </remarks>
         private static void ConfigureSource(System.Diagnostics.EventLog log, string source)
         {
             var sourceData = new EventSourceCreationData(source, log.Log)
@@ -140,11 +148,18 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         }
 
         /// <summary>
-        /// Notifies the log source change.
+        /// Notifies about a change in the event log source and updates the event log accordingly.
         /// </summary>
-        /// <param name="log">The log.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="oldLogName">Old name of the log.</param>
+        /// <param name="log">The <see cref="System.Diagnostics.EventLog"/> instance representing the event log to be updated.</param>
+        /// <param name="source">The name of the event source that is being registered.</param>
+        /// <param name="oldLogName">The name of the old log where the source was previously registered.</param>
+        /// <remarks>
+        /// This method checks if the old log name is not null and if the event source does not already exist for the specified log.
+        /// If the source does not exist, it creates a new event source associated with the specified log and machine name.
+        /// It then updates the event log's source to the new meta source and writes a warning entry to the log, indicating that
+        /// the source has been moved and that a computer restart may be required for the changes to take effect.
+        /// The warning entry informs that until the restart, messages may still be logged to the old log.
+        /// </remarks>
         private static void NotifyLogSourceChange(
             System.Diagnostics.EventLog log,
             string source,

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -14,13 +14,20 @@ namespace CrispyWaffle.Cryptography
     public static class Security
     {
         /// <summary>
-        /// Encrypts the specified password hash.
+        /// Encrypts the provided plain text using a password hash, salt key, and initialization vector key.
         /// </summary>
-        /// <param name="plainText">The plain text.</param>
-        /// <param name="passwordHash">The password hash.</param>
-        /// <param name="saltKey">The salt key.</param>
-        /// <param name="viKey">The vi key.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="plainText">The plain text string to be encrypted.</param>
+        /// <param name="passwordHash">The password hash used for deriving the encryption key.</param>
+        /// <param name="saltKey">The salt key used in the key derivation process.</param>
+        /// <param name="viKey">The initialization vector key used for the encryption process.</param>
+        /// <returns>A base64-encoded string representing the encrypted cipher text.</returns>
+        /// <remarks>
+        /// This method utilizes the Rijndael symmetric encryption algorithm in CBC mode with zero padding.
+        /// It first derives a key from the provided password hash and salt key using the Rfc2898DeriveBytes class.
+        /// The plain text is then encrypted using the derived key and the provided initialization vector key.
+        /// The resulting cipher text is converted to a base64 string for easy storage and transmission.
+        /// Note that the use of zero padding may lead to security vulnerabilities; consider using a more secure padding mode.
+        /// </remarks>
         public static string Encrypt(
             this string plainText,
             string passwordHash,
@@ -62,13 +69,21 @@ namespace CrispyWaffle.Cryptography
         }
 
         /// <summary>
-        /// Decrypts the specified password hash.
+        /// Decrypts an encrypted string using the specified password hash, salt key, and initialization vector key.
         /// </summary>
-        /// <param name="encryptedText">The encrypted text.</param>
-        /// <param name="passwordHash">The password hash.</param>
-        /// <param name="saltKey">The salt key.</param>
-        /// <param name="viKey">The vi key.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="encryptedText">The base64-encoded string that needs to be decrypted.</param>
+        /// <param name="passwordHash">The password hash used for generating the key for decryption.</param>
+        /// <param name="saltKey">The salt key used in the key derivation function.</param>
+        /// <param name="viKey">The initialization vector key used for the decryption process.</param>
+        /// <returns>The decrypted plain text as a string.</returns>
+        /// <remarks>
+        /// This method utilizes the Rijndael symmetric encryption algorithm in CBC mode to decrypt the provided
+        /// base64-encoded string. It first derives a cryptographic key from the provided password hash and salt
+        /// using the Rfc2898DeriveBytes class. The decryption process is performed using a CryptoStream, which
+        /// reads from a memory stream containing the cipher text bytes. The resulting plain text is then converted
+        /// from bytes to a string, with any trailing null characters removed. This method assumes that the input
+        /// string is properly formatted and that the decryption parameters are correct.
+        /// </remarks>
         [Localizable(false)]
         public static string Decrypt(
             this string encryptedText,

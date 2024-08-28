@@ -279,10 +279,16 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// To the ident string.
+        /// Converts an XmlDocument to its string representation.
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="document">The XmlDocument to be converted to a string.</param>
+        /// <returns>A string representation of the <paramref name="document"/> if it is not null; otherwise, returns null.</returns>
+        /// <remarks>
+        /// This extension method takes an instance of <see cref="XmlDocument"/> and converts it into a formatted string.
+        /// It uses an <see cref="XmlWriter"/> with specified settings to ensure that the output is indented and properly formatted.
+        /// If the provided <paramref name="document"/> is null, the method will return null without attempting to process it.
+        /// The resulting string can be useful for debugging or logging purposes, allowing for a human-readable format of the XML content.
+        /// </remarks>
         public static string ToIdentString(this XmlDocument document)
         {
             if (document == null)

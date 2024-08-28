@@ -124,10 +124,17 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Determines whether [is simple type] [the specified type].
+        /// Determines whether the specified type is a simple type.
         /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Boolean.</returns>
+        /// <param name="type">The type to evaluate.</param>
+        /// <returns>True if the <paramref name="type"/> is a simple type; otherwise, false.</returns>
+        /// <remarks>
+        /// A simple type is defined as a value type, a primitive type, or one of the following types:
+        /// string, decimal, DateTime, DateTimeOffset, TimeSpan, or Guid.
+        /// Additionally, if the type's code is not TypeCode.Object, it is also considered a simple type.
+        /// This method can be useful for determining how to handle types in serialization,
+        /// data storage, or other operations where the complexity of the type may affect processing.
+        /// </remarks>
         public static bool IsSimpleType(this Type type)
         {
             return type.IsValueType

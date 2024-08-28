@@ -130,13 +130,19 @@ namespace CrispyWaffle.RabbitMQ.Log
         }
 
         /// <summary>
-        /// Serializes the specified level.
+        /// Serializes a log message into a string format.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="identifier">The identifier.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="level">The log level of the message (e.g., Info, Warning, Error).</param>
+        /// <param name="category">The category under which the log message falls.</param>
+        /// <param name="message">The actual log message to be serialized.</param>
+        /// <param name="identifier">An optional identifier for the log message.</param>
+        /// <returns>A serialized string representation of the log message.</returns>
+        /// <remarks>
+        /// This method creates a new instance of the <see cref="LogMessage"/> class, populating its properties with relevant information such as
+        /// application name, category, current date and time, hostname, unique identifier, IP addresses, log level, and other contextual data.
+        /// The method then calls the <see cref="GetSerializer"/> method on the <see cref="LogMessage"/> instance to obtain the serialized string.
+        /// This serialized string can be used for logging purposes or for sending log data to external systems.
+        /// </remarks>
         private static string Serialize(
             LogLevel level,
             string category,
