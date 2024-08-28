@@ -141,11 +141,19 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Gets the serializer.
+        /// Retrieves a serializer converter for the specified object based on the provided serializer attribute.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="obj">The object.</param>
-        /// <returns>The serializer&lt; t&gt;</returns>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="attribute">The serializer attribute that determines the serialization format and options.</param>
+        /// <returns>A <see cref="SerializerConverter{T}"/> configured for the specified object and serialization format.</returns>
+        /// <remarks>
+        /// This method checks the format specified in the <paramref name="attribute"/> and creates a corresponding
+        /// <see cref="SerializerConverter{T}"/> instance. If the format is JSON, it further checks if strict mode is enabled
+        /// to determine the appropriate settings for the JSON serializer. For XML format, it resolves the appropriate
+        /// XML serializer adapter. If an unsupported format is provided, an <see cref="InvalidOperationException"/> is thrown.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown when the specified format in <paramref name="attribute"/> is not supported.</exception>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>(this T obj)
             where T : class

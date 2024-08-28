@@ -86,13 +86,19 @@ namespace CrispyWaffle.Redis.Log
         }
 
         /// <summary>
-        /// Serializes the specified level.
+        /// Serializes a log message into a string format.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="identifier">The identifier.</param>
-        /// <returns>System.String.</returns>
+        /// <param name="level">The log level of the message, indicating its severity.</param>
+        /// <param name="category">The category under which the log message falls.</param>
+        /// <param name="message">The actual log message content.</param>
+        /// <param name="identifier">An optional identifier for the message, can be null.</param>
+        /// <returns>A serialized string representation of the log message.</returns>
+        /// <remarks>
+        /// This method creates a new instance of the <see cref="LogMessage"/> class, populating its properties with relevant information such as
+        /// the current date and time, hostname, unique identifier, IP addresses, log level, and other contextual data.
+        /// The method then calls the <see cref="GetSerializer"/> method to convert the populated log message into a string format suitable
+        /// for logging purposes. This serialized string can be used for storing logs or sending them to a logging service.
+        /// </remarks>
         private static string Serialize(
             LogLevel level,
             string category,
