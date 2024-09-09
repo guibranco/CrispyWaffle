@@ -10,7 +10,7 @@
     </PackageVersion>
     <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.15.6" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
-    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
+    <PackageVersion Include="FluentAssertions" Version="6.12.1" />
     <PackageVersion Include="JunitXml.TestLogger" Version="4.0.254" />
     <PackageVersion Include="log4net" Version="2.0.17" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
