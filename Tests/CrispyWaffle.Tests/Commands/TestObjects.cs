@@ -7,7 +7,7 @@ namespace CrispyWaffle.Tests.Commands;
 /// <summary>
 /// Class TestObjects.
 /// </summary>
-internal class TestObjects
+internal sealed class TestObjects
 {
     /// <summary>
     /// The test done command class.
