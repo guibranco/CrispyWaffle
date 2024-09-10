@@ -12,7 +12,7 @@ namespace CrispyWaffle.Redis.Utils
     public static class RedisExtensions
     {
         /// <summary>
-        /// The connector
+        /// The connector.
         /// </summary>
         private static readonly RedisConnector _connector =
             ServiceLocator.Resolve<RedisConnector>();
