@@ -212,7 +212,7 @@ namespace CrispyWaffle.Redis.Utils.Communications
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks for freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
