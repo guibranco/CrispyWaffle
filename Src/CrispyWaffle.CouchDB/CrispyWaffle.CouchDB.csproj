@@ -8,4 +8,13 @@
 	<PackageReleaseNotes>CouchDB release</PackageReleaseNotes>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CouchDB.NET" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+
 </Project>
