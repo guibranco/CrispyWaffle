@@ -3,7 +3,7 @@
 namespace CrispyWaffle.Cache
 {
     /// <summary>
-    /// The cache repository interface
+    /// The cache repository interface.
     /// </summary>
     public interface ICacheRepository
     {
@@ -18,57 +18,77 @@ namespace CrispyWaffle.Cache
         /// <summary>
         /// Stores the specified value with the specified key.
         /// </summary>
-        /// <typeparam name="T">The type of the value</typeparam>
+        /// <typeparam name="T">The type of object (the object will be cast to this type).</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="ttl">(Optional)The time to live for this key.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Naming",
+            "CA1716:Identifiers should not match keywords",
+            Justification = "Design choice."
+        )]
         void Set<T>(T value, string key, TimeSpan? ttl = null);
 
         /// <summary>
         /// Sets the specified value.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object (the object will be cast to this type).</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Naming",
+            "CA1716:Identifiers should not match keywords",
+            Justification = "Design choice."
+        )]
         void Set<T>(T value, string key, string subKey);
 
         /// <summary>
         /// Gets the object with the specified key.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
+        /// <typeparam name="T">The type of object to return.</typeparam>
         /// <param name="key">The key.</param>
-        /// <returns>The object as <typeparamref name="T"/></returns>
-        /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists</exception>
+        /// <returns>The object as <typeparamref name="T"/>.</returns>
+        /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Naming",
+            "CA1716:Identifiers should not match keywords",
+            Justification = "Design choice."
+        )]
         T Get<T>(string key);
 
         /// <summary>
         /// Gets the specified key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to return.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        /// <returns></returns>
+        /// <returns>The object as <typeparamref name="T"/>.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Naming",
+            "CA1716:Identifiers should not match keywords",
+            Justification = "Design choice."
+        )]
         T Get<T>(string key, string subKey);
 
         /// <summary>
         /// Tries to get a value based on its key, if exists return true, else false.
         /// The out parameter value is the object requested.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
+        /// <typeparam name="T">The type of object to return if found.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
+        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.</returns>
         bool TryGet<T>(string key, out T value);
 
         /// <summary>
         /// Tries the get.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of object to return if found.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>Success info of the get, as a bool.</returns>
         bool TryGet<T>(string key, string subKey, out T value);
 
         /// <summary>

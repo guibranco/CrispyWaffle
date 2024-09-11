@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<ProjectGuid>7DA4B7D8-6621-43FA-969C-2F919D9ACD4C</ProjectGuid>  
+	<TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
+	<Description>The CrispyWaffle Couch DB package</Description>
+	<PackageTags>toolkit CouchDB library lib</PackageTags>
+	<PackageReleaseNotes>CouchDB release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CouchDB.NET" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+
+</Project>

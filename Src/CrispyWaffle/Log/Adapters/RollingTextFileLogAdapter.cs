@@ -284,8 +284,7 @@ namespace CrispyWaffle.Log.Adapters
         /// Writes a log message to a specified file, including various metadata about the application and the log entry.
         /// </summary>
         /// <param name="level">The log level indicating the severity of the log message.</param>
-        /// <param name="content">The content of the log message to be written to the file.</param>
-        /// <param name="fileName">Optional. The name of the file to which the log message will be written. If not provided, the current file name will be used.</param>
+        /// <param name="exception">The exception to log.</param>
         /// <param name="category">Optional. The category of the log message. If not provided, a default category will be used.</param>
         /// <remarks>
         /// This method constructs a log message containing various details such as the application name, category, timestamp, hostname,

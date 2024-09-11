@@ -33,7 +33,9 @@ install:
   - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
           https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
           Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
-            throw "There are newer queued builds for this pull request, failing early." }
+            throw "There are newer queued builds for this pull request, failing early." }  
+  - ps: (new-object net.webclient).DownloadFile('https://couchdb.neighbourhood.ie/downloads/3.3.3-3/win/apache-couchdb-3.3.3-3.msi', 'apache-couchdb-3.3.3.msi')
+  - ps: msiexec /i apache-couchdb-3.3.3.msi /quiet ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd /norestart
 
 before_build:
   - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))

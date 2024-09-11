@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\..\Src\CrispyWaffle.CouchDB\CrispyWaffle.CouchDB.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle.ElasticSearch\CrispyWaffle.ElasticSearch.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle.Redis\CrispyWaffle.Redis.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle\CrispyWaffle.csproj" />
