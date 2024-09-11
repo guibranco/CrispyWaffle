@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.CouchDB;
@@ -30,7 +30,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it cleans up by removing the document from the repository.
     /// This ensures that the repository's Get and Set methods work correctly and that the document can be successfully stored and retrieved.
     /// </remarks>
-
     [Fact]
     public void GetAndSetCouchDocTest()
     {
@@ -57,7 +56,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// <exception cref="System.Exception">
     /// This method may throw an exception if the repository operations fail, such as when trying to retrieve or remove a non-existent item.
     /// </exception>
-
     [Fact]
     public void GetAndSetSpecificTest()
     {
@@ -92,7 +90,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// The assertion checks that the retrieved document is the default value, indicating that the document has been successfully removed.
     /// This method is decorated with the [Fact] attribute, indicating that it is a unit test that should be executed by the test runner.
     /// </remarks>
-
     [Fact]
     public void RemoveCouchDocTest()
     {
@@ -116,7 +113,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it retrieves the document from the repository to assert that it has been successfully removed.
     /// The assertion checks that the retrieved document is the default value, indicating that the document no longer exists in the repository.
     /// </remarks>
-
     [Fact]
     public void RemoveSpecificTest()
     {
@@ -139,7 +135,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it checks that the document count in the repository is zero by calling <see cref="_repo.GetDocCount{CouchDoc}"/>.
     /// The assertion ensures that the clear operation was successful and that no documents remain in the repository.
     /// </remarks>
-
     [Fact]
     public void DatabaseClearTest()
     {
@@ -165,7 +160,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it asserts that the retrieved document is null, confirming that the TTL functionality is working as expected.
     /// </remarks>
     /// <exception cref="System.Exception">Thrown when the assertions fail, indicating that the expected behavior did not occur.</exception>
-
     [Fact]
     public void TTLGetTest()
     {
