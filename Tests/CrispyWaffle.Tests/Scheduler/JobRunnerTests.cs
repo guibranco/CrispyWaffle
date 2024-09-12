@@ -42,7 +42,7 @@ public class JobRunnerTests
     }
 
     /// <summary>
-    /// Defines the test method ValidateOutOfScheduler.
+    /// Defines the test task ValidateOutOfScheduler.
     /// </summary>
     [Fact]
     public async Task ValidateOutOfScheduler()
@@ -66,7 +66,7 @@ public class JobRunnerTests
     }
 
     /// <summary>
-    /// Defines the test method ValidateConcurrency.
+    /// Defines the test task ValidateConcurrency.
     /// </summary>
     [Fact]
     public async Task ValidateConcurrency()
