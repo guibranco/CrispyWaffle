@@ -48,6 +48,23 @@ public class RollingTextFileLogAdapterTests
         }
 
         Clean(files);
+    /// <summary>
+    /// Tests that exceptions are logged to a text file correctly.
+    /// </summary>
+    /// <remarks>
+    /// This test method verifies that when an exception is traced using the 
+    /// <see cref="RollingTextFileLogAdapter"/>, the expected exception message 
+    /// is logged to a text file. The test creates a nested exception structure 
+    /// and traces it multiple times (100 times in this case). After tracing, 
+    /// it checks the generated log files to ensure that the exception message 
+    /// appears the expected number of times. The method uses regular expressions 
+    /// to match the log file names and to count occurrences of the exception 
+    /// message in the log files. Finally, it cleans up any log files created 
+    /// during the test execution.
+    /// </remarks>
+    /// <exception cref="ApplicationException">Thrown when an application-specific error occurs.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when an argument is outside the allowable range.</exception>
+    /// <exception cref="AccessViolationException">Thrown when there is an attempt to read or write protected memory.</exception>
     }
 
     [Fact]
@@ -143,6 +160,20 @@ public class RollingTextFileLogAdapterTests
 
         Clean(files);
     }
+    /// <summary>
+    /// Tests the maximum message constraint for the RollingTextFileLogAdapter.
+    /// </summary>
+    /// <remarks>
+    /// This test verifies that the RollingTextFileLogAdapter correctly limits the number of log files created 
+    /// when logging messages. It initializes the adapter with a specified file name seed and configuration, 
+    /// then logs a predefined message multiple times. After logging, it checks that the number of log files 
+    /// generated does not exceed the expected limit. The test also ensures that each log file contains valid JSON 
+    /// data by attempting to parse the contents of each file. Finally, any created log files are cleaned up 
+    /// after the test execution.
+    /// </remarks>
+    /// <exception cref="System.IO.IOException">
+    /// Thrown when there is an issue accessing the file system, such as when reading or writing log files.
+    /// </exception>
 
     [Fact]
     public void MaxMessageConstraintTest()
