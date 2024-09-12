@@ -1,4 +1,4 @@
-﻿using CouchDB.Driver;
+using CouchDB.Driver;
 using CrispyWaffle.CouchDB.Cache;
 using CrispyWaffle.CouchDB.Utils.Communications;
 using FluentAssertions;
@@ -37,7 +37,6 @@ public class CouchDBCacheRepositoryTests
     /// to confirm that the value was stored as expected. 
     /// This test is marked with the [Fact] attribute, indicating that it is a unit test that can be run by a test runner.
     /// </remarks>
-
     [Fact]
     public void SetToDatabase_ShouldStoreValue()
     {
@@ -59,7 +58,6 @@ public class CouchDBCacheRepositoryTests
     /// The method then calls the Get method with the key and asserts that the actual value returned is null, indicating that no value is stored for the given key.
     /// This is useful for ensuring that the database behaves as expected when attempting to retrieve a value that does not exist.
     /// </remarks>
-
     [Fact]
     public void GetFromDatabase_ShouldReturnStoredValue()
     {
@@ -84,7 +82,6 @@ public class CouchDBCacheRepositoryTests
     /// - **Assert**: Although there are no assertions in this snippet, typically this phase would check that the entry has been successfully removed from the database.
     /// This test is marked with the <c>[Fact]</c> attribute, indicating that it is a test method that should be executed by the testing framework.
     /// </remarks>
-
     [Fact]
     public void RemoveFromDatabase_ShouldRemoveValue()
     {

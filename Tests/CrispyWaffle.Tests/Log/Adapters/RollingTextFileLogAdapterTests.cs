@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -174,7 +174,6 @@ public class RollingTextFileLogAdapterTests
     /// <exception cref="System.IO.IOException">
     /// Thrown when there is an issue accessing the file system, such as when reading or writing log files.
     /// </exception>
-
     [Fact]
     public void MaxMessageConstraintTest()
     {

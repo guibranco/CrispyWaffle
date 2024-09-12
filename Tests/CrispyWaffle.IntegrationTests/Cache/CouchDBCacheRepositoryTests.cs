@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.CouchDB.Cache;
@@ -33,7 +33,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// This ensures that the repository's Get and Set methods are functioning correctly.
     /// </remarks>
     /// <exception cref="Exception">Throws an exception if the document retrieval fails or if the keys do not match.</exception>
-
     [Fact]
     public void GetAndSetCouchDocTest()
     {
@@ -57,7 +56,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// The test checks that the keys and makers of the retrieved Car objects are as expected.
     /// Finally, it cleans up by removing the Car objects from the repository after the assertions.
     /// </remarks>
-
     [Fact]
     public void GetAndSetSpecificTest()
     {
@@ -91,7 +89,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it retrieves the document from the repository to verify that it has been successfully removed by asserting that the retrieved document is equal to the default value for <see cref="CouchDBCacheDocument"/>.
     /// This ensures that the removal functionality of the repository works as expected.
     /// </remarks>
-
     [Fact]
     public void RemoveCouchDocTest()
     {
@@ -115,7 +112,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it retrieves the document from the repository to verify that it has been successfully removed.
     /// The assertion checks that the retrieved document is equal to the default value, indicating that the document no longer exists in the repository.
     /// </remarks>
-
     [Fact]
     public void RemoveSpecificTest()
     {
@@ -141,7 +137,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// <see cref="_repository.GetDocCount{T}"/> method, ensuring that the clear operation was successful.
     /// This method is marked with the <see cref="[Fact]"/> attribute, indicating that it is a unit test.
     /// </remarks>
-
     [Fact]
     public void DatabaseClearTest()
     {
@@ -169,7 +164,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// longer available (i.e., should be null). This ensures that the cache correctly handles 
     /// document expiration based on the TTL setting.
     /// </remarks>
-
     [Fact]
     public async Task TTLGetTest()
     {
