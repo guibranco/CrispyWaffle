@@ -51,9 +51,14 @@ public class CouchDBConnector : IDisposable
     }
 
     /// <summary>
-    /// Disposes resources.
+    /// Releases the resources used by the current instance of the class.
     /// </summary>
-    /// <param name="disposing">True if called explicitly.</param>
+    /// <param name="disposing">A boolean value indicating whether the method was called directly or indirectly by a user's code.</param>
+    /// <remarks>
+    /// This method is part of the IDisposable pattern. When disposing is true, the method releases both managed and unmanaged resources.
+    /// If disposing is false, the method only releases unmanaged resources. This allows for proper cleanup of resources when the object is no longer needed.
+    /// It is important to call this method to ensure that all resources are released appropriately, especially when dealing with unmanaged resources.
+    /// </remarks>
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
