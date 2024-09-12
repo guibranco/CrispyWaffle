@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 8.2 [2024-09-11]
+
+- Implement CouchDB cache - [issue #499](https://github.com/guibranco/CrispyWaffle/issues/499) and [pull request #544](https://github.com/guibranco/CrispyWaffle/pull/544) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
+
 ## Version 8.1 [2024-08-08]
 
 - Implement rolling text file log adapter - [issue #37](https://github.com/guibranco/CrispyWaffle/issues/37) and [pull request #479](https://github.com/guibranco/CrispyWaffle/pull/479) by [@Mohammad-Haris](https://github.com/Mohammad-Haris)
