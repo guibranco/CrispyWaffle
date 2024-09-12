@@ -10,7 +10,7 @@ on:
 jobs:
   SonarCloudAnalysis:
     name: SonarCloud Analysis
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     steps:
       - name: Set up Java
