@@ -3,77 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CouchDB.Driver;
-using CouchDB.Driver.Settings;
 using CrispyWaffle.Cache;
-using CrispyWaffle.Configuration;
-using CrispyWaffle.CouchDB.DTOs;
+using CrispyWaffle.CouchDB.Utils.Communications;
 using CrispyWaffle.Log;
 
-namespace CrispyWaffle.CouchDB
+namespace CrispyWaffle.CouchDB.Cache
 {
     /// <summary>
     /// Class CouchDBCacheRepository.
     /// </summary>
     public class CouchDBCacheRepository : ICacheRepository, IDisposable
     {
-        private readonly CouchClient _couchClient;
+        private readonly CouchDBConnector _connector;
 
-        /// <inheritdoc />
         public bool ShouldPropagateExceptions { get; set; }
-
-        /// <summary>
-        /// Get total count of documents in a database.
-        /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
-        /// <returns>Total cound of documents.</returns>
-        public int GetDocCount<T>()
-            where T : CouchDoc
-        {
-            return ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CouchDBCacheRepository"/> class.
         /// </summary>
-        /// <param name="connection">Connection information including username and password.</param>
-        /// <param name="authType">The type of authentication to be used.</param>
-        /// <param name="cookieDuration">Cookie duration in case cookie auth is used.</param>
-        public CouchDBCacheRepository(
-            IConnection connection,
-            AuthType authType,
-            int cookieDuration = 10
-        )
+        /// <param name="connector">The connector.</param>
+        public CouchDBCacheRepository(CouchDBConnector connector)
         {
-            try
-            {
-                _couchClient = new CouchClient(
-                    $"{connection.Host}:{connection.Port}",
-                    GetAuth(authType, connection)
-                );
-            }
-            catch (Exception e)
-            {
-                if (ShouldPropagateExceptions)
-                {
-                    throw;
-                }
+            _connector = connector;
+        }
 
-                HandleException(e);
-            }
+        /// <summary>
+        /// Get total count of documents in a database.
+        /// </summary>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
+        /// <returns>Total count of documents.</returns>
+        public int GetDocCount<T>()
+            where T : CouchDBCacheDocument
+        {
+            return ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
         }
 
         /// <inheritdoc />
         public void Clear()
         {
-            Clear<CouchDoc>();
+            Clear<CouchDBCacheDocument>();
         }
 
         /// <summary>
-        /// Clears a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Clears a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         public void Clear<T>()
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
@@ -95,41 +71,41 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
         }
 
         /// <inheritdoc />
         public T Get<T>(string key)
         {
-            if (!typeof(CouchDoc).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return default;
             }
 
-            return (T)(object)GetSpecific<CouchDoc>(key);
+            return (T)(object)GetSpecific<CouchDBCacheDocument>(key);
         }
 
         /// <inheritdoc />
         public T Get<T>(string key, string subKey)
         {
-            if (!typeof(CouchDoc).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return default;
             }
 
-            return (T)(object)GetSpecific<CouchDoc>(key, subKey);
+            return (T)(object)GetSpecific<CouchDBCacheDocument>(key, subKey);
         }
 
         /// <summary>
-        /// Gets from a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Gets from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="key">A uniquely identifiable key to get document from the specified database.</param>
         /// <returns>The document if found.</returns>
         /// <exception cref="InvalidOperationException">Thrown in case the operation fails.</exception>
         public T GetSpecific<T>(string key)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
@@ -150,22 +126,22 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
 
             throw new InvalidOperationException($"Unable to get the item with key: {key}");
         }
 
         /// <summary>
-        /// Gets from a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Gets from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="key">A uniquely identifiable key to get document from the specified database.</param>
         /// <param name="subKey">The sub key.</param>
         /// <returns>The document if found.</returns>
         /// <exception cref="InvalidOperationException">Thrown in case the operation fails.</exception>
         public T GetSpecific<T>(string key, string subKey)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
@@ -188,7 +164,7 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
 
             throw new InvalidOperationException(
@@ -199,26 +175,26 @@ namespace CrispyWaffle.CouchDB
         /// <inheritdoc />
         public void Remove(string key)
         {
-            RemoveSpecific<CouchDoc>(key);
+            RemoveSpecific<CouchDBCacheDocument>(key);
         }
 
         /// <inheritdoc />
         public void Remove(string key, string subKey)
         {
-            RemoveSpecific<CouchDoc>(key, subKey);
+            RemoveSpecific<CouchDBCacheDocument>(key, subKey);
         }
 
         /// <summary>
-        /// Removes from a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
         public void RemoveSpecific<T>(string key)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
-                var db = _couchClient.GetDatabase<T>();
+                var db = _connector.CouchDBClient.GetDatabase<T>();
                 var doc = db.Where(x => x.Key == key).FirstOrDefault();
 
                 if (doc != default)
@@ -233,22 +209,22 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
         }
 
         /// <summary>
-        /// Removes from a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
         /// <param name="subKey">The sub key.</param>
         public void RemoveSpecific<T>(string key, string subKey)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
-                var db = _couchClient.GetDatabase<T>();
+                var db = _connector.CouchDBClient.GetDatabase<T>();
                 var doc = db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
                 if (doc != default)
@@ -263,41 +239,41 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
         }
 
         /// <inheritdoc />
         public void Set<T>(T value, string key, TimeSpan? ttl = null)
         {
-            if (!typeof(CouchDoc).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return;
             }
 
-            SetSpecific((CouchDoc)(object)value, key, ttl);
+            SetSpecific((CouchDBCacheDocument)(object)value, key, ttl);
         }
 
         /// <inheritdoc />
         public void Set<T>(T value, string key, string subKey)
         {
-            if (!typeof(CouchDoc).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return;
             }
 
-            SetSpecific((CouchDoc)(object)value, key, subKey);
+            SetSpecific((CouchDBCacheDocument)(object)value, key, subKey);
         }
 
         /// <summary>
-        /// Persists to a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Persists to a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="value">The value of type T to be persisted.</param>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
         /// <param name="ttl">How long the value should be stored.</param>
         public void SetSpecific<T>(T value, string key, TimeSpan? ttl = null)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
@@ -318,19 +294,19 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
         }
 
         /// <summary>
-        /// Persists to a class specified database instead of the general <see cref="CouchDoc"/> database.
+        /// Persists to a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
         /// </summary>
-        /// <typeparam name="T">Type T with base type <see cref="CouchDoc"/>.</typeparam>
+        /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="value">The value of type T to be persisted.</param>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
         /// <param name="subKey">The sub key.</param>
         public void SetSpecific<T>(T value, string key, string subKey)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             try
             {
@@ -346,14 +322,14 @@ namespace CrispyWaffle.CouchDB
                     throw;
                 }
 
-                HandleException(e);
+                LogConsumer.Handle(e);
             }
         }
 
         /// <inheritdoc />
         public bool TryGet<T>(string key, out T value)
         {
-            var get = Get<CouchDoc>(key);
+            var get = Get<CouchDBCacheDocument>(key);
 
             if (get != default)
             {
@@ -368,7 +344,7 @@ namespace CrispyWaffle.CouchDB
         /// <inheritdoc />
         public bool TryGet<T>(string key, string subKey, out T value)
         {
-            var get = Get<CouchDoc>(key, subKey);
+            var get = Get<CouchDBCacheDocument>(key, subKey);
 
             if (get != default)
             {
@@ -383,87 +359,35 @@ namespace CrispyWaffle.CouchDB
         /// <inheritdoc/>
         public TimeSpan TTL(string key)
         {
-            return Get<CouchDoc>(key).TTL;
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            return Get<CouchDBCacheDocument>(key).TTL;
         }
 
         /// <summary>
-        /// Disposes resources.
+        /// Resolves the database.
         /// </summary>
-        /// <param name="disposing">True if called explicitly.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _couchClient?.Dispose();
-            }
-        }
-
-        private static Action<CouchSettings> GetAuth(
-            AuthType type,
-            IConnection connection,
-            int cookieDuration = 10
-        )
-        {
-            if (type == AuthType.Basic)
-            {
-                return (CouchSettings s) =>
-                    s.UseBasicAuthentication(
-                        connection.Credentials.Username,
-                        connection.Credentials.Password
-                    );
-            }
-
-            return (CouchSettings s) =>
-                s.UseCookieAuthentication(
-                    connection.Credentials.Username,
-                    connection.Credentials.Password,
-                    cookieDuration
-                );
-        }
-
+        /// <typeparam name="T">The type of the document.</typeparam>
+        /// <param name="dbName">Name of the database.</param>
+        /// <returns>CouchDatabase&lt;T&gt;.</returns>
         private CouchDatabase<T> ResolveDatabase<T>(string dbName = default)
-            where T : CouchDoc
+            where T : CouchDBCacheDocument
         {
             if (string.IsNullOrEmpty(dbName))
             {
                 dbName = $"{typeof(T).Name.ToLowerInvariant()}s";
             }
 
-            if (!_couchClient.GetDatabasesNamesAsync().Result.Contains(dbName))
-            {
-                return _couchClient.CreateDatabaseAsync<T>().Result;
-            }
-
-            return _couchClient.GetDatabase<T>();
+            return !_connector.CouchDBClient.GetDatabasesNamesAsync().Result.Contains(dbName)
+                ? _connector.CouchDBClient.CreateDatabaseAsync<T>().Result
+                : _connector.CouchDBClient.GetDatabase<T>();
         }
 
-        private static void HandleException(Exception e)
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
         {
-            LogConsumer.Trace(e);
-            LogConsumer.Handle(e);
+            _connector.Dispose();
+            GC.SuppressFinalize(this);
         }
-    }
-
-    /// <summary>
-    /// Auth type to use.
-    /// </summary>
-    public enum AuthType
-    {
-        /// <summary>
-        /// Basic auth type.
-        /// </summary>
-        Basic,
-
-        /// <summary>
-        /// Cookie based auth.
-        /// </summary>
-        Cookie,
     }
 }

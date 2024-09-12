@@ -11,11 +11,11 @@ namespace CrispyWaffle.Redis.Cache
 {
     /// <summary>
     /// Class RedisCacheRepository.
-    /// Implements the <see cref="CrispyWaffle.Cache.ICacheRepository" />.
-    /// Implements the <see cref="System.IDisposable" />.
+    /// Implements the <see cref="ICacheRepository" />.
+    /// Implements the <see cref="IDisposable" />.
     /// </summary>
-    /// <seealso cref="CrispyWaffle.Cache.ICacheRepository" />
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="ICacheRepository" />
+    /// <seealso cref="IDisposable" />
     public class RedisCacheRepository : ICacheRepository, IDisposable
     {
         /// <summary>
@@ -113,7 +113,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Tries the get from database.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the document.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="databaseNumber">The database number.</param>
         /// <param name="value">The value.</param>
@@ -152,7 +152,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Sets the specified value.
         /// </summary>
-        /// <typeparam name="T">The type of the value</typeparam>
+        /// <typeparam name="T">The type of the value.</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="ttl">The TTL.</param>
@@ -183,7 +183,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Sets the specified value.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the document.</typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
@@ -211,11 +211,10 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Gets the specified key.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
+        /// <typeparam name="T">The type of object (the object will be cast to this type).</typeparam>
         /// <param name="key">The key.</param>
         /// <returns>T.</returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="InvalidOperationException">"Unable to get the item with key.</exception>
         public T Get<T>(string key)
         {
             try
@@ -247,12 +246,11 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Gets the specified key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the document.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <returns>T.</returns>
-        /// <exception cref="System.InvalidOperationException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="InvalidOperationException">Unable to get the item with key and sub key.</exception>
         public T Get<T>(string key, string subKey)
         {
             try
@@ -290,10 +288,10 @@ namespace CrispyWaffle.Redis.Cache
         /// Tries to get a value based on its key, if exists return true, else false.
         /// The out parameter value is the object requested.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
+        /// <typeparam name="T">The type of object (the object will be cast to this type).</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
+        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.</returns>
         public bool TryGet<T>(string key, out T value)
         {
             value = default;
@@ -318,7 +316,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Tries the get.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type of the document.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
