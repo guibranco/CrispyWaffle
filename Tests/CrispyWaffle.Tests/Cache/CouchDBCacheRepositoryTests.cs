@@ -11,6 +11,7 @@ namespace CrispyWaffle.Tests.Cache;
 public class CouchDBCacheRepositoryTests : IDisposable
 {
     private readonly CouchDBCacheRepository _repo;
+
     public CouchDBCacheRepositoryTests()
     {
         var conn = new Connection();
@@ -49,14 +50,13 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         var docDB = _repo.GetSpecific<Car>(docOne.Key);
 
-        Assert.True(docOne.Key == docDB.Key
-            && docOne.SubKey == docDB.SubKey
-            && docOne.Maker == "MakerOne");
+        Assert.True(
+            docOne.Key == docDB.Key && docOne.SubKey == docDB.SubKey && docOne.Maker == "MakerOne"
+        );
 
         docDB = _repo.GetSpecific<Car>(docTwo.Key);
 
-        Assert.True(docTwo.Key == docDB.Key
-            && docTwo.Maker == "MakerTwo");
+        Assert.True(docTwo.Key == docDB.Key && docTwo.Maker == "MakerTwo");
 
         _repo.RemoveSpecific<Car>(docOne.Key);
         _repo.RemoveSpecific<Car>(docTwo.Key);
@@ -108,10 +108,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
     [Fact]
     public async Task TTLGetTest()
     {
-        var doc = new CouchDoc()
-        {
-            Key = Guid.NewGuid().ToString()
-        };
+        var doc = new CouchDoc() { Key = Guid.NewGuid().ToString() };
 
         _repo.Set(new CouchDoc(), doc.Key, new TimeSpan(0, 0, 5));
         var fromDB = _repo.Get<CouchDoc>(doc.Key);

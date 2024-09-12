@@ -13,15 +13,8 @@ public class CouchDoc : CouchDocument
     /// </summary>
     public string Key
     {
-        get
-        {
-            return Id;
-        }
-
-        set
-        {
-            Id = value;
-        }
+        get { return Id; }
+        set { Id = value; }
     }
 
     /// <summary>

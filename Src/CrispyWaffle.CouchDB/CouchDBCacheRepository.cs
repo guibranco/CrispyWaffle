@@ -38,7 +38,11 @@ namespace CrispyWaffle.CouchDB
         /// <param name="connection">Connection information including username and password.</param>
         /// <param name="authType">The type of authentication to be used.</param>
         /// <param name="cookieDuration">Cookie duration in case cookie auth is used.</param>
-        public CouchDBCacheRepository(IConnection connection, AuthType authType, int cookieDuration = 10)
+        public CouchDBCacheRepository(
+            IConnection connection,
+            AuthType authType,
+            int cookieDuration = 10
+        )
         {
             try
             {
@@ -165,7 +169,9 @@ namespace CrispyWaffle.CouchDB
         {
             try
             {
-                var doc = ResolveDatabase<T>().Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
+                var doc = ResolveDatabase<T>()
+                    .Where(x => x.Key == key && x.SubKey == subKey)
+                    .FirstOrDefault();
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -185,7 +191,9 @@ namespace CrispyWaffle.CouchDB
                 HandleException(e);
             }
 
-            throw new InvalidOperationException($"Unable to get the item with key: {key} and sub key: {subKey}");
+            throw new InvalidOperationException(
+                $"Unable to get the item with key: {key} and sub key: {subKey}"
+            );
         }
 
         /// <inheritdoc />
@@ -397,21 +405,27 @@ namespace CrispyWaffle.CouchDB
             }
         }
 
-        private static Action<CouchSettings> GetAuth(AuthType type, IConnection connection, int cookieDuration = 10)
+        private static Action<CouchSettings> GetAuth(
+            AuthType type,
+            IConnection connection,
+            int cookieDuration = 10
+        )
         {
             if (type == AuthType.Basic)
             {
-                return (CouchSettings s) => s.UseBasicAuthentication(
-                    connection.Credentials.Username,
-                    connection.Credentials.Password
-                );
+                return (CouchSettings s) =>
+                    s.UseBasicAuthentication(
+                        connection.Credentials.Username,
+                        connection.Credentials.Password
+                    );
             }
 
-            return (CouchSettings s) => s.UseCookieAuthentication(
+            return (CouchSettings s) =>
+                s.UseCookieAuthentication(
                     connection.Credentials.Username,
                     connection.Credentials.Password,
                     cookieDuration
-            );
+                );
         }
 
         private CouchDatabase<T> ResolveDatabase<T>(string dbName = default)
@@ -450,6 +464,6 @@ namespace CrispyWaffle.CouchDB
         /// <summary>
         /// Cookie based auth.
         /// </summary>
-        Cookie
+        Cookie,
     }
 }
