@@ -16,6 +16,9 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Docker compose up
+        run: docker compose up -d && sleep 10
+
       - name: Install DeepSource scanner
         run: curl https://deepsource.io/cli | sh
 
