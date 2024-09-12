@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.CouchDB;
@@ -116,7 +116,6 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// <exception cref="System.Exception">
     /// Throws an exception if the assertions fail, indicating that the expected behavior of the TTL functionality is not met.
     /// </exception>
-
     [Fact]
     public async Task TTLGetTest()
     {

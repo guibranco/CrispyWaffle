@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Tests.Fixtures;
 using Xunit;
@@ -31,7 +31,6 @@ public class ServiceLocatorTests
     /// <exception cref="Xunit.Sdk.EqualException">
     /// Thrown when the expected values are not equal during the assertion checks.
     /// </exception>
-
     [Fact]
     public async Task ValidateSingletonCreationAndPersistence()
     {

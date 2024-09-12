@@ -30,7 +30,6 @@ public class JobRunnerTests
     /// This ensures that the JobRunner behaves as expected when executing scheduled tasks.
     /// </remarks>
     /// <exception cref="System.Exception">Thrown if the assertion fails, indicating that the counter did not reach the expected value.</exception>
-
     [Fact]
     public async Task ValidateJobRunner()
     {
@@ -58,7 +57,6 @@ public class JobRunnerTests
     /// The method uses a counter from a test object to track how many times the job has been executed.
     /// After running the job for a total of 11 minutes, it asserts that the counter equals 3, indicating that the job was triggered correctly.
     /// </remarks>
-
     [Fact]
     public async Task ValidateOutOfScheduler()
     {
@@ -92,7 +90,6 @@ public class JobRunnerTests
     /// concurrently despite multiple execution calls.
     /// </remarks>
     /// <exception cref="System.Exception">Thrown when the assertion fails.</exception>
-
     [Fact]
     public async Task ValidateConcurrency()
     {
