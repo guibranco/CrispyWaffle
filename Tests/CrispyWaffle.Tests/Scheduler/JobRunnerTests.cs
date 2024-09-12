@@ -1,5 +1,5 @@
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 using CrispyWaffle.Scheduler;
 using Xunit;
 
@@ -21,10 +21,10 @@ public class JobRunnerTests
     }
 
     /// <summary>
-    /// Defines the test method ValidateJobRunner.
+    /// Defines the test task ValidateJobRunner.
     /// </summary>
     [Fact]
-    public void ValidateJobRunner()
+    public async Task ValidateJobRunner()
     {
         var sampler = new TestObjects();
 
@@ -33,19 +33,19 @@ public class JobRunnerTests
         for (var i = 0; i < 10; i++)
         {
             runner.Execute(DateTime.Now);
-            Thread.Sleep(500);
+            await Task.Delay(500);
         }
 
-        Thread.Sleep(1000);
+        await Task.Delay(1000);
 
         Assert.Equal(10, sampler.Counter);
     }
 
     /// <summary>
-    /// Defines the test method ValidateOutOfScheduler.
+    /// Defines the test task ValidateOutOfScheduler.
     /// </summary>
     [Fact]
-    public void ValidateOutOfScheduler()
+    public async Task ValidateOutOfScheduler()
     {
         var sampler = new TestObjects();
 
@@ -56,20 +56,20 @@ public class JobRunnerTests
         for (var i = 0; i <= 10; i++)
         {
             runner.Execute(date);
-            Thread.Sleep(500);
+            await Task.Delay(500);
             date = date.AddMinutes(1);
         }
 
-        Thread.Sleep(1000);
+        await Task.Delay(1000);
 
         Assert.Equal(3, sampler.Counter);
     }
 
     /// <summary>
-    /// Defines the test method ValidateConcurrency.
+    /// Defines the test task ValidateConcurrency.
     /// </summary>
     [Fact]
-    public void ValidateConcurrency()
+    public async Task ValidateConcurrency()
     {
         const int sleepMilliseconds = 2000;
 
@@ -77,22 +77,22 @@ public class JobRunnerTests
 
         var runner = new JobRunner(
             "*",
-            () =>
+            async () =>
             {
                 sampler.Counter++;
-                Thread.Sleep(sleepMilliseconds);
+                await Task.Delay(sleepMilliseconds);
             }
         );
 
         runner.Execute(DateTime.Now);
         runner.Execute(DateTime.Now);
 
-        Thread.Sleep(sleepMilliseconds * 2);
+        await Task.Delay(sleepMilliseconds * 2);
 
         runner.Execute(DateTime.Now);
         runner.Execute(DateTime.Now);
 
-        Thread.Sleep(sleepMilliseconds);
+        await Task.Delay(sleepMilliseconds);
 
         Assert.Equal(2, sampler.Counter);
     }
