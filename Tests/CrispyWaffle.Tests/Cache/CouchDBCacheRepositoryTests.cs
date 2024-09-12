@@ -7,20 +7,19 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Cache;
 
-[Collection("Sequential")]
 public class CouchDBCacheRepositoryTests : IDisposable
 {
-    private readonly CouchDBCacheRepository _repo;
+    private readonly CouchDBCacheRepository _repository;
 
     public CouchDBCacheRepositoryTests()
     {
-        var conn = new Connection();
-        conn.Host = "http://localhost";
-        conn.Port = 5984;
-        conn.Credentials.Username = "Admin";
-        conn.Credentials.Password = "myP@ssw0rd";
+        var conn = new Connection { Host = "http://localhost", Port = 5984, Credentials =
+            {
+                Username = "Admin", Password = "myP@ssw0rd"
+            }
+        };
 
-        _repo = new CouchDBCacheRepository(conn, AuthType.Basic);
+        _repository = new CouchDBCacheRepository(conn, AuthType.Basic);
     }
 
     [Fact]
@@ -28,13 +27,13 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var doc = new CouchDoc();
 
-        _repo.Set(doc, Guid.NewGuid().ToString());
+        _repository.Set(doc, Guid.NewGuid().ToString());
 
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
+        var docDB = _repository.Get<CouchDoc>(doc.Key);
 
         Assert.True(doc.Key == docDB.Key);
 
-        _repo.Remove(doc.Key);
+        _repository.Remove(doc.Key);
     }
 
     [Fact]
@@ -42,24 +41,24 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var docOne = new Car("MakerOne");
 
-        _repo.SetSpecific(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        _repository.SetSpecific(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
         var docTwo = new Car("MakerTwo");
 
-        _repo.SetSpecific(docTwo, Guid.NewGuid().ToString());
+        _repository.SetSpecific(docTwo, Guid.NewGuid().ToString());
 
-        var docDB = _repo.GetSpecific<Car>(docOne.Key);
+        var docDB = _repository.GetSpecific<Car>(docOne.Key);
 
         Assert.True(
             docOne.Key == docDB.Key && docOne.SubKey == docDB.SubKey && docOne.Maker == "MakerOne"
         );
 
-        docDB = _repo.GetSpecific<Car>(docTwo.Key);
+        docDB = _repository.GetSpecific<Car>(docTwo.Key);
 
         Assert.True(docTwo.Key == docDB.Key && docTwo.Maker == "MakerTwo");
 
-        _repo.RemoveSpecific<Car>(docOne.Key);
-        _repo.RemoveSpecific<Car>(docTwo.Key);
+        _repository.RemoveSpecific<Car>(docOne.Key);
+        _repository.RemoveSpecific<Car>(docTwo.Key);
     }
 
     [Fact]
@@ -67,11 +66,11 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var doc = new CouchDoc();
 
-        _repo.Set(doc, Guid.NewGuid().ToString());
+        _repository.Set(doc, Guid.NewGuid().ToString());
 
-        _repo.Remove(doc.Key);
+        _repository.Remove(doc.Key);
 
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
+        var docDB = _repository.Get<CouchDoc>(doc.Key);
 
         Assert.True(docDB == default);
     }
@@ -81,11 +80,11 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var doc = new Car("Maker");
 
-        _repo.SetSpecific(doc, Guid.NewGuid().ToString());
+        _repository.SetSpecific(doc, Guid.NewGuid().ToString());
 
-        _repo.RemoveSpecific<Car>(doc.Key);
+        _repository.RemoveSpecific<Car>(doc.Key);
 
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
+        var docDB = _repository.Get<CouchDoc>(doc.Key);
 
         Assert.True(docDB == default);
     }
@@ -93,14 +92,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
     [Fact]
     public void DatabaseClearTest()
     {
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
+        _repository.Set(new CouchDoc(), Guid.NewGuid().ToString());
+        _repository.Set(new CouchDoc(), Guid.NewGuid().ToString());
+        _repository.Set(new CouchDoc(), Guid.NewGuid().ToString());
+        _repository.Set(new CouchDoc(), Guid.NewGuid().ToString());
 
-        _repo.Clear();
+        _repository.Clear();
 
-        var count = _repo.GetDocCount<CouchDoc>();
+        var count = _repository.GetDocCount<CouchDoc>();
 
         Assert.True(count == 0);
     }
@@ -110,14 +109,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var doc = new CouchDoc() { Key = Guid.NewGuid().ToString() };
 
-        _repo.Set(new CouchDoc(), doc.Key, new TimeSpan(0, 0, 5));
-        var fromDB = _repo.Get<CouchDoc>(doc.Key);
+        _repository.Set(new CouchDoc(), doc.Key, new TimeSpan(0, 0, 5));
+        var fromDB = _repository.Get<CouchDoc>(doc.Key);
 
         Assert.True(doc.Key == fromDB.Key);
 
         await Task.Delay(6000);
 
-        fromDB = _repo.Get<CouchDoc>(doc.Key);
+        fromDB = _repository.Get<CouchDoc>(doc.Key);
 
         Assert.True(fromDB == null);
     }
@@ -132,7 +131,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         if (disposing)
         {
-            _repo?.Dispose();
+            _repository?.Dispose();
         }
     }
 }

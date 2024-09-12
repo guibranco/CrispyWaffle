@@ -5,20 +5,21 @@ services:
       - COUCHDB_USER=Admin
       - COUCHDB_PASSWORD=myP@ssw0rd
     ports:
-      - '5984:5984'
-      - '4369:4369'
-      - '9100:9100'
+      - "5984:5984"
+      - "4369:4369"
+      - "9100:9100"
     volumes:
       - data:/bitnami/couchdb
-  cache:
+
+  redis:
     image: redis:6.2-alpine
     restart: always
     ports:
-      - '6379:6379'
+      - "6379:6379"
     command: redis-server --save 20 1 --loglevel warning --requirepass myP@ssw0rd
-    volumes: 
+    volumes:
       - data:/data
-      
+
 volumes:
   data:
     driver: local
