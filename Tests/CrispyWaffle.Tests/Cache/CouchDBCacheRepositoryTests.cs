@@ -104,6 +104,18 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         Assert.True(count == 0);
     }
+    /// <summary>
+    /// Tests the Time-To-Live (TTL) functionality of the CouchDB repository.
+    /// </summary>
+    /// <remarks>
+    /// This asynchronous test method verifies that a document stored in the CouchDB repository expires after a specified time period.
+    /// It creates a new document with a unique key, sets it in the repository with a TTL of 5 seconds, and then retrieves it to ensure it exists.
+    /// After waiting for 6 seconds, it attempts to retrieve the document again, expecting it to be null, indicating that it has expired.
+    /// This test ensures that the TTL feature of the repository is functioning as intended.
+    /// </remarks>
+    /// <exception cref="System.Exception">
+    /// Throws an exception if the assertions fail, indicating that the expected behavior of the TTL functionality is not met.
+    /// </exception>
 
     [Fact]
     public async Task TTLGetTest()
