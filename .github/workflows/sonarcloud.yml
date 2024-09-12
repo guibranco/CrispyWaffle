@@ -43,9 +43,7 @@ jobs:
       
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        run: |
-          mkdir ~/.sonar/cache/
-          dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/cache/
+        run: dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/cache/
           
       - name: Set SonarCloud variables
         shell: bash
