@@ -27,9 +27,9 @@ namespace CrispyWaffle.CouchDB
         /// <typeparam name="T">The type of documents to count, which must inherit from <see cref="CouchDoc"/>.</typeparam>
         /// <returns>The number of documents of type <typeparamref name="T"/> that have a non-null Id.</returns>
         /// <remarks>
-        /// This method first resolves the database for the specified document type <typeparamref name="T"/>. 
-        /// It then filters the documents to include only those with a non-null Id. 
-        /// Finally, it converts the filtered results to a list and returns the count of those documents. 
+        /// This method first resolves the database for the specified document type <typeparamref name="T"/>.
+        /// It then filters the documents to include only those with a non-null Id.
+        /// Finally, it converts the filtered results to a list and returns the count of those documents.
         /// This is useful for determining how many valid documents of a certain type exist in the database.
         /// </remarks>
         public int GetDocCount<T>()
@@ -44,7 +44,11 @@ namespace CrispyWaffle.CouchDB
         /// <param name="connection">Connection information including username and password.</param>
         /// <param name="authType">The type of authentication to be used.</param>
         /// <param name="cookieDuration">Cookie duration in case cookie auth is used.</param>
-        public CouchDBCacheRepository(IConnection connection, AuthType authType, int cookieDuration = 10)
+        public CouchDBCacheRepository(
+            IConnection connection,
+            AuthType authType,
+            int cookieDuration = 10
+        )
         {
             try
             {
@@ -130,8 +134,8 @@ namespace CrispyWaffle.CouchDB
         /// Returns an instance of type <typeparamref name="T"/> if the type is valid and the document is found; otherwise, returns the default value for the type.
         /// </returns>
         /// <remarks>
-        /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDoc"/>. 
-        /// If it is not, the method returns the default value for that type. 
+        /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDoc"/>.
+        /// If it is not, the method returns the default value for that type.
         /// If the type is valid, it calls another method, <see cref="GetSpecific{CouchDoc}"/>, to retrieve the document associated with the provided keys.
         /// This allows for a flexible retrieval mechanism for documents stored in a CouchDB-like structure.
         /// </remarks>
@@ -188,7 +192,7 @@ namespace CrispyWaffle.CouchDB
         /// <param name="subKey">The secondary key used to further identify the document.</param>
         /// <returns>A document of type <typeparamref name="T"/> if found and not expired; otherwise, returns the default value for type <typeparamref name="T"/>.</returns>
         /// <remarks>
-        /// This method queries the database for a document that matches the specified key and subKey. 
+        /// This method queries the database for a document that matches the specified key and subKey.
         /// If a matching document is found, it checks if the document has expired by comparing its expiration date with the current UTC time.
         /// If the document has expired, it is removed from the database, and the method returns the default value for the type <typeparamref name="T"/>.
         /// If an exception occurs during the operation, it will either be propagated or handled based on the value of <see cref="ShouldPropagateExceptions"/>.
@@ -200,7 +204,9 @@ namespace CrispyWaffle.CouchDB
         {
             try
             {
-                var doc = ResolveDatabase<T>().Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
+                var doc = ResolveDatabase<T>()
+                    .Where(x => x.Key == key && x.SubKey == subKey)
+                    .FirstOrDefault();
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -220,7 +226,9 @@ namespace CrispyWaffle.CouchDB
                 HandleException(e);
             }
 
-            throw new InvalidOperationException($"Unable to get the item with key: {key} and sub key: {subKey}");
+            throw new InvalidOperationException(
+                $"Unable to get the item with key: {key} and sub key: {subKey}"
+            );
         }
 
         /// <inheritdoc />
@@ -331,8 +339,8 @@ namespace CrispyWaffle.CouchDB
         /// <param name="subKey">The secondary key for further categorization of the value.</param>
         /// <remarks>
         /// This method checks if the provided type <typeparamref name="T"/> is assignable from <see cref="CouchDoc"/>.
-        /// If it is not, the method returns without performing any action. 
-        /// If the type is valid, it casts the value to <see cref="CouchDoc"/> and calls the 
+        /// If it is not, the method returns without performing any action.
+        /// If the type is valid, it casts the value to <see cref="CouchDoc"/> and calls the
         /// SetSpecific method to store the value using the provided keys.
         /// This ensures that only valid Couch document types are processed.
         /// </remarks>
@@ -387,11 +395,11 @@ namespace CrispyWaffle.CouchDB
         /// <param name="key">The key to be set on the CouchDoc object.</param>
         /// <param name="subKey">The subKey to be set on the CouchDoc object.</param>
         /// <remarks>
-        /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the 
-        /// <paramref name="value"/> parameter, which is expected to be of type CouchDoc or a derived type. 
-        /// It then attempts to create or update the corresponding entry in the database asynchronously. 
-        /// If an exception occurs during this process, it will either propagate the exception or handle it 
-        /// based on the value of the <c>ShouldPropagateExceptions</c> property. 
+        /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the
+        /// <paramref name="value"/> parameter, which is expected to be of type CouchDoc or a derived type.
+        /// It then attempts to create or update the corresponding entry in the database asynchronously.
+        /// If an exception occurs during this process, it will either propagate the exception or handle it
+        /// based on the value of the <c>ShouldPropagateExceptions</c> property.
         /// This allows for flexible error handling depending on the context in which this method is called.
         /// </remarks>
         /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
@@ -440,9 +448,9 @@ namespace CrispyWaffle.CouchDB
         /// <param name="value">When this method returns, contains the value associated with the specified keys, or the default value of <typeparamref name="T"/> if the keys do not exist.</param>
         /// <returns>True if the value was found; otherwise, false.</returns>
         /// <remarks>
-        /// This method attempts to retrieve a value from a data source using the provided <paramref name="key"/> and <paramref name="subKey"/>. 
-        /// If a value is found, it is cast to the specified type <typeparamref name="T"/> and returned through the out parameter <paramref name="value"/>. 
-        /// If no value is found, <paramref name="value"/> is set to its default value, and the method returns false. 
+        /// This method attempts to retrieve a value from a data source using the provided <paramref name="key"/> and <paramref name="subKey"/>.
+        /// If a value is found, it is cast to the specified type <typeparamref name="T"/> and returned through the out parameter <paramref name="value"/>.
+        /// If no value is found, <paramref name="value"/> is set to its default value, and the method returns false.
         /// This allows for safe retrieval of values without throwing exceptions when keys are not present.
         /// </remarks>
         public bool TryGet<T>(string key, string subKey, out T value)
@@ -465,11 +473,11 @@ namespace CrispyWaffle.CouchDB
         /// <param name="key">The key for which the TTL value is to be retrieved.</param>
         /// <returns>The TimeSpan representing the TTL for the specified <paramref name="key"/>.</returns>
         /// <remarks>
-        /// This method accesses a CouchDB document associated with the provided <paramref name="key"/> 
-        /// and retrieves its Time-To-Live (TTL) property. The TTL indicates the duration for which 
-        /// the document is valid before it is considered expired. The method utilizes a generic 
-        /// Get method to fetch the document and directly accesses its TTL property. 
-        /// It is important to ensure that the key exists in the database; otherwise, 
+        /// This method accesses a CouchDB document associated with the provided <paramref name="key"/>
+        /// and retrieves its Time-To-Live (TTL) property. The TTL indicates the duration for which
+        /// the document is valid before it is considered expired. The method utilizes a generic
+        /// Get method to fetch the document and directly accesses its TTL property.
+        /// It is important to ensure that the key exists in the database; otherwise,
         /// this method may not return a valid TTL value.
         /// </remarks>
         public TimeSpan TTL(string key)
@@ -489,11 +497,11 @@ namespace CrispyWaffle.CouchDB
         /// </summary>
         /// <param name="disposing">A boolean value indicating whether the method was called directly or by the garbage collector.</param>
         /// <remarks>
-        /// This method is part of the IDisposable pattern. When <paramref name="disposing"/> is true, 
-        /// the method has been called directly or indirectly by a user's code, and managed resources 
-        /// should be disposed. If <paramref name="disposing"/> is false, the method has been called 
-        /// by the runtime from inside the finalizer and only unmanaged resources should be released. 
-        /// This implementation disposes of the <c>_couchClient</c> if it is not null, ensuring that 
+        /// This method is part of the IDisposable pattern. When <paramref name="disposing"/> is true,
+        /// the method has been called directly or indirectly by a user's code, and managed resources
+        /// should be disposed. If <paramref name="disposing"/> is false, the method has been called
+        /// by the runtime from inside the finalizer and only unmanaged resources should be released.
+        /// This implementation disposes of the <c>_couchClient</c> if it is not null, ensuring that
         /// any resources held by it are properly released.
         /// </remarks>
         protected virtual void Dispose(bool disposing)
@@ -513,27 +521,33 @@ namespace CrispyWaffle.CouchDB
         /// <returns>An action that configures the <paramref name="CouchSettings"/> for the specified authentication type.</returns>
         /// <remarks>
         /// This method checks the provided <paramref name="type"/> to determine which authentication method to use.
-        /// If the type is set to Basic, it returns an action that configures the <paramref name="CouchSettings"/> 
+        /// If the type is set to Basic, it returns an action that configures the <paramref name="CouchSettings"/>
         /// to use basic authentication with the username and password from the provided <paramref name="connection"/>.
-        /// If the type is set to Cookie, it returns an action that configures the settings to use cookie-based 
+        /// If the type is set to Cookie, it returns an action that configures the settings to use cookie-based
         /// authentication, also utilizing the credentials from the connection and applying the specified cookie duration.
         /// This allows for flexible authentication strategies based on the needs of the application.
         /// </remarks>
-        private static Action<CouchSettings> GetAuth(AuthType type, IConnection connection, int cookieDuration = 10)
+        private static Action<CouchSettings> GetAuth(
+            AuthType type,
+            IConnection connection,
+            int cookieDuration = 10
+        )
         {
             if (type == AuthType.Basic)
             {
-                return (CouchSettings s) => s.UseBasicAuthentication(
-                    connection.Credentials.Username,
-                    connection.Credentials.Password
-                );
+                return (CouchSettings s) =>
+                    s.UseBasicAuthentication(
+                        connection.Credentials.Username,
+                        connection.Credentials.Password
+                    );
             }
 
-            return (CouchSettings s) => s.UseCookieAuthentication(
+            return (CouchSettings s) =>
+                s.UseCookieAuthentication(
                     connection.Credentials.Username,
                     connection.Credentials.Password,
                     cookieDuration
-            );
+                );
         }
 
         /// <summary>
@@ -569,10 +583,10 @@ namespace CrispyWaffle.CouchDB
         /// </summary>
         /// <param name="e">The exception to be handled.</param>
         /// <remarks>
-        /// This method takes an exception as input and first logs the exception details using the 
-        /// <see cref="LogConsumer.Trace"/> method. After logging, it calls the 
-        /// <see cref="LogConsumer.Handle"/> method to perform any necessary handling of the exception. 
-        /// This is useful for centralized error management in applications, allowing developers to 
+        /// This method takes an exception as input and first logs the exception details using the
+        /// <see cref="LogConsumer.Trace"/> method. After logging, it calls the
+        /// <see cref="LogConsumer.Handle"/> method to perform any necessary handling of the exception.
+        /// This is useful for centralized error management in applications, allowing developers to
         /// track and respond to exceptions consistently.
         /// </remarks>
         private static void HandleException(Exception e)
@@ -595,6 +609,6 @@ namespace CrispyWaffle.CouchDB
         /// <summary>
         /// Cookie based auth.
         /// </summary>
-        Cookie
+        Cookie,
     }
 }

@@ -11,6 +11,7 @@ namespace CrispyWaffle.Tests.Cache;
 public class CouchDBCacheRepositoryTests : IDisposable
 {
     private readonly CouchDBCacheRepository _repo;
+
     public CouchDBCacheRepositoryTests()
     {
         var conn = new Connection();
@@ -21,6 +22,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         _repo = new CouchDBCacheRepository(conn, AuthType.Basic);
     }
+
     /// <summary>
     /// Tests the Get and Set functionality of the CouchDoc repository.
     /// </summary>
@@ -43,13 +45,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         _repo.Remove(doc.Key);
     }
+
     /// <summary>
     /// Tests the Get and Set functionality for specific Car objects in the repository.
     /// </summary>
     /// <remarks>
     /// This unit test verifies that specific instances of the Car class can be correctly set and retrieved from the repository.
-    /// It creates two Car objects with different makers, sets them in the repository with unique keys and subkeys, 
-    /// and then retrieves them to ensure that the properties match the expected values. 
+    /// It creates two Car objects with different makers, sets them in the repository with unique keys and subkeys,
+    /// and then retrieves them to ensure that the properties match the expected values.
     /// The test also checks that the objects can be removed from the repository after verification.
     /// The assertions confirm that the keys and makers of the retrieved Car objects are as expected.
     /// </remarks>
@@ -69,24 +72,24 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         var docDB = _repo.GetSpecific<Car>(docOne.Key);
 
-        Assert.True(docOne.Key == docDB.Key
-            && docOne.SubKey == docDB.SubKey
-            && docOne.Maker == "MakerOne");
+        Assert.True(
+            docOne.Key == docDB.Key && docOne.SubKey == docDB.SubKey && docOne.Maker == "MakerOne"
+        );
 
         docDB = _repo.GetSpecific<Car>(docTwo.Key);
 
-        Assert.True(docTwo.Key == docDB.Key
-            && docTwo.Maker == "MakerTwo");
+        Assert.True(docTwo.Key == docDB.Key && docTwo.Maker == "MakerTwo");
 
         _repo.RemoveSpecific<Car>(docOne.Key);
         _repo.RemoveSpecific<Car>(docTwo.Key);
     }
+
     /// <summary>
     /// Tests the removal of a CouchDoc from the repository.
     /// </summary>
     /// <remarks>
-    /// This test method creates a new instance of <see cref="CouchDoc"/>, sets it in the repository with a unique key, 
-    /// and then removes it from the repository. After the removal, it attempts to retrieve the document using its key. 
+    /// This test method creates a new instance of <see cref="CouchDoc"/>, sets it in the repository with a unique key,
+    /// and then removes it from the repository. After the removal, it attempts to retrieve the document using its key.
     /// The assertion checks that the retrieved document is the default value, indicating that the document has been successfully removed.
     /// This method is decorated with the [Fact] attribute, indicating that it is a unit test that should be executed by the test runner.
     /// </remarks>
@@ -103,13 +106,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         Assert.True(docDB == default);
     }
+
     /// <summary>
     /// Tests the removal of a specific Car document from the repository.
     /// </summary>
     /// <remarks>
-    /// This test method creates a new instance of a Car object with a specified maker. 
-    /// It then sets this object in the repository with a unique identifier. 
-    /// After that, it calls the method to remove the specific Car document using its key. 
+    /// This test method creates a new instance of a Car object with a specified maker.
+    /// It then sets this object in the repository with a unique identifier.
+    /// After that, it calls the method to remove the specific Car document using its key.
     /// Finally, it retrieves the document from the repository to assert that it has been successfully removed.
     /// The assertion checks that the retrieved document is the default value, indicating that the document no longer exists in the repository.
     /// </remarks>
@@ -126,6 +130,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         Assert.True(docDB == default);
     }
+
     /// <summary>
     /// Tests the functionality of clearing the database repository.
     /// </summary>
@@ -149,6 +154,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         Assert.True(count == 0);
     }
+
     /// <summary>
     /// Tests the TTL (Time-To-Live) functionality of the CouchDB repository.
     /// </summary>
@@ -163,10 +169,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
     [Fact]
     public void TTLGetTest()
     {
-        var doc = new CouchDoc()
-        {
-            Key = Guid.NewGuid().ToString()
-        };
+        var doc = new CouchDoc() { Key = Guid.NewGuid().ToString() };
 
         _repo.Set(new CouchDoc(), doc.Key, new TimeSpan(0, 0, 5));
         var fromDB = _repo.Get<CouchDoc>(doc.Key);
@@ -191,9 +194,9 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// </summary>
     /// <param name="disposing">A boolean value indicating whether the method was called directly or by the garbage collector.</param>
     /// <remarks>
-    /// This method is part of the IDisposable pattern. When <paramref name="disposing"/> is true, it indicates that the method has been called directly 
-    /// or through the Dispose method, and managed resources should be disposed of. If <paramref name="disposing"/> is false, it indicates that the method 
-    /// has been called by the finalizer and only unmanaged resources should be released. In this implementation, if disposing is true, it calls 
+    /// This method is part of the IDisposable pattern. When <paramref name="disposing"/> is true, it indicates that the method has been called directly
+    /// or through the Dispose method, and managed resources should be disposed of. If <paramref name="disposing"/> is false, it indicates that the method
+    /// has been called by the finalizer and only unmanaged resources should be released. In this implementation, if disposing is true, it calls
     /// the Dispose method on the repository (_repo) if it is not null, ensuring that any resources held by it are properly released.
     /// </remarks>
     protected virtual void Dispose(bool disposing)
