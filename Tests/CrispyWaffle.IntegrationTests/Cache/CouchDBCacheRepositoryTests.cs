@@ -13,10 +13,11 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
     public CouchDBCacheRepositoryTests()
     {
-        var connection = new Connection { Host = "http://localhost", Port = 5984, Credentials =
-            {
-                Username = "Admin", Password = "myP@ssw0rd"
-            }
+        var connection = new Connection
+        {
+            Host = "http://localhost",
+            Port = 5984,
+            Credentials = { Username = "Admin", Password = "myP@ssw0rd" },
         };
         var connector = new CouchDBConnector(connection);
         _repository = new CouchDBCacheRepository(connector);

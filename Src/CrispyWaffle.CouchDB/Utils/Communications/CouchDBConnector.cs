@@ -26,10 +26,12 @@ public class CouchDBConnector : IDisposable
     {
         CouchDBClient = new CouchClient(
             $"{connection.Host}:{connection.Port}",
-            s => s.UseBasicAuthentication(
-                connection.Credentials.Username,
-                connection.Credentials.Password
-            ));
+            s =>
+                s.UseBasicAuthentication(
+                    connection.Credentials.Username,
+                    connection.Credentials.Password
+                )
+        );
     }
 
     /// <summary>
