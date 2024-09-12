@@ -1,27 +1,20 @@
 ﻿using System;
 using CouchDB.Driver.Types;
 
-namespace CrispyWaffle.CouchDB.DTOs;
+namespace CrispyWaffle.CouchDB.Cache;
 
 /// <summary>
 /// Base class for persisting to CouchDB.
 /// </summary>
-public class CouchDoc : CouchDocument
+public class CouchDBCacheDocument : CouchDocument
 {
     /// <summary>
     /// Gets or Sets a uniquely identifiable key.
     /// </summary>
     public string Key
     {
-        get
-        {
-            return Id;
-        }
-
-        set
-        {
-            Id = value;
-        }
+        get => Id;
+        set => Id = value;
     }
 
     /// <summary>

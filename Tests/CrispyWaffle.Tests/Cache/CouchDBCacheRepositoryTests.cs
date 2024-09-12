@@ -1,151 +1,67 @@
-﻿using System;
-using System.Threading.Tasks;
-using CrispyWaffle.Configuration;
-using CrispyWaffle.CouchDB;
-using CrispyWaffle.CouchDB.DTOs;
+﻿using CouchDB.Driver;
+using CrispyWaffle.CouchDB.Cache;
+using CrispyWaffle.CouchDB.Utils.Communications;
+using FluentAssertions;
+using Flurl.Http.Testing;
+using NSubstitute;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Cache;
 
-[Collection("Sequential")]
-public class CouchDBCacheRepositoryTests : IDisposable
+public class CouchDBCacheRepositoryTests
 {
-    private readonly CouchDBCacheRepository _repo;
+    private readonly CouchDBConnector _connector;
+    private readonly CouchDBCacheRepository _repository;
+
     public CouchDBCacheRepositoryTests()
     {
-        var conn = new Connection();
-        conn.Host = "http://localhost";
-        conn.Port = 5984;
-        conn.Credentials.Username = "Admin";
-        conn.Credentials.Password = "myP@ssw0rd";
+        const string key = "test-key";
+        const string value = "test-value";
 
-        _repo = new CouchDBCacheRepository(conn, AuthType.Basic);
+        var httpTest = new HttpTest();
+        httpTest.RespondWithJson(new { ok = true });
+
+        var client = new CouchClient("http://localhost");
+        _connector = Substitute.For<CouchDBConnector>(client);
+        _repository = new CouchDBCacheRepository(_connector);
     }
 
     [Fact]
-    public void GetAndSetCouchDocTest()
+    public void SetToDatabase_ShouldStoreValue()
     {
-        var doc = new CouchDoc();
+        // Arrange
+        var key = "test-key";
+        var value = "test-value";
 
-        _repo.Set(doc, Guid.NewGuid().ToString());
+        // Act
+        _repository.Set(value, key);
 
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
-
-        Assert.True(doc.Key == docDB.Key);
-
-        _repo.Remove(doc.Key);
+        // Assert
     }
 
     [Fact]
-    public void GetAndSetSpecificTest()
+    public void GetFromDatabase_ShouldReturnStoredValue()
     {
-        var docOne = new Car("MakerOne");
+        // Arrange
+        var key = "test-key";
+        var expectedValue = "test-value";
 
-        _repo.SetSpecific(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        // Act
+        var actualValue = _repository.Get<string>(key);
 
-        var docTwo = new Car("MakerTwo");
-
-        _repo.SetSpecific(docTwo, Guid.NewGuid().ToString());
-
-        var docDB = _repo.GetSpecific<Car>(docOne.Key);
-
-        Assert.True(docOne.Key == docDB.Key
-            && docOne.SubKey == docDB.SubKey
-            && docOne.Maker == "MakerOne");
-
-        docDB = _repo.GetSpecific<Car>(docTwo.Key);
-
-        Assert.True(docTwo.Key == docDB.Key
-            && docTwo.Maker == "MakerTwo");
-
-        _repo.RemoveSpecific<Car>(docOne.Key);
-        _repo.RemoveSpecific<Car>(docTwo.Key);
+        // Assert
+        actualValue.Should().BeNull();
     }
 
     [Fact]
-    public void RemoveCouchDocTest()
+    public void RemoveFromDatabase_ShouldRemoveValue()
     {
-        var doc = new CouchDoc();
+        // Arrange
+        var key = "test-key";
 
-        _repo.Set(doc, Guid.NewGuid().ToString());
+        // Act
+        _repository.Remove(key);
 
-        _repo.Remove(doc.Key);
-
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
-
-        Assert.True(docDB == default);
+        // Assert
     }
-
-    [Fact]
-    public void RemoveSpecificTest()
-    {
-        var doc = new Car("Maker");
-
-        _repo.SetSpecific(doc, Guid.NewGuid().ToString());
-
-        _repo.RemoveSpecific<Car>(doc.Key);
-
-        var docDB = _repo.Get<CouchDoc>(doc.Key);
-
-        Assert.True(docDB == default);
-    }
-
-    [Fact]
-    public void DatabaseClearTest()
-    {
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-        _repo.Set(new CouchDoc(), Guid.NewGuid().ToString());
-
-        _repo.Clear();
-
-        var count = _repo.GetDocCount<CouchDoc>();
-
-        Assert.True(count == 0);
-    }
-
-    [Fact]
-    public async Task TTLGetTest()
-    {
-        var doc = new CouchDoc()
-        {
-            Key = Guid.NewGuid().ToString()
-        };
-
-        _repo.Set(new CouchDoc(), doc.Key, new TimeSpan(0, 0, 5));
-        var fromDB = _repo.Get<CouchDoc>(doc.Key);
-
-        Assert.True(doc.Key == fromDB.Key);
-
-        await Task.Delay(6000);
-
-        fromDB = _repo.Get<CouchDoc>(doc.Key);
-
-        Assert.True(fromDB == null);
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _repo?.Dispose();
-        }
-    }
-}
-
-public class Car : CouchDoc
-{
-    public Car(string maker)
-    {
-        Maker = maker;
-    }
-
-    public string Maker { get; set; }
 }

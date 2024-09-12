@@ -9,7 +9,7 @@ using CrispyWaffle.Log.Adapters;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Serialization;
+namespace CrispyWaffle.Tests.Log.Adapters;
 
 [Collection("Sequential")]
 public class RollingTextFileLogAdapterTests
@@ -73,7 +73,7 @@ public class RollingTextFileLogAdapterTests
             )
         );
 
-        adapter.SetLevel(Log.LogLevel.Development);
+        adapter.SetLevel(CrispyWaffle.Log.LogLevel.Development);
 
         for (int i = 0; i < 100; i++)
         {
@@ -155,7 +155,7 @@ public class RollingTextFileLogAdapterTests
             (Unit.MByte, 1),
             LogFileType.JSON
         );
-        adapter.SetLevel(Log.LogLevel.Debug);
+        adapter.SetLevel(CrispyWaffle.Log.LogLevel.Debug);
         var message = "Message";
 
         for (int i = 0; i < 1000; i++)

@@ -1,0 +1,45 @@
+services:
+  couchdb:
+    image: couchdb:latest
+    environment:
+      - COUCHDB_USER=Admin
+      - COUCHDB_PASSWORD=myP@ssw0rd
+    ports:
+      - "5984:5984"
+      - "4369:4369"
+      - "9100:9100"
+    volumes:
+      - data:/bitnami/couchdb
+    user: 1000:1000
+
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning --requirepass myP@ssw0rd
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    driver: local
