@@ -35,7 +35,7 @@ install:
           Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
             throw "There are newer queued builds for this pull request, failing early." }  
   - ps: (new-object net.webclient).DownloadFile('https://couchdb.neighbourhood.ie/downloads/3.3.3-3/win/apache-couchdb-3.3.3-3.msi', 'apache-couchdb-3.3.3.msi')
-  - ps: msiexec /i apache-couchdb-3.3.3.msi /quiet ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd /norestart
+  - ps: msiexec /i .\apache-couchdb-3.3.3.msi /quiet /norestart ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd
 
 before_build:
   - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
