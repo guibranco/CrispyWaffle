@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Tests.Fixtures;
 using Xunit;
@@ -21,15 +21,15 @@ public class ServiceLocatorTests
         fixture.SetLogProvider(testOutputHelper);
 
     /// <summary>
-    /// Defines the test method ValidateSingletonCreationAndPersistence.
+    /// Defines the test task ValidateSingletonCreationAndPersistence.
     /// </summary>
     [Fact]
-    public void ValidateSingletonCreationAndPersistence()
+    public async Task ValidateSingletonCreationAndPersistence()
     {
         var instanceA = ServiceLocator.Resolve<TestObjects.SingletonTest>();
-        Thread.Sleep(1000);
+        await Task.Delay(1000);
         var instanceB = ServiceLocator.Resolve<TestObjects.SingletonTest>();
-        Thread.Sleep(1000);
+        await Task.Delay(1000);
         var instanceC = ServiceLocator.Resolve<TestObjects.SingletonTest>();
 
         Assert.Equal(instanceA.Date, instanceB.Date);

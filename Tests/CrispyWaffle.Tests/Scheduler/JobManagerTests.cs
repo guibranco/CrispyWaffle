@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 using CrispyWaffle.Scheduler;
 using Xunit;
 
@@ -11,10 +11,10 @@ namespace CrispyWaffle.Tests.Scheduler;
 public class JobManagerTests
 {
     /// <summary>
-    /// Defines the test method ValidateJobManager.
+    /// Defines the test task ValidateJobManager.
     /// </summary>
     [Fact]
-    public void ValidateJobManager()
+    public async Task ValidateJobManager()
     {
         var manager = new JobManager();
 
@@ -75,7 +75,7 @@ public class JobManagerTests
 
         manager.Start();
 
-        Thread.Sleep(70 * 1000);
+        await Task.Delay(70 * 1000);
 
         manager.Stop();
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.CouchDB;
 using CrispyWaffle.CouchDB.DTOs;
@@ -106,7 +106,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void TTLGetTest()
+    public async Task TTLGetTest()
     {
         var doc = new CouchDoc() { Key = Guid.NewGuid().ToString() };
 
@@ -115,7 +115,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         Assert.True(doc.Key == fromDB.Key);
 
-        Thread.Sleep(6000);
+        await Task.Delay(6000);
 
         fromDB = _repo.Get<CouchDoc>(doc.Key);
 
