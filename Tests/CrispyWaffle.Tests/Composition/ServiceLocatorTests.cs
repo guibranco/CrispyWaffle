@@ -19,10 +19,19 @@ public class ServiceLocatorTests
     /// <param name="fixture">The fixture.</param>
     public ServiceLocatorTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
         fixture.SetLogProvider(testOutputHelper);
-
     /// <summary>
-    /// Defines the test task ValidateSingletonCreationAndPersistence.
+    /// Validates the creation and persistence of a singleton instance.
     /// </summary>
+    /// <remarks>
+    /// This test method ensures that multiple resolutions of a singleton service return the same instance.
+    /// It uses the <c>ServiceLocator</c> to resolve the singleton instance multiple times, with delays in between to simulate 
+    /// asynchronous operations. The test checks that the <c>Date</c> property of the resolved instances remains consistent, 
+    /// confirming that the singleton instance is correctly maintained across resolutions.
+    /// </remarks>
+    /// <exception cref="Xunit.Sdk.EqualException">
+    /// Thrown when the expected values are not equal during the assertion checks.
+    /// </exception>
+
     [Fact]
     public async Task ValidateSingletonCreationAndPersistence()
     {
