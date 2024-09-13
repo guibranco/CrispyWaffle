@@ -13,6 +13,22 @@ namespace CrispyWaffle.Tests.Log.Adapters;
 
 [Collection("Sequential")]
 public class RollingTextFileLogAdapterTests
+/// <summary>
+/// Tests that logs are saved to a text file correctly.
+/// </summary>
+/// <remarks>
+/// This test method verifies that the <see cref="RollingTextFileLogAdapter"/> correctly logs
+/// information messages to a text file. It initializes the log adapter with a specified
+/// file name seed and size limits, then generates a message consisting of repeated characters
+/// and logs this message 100 times. After logging, it disposes of the adapter and checks
+/// the generated log files to ensure that they contain entries. The method uses regular
+/// expressions to match the log file names based on the specified seed and cleans up any
+/// log files created during the test execution. This ensures that the logging functionality
+/// works as intended and that the log files are properly populated.
+/// </remarks>
+/// <exception cref="ApplicationException">Thrown when an application-specific error occurs.</exception>
+/// <exception cref="ArgumentOutOfRangeException">Thrown when an argument is outside the allowable range.</exception>
+/// <exception cref="AccessViolationException">Thrown when there is an attempt to read or write protected memory.</exception>
 {
     [Fact]
     public void BasicSaveLogsToTextFileTest()
