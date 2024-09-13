@@ -33,9 +33,9 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <typeparam name="T">The type of the CouchDB document for which the count is to be retrieved. It must inherit from <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <returns>The number of documents of type <typeparamref name="T"/> that have a non-null Id in the database.</returns>
         /// <remarks>
-        /// This method first resolves the database for the specified document type <typeparamref name="T"/>. 
-        /// It then filters the documents to include only those with a non-null Id, ensuring that only valid documents are counted. 
-        /// Finally, it converts the filtered results to a list and returns the count of those documents. 
+        /// This method first resolves the database for the specified document type <typeparamref name="T"/>.
+        /// It then filters the documents to include only those with a non-null Id, ensuring that only valid documents are counted.
+        /// Finally, it converts the filtered results to a list and returns the count of those documents.
         /// This is useful for determining how many valid instances of a specific document type exist in the database.
         /// </remarks>
         public int GetDocCount<T>()
@@ -110,7 +110,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// An instance of type <typeparamref name="T"/> if the type is assignable from <see cref="CouchDBCacheDocument"/>; otherwise, returns the default value for type <typeparamref name="T"/>.
         /// </returns>
         /// <remarks>
-        /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>. 
+        /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
         /// If it is, it calls the method <see cref="GetSpecific{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
         /// If the type is not assignable, it returns the default value for that type, which could be null for reference types or zero for numeric types.
         /// This method is useful for retrieving cached data in a type-safe manner, ensuring that only compatible types are processed.
@@ -219,8 +219,8 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="key">The primary key associated with the entry to be removed.</param>
         /// <param name="subKey">The secondary key associated with the entry to be removed.</param>
         /// <remarks>
-        /// This method calls the generic method <c>RemoveSpecific</c> with the type <c>CouchDBCacheDocument</c> to remove the entry 
-        /// identified by the combination of <paramref name="key"/> and <paramref name="subKey"/>. 
+        /// This method calls the generic method <c>RemoveSpecific</c> with the type <c>CouchDBCacheDocument</c> to remove the entry
+        /// identified by the combination of <paramref name="key"/> and <paramref name="subKey"/>.
         /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
         /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
         /// </remarks>
@@ -265,10 +265,10 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="key">The key of the document to be removed.</param>
         /// <param name="subKey">The subKey of the document to be removed.</param>
         /// <remarks>
-        /// This method retrieves a document from the CouchDB database that matches the specified <paramref name="key"/> 
-        /// and <paramref name="subKey"/>. If a matching document is found, it is deleted asynchronously from the database. 
-        /// If an exception occurs during this process, it is either propagated or handled based on the value of 
-        /// <see cref="ShouldPropagateExceptions"/>. If exceptions are not propagated, they are logged using the 
+        /// This method retrieves a document from the CouchDB database that matches the specified <paramref name="key"/>
+        /// and <paramref name="subKey"/>. If a matching document is found, it is deleted asynchronously from the database.
+        /// If an exception occurs during this process, it is either propagated or handled based on the value of
+        /// <see cref="ShouldPropagateExceptions"/>. If exceptions are not propagated, they are logged using the
         /// <see cref="LogConsumer"/>. This method does not return any value.
         /// </remarks>
         public void RemoveSpecific<T>(string key, string subKey)
@@ -315,7 +315,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="subKey">The sub-key under which the value is stored.</param>
         /// <remarks>
         /// This method checks if the provided type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
-        /// If it is not, the method returns without performing any action. 
+        /// If it is not, the method returns without performing any action.
         /// If the type is valid, it calls the <see cref="SetSpecific"/> method to set the value in the cache.
         /// This allows for type-safe caching of documents that inherit from <see cref="CouchDBCacheDocument"/>.
         /// </remarks>
@@ -370,10 +370,10 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="key">The key to be set for the CouchDBCacheDocument.</param>
         /// <param name="subKey">The subKey to be set for the CouchDBCacheDocument.</param>
         /// <remarks>
-        /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the specified 
-        /// <paramref name="value"/> of type <typeparamref name="T"/>. It then attempts to create or update the 
-        /// document in the database asynchronously using the ResolveDatabase method. If an exception occurs during 
-        /// this process, it checks whether exceptions should be propagated. If propagation is enabled, the exception 
+        /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the specified
+        /// <paramref name="value"/> of type <typeparamref name="T"/>. It then attempts to create or update the
+        /// document in the database asynchronously using the ResolveDatabase method. If an exception occurs during
+        /// this process, it checks whether exceptions should be propagated. If propagation is enabled, the exception
         /// is rethrown; otherwise, it is logged using the LogConsumer.
         /// </remarks>
         /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
@@ -447,11 +447,11 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="key">The key for which the TTL value is to be retrieved.</param>
         /// <returns>The TimeSpan representing the TTL for the specified <paramref name="key"/>.</returns>
         /// <remarks>
-        /// This method accesses a CouchDB document associated with the provided <paramref name="key"/> 
-        /// and retrieves its Time-To-Live (TTL) value. The TTL indicates the duration for which the 
-        /// cached item is considered valid. If the TTL has expired, the item may be removed from the 
-        /// cache, and subsequent requests for this key may result in a cache miss. 
-        /// This method assumes that the key exists in the cache; if it does not, the behavior will depend 
+        /// This method accesses a CouchDB document associated with the provided <paramref name="key"/>
+        /// and retrieves its Time-To-Live (TTL) value. The TTL indicates the duration for which the
+        /// cached item is considered valid. If the TTL has expired, the item may be removed from the
+        /// cache, and subsequent requests for this key may result in a cache miss.
+        /// This method assumes that the key exists in the cache; if it does not, the behavior will depend
         /// on the implementation of the Get method.
         /// </remarks>
         public TimeSpan TTL(string key)
@@ -467,8 +467,8 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <returns>A CouchDatabase instance of type <typeparamref name="T"/>.</returns>
         /// <remarks>
         /// This method checks if the specified database name exists in the CouchDB instance. If the database does not exist, it creates a new database with the given name.
-        /// If the database already exists, it retrieves the existing database. The method uses asynchronous calls to interact with the CouchDB client, 
-        /// ensuring that it handles database creation and retrieval efficiently. The use of generics allows for flexibility in specifying the type of documents 
+        /// If the database already exists, it retrieves the existing database. The method uses asynchronous calls to interact with the CouchDB client,
+        /// ensuring that it handles database creation and retrieval efficiently. The use of generics allows for flexibility in specifying the type of documents
         /// that will be stored in the database, making this method suitable for various CouchDBCacheDocument types.
         /// </remarks>
         private CouchDatabase<T> ResolveDatabase<T>(string dbName = default)
@@ -488,11 +488,11 @@ namespace CrispyWaffle.CouchDB.Cache
         /// Releases the resources used by the current instance of the class.
         /// </summary>
         /// <remarks>
-        /// This method is part of the IDisposable interface implementation. It is responsible for 
-        /// cleaning up any resources that the instance may be holding onto, such as unmanaged resources 
-        /// or other disposable objects. The method calls the Dispose method on the _connector object 
-        /// to ensure that any resources it holds are also released. After disposing of the resources, 
-        /// it suppresses the finalization of the current object to optimize garbage collection. 
+        /// This method is part of the IDisposable interface implementation. It is responsible for
+        /// cleaning up any resources that the instance may be holding onto, such as unmanaged resources
+        /// or other disposable objects. The method calls the Dispose method on the _connector object
+        /// to ensure that any resources it holds are also released. After disposing of the resources,
+        /// it suppresses the finalization of the current object to optimize garbage collection.
         /// This method should be called when the object is no longer needed to prevent resource leaks.
         /// </remarks>
         public void Dispose()
