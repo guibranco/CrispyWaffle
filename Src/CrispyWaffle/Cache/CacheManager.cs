@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
 
@@ -38,11 +39,11 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <returns></returns>
-        public static ICacheRepository AddRepository<TCacheRepository>()
+        public async static Task<ICacheRepository> AddRepository<TCacheRepository>()
             where TCacheRepository : ICacheRepository
         {
             var repository = ServiceLocator.Resolve<TCacheRepository>();
-            AddRepository(repository, _currentPriority++);
+            await AddRepository(repository, _currentPriority++);
             return repository;
         }
 
@@ -51,9 +52,9 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <returns></returns>
-        public static ICacheRepository AddRepository(ICacheRepository repository)
+        public async static Task<ICacheRepository> AddRepository(ICacheRepository repository)
         {
-            AddRepository(repository, _currentPriority++);
+            await AddRepository(repository, _currentPriority++);
             return repository;
         }
 
@@ -63,11 +64,11 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <param name="priority">The priority.</param>
         /// <returns></returns>
-        public static ICacheRepository AddRepository<TCacheRepository>(int priority)
+        public async static Task<ICacheRepository> AddRepository<TCacheRepository>(int priority)
             where TCacheRepository : ICacheRepository
         {
             var repository = ServiceLocator.Resolve<TCacheRepository>();
-            AddRepository(repository, priority);
+            await AddRepository(repository, priority);
             return repository;
         }
 
@@ -77,7 +78,7 @@ namespace CrispyWaffle.Cache
         /// <param name="repository">The repository.</param>
         /// <param name="priority">The priority.</param>
         /// <returns>Returns the priority with the repository was added</returns>
-        public static int AddRepository(ICacheRepository repository, int priority)
+        public static Task<int> AddRepository(ICacheRepository repository, int priority)
         {
             while (true)
             {
@@ -94,7 +95,7 @@ namespace CrispyWaffle.Cache
                         _isMemoryRepositoryInList = true;
                     }
 
-                    return priority;
+                    return Task.FromResult(priority);
                 }
 
                 priority++;
