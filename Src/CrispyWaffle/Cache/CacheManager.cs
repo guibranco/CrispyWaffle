@@ -39,11 +39,11 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <returns></returns>
-        public async static Task<ICacheRepository> AddRepository<TCacheRepository>()
+        public async static Task<ICacheRepository> AddRepositoryAsync<TCacheRepository>()
             where TCacheRepository : ICacheRepository
         {
-            var repository = ServiceLocator.Resolve<TCacheRepository>();
-            await AddRepository(repository, _currentPriority++);
+            var repository = await Task.Run(() => ServiceLocator.Resolve<TCacheRepository>());
+            await AddRepositoryAsync(repository, _currentPriority++);
             return repository;
         }
 
@@ -52,9 +52,9 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <returns></returns>
-        public async static Task<ICacheRepository> AddRepository(ICacheRepository repository)
+        public async static Task<ICacheRepository> AddRepositoryAsync(ICacheRepository repository)
         {
-            await AddRepository(repository, _currentPriority++);
+            await AddRepositoryAsync(repository, _currentPriority++);
             return repository;
         }
 
@@ -64,11 +64,11 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
         /// <param name="priority">The priority.</param>
         /// <returns></returns>
-        public async static Task<ICacheRepository> AddRepository<TCacheRepository>(int priority)
+        public async static Task<ICacheRepository> AddRepositoryAsync<TCacheRepository>(int priority)
             where TCacheRepository : ICacheRepository
         {
-            var repository = ServiceLocator.Resolve<TCacheRepository>();
-            await AddRepository(repository, priority);
+            var repository = await Task.Run(() => ServiceLocator.Resolve<TCacheRepository>());
+            await AddRepositoryAsync(repository, priority);
             return repository;
         }
 
@@ -78,24 +78,24 @@ namespace CrispyWaffle.Cache
         /// <param name="repository">The repository.</param>
         /// <param name="priority">The priority.</param>
         /// <returns>Returns the priority with the repository was added</returns>
-        public static Task<int> AddRepository(ICacheRepository repository, int priority)
+        public async static Task<int> AddRepositoryAsync(ICacheRepository repository, int priority)
         {
             while (true)
             {
                 if (!_repositories.ContainsKey(priority))
                 {
                     _repositories.Add(priority, repository);
-                    LogConsumer.Trace(
+                    await Task.Run(() => LogConsumer.Trace(
                         "Adding cache repository of type {0} with priority {1}",
                         repository.GetType().FullName,
                         priority
-                    );
+                    ));
                     if (repository.GetType() == _memoryType)
                     {
                         _isMemoryRepositoryInList = true;
                     }
 
-                    return Task.FromResult(priority);
+                    return priority;
                 }
 
                 priority++;
@@ -108,9 +108,9 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="T"></typeparam>
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
-        public static void Set<T>(T value, [Localizable(false)] string key)
+        public async static Task SetAsync<T>(T value, [Localizable(false)] string key)
         {
-            LogConsumer.Trace("Adding {0} to {1} cache repositories", key, _repositories.Count);
+            await Task.Run(() => LogConsumer.Trace("Adding {0} to {1} cache repositories", key, _repositories.Count));
             foreach (var repository in _repositories.Values)
             {
                 repository.Set(value, key);
@@ -124,18 +124,18 @@ namespace CrispyWaffle.Cache
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public static void Set<T>(
+        public async static Task SetAsync<T>(
             T value,
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Adding {0}/{2} to {1} cache repositories",
                 key,
                 _repositories.Count,
                 subKey
-            );
+            ));
             foreach (var repository in _repositories.Values)
             {
                 repository.Set(value, key, subKey);
@@ -149,14 +149,14 @@ namespace CrispyWaffle.Cache
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="ttl">The TTL.</param>
-        public static void Set<T>(T value, [Localizable(false)] string key, TimeSpan ttl)
+        public async static Task SetAsync<T>(T value, [Localizable(false)] string key, TimeSpan ttl)
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Adding {0} to {1} cache repositories with TTL of {2:g}",
                 key,
                 _repositories.Count,
                 ttl
-            );
+            ));
             foreach (var repository in _repositories.Values)
             {
                 repository.Set(value, key, ttl);
@@ -171,14 +171,14 @@ namespace CrispyWaffle.Cache
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void SetTo<TCacheRepository, TValue>(
+        public async static Task SetToAsync<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace("Adding {0} to repository of type {1}", key, type.FullName);
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            await Task.Run(() => LogConsumer.Trace("Adding {0} to repository of type {1}", key, type.FullName));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -198,20 +198,20 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void SetTo<TCacheRepository, TValue>(
+        public async static Task SetToAsync<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Adding {0}/{2} to repository of type {1}",
                 key,
                 type.FullName,
                 subKey
-            );
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            ));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -231,20 +231,20 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="ttl">The TTL.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void SetTo<TCacheRepository, TValue>(
+        public async static Task SetToAsync<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
             TimeSpan ttl
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Adding {0} to repository of type {1} with TTL of {2:g}",
                 key,
                 type.FullName,
                 ttl
-            );
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            ));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -265,7 +265,7 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <param name="ttl">The TTL.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void SetTo<TCacheRepository, TValue>(
+        public async static Task SetToAsync<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
             [Localizable(false)] string subKey,
@@ -273,14 +273,14 @@ namespace CrispyWaffle.Cache
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Adding {0}/{2} to repository of type {1} with TTL of {2:g}",
                 key,
                 type.FullName,
                 ttl,
                 subKey
-            );
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            ));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -298,13 +298,13 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <returns>The object as <typeparamref name="T"/></returns>
         /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists</exception>
-        public static T Get<T>([Localizable(false)] string key)
+        public async static Task<T> GetAsync<T>([Localizable(false)] string key)
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Getting {0} from any of {1} cache repositories",
                 key,
                 _repositories.Count
-            );
+            ));
             foreach (var repository in _repositories.Values)
             {
                 if (!repository.TryGet(key, out T value))
@@ -317,7 +317,7 @@ namespace CrispyWaffle.Cache
                     && repository.GetType() != typeof(MemoryCacheRepository)
                 )
                 {
-                    SetTo<MemoryCacheRepository, T>(value, key);
+                    await SetToAsync<MemoryCacheRepository, T>(value, key);
                 }
 
                 return value;
@@ -334,14 +334,14 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public static T Get<T>([Localizable(false)] string key, [Localizable(false)] string subKey)
+        public async static Task<T> GetAsync<T>([Localizable(false)] string key, [Localizable(false)] string subKey)
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Getting {0}/{2} from any of {1} cache repositories",
                 key,
                 _repositories.Count,
                 subKey
-            );
+            ));
             foreach (var repository in _repositories.Values)
             {
                 if (!repository.TryGet(key, subKey, out T value))
@@ -354,7 +354,7 @@ namespace CrispyWaffle.Cache
                     && repository.GetType() != typeof(MemoryCacheRepository)
                 )
                 {
-                    SetTo<MemoryCacheRepository, T>(value, key, subKey);
+                    await SetToAsync<MemoryCacheRepository, T>(value, key, subKey);
                 }
 
                 return value;
@@ -373,11 +373,11 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <returns>The <typeparamref name="TValue"/></returns>
         /// <exception cref="InvalidOperationException">Throws when the repository is not in the repositories providers list or the key isn't available at that repository</exception>
-        public static TValue GetFrom<TCacheRepository, TValue>([Localizable(false)] string key)
+        public async static Task<TValue> GetFromAsync<TCacheRepository, TValue>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            await Task.Run(() => LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -397,13 +397,13 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public static TValue GetFrom<TCacheRepository, TValue>(
+        public async static Task<TValue> GetFromAsync<TCacheRepository, TValue>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace("Getting {0}/{2} from repository {1}", key, type.FullName, subKey);
+            await Task.Run(() => LogConsumer.Trace("Getting {0}/{2} from repository {1}", key, type.FullName, subKey));
             var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
             if (repository == null)
             {
@@ -423,14 +423,14 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
-        public static bool TryGet<T>([Localizable(false)] string key, out T value)
+        public async static Task<(bool Exists, T Value)> TryGetAsync<T>([Localizable(false)] string key)
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Trying to get {0} from any of {1} repositories",
                 key,
                 _repositories.Count
-            );
-            value = default;
+            ));
+            T value = default;
             foreach (var repository in _repositories.Values)
             {
                 if (!repository.TryGet(key, out value))
@@ -443,13 +443,13 @@ namespace CrispyWaffle.Cache
                     && repository.GetType() != typeof(MemoryCacheRepository)
                 )
                 {
-                    SetTo<MemoryCacheRepository, T>(value, key);
+                    await SetToAsync<MemoryCacheRepository, T>(value, key);
                 }
 
-                return true;
+                return (true, value);
             }
 
-            return false;
+            return (false, value);
         }
 
         /// <summary>
@@ -460,10 +460,9 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public static bool TryGet<T>(
+        public async static Task<(bool Exists, T Value)> TryGetAsync<T>(
             [Localizable(false)] string key,
-            [Localizable(false)] string subKey,
-            out T value
+            [Localizable(false)] string subKey
         )
         {
             LogConsumer.Trace(
@@ -472,7 +471,7 @@ namespace CrispyWaffle.Cache
                 _repositories.Count,
                 subKey
             );
-            value = default;
+            T value = default;
             foreach (var repository in _repositories.Values)
             {
                 if (!repository.TryGet(key, subKey, out value))
@@ -485,13 +484,13 @@ namespace CrispyWaffle.Cache
                     && repository.GetType() != typeof(MemoryCacheRepository)
                 )
                 {
-                    SetTo<MemoryCacheRepository, T>(value, key, subKey);
+                    await SetToAsync<MemoryCacheRepository, T>(value, key, subKey);
                 }
 
-                return true;
+                return (true, value);
             }
 
-            return false;
+            return (false, value);
         }
 
         /// <summary>
@@ -499,13 +498,13 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
-        public static TimeSpan TTL([Localizable(false)] string key)
+        public async static Task<TimeSpan> TTLAsync([Localizable(false)] string key)
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Trying to get TTL of key {0} from {1} repositories",
                 key,
                 _repositories.Count
-            );
+            ));
             var result = new TimeSpan(0);
             foreach (var repository in _repositories.Values)
             {
@@ -525,9 +524,9 @@ namespace CrispyWaffle.Cache
         /// Removes the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
-        public static void Remove([Localizable(false)] string key)
+        public async static Task Remove([Localizable(false)] string key)
         {
-            LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count);
+            await Task.Run(() => LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count));
             foreach (var repository in _repositories.Values)
             {
                 repository.Remove(key);
@@ -539,17 +538,17 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public static void Remove(
+        public async static Task Remove(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
         {
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Removing key {0} and sub key {2} from {1} repositories",
                 key,
                 _repositories.Count,
                 subKey
-            );
+            ));
             foreach (var repository in _repositories.Values)
             {
                 repository.Remove(key, subKey);
@@ -562,11 +561,11 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
         /// <param name="key">The key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void RemoveFrom<TCacheRepository>([Localizable(false)] string key)
+        public async static Task RemoveFrom<TCacheRepository>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace("Removing key {0} from {1} repository", key, _repositories.Count);
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            await Task.Run(() => LogConsumer.Trace("Removing key {0} from {1} repository", key, _repositories.Count));
+            var repository = await Task.Run(() =>_repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -584,19 +583,19 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public static void RemoveFrom<TCacheRepository>(
+        public async static Task RemoveFrom<TCacheRepository>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
         {
             var type = typeof(TCacheRepository);
-            LogConsumer.Trace(
+            await Task.Run(() => LogConsumer.Trace(
                 "Removing key {0} and sub key {2} from {1} repository",
                 key,
                 _repositories.Count,
                 subKey
-            );
-            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            ));
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
