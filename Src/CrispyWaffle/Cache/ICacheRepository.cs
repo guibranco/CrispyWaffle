@@ -81,8 +81,9 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="T">The type of object to return if found.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.<br/> A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<bool> TryGetAsync<T>(string key, out T value);
+        /// <returns>A <see cref="Tuple"/> contating <see cref="bool"/> Exists that contains the success info of the get, and <typeparamref name="T"/> value which is the value.
+        /// <br/>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<(bool Exists, T value)> TryGetAsync<T>(string key);
 
         /// <summary>
         /// Tries the get.
@@ -91,8 +92,9 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Success info of the get, as a bool.<br/> A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<bool> TryGetAsync<T>(string key, string subKey, out T value);
+        /// <returns>A <see cref="Tuple"/> contating <see cref="bool"/> Exists that contains the success info of the get, and <typeparamref name="T"/> value which is the value.
+        /// <br/>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<(bool Exists, T value)> TryGetAsync<T>(string key, string subKey);
 
         /// <summary>
         /// Removes the specified key from the cache.
@@ -119,6 +121,6 @@ namespace CrispyWaffle.Cache
         /// <summary>
         /// Clears this instance.
         /// </summary>
-        void Clear();
+        Task ClearAsync();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using CrispyWaffle.Cache;
 using CrispyWaffle.Log;
 using CrispyWaffle.Redis.Utils.Communications;
@@ -156,17 +157,17 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="ttl">The TTL.</param>
-        public void Set<T>(T value, string key, TimeSpan? ttl = null)
+        public async Task SetAsync<T>(T value, string key, TimeSpan? ttl = null)
         {
             try
             {
                 if (ttl.HasValue)
                 {
-                    _cacheClient.Db0.AddAsync(key, value, ttl.Value).Wait();
+                    await _cacheClient.Db0.AddAsync(key, value, ttl.Value);
                 }
                 else
                 {
-                    _cacheClient.Db0.AddAsync(key, value).Wait();
+                    await _cacheClient.Db0.AddAsync(key, value);
                 }
             }
             catch (Exception e)
@@ -187,7 +188,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="value">The value.</param>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public void Set<T>(T value, string key, string subKey)
+        public async Task SetAsync<T>(T value, string key, string subKey)
         {
             try
             {
@@ -195,7 +196,7 @@ namespace CrispyWaffle.Redis.Cache
                     ? _cacheClient.Db0.HashGetAllAsync<T>(key, CommandFlags.PreferReplica).Result
                     : new Dictionary<string, T>();
                 allValues[subKey] = value;
-                _cacheClient.Db0.HashSetAsync(key, allValues, CommandFlags.FireAndForget).Wait();
+                await _cacheClient.Db0.HashSetAsync(key, allValues, CommandFlags.FireAndForget);
             }
             catch (Exception e)
             {
@@ -215,13 +216,14 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="key">The key.</param>
         /// <returns>T.</returns>
         /// <exception cref="InvalidOperationException">"Unable to get the item with key.</exception>
-        public T Get<T>(string key)
+        public async Task<T> GetAsync<T>(string key)
         {
             try
             {
                 if (_cacheClient.Db0.ExistsAsync(key).Result)
                 {
-                    return _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result;
+                    var returnResult = await Task.Run(() => _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result);
+                    return returnResult;
                 }
             }
             catch (Exception e)
@@ -251,7 +253,7 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="subKey">The sub key.</param>
         /// <returns>T.</returns>
         /// <exception cref="InvalidOperationException">Unable to get the item with key and sub key.</exception>
-        public T Get<T>(string key, string subKey)
+        public Task<T> GetAsync<T>(string key, string subKey)
         {
             try
             {
@@ -259,9 +261,9 @@ namespace CrispyWaffle.Redis.Cache
                     _cacheClient.Db0.HashExistsAsync(key, subKey, CommandFlags.PreferReplica).Result
                 )
                 {
-                    return _cacheClient
+                    return Task.FromResult(_cacheClient
                         .Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
-                        .Result;
+                        .Result);
                 }
             }
             catch (Exception e)
@@ -292,13 +294,13 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.</returns>
-        public bool TryGet<T>(string key, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key)
         {
-            value = default;
+            T value = default;
             try
             {
                 value = _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result;
-                return _cacheClient.Db0.ExistsAsync(key).Result;
+                return (_cacheClient.Db0.ExistsAsync(key).Result,value);
             }
             catch (Exception e)
             {
@@ -310,7 +312,7 @@ namespace CrispyWaffle.Redis.Cache
                 HandleException(e);
             }
 
-            return false;
+            return (false, value);
         }
 
         /// <summary>
@@ -321,15 +323,15 @@ namespace CrispyWaffle.Redis.Cache
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if get the key, <c>false</c> otherwise.</returns>
-        public bool TryGet<T>(string key, string subKey, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key, string subKey)
         {
-            value = default;
+            T value = default;
             try
             {
                 value = _cacheClient
                     .Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
                     .Result;
-                return _cacheClient.Db0.HashExistsAsync(key, subKey).Result;
+                return (_cacheClient.Db0.HashExistsAsync(key, subKey).Result, value);
             }
             catch (Exception e)
             {
@@ -341,18 +343,18 @@ namespace CrispyWaffle.Redis.Cache
                 HandleException(e);
             }
 
-            return false;
+            return (false, value);
         }
 
         /// <summary>
         /// Removes the specified key from the cache.
         /// </summary>
         /// <param name="key">The key.</param>
-        public void Remove(string key)
+        public async Task RemoveAsync(string key)
         {
             try
             {
-                _cacheClient.Db0.RemoveAsync(key).Wait();
+                await _cacheClient.Db0.RemoveAsync(key);
             }
             catch (Exception e)
             {
@@ -370,11 +372,11 @@ namespace CrispyWaffle.Redis.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public void Remove(string key, string subKey)
+        public async Task RemoveAsync(string key, string subKey)
         {
             try
             {
-                _cacheClient.Db0.HashDeleteAsync(key, subKey, CommandFlags.FireAndForget).Wait();
+                await _cacheClient.Db0.HashDeleteAsync(key, subKey, CommandFlags.FireAndForget);
             }
             catch (Exception e)
             {
@@ -392,7 +394,7 @@ namespace CrispyWaffle.Redis.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>The timespan until this key is expired from the cache or 0 if it's already expired or doesn't exists.</returns>
-        public TimeSpan TTL(string key)
+        public async Task<TimeSpan> TTLAsync(string key)
         {
             try
             {
@@ -415,11 +417,11 @@ namespace CrispyWaffle.Redis.Cache
         /// <summary>
         /// Clears this instance.
         /// </summary>
-        public void Clear()
+        public async Task ClearAsync()
         {
             try
             {
-                _cacheClient.Db0.FlushDbAsync().Wait();
+                await _cacheClient.Db0.FlushDbAsync();
             }
             catch (Exception e)
             {

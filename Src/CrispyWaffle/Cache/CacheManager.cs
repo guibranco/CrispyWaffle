@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
+using Newtonsoft.Json.Linq;
 
 namespace CrispyWaffle.Cache
 {
@@ -77,7 +78,7 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="priority">The priority.</param>
-        /// <returns>Returns the priority with the repository was added</returns>
+        /// <returns>Returns <see cref="int"/> that represents the priority with the repository was added</returns>
         public async static Task<int> AddRepositoryAsync(ICacheRepository repository, int priority)
         {
             while (true)
@@ -113,7 +114,7 @@ namespace CrispyWaffle.Cache
             await Task.Run(() => LogConsumer.Trace("Adding {0} to {1} cache repositories", key, _repositories.Count));
             foreach (var repository in _repositories.Values)
             {
-                repository.Set(value, key);
+                await repository.SetAsync(value, key);
             }
         }
 
@@ -138,7 +139,7 @@ namespace CrispyWaffle.Cache
             ));
             foreach (var repository in _repositories.Values)
             {
-                repository.Set(value, key, subKey);
+                await repository.SetAsync(value, key, subKey);
             }
         }
 
@@ -159,7 +160,7 @@ namespace CrispyWaffle.Cache
             ));
             foreach (var repository in _repositories.Values)
             {
-                repository.Set(value, key, ttl);
+                await repository.SetAsync(value, key, ttl);
             }
         }
 
@@ -186,7 +187,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Set(value, key);
+            await repository.SetAsync(value, key);
         }
 
         /// <summary>
@@ -219,7 +220,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Set(value, key, subKey);
+            await repository.SetAsync(value, key, subKey);
         }
 
         /// <summary>
@@ -252,7 +253,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Set(value, key, ttl);
+            await repository.SetAsync(value, key, ttl);
         }
 
         /// <summary>
@@ -288,7 +289,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Set(value, key, subKey);
+            await repository.SetAsync(value, key, subKey);
         }
 
         /// <summary>
@@ -305,9 +306,12 @@ namespace CrispyWaffle.Cache
                 key,
                 _repositories.Count
             ));
+            T value;
             foreach (var repository in _repositories.Values)
             {
-                if (!repository.TryGet(key, out T value))
+                var result = await repository.TryGetAsync<T>(key);
+                value = result.value;
+                if (!result.Exists)
                 {
                     continue;
                 }
@@ -342,9 +346,12 @@ namespace CrispyWaffle.Cache
                 _repositories.Count,
                 subKey
             ));
+            T value;
             foreach (var repository in _repositories.Values)
             {
-                if (!repository.TryGet(key, subKey, out T value))
+                var result = await repository.TryGetAsync<T>(key);
+                value = result.value;
+                if (!result.Exists)
                 {
                     continue;
                 }
@@ -384,8 +391,8 @@ namespace CrispyWaffle.Cache
                     $"The repository of type {type.FullName} isn't available in the repositories providers list"
                 );
             }
-
-            return repository.Get<TValue>(key);
+            var returnValue = await repository.GetAsync<TValue>(key);
+            return returnValue;
         }
 
         /// <summary>
@@ -411,8 +418,8 @@ namespace CrispyWaffle.Cache
                     $"The repository of type {type.FullName} isn't available in the repositories providers list"
                 );
             }
-
-            return repository.Get<TValue>(key, subKey);
+            var returnValue = await repository.GetAsync<TValue>(key, subKey);
+            return returnValue;
         }
 
         /// <summary>
@@ -422,7 +429,8 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
+        /// /// <returns>A <see cref="Tuple"/> contating <see cref="bool"/> Exists that contains the success info of the get, and <typeparamref name="T"/> value which is the value.
+        /// <br/>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async static Task<(bool Exists, T Value)> TryGetAsync<T>([Localizable(false)] string key)
         {
             await Task.Run(() => LogConsumer.Trace(
@@ -433,7 +441,9 @@ namespace CrispyWaffle.Cache
             T value = default;
             foreach (var repository in _repositories.Values)
             {
-                if (!repository.TryGet(key, out value))
+                var result = await repository.TryGetAsync<T>(key);
+                value = result.value;
+                if (!result.Exists)
                 {
                     continue;
                 }
@@ -459,7 +469,8 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Tuple"/> contating <see cref="bool"/> Exists that contains the success info of the get, and <typeparamref name="T"/> value which is the value.
+        /// <br/>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async static Task<(bool Exists, T Value)> TryGetAsync<T>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
@@ -474,7 +485,9 @@ namespace CrispyWaffle.Cache
             T value = default;
             foreach (var repository in _repositories.Values)
             {
-                if (!repository.TryGet(key, subKey, out value))
+                var result = await repository.TryGetAsync<T>(key, subKey);
+                value = result.value;
+                if (!result.Exists)
                 {
                     continue;
                 }
@@ -508,7 +521,7 @@ namespace CrispyWaffle.Cache
             var result = new TimeSpan(0);
             foreach (var repository in _repositories.Values)
             {
-                var currentResult = repository.TTL(key);
+                var currentResult = await repository.TTLAsync(key);
                 if (currentResult == result)
                 {
                     continue;
@@ -529,7 +542,7 @@ namespace CrispyWaffle.Cache
             await Task.Run(() => LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count));
             foreach (var repository in _repositories.Values)
             {
-                repository.Remove(key);
+                await repository.RemoveAsync(key);
             }
         }
 
@@ -551,7 +564,7 @@ namespace CrispyWaffle.Cache
             ));
             foreach (var repository in _repositories.Values)
             {
-                repository.Remove(key, subKey);
+                await repository.RemoveAsync(key, subKey);
             }
         }
 
@@ -565,7 +578,7 @@ namespace CrispyWaffle.Cache
         {
             var type = typeof(TCacheRepository);
             await Task.Run(() => LogConsumer.Trace("Removing key {0} from {1} repository", key, _repositories.Count));
-            var repository = await Task.Run(() =>_repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
+            var repository = await Task.Run(() => _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value);
             if (repository == null)
             {
                 throw new InvalidOperationException(
@@ -573,7 +586,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Remove(key);
+            await repository.RemoveAsync(key);
         }
 
         /// <summary>
@@ -603,7 +616,7 @@ namespace CrispyWaffle.Cache
                 );
             }
 
-            repository.Remove(key, subKey);
+            await repository.RemoveAsync(key, subKey);
         }
     }
 }

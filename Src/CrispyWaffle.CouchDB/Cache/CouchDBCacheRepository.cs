@@ -45,9 +45,9 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public void Clear()
+        public async Task ClearAsync()
         {
-            Clear<CouchDBCacheDocument>();
+            await Task.Run(() => ClearAsync<CouchDBCacheDocument>());
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// This method does not return any value and modifies the state of the database by removing documents.
         /// </remarks>
         /// <exception cref="Exception">Thrown when an error occurs during the deletion process, unless exceptions are suppressed.</exception>
-        public void Clear<T>()
+        public async Task ClearAsync<T>()
             where T : CouchDBCacheDocument
         {
             try
@@ -76,7 +76,7 @@ namespace CrispyWaffle.CouchDB.Cache
                     tasks.Add(db.DeleteAsync(doc));
                 }
 
-                Task.WaitAll(tasks.ToArray());
+                await Task.Run(() => tasks.ToArray());
             }
             catch (Exception e)
             {
@@ -90,14 +90,14 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public T Get<T>(string key)
+        public async Task<T> GetAsync<T>(string key)
         {
             if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return default;
             }
 
-            return (T)(object)GetSpecific<CouchDBCacheDocument>(key);
+            return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key);
         }
 
         /// <summary>
@@ -111,18 +111,18 @@ namespace CrispyWaffle.CouchDB.Cache
         /// </returns>
         /// <remarks>
         /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
-        /// If it is, it calls the method <see cref="GetSpecific{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
+        /// If it is, it calls the method <see cref="GetSpecificAsync{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
         /// If the type is not assignable, it returns the default value for that type, which could be null for reference types or zero for numeric types.
         /// This method is useful for retrieving cached data in a type-safe manner, ensuring that only compatible types are processed.
         /// </remarks>
-        public T Get<T>(string key, string subKey)
+        public async Task<T> GetAsync<T>(string key, string subKey)
         {
             if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return default;
             }
 
-            return (T)(object)GetSpecific<CouchDBCacheDocument>(key, subKey);
+            return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key, subKey);
         }
 
         /// <summary>
@@ -132,16 +132,16 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="key">A uniquely identifiable key to get document from the specified database.</param>
         /// <returns>The document if found.</returns>
         /// <exception cref="InvalidOperationException">Thrown in case the operation fails.</exception>
-        public T GetSpecific<T>(string key)
+        public async Task<T> GetSpecificAsync<T>(string key)
             where T : CouchDBCacheDocument
         {
             try
             {
-                var doc = ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault();
+                var doc = await Task.Run(() => ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault());
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
-                    RemoveSpecific<T>(key);
+                    await RemoveSpecificAsync<T>(key);
                     return default;
                 }
 
@@ -175,18 +175,18 @@ namespace CrispyWaffle.CouchDB.Cache
         /// If no document is found and no exceptions are thrown, an <see cref="InvalidOperationException"/> is thrown indicating that the item could not be retrieved.
         /// </remarks>
         /// <exception cref="InvalidOperationException">Thrown when unable to retrieve the item with the specified key and sub key.</exception>
-        public T GetSpecific<T>(string key, string subKey)
+        public async Task<T> GetSpecificAsync<T>(string key, string subKey)
             where T : CouchDBCacheDocument
         {
             try
             {
-                var doc = ResolveDatabase<T>()
+                var doc = await Task.Run(() => ResolveDatabase<T>()
                     .Where(x => x.Key == key && x.SubKey == subKey)
-                    .FirstOrDefault();
+                    .FirstOrDefault());
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
-                    RemoveSpecific<T>(key, subKey);
+                    await RemoveSpecificAsync<T>(key, subKey);
                     return default;
                 }
 
@@ -208,9 +208,9 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public void Remove(string key)
+        public async Task RemoveAsync(string key)
         {
-            RemoveSpecific<CouchDBCacheDocument>(key);
+            await RemoveSpecificAsync<CouchDBCacheDocument>(key);
         }
 
         /// <summary>
@@ -224,9 +224,9 @@ namespace CrispyWaffle.CouchDB.Cache
         /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
         /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
         /// </remarks>
-        public void Remove(string key, string subKey)
+        public async Task RemoveAsync(string key, string subKey)
         {
-            RemoveSpecific<CouchDBCacheDocument>(key, subKey);
+            await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey);
         }
 
         /// <summary>
@@ -234,13 +234,13 @@ namespace CrispyWaffle.CouchDB.Cache
         /// </summary>
         /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
-        public void RemoveSpecific<T>(string key)
+        public async Task RemoveSpecificAsync<T>(string key)
             where T : CouchDBCacheDocument
         {
             try
             {
-                var db = _connector.CouchDBClient.GetDatabase<T>();
-                var doc = db.Where(x => x.Key == key).FirstOrDefault();
+                var db = await Task.Run(() => _connector.CouchDBClient.GetDatabase<T>());
+                var doc = await Task.Run(() => db.Where(x => x.Key == key).FirstOrDefault());
 
                 if (doc != default)
                 {
@@ -271,13 +271,13 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <see cref="ShouldPropagateExceptions"/>. If exceptions are not propagated, they are logged using the
         /// <see cref="LogConsumer"/>. This method does not return any value.
         /// </remarks>
-        public void RemoveSpecific<T>(string key, string subKey)
+        public async Task RemoveSpecificAsync<T>(string key, string subKey)
             where T : CouchDBCacheDocument
         {
             try
             {
-                var db = _connector.CouchDBClient.GetDatabase<T>();
-                var doc = db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
+                var db = await Task.Run(() => _connector.CouchDBClient.GetDatabase<T>());
+                var doc = await Task.Run(() => db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault());
 
                 if (doc != default)
                 {
@@ -296,14 +296,14 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public void Set<T>(T value, string key, TimeSpan? ttl = null)
+        public async Task SetAsync<T>(T value, string key, TimeSpan? ttl = null)
         {
             if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return;
             }
 
-            SetSpecific((CouchDBCacheDocument)(object)value, key, ttl);
+            SetSpecificAsync((CouchDBCacheDocument)(object)value, key, ttl);
         }
 
         /// <summary>
@@ -316,17 +316,17 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <remarks>
         /// This method checks if the provided type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
         /// If it is not, the method returns without performing any action.
-        /// If the type is valid, it calls the <see cref="SetSpecific"/> method to set the value in the cache.
+        /// If the type is valid, it calls the <see cref="SetSpecificAsync"/> method to set the value in the cache.
         /// This allows for type-safe caching of documents that inherit from <see cref="CouchDBCacheDocument"/>.
         /// </remarks>
-        public void Set<T>(T value, string key, string subKey)
+        public async Task SetAsync<T>(T value, string key, string subKey)
         {
             if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
                 return;
             }
 
-            SetSpecific((CouchDBCacheDocument)(object)value, key, subKey);
+            SetSpecificAsync((CouchDBCacheDocument)(object)value, key, subKey);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <param name="value">The value of type T to be persisted.</param>
         /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
         /// <param name="ttl">How long the value should be stored.</param>
-        public void SetSpecific<T>(T value, string key, TimeSpan? ttl = null)
+        public async Task SetSpecificAsync<T>(T value, string key, TimeSpan? ttl = null)
             where T : CouchDBCacheDocument
         {
             try
@@ -349,7 +349,7 @@ namespace CrispyWaffle.CouchDB.Cache
                     value.ExpiresAt = DateTime.UtcNow.Add(ttl.Value);
                 }
 
-                ResolveDatabase<T>().CreateAsync(value).Wait();
+                await Task.Run(() => ResolveDatabase<T>().CreateAsync(value).Wait());
             }
             catch (Exception e)
             {
@@ -377,7 +377,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// is rethrown; otherwise, it is logged using the LogConsumer.
         /// </remarks>
         /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
-        public void SetSpecific<T>(T value, string key, string subKey)
+        public async Task SetSpecificAsync<T>(T value, string key, string subKey)
             where T : CouchDBCacheDocument
         {
             try
@@ -385,7 +385,7 @@ namespace CrispyWaffle.CouchDB.Cache
                 value.Key = key;
                 value.SubKey = subKey;
 
-                ResolveDatabase<T>().CreateOrUpdateAsync(value).Wait();
+                await Task.Run(() => ResolveDatabase<T>().CreateOrUpdateAsync(value).Wait());
             }
             catch (Exception e)
             {
@@ -399,18 +399,18 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public bool TryGet<T>(string key, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key)
         {
-            var get = Get<CouchDBCacheDocument>(key);
-
+            var get = await GetAsync<CouchDBCacheDocument>(key);
+            T value;
             if (get != default)
             {
                 value = (T)(object)get;
-                return true;
+                return (true, value);
             }
 
             value = default;
-            return false;
+            return (false, value);
         }
 
         /// <summary>
@@ -427,18 +427,18 @@ namespace CrispyWaffle.CouchDB.Cache
         /// If no document is found, <paramref name="value"/> is set to its default value, and the method returns false.
         /// This is useful for safely attempting to retrieve values without throwing exceptions if the keys do not exist in the cache.
         /// </remarks>
-        public bool TryGet<T>(string key, string subKey, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key, string subKey)
         {
-            var get = Get<CouchDBCacheDocument>(key, subKey);
-
+            var get = await GetAsync<CouchDBCacheDocument>(key, subKey);
+            T value;
             if (get != default)
             {
                 value = (T)(object)get;
-                return true;
+                return (true, value);
             }
 
             value = default;
-            return false;
+            return (false, value);
         }
 
         /// <summary>
@@ -454,9 +454,10 @@ namespace CrispyWaffle.CouchDB.Cache
         /// This method assumes that the key exists in the cache; if it does not, the behavior will depend
         /// on the implementation of the Get method.
         /// </remarks>
-        public TimeSpan TTL(string key)
+        public async Task<TimeSpan> TTLAsync(string key)
         {
-            return Get<CouchDBCacheDocument>(key).TTL;
+            var result = await GetAsync<CouchDBCacheDocument>(key);
+            return result.TTL;
         }
 
         /// <summary>
