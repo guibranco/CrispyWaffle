@@ -1,4 +1,5 @@
 using CouchDB.Driver;
+using System.Threading.Tasks;
 using CrispyWaffle.CouchDB.Cache;
 using CrispyWaffle.CouchDB.Utils.Communications;
 using FluentAssertions;
@@ -27,26 +28,26 @@ public class CouchDBCacheRepositoryTests
     }
 
     /// <summary>
-    /// Tests the Set method of the repository to ensure it correctly stores a value associated with a given key.
+    /// Tests the SetAsync method of the repository to ensure it correctly stores a value associated with a given key.
     /// </summary>
     /// <remarks>
     /// This unit test verifies that when a value is set in the repository using a specified key,
     /// the value is stored correctly. The test uses the Arrange-Act-Assert pattern, where:
     /// - In the Arrange phase, a key and a value are defined.
-    /// - In the Act phase, the Set method is called to store the value with the specified key.
+    /// - In the Act phase, the SetAsync method is called to store the value with the specified key.
     /// - The Assert phase is currently empty, indicating that further assertions may be needed
     /// to confirm that the value was stored as expected.
     /// This test is marked with the [Fact] attribute, indicating that it is a unit test that can be run by a test runner.
     /// </remarks>
     [Fact]
-    public void SetToDatabase_ShouldStoreValue()
+    public async Task SetToDatabase_ShouldStoreValueAsync()
     {
         // Arrange
         var key = "test-key";
         var value = "test-value";
 
         // Act
-        _repository.Set(value, key);
+        await _repository.SetAsync(value, key);
 
         // Assert
     }
@@ -57,18 +58,18 @@ public class CouchDBCacheRepositoryTests
     /// <remarks>
     /// This test method verifies that the <see cref="_repository.Get{T}"/> method correctly retrieves a value associated with a specified key from the database.
     /// It sets up a test scenario where a key is defined, and an expected value is specified.
-    /// The method then calls the Get method with the key and asserts that the actual value returned is null, indicating that no value is stored for the given key.
+    /// The method then calls the GetAsync method with the key and asserts that the actual value returned is null, indicating that no value is stored for the given key.
     /// This is useful for ensuring that the database behaves as expected when attempting to retrieve a value that does not exist.
     /// </remarks>
     [Fact]
-    public void GetFromDatabase_ShouldReturnStoredValue()
+    public async Task GetFromDatabase_ShouldReturnStoredValueAsync()
     {
         // Arrange
         var key = "test-key";
         var expectedValue = "test-value";
 
         // Act
-        var actualValue = _repository.Get<string>(key);
+        var actualValue = await _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().BeNull();
@@ -86,13 +87,13 @@ public class CouchDBCacheRepositoryTests
     /// This test is marked with the <c>[Fact]</c> attribute, indicating that it is a test method that should be executed by the testing framework.
     /// </remarks>
     [Fact]
-    public void RemoveFromDatabase_ShouldRemoveValue()
+    public async Task RemoveFromDatabase_ShouldRemoveValueAsync()
     {
         // Arrange
         var key = "test-key";
 
         // Act
-        _repository.Remove(key);
+        await _repository.RemoveAsync(key);
 
         // Assert
     }

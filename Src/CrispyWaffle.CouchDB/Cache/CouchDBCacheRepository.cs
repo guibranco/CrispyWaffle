@@ -303,7 +303,7 @@ namespace CrispyWaffle.CouchDB.Cache
                 return;
             }
 
-            SetSpecificAsync((CouchDBCacheDocument)(object)value, key, ttl);
+            await SetSpecificAsync((CouchDBCacheDocument)(object)value, key, ttl);
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace CrispyWaffle.CouchDB.Cache
                 return;
             }
 
-            SetSpecificAsync((CouchDBCacheDocument)(object)value, key, subKey);
+            await SetSpecificAsync((CouchDBCacheDocument)(object)value, key, subKey);
         }
 
         /// <summary>

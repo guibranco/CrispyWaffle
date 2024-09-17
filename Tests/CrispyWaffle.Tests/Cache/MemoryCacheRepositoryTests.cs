@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using CrispyWaffle.Cache;
 using FluentAssertions;
 using Xunit;
@@ -15,47 +16,47 @@ public class MemoryCacheRepositoryTests
     }
 
     [Fact]
-    public void Set_ShouldStoreValue()
+    public async Task Set_ShouldStoreValueAsync()
     {
         // Arrange
         var key = "test-key";
         var value = "test-value";
 
-        _repository.Set(value, key);
+        await _repository.SetAsync(value, key);
 
         // Act
-        var actualValue = _repository.Get<string>(key);
+        var actualValue = _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().Be(value);
     }
 
     [Fact]
-    public void Get_ShouldReturnStoredValue()
+    public async Task Get_ShouldReturnStoredValueAsync()
     {
         // Arrange
         var key = "test-key";
         var expectedValue = "test-value";
-        _repository.Set(expectedValue, key);
+        await _repository.SetAsync(expectedValue, key);
 
         // Act
-        var actualValue = _repository.Get<string>(key);
+        var actualValue = _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().Be(expectedValue);
     }
 
     [Fact]
-    public void Remove_ShouldRemoveStoredValue()
+    public async Task Remove_ShouldRemoveStoredValueAsync()
     {
         // Arrange
         var key = "test-key";
-        _repository.Set("test-value", key);
-        _repository.Remove(key);
+        await _repository.SetAsync("test-value", key);
+        await _repository.RemoveAsync(key);
 
         // Act
-        var exception = Assert.Throws<InvalidOperationException>(
-            () => _repository.Get<string>(key)
+        var exception = Assert.ThrowsAsync<InvalidOperationException>(
+            () => _repository.GetAsync<string>(key)
         );
 
         // Assert

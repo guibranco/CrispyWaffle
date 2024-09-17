@@ -35,17 +35,17 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// </remarks>
     /// <exception cref="Exception">Throws an exception if the document retrieval fails or if the keys do not match.</exception>
     [Fact]
-    public void GetAndSetCouchDocTest()
+    public async Task GetAndSetCouchDocTestAsync()
     {
         var doc = new CouchDBCacheDocument();
 
-        _repository.Set(doc, Guid.NewGuid().ToString());
+        await _repository.SetAsync(doc, Guid.NewGuid().ToString());
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(doc.Key == docDB.Key);
 
-        _repository.Remove(doc.Key);
+        await _repository.RemoveAsync(doc.Key);
     }
 
     /// <summary>
@@ -59,28 +59,28 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// Finally, it cleans up by removing the Car objects from the repository after the assertions.
     /// </remarks>
     [Fact]
-    public void GetAndSetSpecificTest()
+    public async Task GetAndSetSpecificTestAsync()
     {
         var docOne = new Car("MakerOne");
 
-        _repository.SetSpecific(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
         var docTwo = new Car("MakerTwo");
 
-        _repository.SetSpecific(docTwo, Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(docTwo, Guid.NewGuid().ToString());
 
-        var docDB = _repository.GetSpecific<Car>(docOne.Key);
+        var docDB = await _repository.GetSpecificAsync<Car>(docOne.Key);
 
         Assert.True(
             docOne.Key == docDB.Key && docOne.SubKey == docDB.SubKey && docOne.Maker == "MakerOne"
         );
 
-        docDB = _repository.GetSpecific<Car>(docTwo.Key);
+        docDB = await _repository.GetSpecificAsync<Car>(docTwo.Key);
 
         Assert.True(docTwo.Key == docDB.Key && docTwo.Maker == "MakerTwo");
 
-        _repository.RemoveSpecific<Car>(docOne.Key);
-        _repository.RemoveSpecific<Car>(docTwo.Key);
+        await _repository.RemoveSpecificAsync<Car>(docOne.Key);
+        await _repository.RemoveSpecificAsync<Car>(docTwo.Key);
     }
 
     /// <summary>
@@ -93,15 +93,15 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// This ensures that the removal functionality of the repository works as expected.
     /// </remarks>
     [Fact]
-    public void RemoveCouchDocTest()
+    public async Task RemoveCouchDocTestAsync()
     {
         var doc = new CouchDBCacheDocument();
 
-        _repository.Set(doc, Guid.NewGuid().ToString());
+        await _repository.SetAsync(doc, Guid.NewGuid().ToString());
 
-        _repository.Remove(doc.Key);
+        await _repository.RemoveAsync(doc.Key);
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(docDB == default);
     }
@@ -117,15 +117,15 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// The assertion checks that the retrieved document is equal to the default value, indicating that the document no longer exists in the repository.
     /// </remarks>
     [Fact]
-    public void RemoveSpecificTest()
+    public async Task RemoveSpecificTestAsync()
     {
         var doc = new Car("Maker");
 
-        _repository.SetSpecific(doc, Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(doc, Guid.NewGuid().ToString());
 
-        _repository.RemoveSpecific<Car>(doc.Key);
+        await _repository.RemoveSpecificAsync<Car>(doc.Key);
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(docDB == default);
     }
@@ -143,14 +143,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// This method is marked with the <see cref="[Fact]"/> attribute, indicating that it is a unit test.
     /// </remarks>
     [Fact]
-    public void DatabaseClearTest()
+    public async Task DatabaseClearTestAsync()
     {
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
+        await _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
+        await _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
+        await _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
+        await _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
 
-        _repository.Clear();
+        await _repository.ClearAsync();
 
         var count = _repository.GetDocCount<CouchDBCacheDocument>();
 
@@ -171,18 +171,18 @@ public class CouchDBCacheRepositoryTests : IDisposable
     /// document expiration based on the TTL setting.
     /// </remarks>
     [Fact]
-    public async Task TTLGetTest()
+    public async Task TTLGetTestAsync()
     {
         var doc = new CouchDBCacheDocument() { Key = Guid.NewGuid().ToString() };
 
-        _repository.Set(new CouchDBCacheDocument(), doc.Key, new TimeSpan(0, 0, 5));
-        var fromDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        await _repository.SetAsync(new CouchDBCacheDocument(), doc.Key, new TimeSpan(0, 0, 5));
+        var fromDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(doc.Key == fromDB.Key);
 
         await Task.Delay(6000);
 
-        fromDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        fromDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(fromDB == null);
     }

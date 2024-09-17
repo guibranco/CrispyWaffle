@@ -1,6 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using CrispyWaffle.Cache;
 using Moq;
+using NSubstitute;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Cache;
@@ -14,42 +16,45 @@ public class CacheManagerTests
     {
         _mockRepository1 = new Mock<ICacheRepository>();
         _mockRepository2 = new Mock<ICacheRepository>();
-        CacheManager.AddRepository(_mockRepository1.Object, 1);
-        CacheManager.AddRepository(_mockRepository2.Object, 2);
+        CacheManager.AddRepositoryAsync(_mockRepository1.Object, 1);
+        CacheManager.AddRepositoryAsync(_mockRepository2.Object, 2);
     }
 
     [Fact]
-    public void Set_ShouldStoreValueInAllRepositories()
+    public async Task Set_ShouldStoreValueInAllRepositoriesAsync()
     {
         // Arrange
         var key = "test-key";
         var value = "test-value";
 
         // Act
-        CacheManager.Set(value, key);
+        await CacheManager.SetAsync(value, key);
 
         // Assert
-        _mockRepository1.Verify(m => m.Set(value, key, (TimeSpan?)null), Times.Once);
-        _mockRepository2.Verify(m => m.Set(value, key, (TimeSpan?)null), Times.Once);
+        _mockRepository1.Verify(m => m.SetAsync(value, key, (TimeSpan?)null), Times.Once);
+        _mockRepository2.Verify(m => m.SetAsync(value, key, (TimeSpan?)null), Times.Once);
     }
 
     [Fact]
-    public void Get_ShouldRetrieveValueFromRepository()
+    public async Task Get_ShouldRetrieveValueFromRepositoryAsync()
     {
         // Arrange
         var key = "test-key";
         var expectedValue = "test-value";
-        _mockRepository1.Setup(m => m.TryGet(key, out expectedValue)).Returns(true);
+        //(bool Exists, string value) test;
+
+
+        _mockRepository1.Setup(m => m.TryGetAsync<string>(key)).ReturnsAsync((true, "test"));
 
         // Act
-        var actualValue = CacheManager.Get<string>(key);
+        var actualValue = await CacheManager.GetAsync<string>(key);
 
         // Assert
         Assert.Equal(expectedValue, actualValue);
     }
 
     [Fact]
-    public void Remove_ShouldRemoveValueFromAllRepositories()
+    public void Remove_ShouldRemoveValueFromAllRepositoriesAsync()
     {
         // Arrange
         var key = "test-key";
@@ -58,7 +63,7 @@ public class CacheManagerTests
         CacheManager.Remove(key);
 
         // Assert
-        _mockRepository1.Verify(m => m.Remove(key), Times.Once);
-        _mockRepository2.Verify(m => m.Remove(key), Times.Once);
+        _mockRepository1.Verify(m => m.RemoveAsync(key), Times.Once);
+        _mockRepository2.Verify(m => m.RemoveAsync(key), Times.Once);
     }
 }
