@@ -21,7 +21,7 @@
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
-    <PackageVersion Include="StackExchange.Redis" Version="2.8.12" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.8.16" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="8.0.0" />
