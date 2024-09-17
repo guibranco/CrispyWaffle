@@ -222,7 +222,9 @@ namespace CrispyWaffle.Redis.Cache
             {
                 if (_cacheClient.Db0.ExistsAsync(key).Result)
                 {
-                    var returnResult = await Task.Run(() => _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result);
+                    var returnResult = await Task.Run(
+                        () => _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result
+                    );
                     return returnResult;
                 }
             }
@@ -261,9 +263,11 @@ namespace CrispyWaffle.Redis.Cache
                     _cacheClient.Db0.HashExistsAsync(key, subKey, CommandFlags.PreferReplica).Result
                 )
                 {
-                    return Task.FromResult(_cacheClient
-                        .Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
-                        .Result);
+                    return Task.FromResult(
+                        _cacheClient
+                            .Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
+                            .Result
+                    );
                 }
             }
             catch (Exception e)
@@ -300,7 +304,7 @@ namespace CrispyWaffle.Redis.Cache
             try
             {
                 value = _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).Result;
-                return (_cacheClient.Db0.ExistsAsync(key).Result,value);
+                return (_cacheClient.Db0.ExistsAsync(key).Result, value);
             }
             catch (Exception e)
             {

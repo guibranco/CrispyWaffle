@@ -1,5 +1,5 @@
-using CouchDB.Driver;
 using System.Threading.Tasks;
+using CouchDB.Driver;
 using CrispyWaffle.CouchDB.Cache;
 using CrispyWaffle.CouchDB.Utils.Communications;
 using FluentAssertions;

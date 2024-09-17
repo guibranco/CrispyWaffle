@@ -63,7 +63,11 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var docOne = new Car("MakerOne");
 
-        await _repository.SetSpecificAsync(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(
+            docOne,
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString()
+        );
 
         var docTwo = new Car("MakerTwo");
 

@@ -137,7 +137,9 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var doc = await Task.Run(() => ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault());
+                var doc = await Task.Run(
+                    () => ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault()
+                );
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -180,9 +182,12 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var doc = await Task.Run(() => ResolveDatabase<T>()
-                    .Where(x => x.Key == key && x.SubKey == subKey)
-                    .FirstOrDefault());
+                var doc = await Task.Run(
+                    () =>
+                        ResolveDatabase<T>()
+                            .Where(x => x.Key == key && x.SubKey == subKey)
+                            .FirstOrDefault()
+                );
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -277,7 +282,9 @@ namespace CrispyWaffle.CouchDB.Cache
             try
             {
                 var db = await Task.Run(() => _connector.CouchDBClient.GetDatabase<T>());
-                var doc = await Task.Run(() => db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault());
+                var doc = await Task.Run(
+                    () => db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault()
+                );
 
                 if (doc != default)
                 {
