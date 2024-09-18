@@ -605,7 +605,7 @@ namespace CrispyWaffle.Cache
         /// Removes the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
-        public async static Task Remove([Localizable(false)] string key)
+        public async static Task RemoveAsync([Localizable(false)] string key)
         {
             await Task.Run(
                 () =>
