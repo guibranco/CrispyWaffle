@@ -357,7 +357,7 @@ namespace CrispyWaffle.CouchDB.Cache
                     value.ExpiresAt = DateTime.UtcNow.Add(ttl.Value);
                 }
 
-                await Task.Run(() => ResolveDatabase<T>().CreateAsync(value).Wait());
+                await Task.Run(() => ResolveDatabase<T>().CreateAsync(value));
             }
             catch (Exception e)
             {
