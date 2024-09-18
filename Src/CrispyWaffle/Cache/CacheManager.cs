@@ -626,7 +626,7 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public async static Task Remove(
+        public async static Task RemoveAsync(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
@@ -652,7 +652,7 @@ namespace CrispyWaffle.Cache
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
         /// <param name="key">The key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public async static Task RemoveFrom<TCacheRepository>([Localizable(false)] string key)
+        public async static Task RemoveFromAsync<TCacheRepository>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
             await Task.Run(
@@ -683,7 +683,7 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <exception cref="InvalidOperationException"></exception>
-        public async static Task RemoveFrom<TCacheRepository>(
+        public async static Task RemoveFromAsync<TCacheRepository>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
         )
