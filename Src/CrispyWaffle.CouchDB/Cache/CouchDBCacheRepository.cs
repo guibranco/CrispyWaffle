@@ -92,12 +92,12 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <inheritdoc />
         public async Task<T> GetAsync<T>(string key)
         {
-            if (typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
-                return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key);
+                return default;
             }
 
-            return default;
+            return (T)(object)await Task.FromResult(GetSpecificAsync<CouchDBCacheDocument>(key));
         }
 
         /// <summary>
@@ -117,13 +117,14 @@ namespace CrispyWaffle.CouchDB.Cache
         /// </remarks>
         public async Task<T> GetAsync<T>(string key, string subKey)
         {
-            if (typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
-                return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key, subKey);
+                return default;
             }
 
-            return default;
+            return (T)(object)await Task.FromResult(GetSpecificAsync<CouchDBCacheDocument>(key, subKey));
         }
+
 
         /// <summary>
         /// Gets from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
