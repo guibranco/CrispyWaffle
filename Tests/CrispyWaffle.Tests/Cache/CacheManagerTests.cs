@@ -44,7 +44,7 @@ public class CacheManagerTests
         //(bool Exists, string value) test;
 
 
-        _mockRepository1.Setup(m => m.TryGetAsync<string>(key)).ReturnsAsync((true, "test"));
+        _mockRepository1.Setup(m => m.TryGetAsync<string>(key)).ReturnsAsync((true, "test-value"));
 
         // Act
         var actualValue = await CacheManager.GetAsync<string>(key);
@@ -54,16 +54,16 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void Remove_ShouldRemoveValueFromAllRepositoriesAsync()
+    public async Task Remove_ShouldRemoveValueFromAllRepositoriesAsync()
     {
         // Arrange
         var key = "test-key";
 
         // Act
-        CacheManager.RemoveAsync(key);
+        await CacheManager.RemoveAsync(key);
 
         // Assert
-        _mockRepository1.Verify(m => m.RemoveAsync(key), Times.Once);
-        _mockRepository2.Verify(m => m.RemoveAsync(key), Times.Once);
+        await Task.Run(() => _mockRepository1.Verify(m => m.RemoveAsync(key), Times.Once));
+        await Task.Run(() => _mockRepository2.Verify(m => m.RemoveAsync(key), Times.Once));
     }
 }

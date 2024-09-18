@@ -25,7 +25,7 @@ public class MemoryCacheRepositoryTests
         await _repository.SetAsync(value, key);
 
         // Act
-        var actualValue = _repository.GetAsync<string>(key);
+        var actualValue = await _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().Be(value);
@@ -40,7 +40,7 @@ public class MemoryCacheRepositoryTests
         await _repository.SetAsync(expectedValue, key);
 
         // Act
-        var actualValue = _repository.GetAsync<string>(key);
+        var actualValue = await _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().Be(expectedValue);
