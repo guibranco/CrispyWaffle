@@ -92,12 +92,12 @@ namespace CrispyWaffle.CouchDB.Cache
         /// <inheritdoc />
         public async Task<T> GetAsync<T>(string key)
         {
-            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+            if (typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
-                return default;
+                return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key);
             }
 
-            return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key);
+            return default;
         }
 
         /// <summary>
@@ -117,12 +117,12 @@ namespace CrispyWaffle.CouchDB.Cache
         /// </remarks>
         public async Task<T> GetAsync<T>(string key, string subKey)
         {
-            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+            if (typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
             {
-                return default;
+                return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key, subKey);
             }
 
-            return (T)(object)GetSpecificAsync<CouchDBCacheDocument>(key, subKey);
+            return default;
         }
 
         /// <summary>

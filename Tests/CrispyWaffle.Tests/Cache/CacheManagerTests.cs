@@ -60,7 +60,7 @@ public class CacheManagerTests
         var key = "test-key";
 
         // Act
-        CacheManager.Remove(key);
+        CacheManager.RemoveAsync(key);
 
         // Assert
         _mockRepository1.Verify(m => m.RemoveAsync(key), Times.Once);
