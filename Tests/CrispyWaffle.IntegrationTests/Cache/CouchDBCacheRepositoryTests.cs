@@ -156,7 +156,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
         await _repository.ClearAsync();
 
-        var count = _repository.GetDocCount<CouchDBCacheDocument>();
+        var count = await _repository.GetDocCountAsync<CouchDBCacheDocument>();
 
         Assert.True(count == 0);
     }
