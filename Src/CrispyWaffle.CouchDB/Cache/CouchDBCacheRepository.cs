@@ -38,10 +38,10 @@ namespace CrispyWaffle.CouchDB.Cache
         /// Finally, it converts the filtered results to a list and returns the count of those documents.
         /// This is useful for determining how many valid instances of a specific document type exist in the database.
         /// </remarks>
-        public int GetDocCount<T>()
+        public async Task<int> GetDocCountAsync<T>()
             where T : CouchDBCacheDocument
         {
-            return ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
+            return (await ResolveDatabaseAsync<T>()).Where(x => x.Id != null).ToList().Count;
         }
 
         /// <inheritdoc />
@@ -67,7 +67,7 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var db = ResolveDatabase<T>();
+                var db = await ResolveDatabaseAsync<T>();
                 var docs = db.Where(x => x.Id != null).ToList();
                 var tasks = new List<Task>(docs.Count);
 
@@ -97,7 +97,7 @@ namespace CrispyWaffle.CouchDB.Cache
                 return default;
             }
 
-            return (T)(object)await Task.FromResult(GetSpecificAsync<CouchDBCacheDocument>(key));
+            return (T)(object)await GetSpecificAsync<CouchDBCacheDocument>(key);
         }
 
         /// <summary>
@@ -138,9 +138,7 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var doc = await Task.Run(
-                    () => ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault()
-                );
+                var doc = (await ResolveDatabaseAsync<T>()).Where(x => x.Key == key).FirstOrDefault();
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -183,12 +181,7 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var doc = await Task.Run(
-                    () =>
-                        ResolveDatabase<T>()
-                            .Where(x => x.Key == key && x.SubKey == subKey)
-                            .FirstOrDefault()
-                );
+                var doc = (await ResolveDatabaseAsync<T>()).Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
                 if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
                 {
@@ -214,10 +207,7 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public async Task RemoveAsync(string key)
-        {
-            await RemoveSpecificAsync<CouchDBCacheDocument>(key);
-        }
+        public async Task RemoveAsync(string key) => await RemoveSpecificAsync<CouchDBCacheDocument>(key);
 
         /// <summary>
         /// Removes a specific entry from the cache based on the provided key and subKey.
@@ -230,10 +220,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
         /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
         /// </remarks>
-        public async Task RemoveAsync(string key, string subKey)
-        {
-            await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey);
-        }
+        public async Task RemoveAsync(string key, string subKey) => await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey);
 
         /// <summary>
         /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
@@ -245,12 +232,12 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var db = await Task.Run(() => _connector.CouchDBClient.GetDatabase<T>());
-                var doc = await Task.Run(() => db.Where(x => x.Key == key).FirstOrDefault());
+                var db = _connector.CouchDBClient.GetDatabase<T>();
+                var doc = db.Where(x => x.Key == key).FirstOrDefault();
 
                 if (doc != default)
                 {
-                    db.DeleteAsync(doc).Wait();
+                    await db.DeleteAsync(doc);
                 }
             }
             catch (Exception e)
@@ -282,14 +269,12 @@ namespace CrispyWaffle.CouchDB.Cache
         {
             try
             {
-                var db = await Task.Run(() => _connector.CouchDBClient.GetDatabase<T>());
-                var doc = await Task.Run(
-                    () => db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault()
-                );
+                var db = _connector.CouchDBClient.GetDatabase<T>();
+                var doc = db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
                 if (doc != default)
                 {
-                    db.DeleteAsync(doc).Wait();
+                    await db.DeleteAsync(doc);
                 }
             }
             catch (Exception e)
@@ -357,7 +342,7 @@ namespace CrispyWaffle.CouchDB.Cache
                     value.ExpiresAt = DateTime.UtcNow.Add(ttl.Value);
                 }
 
-                await Task.Run(() => ResolveDatabase<T>().CreateAsync(value));
+                await (await ResolveDatabaseAsync<T>()).CreateAsync(value);
             }
             catch (Exception e)
             {
@@ -393,7 +378,7 @@ namespace CrispyWaffle.CouchDB.Cache
                 value.Key = key;
                 value.SubKey = subKey;
 
-                await Task.Run(() => ResolveDatabase<T>().CreateOrUpdateAsync(value).Wait());
+                await (await ResolveDatabaseAsync<T>()).CreateOrUpdateAsync(value);
             }
             catch (Exception e)
             {
@@ -480,7 +465,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// ensuring that it handles database creation and retrieval efficiently. The use of generics allows for flexibility in specifying the type of documents
         /// that will be stored in the database, making this method suitable for various CouchDBCacheDocument types.
         /// </remarks>
-        private CouchDatabase<T> ResolveDatabase<T>(string dbName = default)
+        private async Task<CouchDatabase<T>> ResolveDatabaseAsync<T>(string dbName = default)
             where T : CouchDBCacheDocument
         {
             if (string.IsNullOrEmpty(dbName))
@@ -488,8 +473,8 @@ namespace CrispyWaffle.CouchDB.Cache
                 dbName = $"{typeof(T).Name.ToLowerInvariant()}s";
             }
 
-            return !_connector.CouchDBClient.GetDatabasesNamesAsync().Result.Contains(dbName)
-                ? _connector.CouchDBClient.CreateDatabaseAsync<T>().Result
+            return !(await _connector.CouchDBClient.GetDatabasesNamesAsync()).Contains(dbName)
+                ? (await _connector.CouchDBClient.CreateDatabaseAsync<T>())
                 : _connector.CouchDBClient.GetDatabase<T>();
         }
 
