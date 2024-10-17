@@ -339,7 +339,8 @@ namespace CrispyWaffle.Utils.Communications
         /// <returns>A Task representing the asynchronous operation.</returns>
         private async Task SendInternalAsync(string cacheKey)
         {
-            if (CacheManager.TryGet(cacheKey, out bool exists) && exists)
+            var result = await CacheManager.TryGetAsync<bool>(cacheKey);
+            if (result.Exists && result.Value)
             {
                 LogConsumer.Trace("E-mail sending disabled due {0}", "network error");
                 return;
@@ -372,7 +373,7 @@ namespace CrispyWaffle.Utils.Communications
                 || e.Message.IndexOf(@"5.0.3", StringComparison.InvariantCultureIgnoreCase) != -1
             )
             {
-                CacheManager.Set(true, cacheKey, new TimeSpan(0, 15, 0));
+                CacheManager.SetAsync(true, cacheKey, new TimeSpan(0, 15, 0));
                 return true;
             }
 
