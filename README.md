@@ -1,3 +1,13 @@
+# YAML Serialization Support
+
+This project now supports YAML serialization and deserialization using the `YamlSerializer` class.
+
+## Usage
+
+```csharp
+var serializer = new YamlSerializer();
+var yaml = serializer.Serialize(new { Name = "Test", Value = 123 });
+var obj = serializer.Deserialize<dynamic>(yaml);
 # Crispy Waffle
 
 🧰 🛠️ Crispy Waffle project - a toolkit for .NET projects.
