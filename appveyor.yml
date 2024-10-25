@@ -35,6 +35,11 @@ install:
   - ps: (new-object net.webclient).DownloadFile('https://couchdb.neighbourhood.ie/downloads/3.3.3-3/win/apache-couchdb-3.3.3-3.msi', 'apache-couchdb-3.3.3.msi')
   - ps: msiexec /i .\apache-couchdb-3.3.3.msi /quiet /norestart ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd
 
+  - ps: |
+      Invoke-WebRequest -Uri https://github.com/microsoftarchive/redis/releases/download/win-3.0.504/Redis-x64-3.0.504.zip -OutFile redis.zip
+      Expand-Archive redis.zip -DestinationPath $env:USERPROFILE\redis
+      Start-Process -FilePath $env:USERPROFILE\redis\redis-server.exe
+
 before_build:
   - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
   - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
