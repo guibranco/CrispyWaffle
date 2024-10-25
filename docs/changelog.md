@@ -1,3 +1,9 @@
+## Version 1.1.0 [Unreleased]
+
+- Added support for YAML serialization and deserialization.
+- Introduced `YamlSerializer` class in `CrispyWaffle.Serialization`.
+- Updated documentation with usage examples for YAML serialization.
+
 # Changelog
 
 ## Version 8.2 [2024-09-11]
