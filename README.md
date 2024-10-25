@@ -106,6 +106,16 @@ More information is available [here](https://guibranco.github.io/CrispyWaffle/in
 ---
 
 ## User guide
+### Running Redis Integration Tests
+
+To run the Redis integration tests, ensure that you have Docker and Docker Compose installed on your machine. Follow these steps:
+
+1. **Start Redis using Docker Compose**:
+   - Navigate to the project root directory.
+   - Run the command `docker-compose up -d redis` to start the Redis service.
+
+2. **Run the Integration Tests**:
+   - Use your preferred test runner to execute the tests in the `CrispyWaffle.IntegrationTests` project.
 
 The user guide is available [here](https://guibranco.github.io/CrispyWaffle/user-guide/basic-usage/).
 
