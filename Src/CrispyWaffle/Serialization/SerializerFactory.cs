@@ -1,18 +1,10 @@
 using System;
-using System;
-using System.Collections;
 using System.Collections;
 using System.Diagnostics.Contracts;
-using System.Diagnostics.Contracts;
-using System.Globalization;
 using System.Globalization;
 using CrispyWaffle.Composition;
-using CrispyWaffle.Composition;
-using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Serialization.NewtonsoftJson;
-using CrispyWaffle.Serialization.NewtonsoftJson;
-using Newtonsoft.Json;
 using Newtonsoft.Json;
 
 namespace CrispyWaffle.Serialization

@@ -3,14 +3,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Extensions;
 
-/// <summary>
-/// Class MathExtensionsTests.
-/// </summary>
 public class MathExtensionsTests
 {
-    /// <summary>
-    /// Validates the round down.
-    /// </summary>
     [Fact]
     public void ValidateRoundDown()
     {
@@ -30,9 +24,6 @@ public class MathExtensionsTests
         Assert.Equal(100, result);
     }
 
-    /// <summary>
-    /// Validates the round down multiple of100.
-    /// </summary>
     [Fact]
     public void ValidateRoundDownMultipleOf100()
     {
@@ -52,9 +43,6 @@ public class MathExtensionsTests
         Assert.Equal(100, result);
     }
 
-    /// <summary>
-    /// Validates the round up.
-    /// </summary>
     [Fact]
     public void ValidateRoundUp()
     {
@@ -74,9 +62,6 @@ public class MathExtensionsTests
         Assert.Equal(110, result);
     }
 
-    /// <summary>
-    /// Validates the round up multiple of100.
-    /// </summary>
     [Fact]
     public void ValidateRoundUpMultipleOf100()
     {
@@ -96,9 +81,6 @@ public class MathExtensionsTests
         Assert.Equal(200, result);
     }
 
-    /// <summary>
-    /// Validates the round best.
-    /// </summary>
     [Fact]
     public void ValidateRoundBest()
     {
@@ -118,9 +100,6 @@ public class MathExtensionsTests
         Assert.Equal(110, result);
     }
 
-    /// <summary>
-    /// Validates the round best multiple of100.
-    /// </summary>
     [Fact]
     public void ValidateRoundBestMultipleOf100()
     {

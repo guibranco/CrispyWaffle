@@ -5,14 +5,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Scheduler;
 
-/// <summary>
-/// Class CronSchedulerTests.
-/// </summary>
 public class CronSchedulerTests
 {
-    /// <summary>
-    /// Defines the test method ValidateExpressions.
-    /// </summary>
     [Fact]
     public void ValidateExpressions()
     {
@@ -28,18 +22,12 @@ public class CronSchedulerTests
         Assert.True(scheduler.IsValid("* 10-20 * * *"));
     }
 
-    /// <summary>
-    /// Defines the test method ValidateInvalidExpression.
-    /// </summary>
     [Fact]
     public void ValidateInvalidExpression()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => new CronScheduler("invalid expression"));
     }
 
-    /// <summary>
-    /// Defines the test method ValidateDivided.
-    /// </summary>
     [Fact]
     public void ValidateDivided()
     {
@@ -50,9 +38,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.Hours);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateRange.
-    /// </summary>
     [Fact]
     public void ValidateRange()
     {
@@ -73,9 +58,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.Minutes);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateWild.
-    /// </summary>
     [Fact]
     public void ValidateWild()
     {
@@ -92,9 +74,6 @@ public class CronSchedulerTests
         Assert.Equal(expectedHours, scheduler.Hours);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateMinutes.
-    /// </summary>
     [Fact]
     public void ValidateMinutes()
     {
@@ -111,9 +90,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.Minutes);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateHours.
-    /// </summary>
     [Fact]
     public void ValidateHours()
     {
@@ -130,9 +106,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.Hours);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateDaysOfMonth.
-    /// </summary>
     [Fact]
     public void ValidateDaysOfMonth()
     {
@@ -149,9 +122,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.DaysOfMonth);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateMonths.
-    /// </summary>
     [Fact]
     public void ValidateMonths()
     {
@@ -168,9 +138,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.Months);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateDaysOfWeek.
-    /// </summary>
     [Fact]
     public void ValidateDaysOfWeek()
     {
@@ -187,9 +154,6 @@ public class CronSchedulerTests
         Assert.Equal(expected, scheduler.DaysOfWeek);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateIsTimeFixedValue.
-    /// </summary>
     [Fact]
     public void ValidateIsTimeFixedValue()
     {
@@ -204,9 +168,6 @@ public class CronSchedulerTests
         Assert.False(scheduler.IsTime(DateTime.Parse("2020-10-05 12:19:10")));
     }
 
-    /// <summary>
-    /// Defines the test method ValidateIsTimeDividedValue.
-    /// </summary>
     [Fact]
     public void ValidateIsTimeDividedValue()
     {
@@ -223,9 +184,6 @@ public class CronSchedulerTests
         Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:31:50")));
     }
 
-    /// <summary>
-    /// Defines the test method ValidateIsTimeListValue.
-    /// </summary>
     [Fact]
     public void ValidateIsTimeListValue()
     {
