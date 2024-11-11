@@ -4,14 +4,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Extensions;
 
-/// <summary>
-/// Class StringExtensionsTests.
-/// </summary>
 public class StringExtensionsTests
 {
-    /// <summary>
-    /// Defines the test method ValidateEncodeBase64.
-    /// </summary>
     [Fact]
     public void ValidateEncodeBase64()
     {
@@ -23,9 +17,6 @@ public class StringExtensionsTests
         Assert.Equal(expected, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateDecodeBase64.
-    /// </summary>
     [Fact]
     public void ValidateDecodeBase64()
     {
@@ -37,9 +28,6 @@ public class StringExtensionsTests
         Assert.Equal(expected, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateBase64Checks.
-    /// </summary>
     [Fact]
     public void ValidateBase64Checks()
     {
@@ -54,9 +42,6 @@ public class StringExtensionsTests
         Assert.Equal(string.Empty, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateLevenshteinEmpty.
-    /// </summary>
     [Fact]
     public void ValidateLevenshteinEmpty()
     {
@@ -72,9 +57,6 @@ public class StringExtensionsTests
         Assert.Equal(different.Length, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateLevenshteinZero.
-    /// </summary>
     [Fact]
     public void ValidateLevenshteinZero()
     {
@@ -85,9 +67,6 @@ public class StringExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateLevenshteinCaseSensitive.
-    /// </summary>
     [Fact]
     public void ValidateLevenshteinCaseSensitive()
     {
@@ -99,9 +78,6 @@ public class StringExtensionsTests
         Assert.Equal(2, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateLevenshteinInvariantCulture.
-    /// </summary>
     [Fact]
     public void ValidateLevenshteinInvariantCulture()
     {
@@ -115,9 +91,6 @@ public class StringExtensionsTests
         Assert.Equal(1, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateRemoveSpaces.
-    /// </summary>
     [Fact]
     public void ValidateRemoveSpaces()
     {
@@ -129,9 +102,6 @@ public class StringExtensionsTests
         Assert.Equal(expected, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateToCamelCase.
-    /// </summary>
     [Fact]
     public void ValidateToCamelCase()
     {
@@ -147,9 +117,6 @@ public class StringExtensionsTests
         Assert.Equal(string.Empty, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateValidJson.
-    /// </summary>
     [Fact]
     public void ValidateValidJson()
     {
@@ -160,9 +127,6 @@ public class StringExtensionsTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateInvalidJsonFormat.
-    /// </summary>
     [Fact]
     public void ValidateInvalidJsonFormat()
     {
@@ -173,9 +137,6 @@ public class StringExtensionsTests
         Assert.False(result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateInvalidJson.
-    /// </summary>
     [Fact]
     public void ValidateInvalidJson()
     {
