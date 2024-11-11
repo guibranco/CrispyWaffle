@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace CrispyWaffle.Cache
 {
@@ -36,9 +37,9 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="ttl">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
         /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements.</exception>
-        public void Set<T>(T value, string key, TimeSpan? ttl = null)
+        public async Task SetAsync<T>(T value, string key, TimeSpan? ttl = null)
         {
-            _data.AddOrUpdate(key, value, (_, _) => value);
+            await Task.Run(() => _data.AddOrUpdate(key, value, (_, _) => value));
         }
 
         /// <summary>
@@ -49,10 +50,10 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
         /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements.</exception>
-        public void Set<T>(T value, string key, string subKey)
+        public async Task SetAsync<T>(T value, string key, string subKey)
         {
             var finalKey = $"{key}-{subKey}";
-            _hash.AddOrUpdate(finalKey, value, (_, _) => value);
+            await Task.Run(() => _hash.AddOrUpdate(finalKey, value, (_, _) => value));
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <returns>The object as <typeparamref name="T"/>The type parameter.</returns>
         /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exist.</exception>
-        public T Get<T>(string key)
+        public async Task<T> GetAsync<T>(string key)
         {
             if (!_data.TryGetValue(key, out var value))
             {
@@ -80,7 +81,7 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <returns>T.</returns>
         /// <exception cref="InvalidOperationException">Unable to get the item with key {key} and sub key {subKey}.</exception>
-        public T Get<T>(string key, string subKey)
+        public async Task<T> GetAsync<T>(string key, string subKey)
         {
             var finalKey = $"{key}-{subKey}";
             if (!_hash.TryGetValue(finalKey, out var value))
@@ -101,16 +102,16 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.</returns>
-        public bool TryGet<T>(string key, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key)
         {
-            value = default;
+            T value = default;
             if (!_data.TryGetValue(key, out var temp))
             {
-                return false;
+                return (false, value);
             }
 
             value = (T)temp;
-            return true;
+            return (true, value);
         }
 
         /// <summary>
@@ -121,24 +122,24 @@ namespace CrispyWaffle.Cache
         /// <param name="subKey">The sub key.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if able to get the key and sub key, <c>false</c> otherwise.</returns>
-        public bool TryGet<T>(string key, string subKey, out T value)
+        public async Task<(bool Exists, T value)> TryGetAsync<T>(string key, string subKey)
         {
-            value = default;
+            T value = default;
             var finalKey = $"{key}-{subKey}";
             if (!_hash.TryGetValue(finalKey, out var temp))
             {
-                return false;
+                return (false, value);
             }
 
             value = (T)temp;
-            return true;
+            return (true, value);
         }
 
         /// <summary>
         /// Removes the specified key from the cache.
         /// </summary>
         /// <param name="key">The key.</param>
-        public void Remove(string key)
+        public async Task RemoveAsync(string key)
         {
             if (_data.ContainsKey(key))
             {
@@ -151,7 +152,7 @@ namespace CrispyWaffle.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="subKey">The sub key.</param>
-        public void Remove(string key, string subKey)
+        public async Task RemoveAsync(string key, string subKey)
         {
             var finalKey = $"{key}-{subKey}";
             if (_data.ContainsKey(finalKey))
@@ -168,7 +169,7 @@ namespace CrispyWaffle.Cache
         /// The timespan until this key is expired from the cache or 0 if it's already expired or doesn't exist.
         /// As Memory Cache does not implement TTL or expire mechanism, this will always return 0, even if the key exists.
         /// </returns>
-        public TimeSpan TTL(string key)
+        public async Task<TimeSpan> TTLAsync(string key)
         {
             return new TimeSpan(0);
         }
@@ -176,10 +177,10 @@ namespace CrispyWaffle.Cache
         /// <summary>
         /// Clears this instance.
         /// </summary>
-        public void Clear()
+        public async Task ClearAsync()
         {
-            _data.Clear();
-            _hash.Clear();
+            await Task.Run(() => _data.Clear());
+            await Task.Run(() => _hash.Clear());
         }
     }
 }
