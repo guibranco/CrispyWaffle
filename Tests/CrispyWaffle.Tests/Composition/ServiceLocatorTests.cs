@@ -6,23 +6,12 @@ using Xunit.Abstractions;
 
 namespace CrispyWaffle.Tests.Composition;
 
-/// <summary>
-/// Class ServiceLocatorTests.
-/// </summary>
 [Collection("Logged collection")]
 public class ServiceLocatorTests
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ServiceLocatorTests"/> class.
-    /// </summary>
-    /// <param name="testOutputHelper">The test output helper.</param>
-    /// <param name="fixture">The fixture.</param>
     public ServiceLocatorTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
         fixture.SetLogProvider(testOutputHelper);
 
-    /// <summary>
-    /// Defines the test task ValidateSingletonCreationAndPersistence.
-    /// </summary>
     [Fact]
     public async Task ValidateSingletonCreationAndPersistence()
     {
@@ -36,9 +25,6 @@ public class ServiceLocatorTests
         Assert.Equal(instanceA.Date, instanceC.Date);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateSingletonCreationWithDependency.
-    /// </summary>
     [Fact]
     public void ValidateSingletonCreationWithDependency()
     {
@@ -50,9 +36,6 @@ public class ServiceLocatorTests
         Assert.Equal(instanceInner.Date, instance.Singleton.Date);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateCancellationTokenUsage.
-    /// </summary>
     [Fact]
     public void ValidateCancellationTokenUsage()
     {
@@ -64,9 +47,6 @@ public class ServiceLocatorTests
         Assert.True(instance.CancellationToken.CanBeCanceled);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateCancellationTokenCall.
-    /// </summary>
     [Fact]
     public void ValidateCancellationTokenCall()
     {

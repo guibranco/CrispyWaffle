@@ -10,19 +10,18 @@ using Newtonsoft.Json;
 namespace CrispyWaffle.Serialization
 {
     /// <summary>
-    /// The serializer factory class.
+    /// Provides a factory for creating serializers for various formats.
     /// </summary>
     public static class SerializerFactory
     {
         /// <summary>
-        /// Gets the type of the serializer from.
+        /// Retrieves the serializer converter for a given object based on its type.
         /// </summary>
-        /// <typeparam name="T">The type of the class.</typeparam>
-        /// <param name="obj">The object.</param>
-        /// <returns>SerializerConverter&lt;T&gt;.</returns>
-        /// <exception cref="InvalidOperationException">Invalid array subtype.</exception>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         /// <exception cref="InvalidOperationException">
-        /// The {typeof(SerializerAttribute).FullName} attribute was not found in the object of type {type.FullName}
+        /// Thrown when the <see cref="SerializerAttribute"/> is not found on the object type.
         /// </exception>
         [Pure]
         private static SerializerConverter<T> GetSerializerFromType<T>(T obj)
@@ -49,14 +48,15 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Gets the serializer from array or inherit.
+        /// Determines whether a serializer can be obtained from array or inherited types.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="serializerConverter">The serializer converter.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="type">The type of the object, modified if necessary.</param>
+        /// <param name="serializerConverter">
+        /// When this method returns, contains the serializer converter if found; otherwise, <c>null</c>.
+        /// </param>
+        /// <returns><c>true</c> if a serializer is found; otherwise, <c>false</c>.</returns>
         private static bool GetSerializerFromArrayOrInherit<T>(
             T obj,
             ref Type type,
@@ -76,13 +76,15 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Gets the serializer from inherit.
+        /// Attempts to get a serializer from inherited types.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="serializerConverter">The serializer converter.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="type">The type of the object, modified if necessary.</param>
+        /// <param name="serializerConverter">
+        /// When this method returns, contains the serializer converter if found; otherwise, <c>null</c>.
+        /// </param>
+        /// <returns><c>true</c> if a serializer is found; otherwise, <c>false</c>.</returns>
         private static bool GetSerializerFromInherit<T>(
             T obj,
             ref Type type,
@@ -107,14 +109,15 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Gets the serializer from array.
+        /// Attempts to get a serializer for an array type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="serializerConverter">The serializer converter.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        /// <exception cref="InvalidOperationException">Invalid array subtype</exception>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="type">The type of the object, modified if necessary.</param>
+        /// <param name="serializerConverter">
+        /// When this method returns, contains the serializer converter if found; otherwise, <c>null</c>.
+        /// </param>
+        /// <returns><c>true</c> if a serializer is found; otherwise, <c>false</c>.</returns>
         private static bool GetSerializerFromArray<T>(
             T obj,
             ref Type type,
@@ -141,19 +144,11 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Retrieves a serializer converter for the specified object based on the provided serializer attribute.
+        /// Retrieves the serializer converter for the specified object.
         /// </summary>
         /// <typeparam name="T">The type of the object to be serialized.</typeparam>
         /// <param name="obj">The object to be serialized.</param>
-        /// <param name="attribute">The serializer attribute that determines the serialization format and options.</param>
-        /// <returns>A <see cref="SerializerConverter{T}"/> configured for the specified object and serialization format.</returns>
-        /// <remarks>
-        /// This method checks the format specified in the <paramref name="attribute"/> and creates a corresponding
-        /// <see cref="SerializerConverter{T}"/> instance. If the format is JSON, it further checks if strict mode is enabled
-        /// to determine the appropriate settings for the JSON serializer. For XML format, it resolves the appropriate
-        /// XML serializer adapter. If an unsupported format is provided, an <see cref="InvalidOperationException"/> is thrown.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">Thrown when the specified format in <paramref name="attribute"/> is not supported.</exception>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>(this T obj)
             where T : class
@@ -162,26 +157,25 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// Gets the serializer.
+        /// Retrieves the serializer converter for a new instance of the specified type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>SerializerConverter&lt;T&gt;.</returns>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>()
             where T : class
         {
-            var obj = (T)Activator.CreateInstance(typeof(T));
+            var obj = Activator.CreateInstance<T>();
             return GetSerializerFromType(obj);
         }
 
         /// <summary>
-        /// Gets the serializer.
+        /// Retrieves the serializer converter using the specified serializer attribute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">format</exception>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="attribute">The serializer attribute defining the format and settings.</param>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         private static SerializerConverter<T> GetSerializer<T>(T obj, SerializerAttribute attribute)
             where T : class
@@ -219,12 +213,12 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// A T extension method that gets custom serializer.
+        /// Retrieves a custom serializer for the specified object and format.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="obj">The object.</param>
-        /// <param name="format">Describes the format to use.</param>
-        /// <returns>The custom serializer&lt; t&gt;</returns>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="obj">The object to be serialized.</param>
+        /// <param name="format">The desired serialization format.</param>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         public static SerializerConverter<T> GetCustomSerializer<T>(
             this T obj,
@@ -236,16 +230,16 @@ namespace CrispyWaffle.Serialization
         }
 
         /// <summary>
-        /// A T extension method that gets custom serializer.
+        /// Retrieves a custom serializer for a new instance of the specified type and format.
         /// </summary>
-        /// <typeparam name="T">Generic type parameter.</typeparam>
-        /// <param name="format">Describes the format to use.</param>
-        /// <returns>The custom serializer&lt; t&gt;</returns>
+        /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+        /// <param name="format">The desired serialization format.</param>
+        /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         public static SerializerConverter<T> GetCustomSerializer<T>(SerializerFormat format)
             where T : class
         {
-            var obj = (T)Activator.CreateInstance(typeof(T));
+            var obj = Activator.CreateInstance<T>();
             return GetCustomSerializer(obj, format);
         }
     }
