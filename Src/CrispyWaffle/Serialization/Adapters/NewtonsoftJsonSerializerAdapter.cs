@@ -20,8 +20,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <summary>
         /// Initializes a new instance of the <see cref="NewtonsoftJsonSerializerAdapter"/> class.
         /// </summary>
-        public NewtonsoftJsonSerializerAdapter()
-        {
+        public NewtonsoftJsonSerializerAdapter() =>
             _settings = new JsonSerializerSettings
             {
                 Converters = { new NotNullObserverConverter() },
@@ -29,16 +28,13 @@ namespace CrispyWaffle.Serialization.Adapters
                 MissingMemberHandling = MissingMemberHandling.Error,
                 NullValueHandling = NullValueHandling.Ignore,
             };
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewtonsoftJsonSerializerAdapter"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public NewtonsoftJsonSerializerAdapter(JsonSerializerSettings settings)
-        {
+        public NewtonsoftJsonSerializerAdapter(JsonSerializerSettings settings) =>
             _settings = settings;
-        }
 
         /// <summary>
         /// Deserialize a stream to a generic type.

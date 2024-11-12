@@ -41,19 +41,14 @@ namespace CrispyWaffle.Utilities
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
-        public DynamicSerialization()
-        {
-            SerializationKeyFilter = DynamicSerializationOption.None;
-        }
+        public DynamicSerialization() => SerializationKeyFilter = DynamicSerializationOption.None;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.
         /// </summary>
         /// <param name="keyFilter">The key filter.</param>
-        public DynamicSerialization(DynamicSerializationOption keyFilter)
-        {
+        public DynamicSerialization(DynamicSerializationOption keyFilter) =>
             SerializationKeyFilter = keyFilter;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicSerialization"/> class.

@@ -6,12 +6,13 @@ using CrispyWaffle.Extensions;
 namespace CrispyWaffle.Validations
 {
     /// <summary>
-    /// Class PersonalDataValidation.
+    /// Provides static methods for validating and calculating Brazilian personal and corporate documents,
+    /// as well as validating email addresses.
     /// </summary>
     public static class PersonalDataValidation
     {
         /// <summary>
-        /// The same number document pattern
+        /// A regular expression pattern that matches documents with the same repeated number (e.g., "11111111111").
         /// </summary>
         public static readonly Regex SameNumberDocumentPattern = new Regex(
             @"(\d)\1{10}",
@@ -20,12 +21,16 @@ namespace CrispyWaffle.Validations
         );
 
         /// <summary>
-        /// Validates the email address.
+        /// Validates an email address by ensuring it follows a correct pattern and is properly formatted.
+        /// If the email address ends with "combr" or contains a comma, it is adjusted accordingly.
         /// </summary>
-        /// <param name="emailAddress">The email address.</param>
-        /// <returns>String.</returns>
-        /// <exception cref="InvalidEmailAddressException"></exception>
-        /// <exception cref="InvalidEmailAddressException"></exception>
+        /// <param name="emailAddress">The email address to validate.</param>
+        /// <returns>
+        /// A valid email address string if the input is correctly formatted.
+        /// </returns>
+        /// <exception cref="InvalidEmailAddressException">
+        /// Thrown when the provided email address is not valid.
+        /// </exception>
         public static string ValidateEmailAddress(this string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
@@ -48,11 +53,11 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Determines whether [is valid brazilian person document].
+        /// Validates whether a given document is a valid Brazilian person document (e.g., CPF).
         /// </summary>
-        /// <param name="document">The document.</param>
+        /// <param name="document">The document number (CPF) to validate.</param>
         /// <returns>
-        ///   <c>true</c> if [is valid brazilian person document] [the specified document]; otherwise, <c>false</c>.
+        /// <c>true</c> if the document is valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsValidBrazilianPersonDocument(this string document)
         {
@@ -61,11 +66,11 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Determines whether [is valid brazilian corporate document].
+        /// Validates whether a given document is a valid Brazilian corporate document (e.g., CNPJ).
         /// </summary>
-        /// <param name="document">The document.</param>
+        /// <param name="document">The document number (CNPJ) to validate.</param>
         /// <returns>
-        ///   <c>true</c> if [is valid brazilian corporate document] [the specified document]; otherwise, <c>false</c>.
+        /// <c>true</c> if the document is valid; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsValidBrazilianCorporateDocument(this string document)
         {
@@ -74,11 +79,14 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Calculates the brazilian person document digits.
+        /// Calculates the valid digits for a Brazilian person document (e.g., CPF).
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns></returns>
+        /// <param name="document">The document number (CPF) to calculate the digits for.</param>
+        /// <returns>
+        /// The calculated digits for the Brazilian person document (CPF).
+        /// </returns>
         /// <exception cref="InvalidDocumentException">
+        /// Thrown when the document is invalid or has an incorrect length.
         /// </exception>
         public static string CalculateBrazilianPersonDocumentDigits(this string document)
         {
@@ -95,11 +103,15 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Calculates the brazilian corporate document.
+        /// Calculates the valid digits for a Brazilian corporate document (e.g., CNPJ).
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidDocumentException"></exception>
+        /// <param name="document">The document number (CNPJ) to calculate the digits for.</param>
+        /// <returns>
+        /// The calculated digits for the Brazilian corporate document (CNPJ).
+        /// </returns>
+        /// <exception cref="InvalidDocumentException">
+        /// Thrown when the document is invalid or has an incorrect length.
+        /// </exception>
         public static string CalculateBrazilianCorporateDocument(this string document)
         {
             int[] multiplierFirstDigit = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -115,15 +127,19 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Calculates the document digits.
+        /// Calculates the verification digits for a Brazilian document (CPF or CNPJ) based on the provided multipliers.
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <param name="documentType">Type of the document.</param>
-        /// <param name="fullLength">The full length.</param>
-        /// <param name="multiplierFirstDigit">The multiplier a.</param>
-        /// <param name="multiplierSecondDigit">The multiplier b.</param>
-        /// <returns>System.String.</returns>
-        /// <exception cref="CrispyWaffle.Validations.InvalidDocumentException"></exception>
+        /// <param name="document">The document number (CPF or CNPJ) to calculate the digits for.</param>
+        /// <param name="documentType">The type of document (e.g., "CPF" or "CNPJ").</param>
+        /// <param name="fullLength">The expected full length of the document.</param>
+        /// <param name="multiplierFirstDigit">The multipliers for the first digit calculation.</param>
+        /// <param name="multiplierSecondDigit">The multipliers for the second digit calculation.</param>
+        /// <returns>
+        /// The calculated digits for the Brazilian document.
+        /// </returns>
+        /// <exception cref="InvalidDocumentException">
+        /// Thrown when the document has an incorrect length or contains invalid data.
+        /// </exception>
         private static string CalculateDocumentDigits(
             string document,
             string documentType,
@@ -158,11 +174,13 @@ namespace CrispyWaffle.Validations
         }
 
         /// <summary>
-        /// Calculates the module11.
+        /// Calculates the modulus 11 of a string of digits using a given multiplier array.
         /// </summary>
-        /// <param name="working">The working.</param>
-        /// <param name="multiplier">The multiplier.</param>
-        /// <returns>System.Int32.</returns>
+        /// <param name="working">The string of digits to process.</param>
+        /// <param name="multiplier">The multiplier array used for the calculation.</param>
+        /// <returns>
+        /// The result of the modulus 11 calculation.
+        /// </returns>
         private static int CalculateModule11(string working, int[] multiplier)
         {
             var sum = 0;

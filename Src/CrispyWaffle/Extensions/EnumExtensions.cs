@@ -6,7 +6,7 @@ using CrispyWaffle.Attributes;
 namespace CrispyWaffle.Extensions
 {
     /// <summary>
-    /// A Enum extensions class.
+    /// Provides extension methods for working with <see cref="Enum"/> types, including retrieving enum values by human-readable and internal value attributes.
     /// </summary>
     public static class EnumExtensions
     {
@@ -37,7 +37,7 @@ namespace CrispyWaffle.Extensions
             if (!type.IsEnum)
             {
                 throw new InvalidOperationException(
-                    $"The type {type.FullName} must be a enum type"
+                    $"The type {type.FullName} must be an enum type"
                 );
             }
 
@@ -98,7 +98,7 @@ namespace CrispyWaffle.Extensions
             if (!type.IsEnum)
             {
                 throw new InvalidOperationException(
-                    $"The type {type.FullName} must be a enum type"
+                    $"The type {type.FullName} must be an enum type"
                 );
             }
 
@@ -138,11 +138,16 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the human readable value.
+        /// Gets the human-readable value for a given enum value, supporting flags-based enums.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="flagsSeparator">The flags separator.</param>
-        /// <returns></returns>
+        /// <param name="value">The enum value to retrieve the human-readable representation for.</param>
+        /// <param name="flagsSeparator">The separator string used to separate multiple flag values (default is " | ").</param>
+        /// <returns>A string representing the human-readable value(s) for the enum.</returns>
+        /// <remarks>
+        /// If the enum type is marked with the <see cref="FlagsAttribute"/> and contains multiple flags,
+        /// this method will return a concatenated string of the human-readable values for each set flag.
+        /// If no human-readable attribute is found, the method will return null.
+        /// </remarks>
         public static string GetHumanReadableValue(this Enum value, string flagsSeparator = " | ")
         {
             var type = value.GetType();
@@ -177,10 +182,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the internal value.
+        /// Gets the internal value for a given enum value.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <param name="value">The enum value to retrieve the internal value for.</param>
+        /// <returns>The internal value associated with the enum field, or null if none exists.</returns>
         public static string GetInternalValue(this Enum value)
         {
             var type = value.GetType();
@@ -194,10 +199,10 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the flags count.
+        /// Gets the count of unique flags set on an enum value.
         /// </summary>
-        /// <param name="field">The field.</param>
-        /// <returns>Int64.</returns>
+        /// <param name="field">The enum value to calculate the number of unique flags for.</param>
+        /// <returns>The number of unique flags set on the enum value.</returns>
         private static ulong GetFlagsCount(this Enum field)
         {
             var v = (ulong)field.GetHashCode();
@@ -207,15 +212,13 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the unique flags.
+        /// Gets the unique flags set on an enum value.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="flags">The flags.</param>
-        /// <returns></returns>
+        /// <typeparam name="T">The enum type.</typeparam>
+        /// <param name="flags">The enum value containing the flags.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of unique flags set on the enum value.</returns>
         /// <exception cref="ArgumentException">
-        /// The generic type parameter must be an Enum.
-        /// or
-        /// The generic type parameter does not match the target type.
+        /// Thrown when the generic type parameter is not an <see cref="Enum"/>.
         /// </exception>
         public static IEnumerable<T> GetUniqueFlags<T>(this Enum flags)
         {

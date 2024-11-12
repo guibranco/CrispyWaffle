@@ -8,8 +8,7 @@ namespace CrispyWaffle.Tests.Fixtures;
 [ExcludeFromCodeCoverage]
 public class ConfigurationFixture : IDisposable
 {
-    public ConfigurationFixture()
-    {
+    public ConfigurationFixture() =>
         ServiceLocator.Register<ISecureCredentialProvider>(
             () =>
                 new SecureCredentialProvider
@@ -20,7 +19,6 @@ public class ConfigurationFixture : IDisposable
                 },
             Lifetime.Singleton
         );
-    }
 
     private bool _disposedValue;
 

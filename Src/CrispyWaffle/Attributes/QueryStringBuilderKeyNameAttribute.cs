@@ -21,9 +21,6 @@ namespace CrispyWaffle.Attributes
         /// Initializes a new instance of the <see cref="QueryStringBuilderKeyNameAttribute"/> class.
         /// </summary>
         /// <param name="keyName">Name of the key.</param>
-        public QueryStringBuilderKeyNameAttribute(string keyName)
-        {
-            KeyName = keyName;
-        }
+        public QueryStringBuilderKeyNameAttribute(string keyName) => KeyName = keyName;
     }
 }

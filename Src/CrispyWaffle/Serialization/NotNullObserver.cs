@@ -1,11 +1,13 @@
 ﻿namespace CrispyWaffle.Serialization
 {
     /// <summary>
-    /// The not null observer class.
-    /// This class is used when a type of a property is always null, so using this we can track wherever the value of the property is not null and architect the strongly type for that property
+    /// Observer class that tracks when a property value becomes non-null.
+    /// This class is used for properties that are typically null, allowing for the detection and handling of when they are assigned non-null values.
+    /// It can be used to enforce or manage strongly-typed property logic based on nullability.
     /// </summary>
     /// <remarks>
-    /// Only works for CrispyWaffle.Serialization.Adapter.JsonSerializerAdapter!
+    /// This class is specifically designed to work with <see cref="CrispyWaffle.Serialization.Adapter.JsonSerializerAdapter"/>.
+    /// It will not function correctly outside the context of this adapter.
     /// </remarks>
     public class NotNullObserver { }
 }

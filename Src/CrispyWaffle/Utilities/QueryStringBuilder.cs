@@ -28,10 +28,7 @@ namespace CrispyWaffle.Utilities
         /// Initializes a new instance of the <see cref="QueryStringBuilder"/> class.
         /// </summary>
         /// <param name="queryString">The query string.</param>
-        public QueryStringBuilder(string queryString)
-        {
-            FillFromString(queryString);
-        }
+        public QueryStringBuilder(string queryString) => FillFromString(queryString);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QueryStringBuilder"/> class.

@@ -26,10 +26,7 @@ namespace CrispyWaffle.Log4Net
         /// Initializes a new instance of the <see cref="Log4NetLogProvider" /> class.
         /// </summary>
         /// <param name="adapter">The adapter.</param>
-        public Log4NetLogProvider(ILog adapter)
-        {
-            _adapter = adapter;
-        }
+        public Log4NetLogProvider(ILog adapter) => _adapter = adapter;
 
         /// <summary>
         /// Sets the log level of the instance.

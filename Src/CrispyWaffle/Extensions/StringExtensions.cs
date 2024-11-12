@@ -183,7 +183,7 @@ namespace CrispyWaffle.Extensions
                 : Regex.Replace(
                     input.ToLower(),
                     @"(?:^|\s|/|[0-9])[a-z]",
-                    m => m.Value.ToUpper(),
+                    m => m.Value.ToUpperInvariant(),
                     RegexOptions.Compiled,
                     TimeSpan.FromSeconds(5)
                 );

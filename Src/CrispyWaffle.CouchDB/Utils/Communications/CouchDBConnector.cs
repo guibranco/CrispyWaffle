@@ -22,8 +22,7 @@ public class CouchDBConnector : IDisposable
     /// Initializes a new instance of the <see cref="CouchDBConnector"/> class.
     /// </summary>
     /// <param name="connection">The connection.</param>
-    public CouchDBConnector(IConnection connection)
-    {
+    public CouchDBConnector(IConnection connection) =>
         CouchDBClient = new CouchClient(
             $"{connection.Host}:{connection.Port}",
             s =>
@@ -32,16 +31,12 @@ public class CouchDBConnector : IDisposable
                     connection.Credentials.Password
                 )
         );
-    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CouchDBConnector"/> class.
     /// </summary>
     /// <param name="client">The client.</param>
-    public CouchDBConnector(CouchClient client)
-    {
-        CouchDBClient = client;
-    }
+    public CouchDBConnector(CouchClient client) => CouchDBClient = client;
 
     /// <inheritdoc/>
     public void Dispose()

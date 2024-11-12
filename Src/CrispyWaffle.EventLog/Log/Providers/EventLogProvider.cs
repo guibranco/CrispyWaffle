@@ -29,8 +29,7 @@ namespace CrispyWaffle.EventLog.Log.Providers
         /// with the specified source name.
         /// </summary>
         /// <param name="source">The source name to associate with the event log entries.</param>
-        public EventLogProvider(string source)
-        {
+        public EventLogProvider(string source) =>
             _adapter = new EventLogAdapter(
                 source,
                 string.Empty,
@@ -38,7 +37,6 @@ namespace CrispyWaffle.EventLog.Log.Providers
                 false,
                 new EventIdProvider()
             );
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class
@@ -46,8 +44,7 @@ namespace CrispyWaffle.EventLog.Log.Providers
         /// </summary>
         /// <param name="source">The source name to associate with the event log entries.</param>
         /// <param name="logName">The name of the event log (e.g., "Application", "System").</param>
-        public EventLogProvider(string source, string logName)
-        {
+        public EventLogProvider(string source, string logName) =>
             _adapter = new EventLogAdapter(
                 source,
                 logName,
@@ -55,7 +52,6 @@ namespace CrispyWaffle.EventLog.Log.Providers
                 false,
                 new EventIdProvider()
             );
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogProvider"/> class

@@ -58,6 +58,7 @@ namespace CrispyWaffle.Composition
         private static readonly Dictionary<string, Exception> _notLoadedAssemblies = new();
 
 #pragma warning disable S1144 // Unused private types or members should be removed
+
         // ReSharper disable once UnusedMember.Local
         private static readonly Destructor _finalise = new();
 #pragma warning restore S1144 // Unused private types or members should be removed

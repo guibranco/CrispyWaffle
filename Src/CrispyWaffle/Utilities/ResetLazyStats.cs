@@ -4,10 +4,7 @@ namespace CrispyWaffle.Utilities
 {
     public class ResetLazyStats
     {
-        public ResetLazyStats(Type type)
-        {
-            Type = type;
-        }
+        public ResetLazyStats(Type type) => Type = type;
 
         public Type Type;
         public int Loads;

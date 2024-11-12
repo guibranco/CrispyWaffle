@@ -16,19 +16,14 @@ internal class TestObjects
     {
         public SingletonTest Singleton { get; }
 
-        public SingletonWithDependencyTest(SingletonTest singleton)
-        {
-            Singleton = singleton;
-        }
+        public SingletonWithDependencyTest(SingletonTest singleton) => Singleton = singleton;
     }
 
     public sealed class CancellationTokenDependencyTest
     {
         public CancellationToken CancellationToken { get; }
 
-        public CancellationTokenDependencyTest(CancellationToken cancellationToken)
-        {
+        public CancellationTokenDependencyTest(CancellationToken cancellationToken) =>
             CancellationToken = cancellationToken;
-        }
     }
 }

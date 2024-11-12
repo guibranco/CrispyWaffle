@@ -5,157 +5,158 @@ using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Cache;
-
-public class CacheManagerTests
+namespace CrispyWaffle.Tests.Cache
 {
-    private readonly ICacheRepository _mockCacheRepository;
-    private readonly ICacheRepository _mockCacheRepository2;
-
-    public CacheManagerTests()
+    public class CacheManagerTests
     {
-        _mockCacheRepository = Substitute.For<ICacheRepository>();
-        _mockCacheRepository2 = Substitute.For<ICacheRepository>();
-    }
+        private readonly ICacheRepository _mockCacheRepository;
+        private readonly ICacheRepository _mockCacheRepository2;
 
-    [Fact]
-    public void AddRepository_Should_Add_Repository_With_Default_Priority()
-    {
-        // Arrange
+        public CacheManagerTests()
+        {
+            _mockCacheRepository = Substitute.For<ICacheRepository>();
+            _mockCacheRepository2 = Substitute.For<ICacheRepository>();
+        }
 
-        // Act
-        var first = CacheManager.AddRepository(_mockCacheRepository);
-        var second = CacheManager.AddRepository(_mockCacheRepository2);
+        [Fact]
+        public void AddRepositoryShouldAddRepositoryWithDefaultPriority()
+        {
+            // Arrange
 
-        // Assert
-        first.Should().BeSameAs(_mockCacheRepository);
-        second.Should().BeSameAs(_mockCacheRepository2);
-    }
+            // Act
+            var first = CacheManager.AddRepository(_mockCacheRepository);
+            var second = CacheManager.AddRepository(_mockCacheRepository2);
 
-    [Fact]
-    public void AddRepository_Should_Add_Repository_With_Specified_Priority()
-    {
-        // Arrange
-        var priority = CacheManager.AddRepository(_mockCacheRepository, 10);
+            // Assert
+            first.Should().BeSameAs(_mockCacheRepository);
+            second.Should().BeSameAs(_mockCacheRepository2);
+        }
 
-        // Act
-        var result = CacheManager.AddRepository(_mockCacheRepository, 10);
+        [Fact]
+        public void AddRepositoryShouldAddRepositoryWithSpecifiedPriority()
+        {
+            // Arrange
+            var priority = CacheManager.AddRepository(_mockCacheRepository, 10);
 
-        // Assert
-        priority.Should().Be(10);
-    }
+            // Act
+            var result = CacheManager.AddRepository(_mockCacheRepository, 10);
 
-    [Fact]
-    public void Set_Should_Set_Value_In_All_Repositories()
-    {
-        // Arrange
-        var key = "testKey";
-        var value = new { Name = "Test" };
-        CacheManager.AddRepository(_mockCacheRepository);
+            // Assert
+            priority.Should().Be(10);
+        }
 
-        // Act
-        CacheManager.Set(value, key);
+        [Fact]
+        public void SetShouldSetValueInAllRepositories()
+        {
+            // Arrange
+            var key = "testKey";
+            var value = new { Name = "Test" };
+            CacheManager.AddRepository(_mockCacheRepository);
 
-        // Assert
-        _mockCacheRepository.Received().Set(value, key);
-    }
+            // Act
+            CacheManager.Set(value, key);
 
-    [Fact]
-    public void Set_Should_Set_Value_In_Repositories_With_TTL()
-    {
-        // Arrange
-        var key = "testKey";
-        var value = new { Name = "Test" };
-        var ttl = TimeSpan.FromMinutes(10);
-        CacheManager.AddRepository(_mockCacheRepository);
+            // Assert
+            _mockCacheRepository.Received().Set(value, key);
+        }
 
-        // Act
-        CacheManager.Set(value, key, ttl);
+        [Fact]
+        public void SetShouldSetValueInRepositoriesWithTTL()
+        {
+            // Arrange
+            var key = "testKey";
+            var value = new { Name = "Test" };
+            var ttl = TimeSpan.FromMinutes(10);
+            CacheManager.AddRepository(_mockCacheRepository);
 
-        // Assert
-        _mockCacheRepository.Received().Set(value, key, ttl);
-    }
+            // Act
+            CacheManager.Set(value, key, ttl);
 
-    [Fact]
-    public void Get_Should_Throw_When_Item_Not_Found()
-    {
-        // Arrange
-        var key = "testKey";
-        _mockCacheRepository.TryGet(key, out Arg.Any<object>()).Returns(false);
+            // Assert
+            _mockCacheRepository.Received().Set(value, key, ttl);
+        }
 
-        // Act
-        Action act = () => CacheManager.Get<dynamic>(key);
+        [Fact]
+        public void GetShouldThrowWhenItemNotFound()
+        {
+            // Arrange
+            var key = "testKey";
+            _mockCacheRepository.TryGet(key, out Arg.Any<object>()).Returns(false);
 
-        // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage("Unable to get the item with key testKey");
-    }
+            // Act
+            Action act = () => CacheManager.Get<dynamic>(key);
 
-    [Fact]
-    public void SetTo_Should_Throw_When_Repository_Not_Found()
-    {
-        // Arrange
-        var key = "testKey";
-        var value = new { Name = "Test" };
-        CacheManager.AddRepository(_mockCacheRepository);
+            // Assert
+            act.Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage("Unable to get the item with key testKey");
+        }
 
-        // Act
-        Action act = () => CacheManager.SetTo<ICacheRepository, object>(value, key);
+        [Fact]
+        public void SetToShouldThrowWhenRepositoryNotFound()
+        {
+            // Arrange
+            var key = "testKey";
+            var value = new { Name = "Test" };
+            CacheManager.AddRepository(_mockCacheRepository);
 
-        // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage(
-                "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
-            );
-    }
+            // Act
+            Action act = () => CacheManager.SetTo<ICacheRepository, object>(value, key);
 
-    [Fact]
-    public void Remove_Should_Remove_Key_From_All_Repositories()
-    {
-        // Arrange
-        var key = "testKey";
-        CacheManager.AddRepository(_mockCacheRepository);
+            // Assert
+            act.Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage(
+                    "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
+                );
+        }
 
-        // Act
-        CacheManager.Remove(key);
+        [Fact]
+        public void RemoveShouldRemoveKeyFromAllRepositories()
+        {
+            // Arrange
+            var key = "testKey";
+            CacheManager.AddRepository(_mockCacheRepository);
 
-        // Assert
-        _mockCacheRepository.Received().Remove(key);
-    }
+            // Act
+            CacheManager.Remove(key);
 
-    [Fact]
-    public void TTL_Should_Return_Correct_TTL_From_Repositories()
-    {
-        // Arrange
-        var key = "testKey";
-        var expectedTTL = TimeSpan.FromMinutes(10);
-        CacheManager.AddRepository(_mockCacheRepository);
-        _mockCacheRepository.TTL(key).Returns(expectedTTL);
+            // Assert
+            _mockCacheRepository.Received().Remove(key);
+        }
 
-        // Act
-        var result = CacheManager.TTL(key);
+        [Fact]
+        public void TTLShouldReturnCorrectTTLFromRepositories()
+        {
+            // Arrange
+            var key = "testKey";
+            var expectedTTL = TimeSpan.FromMinutes(10);
+            CacheManager.AddRepository(_mockCacheRepository);
+            _mockCacheRepository.TTL(key).Returns(expectedTTL);
 
-        // Assert
-        result.Should().Be(expectedTTL);
-    }
+            // Act
+            var result = CacheManager.TTL(key);
 
-    [Fact]
-    public void RemoveFrom_Should_Throw_When_Repository_Not_Found()
-    {
-        // Arrange
-        var key = "testKey";
-        CacheManager.AddRepository(_mockCacheRepository);
+            // Assert
+            result.Should().Be(expectedTTL);
+        }
 
-        // Act
-        Action act = () => CacheManager.RemoveFrom<ICacheRepository>(key);
+        [Fact]
+        public void RemoveFromShouldThrowWhenRepositoryNotFound()
+        {
+            // Arrange
+            var key = "testKey";
+            CacheManager.AddRepository(_mockCacheRepository);
 
-        // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage(
-                "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
-            );
+            // Act
+            Action act = () => CacheManager.RemoveFrom<ICacheRepository>(key);
+
+            // Assert
+            act.Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage(
+                    "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
+                );
+        }
     }
 }

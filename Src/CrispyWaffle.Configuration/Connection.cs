@@ -15,10 +15,7 @@ namespace CrispyWaffle.Configuration
         /// <summary>
         /// Initializes a new instance of the <see cref="Connection"/> class.
         /// </summary>
-        public Connection()
-        {
-            Credentials = new Credentials();
-        }
+        public Connection() => Credentials = new Credentials();
 
         /// <summary>
         /// Gets or sets the connection name/identifier.

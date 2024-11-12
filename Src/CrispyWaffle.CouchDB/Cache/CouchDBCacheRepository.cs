@@ -22,10 +22,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// Initializes a new instance of the <see cref="CouchDBCacheRepository"/> class.
         /// </summary>
         /// <param name="connector">The connector.</param>
-        public CouchDBCacheRepository(CouchDBConnector connector)
-        {
-            _connector = connector;
-        }
+        public CouchDBCacheRepository(CouchDBConnector connector) => _connector = connector;
 
         /// <summary>
         /// Retrieves the count of documents of type <typeparamref name="T"/> in the CouchDB database.

@@ -25,9 +25,6 @@ namespace CrispyWaffle.Configuration
         /// Initializes a new instance of the <see cref="ConnectionNameAttribute"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public ConnectionNameAttribute(string name)
-        {
-            Name = name;
-        }
+        public ConnectionNameAttribute(string name) => Name = name;
     }
 }

@@ -21,8 +21,7 @@ namespace CrispyWaffle.Serialization.Adapters
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerAdapter"/> class.
         /// </summary>
-        public JsonSerializerAdapter()
-        {
+        public JsonSerializerAdapter() =>
             _settings = new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -30,16 +29,12 @@ namespace CrispyWaffle.Serialization.Adapters
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
                 Converters = { new NotNullObserverConverter() },
             };
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerAdapter"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public JsonSerializerAdapter(JsonSerializerOptions settings)
-        {
-            _settings = settings;
-        }
+        public JsonSerializerAdapter(JsonSerializerOptions settings) => _settings = settings;
 
         /// <summary>
         /// Deserialize a stream to a generic type.
