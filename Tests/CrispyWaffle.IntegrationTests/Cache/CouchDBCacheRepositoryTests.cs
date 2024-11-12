@@ -139,10 +139,7 @@ public class CouchDBCacheRepositoryTests : IDisposable
 
 public class Car : CouchDBCacheDocument
 {
-    public Car(string maker)
-    {
-        Maker = maker;
-    }
+    public Car(string maker) => Maker = maker;
 
     public string Maker { get; set; }
 }

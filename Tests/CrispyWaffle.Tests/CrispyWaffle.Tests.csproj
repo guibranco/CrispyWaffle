@@ -16,7 +16,6 @@
     <PackageReference Include="NSubstitute" />
     <PackageReference Include="System.Diagnostics.EventLog" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
-    <PackageReference Include="Moq" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>

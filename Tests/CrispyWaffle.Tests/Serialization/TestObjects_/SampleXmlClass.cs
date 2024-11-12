@@ -6,22 +6,18 @@ namespace CrispyWaffle.Tests.Serialization;
 
 [Serializer]
 [ExcludeFromCodeCoverage]
-public class SampleXmlClass : IEquatable<SampleXmlClass>
+public sealed class SampleXmlClass : IEquatable<SampleXmlClass>
 {
     public bool Equals(SampleXmlClass other)
     {
         if (ReferenceEquals(null, other))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, other))
-        {
             return true;
-        }
 
         return Code == other.Code
-            && string.Equals(String, other.String, StringComparison.InvariantCultureIgnoreCase)
+            && string.Equals(String, other.String, StringComparison.OrdinalIgnoreCase)
             && CorrelationId.Equals(other.CorrelationId)
             && Equals(StrongTyping, other.StrongTyping);
     }
@@ -29,19 +25,13 @@ public class SampleXmlClass : IEquatable<SampleXmlClass>
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, obj))
-        {
             return true;
-        }
 
         if (obj.GetType() != GetType())
-        {
             return false;
-        }
 
         return Equals((SampleXmlClass)obj);
     }

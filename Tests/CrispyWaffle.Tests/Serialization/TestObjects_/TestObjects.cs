@@ -20,7 +20,7 @@ public static class TestObjects
     }
 
     public static StrongTypingClass GetStrongTyping(Guid correlationId) =>
-        new StrongTypingClass
+        new()
         {
             CorrelationId = correlationId,
             Date = DateTime.Now,
@@ -28,23 +28,23 @@ public static class TestObjects
         };
 
     public static SampleJsonClass GetSampleJson() =>
-        new SampleJsonClass
+        new()
         {
             Date = DateTime.Now,
             Id = Guid.NewGuid(),
-            ListStrong = new List<StrongTypingClass>
-            {
+            ListStrong =
+            [
                 GetStrongTyping(Guid.Empty),
                 GetStrongTyping(Guid.NewGuid()),
                 GetStrongTyping(Guid.NewGuid()),
-            },
+            ],
         };
 
     public static SampleJsonNotStrictClass GetSampleJsonNotStrict() =>
-        new SampleJsonNotStrictClass { Date = DateTime.Now };
+        new() { Date = DateTime.Now };
 
     internal static SampleNonSerializableClass GetNonSerializable() =>
-        new SampleNonSerializableClass { Date = DateTime.Now };
+        new() { Date = DateTime.Now };
 
     public static IEnumerable<SampleXmlClass> GetEnumerableJson()
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
@@ -49,14 +48,14 @@ public class NewtonsoftJsonSerializerAdapterTests
         {
             Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
             Id = Guid.Empty,
-            ListStrong = new List<StrongTypingClass>
-            {
+            ListStrong =
+            [
                 new()
                 {
                     CorrelationId = Guid.Empty,
                     Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
                     SomeText = "Test",
                 },
-            },
+            ],
         };
 }

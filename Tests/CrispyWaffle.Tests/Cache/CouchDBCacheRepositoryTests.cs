@@ -15,9 +15,6 @@ public class CouchDBCacheRepositoryTests
 
     public CouchDBCacheRepositoryTests()
     {
-        const string key = "test-key";
-        const string value = "test-value";
-
         var httpTest = new HttpTest();
         httpTest.RespondWithJson(new { ok = true });
 
@@ -27,7 +24,7 @@ public class CouchDBCacheRepositoryTests
     }
 
     [Fact]
-    public void SetToDatabase_ShouldStoreValue()
+    public void SetToDatabaseShouldStoreValue()
     {
         // Arrange
         var key = "test-key";
@@ -40,11 +37,10 @@ public class CouchDBCacheRepositoryTests
     }
 
     [Fact]
-    public void GetFromDatabase_ShouldReturnStoredValue()
+    public void GetFromDatabaseShouldReturnStoredValue()
     {
         // Arrange
         var key = "test-key";
-        var expectedValue = "test-value";
 
         // Act
         var actualValue = _repository.Get<string>(key);
@@ -54,7 +50,7 @@ public class CouchDBCacheRepositoryTests
     }
 
     [Fact]
-    public void RemoveFromDatabase_ShouldRemoveValue()
+    public void RemoveFromDatabaseShouldRemoveValue()
     {
         // Arrange
         var key = "test-key";

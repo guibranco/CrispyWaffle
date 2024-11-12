@@ -55,10 +55,7 @@ internal class TestObjects
     {
         public Guid Identifier { get; }
 
-        public ExceptionEvent(Guid identifier)
-        {
-            Identifier = identifier;
-        }
+        public ExceptionEvent(Guid identifier) => Identifier = identifier;
     }
 
     public sealed class ThrowExceptionEvent : IEventHandler<ExceptionEvent>

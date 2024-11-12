@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization; // Add this namespace for CultureInfo
 using System.Linq;
 using CrispyWaffle.Scheduler;
 using Xunit;
@@ -49,7 +50,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.Minutes);
 
-        expected = new[] { 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30 };
+        expected = [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
 
         scheduler = new CronScheduler("10-30/2");
 
@@ -68,7 +69,7 @@ public class CronSchedulerTests
 
         scheduler = new CronScheduler("10-12 *");
 
-        Assert.Equal(new[] { 10, 11, 12 }, scheduler.Minutes);
+        Assert.Equal([10, 11, 12], scheduler.Minutes);
         Assert.Equal(expectedHours, scheduler.Hours);
     }
 
@@ -81,7 +82,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.Minutes);
 
-        expected = new[] { 1, 2, 3, 4, 5 };
+        expected = [1, 2, 3, 4, 5];
 
         scheduler = new CronScheduler("1,2,3,4,5 * * * *");
 
@@ -97,7 +98,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.Hours);
 
-        expected = new[] { 1, 2, 3, 4, 5 };
+        expected = [1, 2, 3, 4, 5];
 
         scheduler = new CronScheduler("* 1,2,3,4,5 * * *");
 
@@ -113,7 +114,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.DaysOfMonth);
 
-        expected = new[] { 1, 2, 3, 4, 5 };
+        expected = [1, 2, 3, 4, 5];
 
         scheduler = new CronScheduler("* * 1,2,3,4,5 * *");
 
@@ -129,7 +130,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.Months);
 
-        expected = new[] { 1, 2, 3, 4, 5 };
+        expected = [1, 2, 3, 4, 5];
 
         scheduler = new CronScheduler("* * * 1,2,3,4,5 *");
 
@@ -145,7 +146,7 @@ public class CronSchedulerTests
 
         Assert.Equal(expected, scheduler.Months);
 
-        expected = new[] { 0, 6 };
+        expected = [0, 6];
 
         scheduler = new CronScheduler("* * * * 0,6");
 
@@ -157,13 +158,24 @@ public class CronSchedulerTests
     {
         var scheduler = new CronScheduler("0");
 
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:00:10")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:10")));
+        // Use DateTime.Parse with InvariantCulture to avoid locale issues
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:00:10", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:10", CultureInfo.InvariantCulture))
+        );
 
         scheduler = new CronScheduler("19 * * 9 *");
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:19:10")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:10")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-10-05 12:19:10")));
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:19:10", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:10", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-10-05 12:19:10", CultureInfo.InvariantCulture))
+        );
     }
 
     [Fact]
@@ -171,15 +183,32 @@ public class CronSchedulerTests
     {
         var scheduler = new CronScheduler("*/5");
 
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:45:45")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:00:34")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:30:59")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:55:00")));
+        // Use DateTime.Parse with InvariantCulture to avoid locale issues
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:45:45", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:00:34", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:30:59", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:55:00", CultureInfo.InvariantCulture))
+        );
 
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:00")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:45")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:59")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 12:31:50")));
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:01:00", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:45", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:59:59", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:31:50", CultureInfo.InvariantCulture))
+        );
     }
 
     [Fact]
@@ -187,15 +216,34 @@ public class CronSchedulerTests
     {
         var scheduler = new CronScheduler("* 12,13,14 * * *");
 
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:45:00")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 12:55:55")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 13:45:40")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 14:15:33")));
-        Assert.True(scheduler.IsTime(DateTime.Parse("2020-09-05 14:32:34")));
+        // Use DateTime.Parse with InvariantCulture to avoid locale issues
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:45:00", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 12:55:55", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 13:45:40", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 14:15:33", CultureInfo.InvariantCulture))
+        );
+        Assert.True(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 14:32:34", CultureInfo.InvariantCulture))
+        );
 
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 00:00")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 08:00:59")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 15:00:00")));
-        Assert.False(scheduler.IsTime(DateTime.Parse("2020-09-05 23:59:59")));
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 00:00", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 08:00:59", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 15:00:00", CultureInfo.InvariantCulture))
+        );
+        Assert.False(
+            scheduler.IsTime(DateTime.Parse("2020-09-05 23:59:59", CultureInfo.InvariantCulture))
+        );
     }
 }

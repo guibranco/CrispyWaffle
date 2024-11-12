@@ -6,40 +6,30 @@ namespace CrispyWaffle.Tests.Serialization;
 
 [Serializer(SerializerFormat.Json, false)]
 [ExcludeFromCodeCoverage]
-public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNotStrictClass>
+public sealed class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNotStrictClass>
 {
     public bool Equals(SampleJsonNotStrictClass other)
     {
         if (ReferenceEquals(null, other))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, other))
-        {
             return true;
-        }
 
-        return string.Equals(Text, other.Text, StringComparison.InvariantCultureIgnoreCase)
+        return string.Equals(Text, other.Text, StringComparison.OrdinalIgnoreCase)
             && Equals(StrongTyping, other.StrongTyping);
     }
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, obj))
-        {
             return true;
-        }
 
         if (obj.GetType() != GetType())
-        {
             return false;
-        }
 
         return Equals((SampleJsonNotStrictClass)obj);
     }

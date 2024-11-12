@@ -1,6 +1,5 @@
 using System;
 using CrispyWaffle.Cache;
-using CrispyWaffle.Composition;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -19,7 +18,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void AddRepository_Should_Add_Repository_With_Default_Priority()
+    public void AddRepositoryShouldAddRepositoryWithDefaultPriority()
     {
         // Arrange
 
@@ -33,7 +32,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void AddRepository_Should_Add_Repository_With_Specified_Priority()
+    public void AddRepositoryShouldAddRepositoryWithSpecifiedPriority()
     {
         // Arrange
         var priority = CacheManager.AddRepository(_mockCacheRepository, 10);
@@ -46,7 +45,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void Set_Should_Set_Value_In_All_Repositories()
+    public void SetShouldSetValueInAllRepositories()
     {
         // Arrange
         var key = "testKey";
@@ -61,7 +60,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void Set_Should_Set_Value_In_Repositories_With_TTL()
+    public void SetShouldSetValueInRepositoriesWithTTL()
     {
         // Arrange
         var key = "testKey";
@@ -77,7 +76,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void Get_Should_Throw_When_Item_Not_Found()
+    public void GetShouldThrowWhenItemNotFound()
     {
         // Arrange
         var key = "testKey";
@@ -93,7 +92,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void SetTo_Should_Throw_When_Repository_Not_Found()
+    public void SetToShouldThrowWhenRepositoryNotFound()
     {
         // Arrange
         var key = "testKey";
@@ -112,7 +111,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void Remove_Should_Remove_Key_From_All_Repositories()
+    public void RemoveShouldRemoveKeyFromAllRepositories()
     {
         // Arrange
         var key = "testKey";
@@ -126,7 +125,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void TTL_Should_Return_Correct_TTL_From_Repositories()
+    public void TTLShouldReturnCorrectTTLFromRepositories()
     {
         // Arrange
         var key = "testKey";
@@ -142,7 +141,7 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void RemoveFrom_Should_Throw_When_Repository_Not_Found()
+    public void RemoveFromShouldThrowWhenRepositoryNotFound()
     {
         // Arrange
         var key = "testKey";
