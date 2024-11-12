@@ -8,7 +8,7 @@ using CrispyWaffle.Log;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.RabbitMQ.Utils.Communications;
 using CrispyWaffle.Serialization;
-using RabbitMQ.Client;
+using RabbitMQ.Client; // Updated to version 7.0.0
 
 namespace CrispyWaffle.RabbitMQ.Log
 {
