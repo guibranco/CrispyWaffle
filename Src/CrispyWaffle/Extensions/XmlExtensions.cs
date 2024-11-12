@@ -5,16 +5,22 @@ using System.Xml;
 namespace CrispyWaffle.Extensions
 {
     /// <summary>
-    /// The XML extensions class.
+    /// Provides extension methods for working with XML data in <see cref="XmlReader"/> and <see cref="XmlDocument"/>.
+    /// These methods simplify common XML operations like duplicating readers, fetching node values, and retrieving elements by tag name.
     /// </summary>
     public static class XmlExtensions
     {
         /// <summary>
-        /// Duplicates the readers.
+        /// Duplicates an <see cref="XmlReader"/> into two independent readers.
+        /// This is useful when you need to read the same XML content multiple times or in different ways.
         /// </summary>
-        /// <param name="xmlReader">The XML reader.</param>
-        /// <param name="cloneOne">The clone one.</param>
-        /// <param name="cloneTwo">The clone two.</param>
+        /// <param name="xmlReader">The <see cref="XmlReader"/> to be duplicated. This will be closed after duplication.</param>
+        /// <param name="cloneOne">The first <see cref="XmlReader"/> clone, created from the original reader.</param>
+        /// <param name="cloneTwo">The second <see cref="XmlReader"/> clone, created from the original reader.</param>
+        /// <remarks>
+        /// The method creates an <see cref="XmlDocument"/> to load the XML content from the original reader.
+        /// It then saves the document to a <see cref="MemoryStream"/> to allow the creation of two separate clones.
+        /// </remarks>
         public static void DuplicateReaders(
             this XmlReader xmlReader,
             out XmlReader cloneOne,
@@ -34,11 +40,17 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the first name of the element by tag.
+        /// Retrieves the first element in the XML document with the specified tag name.
         /// </summary>
-        /// <param name="document">The document.</param>
-        /// <param name="tagName">Name of the tag.</param>
-        /// <returns></returns>
+        /// <param name="document">The <see cref="XmlDocument"/> containing the XML data.</param>
+        /// <param name="tagName">The name of the tag to search for.</param>
+        /// <returns>
+        /// The first <see cref="XmlNode"/> matching the tag name, or <c>null</c> if no matching elements are found.
+        /// </returns>
+        /// <remarks>
+        /// This method uses <see cref="XmlDocument.GetElementsByTagName"/> to get all elements with the specified tag
+        /// and returns the first element in the collection, if any.
+        /// </remarks>
         public static XmlNode GetFirstElementByTagName(this XmlDocument document, string tagName)
         {
             var elements = document.GetElementsByTagName(tagName);
@@ -46,29 +58,37 @@ namespace CrispyWaffle.Extensions
         }
 
         /// <summary>
-        /// Gets the node value.
+        /// Retrieves the value of a specific child node from an XML node.
         /// </summary>
-        /// <param name="xmlNode">The XML node.</param>
-        /// <param name="node">The node.</param>
-        /// <returns></returns>
+        /// <param name="xmlNode">The <see cref="XmlNode"/> containing the child node.</param>
+        /// <param name="node">The name of the child node whose value is to be retrieved.</param>
+        /// <returns>
+        /// The inner text of the child node if found; otherwise, an empty string.
+        /// </returns>
+        /// <remarks>
+        /// This method uses <see cref="XmlNode.SelectNodes"/> to select the child node by its name and fetches the
+        /// <see cref="XmlNode.InnerText"/> if the node is found.
+        /// </remarks>
         public static string GetNodeValue(this XmlNode xmlNode, string node)
         {
             var nodes = xmlNode.SelectNodes(node);
             var item = nodes?.Item(0);
-            if (item == null)
-            {
-                return string.Empty;
-            }
-
-            return nodes.Count >= 1 ? item.InnerText : string.Empty;
+            return item != null ? item.InnerText : string.Empty;
         }
 
         /// <summary>
-        /// Gets the node value.
+        /// Retrieves the values of multiple child nodes from an XML node.
         /// </summary>
-        /// <param name="xmlNode">The XML node.</param>
-        /// <param name="nodes">The nodes.</param>
-        /// <returns></returns>
+        /// <param name="xmlNode">The <see cref="XmlNode"/> containing the child nodes.</param>
+        /// <param name="nodes">An array of node names whose values are to be retrieved.</param>
+        /// <returns>
+        /// A string containing the concatenated values of the requested child nodes, separated by a space.
+        /// If a node is not found, an empty string is used in its place.
+        /// </returns>
+        /// <remarks>
+        /// This method uses <see cref="XmlNode.SelectNodes"/> for each node name in the <paramref name="nodes"/>
+        /// array, collects the values of the found nodes, and concatenates them into a single string with a space separator.
+        /// </remarks>
         public static string GetNodeValue(this XmlNode xmlNode, string[] nodes)
         {
             var results = new List<string>(nodes.Length);
@@ -88,7 +108,7 @@ namespace CrispyWaffle.Extensions
                 }
             }
 
-            return string.Join<string>(@" ", results);
+            return string.Join(" ", results);
         }
     }
 }

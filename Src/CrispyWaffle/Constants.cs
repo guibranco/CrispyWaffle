@@ -6,22 +6,22 @@
     internal static class Constants
     {
         /// <summary>
-        /// The brazilian corporate document name
+        /// The Brazilian corporate document name (CNPJ).
         /// </summary>
         public const string _BrazilianCorporateDocumentName = "CNPJ";
 
         /// <summary>
-        /// The brazilian corporate document full length
+        /// The Brazilian corporate document full length (14 digits).
         /// </summary>
         public const int _BrazilianCorporateDocumentFullLength = 14;
 
         /// <summary>
-        /// The brazilian person document name
+        /// The Brazilian person document name (CPF).
         /// </summary>
         public const string _BrazilianPersonDocumentName = "CPF";
 
         /// <summary>
-        /// The brazilian person document full length
+        /// The Brazilian person document full length (11 digits).
         /// </summary>
         public const int _BrazilianPersonDocumentFullLength = 11;
     }
