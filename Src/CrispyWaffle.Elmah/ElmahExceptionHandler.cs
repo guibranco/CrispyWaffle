@@ -45,7 +45,7 @@ namespace CrispyWaffle.Elmah
                     return method.Name;
                 }
 
-                if (ns.StartsWith("CrispyWaffle"))
+                if (ns.StartsWith("CrispyWaffle", StringComparison.OrdinalIgnoreCase))
                 {
                     continue;
                 }

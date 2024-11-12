@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Tests.Serialization;
+namespace CrispyWaffle.Tests.Serialization.TestObjects_;
 
 [Serializer(SerializerFormat.Json, false)]
 [ExcludeFromCodeCoverage]
@@ -11,14 +11,10 @@ public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNo
     public bool Equals(SampleJsonNotStrictClass other)
     {
         if (ReferenceEquals(null, other))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, other))
-        {
             return true;
-        }
 
         return string.Equals(Text, other.Text, StringComparison.InvariantCultureIgnoreCase)
             && Equals(StrongTyping, other.StrongTyping);
@@ -27,19 +23,13 @@ public class SampleJsonNotStrictClass : SampleJsonClass, IEquatable<SampleJsonNo
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, obj))
-        {
             return true;
-        }
 
         if (obj.GetType() != GetType())
-        {
             return false;
-        }
 
         return Equals((SampleJsonNotStrictClass)obj);
     }

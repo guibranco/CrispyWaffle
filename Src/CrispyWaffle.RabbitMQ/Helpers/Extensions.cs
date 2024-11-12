@@ -19,7 +19,7 @@
                     is ExchangeNameAttribute[] attributes
                 && attributes.Length == 1
                 ? attributes[0].ExchangeName
-                : type.Name.ToLower().Replace(@" ", @"-");
+                : type.Name.ToLowerInvariant().Replace(@" ", @"-");
         }
 
         /// <summary>

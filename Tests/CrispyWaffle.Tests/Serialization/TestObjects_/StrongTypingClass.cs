@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Tests.Serialization;
+namespace CrispyWaffle.Tests.Serialization.TestObjects_;
 
 [Serializer(SerializerFormat.Json)]
 [ExcludeFromCodeCoverage]
@@ -11,36 +11,26 @@ public class StrongTypingClass : IEquatable<StrongTypingClass>
     public bool Equals(StrongTypingClass other)
     {
         if (ReferenceEquals(null, other))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, other))
-        {
             return true;
-        }
 
         return CorrelationId.Equals(other.CorrelationId)
-            && string.Equals(SomeText, other.SomeText, StringComparison.InvariantCultureIgnoreCase)
+            && string.Equals(SomeText, other.SomeText, StringComparison.OrdinalIgnoreCase)
             && Date.Equals(other.Date);
     }
 
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, obj))
-        {
             return true;
-        }
 
         if (obj.GetType() != GetType())
-        {
             return false;
-        }
 
         return Equals((StrongTypingClass)obj);
     }

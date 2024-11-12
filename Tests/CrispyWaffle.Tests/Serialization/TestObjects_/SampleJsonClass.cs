@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Tests.Serialization;
+namespace CrispyWaffle.Tests.Serialization.TestObjects_;
 
 [Serializer(SerializerFormat.Json)]
 [ExcludeFromCodeCoverage]
@@ -13,14 +13,10 @@ public class SampleJsonClass : IEquatable<SampleJsonClass>
     public bool Equals(SampleJsonClass other)
     {
         if (ReferenceEquals(null, other))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, other))
-        {
             return true;
-        }
 
         return Id.Equals(other.Id)
             && Date.Equals(other.Date)
@@ -30,19 +26,13 @@ public class SampleJsonClass : IEquatable<SampleJsonClass>
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj))
-        {
             return false;
-        }
 
         if (ReferenceEquals(this, obj))
-        {
             return true;
-        }
 
         if (obj.GetType() != GetType())
-        {
             return false;
-        }
 
         return Equals((SampleJsonClass)obj);
     }

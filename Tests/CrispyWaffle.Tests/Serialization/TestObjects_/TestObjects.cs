@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CrispyWaffle.Tests.Serialization;
+namespace CrispyWaffle.Tests.Serialization.TestObjects_;
 
 [ExcludeFromCodeCoverage]
 public static class TestObjects

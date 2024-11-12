@@ -28,7 +28,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
             return data.GetType()
                 .GetProperties()
                 .ToDictionary(
-                    property => property.Name.ToLower(),
+                    property => property.Name.ToLowerInvariant(),
                     property => property.GetValue(data, null)
                 );
         }
@@ -56,7 +56,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <returns>String.</returns>
         private string EvaluateConditional(Match match, string template)
         {
-            var condition = match.Groups["condition"].Value.ToLower();
+            var condition = match.Groups["condition"].Value.ToLowerInvariant();
             var matchText = match.ToString();
 
             string value;
@@ -132,7 +132,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <returns>String.</returns>
         private string ProcessWith(Match match, string template)
         {
-            var withProperty = match.Groups["property"].Value.ToLower();
+            var withProperty = match.Groups["property"].Value.ToLowerInvariant();
             var with = match.Groups["innerContent"].Value;
             if (!_properties.ContainsKey(withProperty))
             {
@@ -173,7 +173,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <returns>String.</returns>
         private string ProcessLoop(Match match, string template)
         {
-            var loopProperty = match.Groups["property"].Value.ToLower();
+            var loopProperty = match.Groups["property"].Value.ToLowerInvariant();
             var pattern = match.Groups["innerContent"].Value;
             if (!_properties.ContainsKey(loopProperty))
             {
@@ -256,7 +256,7 @@ namespace CrispyWaffle.TemplateRendering.Engines
         /// <returns>String.</returns>
         private static string RenderProperties(Match match, IDictionary<string, object> properties)
         {
-            var property = match.Groups["property"].Value.ToLower();
+            var property = match.Groups["property"].Value.ToLowerInvariant();
             return properties.TryGetValue(property, out var property1)
                 ? property1.ToString()
                 : string.Empty;

@@ -10,41 +10,48 @@ using RabbitMQ.Client.Events;
 namespace CrispyWaffle.RabbitMQ.Helpers
 {
     /// <summary>
-    /// Class MessageReceiver.
+    /// A class that facilitates receiving messages from RabbitMQ queues or exchanges.
     /// </summary>
+    /// <remarks>
+    /// The <see cref="MessageReceiver"/> class provides methods to receive messages from RabbitMQ queues or exchanges,
+    /// handling the message reception process and invoking events when messages are received.
+    /// </remarks>
     public class MessageReceiver
     {
         /// <summary>
-        /// The connector.
+        /// The RabbitMQ connection connector.
         /// </summary>
         private readonly RabbitMQConnector _connector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageReceiver" /> class.
+        /// Initializes a new instance of the <see cref="MessageReceiver"/> class.
         /// </summary>
-        /// <param name="connector">The connector.</param>
-        /// <exception cref="ArgumentNullException">connector.</exception>
+        /// <param name="connector">The <see cref="RabbitMQConnector"/> to be used for connecting to RabbitMQ.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="connector"/> is null.</exception>
         public MessageReceiver(RabbitMQConnector connector) =>
             _connector = connector ?? throw new ArgumentNullException(nameof(connector));
 
         /// <summary>
-        /// Delegate MessageReceivedHandler.
+        /// Delegate for handling received messages.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
+        /// <param name="sender">The sender of the message.</param>
+        /// <param name="e">The <see cref="MessageReceivedArgs"/> containing details of the received message.</param>
         public delegate void MessageReceivedHandler(object sender, MessageReceivedArgs e);
 
         /// <summary>
-        /// Occurs when [message received].
+        /// Event triggered when a message is received from the queue or exchange.
         /// </summary>
         public event MessageReceivedHandler MessageReceived;
 
         /// <summary>
-        /// Receives from queue.
+        /// Starts receiving messages from a RabbitMQ queue.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
-        /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <typeparam name="T">The type of message to receive, which should implement <see cref="IQueuing"/>.</typeparam>
+        /// <param name="autoAck">If set to <c>true</c>, messages will be acknowledged automatically.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to allow cancellation of the operation.</param>
+        /// <remarks>
+        /// This method will begin a background task to receive messages from the specified queue.
+        /// </remarks>
         public void ReceiveFromQueue<T>(bool autoAck, CancellationToken cancellationToken)
             where T : class, IQueuing, new()
         {
@@ -58,11 +65,14 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         }
 
         /// <summary>
-        /// Receives from exchange.
+        /// Starts receiving messages from a RabbitMQ exchange.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
-        /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <typeparam name="T">The type of message to receive, which should implement <see cref="IQueuing"/>.</typeparam>
+        /// <param name="autoAck">If set to <c>true</c>, messages will be acknowledged automatically.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to allow cancellation of the operation.</param>
+        /// <remarks>
+        /// This method will begin a background task to receive messages from the specified exchange.
+        /// </remarks>
         public void ReceiveFromExchange<T>(bool autoAck, CancellationToken cancellationToken)
             where T : class, IQueuing, new()
         {
@@ -76,12 +86,16 @@ namespace CrispyWaffle.RabbitMQ.Helpers
         }
 
         /// <summary>
-        /// Does the work.
+        /// Handles the work of receiving messages from a specified exchange or queue.
         /// </summary>
-        /// <param name="exchange">The exchange.</param>
-        /// <param name="queue">The queue.</param>
-        /// <param name="autoAck">if set to <c>true</c> [automatic ack].</param>
-        /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="exchange">The name of the exchange (optional).</param>
+        /// <param name="queue">The name of the queue (optional).</param>
+        /// <param name="autoAck">If set to <c>true</c>, messages will be acknowledged automatically.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to allow cancellation of the operation.</param>
+        /// <remarks>
+        /// This method connects to RabbitMQ, binds the queue to the exchange (if specified),
+        /// and starts listening for messages. It invokes the <see cref="MessageReceived"/> event when a message is received.
+        /// </remarks>
         private void DoWork(
             string exchange,
             string queue,

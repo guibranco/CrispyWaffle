@@ -13,27 +13,28 @@ using CrispyWaffle.Telemetry;
 namespace CrispyWaffle.Log.Handlers
 {
     /// <summary>
-    /// Handle the exception and log it using the available log providers of the log consumer.
+    /// A default exception handler that logs exception details using the available log providers.
+    /// It supports logging to multiple providers and handles both full exception details and summarized messages.
     /// </summary>
-    /// <seealso cref="IExceptionHandler"/>
+    /// <seealso cref="IExceptionHandler" />
     public class DefaultExceptionHandler : IExceptionHandler
     {
         /// <summary>
-        /// The additional providers.
+        /// The collection of additional log providers to handle exception logging.
+        /// Each provider is associated with a specific type of logging (e.g., message or full details).
         /// </summary>
         private static readonly ICollection<
             Tuple<ILogProvider, ExceptionLogType>
-        > _additionalProviders = _additionalProviders =
-            new List<Tuple<ILogProvider, ExceptionLogType>>();
+        > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
 
         /// <summary>
-        /// Gets the category.
+        /// Determines the category to use for logging based on the current call stack.
+        /// The category is extracted from the namespace of the calling method.
         /// </summary>
-        /// <returns>System.String.</returns>
+        /// <returns>A string representing the log category.</returns>
         private static string GetCategory()
         {
             var stack = new StackTrace();
-
             var counter = 1;
 
             while (true)
@@ -53,11 +54,11 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Gets the namespace.
+        /// Retrieves the namespace of the specified method, which is used to determine the log category.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <param name="method">The method to inspect.</param>
+        /// <param name="category">The resulting log category extracted from the namespace.</param>
+        /// <returns><c>true</c> if a valid namespace was found; otherwise, <c>false</c>.</returns>
         private static bool GetNamespace(MethodBase method, out string category)
         {
             category = string.Empty;
@@ -84,15 +85,16 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Handles the internal.
+        /// Handles the exception by logging it to all available log providers.
+        /// It processes the exception, tracks telemetry, and formats the log messages accordingly.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         private static void HandleInternal(Exception exception)
         {
             var category = GetCategory();
-
             var exceptions = exception.ToQueue(out var types);
 
+            // Track exception telemetry
             foreach (var type in types)
             {
                 TelemetryAnalytics.TrackException(type);
@@ -106,6 +108,7 @@ namespace CrispyWaffle.Log.Handlers
                     .ToList()
             );
 
+            // Log to providers that handle full exception details
             foreach (
                 var additionalProvider in _additionalProviders.Where(p =>
                     p.Item2 == ExceptionLogType.Full
@@ -117,53 +120,51 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Logs a exception as ERROR level. Exception is logged generally with Message, StackTrace
-        /// and Type.FullName, and it's inner exception until no one more is available, but this
-        /// behavior depends on the Adapter implementation.
+        /// Logs an exception at the <see cref="LogLevel.Error"/> level.
+        /// The exception is logged with its message, stack trace, type name, and inner exceptions (if any).
+        /// The behavior of this method depends on the implementation of the log adapter.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        /// <remarks>Requires LogLevel.ERROR flag.</remarks>
+        /// <remarks>Requires <see cref="LogLevel.Error"/> to be enabled for logging.</remarks>
         public void Handle(Exception exception) => HandleInternal(exception);
 
         /// <summary>
-        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject"/> as Exception and then
-        /// call <seealso cref="Handle(Exception)"/>. This is the default behavior, each
-        /// implementation can have it own behavior!
+        /// Handles an unhandled exception event by casting the exception from <see cref="UnhandledExceptionEventArgs.ExceptionObject"/>
+        /// and calling <see cref="Handle(Exception)"/> to log the exception.
+        /// This is the default behavior, and custom behavior can be implemented by overriding this method.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs"/>.</param>
-        /// <remarks>Requires LogLevel.ERROR flag.</remarks>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="args">The event arguments containing the exception.</param>
+        /// <remarks>Requires <see cref="LogLevel.Error"/> to be enabled for logging.</remarks>
         public void Handle(object sender, UnhandledExceptionEventArgs args) =>
             HandleInternal((Exception)args.ExceptionObject);
 
         /// <summary>
-        /// Handles the specified sender.
+        /// Handles a thread exception by extracting the exception from the event arguments and logging it.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">
-        /// The <see cref="ThreadExceptionEventArgs"/> instance containing the event data.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="args">The <see cref="ThreadExceptionEventArgs"/> containing the exception data.</param>
         public void Handle(object sender, ThreadExceptionEventArgs args) =>
             HandleInternal(args.Exception);
 
         /// <summary>
-        /// Adds the log provider.
+        /// Adds a log provider to the exception handler. The provider will be used to log exception details
+        /// based on the specified <see cref="ExceptionLogType"/> (e.g., message or full exception).
         /// </summary>
-        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
-        /// <param name="type">The type.</param>
-        /// <returns>ILogProvider.</returns>
+        /// <typeparam name="TLogProvider">The type of the log provider to be added.</typeparam>
+        /// <param name="type">The log type indicating whether the provider logs messages, full exceptions, or other details.</param>
+        /// <returns>An instance of the <see cref="ILogProvider"/> that was added.</returns>
         public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
             where TLogProvider : ILogProvider
         {
             var provider = ServiceLocator.Resolve<TLogProvider>();
-
             _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
-
             return provider;
         }
 
         /// <summary>
-        /// Tries the add console log provider.
+        /// Attempts to add a <see cref="ConsoleLogProvider"/> to the exception handler if a console is available.
+        /// The provider will log exception messages to the console.
         /// </summary>
         public static void TryAddConsoleLogProvider()
         {
@@ -197,7 +198,8 @@ namespace CrispyWaffle.Log.Handlers
         }
 
         /// <summary>
-        /// Tries the add text file log provider.
+        /// Attempts to add a <see cref="TextFileLogProvider"/> to the exception handler.
+        /// The provider will log full exception details to a text file.
         /// </summary>
         public static void TryAddTextFileLogProvider()
         {
