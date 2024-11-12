@@ -210,10 +210,7 @@ namespace CrispyWaffle.Serialization
         /// Serializes the given stream.
         /// </summary>
         /// <param name="stream">[out] The stream.</param>
-        public void Serialize(out Stream stream)
-        {
-            _formatter.Serialize(_obj, out stream);
-        }
+        public void Serialize(out Stream stream) => _formatter.Serialize(_obj, out stream);
 
         /// <summary>
         /// Deserialize a stream to a generic type.
@@ -257,9 +254,6 @@ namespace CrispyWaffle.Serialization
         /// Saves the given file.
         /// </summary>
         /// <param name="file">The file to load.</param>
-        public void Save([Localizable(false)] string file)
-        {
-            _formatter.Save(file, _obj);
-        }
+        public void Save([Localizable(false)] string file) => _formatter.Save(file, _obj);
     }
 }

@@ -154,19 +154,13 @@ namespace CrispyWaffle.Log
         /// Adds a log filter to the consumer.
         /// </summary>
         /// <param name="filter">The log filter to add.</param>
-        public static void AddFilter(ILogFilter filter)
-        {
-            _filters.Add(filter);
-        }
+        public static void AddFilter(ILogFilter filter) => _filters.Add(filter);
 
         /// <summary>
         /// Sets the exception handler for logging operations.
         /// </summary>
         /// <param name="handler">The exception handler to set.</param>
-        public static void SetHandler(IExceptionHandler handler)
-        {
-            _handler = handler;
-        }
+        public static void SetHandler(IExceptionHandler handler) => _handler = handler;
 
         /// <summary>
         /// Logs a message to the specified log provider.
@@ -333,10 +327,8 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Debug(string message, params object[] arguments)
-        {
+        public static void Debug(string message, params object[] arguments) =>
             Debug(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs a debug message.
@@ -412,10 +404,8 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Trace(string message, params object[] arguments)
-        {
+        public static void Trace(string message, params object[] arguments) =>
             Trace(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs a trace message with an exception.
@@ -444,10 +434,8 @@ namespace CrispyWaffle.Log
         /// <param name="exception">The exception.</param>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Trace(Exception exception, string message, params object[] arguments)
-        {
+        public static void Trace(Exception exception, string message, params object[] arguments) =>
             Trace(exception, string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs a trace message with an exception.
@@ -494,10 +482,8 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Info(string message, params object[] arguments)
-        {
+        public static void Info(string message, params object[] arguments) =>
             Info(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs a warning message.
@@ -524,10 +510,8 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Warning(string message, params object[] arguments)
-        {
+        public static void Warning(string message, params object[] arguments) =>
             Warning(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs an error message.
@@ -554,10 +538,8 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Error(string message, params object[] arguments)
-        {
+        public static void Error(string message, params object[] arguments) =>
             Error(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Logs a fatal error message.
@@ -584,38 +566,29 @@ namespace CrispyWaffle.Log
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
-        public static void Fatal(string message, params object[] arguments)
-        {
+        public static void Fatal(string message, params object[] arguments) =>
             Fatal(string.Format(CultureInfo.InvariantCulture, message, arguments));
-        }
 
         /// <summary>
         /// Handles an exception by passing it to the exception handler.
         /// </summary>
         /// <param name="exception">The exception to handle.</param>
-        public static void Handle(Exception exception)
-        {
-            _handler?.Handle(exception);
-        }
+        public static void Handle(Exception exception) => _handler?.Handle(exception);
 
         /// <summary>
         /// Handles an exception by passing it to the exception handler.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
-        public static void Handle(object sender, UnhandledExceptionEventArgs args)
-        {
+        public static void Handle(object sender, UnhandledExceptionEventArgs args) =>
             _handler?.Handle(sender, args);
-        }
 
         /// <summary>
         /// Handles an exception by passing it to the exception handler.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ThreadExceptionEventArgs"/> instance containing the event data.</param>
-        public static void Handle(object sender, ThreadExceptionEventArgs args)
-        {
+        public static void Handle(object sender, ThreadExceptionEventArgs args) =>
             _handler?.Handle(sender, args);
-        }
     }
 }

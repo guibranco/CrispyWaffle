@@ -147,10 +147,8 @@ namespace CrispyWaffle.Utilities
         /// true if the name is unique within the querystring. This allows us to override existing values.
         /// </param>
         /// <returns>the QueryString object.</returns>
-        public QueryStringBuilder Add(string name, object value, bool isUnique = false)
-        {
-            return Add(name, value.ToString(), isUnique);
-        }
+        public QueryStringBuilder Add(string name, object value, bool isUnique = false) =>
+            Add(name, value.ToString(), isUnique);
 
         /// <summary>
         /// Adds a range to 'isUnique'.
@@ -260,20 +258,14 @@ namespace CrispyWaffle.Utilities
         /// outputs the querystring object to a string.
         /// </summary>
         /// <returns>the encoded querystring as it would appear in a browser.</returns>
-        public override string ToString()
-        {
-            return ToStringInternal();
-        }
+        public override string ToString() => ToStringInternal();
 
         /// <summary>
         /// outputs the querystring object to a string.
         /// </summary>
         /// <param name="includeNullFields">true to include, false to exclude the null fields.</param>
         /// <returns>the encoded querystring as it would appear in a browser.</returns>
-        public string ToString(bool includeNullFields)
-        {
-            return ToStringInternal(includeNullFields);
-        }
+        public string ToString(bool includeNullFields) => ToStringInternal(includeNullFields);
 
         /// <summary>
         /// Converts the includeNullFields to a string internal.

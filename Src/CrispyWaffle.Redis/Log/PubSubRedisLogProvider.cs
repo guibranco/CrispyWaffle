@@ -152,19 +152,13 @@ namespace CrispyWaffle.Redis.Log
         /// Enqueues a log message for processing by the background worker.
         /// </summary>
         /// <param name="message">The serialized log message to be processed.</param>
-        private void PropagateInternal(string message)
-        {
-            _queue.Enqueue(message);
-        }
+        private void PropagateInternal(string message) => _queue.Enqueue(message);
 
         /// <summary>
         /// Sets the log level for the provider, determining which messages are processed.
         /// </summary>
         /// <param name="level">The log level to set.</param>
-        public void SetLevel(LogLevel level)
-        {
-            _level = level;
-        }
+        public void SetLevel(LogLevel level) => _level = level;
 
         // The following methods represent the logging functionality at various severity levels.
         // They serialize the log message and add it to the internal queue for propagation.

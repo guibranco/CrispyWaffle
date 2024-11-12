@@ -39,16 +39,11 @@ namespace CrispyWaffle.CouchDB.Cache
         /// This is useful for determining how many valid instances of a specific document type exist in the database.
         /// </remarks>
         public int GetDocCount<T>()
-            where T : CouchDBCacheDocument
-        {
-            return ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
-        }
+            where T : CouchDBCacheDocument =>
+            ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
 
         /// <inheritdoc />
-        public void Clear()
-        {
-            Clear<CouchDBCacheDocument>();
-        }
+        public void Clear() => Clear<CouchDBCacheDocument>();
 
         /// <summary>
         /// Clears all documents of type <typeparamref name="T"/> from the CouchDB database.
@@ -208,10 +203,7 @@ namespace CrispyWaffle.CouchDB.Cache
         }
 
         /// <inheritdoc />
-        public void Remove(string key)
-        {
-            RemoveSpecific<CouchDBCacheDocument>(key);
-        }
+        public void Remove(string key) => RemoveSpecific<CouchDBCacheDocument>(key);
 
         /// <summary>
         /// Removes a specific entry from the cache based on the provided key and subKey.
@@ -224,10 +216,8 @@ namespace CrispyWaffle.CouchDB.Cache
         /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
         /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
         /// </remarks>
-        public void Remove(string key, string subKey)
-        {
+        public void Remove(string key, string subKey) =>
             RemoveSpecific<CouchDBCacheDocument>(key, subKey);
-        }
 
         /// <summary>
         /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
@@ -454,10 +444,7 @@ namespace CrispyWaffle.CouchDB.Cache
         /// This method assumes that the key exists in the cache; if it does not, the behavior will depend
         /// on the implementation of the Get method.
         /// </remarks>
-        public TimeSpan TTL(string key)
-        {
-            return Get<CouchDBCacheDocument>(key).TTL;
-        }
+        public TimeSpan TTL(string key) => Get<CouchDBCacheDocument>(key).TTL;
 
         /// <summary>
         /// Resolves a CouchDatabase instance for the specified database name or defaults to the type name if none is provided.

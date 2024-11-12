@@ -193,10 +193,7 @@ namespace CrispyWaffle.Utilities
         /// </summary>
         /// <returns>The dictionary.</returns>
         [Pure]
-        public Dictionary<string, object> GetDictionary()
-        {
-            return Dictionary;
-        }
+        public Dictionary<string, object> GetDictionary() => Dictionary;
 
         /// <summary>
         /// Serves as the default hash function.
@@ -277,10 +274,7 @@ namespace CrispyWaffle.Utilities
         /// produced by the <see cref="WriteXml(XmlWriter)"/> method and consumed by the <see
         /// cref="ReadXml(XmlReader)"/> method.
         /// </returns>
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        public XmlSchema GetSchema() => null;
 
         /// <summary>
         /// Generates an object from its XML representation.

@@ -63,9 +63,7 @@ internal class TestObjects
 
     public sealed class ThrowExceptionEvent : IEventHandler<ExceptionEvent>
     {
-        public void Handle(ExceptionEvent args)
-        {
+        public void Handle(ExceptionEvent args) =>
             throw new NotImplementedException(args.Identifier.ToString());
-        }
     }
 }

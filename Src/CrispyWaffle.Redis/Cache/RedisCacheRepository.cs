@@ -138,10 +138,8 @@ namespace CrispyWaffle.Redis.Cache
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="databaseNumber">The database number.</param>
-        public void RemoveFromDatabase(string key, int databaseNumber)
-        {
+        public void RemoveFromDatabase(string key, int databaseNumber) =>
             _connector.GetDatabase(databaseNumber).KeyDelete(key);
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether [should propagate exceptions].

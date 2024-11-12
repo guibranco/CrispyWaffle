@@ -313,10 +313,8 @@ namespace CrispyWaffle.Extensions
         /// <param name="fileName">Name of the file.</param>
         /// <returns>System.String.</returns>
         [Pure]
-        public static string ToValidFileName(this string fileName)
-        {
-            return StringValidations.InvalidFileName.Replace(fileName, "_");
-        }
+        public static string ToValidFileName(this string fileName) =>
+            StringValidations.InvalidFileName.Replace(fileName, "_");
 
         /// <summary>
         /// Calculates the Levenshtein distance between two strings.

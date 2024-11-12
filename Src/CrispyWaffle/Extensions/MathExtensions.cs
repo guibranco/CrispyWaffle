@@ -11,10 +11,8 @@ namespace CrispyWaffle.Extensions
         /// <param name="currentValue">The current value.</param>
         /// <param name="multipleOf">The multiple of.</param>
         /// <returns>Int32.</returns>
-        public static int RoundDown(this int currentValue, int multipleOf = 10)
-        {
-            return currentValue - (currentValue % multipleOf);
-        }
+        public static int RoundDown(this int currentValue, int multipleOf = 10) =>
+            currentValue - (currentValue % multipleOf);
 
         /// <summary>
         /// Rounds up.

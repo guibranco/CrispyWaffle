@@ -83,60 +83,42 @@ namespace CrispyWaffle.EventLog.Log.Providers
         /// Sets the log level of the instance.
         /// </summary>
         /// <param name="level">The log level.</param>
-        public void SetLevel(LogLevel level)
-        {
-            _adapter.SetLevel(level);
-        }
+        public void SetLevel(LogLevel level) => _adapter.SetLevel(level);
 
         /// <summary>
         /// Logs the message with fatal level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message.</param>
-        public void Fatal(string category, string message)
-        {
-            _adapter.Fatal(message);
-        }
+        public void Fatal(string category, string message) => _adapter.Fatal(message);
 
         /// <summary>
         /// Logs the message with error level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-        public void Error(string category, string message)
-        {
-            _adapter.Error(message);
-        }
+        public void Error(string category, string message) => _adapter.Error(message);
 
         /// <summary>
         /// Logs the message with warning level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-        public void Warning(string category, string message)
-        {
-            _adapter.Warning(message);
-        }
+        public void Warning(string category, string message) => _adapter.Warning(message);
 
         /// <summary>
         /// Logs the message with info level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-        public void Info(string category, string message)
-        {
-            _adapter.Info(message);
-        }
+        public void Info(string category, string message) => _adapter.Info(message);
 
         /// <summary>
         /// Logs the message with trace level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-        public void Trace(string category, string message)
-        {
-            _adapter.Trace(message);
-        }
+        public void Trace(string category, string message) => _adapter.Trace(message);
 
         /// <summary>
         /// Logs the message with trace level and shows exception details.
@@ -144,30 +126,22 @@ namespace CrispyWaffle.EventLog.Log.Providers
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
         /// <param name="exception">The exception.</param>
-        public void Trace(string category, string message, Exception exception)
-        {
+        public void Trace(string category, string message, Exception exception) =>
             _adapter.Trace(message, exception);
-        }
 
         /// <summary>
         /// Logs the exception details with trace level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="exception">The exception.</param>
-        public void Trace(string category, Exception exception)
-        {
-            _adapter.Trace(exception);
-        }
+        public void Trace(string category, Exception exception) => _adapter.Trace(exception);
 
         /// <summary>
         /// Logs the message with debug level.
         /// </summary>
         /// <param name="category">The category.</param>
         /// <param name="message">The message to be logged.</param>
-        public void Debug(string category, string message)
-        {
-            _adapter.Debug(message);
-        }
+        public void Debug(string category, string message) => _adapter.Debug(message);
 
         /// <summary>
         /// Does nothing.
@@ -175,10 +149,8 @@ namespace CrispyWaffle.EventLog.Log.Providers
         /// <param name="category">The category.</param>
         /// <param name="content">Not used.</param>
         /// <param name="fileName">Not used.</param>
-        public void Debug(string category, string content, string fileName)
-        {
+        public void Debug(string category, string content, string fileName) =>
             _adapter.Debug(content, fileName);
-        }
 
         /// <summary>
         /// Does nothing.
@@ -194,9 +166,6 @@ namespace CrispyWaffle.EventLog.Log.Providers
             string identifier,
             SerializerFormat customFormat = SerializerFormat.None
         )
-            where T : class, new()
-        {
-            _adapter.Debug(content, identifier, customFormat);
-        }
+            where T : class, new() => _adapter.Debug(content, identifier, customFormat);
     }
 }

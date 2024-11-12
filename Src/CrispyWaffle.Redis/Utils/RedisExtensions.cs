@@ -39,9 +39,7 @@ namespace CrispyWaffle.Redis.Utils
         /// Flushes the database.
         /// </summary>
         /// <param name="database">The database.</param>
-        public static void FlushDatabase(int database)
-        {
+        public static void FlushDatabase(int database) =>
             _connector.GetDefaultServer().FlushDatabase(database);
-        }
     }
 }
