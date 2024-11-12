@@ -6,63 +6,58 @@ using Flurl.Http.Testing;
 using NSubstitute;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Cache
+namespace CrispyWaffle.Tests.Cache;
+
+public class CouchDBCacheRepositoryTests
 {
-    public class CouchDBCacheRepositoryTests
+    private readonly CouchDBConnector _connector;
+    private readonly CouchDBCacheRepository _repository;
+
+    public CouchDBCacheRepositoryTests()
     {
-        private readonly CouchDBConnector _connector;
-        private readonly CouchDBCacheRepository _repository;
+        var httpTest = new HttpTest();
+        httpTest.RespondWithJson(new { ok = true });
 
-        public CouchDBCacheRepositoryTests()
-        {
-            const string key = "test-key";
-            const string value = "test-value";
+        var client = new CouchClient("http://localhost");
+        _connector = Substitute.For<CouchDBConnector>(client);
+        _repository = new CouchDBCacheRepository(_connector);
+    }
 
-            var httpTest = new HttpTest();
-            httpTest.RespondWithJson(new { ok = true });
+    [Fact]
+    public void SetToDatabaseShouldStoreValue()
+    {
+        // Arrange
+        var key = "test-key";
+        var value = "test-value";
 
-            var client = new CouchClient("http://localhost");
-            _connector = Substitute.For<CouchDBConnector>(client);
-            _repository = new CouchDBCacheRepository(_connector);
-        }
+        // Act
+        _repository.Set(value, key);
 
-        [Fact]
-        public void SetToDatabaseShouldStoreValue()
-        {
-            // Arrange
-            var key = "test-key";
-            var value = "test-value";
+        // Assert
+    }
 
-            // Act
-            _repository.Set(value, key);
+    [Fact]
+    public void GetFromDatabaseShouldReturnStoredValue()
+    {
+        // Arrange
+        var key = "test-key";
 
-            // Assert
-        }
+        // Act
+        var actualValue = _repository.Get<string>(key);
 
-        [Fact]
-        public void GetFromDatabaseShouldReturnStoredValue()
-        {
-            // Arrange
-            var key = "test-key";
-            var expectedValue = "test-value";
+        // Assert
+        actualValue.Should().BeNull();
+    }
 
-            // Act
-            var actualValue = _repository.Get<string>(key);
+    [Fact]
+    public void RemoveFromDatabaseShouldRemoveValue()
+    {
+        // Arrange
+        var key = "test-key";
 
-            // Assert
-            actualValue.Should().BeNull();
-        }
+        // Act
+        _repository.Remove(key);
 
-        [Fact]
-        public void RemoveFromDatabaseShouldRemoveValue()
-        {
-            // Arrange
-            var key = "test-key";
-
-            // Act
-            _repository.Remove(key);
-
-            // Assert
-        }
+        // Assert
     }
 }

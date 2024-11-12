@@ -3,60 +3,59 @@ using CrispyWaffle.Cache;
 using FluentAssertions;
 using Xunit;
 
-namespace CrispyWaffle.Tests.Cache
+namespace CrispyWaffle.Tests.Cache;
+
+public class MemoryCacheRepositoryTests
 {
-    public class MemoryCacheRepositoryTests
+    private readonly MemoryCacheRepository _repository;
+
+    public MemoryCacheRepositoryTests() => _repository = new MemoryCacheRepository();
+
+    [Fact]
+    public void SetShouldStoreValue()
     {
-        private readonly MemoryCacheRepository _repository;
+        // Arrange
+        var key = "test-key";
+        var value = "test-value";
 
-        public MemoryCacheRepositoryTests() => _repository = new MemoryCacheRepository();
+        _repository.Set(value, key);
 
-        [Fact]
-        public void SetShouldStoreValue()
-        {
-            // Arrange
-            var key = "test-key";
-            var value = "test-value";
+        // Act
+        var actualValue = _repository.Get<string>(key);
 
-            _repository.Set(value, key);
+        // Assert
+        actualValue.Should().Be(value);
+    }
 
-            // Act
-            var actualValue = _repository.Get<string>(key);
+    [Fact]
+    public void GetShouldReturnStoredValue()
+    {
+        // Arrange
+        var key = "test-key";
+        var expectedValue = "test-value";
+        _repository.Set(expectedValue, key);
 
-            // Assert
-            actualValue.Should().Be(value);
-        }
+        // Act
+        var actualValue = _repository.Get<string>(key);
 
-        [Fact]
-        public void GetShouldReturnStoredValue()
-        {
-            // Arrange
-            var key = "test-key";
-            var expectedValue = "test-value";
-            _repository.Set(expectedValue, key);
+        // Assert
+        actualValue.Should().Be(expectedValue);
+    }
 
-            // Act
-            var actualValue = _repository.Get<string>(key);
+    [Fact]
+    public void RemoveShouldRemoveStoredValue()
+    {
+        // Arrange
+        var key = "test-key";
+        _repository.Set("test-value", key);
+        _repository.Remove(key);
 
-            // Assert
-            actualValue.Should().Be(expectedValue);
-        }
+        // Act
+        var exception = Assert.Throws<InvalidOperationException>(
+            () => _repository.Get<string>(key)
+        );
 
-        [Fact]
-        public void RemoveShouldRemoveStoredValue()
-        {
-            // Arrange
-            var key = "test-key";
-            _repository.Set("test-value", key);
-            _repository.Remove(key);
-
-            // Act
-            var exception = Assert.Throws<InvalidOperationException>(
-                () => _repository.Get<string>(key)
-            );
-
-            // Assert
-            exception.Should().NotBeNull();
-        }
+        // Assert
+        exception.Should().NotBeNull();
     }
 }

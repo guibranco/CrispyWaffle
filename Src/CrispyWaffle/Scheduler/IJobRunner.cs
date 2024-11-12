@@ -1,16 +1,15 @@
 ﻿using System;
 
-namespace CrispyWaffle.Scheduler
+namespace CrispyWaffle.Scheduler;
+
+/// <summary>
+/// Interface IJobRunner
+/// </summary>
+public interface IJobRunner
 {
     /// <summary>
-    /// Interface IJobRunner
+    /// Executes the specified date time.
     /// </summary>
-    public interface IJobRunner
-    {
-        /// <summary>
-        /// Executes the specified date time.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        void Execute(DateTime dateTime);
-    }
+    /// <param name="dateTime">The date time.</param>
+    void Execute(DateTime dateTime);
 }

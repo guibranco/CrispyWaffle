@@ -4,91 +4,86 @@ using System.Linq;
 using System.Text;
 using CrispyWaffle.Log.Providers;
 
-namespace CrispyWaffle.Extensions
+namespace CrispyWaffle.Extensions;
+
+/// <summary>
+/// The exception extension class.
+/// </summary>
+public static class ExceptionExtensions
 {
     /// <summary>
-    /// The exception extension class.
+    /// To the queue.
     /// </summary>
-    public static class ExceptionExtensions
+    /// <param name="exception">The exception.</param>
+    /// <param name="types">The types.</param>
+    /// <returns></returns>
+    public static Queue<Exception> ToQueue(this Exception exception, out List<Type> types)
     {
-        /// <summary>
-        /// To the queue.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
-        /// <param name="types">The types.</param>
-        /// <returns></returns>
-        public static Queue<Exception> ToQueue(this Exception exception, out List<Type> types)
+        var result = new Queue<Exception>();
+
+        types = new List<Type>();
+
+        var handling = exception;
+
+        result.Enqueue(handling);
+
+        while (handling?.InnerException != null)
         {
-            var result = new Queue<Exception>();
+            result.Enqueue(handling.InnerException);
 
-            types = new List<Type>();
+            handling = handling.InnerException;
 
-            var handling = exception;
-
-            result.Enqueue(handling);
-
-            while (handling?.InnerException != null)
+            if (handling != null)
             {
-                result.Enqueue(handling.InnerException);
-
-                handling = handling.InnerException;
-
-                if (handling != null)
-                {
-                    types.Add(handling.GetType());
-                }
+                types.Add(handling.GetType());
             }
-
-            result = new Queue<Exception>(result.Reverse());
-
-            return result;
         }
 
-        /// <summary>
-        /// Gets the messages.
-        /// </summary>
-        /// <param name="exceptions">The exceptions.</param>
-        /// <param name="category">The category</param>
-        /// <param name="additionalProviders">The additional providers.</param>
-        /// <returns></returns>
-        public static string GetMessages(
-            this Queue<Exception> exceptions,
-            string category,
-            ICollection<ILogProvider> additionalProviders
-        )
+        result = new Queue<Exception>(result.Reverse());
+
+        return result;
+    }
+
+    /// <summary>
+    /// Gets the messages.
+    /// </summary>
+    /// <param name="exceptions">The exceptions.</param>
+    /// <param name="category">The category</param>
+    /// <param name="additionalProviders">The additional providers.</param>
+    /// <returns></returns>
+    public static string GetMessages(
+        this Queue<Exception> exceptions,
+        string category,
+        ICollection<ILogProvider> additionalProviders
+    )
+    {
+        var message = new StringBuilder();
+
+        var counter = 0;
+
+        while (exceptions.Count > 0)
         {
-            var message = new StringBuilder();
+            var current = exceptions.Dequeue();
 
-            var counter = 0;
-
-            while (exceptions.Count > 0)
+            if (counter > 0)
             {
-                var current = exceptions.Dequeue();
-
-                if (counter > 0)
-                {
-                    message
-                        .Append("Exception rethrow at")
-                        .Append(@" [")
-                        .Append(counter)
-                        .Append(@"]: ");
-                }
-
-                message
-                    .Append(current.Message)
-                    .AppendFormat(" [{0}]", current.GetType().Name)
-                    .AppendLine()
-                    .AppendLine(current.StackTrace);
-
-                counter++;
-
-                foreach (var additionalProvider in additionalProviders)
-                {
-                    additionalProvider.Error(category, current.Message);
-                }
+                message.Append("Exception rethrow at").Append(@" [").Append(counter).Append(@"]: ");
             }
 
-            return message.ToString();
+            message
+                .Append(current.Message)
+                .AppendFormat(" [{0}]", current.GetType().Name)
+                .AppendLine()
+                .AppendLine(current.StackTrace);
+
+            counter++;
+
+            foreach (var additionalProvider in additionalProviders)
+            {
+                additionalProvider.Error(category, current.Message);
+            }
         }
+
+        return message.ToString();
     }
 }

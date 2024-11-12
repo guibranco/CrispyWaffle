@@ -1,55 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CrispyWaffle.Scheduler
+namespace CrispyWaffle.Scheduler;
+
+/// <summary>
+/// Interface IScheduler
+/// </summary>
+public interface IScheduler
 {
     /// <summary>
-    /// Interface IScheduler
+    /// Returns true if the expression is valid.
     /// </summary>
-    public interface IScheduler
-    {
-        /// <summary>
-        /// Returns true if the expression is valid.
-        /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <returns><c>true</c> if the specified expression is valid; otherwise, <c>false</c>.</returns>
-        bool IsValid(string expression);
+    /// <param name="expression">The expression.</param>
+    /// <returns><c>true</c> if the specified expression is valid; otherwise, <c>false</c>.</returns>
+    bool IsValid(string expression);
 
-        /// <summary>
-        /// Determines whether the specified date time is time.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns><c>true</c> if the specified date time is time; otherwise, <c>false</c>.</returns>
-        bool IsTime(DateTime dateTime);
+    /// <summary>
+    /// Determines whether the specified date time is time.
+    /// </summary>
+    /// <param name="dateTime">The date time.</param>
+    /// <returns><c>true</c> if the specified date time is time; otherwise, <c>false</c>.</returns>
+    bool IsTime(DateTime dateTime);
 
-        /// <summary>
-        /// Gets the days of week.
-        /// </summary>
-        /// <value>The days of week.</value>
-        ICollection<int> DaysOfWeek { get; }
+    /// <summary>
+    /// Gets the days of week.
+    /// </summary>
+    /// <value>The days of week.</value>
+    ICollection<int> DaysOfWeek { get; }
 
-        /// <summary>
-        /// Gets the months.
-        /// </summary>
-        /// <value>The months.</value>
-        ICollection<int> Months { get; }
+    /// <summary>
+    /// Gets the months.
+    /// </summary>
+    /// <value>The months.</value>
+    ICollection<int> Months { get; }
 
-        /// <summary>
-        /// Gets the days of month.
-        /// </summary>
-        /// <value>The days of month.</value>
-        ICollection<int> DaysOfMonth { get; }
+    /// <summary>
+    /// Gets the days of month.
+    /// </summary>
+    /// <value>The days of month.</value>
+    ICollection<int> DaysOfMonth { get; }
 
-        /// <summary>
-        /// Gets the hours.
-        /// </summary>
-        /// <value>The hours.</value>
-        ICollection<int> Hours { get; }
+    /// <summary>
+    /// Gets the hours.
+    /// </summary>
+    /// <value>The hours.</value>
+    ICollection<int> Hours { get; }
 
-        /// <summary>
-        /// Gets the minutes.
-        /// </summary>
-        /// <value>The minutes.</value>
-        ICollection<int> Minutes { get; }
-    }
+    /// <summary>
+    /// Gets the minutes.
+    /// </summary>
+    /// <value>The minutes.</value>
+    ICollection<int> Minutes { get; }
 }

@@ -1,18 +1,17 @@
-﻿namespace CrispyWaffle.Log.Handlers
+﻿namespace CrispyWaffle.Log.Handlers;
+
+/// <summary>
+/// The exception log type enumeration.
+/// </summary>
+public enum ExceptionLogType
 {
     /// <summary>
-    /// The exception log type enumeration.
+    /// The message
     /// </summary>
-    public enum ExceptionLogType
-    {
-        /// <summary>
-        /// The message
-        /// </summary>
-        Message,
+    Message,
 
-        /// <summary>
-        /// The full
-        /// </summary>
-        Full,
-    }
+    /// <summary>
+    /// The full
+    /// </summary>
+    Full,
 }
