@@ -19,27 +19,27 @@ public class CronScheduler : IScheduler
     /// <summary>
     /// A collection of days of the week that the cron expression matches.
     /// </summary>
-    private readonly HashSet<int> _daysOfWeek = new HashSet<int>();
+    private readonly HashSet<int> _daysOfWeek = new();
 
     /// <summary>
     /// A collection of months that the cron expression matches.
     /// </summary>
-    private readonly HashSet<int> _months = new HashSet<int>();
+    private readonly HashSet<int> _months = new();
 
     /// <summary>
     /// A collection of days of the month that the cron expression matches.
     /// </summary>
-    private readonly HashSet<int> _daysOfMonth = new HashSet<int>();
+    private readonly HashSet<int> _daysOfMonth = new();
 
     /// <summary>
     /// A collection of hours that the cron expression matches.
     /// </summary>
-    private readonly HashSet<int> _hours = new HashSet<int>();
+    private readonly HashSet<int> _hours = new();
 
     /// <summary>
     /// A collection of minutes that the cron expression matches.
     /// </summary>
-    private readonly HashSet<int> _minutes = new HashSet<int>();
+    private readonly HashSet<int> _minutes = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CronScheduler"/> class with a default cron expression.

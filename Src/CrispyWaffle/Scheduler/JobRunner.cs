@@ -14,7 +14,7 @@ public class JobRunner : IJobRunner
     /// <summary>
     /// The synchronization object used to ensure thread safety when executing jobs.
     /// </summary>
-    private readonly object _syncRoot = new object();
+    private readonly object _syncRoot = new();
 
     /// <summary>
     /// The scheduler responsible for determining when the job should be executed based on a cron expression.
