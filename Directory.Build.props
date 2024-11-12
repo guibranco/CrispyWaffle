@@ -36,6 +36,7 @@
     <ImplicitUsings>disabled</ImplicitUsings>
     <Nullable>disable</Nullable>
     <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
     <NoWarn>$(NoWarn);1591;NU5105;SA1633;CA1711</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
