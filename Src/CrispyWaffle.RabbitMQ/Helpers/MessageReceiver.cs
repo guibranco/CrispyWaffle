@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CrispyWaffle.Log;
 using CrispyWaffle.RabbitMQ.Utils.Communications;
-using RabbitMQ.Client; // Updated to version 7.0.0
 using RabbitMQ.Client.Events;
 
 namespace CrispyWaffle.RabbitMQ.Helpers
