@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,37 +16,37 @@ using CrispyWaffle.Serialization;
 namespace CrispyWaffle.Log
 {
     /// <summary>
-    /// The default log consumer of the application
+    /// Provides functionality for logging messages to various log providers and applying filters.
     /// </summary>
     public static class LogConsumer
     {
         /// <summary>
-        /// The log providers
+        /// The providers.
         /// </summary>
-        private static readonly ICollection<ILogProvider> _providers;
+        private static readonly Collection<ILogProvider> _providers;
 
         /// <summary>
-        /// The filters
+        /// The filters.
         /// </summary>
-        private static readonly ICollection<ILogFilter> _filters;
+        private static readonly Collection<ILogFilter> _filters;
 
         /// <summary>
-        /// The exception handler
+        /// The handler.
         /// </summary>
         private static IExceptionHandler _handler;
 
         /// <summary>
-        /// The storage directory/
+        /// Gets the directory where log files are stored.
         /// </summary>
         public static readonly string StorageDirectory;
 
         /// <summary>
-        /// The debug directory
+        /// Gets the directory where debug log files are stored.
         /// </summary>
         public static readonly string DebugDirectory;
 
         /// <summary>
-        /// Initializes the <see cref="LogConsumer"/> class.
+        /// Initializes static members of the <see cref="LogConsumer"/> class.
         /// </summary>
         static LogConsumer()
         {
@@ -66,9 +66,9 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Gets the category.
+        /// Determines the category for the current context based on the calling method's namespace.
         /// </summary>
-        /// <returns>The category.</returns>
+        /// <returns>The category as a string.</returns>
         private static string GetCategory()
         {
             var stack = new StackTrace();
@@ -79,7 +79,7 @@ namespace CrispyWaffle.Log
 
                 if (method == null)
                 {
-                    return @"CrispyWaffle";
+                    return "CrispyWaffle";
                 }
 
                 if (GetNamespace(method, out var category))
@@ -90,11 +90,11 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Gets the namespace.
+        /// Retrieves the namespace for the specified method.
         /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if namespace is different from restrict ones, <c>false</c> otherwise.</returns>
+        /// <param name="method">The method to evaluate.</param>
+        /// <param name="category">The resulting category based on the namespace.</param>
+        /// <returns>True if a namespace is found; otherwise, false.</returns>
         private static bool GetNamespace(MethodBase method, out string category)
         {
             category = string.Empty;
@@ -107,14 +107,17 @@ namespace CrispyWaffle.Log
             }
 
             if (
-                ns.StartsWith(@"CrispyWaffle.Log")
-                || (ns.StartsWith(@"CrispyWaffle") && ns.EndsWith(@"LogProvider"))
+                ns.StartsWith("CrispyWaffle.Log", StringComparison.OrdinalIgnoreCase)
+                || (
+                    ns.StartsWith("CrispyWaffle", StringComparison.OrdinalIgnoreCase)
+                    && ns.EndsWith("LogProvider", StringComparison.OrdinalIgnoreCase)
+                )
             )
             {
                 return false;
             }
 
-            if (ns.StartsWith(@"CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
+            if (ns.StartsWith("CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
             {
                 ns = ns.Substring(13);
             }
@@ -124,10 +127,10 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Adds the provider.
+        /// Adds a new log provider to the consumer.
         /// </summary>
-        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
-        /// <returns></returns>
+        /// <typeparam name="TLogProvider">The type of the log provider.</typeparam>
+        /// <returns>The instance of the added log provider.</returns>
         public static ILogProvider AddProvider<TLogProvider>()
             where TLogProvider : ILogProvider
         {
@@ -137,10 +140,10 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Adds a provider to the providers lists and return the provider
+        /// Adds a specified log provider to the consumer.
         /// </summary>
-        /// <param name="provider"><see cref="ILogProvider"/></param>
-        /// <returns>The <paramref name="provider"/></returns>
+        /// <param name="provider">The log provider to add.</param>
+        /// <returns>The instance of the added log provider.</returns>
         public static ILogProvider AddProvider(ILogProvider provider)
         {
             _providers.Add(provider);
@@ -148,30 +151,30 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Adds the filter.
+        /// Adds a log filter to the consumer.
         /// </summary>
-        /// <param name="filter">The filter.</param>
+        /// <param name="filter">The log filter to add.</param>
         public static void AddFilter(ILogFilter filter)
         {
             _filters.Add(filter);
         }
 
         /// <summary>
-        /// Sets the exception handler
+        /// Sets the exception handler for logging operations.
         /// </summary>
-        /// <param name="handler">A instance of <see cref="IExceptionHandler"/> used to handle the exception</param>
+        /// <param name="handler">The exception handler to set.</param>
         public static void SetHandler(IExceptionHandler handler)
         {
             _handler = handler;
         }
 
         /// <summary>
-        /// Log the message to an specific log provider with the specified log level.
+        /// Logs a message to the specified log provider.
         /// </summary>
-        /// <typeparam name="TLogProvider">The log provider to log the message</typeparam>
-        /// <param name="level">The level of message to be logged.</param>
-        /// <param name="message">The message to be logged.</param>
-        /// <returns>True if the log provider exists in the providers list, false if not</returns>
+        /// <typeparam name="TLogProvider">The type of the log provider.</typeparam>
+        /// <param name="level">The log level.</param>
+        /// <param name="message">The message to log.</param>
+        /// <returns>True if the message was logged; otherwise, false.</returns>
         public static bool LogTo<TLogProvider>(LogLevel level, string message)
             where TLogProvider : ILogProvider
         {
@@ -197,13 +200,13 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs to internal.
+        /// Internal method for logging messages to a provider.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="provider">The provider.</param>
-        /// <param name="category">The category.</param>
-        /// <exception cref="ArgumentOutOfRangeException">level - null</exception>
+        /// <param name="level">The log level.</param>
+        /// <param name="message">The message to log.</param>
+        /// <param name="provider">The log provider.</param>
+        /// <param name="category">The category of the log.</param>
+        /// <exception cref="ArgumentOutOfRangeException">level - null.</exception>
         private static void LogToInternal(
             LogLevel level,
             string message,
@@ -237,12 +240,12 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Debugs the content to a file/attachment with file name/key identifier as debug level
+        /// Debugs to specific log provider.
         /// </summary>
-        /// <typeparam name="TLogProvider">The log provider to act on</typeparam>
-        /// <param name="content">The content to be stored in the file/attachment</param>
-        /// <param name="identifier">The file name/identifier of the file/attachment</param>
-        /// <returns>True if the log provider exists in the providers list</returns>
+        /// <typeparam name="TLogProvider">The type of the t log provider.</typeparam>
+        /// <param name="content">The content.</param>
+        /// <param name="identifier">The identifier.</param>
+        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public static bool DebugTo<TLogProvider>(string content, string identifier)
             where TLogProvider : ILogProvider
         {
@@ -268,14 +271,14 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Debugs the content to a file/attachment with file name/key identifier as debug level
+        /// Debugs to specif log provider.
         /// </summary>
-        /// <typeparam name="TLogProvider">The log provider to act on</typeparam>
-        /// <typeparam name="T">The object to be stored</typeparam>
-        /// <param name="content">The content to be stored in the file/attachment</param>
-        /// <param name="identifier">The file name/identifier of the file/attachment</param>
-        /// <param name="customFormat">(Optional) the custom serializer format</param>
-        /// <returns>True if the log provider exists in the providers list</returns>
+        /// <typeparam name="TLogProvider">The type of the t log provider.</typeparam>
+        /// <typeparam name="T">The type of the file to be persisted.</typeparam>
+        /// <param name="content">The content.</param>
+        /// <param name="identifier">The identifier.</param>
+        /// <param name="customFormat">The custom format.</param>
+        /// <returns><c>true</c> if succeeded, <c>false</c> otherwise.</returns>
         public static bool DebugTo<TLogProvider, T>(
             T content,
             string identifier,
@@ -306,9 +309,9 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message with debug log level
+        /// Logs a debug message.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The message to log.</param>
         public static void Debug(string message)
         {
             var category = GetCategory();
@@ -326,20 +329,20 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as formatted string with debug log level
+        /// Logs a debug message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="arguments">The arguments to format the message.</param>
+        /// <param name="arguments">The arguments.</param>
         public static void Debug(string message, params object[] arguments)
         {
-            Debug(string.Format(message, arguments));
+            Debug(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level
+        /// Logs a debug message.
         /// </summary>
-        /// <param name="content">The content to be stored</param>
-        /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
+        /// <param name="content">The content.</param>
+        /// <param name="identifier">The identifier.</param>
         public static void Debug(string content, [Localizable(false)] string identifier)
         {
             var category = GetCategory();
@@ -357,12 +360,12 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level using a custom serializer or default.
+        /// Logs a debug message.
         /// </summary>
-        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat"/> serializer format</typeparam>
-        /// <param name="content">The object to be serialized</param>
-        /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
-        /// <param name="customFormat">(Optional) the custom serializer format</param>
+        /// <typeparam name="T">The type of the content.</typeparam>
+        /// <param name="content">The content.</param>
+        /// <param name="identifier">The identifier.</param>
+        /// <param name="customFormat">The custom format.</param>
         public static void Debug<T>(
             T content,
             [Localizable(false)] string identifier,
@@ -385,9 +388,9 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message with tracing log level
+        /// Logs a trace message.
         /// </summary>
-        /// <param name="message">The message to be logged.</param>
+        /// <param name="message">The message to log.</param>
         public static void Trace(string message)
         {
             var category = GetCategory();
@@ -405,17 +408,17 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as formatted string with trace log level
+        /// Logs a trace message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="arguments">The arguments to format the message.</param>
+        /// <param name="arguments">The arguments.</param>
         public static void Trace(string message, params object[] arguments)
         {
-            Trace(string.Format(message, arguments));
+            Trace(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Traces the specified exception.
+        /// Logs a trace message with an exception.
         /// </summary>
         /// <param name="exception">The exception.</param>
         /// <param name="message">The message.</param>
@@ -436,18 +439,18 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Traces the specified exception.
+        /// Logs a trace message with an exception.
         /// </summary>
         /// <param name="exception">The exception.</param>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
         public static void Trace(Exception exception, string message, params object[] arguments)
         {
-            Trace(exception, string.Format(message, arguments));
+            Trace(exception, string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Traces the specified exception.
+        /// Logs a trace message with an exception.
         /// </summary>
         /// <param name="exception">The exception.</param>
         public static void Trace(Exception exception)
@@ -467,9 +470,9 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message with info log level
+        /// Logs an informational message.
         /// </summary>
-        /// <param name="message">The message to be logged.</param>
+        /// <param name="message">The message to log.</param>
         public static void Info(string message)
         {
             var category = GetCategory();
@@ -487,19 +490,19 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as formatted string with info log level
+        /// Logs an informational message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="arguments">The arguments to format the message.</param>
+        /// <param name="arguments">The arguments.</param>
         public static void Info(string message, params object[] arguments)
         {
-            Info(string.Format(message, arguments));
+            Info(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Logs the message with warning log level
+        /// Logs a warning message.
         /// </summary>
-        /// <param name="message">The message to be logged.</param>
+        /// <param name="message">The message to log.</param>
         public static void Warning(string message)
         {
             var category = GetCategory();
@@ -517,19 +520,19 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as formatted string with warning log level
+        /// Logs a warning message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="arguments">The arguments to format the message.</param>
+        /// <param name="arguments">The arguments.</param>
         public static void Warning(string message, params object[] arguments)
         {
-            Warning(string.Format(message, arguments));
+            Warning(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Logs the message with error log level
+        /// Logs an error message.
         /// </summary>
-        /// <param name="message">The message to be logged.</param>
+        /// <param name="message">The message to log.</param>
         public static void Error(string message)
         {
             var category = GetCategory();
@@ -547,19 +550,19 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Logs the message as formatted string with error log level
+        /// Logs an error message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="arguments">The arguments to format the message.</param>
+        /// <param name="arguments">The arguments.</param>
         public static void Error(string message, params object[] arguments)
         {
-            Error(string.Format(message, arguments));
+            Error(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Fatals the specified message.
+        /// Logs a fatal error message.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="message">The message to log.</param>
         public static void Fatal(string message)
         {
             var category = GetCategory();
@@ -577,36 +580,36 @@ namespace CrispyWaffle.Log
         }
 
         /// <summary>
-        /// Fatals the specified message.
+        /// Logs a fatal error message.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="arguments">The arguments.</param>
         public static void Fatal(string message, params object[] arguments)
         {
-            Fatal(string.Format(message, arguments));
+            Fatal(string.Format(CultureInfo.InvariantCulture, message, arguments));
         }
 
         /// <summary>
-        /// Handle the exception with the exception handler set in the
+        /// Handles an exception by passing it to the exception handler.
         /// </summary>
-        /// <param name="exception">The exception to be handled</param>
+        /// <param name="exception">The exception to handle.</param>
         public static void Handle(Exception exception)
         {
             _handler?.Handle(exception);
         }
 
         /// <summary>
-        /// Handle an unhandled exception
+        /// Handles an exception by passing it to the exception handler.
         /// </summary>
-        /// <param name="sender">The sender</param>
-        /// <param name="args"><see cref="UnhandledExceptionEventArgs"/></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
         public static void Handle(object sender, UnhandledExceptionEventArgs args)
         {
             _handler?.Handle(sender, args);
         }
 
         /// <summary>
-        /// Handles the specified sender.
+        /// Handles an exception by passing it to the exception handler.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ThreadExceptionEventArgs"/> instance containing the event data.</param>
