@@ -116,7 +116,7 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Adds a value with a subkey to all cache repositories.
+        /// Adds a value with a sub key to all cache repositories.
         /// </summary>
         /// <typeparam name="T">The type of the value to cache.</typeparam>
         /// <param name="value">The value to cache.</param>
