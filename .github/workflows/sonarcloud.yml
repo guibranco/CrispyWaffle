@@ -44,6 +44,9 @@ jobs:
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/cache/
+
+      - name: Install dotnet-coverage
+        run: dotnet tool install --global dotnet-coverage
           
       - name: Set SonarCloud variables
         shell: bash
@@ -58,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ~/.sonar/cache/dotnet-sonarscanner begin /k:"${{ env.KEY }}" /o:"${{ env.ORG }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build -c Release --verbosity minimal
-          dotnet test -c Release --verbosity minimal --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura"
+          ~/.sonar/cache/dotnet-sonarscanner begin /k:"${{ env.KEY }}" /o:"${{ env.ORG }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.scanner.scanAll=false  /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet build --no-incremental
+          dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
           ~/.sonar/cache/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
