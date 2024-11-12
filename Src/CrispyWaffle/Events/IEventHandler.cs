@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Events
 {
     /// <summary>
-    /// The event handler interface
+    /// The event handler interface.
     /// </summary>
     /// <typeparam name="TEvent">The type of the event.</typeparam>
     public interface IEventHandler<in TEvent>

@@ -25,10 +25,8 @@ namespace CrispyWaffle.Configuration
         /// OnPropertyChanged event invoker.
         /// </summary>
         /// <param name="propertyName">The property name that was changed.</param>
-        private void OnPropertyChanged(string propertyName)
-        {
+        private void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         /// <summary>
         /// The username.

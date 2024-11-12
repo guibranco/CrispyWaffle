@@ -48,10 +48,7 @@ public class SampleJsonClass : IEquatable<SampleJsonClass>
     }
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Date, ListStrong);
-    }
+    public override int GetHashCode() => HashCode.Combine(Id, Date, ListStrong);
 
     public static bool operator ==(SampleJsonClass left, SampleJsonClass right)
     {

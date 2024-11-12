@@ -36,10 +36,8 @@ namespace CrispyWaffle.Cache
         /// <param name="key">The key.</param>
         /// <param name="ttl">This would be the TTL parameter, but it's not implemented in this type of cache (memory). Maybe in further version...</param>
         /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements.</exception>
-        public void Set<T>(T value, string key, TimeSpan? ttl = null)
-        {
+        public void Set<T>(T value, string key, TimeSpan? ttl = null) =>
             _data.AddOrUpdate(key, value, (_, _) => value);
-        }
 
         /// <summary>
         /// Sets the specified value.
@@ -168,10 +166,7 @@ namespace CrispyWaffle.Cache
         /// The timespan until this key is expired from the cache or 0 if it's already expired or doesn't exist.
         /// As Memory Cache does not implement TTL or expire mechanism, this will always return 0, even if the key exists.
         /// </returns>
-        public TimeSpan TTL(string key)
-        {
-            return new TimeSpan(0);
-        }
+        public TimeSpan TTL(string key) => new TimeSpan(0);
 
         /// <summary>
         /// Clears this instance.

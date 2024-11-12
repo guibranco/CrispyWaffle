@@ -175,10 +175,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// Propagates the internal.
         /// </summary>
         /// <param name="message">The message.</param>
-        private void PropagateInternal(string message)
-        {
-            _queue.Enqueue(message);
-        }
+        private void PropagateInternal(string message) => _queue.Enqueue(message);
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -193,10 +190,7 @@ namespace CrispyWaffle.RabbitMQ.Log
         /// Sets the level.
         /// </summary>
         /// <param name="level">The level.</param>
-        public void SetLevel(LogLevel level)
-        {
-            _level = level;
-        }
+        public void SetLevel(LogLevel level) => _level = level;
 
         /// <summary>
         /// Fatal the specified category.

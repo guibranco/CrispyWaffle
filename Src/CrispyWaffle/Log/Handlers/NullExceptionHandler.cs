@@ -44,9 +44,6 @@ namespace CrispyWaffle.Log.Handlers
         /// <param name="type">The type.</param>
         /// <returns></returns>
         public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
-            where TLogProvider : ILogProvider
-        {
-            return ServiceLocator.Resolve<TLogProvider>();
-        }
+            where TLogProvider : ILogProvider => ServiceLocator.Resolve<TLogProvider>();
     }
 }

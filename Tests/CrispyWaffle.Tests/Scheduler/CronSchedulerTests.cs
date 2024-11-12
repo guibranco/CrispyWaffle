@@ -23,10 +23,8 @@ public class CronSchedulerTests
     }
 
     [Fact]
-    public void ValidateInvalidExpression()
-    {
+    public void ValidateInvalidExpression() =>
         Assert.Throws<ArgumentOutOfRangeException>(() => new CronScheduler("invalid expression"));
-    }
 
     [Fact]
     public void ValidateDivided()

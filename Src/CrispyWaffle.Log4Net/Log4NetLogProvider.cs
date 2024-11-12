@@ -35,10 +35,7 @@ namespace CrispyWaffle.Log4Net
         /// Sets the log level of the instance.
         /// </summary>
         /// <param name="level">The log level.</param>
-        public void SetLevel(LogLevel level)
-        {
-            _level = level;
-        }
+        public void SetLevel(LogLevel level) => _level = level;
 
         /// <summary>
         /// Logs the message with a fatal level.

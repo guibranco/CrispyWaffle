@@ -95,10 +95,7 @@ namespace CrispyWaffle.Elmah
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(Exception exception)
-        {
-            HandleInternal(exception);
-        }
+        public void Handle(Exception exception) => HandleInternal(exception);
 
         /// <summary>
         /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject" /> as Exception and then call <seealso cref="IExceptionHandler.Handle(Exception)" />.
@@ -107,20 +104,16 @@ namespace CrispyWaffle.Elmah
         /// <param name="sender">The sender.</param>
         /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs" />.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(object sender, UnhandledExceptionEventArgs args)
-        {
+        public void Handle(object sender, UnhandledExceptionEventArgs args) =>
             HandleInternal((Exception)args.ExceptionObject);
-        }
 
         /// <summary>
         /// Handles the specified sender.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="ThreadExceptionEventArgs" /> instance containing the event data.</param>
-        public void Handle(object sender, ThreadExceptionEventArgs args)
-        {
+        public void Handle(object sender, ThreadExceptionEventArgs args) =>
             HandleInternal(args.Exception);
-        }
 
         /// <summary>
         /// Adds the log provider.

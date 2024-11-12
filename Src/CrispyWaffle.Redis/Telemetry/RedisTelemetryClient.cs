@@ -78,20 +78,15 @@ namespace CrispyWaffle.Redis.Telemetry
         /// Tracks the hit.
         /// </summary>
         /// <param name="hitName">Name of the hit.</param>
-        public void TrackHit(string hitName)
-        {
+        public void TrackHit(string hitName) =>
             _redis.GetDatabase(HitDatabase).StringIncrement(hitName, 1, CommandFlags.FireAndForget);
-        }
 
         /// <summary>
         /// Removes the hit.
         /// </summary>
         /// <param name="hitName">Name of the hit.</param>
         /// <returns><c>true</c> if remove hit, <c>false</c> otherwise.</returns>
-        public bool RemoveHit(string hitName)
-        {
-            return _redis.GetDatabase(HitDatabase).KeyDelete(hitName);
-        }
+        public bool RemoveHit(string hitName) => _redis.GetDatabase(HitDatabase).KeyDelete(hitName);
 
         /// <summary>
         /// Gets the event.
@@ -179,10 +174,8 @@ namespace CrispyWaffle.Redis.Telemetry
         /// <param name="metricName">Name of the metric.</param>
         /// <param name="variation">The variation.</param>
         /// <returns><c>true</c> if remove metric, <c>false</c> otherwise.</returns>
-        public bool RemoveMetric(string metricName, string variation)
-        {
-            return _redis.GetDatabase(MetricDatabase).HashDelete(metricName, variation);
-        }
+        public bool RemoveMetric(string metricName, string variation) =>
+            _redis.GetDatabase(MetricDatabase).HashDelete(metricName, variation);
 
         /// <summary>
         /// Tracks the exception.

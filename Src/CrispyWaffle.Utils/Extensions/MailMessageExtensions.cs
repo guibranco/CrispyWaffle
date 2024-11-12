@@ -12,20 +12,20 @@ namespace CrispyWaffle.Utils.Extensions
     public static class MailMessageExtensions
     {
         /// <summary>
-        /// The flags
+        /// The flags.
         /// </summary>
 #pragma warning disable S3011
         private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
 
         /// <summary>
-        /// The mail writer
+        /// The mail writer.
         /// </summary>
         private static readonly Type _mailWriter = typeof(SmtpClient).Assembly.GetType(
             @"System.Net.Mail.MailWriter"
         );
 
         /// <summary>
-        /// The mail writer constructor
+        /// The mail writer constructor.
         /// </summary>
         private static readonly ConstructorInfo _mailWriterConstructor = _mailWriter.GetConstructor(
             Flags,
@@ -35,12 +35,12 @@ namespace CrispyWaffle.Utils.Extensions
         );
 
         /// <summary>
-        /// The close method
+        /// The close method.
         /// </summary>
         private static readonly MethodInfo _closeMethod = _mailWriter.GetMethod(@"Close", Flags);
 
         /// <summary>
-        /// The send method
+        /// The send method.
         /// </summary>
         private static readonly MethodInfo _sendMethod = typeof(MailMessage).GetMethod(
             @"Send",

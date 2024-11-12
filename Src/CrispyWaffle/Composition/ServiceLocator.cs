@@ -614,10 +614,8 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TBootstrapper">The bootstrapper class that inherits <see cref="IBootstrapper"/>.</typeparam>
         public static void RegisterBootstrapper<TBootstrapper>()
-            where TBootstrapper : class, IBootstrapper, new()
-        {
+            where TBootstrapper : class, IBootstrapper, new() =>
             new TBootstrapper().RegisterServices();
-        }
 
         /// <summary>
         /// Register an instance for a contract/implementation as a singleton.
@@ -643,10 +641,8 @@ namespace CrispyWaffle.Composition
         /// Registers this instance with transient lifetime.
         /// </summary>
         /// <typeparam name="TImplementation">The type of the t implementation.</typeparam>
-        public static void Register<TImplementation>()
-        {
+        public static void Register<TImplementation>() =>
             Register<TImplementation>(Lifetime.Transient);
-        }
 
         /// <summary>
         /// Registers the specified lifetime.
@@ -665,10 +661,8 @@ namespace CrispyWaffle.Composition
         /// <typeparam name="TContract">The type of the t contract.</typeparam>
         /// <typeparam name="TImplementation">The type of the t implementation.</typeparam>
         public static void Register<TContract, TImplementation>()
-            where TImplementation : TContract
-        {
+            where TImplementation : TContract =>
             Register<TContract, TImplementation>(Lifetime.Transient);
-        }
 
         /// <summary>
         /// Registers the specified lifetime.
@@ -689,10 +683,8 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TContract">The type of the t contract.</typeparam>
         /// <param name="instanceCreator">The instance creator.</param>
-        public static void Register<TContract>(Func<TContract> instanceCreator)
-        {
+        public static void Register<TContract>(Func<TContract> instanceCreator) =>
             RegisterWithLifetimeCreatorInternal(Lifetime.Transient, instanceCreator);
-        }
 
         /// <summary>
         /// Registers the specified instance creator.
@@ -700,10 +692,10 @@ namespace CrispyWaffle.Composition
         /// <typeparam name="TContract">The type of the t contract.</typeparam>
         /// <param name="instanceCreator">The instance creator.</param>
         /// <param name="lifetime">The lifetime.</param>
-        public static void Register<TContract>(Func<TContract> instanceCreator, Lifetime lifetime)
-        {
-            RegisterWithLifetimeCreatorInternal(lifetime, instanceCreator);
-        }
+        public static void Register<TContract>(
+            Func<TContract> instanceCreator,
+            Lifetime lifetime
+        ) => RegisterWithLifetimeCreatorInternal(lifetime, instanceCreator);
 
         /// <summary>
         /// Registers the dependency resolver.
@@ -724,10 +716,8 @@ namespace CrispyWaffle.Composition
         /// </summary>
         /// <typeparam name="TContract">The interface binding dependency resolver.</typeparam>
         /// <param name="resolver">The <see cref="IDependencyResolver"/> implementation.</param>
-        public static void RegisterDependencyResolver<TContract>(IDependencyResolver resolver)
-        {
+        public static void RegisterDependencyResolver<TContract>(IDependencyResolver resolver) =>
             _dependenciesResolvers.Add(typeof(TContract), resolver);
-        }
 
         /// <summary>
         /// Disposes all registrations.
@@ -766,10 +756,7 @@ namespace CrispyWaffle.Composition
         /// The implementation of a <typeparamref name="T"/>, creating new instance or return a
         /// singleton instance (depending on how it was registered).
         /// </returns>
-        public static T Resolve<T>()
-        {
-            return (T)GetInstance(typeof(T));
-        }
+        public static T Resolve<T>() => (T)GetInstance(typeof(T));
 
         /// <summary>
         /// Tries the resolve.
@@ -790,10 +777,7 @@ namespace CrispyWaffle.Composition
         /// All implementations of a <typeparamref name="T"/>, creating new instances or returning
         /// singleton instances (depending on how it was registered).
         /// </returns>
-        public static IEnumerable<T> ResolveAll<T>()
-        {
-            return GetAllInstances(typeof(T)).Cast<T>();
-        }
+        public static IEnumerable<T> ResolveAll<T>() => GetAllInstances(typeof(T)).Cast<T>();
 
         /// <summary>
         /// Resolves the with parameters.
@@ -801,10 +785,8 @@ namespace CrispyWaffle.Composition
         /// <typeparam name="T">The generic type to resolve.</typeparam>
         /// <param name="parameters">The parameters.</param>
         /// <returns>T.</returns>
-        public static T ResolveWith<T>(Dictionary<int, object> parameters)
-        {
-            return (T)GetInstanceWith(typeof(T), parameters);
-        }
+        public static T ResolveWith<T>(Dictionary<int, object> parameters) =>
+            (T)GetInstanceWith(typeof(T), parameters);
 
         /// <summary>
         /// Get the instance of a contract.
