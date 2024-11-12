@@ -1,7 +1,7 @@
 ﻿namespace CrispyWaffle.Events
 {
     /// <summary>
-    /// The event interface
+    /// The event interface.
     /// </summary>
     public interface IEvent { }
 }

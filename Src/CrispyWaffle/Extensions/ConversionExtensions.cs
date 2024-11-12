@@ -59,9 +59,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="input">The input.</param>
         /// <returns>DateTime.</returns>
         /// <exception cref="System.ArgumentNullException">input - Input value cannot be null.</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">
-        /// input - Unable to parse the string to a valid datetime
-        /// </exception>
+        /// <exception cref="System.ArgumentOutOfRangeException"> input - Unable to parse the string to a valid datetime. </exception>
         public static DateTime ToDateTime(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))

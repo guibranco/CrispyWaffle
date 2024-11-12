@@ -7,7 +7,7 @@ namespace CrispyWaffle.Utils.Communications
 {
     /// <summary>
     /// Interface IMailer
-    /// Implements the <see cref="IDisposable" />
+    /// Implements the <see cref="IDisposable" />.
     /// </summary>
     /// <seealso cref="IDisposable" />
     public interface IMailer : IDisposable
@@ -25,7 +25,7 @@ namespace CrispyWaffle.Utils.Communications
         void SetRecipients(Dictionary<string, string> recipients);
 
         /// <summary>
-        /// Sets the message body
+        /// Sets the message body.
         /// </summary>
         /// <param name="plainTextMessage">The plain text message.</param>
         /// <param name="htmlMessage">The HTML message.</param>
