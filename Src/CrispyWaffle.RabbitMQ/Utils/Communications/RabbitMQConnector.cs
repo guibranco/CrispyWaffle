@@ -1,7 +1,6 @@
 ﻿using System;
 using CrispyWaffle.Configuration;
 using CrispyWaffle.Infrastructure;
-using RabbitMQ.Client; // Updated to version 7.0.0
 using IConnection = CrispyWaffle.Configuration.IConnection;
 
 namespace CrispyWaffle.RabbitMQ.Utils.Communications
