@@ -30,7 +30,7 @@ public static class MailMessageExtensions
     private static readonly ConstructorInfo _mailWriterConstructor = _mailWriter.GetConstructor(
         Flags,
         null,
-        new[] { typeof(Stream) },
+        [typeof(Stream)],
         null
     );
 
@@ -59,14 +59,14 @@ public static class MailMessageExtensions
     public static MemoryStream RawMessage(this MailMessage self)
     {
         var result = new MemoryStream();
-        var mailWriter = _mailWriterConstructor.Invoke(new object[] { result });
+        var mailWriter = _mailWriterConstructor.Invoke([result]);
         _sendMethod.Invoke(
             self,
             Flags,
             null,
             _isRunningInDotNetFourPointFive
-                ? new[] { mailWriter, true, true }
-                : new[] { mailWriter, true },
+                ? [mailWriter, true, true]
+                : [mailWriter, true],
             CultureInfo.InvariantCulture
         );
         result = new(result.ToArray());
@@ -74,7 +74,7 @@ public static class MailMessageExtensions
             mailWriter,
             Flags,
             null,
-            Array.Empty<object>(),
+            [],
             CultureInfo.InvariantCulture
         );
         return result;

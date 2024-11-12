@@ -39,14 +39,14 @@ public static class PersonalDataValidation
         }
 
         var isValid = NetworkValidations.EmailAddressPattern.IsMatch(emailAddress);
-        if (isValid && !emailAddress.EndsWith(@"combr"))
+        if (isValid && !emailAddress.EndsWith("combr", StringComparison.OrdinalIgnoreCase))
         {
             return emailAddress;
         }
 
-        if (emailAddress.EndsWith(@"combr") || emailAddress.Contains(@","))
+        if (emailAddress.EndsWith("combr", StringComparison.OrdinalIgnoreCase) || emailAddress.Contains(","))
         {
-            return emailAddress.Replace(@"combr", @"com.br").Replace(@",", @".");
+            return emailAddress.Replace("combr", "com.br").Replace(",", ".");
         }
 
         throw new InvalidEmailAddressException(emailAddress);
@@ -62,7 +62,7 @@ public static class PersonalDataValidation
     public static bool IsValidBrazilianPersonDocument(this string document)
     {
         var digits = document.CalculateBrazilianPersonDocumentDigits();
-        return document.EndsWith(digits);
+        return document.EndsWith(digits, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public static class PersonalDataValidation
     public static bool IsValidBrazilianCorporateDocument(this string document)
     {
         var digits = document.CalculateBrazilianCorporateDocument();
-        return document.EndsWith(digits);
+        return document.EndsWith(digits, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
@@ -90,8 +90,8 @@ public static class PersonalDataValidation
     /// </exception>
     public static string CalculateBrazilianPersonDocumentDigits(this string document)
     {
-        int[] multiplierFirstDigit = { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] multiplierSecondDigit = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] multiplierFirstDigit = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+        int[] multiplierSecondDigit = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
         return CalculateDocumentDigits(
             document,
@@ -114,8 +114,8 @@ public static class PersonalDataValidation
     /// </exception>
     public static string CalculateBrazilianCorporateDocument(this string document)
     {
-        int[] multiplierFirstDigit = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-        int[] multiplierSecondDigit = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+        int[] multiplierFirstDigit = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        int[] multiplierSecondDigit = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
         return CalculateDocumentDigits(
             document,

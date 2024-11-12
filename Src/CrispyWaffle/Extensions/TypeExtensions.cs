@@ -149,20 +149,19 @@ public static class TypeExtensions
     /// The primitive numeric types.
     /// </summary>
     private static readonly HashSet<TypeCode> _primitiveNumericTypes =
-        new()
-        {
-            TypeCode.Byte,
-            TypeCode.SByte,
-            TypeCode.UInt16,
-            TypeCode.UInt32,
-            TypeCode.UInt64,
-            TypeCode.Int16,
-            TypeCode.Int32,
-            TypeCode.Int64,
-            TypeCode.Decimal,
-            TypeCode.Double,
-            TypeCode.Single,
-        };
+    [
+        TypeCode.Byte,
+        TypeCode.SByte,
+        TypeCode.UInt16,
+        TypeCode.UInt32,
+        TypeCode.UInt64,
+        TypeCode.Int16,
+        TypeCode.Int32,
+        TypeCode.Int64,
+        TypeCode.Decimal,
+        TypeCode.Double,
+        TypeCode.Single
+    ];
 
     /// <summary>
     /// Determines whether [is numeric type] [the specified type].

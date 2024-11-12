@@ -1,37 +1,39 @@
 ﻿namespace CrispyWaffle.Telemetry;
 
 /// <summary>
-/// The telemetry event interface.
-/// Use this class to track Orders, Products and Shipments (As used today by LogToDatabase)
-///
-/// Name is the Redis key
-/// Category is the Redis database
-/// Event is the data to be stored
+/// Represents a telemetry event used to track data such as Orders, Products, and Shipments.
+/// This interface is used by implementations like <c>LogToDatabase</c> for storing events in Redis.
 /// </summary>
+/// <typeparam name="TEvent">The type of event data to be stored. The type must be a reference type and have a parameterless constructor.</typeparam>
+/// <remarks>
+/// The <see cref="Name"/> property represents the Redis key.
+/// The <see cref="Category"/> property represents the Redis database.
+/// The <see cref="Event"/> property holds the data associated with the event to be stored.
+/// </remarks>
 public interface ITelemetryEvent<out TEvent>
     where TEvent : class, new()
 {
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets the name of the telemetry event, used as the Redis key.
     /// </summary>
     /// <value>
-    /// The name.
+    /// A <see cref="string"/> representing the name of the event.
     /// </value>
     string Name { get; }
 
     /// <summary>
-    /// Gets or sets the category.
+    /// Gets the category of the telemetry event, used as the Redis database identifier.
     /// </summary>
     /// <value>
-    /// The category.
+    /// An <see cref="int"/> representing the Redis database number.
     /// </value>
     int Category { get; }
 
     /// <summary>
-    /// Gets or sets the event.
+    /// Gets the event data to be stored.
     /// </summary>
     /// <value>
-    /// The event.
+    /// The event data of type <typeparamref name="TEvent"/>.
     /// </value>
     TEvent Event { get; }
 }
