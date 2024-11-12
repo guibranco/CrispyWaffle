@@ -54,7 +54,7 @@ namespace CrispyWaffle.Utilities
         /// <returns>a string representing only the querystring.</returns>
         private static string ExtractQuerystring(string s)
         {
-            if (string.IsNullOrWhiteSpace(s) || s.Contains(@"?"))
+            if (string.IsNullOrWhiteSpace(s) || s.Contains("?"))
             {
                 return s;
             }
