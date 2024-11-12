@@ -38,9 +38,14 @@ public sealed class XmlTemplateRender : ITemplateRender
     public string Render(string template, object data)
     {
         if (template == null)
+        {
             throw new ArgumentNullException(nameof(template));
+        }
+
         if (data == null)
+        {
             throw new ArgumentNullException(nameof(data));
+        }
 
         var document = (XNode)data;
         var xsl = new XslCompiledTransform();

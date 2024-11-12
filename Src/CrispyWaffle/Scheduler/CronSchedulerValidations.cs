@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.Scheduler;
@@ -42,7 +41,6 @@ public static class CronSchedulerValidations
     /// A combined validation regular expression that can match any of the individual cron syntax features.
     /// This includes division, ranges, wildcards, and lists, and is used to validate entire cron expressions.
     /// </summary>
-    [SuppressMessage("ReSharper", "ComplexConditionExpression")]
     public static readonly Regex ValidationRegex =
         new(
             DividedRegex + "|" + RangeRegex + "|" + WildRegex + "|" + ListRegex,

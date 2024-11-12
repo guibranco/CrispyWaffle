@@ -64,19 +64,11 @@ public static class MailMessageExtensions
             self,
             Flags,
             null,
-            _isRunningInDotNetFourPointFive
-                ? [mailWriter, true, true]
-                : [mailWriter, true],
+            _isRunningInDotNetFourPointFive ? [mailWriter, true, true] : [mailWriter, true],
             CultureInfo.InvariantCulture
         );
         result = new(result.ToArray());
-        _closeMethod.Invoke(
-            mailWriter,
-            Flags,
-            null,
-            [],
-            CultureInfo.InvariantCulture
-        );
+        _closeMethod.Invoke(mailWriter, Flags, null, [], CultureInfo.InvariantCulture);
         return result;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using CrispyWaffle.Serialization;
-using CrispyWaffle.Tests.Serialization.TestObjects_;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Serialization;

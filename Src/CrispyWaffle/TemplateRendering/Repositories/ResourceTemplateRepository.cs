@@ -11,22 +11,15 @@ namespace CrispyWaffle.TemplateRendering.Repositories;
 /// This class allows templates to be stored as resources within the application and retrieved at runtime.
 /// The <see cref="ResourceManager"/> passed to the constructor is used to access the templates based on their unique names.
 /// </remarks>
-public sealed class ResourceTemplateRepository : ITemplateRepository
+/// <remarks>
+/// Initializes a new instance of the <see cref="ResourceTemplateRepository"/> class.
+/// </remarks>
+/// <param name="manager">The <see cref="ResourceManager"/> that will be used to retrieve templates from resources.</param>
+/// <remarks>
+/// The <see cref="ResourceManager"/> should reference the resource file containing the templates.
+/// </remarks>
+public sealed class ResourceTemplateRepository(ResourceManager manager) : ITemplateRepository
 {
-    /// <summary>
-    /// The resource manager that provides access to the template resources.
-    /// </summary>
-    private readonly ResourceManager _manager;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceTemplateRepository"/> class.
-    /// </summary>
-    /// <param name="manager">The <see cref="ResourceManager"/> that will be used to retrieve templates from resources.</param>
-    /// <remarks>
-    /// The <see cref="ResourceManager"/> should reference the resource file containing the templates.
-    /// </remarks>
-    public ResourceTemplateRepository(ResourceManager manager) => _manager = manager;
-
     /// <summary>
     /// Throws an exception as registering templates at runtime is not supported in this repository.
     /// </summary>
@@ -58,7 +51,7 @@ public sealed class ResourceTemplateRepository : ITemplateRepository
     /// </remarks>
     public string GetTemplateByName(string name)
     {
-        var result = _manager.GetString(name, CultureInfo.CurrentCulture);
+        var result = manager.GetString(name, CultureInfo.CurrentCulture);
         if (result == null)
         {
             throw new InvalidOperationException(

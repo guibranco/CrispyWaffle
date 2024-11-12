@@ -44,7 +44,10 @@ public static class PersonalDataValidation
             return emailAddress;
         }
 
-        if (emailAddress.EndsWith("combr", StringComparison.OrdinalIgnoreCase) || emailAddress.Contains(","))
+        if (
+            emailAddress.EndsWith("combr", StringComparison.OrdinalIgnoreCase)
+            || emailAddress.Contains(",")
+        )
         {
             return emailAddress.Replace("combr", "com.br").Replace(",", ".");
         }

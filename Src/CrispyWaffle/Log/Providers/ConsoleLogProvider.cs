@@ -7,8 +7,13 @@ namespace CrispyWaffle.Log.Providers;
 /// <summary>
 /// Provides console-based logging by using the specified <see cref="IConsoleLogAdapter"/>.
 /// This class follows the singleton pattern to ensure only one instance of the adapter is used
-/// throughout the application's lifetime, preventing unnecessary reinitializations.
+/// throughout the application's lifetime, preventing unnecessary re-initializations.
 /// </summary>
+/// <remarks>
+/// The <see cref="ConsoleLogProvider"/> ensures that logging messages are directed to the console.
+/// The provider uses an <see cref="IConsoleLogAdapter"/> for the actual implementation of logging, and it
+/// guarantees thread-safe initialization of this adapter.
+/// </remarks>
 public sealed class ConsoleLogProvider : ILogProvider
 {
     /// <summary>
@@ -28,6 +33,9 @@ public sealed class ConsoleLogProvider : ILogProvider
     /// even in multi-threaded environments.
     /// </summary>
     /// <param name="adapter">The <see cref="IConsoleLogAdapter"/> instance used for logging messages.</param>
+    /// <remarks>
+    /// If the adapter has already been initialized, the constructor does nothing to prevent reinitialization.
+    /// </remarks>
     public ConsoleLogProvider(IConsoleLogAdapter adapter)
     {
         if (_adapter != null)
@@ -37,10 +45,7 @@ public sealed class ConsoleLogProvider : ILogProvider
 
         lock (_syncRoot)
         {
-            if (_adapter == null)
-            {
-                _adapter = adapter;
-            }
+            _adapter ??= adapter;
         }
     }
 

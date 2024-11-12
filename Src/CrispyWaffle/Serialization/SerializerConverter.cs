@@ -17,18 +17,23 @@ namespace CrispyWaffle.Serialization;
 /// A serializer extension.
 /// </summary>
 /// <typeparam name="T">Generic type parameter.</typeparam>
-public sealed class SerializerConverter<T>
+/// <remarks>
+/// Initializes a new instance of the <see cref="SerializerConverter{T}"/> class.
+/// </remarks>
+/// <param name="obj">The object.</param>
+/// <param name="formatter">The formatter.</param>
+public sealed class SerializerConverter<T>(T obj, ISerializerAdapter formatter)
     where T : class
 {
     /// <summary>
     /// The object.
     /// </summary>
-    private T _obj;
+    private T _obj = obj;
 
     /// <summary>
     /// The formatter.
     /// </summary>
-    private readonly ISerializerAdapter _formatter;
+    private readonly ISerializerAdapter _formatter = formatter;
 
     /// <summary>
     /// XmlDocument casting operator.
@@ -193,17 +198,6 @@ public sealed class SerializerConverter<T>
     public static implicit operator T(SerializerConverter<T> instance)
     {
         return instance._obj;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SerializerConverter{T}"/> class.
-    /// </summary>
-    /// <param name="obj">The object.</param>
-    /// <param name="formatter">The formatter.</param>
-    public SerializerConverter(T obj, ISerializerAdapter formatter)
-    {
-        _obj = obj;
-        _formatter = formatter;
     }
 
     /// <summary>

@@ -158,8 +158,8 @@ public static class StringExtensions
         var sb = new StringBuilder();
         foreach (var w in words.Where(s => !string.IsNullOrWhiteSpace(s)))
         {
-            var c = w.ToLower().ToCharArray();
-            c[0] = char.ToUpper(c[0]);
+            var c = w.ToLowerInvariant().ToCharArray();
+            c[0] = char.ToUpperInvariant(c[0]);
             sb.Append(c).Append(' ');
         }
 
@@ -177,7 +177,7 @@ public static class StringExtensions
         return string.IsNullOrWhiteSpace(input)
             ? string.Empty
             : Regex.Replace(
-                input.ToLower(),
+                input.ToLowerInvariant(),
                 @"(?:^|\s|/|[0-9])[a-z]",
                 m => m.Value.ToUpperInvariant(),
                 RegexOptions.Compiled,
@@ -206,13 +206,13 @@ public static class StringExtensions
         {
             result.Append(' ');
 
-            if (toUpper.Contains(s.ToUpper()))
+            if (toUpper.Contains(s.ToUpperInvariant()))
             {
-                result.Append(s.ToUpper());
+                result.Append(s.ToUpperInvariant());
             }
-            else if (toLower.Contains(s.ToLower()))
+            else if (toLower.Contains(s.ToLowerInvariant()))
             {
-                result.Append(s.ToLower());
+                result.Append(s.ToLowerInvariant());
             }
             else
             {
@@ -369,8 +369,8 @@ public static class StringExtensions
     [Pure]
     public static int LevenshteinInvariantCulture(this string input, string inputToCompare)
     {
-        input = input.RemoveDiacritics().ToLower();
-        return input.Levenshtein(inputToCompare.RemoveDiacritics().ToLower());
+        input = input.RemoveDiacritics().ToLowerInvariant();
+        return input.Levenshtein(inputToCompare.RemoveDiacritics().ToLowerInvariant());
     }
 
     /// <summary>
@@ -439,8 +439,12 @@ public static class StringExtensions
         {
             jsonRaw = jsonRaw.Trim();
 
-            var isObject = jsonRaw.StartsWith("{") && jsonRaw.EndsWith("}");
-            var isArray = jsonRaw.StartsWith("[") && jsonRaw.EndsWith("]");
+            var isObject =
+                jsonRaw.StartsWith("{", StringComparison.OrdinalIgnoreCase)
+                && jsonRaw.EndsWith("}", StringComparison.OrdinalIgnoreCase);
+            var isArray =
+                jsonRaw.StartsWith("[", StringComparison.OrdinalIgnoreCase)
+                && jsonRaw.EndsWith("]", StringComparison.OrdinalIgnoreCase);
 
             if (!isObject && !isArray)
             {

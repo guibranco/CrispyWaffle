@@ -5,23 +5,27 @@ using CrispyWaffle.Configuration;
 namespace CrispyWaffle.CouchDB.Utils.Communications;
 
 /// <summary>
-/// Class CouchDBConnector.
-/// Implements the <see cref="IDisposable" />
+/// Represents a connector for interacting with a CouchDB instance.
+/// Implements the <see cref="IDisposable"/> interface to ensure proper cleanup of resources.
 /// </summary>
-/// <seealso cref="IDisposable" />
+/// <seealso cref="IDisposable"/>
 [ConnectionName("CouchDB")]
 public class CouchDBConnector : IDisposable
 {
     /// <summary>
-    /// Gets the couch database client.
+    /// Gets the <see cref="CouchClient"/> used for interacting with the CouchDB database.
     /// </summary>
-    /// <value>The couch database client.</value>
+    /// <value>The <see cref="CouchClient"/> instance.</value>
     public CouchClient CouchDBClient { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CouchDBConnector"/> class.
+    /// Initializes a new instance of the <see cref="CouchDBConnector"/> class with a specified connection.
     /// </summary>
-    /// <param name="connection">The connection.</param>
+    /// <param name="connection">The <see cref="IConnection"/> object containing the connection details such as host, port, and credentials.</param>
+    /// <remarks>
+    /// This constructor sets up a new <see cref="CouchClient"/> instance using the provided connection information, including
+    /// basic authentication for secure access.
+    /// </remarks>
     public CouchDBConnector(IConnection connection) =>
         CouchDBClient = new CouchClient(
             $"{connection.Host}:{connection.Port}",
@@ -33,12 +37,18 @@ public class CouchDBConnector : IDisposable
         );
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CouchDBConnector"/> class.
+    /// Initializes a new instance of the <see cref="CouchDBConnector"/> class with an existing <see cref="CouchClient"/>.
     /// </summary>
-    /// <param name="client">The client.</param>
+    /// <param name="client">An already configured <see cref="CouchClient"/> instance.</param>
+    /// <remarks>
+    /// This constructor allows you to provide a pre-existing <see cref="CouchClient"/> for connecting to CouchDB.
+    /// </remarks>
     public CouchDBConnector(CouchClient client) => CouchDBClient = client;
 
     /// <inheritdoc/>
+    /// <summary>
+    /// Disposes of the resources used by the <see cref="CouchDBConnector"/> class.
+    /// </summary>
     public void Dispose()
     {
         Dispose(true);
@@ -50,9 +60,8 @@ public class CouchDBConnector : IDisposable
     /// </summary>
     /// <param name="disposing">A boolean value indicating whether the method was called directly or indirectly by a user's code.</param>
     /// <remarks>
-    /// This method is part of the IDisposable pattern. When disposing is true, the method releases both managed and unmanaged resources.
-    /// If disposing is false, the method only releases unmanaged resources. This allows for proper cleanup of resources when the object is no longer needed.
-    /// It is important to call this method to ensure that all resources are released appropriately, especially when dealing with unmanaged resources.
+    /// This method is part of the <see cref="IDisposable"/> pattern. When disposing is true, it releases both managed and unmanaged resources.
+    /// If disposing is false, only unmanaged resources are released. This helps ensure that resources are freed appropriately, especially in cases involving unmanaged resources such as database connections.
     /// </remarks>
     protected virtual void Dispose(bool disposing)
     {

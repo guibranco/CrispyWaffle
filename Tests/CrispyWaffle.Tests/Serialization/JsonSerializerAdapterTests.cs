@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
 using CrispyWaffle.Serialization;
 using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Serialization.SystemTextJson;
-using CrispyWaffle.Tests.Serialization.TestObjects_;
 using FluentAssertions;
 using Xunit;
 

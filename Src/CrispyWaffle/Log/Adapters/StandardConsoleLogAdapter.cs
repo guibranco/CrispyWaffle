@@ -193,9 +193,9 @@ public sealed class StandardConsoleLogAdapter : IConsoleLogAdapter
     /// Logs a debug-level message with the specified content saved to a file.
     /// </summary>
     /// <param name="content">The content to be logged.</param>
-    /// <param name="filename">The name of the file to which the content is saved.</param>
+    /// <param name="fileName">The name of the file to which the content is saved.</param>
     /// <remarks>Requires <see cref="LogLevel.Debug"/> flag.</remarks>
-    public void Debug(string content, string filename) => WriteInternal(LogLevel.Debug, content);
+    public void Debug(string content, string fileName) => WriteInternal(LogLevel.Debug, content);
 
     /// <summary>
     /// Logs a debug-level message.

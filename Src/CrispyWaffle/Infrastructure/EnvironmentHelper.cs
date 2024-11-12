@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -72,27 +71,20 @@ public static class EnvironmentHelper
     /// Gets the ip address external.
     /// </summary>
     /// <returns>System.String.</returns>
-    [SuppressMessage(
-        "Style",
-        "IDE0063:Use simple 'using' statement",
-        Justification = "Not compatible with .Net Standard 2.0"
-    )]
     private static string GetIpAddressExternal()
     {
-        using (var wc = new WebClient())
+        using var wc = new WebClient();
+        wc.Encoding = Encoding.UTF8;
+        try
         {
-            wc.Encoding = Encoding.UTF8;
-            try
-            {
-                var ip = wc.DownloadString("https://api.ipify.org");
-                return NetworkValidations.IpAddressPattern.IsMatch(ip)
-                    ? NetworkValidations.IpAddressPattern.Match(ip).Value
-                    : string.Empty;
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
+            var ip = wc.DownloadString("https://api.ipify.org");
+            return NetworkValidations.IpAddressPattern.IsMatch(ip)
+                ? NetworkValidations.IpAddressPattern.Match(ip).Value
+                : string.Empty;
+        }
+        catch (Exception)
+        {
+            return string.Empty;
         }
     }
 

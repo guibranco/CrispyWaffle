@@ -140,7 +140,7 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
     /// <remarks>
     /// This method creates a new instance of the <see cref="LogMessage"/> class, populating its properties with relevant information such as
     /// application name, category, current date and time, hostname, unique identifier, IP addresses, log level, and other contextual data.
-    /// The method then calls the <see cref="GetSerializer"/> method on the <see cref="LogMessage"/> instance to obtain the serialized string.
+    /// The method then calls the <see cref="SerializerFactory.GetSerializer"/> method on the <see cref="LogMessage"/> instance to obtain the serialized string.
     /// This serialized string can be used for logging purposes or for sending log data to external systems.
     /// </remarks>
     private static string Serialize(

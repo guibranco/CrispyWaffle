@@ -6,7 +6,7 @@
 /// It can be used to enforce or manage strongly-typed property logic based on nullability.
 /// </summary>
 /// <remarks>
-/// This class is specifically designed to work with <see cref="CrispyWaffle.Serialization.Adapter.JsonSerializerAdapter"/>.
+/// This class is specifically designed to work with <see cref="Adapters.JsonSerializerAdapter"/>.
 /// It will not function correctly outside the context of this adapter.
 /// </remarks>
 public class NotNullObserver { }

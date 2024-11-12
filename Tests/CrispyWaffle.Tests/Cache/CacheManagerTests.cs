@@ -1,6 +1,5 @@
 using System;
 using CrispyWaffle.Cache;
-using CrispyWaffle.Composition;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;

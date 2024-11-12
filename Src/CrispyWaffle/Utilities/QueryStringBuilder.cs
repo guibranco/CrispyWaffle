@@ -56,7 +56,7 @@ public class QueryStringBuilder : NameValueCollection
             return s;
         }
 
-        return s.Substring(s.IndexOf("?", StringComparison.Ordinal) + 1);
+        return s.Substring(s.IndexOf("?", StringComparison.OrdinalIgnoreCase) + 1);
     }
 
     /// <summary>

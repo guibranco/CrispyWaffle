@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace CrispyWaffle.Utils.GoodPractices;
 
 /// <summary>
-/// Represents an exception that is thrown when an attempt is made to set the message more than once for the same instance of the <see cref="Email"/> class.
+/// Represents an exception that is thrown when an attempt is made to set the message more than once for the same instance of the <see cref="Communications.SmtpMailer"/> class.
 /// This exception is specific to scenarios where the message cannot be modified after it has already been set.
 /// </summary>
 /// <seealso cref="Exception" />
@@ -16,7 +16,7 @@ public class MessageException : Exception
     /// </summary>
     /// <remarks>
     /// This constructor is typically used when the exception is thrown without a specific message. The default message indicates that
-    /// the message cannot be set more than once for the same <see cref="Email"/> instance.
+    /// the message cannot be set more than once for the same <see cref="Communications.SmtpMailer"/> instance.
     /// </remarks>
     public MessageException()
         : base("The message cannot be set more than once for the same instance of Email class") { }

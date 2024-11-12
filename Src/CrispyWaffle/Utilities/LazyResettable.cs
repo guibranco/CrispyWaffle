@@ -10,39 +10,44 @@ namespace CrispyWaffle.Utilities;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <seealso cref="ILazyResettable" />
+/// <remarks>
+/// Initializes a new instance of the <see cref="LazyResettable{T}" /> class.
+/// </remarks>
+/// <param name="valueFactory">The value factory.</param>
+/// <param name="mode">The mode.</param>
+/// <param name="declaringType">Type of the declaring.</param>
+/// <exception cref="ArgumentNullException">valueFactory</exception>
 [HostProtection(
     Action = SecurityAction.Demand,
     Resources = HostProtectionResource.Synchronization | HostProtectionResource.SharedState
 )]
-public class LazyResettable<T> : ILazyResettable
+public class LazyResettable<T>(
+    Func<T> valueFactory,
+    LazyThreadSafetyMode mode = LazyThreadSafetyMode.PublicationOnly,
+    Type declaringType = null
+) : ILazyResettable
 {
     /// <summary>
     /// The internal class box.
     /// </summary>
     /// <seealso cref="ILazyResettable" />
-    private sealed class Box
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="Box" /> class.
+    /// </remarks>
+    /// <param name="value">The value.</param>
+    private sealed class Box(T value)
     {
         /// <summary>
         /// The value.
         /// </summary>
-        public readonly T Value;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Box" /> class.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        public Box(T value) => Value = value;
+        public readonly T Value = value;
     }
-
-    /// <summary>
-    /// The mode.
-    /// </summary>
-    private readonly LazyThreadSafetyMode _mode;
 
     /// <summary>
     /// The value factory.
     /// </summary>
-    private readonly Func<T> _valueFactory;
+    private readonly Func<T> _valueFactory =
+        valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
 
     /// <summary>
     /// The synchronize lock.
@@ -75,24 +80,6 @@ public class LazyResettable<T> : ILazyResettable
     public TimeSpan SumLoadTime;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LazyResettable{T}" /> class.
-    /// </summary>
-    /// <param name="valueFactory">The value factory.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="declaringType">Type of the declaring.</param>
-    /// <exception cref="ArgumentNullException">valueFactory</exception>
-    public LazyResettable(
-        Func<T> valueFactory,
-        LazyThreadSafetyMode mode = LazyThreadSafetyMode.PublicationOnly,
-        Type declaringType = null
-    )
-    {
-        _mode = mode;
-        _valueFactory = valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
-        DeclaringType = declaringType ?? valueFactory.Method.DeclaringType;
-    }
-
-    /// <summary>
     /// Occurs when [on reset].
     /// </summary>
     public event EventHandler OnReset;
@@ -102,7 +89,7 @@ public class LazyResettable<T> : ILazyResettable
     /// </summary>
     public void Reset()
     {
-        if (_mode != LazyThreadSafetyMode.None)
+        if (mode != LazyThreadSafetyMode.None)
         {
             lock (_syncLock)
             {
@@ -130,7 +117,7 @@ public class LazyResettable<T> : ILazyResettable
     /// Gets the type of the declaring.
     /// </summary>
     /// <value>The type of the declaring.</value>
-    public Type DeclaringType { get; }
+    public Type DeclaringType { get; } = declaringType ?? valueFactory.Method.DeclaringType;
 
     /// <summary>
     /// Stats this instance.
@@ -160,7 +147,7 @@ public class LazyResettable<T> : ILazyResettable
                 return b1.Value;
             }
 
-            switch (_mode)
+            switch (mode)
             {
                 case LazyThreadSafetyMode.ExecutionAndPublication:
                     lock (_syncLock)

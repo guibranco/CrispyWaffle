@@ -156,7 +156,7 @@ public static class EnumExtensions
                 .Cast<HumanReadableAttribute>()
                 .Select(attribute => attribute.StringValue)
                 .ToList();
-            return displayNames.Any() ? string.Join(flagsSeparator, displayNames) : "None";
+            return displayNames.Count != 0 ? string.Join(flagsSeparator, displayNames) : "None";
         }
 
         var fieldInfo = type.GetField(value.ToString());
@@ -198,7 +198,7 @@ public static class EnumExtensions
     private static ulong GetFlagsCount(this Enum field)
     {
         var v = (ulong)field.GetHashCode();
-        v -= ((v >> 1) & 0x55555555);
+        v -= v >> 1 & 0x55555555;
         v = (v & 0x33333333) + ((v >> 2) & 0x33333333);
         return ((v + (v >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
     }

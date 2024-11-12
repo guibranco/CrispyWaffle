@@ -6,9 +6,13 @@ namespace CrispyWaffle.Attributes;
 /// <summary>
 /// This attribute is used to show a human-readable text of the description of the field.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="HumanReadableAttribute"/> class.
+/// </remarks>
+/// <param name="value">The value.</param>
 [AttributeUsage(AttributeTargets.Field)]
 [Localizable(true)]
-public sealed class HumanReadableAttribute : Attribute
+public sealed class HumanReadableAttribute([Localizable(true)] string value) : Attribute
 {
     /// <summary>
     /// Gets the string value.
@@ -16,11 +20,5 @@ public sealed class HumanReadableAttribute : Attribute
     /// <value>
     /// The string value.
     /// </value>
-    public string StringValue { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HumanReadableAttribute"/> class.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    public HumanReadableAttribute([Localizable(true)] string value) => StringValue = value;
+    public string StringValue { get; } = value;
 }

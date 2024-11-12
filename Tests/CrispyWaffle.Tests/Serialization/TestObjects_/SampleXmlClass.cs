@@ -2,11 +2,11 @@
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Tests.Serialization.TestObjects_;
+namespace CrispyWaffle.Tests.Serialization;
 
 [Serializer]
 [ExcludeFromCodeCoverage]
-public class SampleXmlClass : IEquatable<SampleXmlClass>
+public sealed class SampleXmlClass : IEquatable<SampleXmlClass>
 {
     public bool Equals(SampleXmlClass other)
     {
@@ -17,7 +17,7 @@ public class SampleXmlClass : IEquatable<SampleXmlClass>
             return true;
 
         return Code == other.Code
-            && string.Equals(String, other.String, StringComparison.InvariantCultureIgnoreCase)
+            && string.Equals(String, other.String, StringComparison.OrdinalIgnoreCase)
             && CorrelationId.Equals(other.CorrelationId)
             && Equals(StrongTyping, other.StrongTyping);
     }

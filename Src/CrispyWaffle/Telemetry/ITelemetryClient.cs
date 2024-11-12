@@ -37,9 +37,15 @@ public interface ITelemetryClient
         where TEvent : class, new();
 
     /// <summary>
-    /// Tracks a specific telemetry event.
+    /// Tracks the specified telemetry event.
     /// </summary>
-    /// <param name="event">An instance of the telemetry event to track.</param>
+    /// <typeparam name="TEvent">The type of the event to be tracked. This must be a reference type and have a parameterless constructor.</typeparam>
+    /// <param name="event">The telemetry event to be tracked. This event contains the data to be sent for telemetry purposes.</param>
+    /// <remarks>
+    /// This method captures the specified event data and sends it to the telemetry system for tracking and analysis.
+    /// It is used to track events that are defined by the <typeparamref name="TEvent"/> type, and the event
+    /// object should contain the relevant data to be tracked.
+    /// </remarks>
     void TrackEvent<TEvent>(ITelemetryEvent<TEvent> @event)
         where TEvent : class, new();
 

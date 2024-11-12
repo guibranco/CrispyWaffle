@@ -143,9 +143,9 @@ public sealed class EventLogProvider : ILogProvider
     /// </summary>
     /// <param name="category">The category of the log entry.</param>
     /// <param name="content">The content to log (not used).</param>
-    /// <param name="fileName">The file name to associate with the content (not used).</param>
-    public void Debug(string category, string content, string fileName) =>
-        _adapter.Debug(content, fileName);
+    /// <param name="identifier">The file name to associate with the content (not used).</param>
+    public void Debug(string category, string content, string identifier) =>
+        _adapter.Debug(content, identifier);
 
     /// <summary>
     /// Logs debug content to the event log using custom serialization. This method is a no-op.

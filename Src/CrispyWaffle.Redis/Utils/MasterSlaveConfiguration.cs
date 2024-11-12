@@ -8,11 +8,12 @@ namespace CrispyWaffle.Redis.Utils;
 /// This class is used to configure the connection details for both the Redis master and slave nodes.
 /// </summary>
 /// <remarks>
-/// The master and slave connections are identified by the <see cref="ConnectionName"/> attributes.
+/// The master and slave connections are identified by the <see cref="ConnectionNameAttribute"/> attributes.
 /// This configuration ensures that both master and slave nodes are connected properly by providing
 /// the list of hosts and optionally the shared password for authentication.
 /// </remarks>
-[ConnectionName("RedisMaster", Order = 0), ConnectionName("RedisSlave", Order = 1)]
+[ConnectionName("RedisMaster", Order = 0)]
+[ConnectionName("RedisSlave", Order = 1)]
 public sealed class MasterSlaveConfiguration
 {
     /// <summary>

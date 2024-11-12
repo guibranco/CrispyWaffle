@@ -160,7 +160,7 @@ public static class TypeExtensions
         TypeCode.Int64,
         TypeCode.Decimal,
         TypeCode.Double,
-        TypeCode.Single
+        TypeCode.Single,
     ];
 
     /// <summary>

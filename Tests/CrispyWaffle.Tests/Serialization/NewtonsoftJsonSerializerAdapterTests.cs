@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using CrispyWaffle.Serialization.Adapters;
-using CrispyWaffle.Tests.Serialization.TestObjects_;
 using FluentAssertions;
 using Xunit;
 

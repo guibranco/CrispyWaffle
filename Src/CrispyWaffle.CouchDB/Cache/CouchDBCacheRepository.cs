@@ -14,8 +14,15 @@ namespace CrispyWaffle.CouchDB.Cache;
 /// </summary>
 public class CouchDBCacheRepository : ICacheRepository, IDisposable
 {
+    /// <summary>
+    /// The connector
+    /// </summary>
     private readonly CouchDBConnector _connector;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [should propagate exceptions].
+    /// </summary>
+    /// <value><c>true</c> if [should propagate exceptions]; otherwise, <c>false</c>.</value>
     public bool ShouldPropagateExceptions { get; set; }
 
     /// <summary>

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Tests.Serialization.TestObjects_;
+namespace CrispyWaffle.Tests.Serialization;
 
 [Serializer(SerializerFormat.Json)]
 [ExcludeFromCodeCoverage]

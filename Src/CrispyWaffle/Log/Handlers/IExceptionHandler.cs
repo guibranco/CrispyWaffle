@@ -14,7 +14,7 @@ public interface IExceptionHandler
     /// <summary>
     /// Logs an exception at the ERROR level.
     /// The exception is typically logged with its <see cref="Exception.Message"/>, <see cref="Exception.StackTrace"/>,
-    /// and <see cref="Exception.GetType().FullName"/>. Inner exceptions are logged recursively until no more inner exceptions remain.
+    /// and <see cref="Type.FullName"/>. Inner exceptions are logged recursively until no more inner exceptions remain.
     /// The specific behavior of the logging, including which details are logged, depends on the implementation of the adapter.
     /// </summary>
     /// <param name="exception">The exception to be logged.</param>

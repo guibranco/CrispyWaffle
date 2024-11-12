@@ -6,8 +6,12 @@ namespace CrispyWaffle.Attributes;
 /// The query string key name attribute.
 /// </summary>
 /// <seealso cref="Attribute" />
+/// <remarks>
+/// Initializes a new instance of the <see cref="QueryStringBuilderKeyNameAttribute"/> class.
+/// </remarks>
+/// <param name="keyName">Name of the key.</param>
 [AttributeUsage(AttributeTargets.Property)]
-public sealed class QueryStringBuilderKeyNameAttribute : Attribute
+public sealed class QueryStringBuilderKeyNameAttribute(string keyName) : Attribute
 {
     /// <summary>
     /// Gets the name of the key.
@@ -15,11 +19,5 @@ public sealed class QueryStringBuilderKeyNameAttribute : Attribute
     /// <value>
     /// The name of the key.
     /// </value>
-    public string KeyName { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="QueryStringBuilderKeyNameAttribute"/> class.
-    /// </summary>
-    /// <param name="keyName">Name of the key.</param>
-    public QueryStringBuilderKeyNameAttribute(string keyName) => KeyName = keyName;
+    public string KeyName { get; } = keyName;
 }

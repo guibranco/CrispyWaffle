@@ -416,7 +416,7 @@ public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     {
         stream.Flush();
 
-        return (fileMessageCount < _maxMessageCount) && (stream.Length < _maxFileSize);
+        return fileMessageCount < _maxMessageCount && stream.Length < _maxFileSize;
     }
 
     private FileStream GetFile() => File.Create(Path.Combine(_folderPath, currentFileName));
