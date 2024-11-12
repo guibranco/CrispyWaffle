@@ -15,7 +15,7 @@ namespace CrispyWaffle.CouchDB.Cache;
 public class CouchDBCacheRepository : ICacheRepository, IDisposable
 {
     /// <summary>
-    /// The connector
+    /// The connector.
     /// </summary>
     private readonly CouchDBConnector _connector;
 
