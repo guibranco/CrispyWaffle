@@ -22,10 +22,8 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="input">The string to act on.</param>
         /// <returns>string in binary representation as a Byte[].</returns>
-        public static byte[] ToBytes(this IEnumerable<string> input)
-        {
-            return input.Select(s => Convert.ToByte(s, 2)).ToArray();
-        }
+        public static byte[] ToBytes(this IEnumerable<string> input) =>
+            input.Select(s => Convert.ToByte(s, 2)).ToArray();
 
         /// <summary>
         /// A String extension method that converts this object to a boolean. This method assumes
@@ -36,10 +34,8 @@ namespace CrispyWaffle.Extensions
         /// <param name="str">The str to act on.</param>
         /// <param name="validValueForTrue">(Optional) the valid value for true.</param>
         /// <returns>The given data converted to a Boolean.</returns>
-        public static bool ToBoolean(this string str, string validValueForTrue = "S")
-        {
-            return str?.Equals(validValueForTrue, StringComparison.OrdinalIgnoreCase) == true;
-        }
+        public static bool ToBoolean(this string str, string validValueForTrue = "S") =>
+            str?.Equals(validValueForTrue, StringComparison.OrdinalIgnoreCase) == true;
 
         /// <summary>
         /// A Boolean extension method that convert this object into a String representation.
@@ -48,10 +44,8 @@ namespace CrispyWaffle.Extensions
         /// <param name="trueValue">The value if true.</param>
         /// <param name="falseValue">The value if false.</param>
         /// <returns>The given data converted to a String.</returns>
-        public static string ToString(this bool boolean, string trueValue, string falseValue)
-        {
-            return boolean ? trueValue : falseValue;
-        }
+        public static string ToString(this bool boolean, string trueValue, string falseValue) =>
+            boolean ? trueValue : falseValue;
 
         /// <summary>
         /// Converts to datetime.
@@ -59,9 +53,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="input">The input.</param>
         /// <returns>DateTime.</returns>
         /// <exception cref="System.ArgumentNullException">input - Input value cannot be null.</exception>
-        /// <exception cref="System.ArgumentOutOfRangeException">
-        /// input - Unable to parse the string to a valid datetime
-        /// </exception>
+        /// <exception cref="System.ArgumentOutOfRangeException"> input - Unable to parse the string to a valid datetime. </exception>
         public static DateTime ToDateTime(this string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -212,10 +204,8 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="bytes">The bytes to act on.</param>
         /// <returns>bytes as a Binary String[] representation.</returns>
-        public static string[] ToBinaryString(this IEnumerable<byte> bytes)
-        {
-            return bytes.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).ToArray();
-        }
+        public static string[] ToBinaryString(this IEnumerable<byte> bytes) =>
+            bytes.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).ToArray();
 
         /// <summary>
         /// Converts to monetary.
@@ -404,10 +394,7 @@ namespace CrispyWaffle.Extensions
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns>System.String.</returns>
-        public static string ToOrdinal(this int number)
-        {
-            return ((long)number).ToOrdinal();
-        }
+        public static string ToOrdinal(this int number) => ((long)number).ToOrdinal();
 
         /// <summary>
         /// Deeps the clone.

@@ -9,10 +9,8 @@ namespace CrispyWaffle.Tests.Scheduler;
 public class JobRunnerTests
 {
     [Fact]
-    public void ValidateJobRunnerEmptyScheduler()
-    {
+    public void ValidateJobRunnerEmptyScheduler() =>
         Assert.Throws<ArgumentNullException>(() => new JobRunner(string.Empty, null));
-    }
 
     [Fact]
     public async Task ValidateJobRunner()

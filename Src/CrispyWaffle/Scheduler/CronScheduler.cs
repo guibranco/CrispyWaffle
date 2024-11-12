@@ -5,51 +5,53 @@ using System.Linq;
 namespace CrispyWaffle.Scheduler
 {
     /// <summary>
-    /// Class Scheduler.
-    /// Implements the <see cref="CrispyWaffle.Scheduler.IScheduler" />
+    /// Represents a Cron-based scheduler that parses a cron expression and determines if a given <see cref="DateTime"/> matches the cron schedule.
+    /// Implements the <see cref="CrispyWaffle.Scheduler.IScheduler" /> interface.
     /// </summary>
     /// <seealso cref="CrispyWaffle.Scheduler.IScheduler" />
     public class CronScheduler : IScheduler
     {
         /// <summary>
-        /// The expression
+        /// The cron expression that defines the schedule.
         /// </summary>
         private readonly string _expression;
 
         /// <summary>
-        /// The days of week
+        /// A collection of days of the week that the cron expression matches.
         /// </summary>
         private readonly HashSet<int> _daysOfWeek = new HashSet<int>();
 
         /// <summary>
-        /// The months
+        /// A collection of months that the cron expression matches.
         /// </summary>
         private readonly HashSet<int> _months = new HashSet<int>();
 
         /// <summary>
-        /// The days of month
+        /// A collection of days of the month that the cron expression matches.
         /// </summary>
         private readonly HashSet<int> _daysOfMonth = new HashSet<int>();
 
         /// <summary>
-        /// The hours
+        /// A collection of hours that the cron expression matches.
         /// </summary>
         private readonly HashSet<int> _hours = new HashSet<int>();
 
         /// <summary>
-        /// The minutes
+        /// A collection of minutes that the cron expression matches.
         /// </summary>
         private readonly HashSet<int> _minutes = new HashSet<int>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CronScheduler"/> class.
+        /// Initializes a new instance of the <see cref="CronScheduler"/> class with a default cron expression.
         /// </summary>
         public CronScheduler() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CronScheduler" /> class.
+        /// Initializes a new instance of the <see cref="CronScheduler"/> class with a specified cron expression.
+        /// The expression must be valid according to CRON syntax.
         /// </summary>
-        /// <param name="expression">The expression.</param>
+        /// <param name="expression">The cron expression to be parsed and used for scheduling.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the provided expression is not valid according to CRON syntax.</exception>
         public CronScheduler(string expression)
         {
             if (!IsValid(expression))
@@ -57,7 +59,7 @@ namespace CrispyWaffle.Scheduler
                 throw new ArgumentOutOfRangeException(
                     nameof(expression),
                     expression,
-                    "The expression isn't a valid CRON expression"
+                    "The expression isn't a valid CRON expression."
                 );
             }
 
@@ -67,7 +69,7 @@ namespace CrispyWaffle.Scheduler
         }
 
         /// <summary>
-        /// Generates the data.
+        /// Populates the internal collections (minutes, hours, days of month, months, days of week) based on the cron expression.
         /// </summary>
         private void GenerateData()
         {
@@ -85,12 +87,12 @@ namespace CrispyWaffle.Scheduler
         }
 
         /// <summary>
-        /// Generates the data.
+        /// Generates a list of integers based on a cron expression value, accounting for special characters such as wildcards, ranges, and lists.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="start">The start.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>List&lt;System.Int32&gt;.</returns>
+        /// <param name="value">The value of the cron field (minute, hour, day of month, month, or day of week).</param>
+        /// <param name="start">The start value for the range (e.g., 0 for minutes, 1 for days of the month).</param>
+        /// <param name="max">The maximum value for the range (e.g., 60 for minutes, 24 for hours).</param>
+        /// <returns>A list of integers that correspond to the parsed cron expression value.</returns>
         private static List<int> GenerateData(string value, int start, int max)
         {
             if (CronSchedulerValidations.DividedRegex.IsMatch(value))
@@ -114,12 +116,12 @@ namespace CrispyWaffle.Scheduler
         }
 
         /// <summary>
-        /// Generates the divided.
+        /// Generates a list of integers based on a divided cron value (e.g., "*/5" for every 5th minute).
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="start">The start.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>List&lt;System.Int32&gt;.</returns>
+        /// <param name="value">The cron value with a divisor (e.g., "*/5").</param>
+        /// <param name="start">The start value for the range.</param>
+        /// <param name="max">The maximum value for the range.</param>
+        /// <returns>A list of integers that are divisible by the specified divisor.</returns>
         private static List<int> GenerateDivided(string value, int start, int max)
         {
             var result = new List<int>();
@@ -139,10 +141,10 @@ namespace CrispyWaffle.Scheduler
         }
 
         /// <summary>
-        /// Generates the range.
+        /// Generates a list of integers based on a range cron value (e.g., "1-5" for the range 1 to 5).
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>List&lt;System.Int32&gt;.</returns>
+        /// <param name="value">The cron value with a range (e.g., "1-5").</param>
+        /// <returns>A list of integers in the specified range.</returns>
         private static List<int> GenerateRange(string value)
         {
             var result = new List<int>();
@@ -179,67 +181,65 @@ namespace CrispyWaffle.Scheduler
         }
 
         /// <summary>
-        /// Generates the wild.
+        /// Generates a list of integers for a wildcard cron value (e.g., "*" for all values in the range).
         /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="max">The maximum.</param>
-        /// <returns>List&lt;System.Int32&gt;.</returns>
+        /// <param name="start">The start value for the range (e.g., 0 for minutes, 1 for days of the month).</param>
+        /// <param name="max">The maximum value for the range (e.g., 60 for minutes, 24 for hours).</param>
+        /// <returns>A list of integers representing all possible values in the range.</returns>
         private static List<int> GenerateWild(int start, int max) =>
             Enumerable.Range(start, max).ToList();
 
         /// <summary>
-        /// Generates the list.
+        /// Generates a list of integers from a comma-separated list of values (e.g., "1,5,10").
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>List&lt;System.Int32&gt;.</returns>
+        /// <param name="value">A comma-separated list of values.</param>
+        /// <returns>A list of integers parsed from the provided comma-separated string.</returns>
         private static List<int> GenerateList(string value) =>
             value.Split(',').Select(int.Parse).ToList();
 
         /// <summary>
-        /// Gets the days of week.
+        /// Gets the collection of days of the week that match the cron expression.
         /// </summary>
-        /// <value>The days of week.</value>
+        /// <value>A collection of integers representing the days of the week (0-6, where 0 is Sunday and 6 is Saturday).</value>
         public ICollection<int> DaysOfWeek => _daysOfWeek;
 
         /// <summary>
-        /// Gets the months.
+        /// Gets the collection of months that match the cron expression.
         /// </summary>
-        /// <value>The months.</value>
+        /// <value>A collection of integers representing the months (1-12, where 1 is January and 12 is December).</value>
         public ICollection<int> Months => _months;
 
         /// <summary>
-        /// Gets the days of month.
+        /// Gets the collection of days of the month that match the cron expression.
         /// </summary>
-        /// <value>The days of month.</value>
+        /// <value>A collection of integers representing the days of the month (1-31).</value>
         public ICollection<int> DaysOfMonth => _daysOfMonth;
 
         /// <summary>
-        /// Gets the hours.
+        /// Gets the collection of hours that match the cron expression.
         /// </summary>
-        /// <value>The hours.</value>
+        /// <value>A collection of integers representing the hours (0-23).</value>
         public ICollection<int> Hours => _hours;
 
         /// <summary>
-        /// Gets the minutes.
+        /// Gets the collection of minutes that match the cron expression.
         /// </summary>
-        /// <value>The minutes.</value>
+        /// <value>A collection of integers representing the minutes (0-59).</value>
         public ICollection<int> Minutes => _minutes;
 
         /// <summary>
-        /// Returns true if ... is valid.
+        /// Validates whether the specified cron expression is valid.
         /// </summary>
-        /// <param name="expression">The expression.</param>
-        /// <returns><c>true</c> if the specified expression is valid; otherwise, <c>false</c>.</returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="expression">The cron expression to validate.</param>
+        /// <returns><c>true</c> if the specified cron expression is valid; otherwise, <c>false</c>.</returns>
         public bool IsValid(string expression) =>
             CronSchedulerValidations.ValidationRegex.Matches(expression).Count > 0;
 
         /// <summary>
-        /// Determines whether the specified date time is time.
+        /// Determines whether the specified <see cref="DateTime"/> matches the cron schedule.
         /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns><c>true</c> if the specified date time is time; otherwise, <c>false</c>.</returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="dateTime">The <see cref="DateTime"/> to check against the cron schedule.</param>
+        /// <returns><c>true</c> if the specified date and time match the cron schedule; otherwise, <c>false</c>.</returns>
         public bool IsTime(DateTime dateTime)
         {
             return _minutes.Contains(dateTime.Minute)

@@ -118,10 +118,7 @@ namespace CrispyWaffle.Extensions
         /// <param name="source">The source.</param>
         /// <returns><c>true</c> if implements, false otherwise.</returns>
         public static bool Implements<TInterface>(this Type source)
-            where TInterface : class
-        {
-            return typeof(TInterface).IsAssignableFrom(source);
-        }
+            where TInterface : class => typeof(TInterface).IsAssignableFrom(source);
 
         /// <summary>
         /// Determines whether the specified type is a simple type.

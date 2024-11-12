@@ -133,22 +133,14 @@ namespace CrispyWaffle.Log.Adapters
         }
 
         /// <inheritdoc />
-        public void Debug(string content, string fileName)
-        {
+        public void Debug(string content, string fileName) =>
             WriteToFile(LogLevel.Debug, content, fileName);
-        }
 
         /// <inheritdoc />
-        public void Debug(string message)
-        {
-            WriteToFile(LogLevel.Debug, message);
-        }
+        public void Debug(string message) => WriteToFile(LogLevel.Debug, message);
 
         /// <inheritdoc />
-        public void Trace(Exception exception)
-        {
-            WriteToFile(LogLevel.Trace, exception);
-        }
+        public void Trace(Exception exception) => WriteToFile(LogLevel.Trace, exception);
 
         /// <inheritdoc />
         public void Trace(string message, Exception exception)
@@ -158,64 +150,39 @@ namespace CrispyWaffle.Log.Adapters
         }
 
         /// <inheritdoc />
-        public void Trace(string message)
-        {
-            WriteToFile(LogLevel.Trace, message);
-        }
+        public void Trace(string message) => WriteToFile(LogLevel.Trace, message);
 
         /// <inheritdoc />
-        public void Info(string message)
-        {
-            WriteToFile(LogLevel.Info, message);
-        }
+        public void Info(string message) => WriteToFile(LogLevel.Info, message);
 
         /// <inheritdoc />
-        public void Warning(string message)
-        {
-            WriteToFile(LogLevel.Warning, message);
-        }
+        public void Warning(string message) => WriteToFile(LogLevel.Warning, message);
 
         /// <inheritdoc />
-        public void Error(string message)
-        {
-            WriteToFile(LogLevel.Error, message);
-        }
+        public void Error(string message) => WriteToFile(LogLevel.Error, message);
 
         /// <inheritdoc />
-        public void Fatal(string message)
-        {
-            WriteToFile(LogLevel.Fatal, message);
-        }
+        public void Fatal(string message) => WriteToFile(LogLevel.Fatal, message);
 
         /// <inheritdoc />
-        public void CategorizedFatal(string category, string message)
-        {
+        public void CategorizedFatal(string category, string message) =>
             WriteToFile(LogLevel.Fatal, message, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedError(string category, string message)
-        {
+        public void CategorizedError(string category, string message) =>
             WriteToFile(LogLevel.Error, message, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedWarning(string category, string message)
-        {
+        public void CategorizedWarning(string category, string message) =>
             WriteToFile(LogLevel.Warning, message, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedInfo(string category, string message)
-        {
+        public void CategorizedInfo(string category, string message) =>
             WriteToFile(LogLevel.Info, message, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedTrace(string category, string message)
-        {
+        public void CategorizedTrace(string category, string message) =>
             WriteToFile(LogLevel.Trace, message, category: category);
-        }
 
         /// <inheritdoc />
         public void CategorizedTrace(string category, string message, Exception exception)
@@ -225,22 +192,16 @@ namespace CrispyWaffle.Log.Adapters
         }
 
         /// <inheritdoc />
-        public void CategorizedTrace(string category, Exception exception)
-        {
+        public void CategorizedTrace(string category, Exception exception) =>
             WriteToFile(LogLevel.Trace, exception, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedDebug(string category, string message)
-        {
+        public void CategorizedDebug(string category, string message) =>
             WriteToFile(LogLevel.Debug, message, category: category);
-        }
 
         /// <inheritdoc />
-        public void CategorizedDebug(string category, string content, string identifier)
-        {
+        public void CategorizedDebug(string category, string content, string identifier) =>
             WriteToFile(LogLevel.Fatal, content, fileName: identifier, category: category);
-        }
 
         /// <inheritdoc />
         public void CategorizedDebug<T>(
@@ -462,10 +423,7 @@ namespace CrispyWaffle.Log.Adapters
             return (fileMessageCount < _maxMessageCount) && (stream.Length < _maxFileSize);
         }
 
-        private FileStream GetFile()
-        {
-            return File.Create(Path.Combine(_folderPath, currentFileName));
-        }
+        private FileStream GetFile() => File.Create(Path.Combine(_folderPath, currentFileName));
     }
 
     /// <summary>

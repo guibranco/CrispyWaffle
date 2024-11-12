@@ -8,36 +8,35 @@ using CrispyWaffle.Log;
 namespace CrispyWaffle.Cache
 {
     /// <summary>
-    /// The cache manager class.
+    /// Manages cache repositories and provides utilities for adding, retrieving, and managing cached data.
     /// </summary>
     public static class CacheManager
     {
         /// <summary>
-        /// The repositories
+        /// The repositories.
         /// </summary>
-        private static readonly SortedList<int, ICacheRepository> _repositories =
-            new SortedList<int, ICacheRepository>();
+        private static readonly SortedList<int, ICacheRepository> _repositories = new();
 
         /// <summary>
-        /// The current priority
+        /// The current priority.
         /// </summary>
         private static int _currentPriority;
 
         /// <summary>
-        /// The memory type
+        /// The memory type.
         /// </summary>
         private static readonly Type _memoryType = typeof(MemoryCacheRepository);
 
         /// <summary>
-        /// The is memory repository in list
+        /// The is memory repository in list.
         /// </summary>
         private static bool _isMemoryRepositoryInList;
 
         /// <summary>
-        /// Adds the repository.
+        /// Adds a new cache repository of the specified type with an automatically assigned priority.
         /// </summary>
-        /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
-        /// <returns></returns>
+        /// <typeparam name="TCacheRepository">The type of the cache repository to add.</typeparam>
+        /// <returns>The added cache repository.</returns>
         public static ICacheRepository AddRepository<TCacheRepository>()
             where TCacheRepository : ICacheRepository
         {
@@ -47,10 +46,10 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Adds the repository to the repositories providers list.
+        /// Adds a cache repository with an automatically assigned priority.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <returns></returns>
+        /// <param name="repository">The cache repository to add.</param>
+        /// <returns>The added cache repository.</returns>
         public static ICacheRepository AddRepository(ICacheRepository repository)
         {
             AddRepository(repository, _currentPriority++);
@@ -58,11 +57,11 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Adds the repository.
+        /// Adds a new cache repository of the specified type with a defined priority.
         /// </summary>
-        /// <typeparam name="TCacheRepository">The type of the i cache repository.</typeparam>
-        /// <param name="priority">The priority.</param>
-        /// <returns></returns>
+        /// <typeparam name="TCacheRepository">The type of the cache repository to add.</typeparam>
+        /// <param name="priority">The priority of the cache repository.</param>
+        /// <returns>The added cache repository.</returns>
         public static ICacheRepository AddRepository<TCacheRepository>(int priority)
             where TCacheRepository : ICacheRepository
         {
@@ -72,11 +71,11 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Adds the repository with the defined priority.
+        /// Adds a cache repository with a defined priority.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="priority">The priority.</param>
-        /// <returns>Returns the priority with the repository was added</returns>
+        /// <param name="repository">The cache repository to add.</param>
+        /// <param name="priority">The priority of the cache repository.</param>
+        /// <returns>The priority assigned to the cache repository.</returns>
         public static int AddRepository(ICacheRepository repository, int priority)
         {
             while (true)
@@ -102,11 +101,11 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Stores the specified key.
+        /// Adds a value to all cache repositories.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
+        /// <typeparam name="T">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
         public static void Set<T>(T value, [Localizable(false)] string key)
         {
             LogConsumer.Trace("Adding {0} to {1} cache repositories", key, _repositories.Count);
@@ -117,12 +116,12 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets the specified value.
+        /// Adds a value with a sub key to all cache repositories.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
+        /// <typeparam name="T">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <param name="subKey">The sub key for additional categorization.</param>
         public static void Set<T>(
             T value,
             [Localizable(false)] string key,
@@ -142,12 +141,12 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets the specified value.
+        /// Adds a value with a time-to-live (TTL) to all cache repositories.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="ttl">The TTL.</param>
+        /// <typeparam name="T">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <param name="ttl">The time-to-live for the cached value.</param>
         public static void Set<T>(T value, [Localizable(false)] string key, TimeSpan ttl)
         {
             LogConsumer.Trace(
@@ -163,13 +162,13 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets to.
+        /// Adds a value to a specific cache repository by type.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="TValue">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void SetTo<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key
@@ -189,14 +188,14 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets to.
+        /// Adds a value to a specific cache repository by type.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="TValue">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <param name="subKey">The sub key for additional categorization.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void SetTo<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
@@ -222,14 +221,14 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets to.
+        /// Adds a value to a specific cache repository by type.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="ttl">The TTL.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="TValue">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <param name="ttl">The time-to-live for this key.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void SetTo<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
@@ -255,15 +254,15 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Sets to.
+        /// Adds a value to a specific cache repository by type.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <param name="ttl">The TTL.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="TValue">The type of the value to cache.</typeparam>
+        /// <param name="value">The value to cache.</param>
+        /// <param name="key">The key under which to store the value.</param>
+        /// <param name="subKey">The sub key of the cached value.</param>
+        /// <param name="ttl">The time-to-live for this key.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void SetTo<TCacheRepository, TValue>(
             TValue value,
             [Localizable(false)] string key,
@@ -291,12 +290,12 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Gets the object with the specified key.
+        /// Retrieves a cached value by key from all repositories.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
-        /// <param name="key">The key.</param>
-        /// <returns>The object as <typeparamref name="T"/></returns>
-        /// <exception cref="InvalidOperationException">Throws when the object with the specified key doesn't exists</exception>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <returns>The retrieved value.</returns>
+        /// <exception cref="InvalidOperationException">Unable to get the item with key {key}.</exception>
         public static T Get<T>([Localizable(false)] string key)
         {
             LogConsumer.Trace(
@@ -326,13 +325,13 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Gets the specified key.
+        /// Retrieves a cached value by key from all repositories.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <param name="subKey">The sub key of the cached value.</param>
+        /// <returns>The retrieved value.</returns>
+        /// <exception cref="InvalidOperationException">Unable to get the item with key {key} and sub key {subKey}.</exception>
         public static T Get<T>([Localizable(false)] string key, [Localizable(false)] string subKey)
         {
             LogConsumer.Trace(
@@ -365,13 +364,13 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        ///  Gets the object with the specified key from the specified repository type, if the repository is in the repositories providers list.
+        /// Retrieves a cached value by key from a specific repository type.
         /// </summary>
-        /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="key">The key.</param>
-        /// <returns>The <typeparamref name="TValue"/></returns>
-        /// <exception cref="InvalidOperationException">Throws when the repository is not in the repositories providers list or the key isn't available at that repository</exception>
+        /// <typeparam name="TCacheRepository">The type of the cache repository to retrieve the value from.</typeparam>
+        /// <typeparam name="TValue">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <returns>The retrieved value.</returns>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static TValue GetFrom<TCacheRepository, TValue>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
@@ -388,14 +387,14 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Gets from.
+        /// Retrieves a cached value by key from a specific repository type.
         /// </summary>
-        /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <returns></returns>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <typeparam name="TCacheRepository">The type of the cache repository to retrieve the value from.</typeparam>
+        /// <typeparam name="TValue">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <param name="subKey">The sub key of the cached value.</param>
+        /// <returns>The retrieved value.</returns>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static TValue GetFrom<TCacheRepository, TValue>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
@@ -415,13 +414,12 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Tries to get a value based on its key, if exists in any repository return true, else false.
-        /// The out parameter value is the object requested.
+        /// Attempts to retrieve a cached value by key.
         /// </summary>
-        /// <typeparam name="T">The type of object (the object will be cast to this type)</typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise</returns>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <param name="value">The retrieved value, if found.</param>
+        /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
         public static bool TryGet<T>([Localizable(false)] string key, out T value)
         {
             LogConsumer.Trace(
@@ -452,13 +450,13 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Tries the get.
+        /// Attempts to retrieve a cached value by key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+        /// <param name="key">The key of the cached value.</param>
+        /// <param name="subKey">The sub key of the cached value.</param>
+        /// <param name="value">The retrieved value, if found.</param>
+        /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
         public static bool TryGet<T>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey,
@@ -494,10 +492,10 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// TTLs the specified key.
+        /// Attempts to retrieve the time-to-live (TTL) of a cached value by key.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <param name="key">The key of the cached value.</param>
+        /// <returns>The TTL of the cached value, or <c>TimeSpan.Zero</c> if not found.</returns>
         public static TimeSpan TTL([Localizable(false)] string key)
         {
             LogConsumer.Trace(
@@ -521,9 +519,9 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Removes the specified key.
+        /// Removes a cached value by key from all repositories.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The key of the cached value to remove.</param>
         public static void Remove([Localizable(false)] string key)
         {
             LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count);
@@ -534,10 +532,10 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Removes the specified key.
+        /// Removes a cached value by key and sub key from all repositories.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
+        /// <param name="key">The key of the cached value to remove.</param>
+        /// <param name="subKey">The sub key of the cached value to remove.</param>
         public static void Remove(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey
@@ -556,11 +554,11 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Removes from.
+        /// Attempts to remove a value by key and sub key.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <param name="key">The key.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <param name="key">The key of the cached value.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void RemoveFrom<TCacheRepository>([Localizable(false)] string key)
         {
             var type = typeof(TCacheRepository);
@@ -577,12 +575,12 @@ namespace CrispyWaffle.Cache
         }
 
         /// <summary>
-        /// Removes from.
+        /// Attempts to remove a value by key and sub key.
         /// </summary>
         /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
-        /// <param name="key">The key.</param>
-        /// <param name="subKey">The sub key.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <param name="key">The key of the cached value.</param>
+        /// <param name="subKey">The sub key of the cached value to remove.</param>
+        /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
         public static void RemoveFrom<TCacheRepository>(
             [Localizable(false)] string key,
             [Localizable(false)] string subKey

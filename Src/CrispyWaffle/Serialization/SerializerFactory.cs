@@ -151,10 +151,7 @@ namespace CrispyWaffle.Serialization
         /// <returns>A <see cref="SerializerConverter{T}"/> for the specified object.</returns>
         [Pure]
         public static SerializerConverter<T> GetSerializer<T>(this T obj)
-            where T : class
-        {
-            return GetSerializerFromType(obj);
-        }
+            where T : class => GetSerializerFromType(obj);
 
         /// <summary>
         /// Retrieves the serializer converter for a new instance of the specified type.
@@ -224,10 +221,7 @@ namespace CrispyWaffle.Serialization
             this T obj,
             SerializerFormat format
         )
-            where T : class
-        {
-            return GetSerializer(obj, new SerializerAttribute(format));
-        }
+            where T : class => GetSerializer(obj, new SerializerAttribute(format));
 
         /// <summary>
         /// Retrieves a custom serializer for a new instance of the specified type and format.

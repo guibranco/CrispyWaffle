@@ -174,6 +174,7 @@ namespace CrispyWaffle.Utilities
                             _box = new Box(InternalLoaded());
                             return _box.Value;
                         }
+
                     case LazyThreadSafetyMode.PublicationOnly:
                         var newValue = InternalLoaded();
                         lock (_syncLock)

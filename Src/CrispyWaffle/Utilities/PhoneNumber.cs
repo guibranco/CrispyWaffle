@@ -43,9 +43,6 @@
         /// Returns the fully qualified type name of this instance.
         /// </summary>
         /// <returns>The fully qualified type name.</returns>
-        public override string ToString()
-        {
-            return $@"{CountryCode}{RegionCode}{Number}";
-        }
+        public override string ToString() => $@"{CountryCode}{RegionCode}{Number}";
     }
 }

@@ -64,9 +64,6 @@ namespace CrispyWaffle.Serialization.SystemTextJson
             Utf8JsonWriter writer,
             NotNullObserver value,
             JsonSerializerOptions options
-        )
-        {
-            JsonSerializer.Serialize(writer, value, options);
-        }
+        ) => JsonSerializer.Serialize(writer, value, options);
     }
 }

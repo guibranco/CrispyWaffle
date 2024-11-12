@@ -19,10 +19,8 @@ public class LoggingFixture : IDisposable
         ServiceLocator.Register<ITemplateRender, MustacheTemplateRender>();
     }
 
-    public void SetLogProvider(ITestOutputHelper testOutputHelper)
-    {
+    public void SetLogProvider(ITestOutputHelper testOutputHelper) =>
         LogConsumer.AddProvider(new TestLogProvider(testOutputHelper)).SetLevel(LogLevel.All);
-    }
 
     private bool _disposedValue;
 
@@ -38,8 +36,5 @@ public class LoggingFixture : IDisposable
         _disposedValue = true;
     }
 
-    public void Dispose()
-    {
-        Dispose(true);
-    }
+    public void Dispose() => Dispose(true);
 }

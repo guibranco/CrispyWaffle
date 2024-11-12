@@ -284,13 +284,8 @@ public class RollingTextFileLogAdapterTests
         Clean(files);
     }
 
-    private static string GetFileNameRegex(string fileNameSeed, LogFileType fileType)
-    {
-        return $"LogFile-{fileNameSeed}-\\[[0-9]+\\].{fileType.GetInternalValue()}";
-    }
+    private static string GetFileNameRegex(string fileNameSeed, LogFileType fileType) =>
+        $"LogFile-{fileNameSeed}-\\[[0-9]+\\].{fileType.GetInternalValue()}";
 
-    private static void Clean(List<string> files)
-    {
-        files.ForEach(File.Delete);
-    }
+    private static void Clean(List<string> files) => files.ForEach(File.Delete);
 }

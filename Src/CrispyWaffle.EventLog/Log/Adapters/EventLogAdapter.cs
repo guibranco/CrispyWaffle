@@ -290,10 +290,7 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         /// Change the LogLevel of Log Adapter instance.
         /// </summary>
         /// <param name="level">The new <seealso cref="LogLevel" /> level of the instance.</param>
-        public void SetLevel(LogLevel level)
-        {
-            _level = level;
-        }
+        public void SetLevel(LogLevel level) => _level = level;
 
         /// <summary>
         /// Save the serializer version of <paramref name="content" /> in the file <paramref name="identifier" />,
@@ -330,29 +327,21 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         /// <param name="content">The file content.</param>
         /// <param name="fileName">The file name.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
-        public void Debug(string content, string fileName)
-        {
+        public void Debug(string content, string fileName) =>
             WriteInternal(LogLevel.Debug, $"{fileName}: {content}");
-        }
 
         /// <summary>
         /// Logs a message as DEBUG level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.DEBUG flag.</remarks>
-        public void Debug(string message)
-        {
-            WriteInternal(LogLevel.Debug, message);
-        }
+        public void Debug(string message) => WriteInternal(LogLevel.Debug, message);
 
         /// <summary>
         /// Logs the exception with trace level.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        public void Trace(Exception exception)
-        {
-            WriteInternal(LogLevel.Trace, exception);
-        }
+        public void Trace(Exception exception) => WriteInternal(LogLevel.Trace, exception);
 
         /// <summary>
         /// Logs the message with trace level and shows exception details.
@@ -370,48 +359,33 @@ namespace CrispyWaffle.EventLog.Log.Adapters
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.TRACE flag.</remarks>
-        public void Trace(string message)
-        {
-            WriteInternal(LogLevel.Trace, message);
-        }
+        public void Trace(string message) => WriteInternal(LogLevel.Trace, message);
 
         /// <summary>
         /// Logs a message as INFO level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.INFO flag.</remarks>
-        public void Info(string message)
-        {
-            WriteInternal(LogLevel.Info, message);
-        }
+        public void Info(string message) => WriteInternal(LogLevel.Info, message);
 
         /// <summary>
         /// Logs a message as WARNING level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.WARNING flag.</remarks>
-        public void Warning(string message)
-        {
-            WriteInternal(LogLevel.Warning, message);
-        }
+        public void Warning(string message) => WriteInternal(LogLevel.Warning, message);
 
         /// <summary>
         /// Logs a message as ERROR level.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Error(string message)
-        {
-            WriteInternal(LogLevel.Error, message);
-        }
+        public void Error(string message) => WriteInternal(LogLevel.Error, message);
 
         /// <summary>
         /// Logs a message as FATAL level.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Fatal(string message)
-        {
-            WriteInternal(LogLevel.Fatal, message);
-        }
+        public void Fatal(string message) => WriteInternal(LogLevel.Fatal, message);
     }
 }
