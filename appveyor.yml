@@ -19,7 +19,7 @@ dotnet_csproj:
   informational_version: "{version}"
 
 init:
-  - SET JAVA_HOME=C:\Program Files\Java\jdk19
+  - SET JAVA_HOME=C:\Program Files\Java\jdk21
   - SET PATH=%JAVA_HOME%\bin;%PATH%
 
 install:
