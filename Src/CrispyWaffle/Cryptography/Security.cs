@@ -150,13 +150,12 @@ public static class Security
     /// <summary>
     /// The hash algorithms.
     /// </summary>
-    private static readonly Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms =
-        new()
-        {
-            { HashAlgorithmType.Md5, MD5.Create() },
-            { HashAlgorithmType.Sha1, SHA1.Create() },
-            { HashAlgorithmType.Sha256, SHA256.Create() },
-            { HashAlgorithmType.Sha384, SHA384.Create() },
-            { HashAlgorithmType.Sha512, SHA512.Create() },
-        };
+    private static readonly Dictionary<HashAlgorithmType, HashAlgorithm> _hashAlgorithms = new()
+    {
+        { HashAlgorithmType.Md5, MD5.Create() },
+        { HashAlgorithmType.Sha1, SHA1.Create() },
+        { HashAlgorithmType.Sha256, SHA256.Create() },
+        { HashAlgorithmType.Sha384, SHA384.Create() },
+        { HashAlgorithmType.Sha512, SHA512.Create() },
+    };
 }
