@@ -5,19 +5,10 @@ using CrispyWaffle.Configuration;
 
 namespace CrispyWaffle.Tests.Fixtures;
 
-/// <summary>
-/// Class ConfigurationFixture.
-/// Implements the <see cref="System.IDisposable" />
-/// </summary>
-/// <seealso cref="System.IDisposable" />
 [ExcludeFromCodeCoverage]
 public class ConfigurationFixture : IDisposable
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConfigurationFixture" /> class.
-    /// </summary>
-    public ConfigurationFixture()
-    {
+    public ConfigurationFixture() =>
         ServiceLocator.Register<ISecureCredentialProvider>(
             () =>
                 new SecureCredentialProvider
@@ -28,17 +19,9 @@ public class ConfigurationFixture : IDisposable
                 },
             Lifetime.Singleton
         );
-    }
 
-    /// <summary>
-    /// The disposed value
-    /// </summary>
     private bool _disposedValue;
 
-    /// <summary>
-    /// Releases unmanaged and - optionally - managed resources.
-    /// </summary>
-    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
     protected virtual void Dispose(bool disposing)
     {
         if (_disposedValue)
@@ -51,11 +34,5 @@ public class ConfigurationFixture : IDisposable
         _disposedValue = true;
     }
 
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-    }
+    public void Dispose() => Dispose(true);
 }

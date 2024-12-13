@@ -5,9 +5,6 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Serialization;
 
-/// <summary>
-/// Class SerializerFactoryTests.
-/// </summary>
 public class SerializerFactoryTests
 {
     [Fact]

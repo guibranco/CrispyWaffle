@@ -9,13 +9,10 @@ public class MemoryCacheRepositoryTests
 {
     private readonly MemoryCacheRepository _repository;
 
-    public MemoryCacheRepositoryTests()
-    {
-        _repository = new MemoryCacheRepository();
-    }
+    public MemoryCacheRepositoryTests() => _repository = new MemoryCacheRepository();
 
     [Fact]
-    public void Set_ShouldStoreValue()
+    public void SetShouldStoreValue()
     {
         // Arrange
         var key = "test-key";
@@ -31,7 +28,7 @@ public class MemoryCacheRepositoryTests
     }
 
     [Fact]
-    public void Get_ShouldReturnStoredValue()
+    public void GetShouldReturnStoredValue()
     {
         // Arrange
         var key = "test-key";
@@ -46,7 +43,7 @@ public class MemoryCacheRepositoryTests
     }
 
     [Fact]
-    public void Remove_ShouldRemoveStoredValue()
+    public void RemoveShouldRemoveStoredValue()
     {
         // Arrange
         var key = "test-key";

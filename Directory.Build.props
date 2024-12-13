@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup Label="SDK Versions">
-    <DotNetVersions>netstandard2.0;netstandard2.1;net6.0;net8.0</DotNetVersions>
-    <DotNetVersionTests>net8.0</DotNetVersionTests>
+    <DotNetVersions>netstandard2.0;netstandard2.1;net6.0;net8.0;net9.0</DotNetVersions>
+    <DotNetVersionTests>net9.0</DotNetVersionTests>
   </PropertyGroup>
   
   <PropertyGroup Label="NuGet package">
@@ -36,6 +36,7 @@
     <ImplicitUsings>disabled</ImplicitUsings>
     <Nullable>disable</Nullable>
     <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
     <NoWarn>$(NoWarn);1591;NU5105;SA1633;CA1711</NoWarn>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

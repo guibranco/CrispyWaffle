@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using CrispyWaffle.Extensions;
 using CrispyWaffle.GoodPractices;
@@ -87,7 +88,11 @@ public static class ConversionExtensions
 
         var documentPattern =
             document.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
-        return string.Format(documentPattern, document.RemoveNonNumeric().ToInt64());
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            documentPattern,
+            document.RemoveNonNumeric().ToInt64()
+        );
     }
 
     /// <summary>
