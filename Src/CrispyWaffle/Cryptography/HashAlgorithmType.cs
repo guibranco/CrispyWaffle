@@ -1,33 +1,32 @@
-﻿namespace CrispyWaffle.Cryptography
+﻿namespace CrispyWaffle.Cryptography;
+
+/// <summary>
+/// Enum HashAlgorithmType.
+/// </summary>
+public enum HashAlgorithmType
 {
     /// <summary>
-    /// Enum HashAlgorithmType
+    /// The MD5 algorithm.
     /// </summary>
-    public enum HashAlgorithmType
-    {
-        /// <summary>
-        /// The m d5
-        /// </summary>
-        Md5,
+    Md5,
 
-        /// <summary>
-        /// The sh a1
-        /// </summary>
-        Sha1,
+    /// <summary>
+    /// The SHA1 algorithm.
+    /// </summary>
+    Sha1,
 
-        /// <summary>
-        /// The sh a256
-        /// </summary>
-        Sha256,
+    /// <summary>
+    /// The SHA-256 algorithm.
+    /// </summary>
+    Sha256,
 
-        /// <summary>
-        /// The sh a384
-        /// </summary>
-        Sha384,
+    /// <summary>
+    /// The SHA-384 algorithm.
+    /// </summary>
+    Sha384,
 
-        /// <summary>
-        /// The sh a512
-        /// </summary>
-        Sha512,
-    }
+    /// <summary>
+    /// The SHA-512 algorithm.
+    /// </summary>
+    Sha512,
 }

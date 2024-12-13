@@ -10,216 +10,207 @@ using CrispyWaffle.Extensions;
 using CrispyWaffle.Log.Providers;
 using CrispyWaffle.Telemetry;
 
-namespace CrispyWaffle.Log.Handlers
+namespace CrispyWaffle.Log.Handlers;
+
+/// <summary>
+/// A default exception handler that logs exception details using the available log providers.
+/// It supports logging to multiple providers and handles both full exception details and summarized messages.
+/// </summary>
+/// <seealso cref="IExceptionHandler" />
+public class DefaultExceptionHandler : IExceptionHandler
 {
     /// <summary>
-    /// Handle the exception and log it using the available log providers of the log consumer.
+    /// The collection of additional log providers to handle exception logging.
+    /// Each provider is associated with a specific type of logging (e.g., message or full details).
     /// </summary>
-    /// <seealso cref="IExceptionHandler"/>
-    public class DefaultExceptionHandler : IExceptionHandler
+    private static readonly ICollection<
+        Tuple<ILogProvider, ExceptionLogType>
+    > _additionalProviders = new List<Tuple<ILogProvider, ExceptionLogType>>();
+
+    /// <summary>
+    /// Determines the category to use for logging based on the current call stack.
+    /// The category is extracted from the namespace of the calling method.
+    /// </summary>
+    /// <returns>A string representing the log category.</returns>
+    private static string GetCategory()
     {
-        /// <summary>
-        /// The additional providers.
-        /// </summary>
-        private static readonly ICollection<
-            Tuple<ILogProvider, ExceptionLogType>
-        > _additionalProviders = _additionalProviders =
-            new List<Tuple<ILogProvider, ExceptionLogType>>();
+        var stack = new StackTrace();
+        var counter = 1;
 
-        /// <summary>
-        /// Gets the category.
-        /// </summary>
-        /// <returns>System.String.</returns>
-        private static string GetCategory()
+        while (true)
         {
-            var stack = new StackTrace();
+            var method = stack.GetFrame(counter++).GetMethod();
 
-            var counter = 1;
-
-            while (true)
+            if (method == null)
             {
-                var method = stack.GetFrame(counter++).GetMethod();
+                return @"CrispyWaffle";
+            }
 
-                if (method == null)
-                {
-                    return @"CrispyWaffle";
-                }
-
-                if (GetNamespace(method, out var category))
-                {
-                    return category;
-                }
+            if (GetNamespace(method, out var category))
+            {
+                return category;
             }
         }
+    }
 
-        /// <summary>
-        /// Gets the namespace.
-        /// </summary>
-        /// <param name="method">The method.</param>
-        /// <param name="category">The category.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        private static bool GetNamespace(MethodBase method, out string category)
+    /// <summary>
+    /// Retrieves the namespace of the specified method, which is used to determine the log category.
+    /// </summary>
+    /// <param name="method">The method to inspect.</param>
+    /// <param name="category">The resulting log category extracted from the namespace.</param>
+    /// <returns><c>true</c> if a valid namespace was found; otherwise, <c>false</c>.</returns>
+    private static bool GetNamespace(MethodBase method, out string category)
+    {
+        category = string.Empty;
+        var ns = method.DeclaringType?.FullName;
+
+        if (string.IsNullOrWhiteSpace(ns))
         {
-            category = string.Empty;
-            var ns = method.DeclaringType?.FullName;
-
-            if (string.IsNullOrWhiteSpace(ns))
-            {
-                category = method.Name;
-                return true;
-            }
-
-            if (ns.StartsWith(@"CrispyWaffle.Log", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            if (ns.StartsWith(@"CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
-            {
-                ns = ns.Substring(13);
-            }
-
-            category = ns;
+            category = method.Name;
             return true;
         }
 
-        /// <summary>
-        /// Handles the internal.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
-        private static void HandleInternal(Exception exception)
+        if (ns.StartsWith(@"CrispyWaffle.Log", StringComparison.OrdinalIgnoreCase))
         {
-            var category = GetCategory();
+            return false;
+        }
 
-            var exceptions = exception.ToQueue(out var types);
+        if (ns.StartsWith(@"CrispyWaffle.", StringComparison.InvariantCultureIgnoreCase))
+        {
+            ns = ns.Substring(13);
+        }
 
-            foreach (var type in types)
-            {
-                TelemetryAnalytics.TrackException(type);
-            }
+        category = ns;
+        return true;
+    }
 
-            var messages = exceptions.GetMessages(
-                category,
-                _additionalProviders
-                    .Where(p => p.Item2 == ExceptionLogType.Message)
-                    .Select(p => p.Item1)
-                    .ToList()
-            );
+    /// <summary>
+    /// Handles the exception by logging it to all available log providers.
+    /// It processes the exception, tracks telemetry, and formats the log messages accordingly.
+    /// </summary>
+    /// <param name="exception">The exception to be logged.</param>
+    private static void HandleInternal(Exception exception)
+    {
+        var category = GetCategory();
+        var exceptions = exception.ToQueue(out var types);
 
-            foreach (
-                var additionalProvider in _additionalProviders.Where(p =>
-                    p.Item2 == ExceptionLogType.Full
-                )
+        // Track exception telemetry
+        foreach (var type in types)
+        {
+            TelemetryAnalytics.TrackException(type);
+        }
+
+        var messages = exceptions.GetMessages(
+            category,
+            _additionalProviders
+                .Where(p => p.Item2 == ExceptionLogType.Message)
+                .Select(p => p.Item1)
+                .ToList()
+        );
+
+        // Log to providers that handle full exception details
+        foreach (
+            var additionalProvider in _additionalProviders.Where(p =>
+                p.Item2 == ExceptionLogType.Full
             )
+        )
+        {
+            additionalProvider.Item1.Error(category, messages);
+        }
+    }
+
+    /// <summary>
+    /// Logs an exception at the <see cref="LogLevel.Error"/> level.
+    /// The exception is logged with its message, stack trace, type name, and inner exceptions (if any).
+    /// The behavior of this method depends on the implementation of the log adapter.
+    /// </summary>
+    /// <param name="exception">The exception to be logged.</param>
+    /// <remarks>Requires <see cref="LogLevel.Error"/> to be enabled for logging.</remarks>
+    public void Handle(Exception exception) => HandleInternal(exception);
+
+    /// <summary>
+    /// Handles an unhandled exception event by casting the exception from <see cref="UnhandledExceptionEventArgs.ExceptionObject"/>
+    /// and calling <see cref="Handle(Exception)"/> to log the exception.
+    /// This is the default behavior, and custom behavior can be implemented by overriding this method.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="args">The event arguments containing the exception.</param>
+    /// <remarks>Requires <see cref="LogLevel.Error"/> to be enabled for logging.</remarks>
+    public void Handle(object sender, UnhandledExceptionEventArgs args) =>
+        HandleInternal((Exception)args.ExceptionObject);
+
+    /// <summary>
+    /// Handles a thread exception by extracting the exception from the event arguments and logging it.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="args">The <see cref="ThreadExceptionEventArgs"/> containing the exception data.</param>
+    public void Handle(object sender, ThreadExceptionEventArgs args) =>
+        HandleInternal(args.Exception);
+
+    /// <summary>
+    /// Adds a log provider to the exception handler. The provider will be used to log exception details
+    /// based on the specified <see cref="ExceptionLogType"/> (e.g., message or full exception).
+    /// </summary>
+    /// <typeparam name="TLogProvider">The type of the log provider to be added.</typeparam>
+    /// <param name="type">The log type indicating whether the provider logs messages, full exceptions, or other details.</param>
+    /// <returns>An instance of the <see cref="ILogProvider"/> that was added.</returns>
+    public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
+        where TLogProvider : ILogProvider
+    {
+        var provider = ServiceLocator.Resolve<TLogProvider>();
+        _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
+        return provider;
+    }
+
+    /// <summary>
+    /// Attempts to add a <see cref="ConsoleLogProvider"/> to the exception handler if a console is available.
+    /// The provider will log exception messages to the console.
+    /// </summary>
+    public static void TryAddConsoleLogProvider()
+    {
+        try
+        {
+            bool consoleAvailable;
+
+            using (var stream = Console.OpenStandardInput(1))
             {
-                additionalProvider.Item1.Error(category, messages);
+                consoleAvailable = stream != Stream.Null;
+            }
+
+            if (!consoleAvailable)
+            {
+                return;
+            }
+
+            var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
+
+            if (instance != null)
+            {
+                _additionalProviders.Add(
+                    new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Message)
+                );
             }
         }
+        catch (Exception) { }
+    }
 
-        /// <summary>
-        /// Logs a exception as ERROR level. Exception is logged generally with Message, StackTrace
-        /// and Type.FullName, and it's inner exception until no one more is available, but this
-        /// behavior depends on the Adapter implementation.
-        /// </summary>
-        /// <param name="exception">The exception to be logged.</param>
-        /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(Exception exception)
+    /// <summary>
+    /// Attempts to add a <see cref="TextFileLogProvider"/> to the exception handler.
+    /// The provider will log full exception details to a text file.
+    /// </summary>
+    public static void TryAddTextFileLogProvider()
+    {
+        try
         {
-            HandleInternal(exception);
-        }
+            var instance = ServiceLocator.TryResolve<TextFileLogProvider>();
 
-        /// <summary>
-        /// Cast <seealso cref="UnhandledExceptionEventArgs.ExceptionObject"/> as Exception and then
-        /// call <seealso cref="Handle(Exception)"/>. This is the default behavior, each
-        /// implementation can have it own behavior!
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">An instance of <seealso cref="UnhandledExceptionEventArgs"/>.</param>
-        /// <remarks>Requires LogLevel.ERROR flag.</remarks>
-        public void Handle(object sender, UnhandledExceptionEventArgs args)
-        {
-            HandleInternal((Exception)args.ExceptionObject);
-        }
-
-        /// <summary>
-        /// Handles the specified sender.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">
-        /// The <see cref="ThreadExceptionEventArgs"/> instance containing the event data.
-        /// </param>
-        public void Handle(object sender, ThreadExceptionEventArgs args)
-        {
-            HandleInternal(args.Exception);
-        }
-
-        /// <summary>
-        /// Adds the log provider.
-        /// </summary>
-        /// <typeparam name="TLogProvider">The type of the i log provider.</typeparam>
-        /// <param name="type">The type.</param>
-        /// <returns>ILogProvider.</returns>
-        public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
-            where TLogProvider : ILogProvider
-        {
-            var provider = ServiceLocator.Resolve<TLogProvider>();
-
-            _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
-
-            return provider;
-        }
-
-        /// <summary>
-        /// Tries the add console log provider.
-        /// </summary>
-        public static void TryAddConsoleLogProvider()
-        {
-            try
+            if (instance != null)
             {
-                bool consoleAvailable;
-
-                using (var stream = Console.OpenStandardInput(1))
-                {
-                    consoleAvailable = stream != Stream.Null;
-                }
-
-                if (!consoleAvailable)
-                {
-                    return;
-                }
-
-                var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
-
-                if (instance != null)
-                {
-                    _additionalProviders.Add(
-                        new Tuple<ILogProvider, ExceptionLogType>(
-                            instance,
-                            ExceptionLogType.Message
-                        )
-                    );
-                }
+                _additionalProviders.Add(
+                    new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full)
+                );
             }
-            catch (Exception) { }
         }
-
-        /// <summary>
-        /// Tries the add text file log provider.
-        /// </summary>
-        public static void TryAddTextFileLogProvider()
-        {
-            try
-            {
-                var instance = ServiceLocator.TryResolve<TextFileLogProvider>();
-
-                if (instance != null)
-                {
-                    _additionalProviders.Add(
-                        new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full)
-                    );
-                }
-            }
-            catch (Exception) { }
-        }
+        catch (Exception) { }
     }
 }

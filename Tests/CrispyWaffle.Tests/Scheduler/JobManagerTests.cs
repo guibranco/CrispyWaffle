@@ -4,15 +4,9 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Scheduler;
 
-/// <summary>
-/// Class JobManagerTests.
-/// </summary>
 [Collection("JobManager")]
 public class JobManagerTests
 {
-    /// <summary>
-    /// Defines the test task ValidateJobManager.
-    /// </summary>
     [Fact]
     public async Task ValidateJobManager()
     {

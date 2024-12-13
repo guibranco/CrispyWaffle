@@ -6,14 +6,8 @@ using static CrispyWaffle.Tests.Commands.TestObjects;
 
 namespace CrispyWaffle.Tests.Commands;
 
-/// <summary>
-/// Class CommandsTests.
-/// </summary>
 public class CommandsTests
 {
-    /// <summary>
-    /// Defines the test method ValidateRaiseCommand
-    /// </summary>
     [Fact]
     public void ValidateRaiseCommand()
     {
@@ -24,10 +18,6 @@ public class CommandsTests
         Assert.Equal(textResult, result.Text);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateRaiseAsyncCommand
-    /// </summary>
-    /// <returns></returns>
     [Fact]
     public async Task ValidateRaiseCommandAsync()
     {

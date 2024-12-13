@@ -5,24 +5,13 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Scheduler;
 
-/// <summary>
-/// Class JobRunnerTests.
-/// </summary>
 [Collection("JobRunner")]
 public class JobRunnerTests
 {
-    /// <summary>
-    /// Defines the test method ValidateJobRunnerEmptyScheduler.
-    /// </summary>
     [Fact]
-    public void ValidateJobRunnerEmptyScheduler()
-    {
+    public void ValidateJobRunnerEmptyScheduler() =>
         Assert.Throws<ArgumentNullException>(() => new JobRunner(string.Empty, null));
-    }
 
-    /// <summary>
-    /// Defines the test task ValidateJobRunner.
-    /// </summary>
     [Fact]
     public async Task ValidateJobRunner()
     {
@@ -41,9 +30,6 @@ public class JobRunnerTests
         Assert.Equal(10, sampler.Counter);
     }
 
-    /// <summary>
-    /// Defines the test task ValidateOutOfScheduler.
-    /// </summary>
     [Fact]
     public async Task ValidateOutOfScheduler()
     {
@@ -65,9 +51,6 @@ public class JobRunnerTests
         Assert.Equal(3, sampler.Counter);
     }
 
-    /// <summary>
-    /// Defines the test task ValidateConcurrency.
-    /// </summary>
     [Fact]
     public async Task ValidateConcurrency()
     {

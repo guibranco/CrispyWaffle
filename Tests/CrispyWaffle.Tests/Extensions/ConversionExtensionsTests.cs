@@ -7,14 +7,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Extensions;
 
-/// <summary>
-/// Class ConversionExtensionsTests.
-/// </summary>
 public class ConversionExtensionsTests
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ConversionExtensionsTests"/> class.
-    /// </summary>
     public ConversionExtensionsTests()
     {
         var currentCulture = CultureInfo.GetCultureInfo("en-US").Name;
@@ -32,9 +26,6 @@ public class ConversionExtensionsTests
         Thread.CurrentThread.CurrentUICulture = ci;
     }
 
-    /// <summary>
-    /// Validates the string to bytes.
-    /// </summary>
     [Fact]
     public void ValidateStringToBytes()
     {
@@ -44,9 +35,6 @@ public class ConversionExtensionsTests
         Assert.Equal(expected, result);
     }
 
-    /// <summary>
-    /// Validates the string to boolean.
-    /// </summary>
     [Fact]
     public void ValidateStringToBoolean()
     {
@@ -66,9 +54,6 @@ public class ConversionExtensionsTests
         Assert.False(result);
     }
 
-    /// <summary>
-    /// Defines the test method StringToBoolean_InvalidInput_ReturnsFalse.
-    /// </summary>
     [Fact]
     public void StringToBooleanInvalidInputReturnsFalse()
     {
@@ -76,9 +61,6 @@ public class ConversionExtensionsTests
         Assert.False(result);
     }
 
-    /// <summary>
-    /// Validates the boolean to string.
-    /// </summary>
     [Fact]
     public void ValidateBooleanToString()
     {
@@ -92,9 +74,6 @@ public class ConversionExtensionsTests
         Assert.Equal(expectedFalse, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateNowToDateTime.
-    /// </summary>
     [Fact]
     public void ValidateNowToDateTime()
     {
@@ -108,9 +87,6 @@ public class ConversionExtensionsTests
         Assert.Equal(date.Second, result.Second);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateTodayToDateTime.
-    /// </summary>
     [Fact]
     public void ValidateTodayToDateTime()
     {
@@ -119,9 +95,6 @@ public class ConversionExtensionsTests
         Assert.Equal(DateTime.Today, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateYesterdayToDateTime.
-    /// </summary>
     [Fact]
     public void ValidateYesterdayToDateTime()
     {
@@ -130,9 +103,6 @@ public class ConversionExtensionsTests
         Assert.Equal(DateTime.Today.AddDays(-1), result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateTomorrowToDateTime.
-    /// </summary>
     [Fact]
     public void ValidateTomorrowToDateTime()
     {
@@ -141,16 +111,6 @@ public class ConversionExtensionsTests
         Assert.Equal(DateTime.Today.AddDays(1), result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateStringDateToDateTime.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="year">The year.</param>
-    /// <param name="month">The month.</param>
-    /// <param name="day">The day.</param>
-    /// <param name="hour">The hour.</param>
-    /// <param name="minute">The minute.</param>
-    /// <param name="seconds">The seconds.</param>
     [Theory]
     [InlineData("2020-09-07", 2020, 9, 7, 0, 0, 0)]
     [InlineData("2020-09-07 15:45", 2020, 9, 7, 15, 45, 0)]
@@ -179,9 +139,6 @@ public class ConversionExtensionsTests
         Assert.Equal(expected, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateEmptyStringToDateTime.
-    /// </summary>
     [Fact]
     public void ValidateEmptyStringToDateTime()
     {
@@ -190,10 +147,6 @@ public class ConversionExtensionsTests
         Assert.Equal("Input value cannot be null. (Parameter 'input')", result.Message);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateInvalidStringToDateTime.
-    /// </summary>
-    /// <param name="input">The input.</param>
     [Theory]
     [InlineData("1234567890")]
     public void ValidateInvalidStringToDateTime(string input)
@@ -206,9 +159,6 @@ public class ConversionExtensionsTests
         );
     }
 
-    /// <summary>
-    /// Defines the test method TryToDateTime_EmptyInput_ReturnsFalse.
-    /// </summary>
     [Fact]
     public void TryToDateTimeEmptyInputReturnsFalse()
     {
@@ -216,9 +166,6 @@ public class ConversionExtensionsTests
         Assert.False(result);
     }
 
-    /// <summary>
-    /// Defines the test method ToInt32_EmptyInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToInt32EmptyInputReturnsZero()
     {
@@ -226,9 +173,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToInt32_InvalidInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToInt32InvalidInputReturnsZero()
     {
@@ -236,9 +180,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToInt64_EmptyInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToInt64EmptyInputReturnsZero()
     {
@@ -246,9 +187,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToInt64_InvalidInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToInt64InvalidInputReturnsZero()
     {
@@ -256,9 +194,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToDecimal_EmptyInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToDecimalEmptyInputReturnsZero()
     {
@@ -266,9 +201,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToDecimal_InvalidInput_ReturnsZero.
-    /// </summary>
     [Fact]
     public void ToDecimalInvalidInputReturnsZero()
     {
@@ -276,11 +208,6 @@ public class ConversionExtensionsTests
         Assert.Equal(0, result);
     }
 
-    /// <summary>
-    /// Defines the test method ToMonetary_ValidInput_ReturnsValidString.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="expected">The expected.</param>
     [Theory]
     [InlineData(1, "$1.00")]
     [InlineData(1000, "$1,000.00")]

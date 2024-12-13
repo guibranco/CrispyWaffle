@@ -1,22 +1,21 @@
 ﻿using CrispyWaffle.Attributes;
 
-namespace CrispyWaffle.Composition
+namespace CrispyWaffle.Composition;
+
+/// <summary>
+/// The lifetime of an instance in the service locator.
+/// </summary>
+public enum Lifetime
 {
     /// <summary>
-    /// The lifetime of an instance in the service locator.
+    /// The transient
     /// </summary>
-    public enum Lifetime
-    {
-        /// <summary>
-        /// The transient
-        /// </summary>
-        [HumanReadable("Transient")]
-        Transient,
+    [HumanReadable("Transient")]
+    Transient,
 
-        /// <summary>
-        /// The singleton
-        /// </summary>
-        [HumanReadable("Singleton")]
-        Singleton,
-    }
+    /// <summary>
+    /// The singleton
+    /// </summary>
+    [HumanReadable("Singleton")]
+    Singleton,
 }

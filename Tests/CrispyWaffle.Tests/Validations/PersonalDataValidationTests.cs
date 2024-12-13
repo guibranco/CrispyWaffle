@@ -3,16 +3,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Validations;
 
-/// <summary>
-/// Class PersonalDataValidationTests.
-/// </summary>
 public class PersonalDataValidationTests
 {
-    /// <summary>
-    /// Defines the test method ValidateEmailAddress_ValidEmailAddress_ReturnsValidEmailAddress.
-    /// </summary>
-    /// <param name="inputEmail">The input email.</param>
-    /// <param name="expectedEmail">The expected email.</param>
     [Theory]
     [InlineData("john.doe@example.com", "john.doe@example.com")]
     [InlineData("nobody@example.combr", "nobody@example.com.br")]
@@ -27,10 +19,6 @@ public class PersonalDataValidationTests
         Assert.Equal(expectedEmail, result);
     }
 
-    /// <summary>
-    /// Defines the test method ValidateEmailAddress_InvalidEmailAddress_ThrowsException.
-    /// </summary>
-    /// <param name="inputEmail">The input email.</param>
     [Theory]
     [InlineData("")]
     [InlineData("invalid.address")]
@@ -46,10 +34,6 @@ public class PersonalDataValidationTests
         );
     }
 
-    /// <summary>
-    /// Defines the test method IsValidBrazilianPersonDocument_ValidInput_ReturnsTrue.
-    /// </summary>
-    /// <param name="inputDocument">The input document.</param>
     [Theory]
     [InlineData("22970619008")]
     [InlineData("13511749085")]
@@ -62,10 +46,6 @@ public class PersonalDataValidationTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Defines the test method IsValidBrazilianPersonDocument_InvalidInput_ThrowsException.
-    /// </summary>
-    /// <param name="inputDocument">The input document.</param>
     [Theory]
     [InlineData("")]
     [InlineData("11111111111")]
@@ -90,10 +70,6 @@ public class PersonalDataValidationTests
         );
     }
 
-    /// <summary>
-    /// Defines the test method IsValidBrazilianCorporateDocument_ValidInput_ReturnsTrue.
-    /// </summary>
-    /// <param name="inputDocument">The input document.</param>
     [Theory]
     [InlineData("19664626000120")]
     [InlineData("82403744000111")]
@@ -106,10 +82,6 @@ public class PersonalDataValidationTests
         Assert.True(result);
     }
 
-    /// <summary>
-    /// Defines the test method IsValidBrazilianCorporateDocument_InvalidInput_ThrowsException.
-    /// </summary>
-    /// <param name="inputDocument">The input document.</param>
     [Theory]
     [InlineData("")]
     [InlineData("11111111111111")]
