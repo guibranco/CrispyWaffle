@@ -34,8 +34,14 @@ install:
             throw "There are newer queued builds for this pull request, failing early." }  
   - ps: (new-object net.webclient).DownloadFile('https://couchdb.neighbourhood.ie/downloads/3.3.3-3/win/apache-couchdb-3.3.3-3.msi', 'apache-couchdb-3.3.3.msi')
   - ps: msiexec /i .\apache-couchdb-3.3.3.msi /quiet /norestart ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd
+  - ps: |
+      $dotnetInstallScript = 'https://dot.net/v1/dotnet-install.ps1'
+      Invoke-WebRequest $dotnetInstallScript -OutFile 'dotnet-install.ps1'
+      & ./dotnet-install.ps1 -Version 9.0.100 -InstallDir "$env:USERPROFILE\.dotnet"
+      $env:PATH += ";$env:USERPROFILE\.dotnet"
 
 before_build:
+  - ps: dotnet --info
   - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
   - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
   - ps: $env:SONAR_ORGANIZATION = "$env:APPVEYOR_REPO_NAME" -replace "/.*$",""
