@@ -34,8 +34,14 @@ install:
             throw "There are newer queued builds for this pull request, failing early." }  
   - ps: (new-object net.webclient).DownloadFile('https://couchdb.neighbourhood.ie/downloads/3.3.3-3/win/apache-couchdb-3.3.3-3.msi', 'apache-couchdb-3.3.3.msi')
   - ps: msiexec /i .\apache-couchdb-3.3.3.msi /quiet /norestart ADMINUSER=Admin ADMINPASSWORD=myP@ssw0rd
+  - ps: |
+      $dotnetInstallScript = 'https://dot.net/v1/dotnet-install.ps1'
+      Invoke-WebRequest $dotnetInstallScript -OutFile 'dotnet-install.ps1'
+      & ./dotnet-install.ps1 -Version 9.0.100 -InstallDir "$env:USERPROFILE\.dotnet"
+      $env:PATH += ";$env:USERPROFILE\.dotnet"
 
 before_build:
+  - ps: dotnet --info
   - ps: $env:SOLUTION_NAME = $([io.path]::GetFileNameWithoutExtension($(Get-ChildItem -Path .\* -Include *.sln)))
   - ps: $env:SONAR_PROJECT = "$env:APPVEYOR_REPO_NAME" -replace "/","_"
   - ps: $env:SONAR_ORGANIZATION = "$env:APPVEYOR_REPO_NAME" -replace "/.*$",""
@@ -56,7 +62,7 @@ build_script:
   - ps: $Params += "/d:sonar.host.url=`"https://sonarcloud.io`" /d:sonar.scanner.scanAll=false"
   - ps: if($env:LOCAL_PR -Eq 1) { $Params +=  "/d:sonar.token=`"$env:SONAR_TOKEN`"" }
   - ps: $Params += "/d:sonar.exclusions=`"**/bin/**/*,**/obj/**/*`"", "/d:sonar.coverage.exclusions=`"**/$env:SOLUTION_NAME.Tests/**,**/*Tests.cs`""
-  - ps: $Params += "/d:sonar.cs.opencover.reportsPaths=`"Tests\$env:SOLUTION_NAME.Tests\coverage.net8.0.opencover.xml`""
+  - ps: $Params += "/d:sonar.cs.opencover.reportsPaths=`"Tests\$env:SOLUTION_NAME.Tests\coverage.net9.0.opencover.xml`""
   - ps: if(-Not $env:APPVEYOR_PULL_REQUEST_NUMBER) { $Params += "/d:sonar.branch.name=`"$env:APPVEYOR_REPO_BRANCH`"" }
   - ps: if($env:APPVEYOR_PULL_REQUEST_NUMBER) { $Params += "/d:sonar.pullrequest.key=$env:APPVEYOR_PULL_REQUEST_NUMBER", "/d:sonar.pullrequest.branch=`"$env:APPVEYOR_REPO_BRANCH`"" }
   - ps: Start-process "dotnet" "sonarscanner begin $($Params -join ' ')"
@@ -71,16 +77,16 @@ build_script:
           $wc = New-Object 'System.Net.WebClient'
           $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $path/test-results.xml))          
       }
-  - if %LOCAL_PR% EQU 1 codecov -f "Tests\%SOLUTION_NAME%.Tests\coverage.net8.0.opencover.xml"
-  - if %LOCAL_PR% EQU 1 codeclimate-test-reporter format-coverage -t lcov -o "Tests\%SOLUTION_NAME%.Tests\code-climate.json" "Tests\%SOLUTION_NAME%.Tests\coverage.net8.0.info"
+  - if %LOCAL_PR% EQU 1 codecov -f "Tests\%SOLUTION_NAME%.Tests\coverage.net9.0.opencover.xml"
+  - if %LOCAL_PR% EQU 1 codeclimate-test-reporter format-coverage -t lcov -o "Tests\%SOLUTION_NAME%.Tests\code-climate.json" "Tests\%SOLUTION_NAME%.Tests\coverage.net9.0.info"
   - if %LOCAL_PR% EQU 1 codeclimate-test-reporter upload-coverage -i "Tests\%SOLUTION_NAME%.Tests\code-climate.json" -r %CODECLIMATE_TOKEN%
-  - if %LOCAL_PR% EQU 1 java -jar ./codacy-test-reporter.jar report -l CSharp -t %CODACY_PROJECT_TOKEN% -r "Tests\%SOLUTION_NAME%.Tests\coverage.net8.0.opencover.xml"
+  - if %LOCAL_PR% EQU 1 java -jar ./codacy-test-reporter.jar report -l CSharp -t %CODACY_PROJECT_TOKEN% -r "Tests\%SOLUTION_NAME%.Tests\coverage.net9.0.opencover.xml"
   - if %LOCAL_PR% EQU 1 dotnet sonarscanner end /d:sonar.token="%SONAR_TOKEN%"
 
 after_build:
   - echo refs > exclusions.txt
   - echo "Generating binaries artifacts"
-  - ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net8.0")
+  - ps: $VERSIONS = ("netstandard2.0", "netstandard2.1", "net6.0", "net9.0")
   - ps: $PROJECTS = ("Configuration", "ElasticSearch", "Elmah", "EventLog", "I18n.PtBr", "Log4Net", "RabbitMQ", "Redis", "Utils")
   - ps: |
       foreach($version in $VERSIONS)
