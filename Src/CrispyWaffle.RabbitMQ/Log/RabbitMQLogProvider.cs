@@ -55,8 +55,8 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
     public RabbitMQLogProvider(RabbitMQConnector connector, CancellationToken cancellationToken)
     {
         _connector = connector ?? throw new ArgumentNullException(nameof(connector));
-        _channel = _connector.ConnectionFactory.CreateConnection().CreateModel();
-        _channel.ExchangeDeclare(_connector.DefaultExchangeName, ExchangeType.Fanout, true);
+        _channel = _connector.ConnectionFactory.CreateConnectionAsync().GetAwaiter().GetResult().CreateModelAsync().GetAwaiter().GetResult();
+        _channel.ExchangeDeclareAsync(_connector.DefaultExchangeName, ExchangeType.Fanout, true).GetAwaiter().GetResult();
         _cancellationToken = cancellationToken;
         _queue = new ConcurrentQueue<string>();
         var thread = new Thread(Worker);
