@@ -34,7 +34,7 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
     /// <summary>
     /// The channel.
     /// </summary>
-    private readonly IModel _channel;
+    private readonly IChannel _channel;
 
     /// <summary>
     /// The cancellation token.
