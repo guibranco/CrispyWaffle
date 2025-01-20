@@ -23,7 +23,7 @@
     <PackageVersion Include="StackExchange.Redis" Version="2.8.24" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
-    <PackageVersion Include="System.Diagnostics.EventLog" Version="9.0.0" />
+    <PackageVersion Include="System.Diagnostics.EventLog" Version="9.0.1" />
     <PackageVersion Include="System.Security.Permissions" Version="[6.0.0,7.0.0)" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="9.0.0" />
     <PackageVersion Include="System.Text.Json" Version="9.0.0" />
