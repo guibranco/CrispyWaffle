@@ -11,19 +11,6 @@ namespace CrispyWaffle.Tests.Configuration;
 [Collection("Configuration collection")]
 public class CredentialTests
 {
-    /// <summary>
-    /// Validates the secure credential provider by checking if the decrypted password matches the original password
-    /// and if the username is correctly deserialized.
-    /// </summary>
-    /// <remarks>
-    /// This test method creates a set of credentials with a predefined password and the current username.
-    /// It then serializes these credentials to JSON format and deserializes them back into a dynamic object.
-    /// The method retrieves the encrypted password from the deserialized object, removes the last 32 characters,
-    /// and decrypts it using a secure credential provider's hashing parameters.
-    /// Finally, it asserts that the decrypted password matches the original password and that the username
-    /// is equal to the deserialized username. This ensures that the serialization and decryption processes
-    /// are functioning correctly and securely.
-    /// </remarks>
     [Fact]
     public void ValidateSecureCredentialProvider()
     {

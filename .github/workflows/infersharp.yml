@@ -1,0 +1,27 @@
+name: InferSharp Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run InferSharp
+      uses: microsoft/infersharpaction@v1.5
+
+    - name: Upload SARIF results
+      if: success() && steps.infersharp.outputs.sarif-report
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ steps.infersharp.outputs.sarif-report }}
+      continue-on-error: true

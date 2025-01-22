@@ -3,14 +3,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Utilities;
 
-/// <summary>
-/// Class PhoneNumberTests.
-/// </summary>
 public class PhoneNumberTests
 {
-    /// <summary>
-    /// Validates the phone number.
-    /// </summary>
     [Fact]
     public void ValidatePhoneNumber()
     {
@@ -24,9 +18,6 @@ public class PhoneNumberTests
         Assert.Equal(expectedString, phone.ToString());
     }
 
-    /// <summary>
-    /// Validates the fixed phone number.
-    /// </summary>
     [Fact]
     public void ValidateFixedPhoneNumber()
     {

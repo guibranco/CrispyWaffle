@@ -3,14 +3,8 @@ using Xunit;
 
 namespace CrispyWaffle.Tests.Extensions;
 
-/// <summary>
-/// Class EnumExtensionsTests.
-/// </summary>
 public class EnumExtensionsTests
 {
-    /// <summary>
-    /// Defines the test method ValidateGetHumanReadableValue.
-    /// </summary>
     [Fact]
     public void ValidateGetHumanReadableValue()
     {
@@ -21,9 +15,6 @@ public class EnumExtensionsTests
         Assert.Equal("Dois", TestEnum.Two.GetHumanReadableValue());
     }
 
-    /// <summary>
-    /// Defines the test method ValidateGetEnumByHumanReadableValue.
-    /// </summary>
     [Fact]
     public void ValidateGetEnumByHumanReadableValue()
     {
@@ -37,9 +28,6 @@ public class EnumExtensionsTests
         );
     }
 
-    /// <summary>
-    /// Defines the test method ValidateGetInternalValue.
-    /// </summary>
     [Fact]
     public void ValidateGetInternalValue()
     {
@@ -50,9 +38,6 @@ public class EnumExtensionsTests
         Assert.Equal("два", TestEnum.Two.GetInternalValue());
     }
 
-    /// <summary>
-    /// Defines the test method ValidateGetEnumByInternalValue.
-    /// </summary>
     [Fact]
     public void ValidateGetEnumByInternalValue()
     {

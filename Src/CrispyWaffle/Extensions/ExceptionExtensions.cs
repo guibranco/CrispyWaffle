@@ -4,91 +4,103 @@ using System.Linq;
 using System.Text;
 using CrispyWaffle.Log.Providers;
 
-namespace CrispyWaffle.Extensions
+namespace CrispyWaffle.Extensions;
+
+/// <summary>
+/// Provides extension methods for handling and processing exceptions.
+/// </summary>
+/// <remarks>
+/// This static class contains extension methods that facilitate the conversion of exceptions
+/// into a queue of exceptions and allows the retrieval of detailed exception messages,
+/// along with the option to log additional information using external providers.
+/// </remarks>
+public static class ExceptionExtensions
 {
     /// <summary>
-    /// The exception extension class.
+    /// Converts the exception and its inner exceptions into a queue and outputs the types of the inner exceptions.
     /// </summary>
-    public static class ExceptionExtensions
+    /// <param name="exception">The initial exception to be processed.</param>
+    /// <param name="types">A list that will contain the types of all inner exceptions, if any.</param>
+    /// <returns>A queue containing the exception and all of its inner exceptions in reverse order.</returns>
+    /// <remarks>
+    /// This method starts with the provided exception and iterates through its inner exceptions,
+    /// enqueuing each exception into a queue. The types of the inner exceptions are also recorded
+    /// in the provided list. The final queue is reversed to maintain the order from the outermost
+    /// exception to the innermost exception.
+    /// </remarks>
+    public static Queue<Exception> ToQueue(this Exception exception, out List<Type> types)
     {
-        /// <summary>
-        /// To the queue.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
-        /// <param name="types">The types.</param>
-        /// <returns></returns>
-        public static Queue<Exception> ToQueue(this Exception exception, out List<Type> types)
+        var result = new Queue<Exception>();
+
+        types = new List<Type>();
+
+        var handling = exception;
+
+        result.Enqueue(handling);
+
+        while (handling?.InnerException != null)
         {
-            var result = new Queue<Exception>();
+            result.Enqueue(handling.InnerException);
 
-            types = new List<Type>();
+            handling = handling.InnerException;
 
-            var handling = exception;
-
-            result.Enqueue(handling);
-
-            while (handling?.InnerException != null)
+            if (handling != null)
             {
-                result.Enqueue(handling.InnerException);
-
-                handling = handling.InnerException;
-
-                if (handling != null)
-                {
-                    types.Add(handling.GetType());
-                }
+                types.Add(handling.GetType());
             }
-
-            result = new Queue<Exception>(result.Reverse());
-
-            return result;
         }
 
-        /// <summary>
-        /// Gets the messages.
-        /// </summary>
-        /// <param name="exceptions">The exceptions.</param>
-        /// <param name="category">The category</param>
-        /// <param name="additionalProviders">The additional providers.</param>
-        /// <returns></returns>
-        public static string GetMessages(
-            this Queue<Exception> exceptions,
-            string category,
-            ICollection<ILogProvider> additionalProviders
-        )
+        result = new Queue<Exception>(result.Reverse());
+
+        return result;
+    }
+
+    /// <summary>
+    /// Retrieves detailed messages from a queue of exceptions, including optional error logging with additional providers.
+    /// </summary>
+    /// <param name="exceptions">The queue of exceptions to process.</param>
+    /// <param name="category">The category under which the error should be logged (e.g., "Database", "API").</param>
+    /// <param name="additionalProviders">A collection of <see cref="ILogProvider"/> instances used for logging additional error details.</param>
+    /// <returns>A formatted string containing the messages for each exception in the queue.</returns>
+    /// <remarks>
+    /// This method dequeues each exception from the queue, appends its message, type, and stack trace
+    /// to a StringBuilder, and logs the message through the provided additional providers.
+    /// It also adds a rethrow marker with a counter to indicate the position of the exception
+    /// in the original exception chain.
+    /// </remarks>
+    public static string GetMessages(
+        this Queue<Exception> exceptions,
+        string category,
+        ICollection<ILogProvider> additionalProviders
+    )
+    {
+        var message = new StringBuilder();
+
+        var counter = 0;
+
+        while (exceptions.Count > 0)
         {
-            var message = new StringBuilder();
+            var current = exceptions.Dequeue();
 
-            var counter = 0;
-
-            while (exceptions.Count > 0)
+            if (counter > 0)
             {
-                var current = exceptions.Dequeue();
-
-                if (counter > 0)
-                {
-                    message
-                        .Append("Exception rethrow at")
-                        .Append(@" [")
-                        .Append(counter)
-                        .Append(@"]: ");
-                }
-
-                message
-                    .Append(current.Message)
-                    .AppendFormat(" [{0}]", current.GetType().Name)
-                    .AppendLine()
-                    .AppendLine(current.StackTrace);
-
-                counter++;
-
-                foreach (var additionalProvider in additionalProviders)
-                {
-                    additionalProvider.Error(category, current.Message);
-                }
+                message.Append("Exception rethrow at").Append(@" [").Append(counter).Append(@"]: ");
             }
 
-            return message.ToString();
+            message
+                .Append(current.Message)
+                .AppendFormat(" [{0}]", current.GetType().Name)
+                .AppendLine()
+                .AppendLine(current.StackTrace);
+
+            counter++;
+
+            foreach (var additionalProvider in additionalProviders)
+            {
+                additionalProvider.Error(category, current.Message);
+            }
         }
+
+        return message.ToString();
     }
 }

@@ -9,11 +9,6 @@ namespace CrispyWaffle.Tests.Utilities;
 [Collection("Logged collection")]
 public class LazyResettableTests
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LazyResettableTests"/> class.
-    /// </summary>
-    /// <param name="testOutputHelper">The test output helper.</param>
-    /// <param name="fixture">The fixture.</param>
     public LazyResettableTests(ITestOutputHelper testOutputHelper, LoggingFixture fixture) =>
         fixture.SetLogProvider(testOutputHelper);
 

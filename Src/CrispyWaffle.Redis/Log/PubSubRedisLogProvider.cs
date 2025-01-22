@@ -9,334 +9,335 @@ using CrispyWaffle.Redis.Log.PropagationStrategy;
 using CrispyWaffle.Redis.Utils.Communications;
 using CrispyWaffle.Serialization;
 
-namespace CrispyWaffle.Redis.Log
+namespace CrispyWaffle.Redis.Log;
+
+/// <summary>
+/// A log provider that sends log messages to a Redis Pub/Sub system for propagation.
+/// </summary>
+public class PubSubRedisLogProvider : ILogProvider
 {
-    public class PubSubRedisLogProvider : ILogProvider
+    /// <summary>
+    /// The Redis connector responsible for handling Redis operations.
+    /// </summary>
+    private readonly RedisConnector _redis;
+
+    /// <summary>
+    /// The strategy used for propagating log messages.
+    /// </summary>
+    private readonly IPropagationStrategy _propagationStrategy;
+
+    /// <summary>
+    /// The current logging level, determining which log messages are propagated.
+    /// </summary>
+    private LogLevel _level;
+
+    /// <summary>
+    /// The cancellation token used to stop the background logging worker.
+    /// </summary>
+    private readonly CancellationToken _cancellationToken;
+
+    /// <summary>
+    /// A queue that holds log messages to be processed by the background worker.
+    /// </summary>
+    private readonly ConcurrentQueue<string> _queue;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PubSubRedisLogProvider"/> class.
+    /// </summary>
+    /// <param name="redis">The Redis connector instance used for interacting with Redis.</param>
+    /// <param name="propagationStrategy">The strategy used for propagating messages to Redis.</param>
+    /// <param name="cancellationToken">The cancellation token used to cancel the background worker.</param>
+    public PubSubRedisLogProvider(
+        RedisConnector redis,
+        IPropagationStrategy propagationStrategy,
+        CancellationToken cancellationToken
+    )
     {
-        /// <summary>
-        /// The Redis connector
-        /// </summary>
-        private readonly RedisConnector _redis;
+        _redis = redis;
+        _propagationStrategy = propagationStrategy;
+        _cancellationToken = cancellationToken;
+        _queue = new ConcurrentQueue<string>();
 
-        /// <summary>
-        /// The propagation strategy
-        /// </summary>
-        private readonly IPropagationStrategy _propagationStrategy;
+        // Start a background worker to process the queue
+        var thread = new Thread(Worker);
+        thread.Start();
+    }
 
-        /// <summary>
-        /// The level
-        /// </summary>
-        private LogLevel _level;
+    /// <summary>
+    /// Background worker that processes log messages from the queue and propagates them.
+    /// </summary>
+    private void Worker()
+    {
+        Thread.CurrentThread.Name = "Message queue Redis log provider worker";
+        Thread.Sleep(1000);
 
-        /// <summary>
-        /// The cancellation token
-        /// </summary>
-        private readonly CancellationToken _cancellationToken;
-
-        /// <summary>
-        /// The queue
-        /// </summary>
-        private readonly ConcurrentQueue<string> _queue;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PubSubRedisLogProvider" /> class.
-        /// </summary>
-        /// <param name="redis">The redis.</param>
-        /// <param name="propagationStrategy">The propagation strategy.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        public PubSubRedisLogProvider(
-            RedisConnector redis,
-            IPropagationStrategy propagationStrategy,
-            CancellationToken cancellationToken
-        )
+        while (true)
         {
-            _redis = redis;
-            _propagationStrategy = propagationStrategy;
-            _cancellationToken = cancellationToken;
-            _queue = new ConcurrentQueue<string>();
-            var thread = new Thread(Worker);
-            thread.Start();
-        }
-
-        /// <summary>
-        /// Workers this instance.
-        /// </summary>
-        private void Worker()
-        {
-            Thread.CurrentThread.Name = "Message queue Redis log provider worker";
-            Thread.Sleep(1000);
-
-            while (true)
+            // Process messages in the queue
+            while (_queue.Count > 0)
             {
-                while (_queue.Count > 0)
-                {
-                    if (!_queue.TryDequeue(out var message))
-                    {
-                        break;
-                    }
-
-                    PropagateMessageInternal(message);
-                }
-
-                if (_cancellationToken.IsCancellationRequested)
+                if (!_queue.TryDequeue(out var message))
                 {
                     break;
                 }
+
+                PropagateMessageInternal(message);
+            }
+
+            // Exit loop if cancellation is requested
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                break;
             }
         }
+    }
 
-        /// <summary>
-        /// Serializes a log message into a string format.
-        /// </summary>
-        /// <param name="level">The log level of the message, indicating its severity.</param>
-        /// <param name="category">The category under which the log message falls.</param>
-        /// <param name="message">The actual log message content.</param>
-        /// <param name="identifier">An optional identifier for the message, can be null.</param>
-        /// <returns>A serialized string representation of the log message.</returns>
-        /// <remarks>
-        /// This method creates a new instance of the <see cref="LogMessage"/> class, populating its properties with relevant information such as
-        /// the current date and time, hostname, unique identifier, IP addresses, log level, and other contextual data.
-        /// The method then calls the <see cref="GetSerializer"/> method to convert the populated log message into a string format suitable
-        /// for logging purposes. This serialized string can be used for storing logs or sending them to a logging service.
-        /// </remarks>
-        private static string Serialize(
-            LogLevel level,
-            string category,
-            string message,
-            string identifier = null
-        )
+    /// <summary>
+    /// Serializes a log message into a string format suitable for logging and propagation.
+    /// </summary>
+    /// <param name="level">The log level indicating the severity of the message.</param>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    /// <param name="identifier">An optional identifier for the log message.</param>
+    /// <returns>A serialized string representation of the log message.</returns>
+    /// <remarks>
+    /// This method creates a <see cref="LogMessage"/> instance and serializes it into a string representation.
+    /// The serialized message includes contextual information such as the date, hostname, process ID,
+    /// and other relevant data.
+    /// </remarks>
+    private static string Serialize(
+        LogLevel level,
+        string category,
+        string message,
+        string identifier = null
+    )
+    {
+        return (string)
+            new LogMessage
+            {
+                Category = category,
+                Date = DateTime.Now,
+                Hostname = EnvironmentHelper.Host,
+                Id = Guid.NewGuid().ToString(),
+                IpAddress = EnvironmentHelper.IpAddress,
+                IpAddressRemote = EnvironmentHelper.IpAddressExternal,
+                Level = level.GetHumanReadableValue(),
+                Message = message,
+                MessageIdentifier = identifier,
+                Operation = EnvironmentHelper.Operation,
+                ProcessId = EnvironmentHelper.ProcessId,
+                UserAgent = EnvironmentHelper.UserAgent,
+                ThreadId = Environment.CurrentManagedThreadId,
+                ThreadName = Thread.CurrentThread.Name,
+            }.GetSerializer();
+    }
+
+    /// <summary>
+    /// Propagates a log message to Redis using the specified propagation strategy.
+    /// </summary>
+    /// <param name="message">The serialized log message to be propagated.</param>
+    private void PropagateMessageInternal(string message)
+    {
+        try
         {
-            return (string)
-                new LogMessage
-                {
-                    Category = category,
-                    Date = DateTime.Now,
-                    Hostname = EnvironmentHelper.Host,
-                    Id = Guid.NewGuid().ToString(),
-                    IpAddress = EnvironmentHelper.IpAddress,
-                    IpAddressRemote = EnvironmentHelper.IpAddressExternal,
-                    Level = level.GetHumanReadableValue(),
-                    Message = message,
-                    MessageIdentifier = identifier,
-                    Operation = EnvironmentHelper.Operation,
-                    ProcessId = EnvironmentHelper.ProcessId,
-                    UserAgent = EnvironmentHelper.UserAgent,
-                    ThreadId = Environment.CurrentManagedThreadId,
-                    ThreadName = Thread.CurrentThread.Name,
-                }.GetSerializer();
+            _propagationStrategy.Propagate(message, _redis.QueuePrefix, _redis.Subscriber);
         }
-
-        /// <summary>
-        /// Propagates the message internal.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private void PropagateMessageInternal(string message)
+        catch (Exception e)
         {
-            try
-            {
-                _propagationStrategy.Propagate(message, _redis.QueuePrefix, _redis.Subscriber);
-            }
-            catch (Exception e)
-            {
-                LogConsumer.Debug("Message: {0} | Stack Trace: {1}", e.Message, e.StackTrace);
-            }
+            LogConsumer.Debug("Message: {0} | Stack Trace: {1}", e.Message, e.StackTrace);
         }
+    }
 
-        /// <summary>
-        /// Propagates the internal.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private void PropagateInternal(string message)
+    /// <summary>
+    /// Enqueues a log message for processing by the background worker.
+    /// </summary>
+    /// <param name="message">The serialized log message to be processed.</param>
+    private void PropagateInternal(string message) => _queue.Enqueue(message);
+
+    /// <summary>
+    /// Sets the log level for the provider, determining which messages are processed.
+    /// </summary>
+    /// <param name="level">The log level to set.</param>
+    public void SetLevel(LogLevel level) => _level = level;
+
+    // The following methods represent the logging functionality at various severity levels.
+    // They serialize the log message and add it to the internal queue for propagation.
+
+    /// <summary>
+    /// Logs a fatal message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Fatal(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Fatal))
         {
-            _queue.Enqueue(message);
+            return;
         }
 
-        /// <summary>
-        /// Sets the level.
-        /// </summary>
-        /// <param name="level">The level.</param>
-        public void SetLevel(LogLevel level)
+        PropagateInternal(Serialize(LogLevel.Fatal, category, message));
+    }
+
+    /// <summary>
+    /// Logs an error message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Error(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Error))
         {
-            _level = level;
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with fatal level.
-        /// </summary>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        public void Fatal(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Error, category, message));
+    }
+
+    /// <summary>
+    /// Logs a warning message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Warning(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Warning))
         {
-            if (!_level.HasFlag(LogLevel.Fatal))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Fatal, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with error level.
-        /// </summary>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        public void Error(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Warning, category, message));
+    }
+
+    /// <summary>
+    /// Logs an info message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Info(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Info))
         {
-            if (!_level.HasFlag(LogLevel.Error))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Error, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with warning level.
-        /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged.</param>
-        public void Warning(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Info, category, message));
+    }
+
+    /// <summary>
+    /// Logs a trace message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Trace(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Trace))
         {
-            if (!_level.HasFlag(LogLevel.Warning))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Warning, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with info level.
-        /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
-        public void Info(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Trace, category, message));
+    }
+
+    /// <summary>
+    /// Logs a trace message, including exception details.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    /// <param name="exception">The exception associated with the trace.</param>
+    public void Trace(string category, string message, Exception exception)
+    {
+        if (!_level.HasFlag(LogLevel.Trace))
         {
-            if (!_level.HasFlag(LogLevel.Info))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Info, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with trace level.
-        /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
-        public void Trace(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Trace, category, message));
+        Trace(category, exception);
+    }
+
+    /// <summary>
+    /// Logs an exception trace.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="exception">The exception to log.</param>
+    public void Trace(string category, Exception exception)
+    {
+        if (!_level.HasFlag(LogLevel.Trace))
         {
-            if (!_level.HasFlag(LogLevel.Trace))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Trace, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Traces the specified category.
-        /// </summary>
-        /// <param name="category">The category.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="exception">The exception.</param>
-        public void Trace(string category, string message, Exception exception)
+        do
         {
-            if (!_level.HasFlag(LogLevel.Trace))
-            {
-                return;
-            }
+            PropagateInternal(Serialize(LogLevel.Trace, category, exception.Message));
+            PropagateInternal(Serialize(LogLevel.Trace, category, exception.StackTrace));
 
-            PropagateInternal(Serialize(LogLevel.Trace, category, message));
+            exception = exception.InnerException;
+        } while (exception != null);
+    }
 
-            Trace(category, exception);
-        }
-
-        /// <summary>
-        /// Traces the specified category.
-        /// </summary>
-        /// <param name="category">The category.</param>
-        /// <param name="exception">The exception.</param>
-        public void Trace(string category, Exception exception)
+    /// <summary>
+    /// Logs a debug message.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="message">The log message content.</param>
+    public void Debug(string category, string message)
+    {
+        if (!_level.HasFlag(LogLevel.Debug))
         {
-            if (!_level.HasFlag(LogLevel.Trace))
-            {
-                return;
-            }
-
-            do
-            {
-                PropagateInternal(Serialize(LogLevel.Trace, category, exception.Message));
-                PropagateInternal(Serialize(LogLevel.Trace, category, exception.StackTrace));
-
-                exception = exception.InnerException;
-            } while (exception != null);
+            return;
         }
 
-        /// <summary>
-        /// Logs the message with debug level.
-        /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="message">The message to be logged</param>
-        public void Debug(string category, string message)
+        PropagateInternal(Serialize(LogLevel.Debug, category, message));
+    }
+
+    /// <summary>
+    /// Logs debug content as a file/attachment, using a custom identifier.
+    /// </summary>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="content">The content to be stored.</param>
+    /// <param name="identifier">The file/attachment identifier (e.g., filename, key).</param>
+    public void Debug(string category, string content, string identifier)
+    {
+        if (!_level.HasFlag(LogLevel.Debug))
         {
-            if (!_level.HasFlag(LogLevel.Debug))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Debug, category, message));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level
-        /// </summary>
-        /// <param name="category">The category</param>
-        /// <param name="content">The content to be stored</param>
-        /// <param name="identifier">The file name of the content. This can be a filename, a key, a identifier. Depends upon each implementation</param>
-        public void Debug(string category, string content, string identifier)
+        PropagateInternal(Serialize(LogLevel.Debug, category, content, identifier));
+    }
+
+    /// <summary>
+    /// Logs debug content using a custom serializer or default serialization.
+    /// </summary>
+    /// <typeparam name="T">The type of object to serialize.</typeparam>
+    /// <param name="category">The category of the log message.</param>
+    /// <param name="content">The object to be serialized.</param>
+    /// <param name="identifier">The file/attachment identifier.</param>
+    /// <param name="customFormat">The custom serializer format to use.</param>
+    public void Debug<T>(
+        string category,
+        T content,
+        string identifier,
+        SerializerFormat customFormat = SerializerFormat.None
+    )
+        where T : class, new()
+    {
+        if (!_level.HasFlag(LogLevel.Debug))
         {
-            if (!_level.HasFlag(LogLevel.Debug))
-            {
-                return;
-            }
-
-            PropagateInternal(Serialize(LogLevel.Debug, category, content, identifier));
+            return;
         }
 
-        /// <summary>
-        /// Logs the message as a file/attachment with a file name/identifier with debug level using a custom serializer or default.
-        /// </summary>
-        /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format</typeparam>
-        /// <param name="category">The category</param>
-        /// <param name="content">The object to be serialized</param>
-        /// <param name="identifier">The filename/attachment identifier (file name or key)</param>
-        /// <param name="customFormat">(Optional) the custom serializer format</param>
-        public void Debug<T>(
-            string category,
-            T content,
-            string identifier,
-            SerializerFormat customFormat = SerializerFormat.None
-        )
-            where T : class, new()
+        string serialized;
+        if (customFormat == SerializerFormat.None)
         {
-            if (!_level.HasFlag(LogLevel.Debug))
-            {
-                return;
-            }
-
-            string serialized;
-            if (customFormat == SerializerFormat.None)
-            {
-                serialized = (string)content.GetSerializer();
-            }
-            else
-            {
-                serialized = (string)content.GetCustomSerializer(customFormat);
-            }
-
-            PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
+            serialized = (string)content.GetSerializer();
         }
+        else
+        {
+            serialized = (string)content.GetCustomSerializer(customFormat);
+        }
+
+        PropagateInternal(Serialize(LogLevel.Debug, category, serialized, identifier));
     }
 }

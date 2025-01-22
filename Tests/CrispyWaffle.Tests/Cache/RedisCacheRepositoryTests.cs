@@ -39,7 +39,7 @@ public class RedisCacheRepositoryTests
     }
 
     [Fact]
-    public void SetToDatabase_ShouldStoreValue()
+    public void SetToDatabaseShouldStoreValue()
     {
         // Arrange
         var key = "test-key";
@@ -56,7 +56,7 @@ public class RedisCacheRepositoryTests
     }
 
     [Fact]
-    public void GetFromDatabase_ShouldReturnStoredValue()
+    public void GetFromDatabaseShouldReturnStoredValue()
     {
         // Arrange
         var key = "test-key";
@@ -70,7 +70,7 @@ public class RedisCacheRepositoryTests
     }
 
     [Fact]
-    public void RemoveFromDatabase_ShouldRemoveValue()
+    public void RemoveFromDatabaseShouldRemoveValue()
     {
         // Arrange
         var key = "test-key";

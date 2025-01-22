@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -132,29 +131,19 @@ public class JsonSerializerAdapterTests
     private static string GetStringContent() =>
         "{\n  \"Id\": \"00000000-0000-0000-0000-000000000000\",\n  \"Date\": \"2023-10-28T10:15:00\",\n  \"ListStrong\": [\n    {\n      \"CorrelationId\": \"00000000-0000-0000-0000-000000000000\",\n      \"SomeText\": \"Test\",\n      \"Date\": \"2023-10-28T10:15:00\"\n    }\n  ]\n}";
 
-    /// <summary>
-    /// Generates a sample instance of <see cref="SampleJsonClass"/> with predefined values.
-    /// </summary>
-    /// <returns>A new instance of <see cref="SampleJsonClass"/> populated with sample data.</returns>
-    /// <remarks>
-    /// This method creates a sample JSON object for testing or demonstration purposes.
-    /// The generated object includes a specific date, an empty GUID for the Id, and a list containing one instance of <see cref="StrongTypingClass"/>.
-    /// The <see cref="StrongTypingClass"/> instance is initialized with an empty CorrelationId, a specific date, and a sample text "Test".
-    /// This method is useful for scenarios where you need to provide mock data without relying on external sources.
-    /// </remarks>
     private static SampleJsonClass GenerateSampleData() =>
         new()
         {
             Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
             Id = Guid.Empty,
-            ListStrong = new List<StrongTypingClass>
-            {
+            ListStrong =
+            [
                 new()
                 {
                     CorrelationId = Guid.Empty,
                     Date = new DateTime(2023, 10, 28, 10, 15, 0, DateTimeKind.Unspecified),
                     SomeText = "Test",
                 },
-            },
+            ],
         };
 }
