@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CrispyWaffle.Sagas;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
 
