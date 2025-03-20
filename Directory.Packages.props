@@ -9,7 +9,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.17.1" />
+    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.17.3" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
     <PackageVersion Include="FluentAssertions" Version="8.2.0" />
     <PackageVersion Include="JunitXml.TestLogger" Version="6.1.0" />
@@ -23,7 +23,7 @@
     <PackageVersion Include="StackExchange.Redis" Version="2.8.24" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
-    <PackageVersion Include="System.Diagnostics.EventLog" Version="9.0.2" />
+    <PackageVersion Include="System.Diagnostics.EventLog" Version="9.0.3" />
     <PackageVersion Include="System.Security.Permissions" Version="[6.0.0,7.0.0)" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="9.0.3" />
     <PackageVersion Include="System.Text.Json" Version="9.0.3" />
