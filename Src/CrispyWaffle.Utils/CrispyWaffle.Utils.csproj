@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>C86C7297-1E8D-4611-B01A-08FC4FDF1D62</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,10 +6,8 @@
     <PackageTags>toolkit sdk framework library lib utils communications mail smtp ftp</PackageTags>
     <PackageReleaseNotes>Utils release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-  
 </Project>

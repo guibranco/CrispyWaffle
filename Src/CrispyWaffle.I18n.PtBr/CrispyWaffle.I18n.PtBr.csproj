@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>0EB3767D-0830-5559-B54D-7AA26286F0BD</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
     <Description>The CrispyWaffle i18n pt-br package</Description>
     <PackageTags>toolkit sdk framework library lib i18n pt-br</PackageTags>
-        <PackageReleaseNotes>i18n pt-br release</PackageReleaseNotes>
+    <PackageReleaseNotes>i18n pt-br release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
 </Project>

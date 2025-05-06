@@ -88,8 +88,8 @@ public class JsonSerializerAdapterTests
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
 
         // Act & Assert
-        Assert.Throws<NotNullObserverException>(
-            () => _serializer.DeserializeFromStream<NotNullObserver>(stream)
+        Assert.Throws<NotNullObserverException>(() =>
+            _serializer.DeserializeFromStream<NotNullObserver>(stream)
         );
     }
 
