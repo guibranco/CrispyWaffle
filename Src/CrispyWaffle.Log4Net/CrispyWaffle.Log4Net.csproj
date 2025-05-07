@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>D6164E04-F1C9-4D86-9B9C-41036B816C4A</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,13 +6,10 @@
     <PackageTags>toolkit sdk framework library lib log4net bridge log provider</PackageTags>
     <PackageReleaseNotes>Log4Net release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="log4net" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
 </Project>

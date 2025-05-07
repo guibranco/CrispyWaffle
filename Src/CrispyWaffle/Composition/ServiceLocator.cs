@@ -229,8 +229,8 @@ public static class ServiceLocator
     /// <param name="implementation">The implementation.</param>
     private static void RegisterDisposableInternal(Type contract, Type implementation)
     {
-        var lazyDisposable = new LazyDisposable<IDisposable>(
-            () => (IDisposable)CreateInstance(implementation)
+        var lazyDisposable = new LazyDisposable<IDisposable>(() =>
+            (IDisposable)CreateInstance(implementation)
         );
         _registrations.AddOrUpdate(
             contract,
@@ -685,8 +685,8 @@ public static class ServiceLocator
     public static void RegisterDependencyResolver<TContract, TImplementation>()
         where TImplementation : IDependencyResolver
     {
-        var lazy = new Lazy<IDependencyResolver>(
-            () => (IDependencyResolver)GetInstance(typeof(TImplementation))
+        var lazy = new Lazy<IDependencyResolver>(() =>
+            (IDependencyResolver)GetInstance(typeof(TImplementation))
         );
         _dependenciesResolvers.Add(typeof(TContract), lazy.Value);
     }

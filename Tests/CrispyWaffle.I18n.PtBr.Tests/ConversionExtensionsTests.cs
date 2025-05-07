@@ -55,8 +55,8 @@ public class ConversionExtensionsTests
         string cleanPhoneNumber
     )
     {
-        var result = Assert.Throws<InvalidTelephoneNumberException>(
-            () => phoneNumber.ParseBrazilianPhoneNumber()
+        var result = Assert.Throws<InvalidTelephoneNumberException>(() =>
+            phoneNumber.ParseBrazilianPhoneNumber()
         );
 
         Assert.Equal(

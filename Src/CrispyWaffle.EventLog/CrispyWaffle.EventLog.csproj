@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>{0E0F2FA2-88CE-46FA-9D0B-27F184BD4F24}</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,13 +6,10 @@
     <PackageTags>toolkit sdk framework library lib event log provider</PackageTags>
     <PackageReleaseNotes>EventLog release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.Diagnostics.EventLog" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-  
 </Project>

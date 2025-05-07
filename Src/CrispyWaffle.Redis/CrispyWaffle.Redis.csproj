@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>47DB173E-BC2B-4C16-B2A9-9506E57D6D9E</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -8,15 +7,12 @@
     <Company>Guilherme Branco Stracini ME</Company>
     <PackageReleaseNotes>Redis release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis" />
     <PackageReference Include="StackExchange.Redis.Extensions.Core" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-  
 </Project>
