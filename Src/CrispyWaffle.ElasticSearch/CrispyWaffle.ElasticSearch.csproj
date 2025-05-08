@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>A4C3BBE2-F33F-4752-97C4-206D7C4D6DDD</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,14 +6,11 @@
     <PackageTags>toolkit sdk framework library lib elasticsearch nosql database log provider</PackageTags>
     <PackageReleaseNotes>ElasticSearch release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Elastic.Clients.Elasticsearch" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
 </Project>

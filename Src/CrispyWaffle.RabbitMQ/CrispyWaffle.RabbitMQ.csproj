@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>D0B119A8-91C1-4350-AB68-CDD831D2F9BE</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,14 +6,11 @@
     <PackageTags>toolkit sdk framework library lib rabbitmq queueing queue message broker messaging log provider</PackageTags>
     <PackageReleaseNotes>RabbitMQ release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-  
 </Project>
