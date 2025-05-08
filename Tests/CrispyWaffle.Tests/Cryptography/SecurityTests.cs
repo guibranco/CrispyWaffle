@@ -55,8 +55,8 @@ public class SecurityTests
     [Fact]
     public void HashInvalidType()
     {
-        var result = Assert.Throws<ArgumentOutOfRangeException>(
-            () => Security.Hash(PlainText, (HashAlgorithmType)10)
+        var result = Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Security.Hash(PlainText, (HashAlgorithmType)10)
         );
 
         Assert.NotNull(result);
