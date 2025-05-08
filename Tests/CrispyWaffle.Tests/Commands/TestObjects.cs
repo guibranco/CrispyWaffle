@@ -35,11 +35,10 @@ internal sealed class TestObjects
             TestDoneCommand,
             TestDoneResultCommand
         >.HandleAsync(TestDoneCommand command) =>
-            Task.Run(
-                () =>
-                    new TestDoneResultCommand(
-                        $"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}"
-                    )
+            Task.Run(() =>
+                new TestDoneResultCommand(
+                    $"Sample done action handled: {command.Identifier} - {command.Text} - {command.CreatedDateTime:dd/MM/yyyy HH:mm:ss}"
+                )
             );
     }
 }

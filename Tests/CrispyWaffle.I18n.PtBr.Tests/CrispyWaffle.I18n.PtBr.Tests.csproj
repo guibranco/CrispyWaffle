@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>DAE04EC0-911F-11D3-BF4B-00C04F79EFBC</ProjectGuid>
     <TargetFramework>$(DotNetVersionTests)</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" />
     <PackageReference Include="FluentAssertions" />
@@ -17,9 +15,7 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Src\CrispyWaffle.I18n.PtBr\CrispyWaffle.I18n.PtBr.csproj" />
   </ItemGroup>
-
 </Project>

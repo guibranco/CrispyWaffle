@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>CCE04EC0-301F-DDD3-BF4B-00C04F79EFBC</ProjectGuid>
     <TargetFrameworks>$(DotNetVersionTests)</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" />
     <PackageReference Include="FluentAssertions" />
@@ -19,7 +17,6 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\Src\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle.CouchDB\CrispyWaffle.CouchDB.csproj" />
@@ -27,5 +24,4 @@
     <ProjectReference Include="..\..\Src\CrispyWaffle.Redis\CrispyWaffle.Redis.csproj" />
     <ProjectReference Include="..\..\Src\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
 </Project>
