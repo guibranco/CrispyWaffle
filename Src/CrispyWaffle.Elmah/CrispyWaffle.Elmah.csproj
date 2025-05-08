@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <ProjectGuid>687F6153-2295-40A6-8673-1359482F928B</ProjectGuid>
     <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
@@ -7,16 +6,13 @@
     <PackageTags>toolkit sdk framework library lib ELMAH bridge log provider exception handler</PackageTags>
     <PackageReleaseNotes>ELMAH release</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-	  <!-- ReSharper disable once VulnerablePackage -->
-	  <PackageReference Include="ElmahCore" />
-	  <PackageReference Include="System.Text.Encoding.CodePages" />
-	  <PackageReference Include="System.Text.Json" />
+    <!-- ReSharper disable once VulnerablePackage -->
+    <PackageReference Include="ElmahCore" />
+    <PackageReference Include="System.Text.Encoding.CodePages" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
-
 </Project>
