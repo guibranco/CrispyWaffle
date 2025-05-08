@@ -61,8 +61,8 @@ public class PersonalDataValidationTests
     [InlineData("1")]
     public void IsValidBrazilianPersonDocumentInvalidInputThrowsException(string inputDocument)
     {
-        var exception = Assert.Throws<InvalidDocumentException>(
-            () => inputDocument.IsValidBrazilianPersonDocument()
+        var exception = Assert.Throws<InvalidDocumentException>(() =>
+            inputDocument.IsValidBrazilianPersonDocument()
         );
         Assert.Equal(
             $"The value '{inputDocument}' isn't a valid value for a document of type CPF",
@@ -97,8 +97,8 @@ public class PersonalDataValidationTests
     [InlineData("1")]
     public void IsValidBrazilianCorporateDocumentInvalidInputThrowsException(string inputDocument)
     {
-        var exception = Assert.Throws<InvalidDocumentException>(
-            () => inputDocument.IsValidBrazilianCorporateDocument()
+        var exception = Assert.Throws<InvalidDocumentException>(() =>
+            inputDocument.IsValidBrazilianCorporateDocument()
         );
         Assert.Equal(
             $"The value '{inputDocument}' isn't a valid value for a document of type CNPJ",
