@@ -61,15 +61,15 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## .NET support
 
-As of August 2024, this toolkit is currently published in the following `.NET` versions:
+As of June 2025, this toolkit is currently published in the following `.NET` versions:
 
 - .NET Standard 2.0
 - .NET Standard 2.1
-- .NET 6.0
 - .NET 8.0
+- .NET 9.0
 
 This is an official Microsoft [.NET-supported versions](https://dotnet.microsoft.com/en-us/platform/dotnet-standard) table based on the lowest target version (.NET Standard 2.0):
-![Supported version as of Aug/2024](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/docs/images/supported-versions-2025-06.png)
+![Supported version as of June/2025](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/docs/images/supported-versions-2025-06.png)
 
 ---
 
