@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Run InferSharp
+      id: infersharp
       uses: microsoft/infersharpaction@v1.5
 
     - name: Upload SARIF results

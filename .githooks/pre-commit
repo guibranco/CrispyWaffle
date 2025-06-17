@@ -13,4 +13,4 @@ then
     exit 1
 fi
 
-dotnet tool restore && dotnet csharpier . --check
+dotnet tool restore && dotnet csharpier check .
