@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -270,7 +270,6 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     public async Task RemoveSpecificAsync<T>(string key, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
-
         if (string.IsNullOrWhiteSpace(key))
         {
             throw new ArgumentException("Key cannot be null, empty, or whitespace.", nameof(key));
@@ -329,7 +328,6 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentException">Thrown when key is null, empty, or whitespace.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-
     public async Task RemoveSpecificAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
