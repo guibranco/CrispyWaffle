@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -1120,7 +1120,6 @@ public static class CacheManager
         CancellationToken cancellationToken = default
     )
     {
-
         try
         {
             cancellationToken.ThrowIfCancellationRequested();

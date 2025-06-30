@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
@@ -68,7 +68,6 @@ public class MemoryCacheRepository : ICacheRepository
     /// <returns>ValuTask.</returns>
     public ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
     {
-
         cancellationToken.ThrowIfCancellationRequested();
 
         var finalKey = $"{key}-{subKey}";
@@ -87,7 +86,6 @@ public class MemoryCacheRepository : ICacheRepository
     /// <exception cref="OperationCanceledException">If cancelled.</exception>
     public async ValueTask<T> GetAsync<T>(string key, CancellationToken cancellationToken = default)
     {
-
         cancellationToken.ThrowIfCancellationRequested();
 
         if (!_data.TryGetValue(key, out var value))
@@ -182,17 +180,17 @@ public class MemoryCacheRepository : ICacheRepository
         var finalKey = $"{key}-{subKey}";
         if (!_hash.TryGetValue(finalKey, out var temp))
         {
-            return new ValueTask<(bool Success, T Value)>((Success: false, Value: default(T))); ;
+            return new ValueTask<(bool Success, T Value)>((Success: false, Value: default(T)));
         }
 
         try
         {
             var value = (T)temp;
-            return new ValueTask<(bool Success, T Value)>((Success: true, Value: value)); ;
+            return new ValueTask<(bool Success, T Value)>((Success: true, Value: value));
         }
         catch (InvalidCastException)
         {
-            return new ValueTask<(bool Success, T Value)>((Success: false, Value: default(T))); ;
+            return new ValueTask<(bool Success, T Value)>((Success: false, Value: default(T)));
         }
     }
 
