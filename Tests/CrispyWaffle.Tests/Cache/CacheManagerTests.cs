@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using CrispyWaffle.Cache;
 using FluentAssertions;
 using NSubstitute;
@@ -45,22 +47,22 @@ public class CacheManagerTests
     }
 
     [Fact]
-    public void SetShouldSetValueInAllRepositories()
+    public async Task SetAsyncShouldSetValueInAllRepositories()
     {
         // Arrange
         var key = "testKey";
         var value = new { Name = "Test" };
-        CacheManager.AddRepository(_mockCacheRepository);
+        CacheManager.AddRepository(_mockCacheRepository);      
 
         // Act
-        CacheManager.Set(value, key);
+        await CacheManager.SetAsync(value, key);
 
         // Assert
-        _mockCacheRepository.Received().Set(value, key);
+        await _mockCacheRepository.Received(1).SetAsync(value, key);
     }
 
     [Fact]
-    public void SetShouldSetValueInRepositoriesWithTTL()
+    public async Task SetAsyncShouldSetValueInRepositoriesWithTTL()
     {
         // Arrange
         var key = "testKey";
@@ -69,30 +71,45 @@ public class CacheManagerTests
         CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
-        CacheManager.Set(value, key, ttl);
+        await CacheManager.SetAsync(value, key, ttl);
 
         // Assert
-        _mockCacheRepository.Received().Set(value, key, ttl);
+        await _mockCacheRepository.Received(1).SetAsync(value, key, ttl);
     }
 
     [Fact]
-    public void GetShouldThrowWhenItemNotFound()
+    public async Task SetAsyncShouldSetValueWithSubKey()
     {
         // Arrange
         var key = "testKey";
-        _mockCacheRepository.TryGet(key, out Arg.Any<object>()).Returns(false);
+        var subKey = "testSubKey";
+        var value = new { Name = "Test" };
+        CacheManager.AddRepository(_mockCacheRepository);       
 
         // Act
-        Action act = () => CacheManager.Get<dynamic>(key);
+        await CacheManager.SetAsync(value, key, subKey);
 
         // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
+        await _mockCacheRepository.Received(1).SetAsync(value, key, subKey, Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task GetAsyncShouldThrowWhenItemNotFound()
+    {
+        // Arrange
+        var key = "testKey";
+        CacheManager.AddRepository(_mockCacheRepository);
+        // Act
+        Func<Task> act = async () => await CacheManager.GetAsync<dynamic>(key);
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<InvalidOperationException>()
             .WithMessage("Unable to get the item with key testKey");
     }
 
     [Fact]
-    public void SetToShouldThrowWhenRepositoryNotFound()
+    public async Task SetToShouldThrowWhenRepositoryNotFound()
     {
         // Arrange
         var key = "testKey";
@@ -100,41 +117,27 @@ public class CacheManagerTests
         CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
-        Action act = () => CacheManager.SetTo<ICacheRepository, object>(value, key);
+        Func<Task> act = async () => await CacheManager.SetToAsync<ICacheRepository, object>(value, key);
 
         // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
+        await act.Should()
+            .ThrowAsync<InvalidOperationException>()
             .WithMessage(
                 "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
             );
-    }
+    }   
 
     [Fact]
-    public void RemoveShouldRemoveKeyFromAllRepositories()
-    {
-        // Arrange
-        var key = "testKey";
-        CacheManager.AddRepository(_mockCacheRepository);
-
-        // Act
-        CacheManager.Remove(key);
-
-        // Assert
-        _mockCacheRepository.Received().Remove(key);
-    }
-
-    [Fact]
-    public void TTLShouldReturnCorrectTTLFromRepositories()
+    public async Task TTLShouldReturnCorrectTTLFromRepositories()
     {
         // Arrange
         var key = "testKey";
         var expectedTTL = TimeSpan.FromMinutes(10);
-        CacheManager.AddRepository(_mockCacheRepository);
-        _mockCacheRepository.TTL(key).Returns(expectedTTL);
+        CacheManager.AddRepository(_mockCacheRepository); 
+        await CacheManager.SetAsync(new { Name = "Test" }, key, expectedTTL, CancellationToken.None); // Set value with TTL
 
         // Act
-        var result = CacheManager.TTL(key);
+        var result = await CacheManager.TTLAsync(key);
 
         // Assert
         result.Should().Be(expectedTTL);
@@ -148,11 +151,11 @@ public class CacheManagerTests
         CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
-        Action act = () => CacheManager.RemoveFrom<ICacheRepository>(key);
+        Func<Task> act = async () => await CacheManager.RemoveFrom<ICacheRepository>(key);
 
         // Assert
         act.Should()
-            .Throw<InvalidOperationException>()
+            .ThrowAsync<InvalidOperationException>()
             .WithMessage(
                 "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
             );

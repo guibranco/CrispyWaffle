@@ -708,11 +708,12 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// <summary>
     /// Clears this instance.
     /// </summary>
-    public void Clear()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public async Task Clear()
     {
         try
         {
-            _cacheClient.Db0.FlushDbAsync().Wait();
+           await _cacheClient.Db0.FlushDbAsync();
         }
         catch (Exception e)
         {

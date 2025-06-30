@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CrispyWaffle.Cache;
 using CrispyWaffle.Configuration;
@@ -329,7 +330,8 @@ public class SmtpMailer : IMailer
         }
         catch (Exception e)
         {
-            if (!HandleExtension(e, cacheKey))
+            var result = await HandleExtension(e, cacheKey);
+            if (!result)
             {
                 throw;
             }
@@ -343,7 +345,11 @@ public class SmtpMailer : IMailer
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     private async Task SendInternalAsync(string cacheKey)
     {
-        if (CacheManager.TryGet(cacheKey, out bool exists) && exists)
+
+        (bool exists, _) = await CacheManager.TryGetAsync<object>(cacheKey, CancellationToken.None);
+
+
+        if (exists)
         {
             LogConsumer.Trace("E-mail sending disabled due {0}", "network error");
             return;
@@ -366,8 +372,8 @@ public class SmtpMailer : IMailer
     /// </summary>
     /// <param name="e">The exception that occurred.</param>
     /// <param name="cacheKey">The cache key to prevent repeated failures.</param>
-    /// <returns><see langword="true"/> if the exception was handled; otherwise, <see langword="false"/>.</returns>
-    private static bool HandleExtension(Exception e, string cacheKey)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    private static async Task<bool> HandleExtension(Exception e, string cacheKey)
     {
         TelemetryAnalytics.TrackMetric("SMTPError", e.Message);
         if (
@@ -376,7 +382,7 @@ public class SmtpMailer : IMailer
             || e.Message.IndexOf(@"5.0.3", StringComparison.InvariantCultureIgnoreCase) != -1
         )
         {
-            CacheManager.Set(true, cacheKey, new TimeSpan(0, 15, 0));
+            await CacheManager.SetAsync(true, cacheKey, new TimeSpan(0, 15, 0));
             return true;
         }
 

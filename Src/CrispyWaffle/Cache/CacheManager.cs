@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
 using Newtonsoft.Json.Linq;
@@ -502,6 +503,10 @@ public static class CacheManager
                     LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)",  key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
                     return result;
                 }
+                catch (InvalidOperationException)
+                {
+                    throw new InvalidOperationException($"Unable to get the item with key {key}");
+                }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
                 {
                     // User cancelled - stop immediately
@@ -566,7 +571,7 @@ public static class CacheManager
                     LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
 
                     // Try to get value from repository
-                    var result = await repository.GetAsync<T>(key, subKey, combinedCts.Token);
+                    var result = await repository.GetAsync<T>(key, subKey,  combinedCts.Token);
 
                     repositoryStopwatch.Stop();
                     LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
@@ -729,8 +734,10 @@ public static class CacheManager
     /// <param name="key">The key of the cached value.</param>
     /// <param name="cancellationToken">Cancelation token.</param>
     /// <exception cref="OperationCanceledException">Operation cancelled.</exception>
-    /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
-    public static async ValueTask<bool> TryGetAsync<T>([Localizable(false)] string key, CancellationToken cancellationToken = default)
+    /// <returns>
+    /// A tuple containing Success (true if found and castable to T) and Value (the cached item or default(T)).
+    /// </returns>
+    public static async ValueTask<(bool Success, T Value)> TryGetAsync<T>([Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -780,7 +787,7 @@ public static class CacheManager
                     }
 
                     LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
-                    return true;
+                    return (true, result);
                 }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
                 {
@@ -809,7 +816,7 @@ public static class CacheManager
             throw;
         }
 
-        return false;
+        return (false, default(T));
     }
 
     /// <summary>
@@ -911,17 +918,17 @@ public static class CacheManager
     /// </summary>
     /// <param name="key">The key of the cached value.</param>
     /// <returns>The TTL of the cached value, or <c>TimeSpan.Zero</c> if not found.</returns>
-    public static async Task<TimeSpan> TTL([Localizable(false)] string key)
+    public static async Task<TimeSpan> TTLAsync([Localizable(false)] string key)
     {
         LogConsumer.Trace(
             "Trying to get TTL of key {0} from {1} repositories",
             key,
             _repositories.Count
         );
-        var result = new TimeSpan(0);
+        TimeSpan result = new TimeSpan(0);
         foreach (var repository in _repositories.Values)
         {
-            var currentResult = await repository.TTLAsync(key);
+            TimeSpan currentResult = await repository.TTLAsync(key);
             if (currentResult == result)
             {
                 continue;
@@ -930,7 +937,7 @@ public static class CacheManager
             return currentResult;
         }
 
-        return new TimeSpan(0);
+        return result; // Default TTL if not found in any repository
     }
 
     /// <summary>

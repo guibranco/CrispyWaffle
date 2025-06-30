@@ -24,83 +24,85 @@ public class CouchDBCacheRepositoryTests : IDisposable
     }
 
     [Fact]
-    public void GetAndSetCouchDocTest()
+    public async Task GetAndSetAsyncCouchDocTest()
     {
         var doc = new CouchDBCacheDocument();
 
-        _repository.Set(doc, Guid.NewGuid().ToString());
+        await _repository.SetAsync(doc, Guid.NewGuid().ToString());
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(doc.Key == docDB.Key);
 
-        _repository.Remove(doc.Key);
+        await _repository.RemoveAsync(doc.Key);
     }
 
     [Fact]
-    public void GetAndSetSpecificTest()
+    public async Task GetAndSetSpecificAsyncTest()
     {
         var docOne = new Car("MakerOne");
 
-        _repository.SetSpecific(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 
         var docTwo = new Car("MakerTwo");
 
-        _repository.SetSpecific(docTwo, Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(docTwo, Guid.NewGuid().ToString());
 
-        var docDB = _repository.GetSpecific<Car>(docOne.Key);
+        var docDB = await _repository.GetSpecificAsync<Car>(docOne.Key);
 
         Assert.True(
             docOne.Key == docDB.Key && docOne.SubKey == docDB.SubKey && docOne.Maker == "MakerOne"
         );
 
-        docDB = _repository.GetSpecific<Car>(docTwo.Key);
+        docDB = await _repository.GetSpecificAsync<Car>(docTwo.Key);
 
         Assert.True(docTwo.Key == docDB.Key && docTwo.Maker == "MakerTwo");
 
-        _repository.RemoveSpecific<Car>(docOne.Key);
-        _repository.RemoveSpecific<Car>(docTwo.Key);
+        await _repository.RemoveSpecificAsync<Car>(docOne.Key);
+        await _repository.RemoveSpecificAsync<Car>(docTwo.Key);
     }
 
     [Fact]
-    public void RemoveCouchDocTest()
+    public async Task RemoveAsyncCouchDocTest()
     {
         var doc = new CouchDBCacheDocument();
 
-        _repository.Set(doc, Guid.NewGuid().ToString());
+        await _repository.SetAsync(doc, Guid.NewGuid().ToString());
 
-        _repository.Remove(doc.Key);
+        await _repository.RemoveAsync(doc.Key);
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(docDB == default);
     }
 
     [Fact]
-    public void RemoveSpecificTest()
+    public async Task RemoveSpecificAsyncTest()
     {
         var doc = new Car("Maker");
 
-        _repository.SetSpecific(doc, Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(doc, Guid.NewGuid().ToString());
 
-        _repository.RemoveSpecific<Car>(doc.Key);
+        await _repository.RemoveSpecificAsync<Car>(doc.Key);
 
-        var docDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        var docDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(docDB == default);
     }
 
     [Fact]
-    public void DatabaseClearTest()
+    public async Task DatabaseClearTest()
     {
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
-        _repository.Set(new CouchDBCacheDocument(), Guid.NewGuid().ToString());
+        var task1 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
+        var task2 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
+        var task3 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
+        var task4 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
 
-        _repository.Clear();
+        await Task.WhenAll(task1, task2, task3, task4);
 
-        var count = _repository.GetDocCount<CouchDBCacheDocument>();
+        await _repository.Clear();
+
+        var count = await _repository.GetDocCount<CouchDBCacheDocument>();
 
         Assert.True(count == 0);
     }
@@ -110,14 +112,14 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var doc = new CouchDBCacheDocument() { Key = Guid.NewGuid().ToString() };
 
-        _repository.Set(new CouchDBCacheDocument(), doc.Key, new TimeSpan(0, 0, 5));
-        var fromDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        await _repository.SetAsync(new CouchDBCacheDocument(), doc.Key, new TimeSpan(0, 0, 5));
+        var fromDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(doc.Key == fromDB.Key);
 
         await Task.Delay(6000);
 
-        fromDB = _repository.Get<CouchDBCacheDocument>(doc.Key);
+        fromDB = await _repository.GetAsync<CouchDBCacheDocument>(doc.Key);
 
         Assert.True(fromDB == null);
     }

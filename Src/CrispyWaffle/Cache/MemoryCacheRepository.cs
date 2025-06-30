@@ -168,7 +168,7 @@ public class MemoryCacheRepository : ICacheRepository
     /// </summary>
     /// <typeparam name="T">The type parameter.</typeparam>
     /// <param name="key">The key.</param>
-    /// <param name="subKey">The sub key.</param>   
+    /// <param name="subKey">The sub key.</param>
     /// <param name="cancellationToken">Cancel token.</param>
     /// <exception cref="OperationCanceledException">If cancelled.</exception>
     /// <exception cref="InvalidCastException">Invalid cast of value.</exception>
