@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -345,7 +345,6 @@ public class SmtpMailer : IMailer
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     private async Task SendInternalAsync(string cacheKey)
     {
-
         (bool exists, _) = await CacheManager.TryGetAsync<object>(cacheKey, CancellationToken.None);
 
 
