@@ -51,7 +51,8 @@ public class MemoryCacheRepositoryTests
         _repository.Remove(key);
 
         // Act
-        var exception = Assert.Throws<InvalidOperationException>(() => _repository.Get<string>(key)
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            _repository.Get<string>(key)
         );
 
         // Assert
