@@ -15,10 +15,9 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches: ['main']
   schedule:
     - cron: '42 17 * * 5'
 
@@ -28,34 +27,51 @@ permissions:
 jobs:
   codacy-security-scan:
     permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      contents: read              # for actions/checkout to fetch code
+      security-events: write      # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read               # only required for a private repository
     name: Codacy Security Scan
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository to the GitHub Actions runner
+      # 1️⃣ Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Execute Codacy Analysis CLI and generate a SARIF output with the security issues identified during the analysis
+      # 2️⃣ Run Codacy Analysis CLI, produce results.sarif
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@562ee3e92b8e92df8b67e0a5ff8aa8e261919c08
         with:
-          # Check https://github.com/codacy/codacy-analysis-cli#project-token to get your project token from your Codacy repository
-          # You can also omit the token and run the tools that support default configurations
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
           output: results.sarif
           format: sarif
-          # Adjust severity of non-security issues
           gh-code-scanning-compat: true
-          # Force 0 exit code to allow SARIF file generation
-          # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
 
-      # Upload the SARIF file generated in the previous step
-      - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: results.sarif
+      # 3️⃣ Extract only the first SARIF run to avoid duplicates
+      - name: Extract first SARIF run
+        run: |
+          jq '{version: .version, "$schema": ."$schema", runs: [ .runs[0] ]}' results.sarif > filtered.sarif
+
+      # 4️⃣ Upload just that single-run SARIF
+      - name: Split and upload each SARIF run
+        run: |
+          count=$(jq '.runs | length' results.sarif)
+          for i in $(seq 0 $((count-1))); do
+            jq --argjson idx $i \
+               '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
+               results.sarif > run_${i}.sarif
+      
+            # gzip and base64 encode
+            gzip -c run_${i}.sarif | base64 -w 0 > run_${i}.sarif.b64
+      
+            # Read encoded content into variable
+            b64_sarif=$(cat run_${i}.sarif.b64)
+      
+            gh api repos/${{ github.repository }}/code-scanning/sarifs \
+              -f commit_sha=${{ github.sha }} \
+              -f ref=${{ github.ref }} \
+              -f sarif="$b64_sarif"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
