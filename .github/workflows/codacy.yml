@@ -35,7 +35,7 @@ jobs:
     steps:
       # 1️⃣ Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # 2️⃣ Run Codacy Analysis CLI, produce results.sarif
       - name: Run Codacy Analysis CLI
