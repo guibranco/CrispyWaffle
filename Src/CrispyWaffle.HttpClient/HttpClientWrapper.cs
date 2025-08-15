@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -78,7 +78,7 @@ namespace CrispyWaffle.HttpClient
             }
 
             // Ensure Accept header
-            if (!client.DefaultRequestHeaders.Accept.Any())
+            if (client.DefaultRequestHeaders.Accept.Count == 0)
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             }
