@@ -155,6 +155,13 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/ducdaiii">
+                    <img src="https://avatars.githubusercontent.com/u/109029860?v=4" width="100;" alt="ducdaiii"/>
+                    <br />
+                    <sub><b>Doan Duc Daii</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/joaovaladares">
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
                     <br />
@@ -168,6 +175,8 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>Simran Gill</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/thiagochfc">
                     <img src="https://avatars.githubusercontent.com/u/36862932?v=4" width="100;" alt="thiagochfc"/>
@@ -175,8 +184,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>Thiago Christopher</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/tiagoschaffer">
                     <img src="https://avatars.githubusercontent.com/u/12534089?v=4" width="100;" alt="tiagoschaffer"/>
