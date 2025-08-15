@@ -122,36 +122,46 @@ namespace CrispyWaffle.HttpClient
 
         private async Task<HttpResponse<T>> SendAsync<T>(HttpMethod method, string url, object? body, HttpRequestOptions? perRequest, CancellationToken cancellationToken)
         {
+            // Merge defaults and per-request options first.
             var effectiveOptions = MergeOptions(_defaults, perRequest);
-            var serializer = perRequest?.Serializer ?? _defaultSerializer;
-            var client = CreateClient(perRequest);
+
+            // Use serializer from merged options, fallback to default.
+            var serializer = effectiveOptions.Serializer ?? _defaultSerializer;
+
+            // Create HttpClient using the effective options (so named client, base address, timeout, etc. apply).
+            var client = CreateClient(effectiveOptions);
+
             var sw = Stopwatch.StartNew();
 
+            // The action will create a NEW HttpRequestMessage each time it's invoked (important for retries).
             Func<CancellationToken, Task<HttpResponseMessage>> action = async ct =>
             {
+                // Create a new request per attempt - ensures headers/content are fresh for retries.
                 using var req = new HttpRequestMessage(method, url);
 
                 if (body != null)
                 {
+                    // Serialize the body (synchronous serializer expected here).
                     string payload = serializer.Serialize(body);
                     req.Content = new StringContent(payload, Encoding.UTF8, effectiveOptions.UseJsonContentType ? "application/json" : "text/plain");
                 }
 
-                // Apply per-request headers (non-default)
-                if (perRequest?.DefaultRequestHeaders != null)
+                // Apply per-request (merged) headers to the request message.
+                if (effectiveOptions.DefaultRequestHeaders != null)
                 {
-                    foreach (var kv in perRequest.DefaultRequestHeaders)
+                    foreach (var kv in effectiveOptions.DefaultRequestHeaders)
                     {
                         if (!req.Headers.Contains(kv.Key))
                             req.Headers.TryAddWithoutValidation(kv.Key, kv.Value);
                     }
                 }
 
-                // send
-                var response = await client.SendAsync(req, HttpCompletionOption.ResponseContentRead, ct).ConfigureAwait(false);
-                return response;
+                // Send with ResponseHeadersRead to start streaming the body (we will read it explicitly afterward).
+                // This avoids buffering the entire response in some handlers.
+                return await client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
             };
 
+            // Execute the action with retry policy. The policy is expected to return the final response (or null + exception).
             var (resp, ex) = await RetryPolicy.ExecuteAsync(
                 action,
                 effectiveOptions.RetryCount,
@@ -161,23 +171,58 @@ namespace CrispyWaffle.HttpClient
 
             sw.Stop();
 
-            if (resp != null)
+            // If no response after retries
+            if (resp == null)
             {
-                var raw = resp.Content != null ? await resp.Content.ReadAsStringAsync().ConfigureAwait(false) : null;
+                if (effectiveOptions.ThrowOnError)
+                {
+                    throw new HttpClientException("HTTP request failed after retries", null, null, ex);
+                }
+
+                var errors = new List<string> { ex?.Message ?? "Unknown error" };
+                return HttpResponse<T>.Failure(null, null, errors, null, sw.Elapsed);
+            }
+
+            // IMPORTANT: dispose HttpResponseMessage after we've finished reading headers/body.
+            using (resp)
+            {
+                string? raw = null;
+                try
+                {
+                    // If there is content, read it as string. Keep it simple and synchronous from serializer's perspective.
+                    if (resp.Content != null)
+                    {
+                        raw = await resp.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    }
+                }
+                catch (Exception readEx)
+                {
+                    // Failed to read content.
+                    _logger?.LogError(readEx, "Failed to read response content for {Method} {Url}", method, url);
+                    if (effectiveOptions.ThrowOnError)
+                    {
+                        throw new HttpClientException("Failed to read response content", resp.StatusCode, null, readEx);
+                    }
+
+                    var readErrors = new List<string> { readEx.Message };
+                    return HttpResponse<T>.Failure(resp.StatusCode, null, readErrors, resp.Headers.ToDictionary(h => h.Key, h => h.Value.AsEnumerable()), sw.Elapsed);
+                }
+
+                // Gather headers (including content headers).
                 var headers = resp.Headers.ToDictionary(h => h.Key, h => h.Value.AsEnumerable());
-                // include content headers too
                 if (resp.Content?.Headers != null)
                 {
                     foreach (var h in resp.Content.Headers)
                         headers[h.Key] = h.Value.AsEnumerable();
                 }
 
+                // Successful HTTP status
                 if (resp.IsSuccessStatusCode)
                 {
-                    // Try deserialize; if empty raw -> default(T)
                     T? data = default;
                     try
                     {
+                        // If raw body is present, try to deserialize; otherwise default(T).
                         if (!string.IsNullOrWhiteSpace(raw))
                         {
                             data = serializer.Deserialize<T>(raw);
@@ -185,8 +230,8 @@ namespace CrispyWaffle.HttpClient
                     }
                     catch (Exception deserEx)
                     {
-                        _logger?.LogError(deserEx, "Failed to deserialize response body to {Type}", typeof(T).FullName);
-                        // We treat deserialization failure as an error
+                        // Deserialization failed - log and either throw or return failure depending on options.
+                        _logger?.LogError(deserEx, "Failed to deserialize response body to {Type} for {Method} {Url}", typeof(T).FullName, method, url);
                         if (effectiveOptions.ThrowOnError)
                         {
                             throw new HttpClientException($"Failed to deserialize response to {typeof(T)}", resp.StatusCode, raw, deserEx);
@@ -199,6 +244,7 @@ namespace CrispyWaffle.HttpClient
                 }
                 else
                 {
+                    // Non-success HTTP status
                     var errors = new List<string> { $"HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}" };
                     if (!string.IsNullOrWhiteSpace(raw))
                         errors.Add(raw);
@@ -210,17 +256,6 @@ namespace CrispyWaffle.HttpClient
 
                     return HttpResponse<T>.Failure(resp.StatusCode, raw, errors, headers, sw.Elapsed);
                 }
-            }
-            else
-            {
-                // No response (exception)
-                if (effectiveOptions.ThrowOnError)
-                {
-                    throw new HttpClientException("HTTP request failed after retries", null, null, ex);
-                }
-
-                var errors = new List<string> { ex?.Message ?? "Unknown error" };
-                return HttpResponse<T>.Failure(null, null, errors, null, sw.Elapsed);
             }
         }
 

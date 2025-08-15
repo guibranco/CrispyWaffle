@@ -32,7 +32,7 @@ namespace CrispyWaffle.HttpClient
                 }
             }
 
-            var rnd = new Random();
+            var rnd = Random.Shared;
             Exception? lastEx = null;
 
             for (int attempt = 0; attempt <= retryCount; attempt++)
