@@ -13,12 +13,13 @@ namespace CrispyWaffle.HttpClient
         /// Improvements:
         /// 1. Use services.Configure(...) to register options in a standard and thread-safe way.
         /// 2. Ensure serializer is thread-safe by registering a single instance.
-        /// 3. Prepare for retry logic improvements in HttpClientWrapper by ensuring that per-request serializers are 
+        /// 3. Prepare for retry logic improvements in HttpClientWrapper by ensuring that per-request serializers are
         ///    handled without mutating shared state.
         /// </remarks>
         public static IServiceCollection AddCrispyWaffleHttpClient(
             this IServiceCollection services,
-            Action<HttpRequestOptions>? configureOptions = null)
+            Action<HttpRequestOptions>? configureOptions = null
+        )
         {
             // Ensure HttpClientFactory is registered (safe to call multiple times).
             services.AddHttpClient();
@@ -36,7 +37,10 @@ namespace CrispyWaffle.HttpClient
 
             // Register serializer as a singleton for thread-safety.
             // This assumes the serializer implementation is stateless or internally thread-safe.
-            services.AddSingleton<Serialization.IJsonSerializer, Serialization.SystemTextJsonSerializer>();
+            services.AddSingleton<
+                Serialization.IJsonSerializer,
+                Serialization.SystemTextJsonSerializer
+            >();
 
             // Register the HttpClient wrapper.
             services.AddSingleton<IHttpClientWrapper, HttpClientWrapper>();
