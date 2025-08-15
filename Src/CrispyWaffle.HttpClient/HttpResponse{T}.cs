@@ -17,7 +17,13 @@ namespace CrispyWaffle.HttpClient
         public IDictionary<string, IEnumerable<string>>? Headers { get; set; }
         public TimeSpan Duration { get; set; }
 
-        public static HttpResponse<T> Success(T? data, HttpStatusCode statusCode, string? rawContent, IDictionary<string, IEnumerable<string>>? headers, TimeSpan duration)
+        public static HttpResponse<T> Success(
+            T? data,
+            HttpStatusCode statusCode,
+            string? rawContent,
+            IDictionary<string, IEnumerable<string>>? headers,
+            TimeSpan duration
+        )
         {
             return new HttpResponse<T>
             {
@@ -26,11 +32,17 @@ namespace CrispyWaffle.HttpClient
                 Data = data,
                 RawContent = rawContent,
                 Headers = headers,
-                Duration = duration
+                Duration = duration,
             };
         }
 
-        public static HttpResponse<T> Failure(HttpStatusCode? statusCode, string? rawContent, IList<string>? errors, IDictionary<string, IEnumerable<string>>? headers, TimeSpan duration)
+        public static HttpResponse<T> Failure(
+            HttpStatusCode? statusCode,
+            string? rawContent,
+            IList<string>? errors,
+            IDictionary<string, IEnumerable<string>>? headers,
+            TimeSpan duration
+        )
         {
             return new HttpResponse<T>
             {
@@ -39,7 +51,7 @@ namespace CrispyWaffle.HttpClient
                 RawContent = rawContent,
                 Errors = errors,
                 Headers = headers,
-                Duration = duration
+                Duration = duration,
             };
         }
     }
