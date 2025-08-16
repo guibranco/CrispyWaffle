@@ -1,6 +1,5 @@
-﻿namespace CrispyWaffle.BackgroundJobs.Core
+namespace CrispyWaffle.BackgroundJobs.Core
 {
-
     public interface IJobHandlerRegistry
     {
         void Register<THandler, TData>(string handlerName) where THandler : class, CrispyWaffle.BackgroundJobs.Abstractions.IBackgroundJobHandler<TData>;

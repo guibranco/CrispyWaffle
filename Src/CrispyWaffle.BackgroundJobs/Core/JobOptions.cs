@@ -1,6 +1,5 @@
-﻿namespace CrispyWaffle.BackgroundJobs.Core
+namespace CrispyWaffle.BackgroundJobs.Core
 {
-
     public class JobOptions
     {
         /// <summary>
