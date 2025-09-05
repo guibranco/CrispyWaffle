@@ -22,7 +22,6 @@ public class RedisCacheRepositoryTests :  IDisposable
         var connection = new RedisConnector(host, port, password, serializer);
 
         _repository = new RedisCacheRepository(connection);
-
     }
     
     [Fact]
