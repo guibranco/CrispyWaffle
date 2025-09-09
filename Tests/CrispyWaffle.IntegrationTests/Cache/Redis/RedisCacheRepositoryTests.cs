@@ -15,9 +15,9 @@ public class RedisCacheRepositoryTests :  IDisposable
     
     public RedisCacheRepositoryTests()
     {
-        const string host = "localhost";
-        const int port = 6379;
-        const string password = "myP@ssw0rd"; 
+        var host = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "localhost";
+        var port = int.TryParse(Environment.GetEnvironmentVariable("REDIS_PORT"), out var p) ? p : 6379;
+        var password = Environment.GetEnvironmentVariable("REDIS_PASSWORD");
         var serializer = new TestJsonSerializer();
         var connection = new RedisConnector(host, port, password, serializer);
 
