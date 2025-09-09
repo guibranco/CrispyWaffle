@@ -65,7 +65,7 @@ public class RedisCacheRepositoryTests :  IDisposable
     }
 }
 
-public class TestJsonSerializer : ISerializer
+public class TestJsonSerializer : CrispyWaffle.Serialization.ISerializer
 {
     private readonly JsonSerializerOptions _options;
 
