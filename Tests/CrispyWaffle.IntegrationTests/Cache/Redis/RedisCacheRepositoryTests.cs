@@ -80,7 +80,7 @@ public class TestJsonSerializer : CrispyWaffle.Serialization.ISerializer
 
     public byte[] Serialize<T>(T item)
     {
-        return JsonSerializer.SerializeToUtf8Bytes(item, item.GetType(), _options);
+        return JsonSerializer.SerializeToUtf8Bytes<T>(item, _options);
     }
 
     public T Deserialize<T>(byte[] serializedObject)
