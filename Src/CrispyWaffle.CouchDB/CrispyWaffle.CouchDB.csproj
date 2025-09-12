@@ -10,6 +10,7 @@
     <PackageReference Include="CouchDB.NET" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" VersionOverride="9.0.8" />
     <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
     <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
   </ItemGroup>
