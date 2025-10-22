@@ -9,7 +9,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.1.9" />
+    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.1.11" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
     <PackageVersion Include="FluentAssertions" Version="8.6.0" />
     <PackageVersion Include="JunitXml.TestLogger" Version="7.0.1" />
