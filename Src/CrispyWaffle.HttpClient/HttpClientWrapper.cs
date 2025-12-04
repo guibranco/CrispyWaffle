@@ -24,9 +24,15 @@ namespace CrispyWaffle.HttpClient
         private readonly IJsonSerializer _defaultSerializer;
         private readonly ILogger<HttpClientWrapper>? _logger;
 
-        public HttpClientWrapper(IHttpClientFactory httpClientFactory, IOptions<HttpRequestOptions> options, IJsonSerializer? serializer = null, ILogger<HttpClientWrapper>? logger = null)
+        public HttpClientWrapper(
+            IHttpClientFactory httpClientFactory,
+            IOptions<HttpRequestOptions> options,
+            IJsonSerializer? serializer = null,
+            ILogger<HttpClientWrapper>? logger = null
+        )
         {
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+            _httpClientFactory =
+                httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _defaults = options?.Value ?? new HttpRequestOptions();
             _defaultSerializer = serializer ?? new SystemTextJsonSerializer();
             _logger = logger;
@@ -80,7 +86,9 @@ namespace CrispyWaffle.HttpClient
             // Ensure Accept header
             if (client.DefaultRequestHeaders.Accept.Count == 0)
             {
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Accept.Add(
+                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")
+                );
             }
 
             return client;
@@ -88,39 +96,65 @@ namespace CrispyWaffle.HttpClient
 
         #region Public Async Methods
 
-        public Task<HttpResponse<T>> GetAsync<T>(string url, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)
-            => SendAsync<T>(HttpMethod.Get, url, null, options, cancellationToken);
+        public Task<HttpResponse<T>> GetAsync<T>(
+            string url,
+            HttpRequestOptions? options = null,
+            CancellationToken cancellationToken = default
+        ) => SendAsync<T>(HttpMethod.Get, url, null, options, cancellationToken);
 
-        public Task<HttpResponse<TResponse>> PostAsync<TRequest, TResponse>(string url, TRequest? body = default, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)
-            => SendAsync<TResponse>(HttpMethod.Post, url, body, options, cancellationToken);
+        public Task<HttpResponse<TResponse>> PostAsync<TRequest, TResponse>(
+            string url,
+            TRequest? body = default,
+            HttpRequestOptions? options = null,
+            CancellationToken cancellationToken = default
+        ) => SendAsync<TResponse>(HttpMethod.Post, url, body, options, cancellationToken);
 
-        public Task<HttpResponse<TResponse>> PutAsync<TRequest, TResponse>(string url, TRequest? body = default, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)
-            => SendAsync<TResponse>(HttpMethod.Put, url, body, options, cancellationToken);
+        public Task<HttpResponse<TResponse>> PutAsync<TRequest, TResponse>(
+            string url,
+            TRequest? body = default,
+            HttpRequestOptions? options = null,
+            CancellationToken cancellationToken = default
+        ) => SendAsync<TResponse>(HttpMethod.Put, url, body, options, cancellationToken);
 
-        public Task<HttpResponse<object?>> DeleteAsync(string url, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)
-            => SendAsync<object?>(HttpMethod.Delete, url, null, options, cancellationToken);
+        public Task<HttpResponse<object?>> DeleteAsync(
+            string url,
+            HttpRequestOptions? options = null,
+            CancellationToken cancellationToken = default
+        ) => SendAsync<object?>(HttpMethod.Delete, url, null, options, cancellationToken);
 
         #endregion
 
         #region Public Sync wrappers (use with caution)
 
-        public HttpResponse<T> Get<T>(string url, HttpRequestOptions? options = null)
-            => GetAsync<T>(url, options).GetAwaiter().GetResult();
+        public HttpResponse<T> Get<T>(string url, HttpRequestOptions? options = null) =>
+            GetAsync<T>(url, options).GetAwaiter().GetResult();
 
-        public HttpResponse<TResponse> Post<TRequest, TResponse>(string url, TRequest? body = default, HttpRequestOptions? options = null)
-            => PostAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
+        public HttpResponse<TResponse> Post<TRequest, TResponse>(
+            string url,
+            TRequest? body = default,
+            HttpRequestOptions? options = null
+        ) => PostAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
 
-        public HttpResponse<TResponse> Put<TRequest, TResponse>(string url, TRequest? body = default, HttpRequestOptions? options = null)
-            => PutAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
+        public HttpResponse<TResponse> Put<TRequest, TResponse>(
+            string url,
+            TRequest? body = default,
+            HttpRequestOptions? options = null
+        ) => PutAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
 
-        public HttpResponse<object?> Delete(string url, HttpRequestOptions? options = null)
-            => DeleteAsync(url, options).GetAwaiter().GetResult();
+        public HttpResponse<object?> Delete(string url, HttpRequestOptions? options = null) =>
+            DeleteAsync(url, options).GetAwaiter().GetResult();
 
         #endregion
 
         #region Core Send
 
-        private async Task<HttpResponse<T>> SendAsync<T>(HttpMethod method, string url, object? body, HttpRequestOptions? perRequest, CancellationToken cancellationToken)
+        private async Task<HttpResponse<T>> SendAsync<T>(
+            HttpMethod method,
+            string url,
+            object? body,
+            HttpRequestOptions? perRequest,
+            CancellationToken cancellationToken
+        )
         {
             // Merge defaults and per-request options first.
             var effectiveOptions = MergeOptions(_defaults, perRequest);
@@ -143,7 +177,11 @@ namespace CrispyWaffle.HttpClient
                 {
                     // Serialize the body (synchronous serializer expected here).
                     string payload = serializer.Serialize(body);
-                    req.Content = new StringContent(payload, Encoding.UTF8, effectiveOptions.UseJsonContentType ? "application/json" : "text/plain");
+                    req.Content = new StringContent(
+                        payload,
+                        Encoding.UTF8,
+                        effectiveOptions.UseJsonContentType ? "application/json" : "text/plain"
+                    );
                 }
 
                 // Apply per-request (merged) headers to the request message.
@@ -158,16 +196,21 @@ namespace CrispyWaffle.HttpClient
 
                 // Send with ResponseHeadersRead to start streaming the body (we will read it explicitly afterward).
                 // This avoids buffering the entire response in some handlers.
-                return await client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct).ConfigureAwait(false);
+                return await client
+                    .SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct)
+                    .ConfigureAwait(false);
             };
 
             // Execute the action with retry policy. The policy is expected to return the final response (or null + exception).
-            var (resp, ex) = await RetryPolicy.ExecuteAsync(
-                action,
-                effectiveOptions.RetryCount,
-                effectiveOptions.RetryBaseDelayMs,
-                effectiveOptions.MaxRetryDelayMs,
-                cancellationToken).ConfigureAwait(false);
+            var (resp, ex) = await RetryPolicy
+                .ExecuteAsync(
+                    action,
+                    effectiveOptions.RetryCount,
+                    effectiveOptions.RetryBaseDelayMs,
+                    effectiveOptions.MaxRetryDelayMs,
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
 
             sw.Stop();
 
@@ -176,7 +219,12 @@ namespace CrispyWaffle.HttpClient
             {
                 if (effectiveOptions.ThrowOnError)
                 {
-                    throw new HttpClientException("HTTP request failed after retries", null, null, ex);
+                    throw new HttpClientException(
+                        "HTTP request failed after retries",
+                        null,
+                        null,
+                        ex
+                    );
                 }
 
                 var errors = new List<string> { ex?.Message ?? "Unknown error" };
@@ -198,14 +246,30 @@ namespace CrispyWaffle.HttpClient
                 catch (Exception readEx)
                 {
                     // Failed to read content.
-                    _logger?.LogError(readEx, "Failed to read response content for {Method} {Url}", method, url);
+                    _logger?.LogError(
+                        readEx,
+                        "Failed to read response content for {Method} {Url}",
+                        method,
+                        url
+                    );
                     if (effectiveOptions.ThrowOnError)
                     {
-                        throw new HttpClientException("Failed to read response content", resp.StatusCode, null, readEx);
+                        throw new HttpClientException(
+                            "Failed to read response content",
+                            resp.StatusCode,
+                            null,
+                            readEx
+                        );
                     }
 
                     var readErrors = new List<string> { readEx.Message };
-                    return HttpResponse<T>.Failure(resp.StatusCode, null, readErrors, resp.Headers.ToDictionary(h => h.Key, h => h.Value.AsEnumerable()), sw.Elapsed);
+                    return HttpResponse<T>.Failure(
+                        resp.StatusCode,
+                        null,
+                        readErrors,
+                        resp.Headers.ToDictionary(h => h.Key, h => h.Value.AsEnumerable()),
+                        sw.Elapsed
+                    );
                 }
 
                 // Gather headers (including content headers).
@@ -231,13 +295,30 @@ namespace CrispyWaffle.HttpClient
                     catch (Exception deserEx)
                     {
                         // Deserialization failed - log and either throw or return failure depending on options.
-                        _logger?.LogError(deserEx, "Failed to deserialize response body to {Type} for {Method} {Url}", typeof(T).FullName, method, url);
+                        _logger?.LogError(
+                            deserEx,
+                            "Failed to deserialize response body to {Type} for {Method} {Url}",
+                            typeof(T).FullName,
+                            method,
+                            url
+                        );
                         if (effectiveOptions.ThrowOnError)
                         {
-                            throw new HttpClientException($"Failed to deserialize response to {typeof(T)}", resp.StatusCode, raw, deserEx);
+                            throw new HttpClientException(
+                                $"Failed to deserialize response to {typeof(T)}",
+                                resp.StatusCode,
+                                raw,
+                                deserEx
+                            );
                         }
 
-                        return HttpResponse<T>.Failure(resp.StatusCode, raw, new List<string> { "DeserializationFailed: " + deserEx.Message }, headers, sw.Elapsed);
+                        return HttpResponse<T>.Failure(
+                            resp.StatusCode,
+                            raw,
+                            new List<string> { "DeserializationFailed: " + deserEx.Message },
+                            headers,
+                            sw.Elapsed
+                        );
                     }
 
                     return HttpResponse<T>.Success(data, resp.StatusCode, raw, headers, sw.Elapsed);
@@ -245,16 +326,29 @@ namespace CrispyWaffle.HttpClient
                 else
                 {
                     // Non-success HTTP status
-                    var errors = new List<string> { $"HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}" };
+                    var errors = new List<string>
+                    {
+                        $"HTTP {(int)resp.StatusCode} {resp.ReasonPhrase}",
+                    };
                     if (!string.IsNullOrWhiteSpace(raw))
                         errors.Add(raw);
 
                     if (effectiveOptions.ThrowOnError)
                     {
-                        throw new HttpClientException($"HTTP request failed with {(int)resp.StatusCode}", resp.StatusCode, raw);
+                        throw new HttpClientException(
+                            $"HTTP request failed with {(int)resp.StatusCode}",
+                            resp.StatusCode,
+                            raw
+                        );
                     }
 
-                    return HttpResponse<T>.Failure(resp.StatusCode, raw, errors, headers, sw.Elapsed);
+                    return HttpResponse<T>.Failure(
+                        resp.StatusCode,
+                        raw,
+                        errors,
+                        headers,
+                        sw.Elapsed
+                    );
                 }
             }
         }
@@ -263,36 +357,59 @@ namespace CrispyWaffle.HttpClient
 
         #region Helpers
 
-        private static HttpRequestOptions MergeOptions(HttpRequestOptions defaults, HttpRequestOptions? perRequest)
+        private static HttpRequestOptions MergeOptions(
+            HttpRequestOptions defaults,
+            HttpRequestOptions? perRequest
+        )
         {
-            if (perRequest == null) return defaults;
+            if (perRequest == null)
+                return defaults;
             // create new instance merging properties - only simple properties merged here
             return new HttpRequestOptions
             {
                 BaseAddress = perRequest.BaseAddress ?? defaults.BaseAddress,
-                TimeoutSeconds = perRequest.TimeoutSeconds != default ? perRequest.TimeoutSeconds : defaults.TimeoutSeconds,
-                RetryCount = perRequest.RetryCount != default ? perRequest.RetryCount : defaults.RetryCount,
-                RetryBaseDelayMs = perRequest.RetryBaseDelayMs != default ? perRequest.RetryBaseDelayMs : defaults.RetryBaseDelayMs,
-                MaxRetryDelayMs = perRequest.MaxRetryDelayMs != default ? perRequest.MaxRetryDelayMs : defaults.MaxRetryDelayMs,
+                TimeoutSeconds =
+                    perRequest.TimeoutSeconds != default
+                        ? perRequest.TimeoutSeconds
+                        : defaults.TimeoutSeconds,
+                RetryCount =
+                    perRequest.RetryCount != default ? perRequest.RetryCount : defaults.RetryCount,
+                RetryBaseDelayMs =
+                    perRequest.RetryBaseDelayMs != default
+                        ? perRequest.RetryBaseDelayMs
+                        : defaults.RetryBaseDelayMs,
+                MaxRetryDelayMs =
+                    perRequest.MaxRetryDelayMs != default
+                        ? perRequest.MaxRetryDelayMs
+                        : defaults.MaxRetryDelayMs,
                 ThrowOnError = perRequest.ThrowOnError,
-                DefaultRequestHeaders = MergeHeaders(defaults.DefaultRequestHeaders, perRequest.DefaultRequestHeaders),
+                DefaultRequestHeaders = MergeHeaders(
+                    defaults.DefaultRequestHeaders,
+                    perRequest.DefaultRequestHeaders
+                ),
                 NamedHttpClient = perRequest.NamedHttpClient ?? defaults.NamedHttpClient,
                 UseJsonContentType = perRequest.UseJsonContentType,
-                Serializer = perRequest.Serializer ?? defaults.Serializer
+                Serializer = perRequest.Serializer ?? defaults.Serializer,
             };
         }
 
-        private static IDictionary<string, string>? MergeHeaders(IDictionary<string, string>? a, IDictionary<string, string>? b)
+        private static IDictionary<string, string>? MergeHeaders(
+            IDictionary<string, string>? a,
+            IDictionary<string, string>? b
+        )
         {
-            if (a == null && b == null) return null;
+            if (a == null && b == null)
+                return null;
             var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             if (a != null)
             {
-                foreach (var kv in a) dict[kv.Key] = kv.Value;
+                foreach (var kv in a)
+                    dict[kv.Key] = kv.Value;
             }
             if (b != null)
             {
-                foreach (var kv in b) dict[kv.Key] = kv.Value;
+                foreach (var kv in b)
+                    dict[kv.Key] = kv.Value;
             }
             return dict;
         }

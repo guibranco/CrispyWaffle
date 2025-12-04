@@ -12,12 +12,16 @@ namespace CrispyWaffle.HttpClient
     /// </summary>
     internal static class RetryPolicy
     {
-        public static async Task<(HttpResponseMessage? Response, Exception? Exception)> ExecuteAsync(
+        public static async Task<(
+            HttpResponseMessage? Response,
+            Exception? Exception
+        )> ExecuteAsync(
             Func<CancellationToken, Task<HttpResponseMessage>> action,
             int retryCount,
             int baseDelayMs,
             int maxDelayMs,
-            CancellationToken ct)
+            CancellationToken ct
+        )
         {
             if (retryCount <= 0)
             {
@@ -53,7 +57,8 @@ namespace CrispyWaffle.HttpClient
                     if (response.StatusCode == (HttpStatusCode)429)
                     {
                         var ra = GetRetryAfterDelay(response);
-                        if (ra.HasValue) delay = Math.Min((int)ra.Value.TotalMilliseconds, maxDelayMs);
+                        if (ra.HasValue)
+                            delay = Math.Min((int)ra.Value.TotalMilliseconds, maxDelayMs);
                     }
 
                     await Task.Delay(delay, ct).ConfigureAwait(false);
@@ -62,7 +67,8 @@ namespace CrispyWaffle.HttpClient
                 catch (Exception ex) when (IsTransientException(ex))
                 {
                     lastEx = ex;
-                    if (attempt == retryCount) break;
+                    if (attempt == retryCount)
+                        break;
 
                     var delay = ComputeDelay(attempt, baseDelayMs, maxDelayMs, rnd);
                     await Task.Delay(delay, ct).ConfigureAwait(false);
@@ -75,17 +81,21 @@ namespace CrispyWaffle.HttpClient
 
         private static bool ShouldRetryResponse(HttpResponseMessage response)
         {
-            if (response == null) return true;
+            if (response == null)
+                return true;
             var code = (int)response.StatusCode;
             // Retry for 5xx, 408 Request Timeout, 429 Too Many Requests
-            if (code >= 500 || code == 408 || code == 429) return true;
+            if (code >= 500 || code == 408 || code == 429)
+                return true;
             return false;
         }
 
         private static bool IsTransientException(Exception ex)
         {
             // HttpRequestException and TaskCanceled (timeout) are considered transient
-            return ex is HttpRequestException || ex is OperationCanceledException || ex is TimeoutException;
+            return ex is HttpRequestException
+                || ex is OperationCanceledException
+                || ex is TimeoutException;
         }
 
         private static int ComputeDelay(int attempt, int baseDelayMs, int maxDelayMs, Random rnd)
@@ -112,8 +122,13 @@ namespace CrispyWaffle.HttpClient
             }
 
             // 2. Fallback - parse thủ công từ mọi header (cả ContentHeaders)
-            if (response.Headers.TryGetValues("Retry-After", out var headerValues) ||
-                (response.Content?.Headers?.TryGetValues("Retry-After", out headerValues) ?? false))
+            if (
+                response.Headers.TryGetValues("Retry-After", out var headerValues)
+                || (
+                    response.Content?.Headers?.TryGetValues("Retry-After", out headerValues)
+                    ?? false
+                )
+            )
             {
                 var retryValue = headerValues.FirstOrDefault();
                 if (int.TryParse(retryValue, out var seconds))

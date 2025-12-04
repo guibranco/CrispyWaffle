@@ -9,12 +9,19 @@ namespace CrispyWaffle.HttpClient.Serialization
 
         public SystemTextJsonSerializer(JsonSerializerOptions? options = null)
         {
-            _options = options ?? new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-            };
+            _options =
+                options
+                ?? new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    DefaultIgnoreCondition = System
+                        .Text
+                        .Json
+                        .Serialization
+                        .JsonIgnoreCondition
+                        .WhenWritingNull,
+                };
         }
 
         public string Serialize<T>(T value)
@@ -24,13 +31,15 @@ namespace CrispyWaffle.HttpClient.Serialization
 
         public T? Deserialize<T>(string json)
         {
-            if (string.IsNullOrWhiteSpace(json)) return default;
+            if (string.IsNullOrWhiteSpace(json))
+                return default;
             return JsonSerializer.Deserialize<T>(json, _options);
         }
 
         public object? Deserialize(string json, Type type)
         {
-            if (string.IsNullOrWhiteSpace(json)) return null;
+            if (string.IsNullOrWhiteSpace(json))
+                return null;
             return JsonSerializer.Deserialize(json, type, _options);
         }
     }
