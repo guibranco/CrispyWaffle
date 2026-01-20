@@ -27,7 +27,7 @@
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="10.0.2" />
     <PackageVersion Include="System.Security.Permissions" Version="10.0.0" />
-    <PackageVersion Include="System.Text.Encoding.CodePages" Version="10.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="10.0.2" />
     <PackageVersion Include="System.Text.Json" Version="10.0.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
