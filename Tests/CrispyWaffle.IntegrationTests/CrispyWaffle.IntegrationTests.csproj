@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NSubstitute" />
+    <PackageReference Include="StackExchange.Redis.Extensions.Core" />
     <PackageReference Include="System.Diagnostics.EventLog" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
     <PackageReference Include="xunit" />
