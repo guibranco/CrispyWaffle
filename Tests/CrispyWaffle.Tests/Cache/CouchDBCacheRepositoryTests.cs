@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using CouchDB.Driver;
 using CrispyWaffle.CouchDB.Cache;
 using CrispyWaffle.CouchDB.Utils.Communications;
@@ -24,40 +25,46 @@ public class CouchDBCacheRepositoryTests
     }
 
     [Fact]
-    public void SetToDatabaseShouldStoreValue()
+    public async Task SetToDatabaseShouldStoreValue()
     {
         // Arrange
         var key = "test-key";
         var value = "test-value";
 
         // Act
-        _repository.Set(value, key);
+        await _repository.SetAsync(value, key);
 
         // Assert
     }
 
     [Fact]
-    public void GetFromDatabaseShouldReturnStoredValue()
+    public async Task GetFromDatabaseShouldReturnStoredValue()
     {
         // Arrange
         var key = "test-key";
 
         // Act
-        var actualValue = _repository.Get<string>(key);
+        var actualValue = await _repository.GetAsync<string>(key);
 
         // Assert
         actualValue.Should().BeNull();
     }
 
     [Fact]
-    public void RemoveFromDatabaseShouldRemoveValue()
+    public async Task RemoveFromDatabaseShouldRemoveValue()
     {
         // Arrange
         var key = "test-key";
+        var value = "test-value";
 
         // Act
-        _repository.Remove(key);
+        await _repository.SetAsync(value, key);
+
+        // Act
+        await _repository.RemoveAsync(key);
+        (bool success, _)= await _repository.TryGetAsync<object>(key);
 
         // Assert
+        success.Should().Be(false);
     }
 }

@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Log;
+using Newtonsoft.Json.Linq;
 
 namespace CrispyWaffle.Cache;
 
@@ -31,6 +37,11 @@ public static class CacheManager
     /// The is memory repository in list.
     /// </summary>
     private static bool _isMemoryRepositoryInList;
+
+    /// <summary>
+    /// Default timeout.
+    /// </summary>
+    private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(10);
 
     /// <summary>
     /// Adds a new cache repository of the specified type with an automatically assigned priority.
@@ -106,13 +117,38 @@ public static class CacheManager
     /// <typeparam name="T">The type of the value to cache.</typeparam>
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
-    public static void Set<T>(T value, [Localizable(false)] string key)
+    /// <param name="cancellationToken">Cancel.</param>
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetAsync<T>(T value, [Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         LogConsumer.Trace("Adding {0} to {1} cache repositories", key, _repositories.Count);
-        foreach (var repository in _repositories.Values)
+
+        var tasks = _repositories.Values.Select(async repository =>
         {
-            repository.Set(value, key);
-        }
+            try
+            {
+                await repository.SetAsync(value, key, cancellationToken: cancellationToken);
+                return true;
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Cache operation was cancelled");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+                return false;
+            }
+        });
+
+        var results = await Task.WhenAll(tasks);
+        var successCount = results.Count(r => r);
+
+        LogConsumer.Info("Successfully set {0} in {1} out of {2} repositories", key, successCount, _repositories.Count);
     }
 
     /// <summary>
@@ -122,22 +158,48 @@ public static class CacheManager
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
     /// <param name="subKey">The sub key for additional categorization.</param>
-    public static void Set<T>(
+    /// <param name="cancellationToken">Cancel.</param>
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetAsync<T>(
         T value,
         [Localizable(false)] string key,
-        [Localizable(false)] string subKey
+        [Localizable(false)] string subKey,
+        CancellationToken cancellationToken = default
     )
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         LogConsumer.Trace(
             "Adding {0}/{2} to {1} cache repositories",
             key,
             _repositories.Count,
             subKey
         );
-        foreach (var repository in _repositories.Values)
+
+        var tasks = _repositories.Values.Select(async repository =>
         {
-            repository.Set(value, key, subKey);
-        }
+            try
+            {
+                await repository.SetAsync(value, key, subKey, cancellationToken: cancellationToken);
+                return true;
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Cache operation was cancelled");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+                return false;
+            }
+        });
+
+        var results = await Task.WhenAll(tasks);
+        var successCount = results.Count(r => r);
+
+        LogConsumer.Info("Successfully set {0} in {1} out of {2} repositories", key, successCount, _repositories.Count);
     }
 
     /// <summary>
@@ -147,18 +209,42 @@ public static class CacheManager
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
     /// <param name="ttl">The time-to-live for the cached value.</param>
-    public static void Set<T>(T value, [Localizable(false)] string key, TimeSpan ttl)
+    /// <param name="cancellationToken">Cancel.</param>
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetAsync<T>(T value, [Localizable(false)] string key, TimeSpan ttl, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         LogConsumer.Trace(
             "Adding {0} to {1} cache repositories with TTL of {2:g}",
             key,
             _repositories.Count,
             ttl
         );
-        foreach (var repository in _repositories.Values)
+        var tasks = _repositories.Values.Select(async repository =>
         {
-            repository.Set(value, key, ttl);
-        }
+            try
+            {
+                await repository.SetAsync(value, key, ttl, cancellationToken: cancellationToken);
+                return true;
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine("Cache operation was cancelled");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+                return false;
+            }
+        });
+
+        var results = await Task.WhenAll(tasks);
+        var successCount = results.Count(r => r);
+
+        LogConsumer.Info("Successfully set {0} in {1} out of {2} repositories", key, successCount, _repositories.Count);
     }
 
     /// <summary>
@@ -168,12 +254,18 @@ public static class CacheManager
     /// <typeparam name="TValue">The type of the value to cache.</typeparam>
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
+    /// <param name="cancellationToken">Cancel.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void SetTo<TCacheRepository, TValue>(
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetToAsync<TCacheRepository, TValue>(
         TValue value,
-        [Localizable(false)] string key
+        [Localizable(false)] string key,
+        CancellationToken cancellationToken = default
     )
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var type = typeof(TCacheRepository);
         LogConsumer.Trace("Adding {0} to repository of type {1}", key, type.FullName);
         var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
@@ -184,7 +276,18 @@ public static class CacheManager
             );
         }
 
-        repository.Set(value, key);
+        try
+        {
+            await repository.SetAsync(value, key, cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+        }
+        catch (Exception ex)
+        {
+            LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+        }
     }
 
     /// <summary>
@@ -195,13 +298,19 @@ public static class CacheManager
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
     /// <param name="subKey">The sub key for additional categorization.</param>
+    /// <param name="cancellationToken">Cancel.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void SetTo<TCacheRepository, TValue>(
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetToAsync<TCacheRepository, TValue>(
         TValue value,
         [Localizable(false)] string key,
-        [Localizable(false)] string subKey
+        [Localizable(false)] string subKey,
+        CancellationToken cancellationToken = default
     )
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var type = typeof(TCacheRepository);
         LogConsumer.Trace("Adding {0}/{2} to repository of type {1}", key, type.FullName, subKey);
         var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
@@ -212,7 +321,18 @@ public static class CacheManager
             );
         }
 
-        repository.Set(value, key, subKey);
+        try
+        {
+            await repository.SetAsync(value, key, subKey, cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+        }
+        catch (Exception ex)
+        {
+            LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+        }
     }
 
     /// <summary>
@@ -223,13 +343,19 @@ public static class CacheManager
     /// <param name="value">The value to cache.</param>
     /// <param name="key">The key under which to store the value.</param>
     /// <param name="ttl">The time-to-live for this key.</param>
+    /// <param name="cancellationToken">Cancel.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void SetTo<TCacheRepository, TValue>(
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetToAsync<TCacheRepository, TValue>(
         TValue value,
         [Localizable(false)] string key,
-        TimeSpan ttl
+        TimeSpan ttl,
+        CancellationToken cancellationToken = default
     )
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var type = typeof(TCacheRepository);
         LogConsumer.Trace(
             "Adding {0} to repository of type {1} with TTL of {2:g}",
@@ -245,7 +371,18 @@ public static class CacheManager
             );
         }
 
-        repository.Set(value, key, ttl);
+        try
+        {
+            await repository.SetAsync(value, key, ttl, cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+        }
+        catch (Exception ex)
+        {
+            LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+        }
     }
 
     /// <summary>
@@ -257,14 +394,20 @@ public static class CacheManager
     /// <param name="key">The key under which to store the value.</param>
     /// <param name="subKey">The sub key of the cached value.</param>
     /// <param name="ttl">The time-to-live for this key.</param>
+    /// <param name="cancellationToken">Cancel.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void SetTo<TCacheRepository, TValue>(
+    /// <exception cref="OperationCanceledException">If cancelled.</exception>
+    /// <returns>void.</returns>
+    public static async ValueTask SetToAsync<TCacheRepository, TValue>(
         TValue value,
         [Localizable(false)] string key,
         [Localizable(false)] string subKey,
-        TimeSpan ttl
+        TimeSpan ttl,
+        CancellationToken cancellationToken = default
     )
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var type = typeof(TCacheRepository);
         LogConsumer.Trace(
             "Adding {0}/{2} to repository of type {1} with TTL of {2:g}",
@@ -281,7 +424,18 @@ public static class CacheManager
             );
         }
 
-        repository.Set(value, key, subKey);
+        try
+        {
+            await repository.SetAsync(value, key, subKey, cancellationToken: cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+        }
+        catch (Exception ex)
+        {
+            LogConsumer.Error("Failed to set {0} in repository {1}: {2}", key, repository.GetType().Name, ex.Message);
+        }
     }
 
     /// <summary>
@@ -289,28 +443,95 @@ public static class CacheManager
     /// </summary>
     /// <typeparam name="T">The type of the value to retrieve.</typeparam>
     /// <param name="key">The key of the cached value.</param>
+    /// <param name="cancellationToken"> Cancellation token.</param>
     /// <returns>The retrieved value.</returns>
     /// <exception cref="InvalidOperationException">Unable to get the item with key {key}.</exception>
-    public static T Get<T>([Localizable(false)] string key)
+    /// <exception cref="OperationCanceledException">Operation cancelled.</exception>
+    public static async ValueTask<T> GetAsync<T>([Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
-        LogConsumer.Trace(
-            "Getting {0} from any of {1} cache repositories",
-            key,
-            _repositories.Count
-        );
-        foreach (var repository in _repositories.Values)
+        try
         {
-            if (!repository.TryGet(key, out T value))
-            {
-                continue;
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
-            if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
-            {
-                SetTo<MemoryCacheRepository, T>(value, key);
-            }
+            LogConsumer.Trace(
+                "Getting {0} from any of {1} cache repositories",
+                key,
+                _repositories.Count
+            );
 
-            return value;
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+                    var repositoryStopwatch = Stopwatch.StartNew();
+
+                    LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
+
+                    // Try to get value from repository
+                    var result = await repository.GetAsync<T>(key, combinedCts.Token);
+
+                    repositoryStopwatch.Stop();
+                    LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
+
+                    // If found in non-memory repository, promote to memory cache
+                    if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                    {
+                        _ = Task.Run(
+                            async () =>
+                        {
+                            try
+                            {
+                                await SetToAsync<MemoryCacheRepository, T>(result, key, CancellationToken.None);
+                                LogConsumer.Debug("Promoted key {0} to memory cache", key);
+                            }
+                            catch (Exception ex)
+                            {
+                                LogConsumer.Error("Failed to promote key {0} to memory cache: {1}", key, ex.Message);
+                            }
+                        }, cancellationToken);
+                    }
+
+                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)",  key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                    return result;
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new InvalidOperationException($"Unable to get the item with key {key}");
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+
+                    LogConsumer.Error("Error getting key {0} from repository {1}: {2}", key, repositoryName, ex.Message);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
         }
 
         throw new InvalidOperationException($"Unable to get the item with key {key}");
@@ -324,32 +545,86 @@ public static class CacheManager
     /// <param name="subKey">The sub key of the cached value.</param>
     /// <returns>The retrieved value.</returns>
     /// <exception cref="InvalidOperationException">Unable to get the item with key {key} and sub key {subKey}.</exception>
-    public static T Get<T>([Localizable(false)] string key, [Localizable(false)] string subKey)
+    public static async ValueTask<T> GetAsync<T>([Localizable(false)] string key, [Localizable(false)] string subKey, CancellationToken cancellationToken = default)
     {
-        LogConsumer.Trace(
-            "Getting {0}/{2} from any of {1} cache repositories",
-            key,
-            _repositories.Count,
-            subKey
-        );
-        foreach (var repository in _repositories.Values)
+        try
         {
-            if (!repository.TryGet(key, subKey, out T value))
-            {
-                continue;
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
-            if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
-            {
-                SetTo<MemoryCacheRepository, T>(value, key, subKey);
-            }
+            LogConsumer.Trace("Getting {0}/{2} from any of {1} cache repositories", key, _repositories.Count, subKey);
 
-            return value;
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+                    var repositoryStopwatch = Stopwatch.StartNew();
+
+                    LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
+
+                    // Try to get value from repository
+                    var result = await repository.GetAsync<T>(key, subKey,  combinedCts.Token);
+
+                    repositoryStopwatch.Stop();
+                    LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
+
+                    // If found in non-memory repository, promote to memory cache
+                    if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                    {
+                        _ = Task.Run(
+                            async () =>
+                            {
+                                try
+                                {
+                                    await SetToAsync<MemoryCacheRepository, T>(result, key, subKey, CancellationToken.None);
+                                    LogConsumer.Debug("Promoted key {0} to memory cache", key);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogConsumer.Error("Failed to promote key {0} to memory cache: {1}", key, ex.Message);
+                                }
+                            }, cancellationToken);
+                    }
+
+                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                    return result;
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+
+                    LogConsumer.Error("Error getting key {0} from repository {1}: {2}", key, repositoryName, ex.Message);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
         }
 
-        throw new InvalidOperationException(
-            $"Unable to get the item with key {key} and sub key {subKey}"
-        );
+        throw new InvalidOperationException($"Unable to get the item with key {key}");
     }
 
     /// <summary>
@@ -358,21 +633,45 @@ public static class CacheManager
     /// <typeparam name="TCacheRepository">The type of the cache repository to retrieve the value from.</typeparam>
     /// <typeparam name="TValue">The type of the value to retrieve.</typeparam>
     /// <param name="key">The key of the cached value.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns>The retrieved value.</returns>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static TValue GetFrom<TCacheRepository, TValue>([Localizable(false)] string key)
+    public static async ValueTask<TValue> GetFrom<TCacheRepository, TValue>([Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
-        var type = typeof(TCacheRepository);
-        LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
-        var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
-        if (repository == null)
+        try
         {
-            throw new InvalidOperationException(
-                $"The repository of type {type.FullName} isn't available in the repositories providers list"
-            );
-        }
+            cancellationToken.ThrowIfCancellationRequested();
 
-        return repository.Get<TValue>(key);
+            var type = typeof(TCacheRepository);
+
+            LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
+            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            if (repository == null)
+            {
+                throw new InvalidOperationException(
+                    $"The repository of type {type.FullName} isn't available in the repositories providers list"
+                );
+            }
+
+            // Create timeout for the operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var result = await repository.GetAsync<TValue>(key, combinedCts.Token);
+
+            return result;
+        }
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
+        {
+            LogConsumer.Info("Get operation cancelled by user for key {0} from {1}", key, typeof(TCacheRepository).Name);
+            throw;
+        }
+        catch (OperationCanceledException)
+        {
+            var error = $"Get operation timed out for key {key} from {typeof(TCacheRepository).Name}";
+            LogConsumer.Error(error);
+            throw new TimeoutException(error);
+        }
     }
 
     /// <summary>
@@ -382,93 +681,233 @@ public static class CacheManager
     /// <typeparam name="TValue">The type of the value to retrieve.</typeparam>
     /// <param name="key">The key of the cached value.</param>
     /// <param name="subKey">The sub key of the cached value.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns>The retrieved value.</returns>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static TValue GetFrom<TCacheRepository, TValue>(
-        [Localizable(false)] string key,
-        [Localizable(false)] string subKey
-    )
-    {
-        var type = typeof(TCacheRepository);
-        LogConsumer.Trace("Getting {0}/{2} from repository {1}", key, type.FullName, subKey);
-        var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
-        if (repository == null)
-        {
-            throw new InvalidOperationException(
-                $"The repository of type {type.FullName} isn't available in the repositories providers list"
-            );
-        }
-
-        return repository.Get<TValue>(key, subKey);
-    }
-
-    /// <summary>
-    /// Attempts to retrieve a cached value by key.
-    /// </summary>
-    /// <typeparam name="T">The type of the value to retrieve.</typeparam>
-    /// <param name="key">The key of the cached value.</param>
-    /// <param name="value">The retrieved value, if found.</param>
-    /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
-    public static bool TryGet<T>([Localizable(false)] string key, out T value)
-    {
-        LogConsumer.Trace(
-            "Trying to get {0} from any of {1} repositories",
-            key,
-            _repositories.Count
-        );
-        value = default;
-        foreach (var repository in _repositories.Values)
-        {
-            if (!repository.TryGet(key, out value))
-            {
-                continue;
-            }
-
-            if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
-            {
-                SetTo<MemoryCacheRepository, T>(value, key);
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// Attempts to retrieve a cached value by key.
-    /// </summary>
-    /// <typeparam name="T">The type of the value to retrieve.</typeparam>
-    /// <param name="key">The key of the cached value.</param>
-    /// <param name="subKey">The sub key of the cached value.</param>
-    /// <param name="value">The retrieved value, if found.</param>
-    /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
-    public static bool TryGet<T>(
+    /// <exception cref="OperationCanceledException">Operation cancelled.</exception>
+    public static async ValueTask<TValue> GetFromAsync<TCacheRepository, TValue>(
         [Localizable(false)] string key,
         [Localizable(false)] string subKey,
-        out T value
+        CancellationToken cancellationToken = default
     )
     {
-        LogConsumer.Trace(
-            "Trying to get {0}/{2} from any of {1} repositories",
-            key,
-            _repositories.Count,
-            subKey
-        );
-        value = default;
-        foreach (var repository in _repositories.Values)
+        try
         {
-            if (!repository.TryGet(key, subKey, out value))
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var type = typeof(TCacheRepository);
+
+            LogConsumer.Trace("Getting {0} from repository {1}", key, type.FullName);
+            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            if (repository == null)
             {
-                continue;
+                throw new InvalidOperationException(
+                    $"The repository of type {type.FullName} isn't available in the repositories providers list"
+                );
             }
 
-            if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
-            {
-                SetTo<MemoryCacheRepository, T>(value, key, subKey);
-            }
+            // Create timeout for the operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
 
-            return true;
+            var result = await repository.GetAsync<TValue>(key, subKey, combinedCts.Token);
+
+            return result;
+        }
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
+        {
+            LogConsumer.Info("Get operation cancelled by user for key {0} from {1}", key, typeof(TCacheRepository).Name);
+            throw;
+        }
+        catch (OperationCanceledException)
+        {
+            var error = $"Get operation timed out for key {key} from {typeof(TCacheRepository).Name}";
+            LogConsumer.Error(error);
+            throw new TimeoutException(error);
+        }
+    }
+
+    /// <summary>
+    /// Attempts to retrieve a cached value by key.
+    /// </summary>
+    /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+    /// <param name="key">The key of the cached value.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <exception cref="OperationCanceledException">Operation cancelled.</exception>
+    /// <returns>
+    /// A tuple containing Success (true if found and castable to T) and Value (the cached item or default(T)).
+    /// </returns>
+    public static async ValueTask<(bool Success, T Value)> TryGetAsync<T>([Localizable(false)] string key, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            LogConsumer.Trace("Trying to get {0} from any of {1} repositories",key,_repositories.Count);
+
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+                    var repositoryStopwatch = Stopwatch.StartNew();
+
+                    LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
+
+                    // Try to get value from repository
+                    var result = await repository.GetAsync<T>(key, combinedCts.Token);
+
+                    repositoryStopwatch.Stop();
+                    LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
+
+                    // If found in non-memory repository, promote to memory cache
+                    if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                    {
+                        _ = Task.Run(
+                            async () =>
+                            {
+                                try
+                                {
+                                    await SetToAsync<MemoryCacheRepository, T>(result, key, CancellationToken.None);
+                                    LogConsumer.Debug("Promoted key {0} to memory cache", key);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogConsumer.Error("Failed to promote key {0} to memory cache: {1}", key, ex.Message);
+                                }
+                            }, cancellationToken);
+                    }
+
+                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                    return (true, result);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+
+                    LogConsumer.Error("Error getting key {0} from repository {1}: {2}", key, repositoryName, ex.Message);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
+        }
+
+        return (false, default(T));
+    }
+
+    /// <summary>
+    /// Attempts to retrieve a cached value by key.
+    /// </summary>
+    /// <typeparam name="T">The type of the value to retrieve.</typeparam>
+    /// <param name="key">The key of the cached value.</param>
+    /// <param name="subKey">The sub key of the cached value.</param>
+    /// <param name="cancellationToken">Cancel token.</param>
+    /// <returns><c>true</c> if the value was found; otherwise, <c>false</c>.</returns>
+    public static async ValueTask<bool> TryGetAsync<T>(
+        [Localizable(false)] string key,
+        [Localizable(false)] string subKey,
+        CancellationToken cancellationToken = default
+    )
+    {
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            LogConsumer.Trace("Trying to get {0}/{2} from any of {1} repositories", key, _repositories.Count, subKey);
+
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+                    var repositoryStopwatch = Stopwatch.StartNew();
+
+                    LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
+
+                    // Try to get value from repository
+                    var result = await repository.GetAsync<T>(key, subKey, combinedCts.Token);
+
+                    repositoryStopwatch.Stop();
+                    LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
+
+                    // If found in non-memory repository, promote to memory cache
+                    if (_isMemoryRepositoryInList && repository.GetType() != typeof(MemoryCacheRepository))
+                    {
+                        _ = Task.Run(
+                            async () =>
+                            {
+                                try
+                                {
+                                    await SetToAsync<MemoryCacheRepository, T>(result, key, subKey, CancellationToken.None);
+                                    LogConsumer.Debug("Promoted key {0} to memory cache", key);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogConsumer.Error("Failed to promote key {0} to memory cache: {1}", key, ex.Message);
+                                }
+                            }, cancellationToken);
+                    }
+
+                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                    return true;
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+
+                    LogConsumer.Error("Error getting key {0} from repository {1}: {2}", key, repositoryName, ex.Message);
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
         }
 
         return false;
@@ -479,17 +918,17 @@ public static class CacheManager
     /// </summary>
     /// <param name="key">The key of the cached value.</param>
     /// <returns>The TTL of the cached value, or <c>TimeSpan.Zero</c> if not found.</returns>
-    public static TimeSpan TTL([Localizable(false)] string key)
+    public static async Task<TimeSpan> TTLAsync([Localizable(false)] string key)
     {
         LogConsumer.Trace(
             "Trying to get TTL of key {0} from {1} repositories",
             key,
             _repositories.Count
         );
-        var result = new TimeSpan(0);
+        TimeSpan result = new TimeSpan(0);
         foreach (var repository in _repositories.Values)
         {
-            var currentResult = repository.TTL(key);
+            TimeSpan currentResult = await repository.TTLAsync(key);
             if (currentResult == result)
             {
                 continue;
@@ -498,19 +937,65 @@ public static class CacheManager
             return currentResult;
         }
 
-        return new TimeSpan(0);
+        return result; // Default TTL if not found in any repository
     }
 
     /// <summary>
     /// Removes a cached value by key from all repositories.
     /// </summary>
     /// <param name="key">The key of the cached value to remove.</param>
-    public static void Remove([Localizable(false)] string key)
+    /// <param name="cancellationToken">Cancel token.</param>
+    /// <returns>Completed task.</returns>
+    public static async ValueTask Remove([Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
-        LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count);
-        foreach (var repository in _repositories.Values)
+        try
         {
-            repository.Remove(key);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            LogConsumer.Trace("Removing key {0} from {1} repositories", key, _repositories.Count);
+
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+
+                    LogConsumer.Debug("Attempting to delete key {0} from repository {1}", key, repositoryName);
+
+                    // Try to remove value from repository
+                    await repository.RemoveAsync(key, combinedCts.Token);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
         }
     }
 
@@ -519,17 +1004,58 @@ public static class CacheManager
     /// </summary>
     /// <param name="key">The key of the cached value to remove.</param>
     /// <param name="subKey">The sub key of the cached value to remove.</param>
-    public static void Remove([Localizable(false)] string key, [Localizable(false)] string subKey)
+    /// <param name="cancellationToken">Cancel token.</param>
+    /// <returns>Completed task.</returns>
+    public static async ValueTask Remove([Localizable(false)] string key, [Localizable(false)] string subKey, CancellationToken cancellationToken = default)
     {
-        LogConsumer.Trace(
-            "Removing key {0} and sub key {2} from {1} repositories",
-            key,
-            _repositories.Count,
-            subKey
-        );
-        foreach (var repository in _repositories.Values)
+        try
         {
-            repository.Remove(key, subKey);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repositories", key ,_repositories.Count, subKey);
+
+            // Create timeout for the entire operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            var errors = new List<(string Repository, Exception Error)>();
+
+            foreach (var repository in _repositories.Values)
+            {
+                try
+                {
+                    combinedCts.Token.ThrowIfCancellationRequested();
+
+                    var repositoryName = repository.GetType().Name;
+
+                    LogConsumer.Debug("Attempting to delete key {0} from repository {1}", key, repositoryName);
+
+                    // Try to remove value from repository
+                    await repository.RemoveAsync(key, subKey, combinedCts.Token);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    // User cancelled - stop immediately
+                    LogConsumer.Info("Get operation cancelled by user for key {0}", key);
+                    throw;
+                }
+                catch (OperationCanceledException) when (timeoutCts.Token.IsCancellationRequested)
+                {
+                    // Timeout occurred
+                    LogConsumer.Error("Get operation timed out for key {0}", key);
+                    throw new TimeoutException($"Get operation timed out for key {key}");
+                }
+                catch (Exception ex)
+                {
+                    var repositoryName = repository.GetType().Name;
+                    errors.Add((repositoryName, ex));
+                }
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Cache operation was cancelled");
+            throw;
         }
     }
 
@@ -538,20 +1064,44 @@ public static class CacheManager
     /// </summary>
     /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
     /// <param name="key">The key of the cached value.</param>
+    /// <param name="cancellationToken">Cancel token.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void RemoveFrom<TCacheRepository>([Localizable(false)] string key)
+    /// <exception cref="OperationCanceledException">The operation get cancelled.</exception>
+    /// <returns>Completed task.</returns>
+    public static async ValueTask RemoveFrom<TCacheRepository>([Localizable(false)] string key, CancellationToken cancellationToken = default)
     {
-        var type = typeof(TCacheRepository);
-        LogConsumer.Trace("Removing key {0} from {1} repository", key, _repositories.Count);
-        var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
-        if (repository == null)
+        try
         {
-            throw new InvalidOperationException(
-                $"The repository of type {type.FullName} isn't available in the repositories providers list"
-            );
-        }
+            cancellationToken.ThrowIfCancellationRequested();
 
-        repository.Remove(key);
+            var type = typeof(TCacheRepository);
+
+            LogConsumer.Trace("Removing key {0} from {1} repository", key, _repositories.Count);
+            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            if (repository == null)
+            {
+                throw new InvalidOperationException(
+                    $"The repository of type {type.FullName} isn't available in the repositories providers list"
+                );
+            }
+
+            // Create timeout for the operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            await repository.RemoveAsync(key, combinedCts.Token);
+        }
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
+        {
+            LogConsumer.Info("Get operation cancelled by user for key {0} from {1}", key, typeof(TCacheRepository).Name);
+            throw;
+        }
+        catch (OperationCanceledException)
+        {
+            var error = $"Get operation timed out for key {key} from {typeof(TCacheRepository).Name}";
+            LogConsumer.Error(error);
+            throw new TimeoutException(error);
+        }
     }
 
     /// <summary>
@@ -560,27 +1110,47 @@ public static class CacheManager
     /// <typeparam name="TCacheRepository">The type of the cache repository.</typeparam>
     /// <param name="key">The key of the cached value.</param>
     /// <param name="subKey">The sub key of the cached value to remove.</param>
+    /// <param name="cancellationToken">Cancel token.</param>
     /// <exception cref="InvalidOperationException">The repository of type {type.FullName} isn't available in the repositories providers list.</exception>
-    public static void RemoveFrom<TCacheRepository>(
+    /// <exception cref="OperationCanceledException">The operation get cancelled.</exception>
+    /// <returns>Completed task.</returns>
+    public static async ValueTask RemoveFrom<TCacheRepository>(
         [Localizable(false)] string key,
-        [Localizable(false)] string subKey
+        [Localizable(false)] string subKey,
+        CancellationToken cancellationToken = default
     )
     {
-        var type = typeof(TCacheRepository);
-        LogConsumer.Trace(
-            "Removing key {0} and sub key {2} from {1} repository",
-            key,
-            _repositories.Count,
-            subKey
-        );
-        var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
-        if (repository == null)
+        try
         {
-            throw new InvalidOperationException(
-                $"The repository of type {type.FullName} isn't available in the repositories providers list"
-            );
-        }
+            cancellationToken.ThrowIfCancellationRequested();
 
-        repository.Remove(key, subKey);
+            var type = typeof(TCacheRepository);
+
+            LogConsumer.Trace("Removing key {0} and sub key {2} from {1} repository", key, _repositories.Count, subKey);
+            var repository = _repositories.SingleOrDefault(r => type == r.Value.GetType()).Value;
+            if (repository == null)
+            {
+                throw new InvalidOperationException(
+                    $"The repository of type {type.FullName} isn't available in the repositories providers list"
+                );
+            }
+
+            // Create timeout for the operation
+            using var timeoutCts = new CancellationTokenSource(DefaultTimeout);
+            using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+
+            await repository.RemoveAsync(key, subKey, combinedCts.Token);
+        }
+        catch (OperationCanceledException ex) when (cancellationToken.IsCancellationRequested)
+        {
+            LogConsumer.Info("Get operation cancelled by user for key {0} from {1}", key, typeof(TCacheRepository).Name);
+            throw;
+        }
+        catch (OperationCanceledException)
+        {
+            var error = $"Get operation timed out for key {key} from {typeof(TCacheRepository).Name}";
+            LogConsumer.Error(error);
+            throw new TimeoutException(error);
+        }
     }
 }

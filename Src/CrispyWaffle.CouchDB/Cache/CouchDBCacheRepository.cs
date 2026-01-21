@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using CouchDB.Driver;
+using CouchDB.Driver.Extensions;
 using CrispyWaffle.Cache;
 using CrispyWaffle.CouchDB.Utils.Communications;
 using CrispyWaffle.Log;
@@ -42,31 +44,32 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// Finally, it converts the filtered results to a list and returns the count of those documents.
     /// This is useful for determining how many valid instances of a specific document type exist in the database.
     /// </remarks>
-    public int GetDocCount<T>()
-        where T : CouchDBCacheDocument =>
-        ResolveDatabase<T>().Where(x => x.Id != null).ToList().Count;
-
-    /// <inheritdoc />
-    public void Clear() => Clear<CouchDBCacheDocument>();
+    public async Task<int> GetDocCount<T>()
+        where T : CouchDBCacheDocument
+    {
+        var db = await ResolveDatabase<T>().ConfigureAwait(false);
+        return db.Where(x => x.Id != null).ToList().Count;
+    }
 
     /// <summary>
-    /// Clears all documents of type <typeparamref name="T"/> from the CouchDB database.
+    /// Clears all documents from the cache database.
     /// </summary>
-    /// <typeparam name="T">The type of documents to be cleared, which must inherit from <see cref="CouchDBCacheDocument"/>.</typeparam>
-    /// <remarks>
-    /// This method retrieves all documents of the specified type from the database that have a non-null Id.
-    /// It then creates a list of asynchronous delete tasks for each document and waits for all tasks to complete.
-    /// If an exception occurs during the process, it checks whether exceptions should be propagated or handled.
-    /// If propagation is not desired, the exception is logged using the <see cref="LogConsumer"/>.
-    /// This method does not return any value and modifies the state of the database by removing documents.
-    /// </remarks>
-    /// <exception cref="Exception">Thrown when an error occurs during the deletion process, unless exceptions are suppressed.</exception>
-    public void Clear<T>()
+    /// <returns>A task representing the asynchronous clear operation.</returns>
+    /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs during deletion.</exception>
+    public async Task Clear() => await Clear<CouchDBCacheDocument>();
+
+    /// <summary>
+    /// Clears all documents of the specified type from the cache database.
+    /// </summary>
+    /// <typeparam name="T">The document type to clear, must inherit from CouchDBCacheDocument.</typeparam>
+    /// <returns>A task representing the asynchronous clear operation.</returns>
+    /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs during deletion.</exception>
+    public async Task Clear<T>()
         where T : CouchDBCacheDocument
     {
         try
         {
-            var db = ResolveDatabase<T>();
+            var db = await ResolveDatabase<T>().ConfigureAwait(false);
             var docs = db.Where(x => x.Id != null).ToList();
             var tasks = new List<Task>(docs.Count);
 
@@ -89,14 +92,18 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public T Get<T>(string key)
+    public async ValueTask<T> GetAsync<T>(string key, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
         {
             return default;
         }
 
-        return (T)(object)GetSpecific<CouchDBCacheDocument>(key);
+        var result = await GetSpecificAsync<CouchDBCacheDocument>(key);
+
+        return (T)(object)result;
     }
 
     /// <summary>
@@ -110,18 +117,22 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// </returns>
     /// <remarks>
     /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
-    /// If it is, it calls the method <see cref="GetSpecific{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
+    /// If it is, it calls the method <see cref="GetSpecificAsync{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
     /// If the type is not assignable, it returns the default value for that type, which could be null for reference types or zero for numeric types.
     /// This method is useful for retrieving cached data in a type-safe manner, ensuring that only compatible types are processed.
     /// </remarks>
-    public T Get<T>(string key, string subKey)
+    public async ValueTask<T> GetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
         {
             return default;
         }
 
-        return (T)(object)GetSpecific<CouchDBCacheDocument>(key, subKey);
+        var result = await GetSpecificAsync<CouchDBCacheDocument>(key, subKey, cancellationToken);
+
+        return (T)(object)result;
     }
 
     /// <summary>
@@ -129,22 +140,32 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// </summary>
     /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
     /// <param name="key">A uniquely identifiable key to get document from the specified database.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The document if found.</returns>
+    /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
     /// <exception cref="InvalidOperationException">Thrown in case the operation fails.</exception>
-    public T GetSpecific<T>(string key)
+    public async Task<T> GetSpecificAsync<T>(string key, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
         try
         {
-            var doc = ResolveDatabase<T>().Where(x => x.Key == key).FirstOrDefault();
+            cancellationToken.ThrowIfCancellationRequested();
 
+            var clientDb = await ResolveDatabase<T>().ConfigureAwait(false);
+
+            var doc = await clientDb.FindAsync(key);
             if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
             {
-                RemoveSpecific<T>(key);
+                await RemoveSpecificAsync<T>(key, cancellationToken).ConfigureAwait(false);
                 return default;
             }
 
             return doc;
+        }
+        catch (OperationCanceledException)
+        {
+            LogConsumer.Warning($"Operation cancelled while getting document with key: {key}");
+            throw;
         }
         catch (Exception e)
         {
@@ -156,40 +177,45 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
             LogConsumer.Handle(e);
         }
 
-        throw new InvalidOperationException($"Unable to get the item with key: {key}");
+        throw new InvalidOperationException(
+            $"Unable to get the item with key: {key}"
+        );
     }
 
     /// <summary>
-    /// Retrieves a specific document from the CouchDB cache based on the provided key and subKey.
+    /// Retrieves a specific cached document by key and subkey, removing it if expired.
     /// </summary>
-    /// <typeparam name="T">The type of the document to retrieve, which must inherit from <see cref="CouchDBCacheDocument"/>.</typeparam>
-    /// <param name="key">The primary key used to identify the document.</param>
-    /// <param name="subKey">The secondary key used to further specify the document.</param>
-    /// <returns>The document of type <typeparamref name="T"/> if found and not expired; otherwise, returns <c>default</c> for the type.</returns>
-    /// <remarks>
-    /// This method queries the database for a document that matches the specified <paramref name="key"/> and <paramref name="subKey"/>.
-    /// If a matching document is found, it checks whether the document has expired by comparing its expiration time with the current UTC time.
-    /// If the document has expired, it is removed from the cache, and the method returns <c>default</c>.
-    /// If an exception occurs during the database operation, it is either logged or propagated based on the <c>ShouldPropagateExceptions</c> flag.
-    /// If no document is found and no exceptions are thrown, an <see cref="InvalidOperationException"/> is thrown indicating that the item could not be retrieved.
-    /// </remarks>
-    /// <exception cref="InvalidOperationException">Thrown when unable to retrieve the item with the specified key and sub key.</exception>
-    public T GetSpecific<T>(string key, string subKey)
+    /// <typeparam name="T">The document type to retrieve, must inherit from CouchDBCacheDocument.</typeparam>
+    /// <param name="key">The primary cache key.</param>
+    /// <param name="subKey">The secondary cache key.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>The cached document if found and not expired; otherwise null.</returns>
+    /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
+    /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs.</exception>
+    public async Task<T> GetSpecificAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
         try
         {
-            var doc = ResolveDatabase<T>()
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var client = await ResolveDatabase<T>().ConfigureAwait(false);
+            var doc = client
                 .Where(x => x.Key == key && x.SubKey == subKey)
                 .FirstOrDefault();
 
             if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
             {
-                RemoveSpecific<T>(key, subKey);
+                await RemoveSpecificAsync<T>(key, subKey, cancellationToken).ConfigureAwait(false);
                 return default;
             }
 
             return doc;
+        }
+        catch (OperationCanceledException)
+        {
+            LogConsumer.Warning($"Operation cancelled while getting document with key and subkey: {key} {subKey}");
+            throw;
         }
         catch (Exception e)
         {
@@ -207,42 +233,75 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public void Remove(string key) => RemoveSpecific<CouchDBCacheDocument>(key);
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <param name="key">Key to be removed.</param>
+    public async Task RemoveAsync(string key, CancellationToken cancellationToken = default)
+    {
+        await RemoveSpecificAsync<CouchDBCacheDocument>(key, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>
     /// Removes a specific entry from the cache based on the provided key and subKey.
     /// </summary>
     /// <param name="key">The primary key associated with the entry to be removed.</param>
     /// <param name="subKey">The secondary key associated with the entry to be removed.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <remarks>
     /// This method calls the generic method <c>RemoveSpecific</c> with the type <c>CouchDBCacheDocument</c> to remove the entry
     /// identified by the combination of <paramref name="key"/> and <paramref name="subKey"/>.
     /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
     /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
     /// </remarks>
-    public void Remove(string key, string subKey) =>
-        RemoveSpecific<CouchDBCacheDocument>(key, subKey);
+    /// <returns>A task representing the asynchronous operation</returns>
+    public async Task RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)
+    {
+        await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey, cancellationToken).ConfigureAwait(false);
+    }
+
 
     /// <summary>
     /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
     /// </summary>
     /// <typeparam name="T">Type T with base type <see cref="CouchDBCacheDocument"/>.</typeparam>
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
-    public void RemoveSpecific<T>(string key)
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    public async Task RemoveSpecificAsync<T>(string key, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new ArgumentException("Key cannot be null, empty, or whitespace.", nameof(key));
+        }
+
         try
         {
-            var db = _connector.CouchDBClient.GetDatabase<T>();
-            var doc = db.Where(x => x.Key == key).FirstOrDefault();
+            cancellationToken.ThrowIfCancellationRequested();
 
-            if (doc != default)
+            // Using synchronous database resolution if async version not available
+            var db = await ResolveDatabase<T>().ConfigureAwait(false);
+            var doc = await db.FindAsync(key).ConfigureAwait(false);
+
+            if (doc != null)
             {
-                db.DeleteAsync(doc).Wait();
+                await db.DeleteAsync(doc).ConfigureAwait(false);
+                LogConsumer.Info($"Successfully removed document with key: {key}");
             }
+            else
+            {
+                LogConsumer.Info($"Document with key: {key} not found for removal");
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            LogConsumer.Warning($"Operation cancelled while removing document with key: {key}");
+            throw;
         }
         catch (Exception e)
         {
+            LogConsumer.Error($"Failed to remove document with key: {key}", e);
+
             if (ShouldPropagateExceptions)
             {
                 throw;
@@ -258,6 +317,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <typeparam name="T">The type of the CouchDB document, which must inherit from <see cref="CouchDBCacheDocument"/>.</typeparam>
     /// <param name="key">The key of the document to be removed.</param>
     /// <param name="subKey">The subKey of the document to be removed.</param>
+    /// <param name="cancellationToken">Token to cancel the operation</param>
     /// <remarks>
     /// This method retrieves a document from the CouchDB database that matches the specified <paramref name="key"/>
     /// and <paramref name="subKey"/>. If a matching document is found, it is deleted asynchronously from the database.
@@ -265,21 +325,43 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <see cref="ShouldPropagateExceptions"/>. If exceptions are not propagated, they are logged using the
     /// <see cref="LogConsumer"/>. This method does not return any value.
     /// </remarks>
-    public void RemoveSpecific<T>(string key, string subKey)
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="ArgumentException">Thrown when key is null, empty, or whitespace.</exception>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    public async Task RemoveSpecificAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            throw new ArgumentException("Key cannot be null, empty, or whitespace.", nameof(key));
+        }
+
         try
         {
-            var db = _connector.CouchDBClient.GetDatabase<T>();
+            cancellationToken.ThrowIfCancellationRequested();
+ 
+            var db = await ResolveDatabase<T>().ConfigureAwait(false);
             var doc = db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
-            if (doc != default)
+            if (doc != null)
             {
-                db.DeleteAsync(doc).Wait();
+                await db.DeleteAsync(doc).ConfigureAwait(false);
+                LogConsumer.Info($"Successfully removed document with key: {key}");
             }
+            else
+            {
+                LogConsumer.Info($"Document with key: {key} not found for removal");
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            LogConsumer.Warning($"Operation cancelled while removing document with key: {key}");
+            throw;
         }
         catch (Exception e)
         {
+            LogConsumer.Error($"Failed to remove document with key: {key}", e);
+
             if (ShouldPropagateExceptions)
             {
                 throw;
@@ -290,14 +372,14 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public void Set<T>(T value, string key, TimeSpan? ttl = null)
+    public async ValueTask SetAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
     {
         if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
         {
             return;
         }
 
-        SetSpecific((CouchDBCacheDocument)(object)value, key, ttl);
+        await SetSpecificAsync((CouchDBCacheDocument)(object)value, key, ttl, cancellationToken);
     }
 
     /// <summary>
@@ -307,20 +389,43 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The value to be set in the cache.</param>
     /// <param name="key">The primary key under which the value is stored.</param>
     /// <param name="subKey">The sub-key under which the value is stored.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <remarks>
     /// This method checks if the provided type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
     /// If it is not, the method returns without performing any action.
     /// If the type is valid, it calls the <see cref="SetSpecific"/> method to set the value in the cache.
     /// This allows for type-safe caching of documents that inherit from <see cref="CouchDBCacheDocument"/>.
     /// </remarks>
-    public void Set<T>(T value, string key, string subKey)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    /// <returns>A ValueTask representing the asynchronous operation.</returns>
+    public async ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
     {
-        if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+        try
         {
-            return;
-        }
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
+            {
+                return;
+            }
 
-        SetSpecific((CouchDBCacheDocument)(object)value, key, subKey);
+            await SetSpecificAsync((CouchDBCacheDocument)(object)value, key, subKey, cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // Always propagate cancellation
+            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}, subKey: {subKey}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            // Log and wrap with context
+            LogConsumer.Error($"Failed to set cache item with key: '{key}', subKey: '{subKey}', type: {typeof(T).Name}", ex);
+
+            if (ShouldPropagateExceptions)
+            {
+                throw;
+            }
+        }
     }
 
     /// <summary>
@@ -330,11 +435,13 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The value of type T to be persisted.</param>
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
     /// <param name="ttl">How long the value should be stored.</param>
-    public void SetSpecific<T>(T value, string key, TimeSpan? ttl = null)
+    /// <returns>A ValueTask representing the asynchronous operation</returns>
+    public async Task SetSpecificAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
             value.Key = key;
 
             if (ttl != null)
@@ -343,7 +450,8 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
                 value.ExpiresAt = DateTime.UtcNow.Add(ttl.Value);
             }
 
-            ResolveDatabase<T>().CreateAsync(value).Wait();
+            var clientDB = await ResolveDatabase<T>().ConfigureAwait(false);
+            await clientDB.CreateAsync(value);
         }
         catch (Exception e)
         {
@@ -363,6 +471,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The CouchDBCacheDocument instance to be updated.</param>
     /// <param name="key">The key to be set for the CouchDBCacheDocument.</param>
     /// <param name="subKey">The subKey to be set for the CouchDBCacheDocument.</param>
+    /// <param name="cancellationToken">Token to cancel the operation</param>
     /// <remarks>
     /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the specified
     /// <paramref name="value"/> of type <typeparamref name="T"/>. It then attempts to create or update the
@@ -371,15 +480,25 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// is rethrown; otherwise, it is logged using the LogConsumer.
     /// </remarks>
     /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
-    public void SetSpecific<T>(T value, string key, string subKey)
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled</exception>
+    /// <returns>A task representing the asynchronous operation</returns>
+    public async Task SetSpecificAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
         where T : CouchDBCacheDocument
     {
         try
         {
-            value.Key = key;
-            value.SubKey = subKey;
+            cancellationToken.ThrowIfCancellationRequested();
+            value.Key = key.Trim();
+            value.SubKey = subKey.Trim();
 
-            ResolveDatabase<T>().CreateOrUpdateAsync(value).Wait();
+            var clientDB = await ResolveDatabase<T>().ConfigureAwait(false);
+            await clientDB.CreateOrUpdateAsync(value).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // Always propagate cancellation
+            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}, subKey: {subKey}");
+            throw;
         }
         catch (Exception e)
         {
@@ -393,53 +512,92 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public bool TryGet<T>(string key, out T value)
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, CancellationToken cancellationToken = default)
     {
-        var get = Get<CouchDBCacheDocument>(key);
-
-        if (get != default)
+        try
         {
-            value = (T)(object)get;
-            return true;
+            cancellationToken.ThrowIfCancellationRequested();
+            var get = await GetAsync<CouchDBCacheDocument>(key, cancellationToken);
+
+            if (get != default)
+            {
+                var value = (T)(object)get;
+                return (true, value);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Always propagate cancellation
+            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}");
+            return (false, default(T));
+        }
+        catch (Exception e)
+        {
+            if (ShouldPropagateExceptions)
+            {
+                throw;
+            }
+
+            LogConsumer.Handle(e);
         }
 
-        value = default;
-        return false;
+        return (false, default(T));
     }
 
     /// <summary>
-    /// Tries to retrieve a value associated with the specified keys from the cache.
+    /// Attempts to retrieve a cached document by key and subkey.
     /// </summary>
     /// <typeparam name="T">The type of the value to retrieve.</typeparam>
     /// <param name="key">The primary key used to access the cached value.</param>
     /// <param name="subKey">The secondary key used to access the cached value.</param>
-    /// <param name="value">When this method returns, contains the retrieved value if successful; otherwise, the default value for type <typeparamref name="T"/>.</param>
-    /// <returns>True if the value was found and retrieved successfully; otherwise, false.</returns>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>
+    /// A tuple containing Success (true if found and retrieved) and Value (the document cast to T or default(T)).
+    /// </returns>
     /// <remarks>
     /// This method attempts to fetch a cached document from a data store using a combination of a primary key and a secondary key.
-    /// If the document is found, it is cast to the specified type <typeparamref name="T"/> and returned through the out parameter <paramref name="value"/>.
-    /// If no document is found, <paramref name="value"/> is set to its default value, and the method returns false.
+    /// If the document is found, it is cast to the specified type <typeparamref name="T"/> and returned./>.
     /// This is useful for safely attempting to retrieve values without throwing exceptions if the keys do not exist in the cache.
     /// </remarks>
-    public bool TryGet<T>(string key, string subKey, out T value)
+    /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
+    /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs.</exception>
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
     {
-        var get = Get<CouchDBCacheDocument>(key, subKey);
-
-        if (get != default)
+        try
         {
-            value = (T)(object)get;
-            return true;
+            cancellationToken.ThrowIfCancellationRequested();
+            var get = await GetAsync<CouchDBCacheDocument>(key, subKey, cancellationToken);
+            if (get != default)
+            {
+                var value = (T)(object)get;
+                return (true, value);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Always propagate cancellation
+            LogConsumer.Warning($"Operation cancelled while setting document with key and subkey: {key} {subKey}");
+            throw;
+        }
+        catch (Exception e)
+        {
+            if (ShouldPropagateExceptions)
+            {
+                throw;
+            }
+
+            LogConsumer.Handle(e);
         }
 
-        value = default;
-        return false;
+        return (false, default(T));
     }
 
     /// <summary>
     /// Retrieves the Time-To-Live (TTL) value for a specified cache key.
     /// </summary>
     /// <param name="key">The key for which the TTL value is to be retrieved.</param>
-    /// <returns>The TimeSpan representing the TTL for the specified <paramref name="key"/>.</returns>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>The TTL of the cached document, or TimeSpan.Zero if not found or no TTL set</returns>
     /// <remarks>
     /// This method accesses a CouchDB document associated with the provided <paramref name="key"/>
     /// and retrieves its Time-To-Live (TTL) value. The TTL indicates the duration for which the
@@ -448,7 +606,36 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// This method assumes that the key exists in the cache; if it does not, the behavior will depend
     /// on the implementation of the Get method.
     /// </remarks>
-    public TimeSpan TTL(string key) => Get<CouchDBCacheDocument>(key).TTL;
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled</exception>
+    public async Task<TimeSpan> TTLAsync(string key, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var document = await GetAsync<CouchDBCacheDocument>(key, cancellationToken).ConfigureAwait(false);
+
+            return document?.TTL ?? TimeSpan.Zero;
+        }
+        catch (OperationCanceledException)
+        {
+            // Always propagate cancellation
+            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            LogConsumer.Error($"Failed to get TTL for key: '{key}'", ex);
+
+            if (ShouldPropagateExceptions)
+            {
+                throw;
+            }
+
+            // Return default value on error
+            return TimeSpan.Zero;
+        }
+    }
 
     /// <summary>
     /// Resolves a CouchDatabase instance for the specified database name or defaults to the type name if none is provided.
@@ -462,7 +649,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// ensuring that it handles database creation and retrieval efficiently. The use of generics allows for flexibility in specifying the type of documents
     /// that will be stored in the database, making this method suitable for various CouchDBCacheDocument types.
     /// </remarks>
-    private CouchDatabase<T> ResolveDatabase<T>(string dbName = default)
+    private async Task<CouchDatabase<T>> ResolveDatabase<T>(string dbName = default)
         where T : CouchDBCacheDocument
     {
         if (string.IsNullOrEmpty(dbName))
@@ -470,8 +657,8 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
             dbName = $"{typeof(T).Name.ToLowerInvariant()}s";
         }
 
-        return !_connector.CouchDBClient.GetDatabasesNamesAsync().Result.Contains(dbName)
-            ? _connector.CouchDBClient.CreateDatabaseAsync<T>().Result
+        return !(await _connector.CouchDBClient.GetDatabasesNamesAsync()).Contains(dbName)
+            ? await _connector.CouchDBClient.CreateDatabaseAsync<T>(dbName)
             : _connector.CouchDBClient.GetDatabase<T>();
     }
 
