@@ -11,7 +11,7 @@
     </PackageVersion>
     <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.2.3" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
-    <PackageVersion Include="FluentAssertions" Version="8.8.0" />
+    <PackageVersion Include="FluentAssertions" Version="8.9.0" />
     <PackageVersion Include="JunitXml.TestLogger" Version="8.0.0" />
     <PackageVersion Include="log4net" Version="3.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.2" />
