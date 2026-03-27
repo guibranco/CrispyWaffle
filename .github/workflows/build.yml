@@ -1,0 +1,196 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  build-test-coverage:
+    name: Build · Test · Coverage
+    runs-on: ubuntu-latest
+
+    # ── CouchDB service container ──────────────────────────────────────────────
+    services:
+      couchdb:
+        image: couchdb:3.3.3
+        env:
+          COUCHDB_USER: Admin
+          COUCHDB_PASSWORD: myP@ssw0rd
+        ports:
+          - 5984:5984
+        options: >-
+          --health-cmd "curl -sf http://localhost:5984/_up"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      # ── Checkout ─────────────────────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── Toolchain ────────────────────────────────────────────────────────────
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Setup Java 21  # Required by SonarScanner and Codacy reporter
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      # ── GitVersion ───────────────────────────────────────────────────────────
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3
+        with:
+          versionSpec: "6.x"
+
+      - name: Determine version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v3
+
+      - name: Patch .props files with computed version
+        run: |
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          echo "Patching version → $VERSION"
+          find . -name "*.props" -print0 | xargs -0 sed -i \
+            -e "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|g" \
+            -e "s|<PackageVersion>[^<]*</PackageVersion>|<PackageVersion>$VERSION</PackageVersion>|g" \
+            -e "s|<AssemblyVersion>[^<]*</AssemblyVersion>|<AssemblyVersion>$VERSION</AssemblyVersion>|g" \
+            -e "s|<FileVersion>[^<]*</FileVersion>|<FileVersion>$VERSION</FileVersion>|g" \
+            -e "s|<InformationalVersion>[^<]*</InformationalVersion>|<InformationalVersion>$VERSION</InformationalVersion>|g"
+
+      # ── Resolve solution name ─────────────────────────────────────────────────
+      - name: Resolve solution name
+        id: solution
+        run: |
+          SLN=$(find . -maxdepth 2 -name "*.sln" | head -1 | xargs basename -s .sln)
+          echo "name=$SLN" >> "$GITHUB_OUTPUT"
+          echo "Solution: $SLN"
+
+      # ── Install global tools ──────────────────────────────────────────────────
+      - name: Install dotnet-sonarscanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Restore NuGet packages
+        run: dotnet restore
+
+      # ── Determine whether this is an internal PR or a fork PR ─────────────────
+      # Sonar/Codecov/Codacy are only invoked for internal branches and
+      # PRs from the same repo (matching AppVeyor's LOCAL_PR guard).
+      - name: Resolve Sonar context flags
+        id: ctx
+        run: |
+          IS_FORK="false"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            if [[ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+              IS_FORK="true"
+            fi
+          fi
+          echo "is_fork=$IS_FORK" >> "$GITHUB_OUTPUT"
+
+          SONAR_PROJECT="${GITHUB_REPOSITORY/\//_}"
+          SONAR_ORG="${GITHUB_REPOSITORY_OWNER}"
+          echo "sonar_project=$SONAR_PROJECT" >> "$GITHUB_OUTPUT"
+          echo "sonar_org=$SONAR_ORG" >> "$GITHUB_OUTPUT"
+
+      # ── SonarCloud: begin ─────────────────────────────────────────────────────
+      - name: SonarCloud – begin scan
+        if: steps.ctx.outputs.is_fork == 'false'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          PROJECT="${{ steps.ctx.outputs.sonar_project }}"
+          ORG="${{ steps.ctx.outputs.sonar_org }}"
+
+          PARAMS=(
+            "/k:$PROJECT"
+            "/o:$ORG"
+            "/v:$VERSION"
+            "/d:sonar.host.url=https://sonarcloud.io"
+            "/d:sonar.token=$SONAR_TOKEN"
+            "/d:sonar.scanner.scanAll=false"
+            "/d:sonar.exclusions=**/bin/**/*,**/obj/**/*"
+            "/d:sonar.coverage.exclusions=**/${SLN}.Tests/**,**/*Tests.cs"
+            "/d:sonar.cs.opencover.reportsPaths=Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+          )
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PARAMS+=(
+              "/d:sonar.pullrequest.key=${{ github.event.pull_request.number }}"
+              "/d:sonar.pullrequest.branch=${{ github.head_ref }}"
+              "/d:sonar.pullrequest.base=${{ github.base_ref }}"
+            )
+          else
+            PARAMS+=("/d:sonar.branch.name=${{ github.ref_name }}")
+          fi
+
+          dotnet sonarscanner begin "${PARAMS[@]}"
+
+      # ── Build ─────────────────────────────────────────────────────────────────
+      - name: Build
+        run: dotnet build --no-restore --verbosity minimal ${{ steps.solution.outputs.name }}.sln
+
+      # ── Test + coverage ───────────────────────────────────────────────────────
+      - name: Test with coverage
+        run: |
+          for TEST_PROJ in $(find ./Tests -name "*.csproj" -type f); do
+            PROJ_DIR=$(dirname "$TEST_PROJ")
+            dotnet test "$TEST_PROJ" \
+              --no-build \
+              --verbosity minimal \
+              /p:CollectCoverage=true \
+              /p:CoverletOutputFormat='"cobertura,opencover,lcov"' \
+              --logger:"junit;LogFilePath=test-results.xml"
+          done
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ github.run_id }}
+          path: Tests/**/test-results.xml
+
+      # ── Coverage reporting ────────────────────────────────────────────────────
+      - name: Report coverage → Codecov
+        if: steps.ctx.outputs.is_fork == 'false'
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: Tests/${{ steps.solution.outputs.name }}.Tests/coverage.net9.0.opencover.xml
+          fail_ci_if_error: false
+
+      - name: Report coverage → Codacy
+        if: steps.ctx.outputs.is_fork == 'false'
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          curl -fsSL \
+            https://github.com/codacy/codacy-coverage-reporter/releases/latest/download/codacy-coverage-reporter-assembly.jar \
+            -o codacy-reporter.jar
+          java -jar codacy-reporter.jar report \
+            -l CSharp \
+            -t "${{ secrets.CODACY_PROJECT_TOKEN }}" \
+            -r "Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+
+      # ── SonarCloud: end ───────────────────────────────────────────────────────
+      - name: SonarCloud – end scan
+        if: steps.ctx.outputs.is_fork == 'false'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
