@@ -1,0 +1,271 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  release:
+    name: Build · Test · Package · Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+
+    # ── Projects to package (mirrors AppVeyor $PROJECTS) ──────────────────────
+    # Update this list if you add or remove sub-projects.
+    env:
+      PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net RabbitMQ Redis Utils"
+      TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net6.0 net9.0"
+
+    # ── CouchDB service container ──────────────────────────────────────────────
+    services:
+      couchdb:
+        image: couchdb:3.3.3
+        env:
+          COUCHDB_USER: Admin
+          COUCHDB_PASSWORD: myP@ssw0rd
+        ports:
+          - 5984:5984
+        options: >-
+          --health-cmd "curl -sf http://localhost:5984/_up"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      # ── Checkout ─────────────────────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Toolchain ────────────────────────────────────────────────────────────
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      # ── GitVersion ───────────────────────────────────────────────────────────
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3
+        with:
+          versionSpec: "6.x"
+
+      - name: Determine version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v3
+
+      - name: Patch .props files with computed version
+        run: |
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          echo "Patching version → $VERSION"
+          find . -name "*.props" -print0 | xargs -0 sed -i \
+            -e "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|g" \
+            -e "s|<PackageVersion>[^<]*</PackageVersion>|<PackageVersion>$VERSION</PackageVersion>|g" \
+            -e "s|<AssemblyVersion>[^<]*</AssemblyVersion>|<AssemblyVersion>$VERSION</AssemblyVersion>|g" \
+            -e "s|<FileVersion>[^<]*</FileVersion>|<FileVersion>$VERSION</FileVersion>|g" \
+            -e "s|<InformationalVersion>[^<]*</InformationalVersion>|<InformationalVersion>$VERSION</InformationalVersion>|g"
+
+      # ── Resolve solution name ─────────────────────────────────────────────────
+      - name: Resolve solution name
+        id: solution
+        run: |
+          SLN=$(find . -maxdepth 2 -name "*.sln" | head -1 | xargs basename -s .sln)
+          echo "name=$SLN" >> "$GITHUB_OUTPUT"
+          echo "Solution: $SLN"
+
+      # ── Install global tools ──────────────────────────────────────────────────
+      - name: Install dotnet-sonarscanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Restore NuGet packages
+        run: dotnet restore
+
+      # ── SonarCloud: begin ─────────────────────────────────────────────────────
+      - name: SonarCloud – begin scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          PROJECT="${GITHUB_REPOSITORY/\//_}"
+          ORG="${GITHUB_REPOSITORY_OWNER}"
+
+          dotnet sonarscanner begin \
+            "/k:$PROJECT" \
+            "/o:$ORG" \
+            "/v:$VERSION" \
+            "/d:sonar.host.url=https://sonarcloud.io" \
+            "/d:sonar.token=$SONAR_TOKEN" \
+            "/d:sonar.scanner.scanAll=false" \
+            "/d:sonar.branch.name=main" \
+            "/d:sonar.exclusions=**/bin/**/*,**/obj/**/*" \
+            "/d:sonar.coverage.exclusions=**/${SLN}.Tests/**,**/*Tests.cs" \
+            "/d:sonar.cs.opencover.reportsPaths=Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+
+      # ── Build ─────────────────────────────────────────────────────────────────
+      - name: Build
+        run: dotnet build --no-restore --verbosity minimal ${{ steps.solution.outputs.name }}.sln
+
+      # ── Test + coverage ───────────────────────────────────────────────────────
+      - name: Test with coverage
+        run: |
+          for TEST_PROJ in $(find ./Tests -name "*.csproj" -type f); do
+            dotnet test "$TEST_PROJ" \
+              --no-build \
+              --verbosity minimal \
+              /p:CollectCoverage=true \
+              /p:CoverletOutputFormat='"cobertura,opencover,lcov"' \
+              --logger:"junit;LogFilePath=test-results.xml"
+          done
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ github.run_id }}
+          path: Tests/**/test-results.xml
+
+      # ── Coverage reporting ────────────────────────────────────────────────────
+      - name: Report coverage → Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: Tests/${{ steps.solution.outputs.name }}.Tests/coverage.net9.0.opencover.xml
+          fail_ci_if_error: false
+
+      - name: Report coverage → Codacy
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          curl -fsSL \
+            https://github.com/codacy/codacy-coverage-reporter/releases/latest/download/codacy-coverage-reporter-assembly.jar \
+            -o codacy-reporter.jar
+          java -jar codacy-reporter.jar report \
+            -l CSharp \
+            -t "${{ secrets.CODACY_PROJECT_TOKEN }}" \
+            -r "Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+
+      # ── SonarCloud: end ───────────────────────────────────────────────────────
+      - name: SonarCloud – end scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+
+      # ═══════════════════════════════════════════════════════════════════════════
+      # RELEASE PHASE – everything below runs only after a clean green build/test
+      # ═══════════════════════════════════════════════════════════════════════════
+
+      # ── Collect binary artifacts ──────────────────────────────────────────────
+      - name: Collect binary artifacts
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          mkdir -p Artifacts/Coverage
+
+          for TFM in $TARGET_FRAMEWORKS; do
+            # Core project
+            SRC="Src/${SLN}/bin/Release/${TFM}"
+            DST="Artifacts/Build/Core/${TFM}"
+            mkdir -p "$DST"
+            [ -d "$SRC" ] && rsync -a --exclude="refs/" "$SRC/" "$DST/"
+
+            # Sub-projects
+            for PROJ in $PACKAGE_PROJECTS; do
+              SRC="Src/${SLN}.${PROJ}/bin/Release/${TFM}"
+              DST="Artifacts/Build/${PROJ}/${TFM}"
+              mkdir -p "$DST"
+              [ -d "$SRC" ] && rsync -a --exclude="refs/" "$SRC/" "$DST/"
+            done
+          done
+
+          # Coverage reports
+          cp Tests/${SLN}.Tests/*.xml  Artifacts/Coverage/ 2>/dev/null || true
+          cp Tests/${SLN}.Tests/*.json Artifacts/Coverage/ 2>/dev/null || true
+          cp Tests/${SLN}.Tests/*.info Artifacts/Coverage/ 2>/dev/null || true
+
+      # ── Compress release zips ─────────────────────────────────────────────────
+      - name: Compress release archives
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          mkdir -p Zips
+
+          # Coverage archive
+          zip -9 -r "Zips/${SLN}.${VERSION}.Coverage.zip" Artifacts/Coverage/
+
+          # Per-TFM binary archives
+          for TFM in $TARGET_FRAMEWORKS; do
+            zip -9 -r "Zips/${SLN}.Core.${TFM}.${VERSION}.zip" \
+              "Artifacts/Build/Core/${TFM}/"
+
+            for PROJ in $PACKAGE_PROJECTS; do
+              zip -9 -r "Zips/${SLN}.${PROJ}.${TFM}.${VERSION}.zip" \
+                "Artifacts/Build/${PROJ}/${TFM}/"
+            done
+          done
+
+      # ── Collect NuGet packages ────────────────────────────────────────────────
+      - name: Collect NuGet packages
+        run: |
+          SLN="${{ steps.solution.outputs.name }}"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          mkdir -p Zips
+
+          # Core nupkg / snupkg
+          cp "Src/${SLN}/bin/Release/${SLN}.${VERSION}.nupkg"  Zips/ 2>/dev/null || true
+          cp "Src/${SLN}/bin/Release/${SLN}.${VERSION}.snupkg" Zips/ 2>/dev/null || true
+
+          # Sub-project packages
+          for PROJ in $PACKAGE_PROJECTS; do
+            cp "Src/${SLN}.${PROJ}/bin/Release/${SLN}.${PROJ}.${VERSION}.nupkg"  Zips/ 2>/dev/null || true
+            cp "Src/${SLN}.${PROJ}/bin/Release/${SLN}.${PROJ}.${VERSION}.snupkg" Zips/ 2>/dev/null || true
+          done
+
+      # ── Push packages to NuGet.org ────────────────────────────────────────────
+      - name: Push to NuGet.org
+        run: |
+          for PKG in Zips/*.nupkg; do
+            echo "Publishing $PKG …"
+            dotnet nuget push "$PKG" \
+              --api-key "${{ secrets.NUGET_TOKEN }}" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
+
+      # ── Tag the release commit ────────────────────────────────────────────────
+      # This tag is what GitVersion reads on the next run to derive the next
+      # version increment, so it must be pushed before any subsequent builds.
+      - name: Tag release version
+        run: |
+          VERSION="v${{ steps.gitversion.outputs.semVer }}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "$VERSION"
+
+      # ── Create GitHub Release ─────────────────────────────────────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.gitversion.outputs.semVer }}
+          name: Release of ${{ steps.solution.outputs.name }} – v${{ steps.gitversion.outputs.semVer }}
+          generate_release_notes: true  # auto-generates changelog from merged PRs
+          fail_on_unmatched_files: false
+          files: Zips/*
