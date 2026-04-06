@@ -246,14 +246,14 @@ public class FtpClient
     /// <summary>
     /// Check if a file or directory exists in the FtpClient endpoint.
     /// </summary>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if the remote directory exists, <c>false</c> otherwise.</returns>
     private bool Exists() => ExistsInternal(GetFtpUrl().ToString());
 
     /// <summary>
     /// Check if the path exists in the FtpClient endpoint.
     /// </summary>
     /// <param name="path">The path.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if the specified path exists, <c>false</c> otherwise.</returns>
     private bool Exists(string path) => ExistsInternal(GetFtpUrl().Append(path).ToString());
 
     /// <summary>
@@ -282,7 +282,7 @@ public class FtpClient
     /// Creates the directory.
     /// </summary>
     /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if the directory was created successfully, <c>false</c> otherwise.</returns>
     public bool CreateDirectory(string name)
     {
         lock (_syncRoot)
