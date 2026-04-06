@@ -246,7 +246,7 @@ public class FtpClient
     /// <summary>
     /// Check if a file or directory exists in the FtpClient endpoint.
     /// </summary>
-    /// <returns><c>true</c> if the remote directory exists, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if the remote file or directory exists, <c>false</c> otherwise.</returns>
     private bool Exists() => ExistsInternal(GetFtpUrl().ToString());
 
     /// <summary>
