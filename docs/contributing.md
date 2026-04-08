@@ -37,12 +37,21 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Sak3th2004">
+                    <img src="https://avatars.githubusercontent.com/u/139762801?v=4" width="100;" alt="Sak3th2004"/>
+                    <br />
+                    <sub><b>Gunnam Sai Saketh Ram</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/joaovaladares">
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
                     <br />
                     <sub><b>João Vítor Valadares</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/SimranGil">
                     <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
@@ -50,8 +59,6 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                     <sub><b>Simran Gill</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/thiagochfc">
                     <img src="https://avatars.githubusercontent.com/u/36862932?v=4" width="100;" alt="thiagochfc"/>
@@ -87,6 +94,8 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                     <sub><b>akhtareimon</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/mf0zz13">
                     <img src="https://avatars.githubusercontent.com/u/115477550?v=4" width="100;" alt="mf0zz13"/>
