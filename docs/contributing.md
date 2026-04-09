@@ -23,6 +23,13 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Sak3th2004">
+                    <img src="https://avatars.githubusercontent.com/u/139762801?v=4" width="100;" alt="Sak3th2004"/>
+                    <br />
+                    <sub><b>Gunnam Sai Saketh Ram</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Looseling">
                     <img src="https://avatars.githubusercontent.com/u/69507148?v=4" width="100;" alt="Looseling"/>
                     <br />
@@ -34,13 +41,6 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                     <img src="https://avatars.githubusercontent.com/u/109029860?v=4" width="100;" alt="ducdaiii"/>
                     <br />
                     <sub><b>Doan Duc Daii</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/Sak3th2004">
-                    <img src="https://avatars.githubusercontent.com/u/139762801?v=4" width="100;" alt="Sak3th2004"/>
-                    <br />
-                    <sub><b>Gunnam Sai Saketh Ram</b></sub>
                 </a>
             </td>
             <td align="center">
