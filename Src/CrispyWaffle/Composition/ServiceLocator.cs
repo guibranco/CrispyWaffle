@@ -825,7 +825,7 @@ public static class ServiceLocator
     /// <summary>
     /// Requests the cancellation.
     /// </summary>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c> if cancellation was requested successfully, <c>false</c> otherwise.</returns>
     public static bool RequestCancellation()
     {
         if (!_cancellationTokenSource.Token.CanBeCanceled)
