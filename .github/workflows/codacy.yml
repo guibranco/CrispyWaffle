@@ -53,7 +53,7 @@ jobs:
         run: |
           jq '{version: .version, "$schema": ."$schema", runs: [ .runs[0] ]}' results.sarif > filtered.sarif
 
-      # 4️⃣ Upload just that single-run SARIF
+      # 4️⃣ Split and upload each SARIF run
       - name: Split and upload each SARIF run
         run: |
           count=$(jq '.runs | length' results.sarif)
@@ -61,17 +61,15 @@ jobs:
             jq --argjson idx $i \
                '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
                results.sarif > run_${i}.sarif
-      
-            # gzip and base64 encode
+
+            # gzip and base64 encode into a file
             gzip -c run_${i}.sarif | base64 -w 0 > run_${i}.sarif.b64
-      
-            # Read encoded content into variable
-            b64_sarif=$(cat run_${i}.sarif.b64)
-      
+
+            # Pass the file content directly via @file — avoids ARG_MAX
             gh api repos/${{ github.repository }}/code-scanning/sarifs \
               -f commit_sha=${{ github.sha }} \
               -f ref=${{ github.ref }} \
-              -f sarif="$b64_sarif"
+              -f sarif=@run_${i}.sarif.b64
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
