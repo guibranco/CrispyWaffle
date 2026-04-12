@@ -48,12 +48,7 @@ jobs:
           gh-code-scanning-compat: true
           max-allowed-issues: 2147483647
 
-      # 3️⃣ Extract only the first SARIF run to avoid duplicates
-      - name: Extract first SARIF run
-        run: |
-          jq '{version: .version, "$schema": ."$schema", runs: [ .runs[0] ]}' results.sarif > filtered.sarif
-
-      # 4️⃣ Split and upload each SARIF run
+      # 3️⃣ Split and upload each SARIF run
       - name: Split and upload each SARIF run
         run: |
           count=$(jq '.runs | length' results.sarif)
@@ -62,14 +57,14 @@ jobs:
                '{version: .version, "$schema": ."$schema", runs: [ .runs[$idx] ]}' \
                results.sarif > run_${i}.sarif
 
-            # gzip and base64 encode into a file
-            gzip -c run_${i}.sarif | base64 -w 0 > run_${i}.sarif.b64
-
-            # Pass the file content directly via @file — avoids ARG_MAX
-            gh api repos/${{ github.repository }}/code-scanning/sarifs \
-              -f commit_sha=${{ github.sha }} \
-              -f ref=${{ github.ref }} \
-              -f sarif=@run_${i}.sarif.b64
+            # Build a valid JSON payload and pipe directly into gh api
+            gzip -c run_${i}.sarif | base64 -w 0 | \
+              jq -Rs \
+                --arg commit_sha "${{ github.sha }}" \
+                --arg ref "${{ github.ref }}" \
+                '{commit_sha: $commit_sha, ref: $ref, sarif: (. | rtrimstr("\n"))}' | \
+              gh api repos/${{ github.repository }}/code-scanning/sarifs \
+                --input -
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
