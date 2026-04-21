@@ -29,4 +29,21 @@ public enum HashAlgorithmType
     /// The SHA-512 algorithm.
     /// </summary>
     Sha512,
+
+#if NET8_0_OR_GREATER
+    /// <summary>
+    /// The SHA3-256 algorithm. Available in .NET 8.0 and later.
+    /// </summary>
+    Sha3_256,
+
+    /// <summary>
+    /// The SHA3-384 algorithm. Available in .NET 8.0 and later.
+    /// </summary>
+    Sha3_384,
+
+    /// <summary>
+    /// The SHA3-512 algorithm. Available in .NET 8.0 and later.
+    /// </summary>
+    Sha3_512,
+#endif
 }
