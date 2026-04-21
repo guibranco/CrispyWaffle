@@ -162,12 +162,21 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/christopher-conley">
+                    <img src="https://avatars.githubusercontent.com/u/11824616?v=4" width="100;" alt="christopher-conley"/>
+                    <br />
+                    <sub><b>Christopher Conley</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/ducdaiii">
                     <img src="https://avatars.githubusercontent.com/u/109029860?v=4" width="100;" alt="ducdaiii"/>
                     <br />
                     <sub><b>Doan Duc Daii</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/joaovaladares">
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
@@ -175,8 +184,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>João Vítor Valadares</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/SimranGil">
                     <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
@@ -212,6 +219,8 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>Yousef</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/akhtareimon">
                     <img src="https://avatars.githubusercontent.com/u/15952495?v=4" width="100;" alt="akhtareimon"/>
@@ -219,8 +228,6 @@ Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this p
                     <sub><b>akhtareimon</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/mf0zz13">
                     <img src="https://avatars.githubusercontent.com/u/115477550?v=4" width="100;" alt="mf0zz13"/>
