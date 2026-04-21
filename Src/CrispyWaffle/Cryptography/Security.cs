@@ -157,5 +157,10 @@ public static class Security
         { HashAlgorithmType.Sha256, SHA256.Create() },
         { HashAlgorithmType.Sha384, SHA384.Create() },
         { HashAlgorithmType.Sha512, SHA512.Create() },
+#if NET8_0_OR_GREATER
+        { HashAlgorithmType.Sha3_256, SHA3_256.Create() },
+        { HashAlgorithmType.Sha3_384, SHA3_384.Create() },
+        { HashAlgorithmType.Sha3_512, SHA3_512.Create() },
+#endif
     };
 }
