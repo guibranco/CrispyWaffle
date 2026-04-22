@@ -1,0 +1,114 @@
+name: Build, Test and Analyze
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build, Test and Analyze
+    runs-on: ubuntu-latest
+
+    services:
+      couchdb:
+        image: couchdb:3.3.3
+        env:
+          COUCHDB_USER: Admin
+          COUCHDB_PASSWORD: myP@ssw0rd
+        ports:
+          - 5984:5984
+        options: >-
+          --health-cmd "curl -sf http://localhost:5984/_up"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: ☕ Setup Java runtime
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: 🧰 Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: 🔧 Install SonarCloud scanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: 📡 Install DeepSource scanner
+        run: curl https://deepsource.io/cli | sh
+
+      - name: 💾 Cache NuGet packages
+        uses: actions/cache@v5
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/global.json', '**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: 📦 Restore dependencies
+        run: dotnet restore
+
+      - name: 🔍 Begin SonarCloud analysis
+        run: |
+          dotnet sonarscanner begin \
+            /k:"guibranco_ViaCEP-SDK-dotnet" \
+            /o:"guibranco" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏗️ Build solution
+        run: dotnet build --no-restore --configuration Release
+
+      - name: 🧪 Run tests with coverage
+        run: |
+          dotnet test \
+            --no-build \
+            --configuration Release \
+            /p:CollectCoverage=true \
+            /p:CoverletOutputFormat=opencover%2ccobertura
+      
+      - name: 📊 End SonarCloud analysis
+        run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ☂️ Upload coverage to Codecov
+        uses: codecov/codecov-action@v6
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: 📈 Report coverage to DeepSource
+        if: >-
+          (
+            github.event_name == 'pull_request' &&
+            github.event.pull_request.head.repo.full_name == github.repository
+          ) || (
+            github.event_name == 'workflow_dispatch'
+          )
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
+        run: |
+          ./bin/deepsource report \
+            --analyzer test-coverage \
+            --key csharp \
+            --value-file ./Tests/ViaCep.Tests/coverage.cobertura.xml
