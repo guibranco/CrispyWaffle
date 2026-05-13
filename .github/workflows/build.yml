@@ -68,7 +68,7 @@ jobs:
       - name: 🔍 Begin SonarCloud analysis
         run: |
           dotnet sonarscanner begin \
-            /k:"guibranco_ViaCEP-SDK-dotnet" \
+            /k:"guibranco_CrispyWaffle" \
             /o:"guibranco" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
