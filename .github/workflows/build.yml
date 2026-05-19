@@ -70,11 +70,12 @@ jobs:
           dotnet sonarscanner begin \
             /k:"guibranco_CrispyWaffle" \
             /o:"guibranco" \
-            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.token="$SONAR_TOKEN" \
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: 🏗️ Build solution
         run: dotnet build --no-restore --configuration Release
