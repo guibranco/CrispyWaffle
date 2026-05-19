@@ -111,4 +111,4 @@ jobs:
           ./bin/deepsource report \
             --analyzer test-coverage \
             --key csharp \
-            --value-file ./Tests/CrispyWaffle.Tests/coverage.cobertura.xml
+            --value-file ./Tests/CrispyWaffle.Tests/coverage.net9.0.cobertura.xml
