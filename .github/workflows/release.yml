@@ -145,7 +145,7 @@ jobs:
 
       # ── Coverage reporting ────────────────────────────────────────────────────
       - name: Report coverage → Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: Tests/${{ steps.solution.outputs.name }}.Tests/coverage.net9.0.opencover.xml
