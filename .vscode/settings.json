@@ -22,5 +22,6 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "guibranco",
         "projectKey": "guibranco_CrispyWaffle"
-    }
+    },
+    "snyk.advanced.autoSelectOrganization": true
 }

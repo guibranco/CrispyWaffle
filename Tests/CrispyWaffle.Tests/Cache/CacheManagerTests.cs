@@ -133,7 +133,8 @@ public class CacheManagerTests
         // Arrange
         var key = "testKey";
         var expectedTTL = TimeSpan.FromMinutes(10);
-        CacheManager.AddRepository(_mockCacheRepository); 
+        CacheManager.AddRepository(_mockCacheRepository);
+        _mockCacheRepository.TTLAsync(key, Arg.Any<CancellationToken>()).Returns(expectedTTL);
         await CacheManager.SetAsync(new { Name = "Test" }, key, expectedTTL, CancellationToken.None); // Set value with TTL
 
         // Act

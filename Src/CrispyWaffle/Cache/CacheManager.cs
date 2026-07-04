@@ -477,9 +477,16 @@ public static class CacheManager
                     LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
 
                     // Try to get value from repository
-                    var result = await repository.GetAsync<T>(key, combinedCts.Token);
+                    var (success, result) = await repository.TryGetAsync<T>(key, combinedCts.Token);
 
                     repositoryStopwatch.Stop();
+
+                    if (!success)
+                    {
+                        LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                        continue;
+                    }
+
                     LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
 
                     // If found in non-memory repository, promote to memory cache
@@ -500,12 +507,7 @@ public static class CacheManager
                         }, cancellationToken);
                     }
 
-                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)",  key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
                     return result;
-                }
-                catch (InvalidOperationException)
-                {
-                    throw new InvalidOperationException($"Unable to get the item with key {key}");
                 }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
                 {
@@ -571,9 +573,16 @@ public static class CacheManager
                     LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
 
                     // Try to get value from repository
-                    var result = await repository.GetAsync<T>(key, subKey,  combinedCts.Token);
+                    var (success, result) = await repository.TryGetAsync<T>(key, subKey, combinedCts.Token);
 
                     repositoryStopwatch.Stop();
+
+                    if (!success)
+                    {
+                        LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                        continue;
+                    }
+
                     LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
 
                     // If found in non-memory repository, promote to memory cache
@@ -594,7 +603,6 @@ public static class CacheManager
                             }, cancellationToken);
                     }
 
-                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
                     return result;
                 }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -763,9 +771,16 @@ public static class CacheManager
                     LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
 
                     // Try to get value from repository
-                    var result = await repository.GetAsync<T>(key, combinedCts.Token);
+                    var (success, result) = await repository.TryGetAsync<T>(key, combinedCts.Token);
 
                     repositoryStopwatch.Stop();
+
+                    if (!success)
+                    {
+                        LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                        continue;
+                    }
+
                     LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
 
                     // If found in non-memory repository, promote to memory cache
@@ -786,7 +801,6 @@ public static class CacheManager
                             }, cancellationToken);
                     }
 
-                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
                     return (true, result);
                 }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -857,9 +871,16 @@ public static class CacheManager
                     LogConsumer.Debug("Attempting to get key {0} from repository {1}", key, repositoryName);
 
                     // Try to get value from repository
-                    var result = await repository.GetAsync<T>(key, subKey, combinedCts.Token);
+                    var (success, result) = await repository.TryGetAsync<T>(key, subKey, combinedCts.Token);
 
                     repositoryStopwatch.Stop();
+
+                    if (!success)
+                    {
+                        LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
+                        continue;
+                    }
+
                     LogConsumer.Info("Found key {0} in repository {1}", key, repositoryName);
 
                     // If found in non-memory repository, promote to memory cache
@@ -880,7 +901,6 @@ public static class CacheManager
                             }, cancellationToken);
                     }
 
-                    LogConsumer.Debug("Key {0} not found in repository {1} ({2}ms)", key, repositoryName, repositoryStopwatch.ElapsedMilliseconds);
                     return true;
                 }
                 catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
