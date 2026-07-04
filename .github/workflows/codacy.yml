@@ -35,11 +35,11 @@ jobs:
     steps:
       # 1️⃣ Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       # 2️⃣ Run Codacy Analysis CLI, produce results.sarif
       - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@562ee3e92b8e92df8b67e0a5ff8aa8e261919c08
+        uses: codacy/codacy-analysis-cli-action@562ee3e92b8e92df8b67e0a5ff8aa8e261919c08 # 562ee3e92b8e92df8b67e0a5ff8aa8e261919c08
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
