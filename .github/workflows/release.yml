@@ -75,7 +75,7 @@ jobs:
 
       - name: Patch .props files with computed version
         run: |
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           ASSEMBLY_VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "Patching version → $VERSION (assembly: $ASSEMBLY_VERSION)"
           find . -name "*.props" -print0 | xargs -0 sed -i \
@@ -106,7 +106,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           PROJECT="${GITHUB_REPOSITORY/\//_}"
           ORG="${GITHUB_REPOSITORY_OWNER}"
 
@@ -179,7 +179,7 @@ jobs:
       - name: Collect binary artifacts
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           mkdir -p Artifacts/Coverage
 
           for TFM in $TARGET_FRAMEWORKS; do
@@ -207,7 +207,7 @@ jobs:
       - name: Compress release archives
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           mkdir -p Zips
 
           # Coverage archive
@@ -228,7 +228,7 @@ jobs:
       - name: Collect NuGet packages
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           mkdir -p Zips
 
           # Core nupkg / snupkg
@@ -269,7 +269,7 @@ jobs:
       # version increment, so it must be pushed before any subsequent builds.
       - name: Tag release version
         run: |
-          VERSION="v${{ steps.gitversion.outputs.semVer }}"
+          VERSION="v${{ steps.gitversion.outputs.assemblySemVer }}"
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a "$VERSION" -m "Release $VERSION"
@@ -279,8 +279,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3
         with:
-          tag_name: v${{ steps.gitversion.outputs.semVer }}
-          name: Release of ${{ steps.solution.outputs.name }} – v${{ steps.gitversion.outputs.semVer }}
+          tag_name: v${{ steps.gitversion.outputs.assemblySemVer }}
+          name: Release of ${{ steps.solution.outputs.name }} – v${{ steps.gitversion.outputs.assemblySemVer }}
           generate_release_notes: true  # auto-generates changelog from merged PRs
           fail_on_unmatched_files: false
           files: Zips/*
