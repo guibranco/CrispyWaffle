@@ -16,7 +16,7 @@ namespace CrispyWaffle.Utilities;
 /// <param name="valueFactory">The value factory.</param>
 /// <param name="mode">The mode.</param>
 /// <param name="declaringType">Type of the declaring.</param>
-/// <exception cref="ArgumentNullException">valueFactory</exception>
+/// <exception cref="ArgumentNullException">valueFactory.</exception>
 [HostProtection(
     Action = SecurityAction.Demand,
     Resources = HostProtectionResource.Synchronization | HostProtectionResource.SharedState
