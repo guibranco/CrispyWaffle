@@ -8,14 +8,16 @@ using Xunit;
 
 namespace CrispyWaffle.IntegrationTests.Cache.Redis;
 
-public class RedisCacheRepositoryTests :  IDisposable
+public class RedisCacheRepositoryTests : IDisposable
 {
     private readonly RedisCacheRepository _repository;
 
     public RedisCacheRepositoryTests()
     {
         var host = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "localhost";
-        var port = int.TryParse(Environment.GetEnvironmentVariable("REDIS_PORT"), out var p) ? p : 6379;
+        var port = int.TryParse(Environment.GetEnvironmentVariable("REDIS_PORT"), out var p)
+            ? p
+            : 6379;
         var password = Environment.GetEnvironmentVariable("REDIS_PASSWORD");
         var serializer = new TestJsonSerializer();
         var connection = new RedisConnector(host, port, password, serializer);
@@ -46,11 +48,12 @@ public class RedisCacheRepositoryTests :  IDisposable
         await _repository.SetAsync(value, key);
         await _repository.RemoveAsync(key);
 
-        var ex = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => _repository.GetAsync<string>(key).AsTask()
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            _repository.GetAsync<string>(key).AsTask()
         );
         Assert.Contains("Unable to get the item with key", ex.Message);
     }
+
     public void Dispose()
     {
         Dispose(true);
@@ -72,11 +75,13 @@ public class TestJsonSerializer : ISerializer
 
     public TestJsonSerializer(JsonSerializerOptions options = null)
     {
-        _options = options ?? new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        };
+        _options =
+            options
+            ?? new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true,
+            };
     }
 
     public byte[] Serialize<T>(T item)
@@ -89,4 +94,3 @@ public class TestJsonSerializer : ISerializer
         return JsonSerializer.Deserialize<T>(serializedObject, _options);
     }
 }
-
