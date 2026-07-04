@@ -12,8 +12,17 @@
 
         Task MarkCompletedAsync(Guid jobId, CancellationToken cancellationToken = default);
 
-        Task MarkFailedAsync(Guid jobId, string error, CancellationToken cancellationToken = default);
+        Task MarkFailedAsync(
+            Guid jobId,
+            string error,
+            CancellationToken cancellationToken = default
+        );
 
-        Task MarkRetryAsync(Guid jobId, DateTimeOffset? nextAttemptAt, int attemptCount, CancellationToken cancellationToken = default);
+        Task MarkRetryAsync(
+            Guid jobId,
+            DateTimeOffset? nextAttemptAt,
+            int attemptCount,
+            CancellationToken cancellationToken = default
+        );
     }
 }

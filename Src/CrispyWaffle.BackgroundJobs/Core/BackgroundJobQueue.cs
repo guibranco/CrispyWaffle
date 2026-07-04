@@ -1,5 +1,5 @@
-﻿using CrispyWaffle.BackgroundJobs.Abstractions;
-using System.Threading.Channels;
+﻿using System.Threading.Channels;
+using CrispyWaffle.BackgroundJobs.Abstractions;
 
 namespace CrispyWaffle.BackgroundJobs.Core
 {
@@ -12,7 +12,9 @@ namespace CrispyWaffle.BackgroundJobs.Core
     {
         private readonly object _lock = new();
         private readonly PriorityQueue<JobEntity, int> _pq = new();
-        private readonly Channel<JobEntity> _signal = Channel.CreateUnbounded<JobEntity>(new UnboundedChannelOptions { SingleReader = false, SingleWriter = false });
+        private readonly Channel<JobEntity> _signal = Channel.CreateUnbounded<JobEntity>(
+            new UnboundedChannelOptions { SingleReader = false, SingleWriter = false }
+        );
 
         public void Enqueue(JobEntity job)
         {
@@ -31,7 +33,10 @@ namespace CrispyWaffle.BackgroundJobs.Core
             {
                 await _signal.Reader.ReadAsync(cancellationToken);
             }
-            catch (OperationCanceledException) { return null; }
+            catch (OperationCanceledException)
+            {
+                return null;
+            }
 
             lock (_lock)
             {

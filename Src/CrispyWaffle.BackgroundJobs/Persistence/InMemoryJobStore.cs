@@ -17,8 +17,11 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
         public Task<JobEntity?> FetchNextAsync(CancellationToken cancellationToken = default)
         {
             var now = DateTimeOffset.UtcNow;
-            var next = _storage.Values
-                .Where(j => j.Status == JobStatus.Pending && (!j.ScheduledAt.HasValue || j.ScheduledAt.Value <= now))
+            var next = _storage
+                .Values.Where(j =>
+                    j.Status == JobStatus.Pending
+                    && (!j.ScheduledAt.HasValue || j.ScheduledAt.Value <= now)
+                )
                 .OrderBy(j => (int)j.Priority)
                 .ThenBy(j => j.CreatedAt)
                 .FirstOrDefault();
@@ -46,7 +49,11 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.CompletedTask;
         }
 
-        public Task MarkFailedAsync(Guid jobId, string error, CancellationToken cancellationToken = default)
+        public Task MarkFailedAsync(
+            Guid jobId,
+            string error,
+            CancellationToken cancellationToken = default
+        )
         {
             if (_storage.TryGetValue(jobId, out var job))
             {
@@ -58,7 +65,12 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.CompletedTask;
         }
 
-        public Task MarkRetryAsync(Guid jobId, DateTimeOffset? nextAttemptAt, int attemptCount, CancellationToken cancellationToken = default)
+        public Task MarkRetryAsync(
+            Guid jobId,
+            DateTimeOffset? nextAttemptAt,
+            int attemptCount,
+            CancellationToken cancellationToken = default
+        )
         {
             if (_storage.TryGetValue(jobId, out var job))
             {

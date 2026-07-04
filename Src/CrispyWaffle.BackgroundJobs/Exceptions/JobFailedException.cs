@@ -2,6 +2,7 @@
 {
     public class JobFailedException : Exception
     {
-        public JobFailedException(string message) : base(message) { }
+        public JobFailedException(string message)
+            : base(message) { }
     }
 }

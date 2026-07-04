@@ -16,13 +16,24 @@ namespace CrispyWaffle.BackgroundJobs.Scheduling
             _provider = provider;
         }
 
-        public Task EnqueueAsync(string handlerName, object payload, int maxAttempts = 3, JobPriority priority = JobPriority.Normal)
+        public Task EnqueueAsync(
+            string handlerName,
+            object payload,
+            int maxAttempts = 3,
+            JobPriority priority = JobPriority.Normal
+        )
         {
             var dispatcher = _provider.GetRequiredService<JobDispatcher>();
             return dispatcher.EnqueueAsync(handlerName, payload, maxAttempts, priority);
         }
 
-        public Task ScheduleAsync(string handlerName, object payload, TimeSpan delay, int maxAttempts = 3, JobPriority priority = JobPriority.Normal)
+        public Task ScheduleAsync(
+            string handlerName,
+            object payload,
+            TimeSpan delay,
+            int maxAttempts = 3,
+            JobPriority priority = JobPriority.Normal
+        )
         {
             var dispatcher = _provider.GetRequiredService<JobDispatcher>();
             return dispatcher.ScheduleAsync(handlerName, payload, delay, maxAttempts, priority);

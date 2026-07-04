@@ -6,6 +6,6 @@
         Processing = 1,
         Completed = 2,
         Failed = 3,
-        Dead = 4
+        Dead = 4,
     }
 }

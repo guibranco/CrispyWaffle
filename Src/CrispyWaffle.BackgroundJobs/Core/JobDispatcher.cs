@@ -10,7 +10,12 @@ namespace CrispyWaffle.BackgroundJobs.Core
         private readonly IJobStore? _store;
         private readonly JobOptions _options;
 
-        public JobDispatcher(IServiceProvider provider, BackgroundJobQueue? queue, IJobStore? store, JobOptions options)
+        public JobDispatcher(
+            IServiceProvider provider,
+            BackgroundJobQueue? queue,
+            IJobStore? store,
+            JobOptions options
+        )
         {
             _provider = provider;
             _queue = queue;
@@ -18,7 +23,12 @@ namespace CrispyWaffle.BackgroundJobs.Core
             _options = options;
         }
 
-        public async Task<Guid> EnqueueAsync(string handlerName, object payload, int? maxAttempts = null, JobPriority priority = JobPriority.Normal)
+        public async Task<Guid> EnqueueAsync(
+            string handlerName,
+            object payload,
+            int? maxAttempts = null,
+            JobPriority priority = JobPriority.Normal
+        )
         {
             var job = new JobEntity
             {
@@ -27,7 +37,7 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 Priority = priority,
                 MaxAttempt = maxAttempts ?? _options.DefaultMaxAttempt,
                 Status = JobStatus.Pending,
-                CreatedAt = DateTimeOffset.UtcNow
+                CreatedAt = DateTimeOffset.UtcNow,
             };
 
             if (_store != null)
@@ -42,7 +52,13 @@ namespace CrispyWaffle.BackgroundJobs.Core
             return job.Id;
         }
 
-        public async Task ScheduleAsync(string handlerName, object payload, TimeSpan delay, int? maxAttempts = null, JobPriority priority = JobPriority.Normal)
+        public async Task ScheduleAsync(
+            string handlerName,
+            object payload,
+            TimeSpan delay,
+            int? maxAttempts = null,
+            JobPriority priority = JobPriority.Normal
+        )
         {
             var job = new JobEntity
             {
@@ -52,7 +68,7 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 MaxAttempt = maxAttempts ?? _options.DefaultMaxAttempt,
                 Status = JobStatus.Pending,
                 ScheduledAt = DateTimeOffset.UtcNow.Add(delay),
-                CreatedAt = DateTimeOffset.UtcNow
+                CreatedAt = DateTimeOffset.UtcNow,
             };
 
             if (_store != null)
@@ -69,7 +85,9 @@ namespace CrispyWaffle.BackgroundJobs.Core
                         await Task.Delay(delay);
                         _queue?.Enqueue(job);
                     }
-                    catch { /* suppressed */ }
+                    catch
+                    { /* suppressed */
+                    }
                 });
             }
         }

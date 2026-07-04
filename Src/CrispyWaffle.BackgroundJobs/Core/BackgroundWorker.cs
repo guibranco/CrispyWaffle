@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Text.Json;
 using CrispyWaffle.BackgroundJobs.Abstractions;
-using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace CrispyWaffle.BackgroundJobs.Core
 {
@@ -15,7 +15,11 @@ namespace CrispyWaffle.BackgroundJobs.Core
         private readonly JobOptions _options;
         private readonly ILogger<BackgroundWorker> _logger;
 
-        public BackgroundWorker(IServiceProvider provider, JobOptions options, ILogger<BackgroundWorker> logger)
+        public BackgroundWorker(
+            IServiceProvider provider,
+            JobOptions options,
+            ILogger<BackgroundWorker> logger
+        )
         {
             _provider = provider;
             _options = options;
@@ -29,10 +33,14 @@ namespace CrispyWaffle.BackgroundJobs.Core
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("BackgroundWorker starting with {Workers} workers", _options.WorkerCount);
+            _logger.LogInformation(
+                "BackgroundWorker starting with {Workers} workers",
+                _options.WorkerCount
+            );
 
             var tasks = new Task[_options.WorkerCount];
-            for (int i = 0; i < _options.WorkerCount; i++) tasks[i] = Task.Run(() => WorkerLoopAsync(i, stoppingToken), stoppingToken);
+            for (int i = 0; i < _options.WorkerCount; i++)
+                tasks[i] = Task.Run(() => WorkerLoopAsync(i, stoppingToken), stoppingToken);
 
             return Task.WhenAll(tasks);
         }
@@ -72,7 +80,8 @@ namespace CrispyWaffle.BackgroundJobs.Core
                         continue;
                     }
 
-                    if (job == null) continue;
+                    if (job == null)
+                        continue;
 
                     // If job has ScheduledAt in future, re-enqueue / re-schedule.
                     if (job.ScheduledAt.HasValue && job.ScheduledAt.Value > DateTimeOffset.UtcNow)
@@ -81,7 +90,12 @@ namespace CrispyWaffle.BackgroundJobs.Core
                         if (_store != null)
                         {
                             // mark as Pending again (store.FetchNextAsync should have returned only due jobs, this is defensive)
-                            await _store.MarkRetryAsync(job.Id, job.ScheduledAt, job.Attempt, stoppingToken);
+                            await _store.MarkRetryAsync(
+                                job.Id,
+                                job.ScheduledAt,
+                                job.Attempt,
+                                stoppingToken
+                            );
                         }
                         else
                         {
@@ -117,7 +131,11 @@ namespace CrispyWaffle.BackgroundJobs.Core
 
                     if (!success)
                     {
-                        _logger.LogWarning("Job {JobId} failed after processing attempt {Attempt}", job.Id, job.Attempt);
+                        _logger.LogWarning(
+                            "Job {JobId} failed after processing attempt {Attempt}",
+                            job.Id,
+                            job.Attempt
+                        );
                     }
                 }
                 catch (Exception ex)
@@ -130,7 +148,11 @@ namespace CrispyWaffle.BackgroundJobs.Core
             _logger.LogInformation("Worker {WorkerId} stopping", workerId);
         }
 
-        private async Task<bool> ProcessJobAsync(JobEntity job, IServiceProvider scopedProvider, CancellationToken cancellationToken)
+        private async Task<bool> ProcessJobAsync(
+            JobEntity job,
+            IServiceProvider scopedProvider,
+            CancellationToken cancellationToken
+        )
         {
             try
             {
@@ -138,7 +160,8 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 {
                     var msg = $"No handler registered for '{job.HandlerName}'";
                     _logger.LogError(msg);
-                    if (_store != null) await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
+                    if (_store != null)
+                        await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
                     return false;
                 }
 
@@ -155,7 +178,8 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 {
                     var msg = $"Handler type {handlerType} not resolved from DI";
                     _logger.LogError(msg);
-                    if (_store != null) await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
+                    if (_store != null)
+                        await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
                     return false;
                 }
 
@@ -164,7 +188,8 @@ namespace CrispyWaffle.BackgroundJobs.Core
 
                 if (result.Success)
                 {
-                    if (_store != null) await _store.MarkCompletedAsync(job.Id, cancellationToken);
+                    if (_store != null)
+                        await _store.MarkCompletedAsync(job.Id, cancellationToken);
                     return true;
                 }
 
@@ -175,11 +200,22 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 {
                     var backoffSeconds = ComputeBackoffSeconds(job.Attempt);
                     var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(backoffSeconds);
-                    _logger.LogInformation("Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})", job.Id, backoffSeconds, job.Attempt, job.MaxAttempt);
+                    _logger.LogInformation(
+                        "Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})",
+                        job.Id,
+                        backoffSeconds,
+                        job.Attempt,
+                        job.MaxAttempt
+                    );
 
                     if (_store != null)
                     {
-                        await _store.MarkRetryAsync(job.Id, nextAttempt, job.Attempt, cancellationToken);
+                        await _store.MarkRetryAsync(
+                            job.Id,
+                            nextAttempt,
+                            job.Attempt,
+                            cancellationToken
+                        );
                     }
                     else
                     {
@@ -191,8 +227,14 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 {
                     // exhaust
                     var err = result.ErrorMessage ?? "Job failed";
-                    if (_store != null) await _store.MarkFailedAsync(job.Id, err, cancellationToken);
-                    else _logger.LogError("Job {JobId} failed and will not be retried: {Error}", job.Id, err);
+                    if (_store != null)
+                        await _store.MarkFailedAsync(job.Id, err, cancellationToken);
+                    else
+                        _logger.LogError(
+                            "Job {JobId} failed and will not be retried: {Error}",
+                            job.Id,
+                            err
+                        );
                 }
 
                 return false;
@@ -204,13 +246,22 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 {
                     // schedule retry with backoff
                     job.Attempt++;
-                    var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(ComputeBackoffSeconds(job.Attempt));
-                    await _store.MarkRetryAsync(job.Id, nextAttempt, job.Attempt, cancellationToken);
+                    var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(
+                        ComputeBackoffSeconds(job.Attempt)
+                    );
+                    await _store.MarkRetryAsync(
+                        job.Id,
+                        nextAttempt,
+                        job.Attempt,
+                        cancellationToken
+                    );
                 }
                 else
                 {
                     job.Attempt++;
-                    job.ScheduledAt = DateTimeOffset.UtcNow.AddSeconds(ComputeBackoffSeconds(job.Attempt));
+                    job.ScheduledAt = DateTimeOffset.UtcNow.AddSeconds(
+                        ComputeBackoffSeconds(job.Attempt)
+                    );
                     _queue!.Enqueue(job);
                 }
 
@@ -225,11 +276,16 @@ namespace CrispyWaffle.BackgroundJobs.Core
             return Math.Min(seconds, 300);
         }
 
-        private static async Task<JobResult> InvokeHandleAsync(object handler, object? data, CancellationToken cancellationToken)
+        private static async Task<JobResult> InvokeHandleAsync(
+            object handler,
+            object? data,
+            CancellationToken cancellationToken
+        )
         {
             // Find HandleAsync method (TData, CancellationToken)
             var method = handler.GetType().GetMethod("HandleAsync");
-            if (method == null) throw new InvalidOperationException("Handler does not implement HandleAsync");
+            if (method == null)
+                throw new InvalidOperationException("Handler does not implement HandleAsync");
 
             var parameters = method.GetParameters();
             object? invokeArg1 = null;
@@ -248,8 +304,14 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 }
             }
 
-            var taskObj = method.Invoke(handler, invokeArg2 == null ? new[] { invokeArg1 } : new[] { invokeArg1, invokeArg2 });
-            if (taskObj == null) throw new InvalidOperationException("Handler returned null instead of Task<JobResult>");
+            var taskObj = method.Invoke(
+                handler,
+                invokeArg2 == null ? new[] { invokeArg1 } : new[] { invokeArg1, invokeArg2 }
+            );
+            if (taskObj == null)
+                throw new InvalidOperationException(
+                    "Handler returned null instead of Task<JobResult>"
+                );
 
             // support Task<JobResult> and Task
             if (taskObj is Task<JobResult> typed)
@@ -265,7 +327,8 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 if (resultProperty != null)
                 {
                     var res = resultProperty.GetValue(task);
-                    if (res is JobResult jr) return jr;
+                    if (res is JobResult jr)
+                        return jr;
                 }
 
                 // else assume success

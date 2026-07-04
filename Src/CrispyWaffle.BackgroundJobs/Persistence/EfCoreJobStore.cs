@@ -25,18 +25,22 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             var now = DateTimeOffset.UtcNow;
 
             // This uses a simple approach: select candidate IDs then try to update one row in a transaction; this reduces race conditions.
-            var candidate = await _db.Jobs
-                .Where(j => j.Status == JobStatus.Pending && (j.ScheduledAt == null || j.ScheduledAt <= now))
+            var candidate = await _db
+                .Jobs.Where(j =>
+                    j.Status == JobStatus.Pending && (j.ScheduledAt == null || j.ScheduledAt <= now)
+                )
                 .OrderBy(j => (int)j.Priority)
                 .ThenBy(j => j.CreatedAt)
                 .Select(j => j.Id)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (candidate == Guid.Empty) return null;
+            if (candidate == Guid.Empty)
+                return null;
 
             // Try to claim the job
             var job = await _db.Jobs.FirstOrDefaultAsync(j => j.Id == candidate, cancellationToken);
-            if (job == null) return null;
+            if (job == null)
+                return null;
 
             job.Status = JobStatus.Processing;
             job.UpdatedAt = DateTimeOffset.UtcNow;
@@ -53,29 +57,44 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             }
         }
 
-        public async Task MarkCompletedAsync(Guid jobId, CancellationToken cancellationToken = default)
+        public async Task MarkCompletedAsync(
+            Guid jobId,
+            CancellationToken cancellationToken = default
+        )
         {
             var job = await _db.Jobs.FirstOrDefaultAsync(j => j.Id == jobId, cancellationToken);
-            if (job == null) return;
+            if (job == null)
+                return;
             job.Status = JobStatus.Completed;
             job.UpdatedAt = DateTimeOffset.UtcNow;
             await _db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task MarkFailedAsync(Guid jobId, string error, CancellationToken cancellationToken = default)
+        public async Task MarkFailedAsync(
+            Guid jobId,
+            string error,
+            CancellationToken cancellationToken = default
+        )
         {
             var job = await _db.Jobs.FirstOrDefaultAsync(j => j.Id == jobId, cancellationToken);
-            if (job == null) return;
+            if (job == null)
+                return;
             job.Status = JobStatus.Failed;
             job.LastError = error;
             job.UpdatedAt = DateTimeOffset.UtcNow;
             await _db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task MarkRetryAsync(Guid jobId, DateTimeOffset? nextAttemptAt, int attemptCount, CancellationToken cancellationToken = default)
+        public async Task MarkRetryAsync(
+            Guid jobId,
+            DateTimeOffset? nextAttemptAt,
+            int attemptCount,
+            CancellationToken cancellationToken = default
+        )
         {
             var job = await _db.Jobs.FirstOrDefaultAsync(j => j.Id == jobId, cancellationToken);
-            if (job == null) return;
+            if (job == null)
+                return;
             job.Attempt = attemptCount;
             job.Status = JobStatus.Pending;
             job.ScheduledAt = nextAttemptAt;

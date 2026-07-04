@@ -6,7 +6,8 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
 {
     public class JobDbContext : DbContext
     {
-        public JobDbContext(DbContextOptions<JobDbContext> options) : base(options) { }
+        public JobDbContext(DbContextOptions<JobDbContext> options)
+            : base(options) { }
 
         public DbSet<JobEntity> Jobs { get; set; } = null!;
 

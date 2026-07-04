@@ -13,7 +13,7 @@ namespace CrispyWaffle.BackgroundJobs.Monitoring
 
         public long Get(string key) => _counters.TryGetValue(key, out var v) ? v : 0;
 
-        public System.Collections.Generic.IDictionary<string, long> Snapshot() => new System.Collections.Generic.Dictionary<string, long>(_counters);
+        public System.Collections.Generic.IDictionary<string, long> Snapshot() =>
+            new System.Collections.Generic.Dictionary<string, long>(_counters);
     }
 }
-
