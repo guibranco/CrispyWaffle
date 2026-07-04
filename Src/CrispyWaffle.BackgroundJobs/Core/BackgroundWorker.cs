@@ -213,7 +213,11 @@ namespace CrispyWaffle.BackgroundJobs.Core
             }
         }
 
-        private async Task FailJobAsync(JobEntity job, string message, CancellationToken cancellationToken)
+        private async Task FailJobAsync(
+            JobEntity job,
+            string message,
+            CancellationToken cancellationToken
+        )
         {
             _logger.LogError(message);
             if (_store != null)
@@ -280,9 +284,7 @@ namespace CrispyWaffle.BackgroundJobs.Core
         private async Task ScheduleRetryAsync(JobEntity job, CancellationToken cancellationToken)
         {
             job.Attempt++;
-            var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(
-                ComputeBackoffSeconds(job.Attempt)
-            );
+            var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(ComputeBackoffSeconds(job.Attempt));
 
             if (_store != null)
             {

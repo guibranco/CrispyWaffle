@@ -203,7 +203,14 @@ namespace CrispyWaffle.HttpClient
             var sw = Stopwatch.StartNew();
 
             // The action will create a NEW HttpRequestMessage each time it's invoked (important for retries).
-            var action = BuildRequestAction(client, method, url, body, effectiveOptions, serializer);
+            var action = BuildRequestAction(
+                client,
+                method,
+                url,
+                body,
+                effectiveOptions,
+                serializer
+            );
 
             // Execute the action with retry policy. The policy is expected to return the final response (or null + exception).
             var (resp, ex) = await RetryPolicy
@@ -353,7 +360,16 @@ namespace CrispyWaffle.HttpClient
             }
 
             return resp.IsSuccessStatusCode
-                ? BuildSuccessResult<T>(resp, raw, method, url, serializer, effectiveOptions, headers, elapsed)
+                ? BuildSuccessResult<T>(
+                    resp,
+                    raw,
+                    method,
+                    url,
+                    serializer,
+                    effectiveOptions,
+                    headers,
+                    elapsed
+                )
                 : BuildFailureResult<T>(resp, raw, headers, effectiveOptions, elapsed);
         }
 
