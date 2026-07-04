@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using CrispyWaffle.Scheduler;
 using Xunit;
@@ -60,10 +61,10 @@ public class JobRunnerTests
 
         var runner = new JobRunner(
             "*",
-            async () =>
+            () =>
             {
                 sampler.Counter++;
-                await Task.Delay(sleepMilliseconds);
+                Thread.Sleep(sleepMilliseconds);
             }
         );
 
