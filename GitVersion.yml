@@ -1,2 +1,3 @@
 strategies:
   - Mainline
+deployment-mode: ManualDeployment
