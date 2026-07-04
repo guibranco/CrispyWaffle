@@ -263,7 +263,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// It is important to ensure that both keys are correctly specified to successfully remove the intended entry from the cache.
     /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
     /// </remarks>
-    /// <returns>A task representing the asynchronous operation</returns>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task RemoveAsync(
         string key,
         string subKey,
@@ -334,7 +334,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <typeparam name="T">The type of the CouchDB document, which must inherit from <see cref="CouchDBCacheDocument"/>.</typeparam>
     /// <param name="key">The key of the document to be removed.</param>
     /// <param name="subKey">The subKey of the document to be removed.</param>
-    /// <param name="cancellationToken">Token to cancel the operation</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <remarks>
     /// This method retrieves a document from the CouchDB database that matches the specified <paramref name="key"/>
     /// and <paramref name="subKey"/>. If a matching document is found, it is deleted asynchronously from the database.
@@ -477,7 +477,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The value of type T to be persisted.</param>
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
     /// <param name="ttl">How long the value should be stored.</param>
-    /// <returns>A ValueTask representing the asynchronous operation</returns>
+    /// <returns>A ValueTask representing the asynchronous operation.</returns>
     public async Task SetSpecificAsync<T>(
         T value,
         string key,
@@ -518,7 +518,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The CouchDBCacheDocument instance to be updated.</param>
     /// <param name="key">The key to be set for the CouchDBCacheDocument.</param>
     /// <param name="subKey">The subKey to be set for the CouchDBCacheDocument.</param>
-    /// <param name="cancellationToken">Token to cancel the operation</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <remarks>
     /// This method assigns the provided <paramref name="key"/> and <paramref name="subKey"/> to the specified
     /// <paramref name="value"/> of type <typeparamref name="T"/>. It then attempts to create or update the
@@ -527,8 +527,8 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// is rethrown; otherwise, it is logged using the LogConsumer.
     /// </remarks>
     /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
-    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled</exception>
-    /// <returns>A task representing the asynchronous operation</returns>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task SetSpecificAsync<T>(
         T value,
         string key,
@@ -660,7 +660,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// </summary>
     /// <param name="key">The key for which the TTL value is to be retrieved.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>The TTL of the cached document, or TimeSpan.Zero if not found or no TTL set</returns>
+    /// <returns>The TTL of the cached document, or TimeSpan.Zero if not found or no TTL set.</returns>
     /// <remarks>
     /// This method accesses a CouchDB document associated with the provided <paramref name="key"/>
     /// and retrieves its Time-To-Live (TTL) value. The TTL indicates the duration for which the
@@ -669,7 +669,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// This method assumes that the key exists in the cache; if it does not, the behavior will depend
     /// on the implementation of the Get method.
     /// </remarks>
-    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled</exception>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     public async Task<TimeSpan> TTLAsync(string key, CancellationToken cancellationToken = default)
     {
         try

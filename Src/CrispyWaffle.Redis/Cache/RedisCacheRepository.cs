@@ -561,7 +561,7 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// Asynchronously attempts to get a value from the cache using the specified key.
     /// This method returns both the success status and the value in a single result.
     /// </summary>
-    /// <typeparam name="T">The type of value to retrieve from cache</typeparam>
+    /// <typeparam name="T">The type of value to retrieve from cache.</typeparam>
     /// <param name="key">The cache key used to identify the cached value. Cannot be null or empty.</param>
     /// <param name="subKey">The subkey.</param>
     /// <param name="cancellationToken">Token to monitor for cancellation requests. <c>default</c> if no cancellation is required;

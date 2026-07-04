@@ -20,6 +20,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
+      id-token: write
 
     # ── Projects to package (mirrors AppVeyor $PROJECTS) ──────────────────────
     # Update this list if you add or remove sub-projects.
@@ -241,6 +242,12 @@ jobs:
           done
 
       # ── Push packages to NuGet.org ────────────────────────────────────────────
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push to NuGet.org
         run: |
           shopt -s nullglob
@@ -252,7 +259,7 @@ jobs:
           for PKG in "${PACKAGES[@]}"; do
             echo "Publishing $PKG …"
             dotnet nuget push "$PKG" \
-              --api-key "${{ secrets.NUGET_TOKEN }}" \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --source https://api.nuget.org/v3/index.json \
               --skip-duplicate
           done
