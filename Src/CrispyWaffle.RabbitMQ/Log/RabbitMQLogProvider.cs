@@ -34,7 +34,7 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
     /// <summary>
     /// The channel.
     /// </summary>
-    private readonly IModel _channel;
+    private readonly IChannel _channel;
 
     /// <summary>
     /// The cancellation token.
@@ -55,8 +55,24 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
     public RabbitMQLogProvider(RabbitMQConnector connector, CancellationToken cancellationToken)
     {
         _connector = connector ?? throw new ArgumentNullException(nameof(connector));
-        _channel = _connector.ConnectionFactory.CreateConnection().CreateModel();
-        _channel.ExchangeDeclare(_connector.DefaultExchangeName, ExchangeType.Fanout, true);
+
+        var connection = _connector
+            .ConnectionFactory.CreateConnectionAsync(cancellationToken)
+            .GetAwaiter()
+            .GetResult();
+        _channel = connection
+            .CreateChannelAsync(cancellationToken: cancellationToken)
+            .GetAwaiter()
+            .GetResult();
+        _channel
+            .ExchangeDeclareAsync(
+                _connector.DefaultExchangeName,
+                ExchangeType.Fanout,
+                true,
+                cancellationToken: cancellationToken
+            )
+            .GetAwaiter()
+            .GetResult();
         _cancellationToken = cancellationToken;
         _queue = new ConcurrentQueue<string>();
         var thread = new Thread(Worker);
@@ -107,7 +123,15 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
         try
         {
             var body = Encoding.UTF8.GetBytes(message);
-            _channel.BasicPublish(_connector.DefaultExchangeName, string.Empty, null, body);
+            _channel
+                .BasicPublishAsync(
+                    _connector.DefaultExchangeName,
+                    string.Empty,
+                    (ReadOnlyMemory<byte>)body,
+                    _cancellationToken
+                )
+                .GetAwaiter()
+                .GetResult();
         }
         catch (Exception e)
         {
@@ -126,7 +150,8 @@ public class RabbitMQLogProvider : ILogProvider, IDisposable
             return;
         }
 
-        _channel.Close();
+        _channel.CloseAsync().GetAwaiter().GetResult();
+        _channel.Dispose();
     }
 
     /// <summary>
