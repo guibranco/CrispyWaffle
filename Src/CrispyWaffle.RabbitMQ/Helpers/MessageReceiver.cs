@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,7 +58,7 @@ public class MessageReceiver
         var queueName = Extensions.GetQueueName<T>();
 
         Task.Run(
-                () => DoWork(string.Empty, queueName, autoAck, cancellationToken),
+                () => DoWorkAsync(string.Empty, queueName, autoAck, cancellationToken),
                 cancellationToken
             )
             .ConfigureAwait(false);
@@ -79,7 +79,7 @@ public class MessageReceiver
         var exchangeName = Extensions.GetExchangeName<T>();
 
         Task.Run(
-                () => DoWork(exchangeName, string.Empty, autoAck, cancellationToken),
+                () => DoWorkAsync(exchangeName, string.Empty, autoAck, cancellationToken),
                 cancellationToken
             )
             .ConfigureAwait(false);
@@ -96,48 +96,76 @@ public class MessageReceiver
     /// This method connects to RabbitMQ, binds the queue to the exchange (if specified),
     /// and starts listening for messages. It invokes the <see cref="MessageReceived"/> event when a message is received.
     /// </remarks>
-    private void DoWork(
+    private async Task DoWorkAsync(
         string exchange,
         string queue,
         bool autoAck,
         CancellationToken cancellationToken
     )
     {
-        using (var connection = _connector.ConnectionFactory.CreateConnection())
-        using (var channel = connection.CreateModel())
+        var connection = await _connector
+            .ConnectionFactory.CreateConnectionAsync(cancellationToken)
+            .ConfigureAwait(false);
+        await using var connectionDisposable = connection.ConfigureAwait(false);
+
+        var channel = await connection
+            .CreateChannelAsync(cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+        await using var channelDisposable = channel.ConfigureAwait(false);
+
+        var consumer = new AsyncEventingBasicConsumer(channel);
+
+        var queueName = string.IsNullOrWhiteSpace(queue)
+            ? (
+                await channel
+                    .QueueDeclareAsync(cancellationToken: cancellationToken)
+                    .ConfigureAwait(false)
+            ).QueueName
+            : queue;
+
+        if (!string.IsNullOrWhiteSpace(exchange))
         {
-            var consumer = new EventingBasicConsumer(channel);
+            await channel
+                .QueueBindAsync(
+                    queueName,
+                    exchange,
+                    string.Empty,
+                    cancellationToken: cancellationToken
+                )
+                .ConfigureAwait(false);
+        }
 
-            var queueName = string.IsNullOrWhiteSpace(queue)
-                ? channel.QueueDeclare().QueueName
-                : queue;
-
-            if (!string.IsNullOrWhiteSpace(exchange))
+        consumer.ReceivedAsync += (_, args) =>
+        {
+            if (MessageReceived == null)
             {
-                channel.QueueBind(queueName, exchange, string.Empty);
+                return Task.CompletedTask;
             }
 
-            consumer.Received += (_, args) =>
-            {
-                if (MessageReceived == null)
-                {
-                    return;
-                }
+            LogConsumer.Trace(
+                $"Message received from exchange: {exchange} | queue: {queue} | queue name: {queueName}"
+            );
 
-                LogConsumer.Trace(
-                    $"Message received from exchange: {exchange} | queue: {queue} | queue name: {queueName}"
-                );
+            var body = Encoding.UTF8.GetString(args.Body.ToArray());
 
-                var body = Encoding.UTF8.GetString(args.Body.ToArray());
+            var eventArgs = new MessageReceivedArgs { QueueName = queueName, Body = body };
 
-                var eventArgs = new MessageReceivedArgs { QueueName = queueName, Body = body };
+            MessageReceived.Invoke(this, eventArgs);
 
-                MessageReceived.Invoke(this, eventArgs);
-            };
+            return Task.CompletedTask;
+        };
 
-            channel.BasicConsume(queue: queueName, autoAck: autoAck, consumer: consumer);
+        await channel
+            .BasicConsumeAsync(queueName, autoAck, consumer, cancellationToken)
+            .ConfigureAwait(false);
 
-            cancellationToken.WaitHandle.WaitOne();
+        try
+        {
+            await Task.Delay(Timeout.Infinite, cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when cancellation is requested; allows graceful shutdown.
         }
     }
 }

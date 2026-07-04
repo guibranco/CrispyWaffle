@@ -21,7 +21,7 @@ public class SampleItemDto
     public DateTime Date { get; set; }
 }
 
-static void Main(string[] args)
+static async Task Main(string[] args)
 {
     //Registering the RabbitMq connector as a singleton lifecycle.
     ServiceLocator.Register<RabbitMQConnector>(LifeStyle.SINGLETON);
@@ -37,7 +37,7 @@ static void Main(string[] args)
     var wrapper = ServiceLocator.Resolve<RabbitMQWrapper>();
 
     //Send to exchange (the exchange name is set via attributes in the SampleItemDto declaration)
-    wrapper.SendToExchange(data);
+    await wrapper.SendToExchangeAsync(data);
 
     Console.ReadKey();
 }
@@ -58,7 +58,7 @@ public class SampleItemDto
     public DateTime Date { get; set; }
 }
 
-static void Main(string[] args)
+static async Task Main(string[] args)
 {
     //Registering the RabbitMq connector as a singleton lifecycle.
     ServiceLocator.Register<RabbitMQConnector>(LifeStyle.SINGLETON);
@@ -74,7 +74,7 @@ static void Main(string[] args)
     var wrapper = ServiceLocator.Resolve<RabbitMQWrapper>();
 
     //Send to queue (the queue name is set via attributes in the SampleItemDto declaration)
-    wrapper.SendToQueue(data);
+    await wrapper.SendToQueueAsync(data);
 
     Console.ReadKey();
 }

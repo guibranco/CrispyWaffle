@@ -265,7 +265,7 @@ public class MemoryCacheRepository : ICacheRepository
     /// Returns the time to live of the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
-    /// <param name="cancellationToken">Token to cancel the operation</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>
     /// The timespan until this key is expired from the cache or 0 if it's already expired or doesn't exist.
     /// As Memory Cache does not implement TTL or expire mechanism, this will always return 0, even if the key exists.
