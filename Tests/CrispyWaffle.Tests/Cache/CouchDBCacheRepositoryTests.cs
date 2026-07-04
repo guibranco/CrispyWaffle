@@ -62,7 +62,7 @@ public class CouchDBCacheRepositoryTests
 
         // Act
         await _repository.RemoveAsync(key);
-        (bool success, _)= await _repository.TryGetAsync<object>(key);
+        (bool success, _) = await _repository.TryGetAsync<object>(key);
 
         // Assert
         success.Should().Be(false);

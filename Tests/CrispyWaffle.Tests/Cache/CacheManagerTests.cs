@@ -52,7 +52,7 @@ public class CacheManagerTests
         // Arrange
         var key = "testKey";
         var value = new { Name = "Test" };
-        CacheManager.AddRepository(_mockCacheRepository);      
+        CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
         await CacheManager.SetAsync(value, key);
@@ -84,13 +84,15 @@ public class CacheManagerTests
         var key = "testKey";
         var subKey = "testSubKey";
         var value = new { Name = "Test" };
-        CacheManager.AddRepository(_mockCacheRepository);       
+        CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
         await CacheManager.SetAsync(value, key, subKey);
 
         // Assert
-        await _mockCacheRepository.Received(1).SetAsync(value, key, subKey, Arg.Any<CancellationToken>());
+        await _mockCacheRepository
+            .Received(1)
+            .SetAsync(value, key, subKey, Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -117,7 +119,8 @@ public class CacheManagerTests
         CacheManager.AddRepository(_mockCacheRepository);
 
         // Act
-        Func<Task> act = async () => await CacheManager.SetToAsync<ICacheRepository, object>(value, key);
+        Func<Task> act = async () =>
+            await CacheManager.SetToAsync<ICacheRepository, object>(value, key);
 
         // Assert
         await act.Should()
@@ -125,7 +128,7 @@ public class CacheManagerTests
             .WithMessage(
                 "The repository of type CrispyWaffle.Cache.ICacheRepository isn't available in the repositories providers list"
             );
-    }   
+    }
 
     [Fact]
     public async Task TTLShouldReturnCorrectTTLFromRepositories()
@@ -135,7 +138,12 @@ public class CacheManagerTests
         var expectedTTL = TimeSpan.FromMinutes(10);
         CacheManager.AddRepository(_mockCacheRepository);
         _mockCacheRepository.TTLAsync(key, Arg.Any<CancellationToken>()).Returns(expectedTTL);
-        await CacheManager.SetAsync(new { Name = "Test" }, key, expectedTTL, CancellationToken.None); // Set value with TTL
+        await CacheManager.SetAsync(
+            new { Name = "Test" },
+            key,
+            expectedTTL,
+            CancellationToken.None
+        ); // Set value with TTL
 
         // Act
         var result = await CacheManager.TTLAsync(key);

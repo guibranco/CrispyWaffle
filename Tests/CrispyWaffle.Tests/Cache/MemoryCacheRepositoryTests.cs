@@ -53,7 +53,8 @@ public class MemoryCacheRepositoryTests
 
         await Task.WhenAll(Task1, Task2);
         // Act
-        var exception = Assert.ThrowsAsync<InvalidOperationException>(async () => await _repository.GetAsync<string>(key)
+        var exception = Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            await _repository.GetAsync<string>(key)
         );
 
         // Assert

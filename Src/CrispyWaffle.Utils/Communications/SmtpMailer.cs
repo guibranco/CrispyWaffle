@@ -347,7 +347,6 @@ public class SmtpMailer : IMailer
     {
         (bool exists, _) = await CacheManager.TryGetAsync<object>(cacheKey, CancellationToken.None);
 
-
         if (exists)
         {
             LogConsumer.Trace("E-mail sending disabled due {0}", "network error");

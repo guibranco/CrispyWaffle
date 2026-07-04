@@ -121,7 +121,11 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// If the type is not assignable, it returns the default value for that type, which could be null for reference types or zero for numeric types.
     /// This method is useful for retrieving cached data in a type-safe manner, ensuring that only compatible types are processed.
     /// </remarks>
-    public async ValueTask<T> GetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask<T> GetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -144,7 +148,10 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <returns>The document if found.</returns>
     /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
     /// <exception cref="InvalidOperationException">Thrown in case the operation fails.</exception>
-    public async Task<T> GetSpecificAsync<T>(string key, CancellationToken cancellationToken = default)
+    public async Task<T> GetSpecificAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         try
@@ -177,9 +184,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
             LogConsumer.Handle(e);
         }
 
-        throw new InvalidOperationException(
-            $"Unable to get the item with key: {key}"
-        );
+        throw new InvalidOperationException($"Unable to get the item with key: {key}");
     }
 
     /// <summary>
@@ -192,7 +197,11 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <returns>The cached document if found and not expired; otherwise null.</returns>
     /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
     /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs.</exception>
-    public async Task<T> GetSpecificAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async Task<T> GetSpecificAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         try
@@ -200,9 +209,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
             cancellationToken.ThrowIfCancellationRequested();
 
             var client = await ResolveDatabase<T>().ConfigureAwait(false);
-            var doc = client
-                .Where(x => x.Key == key && x.SubKey == subKey)
-                .FirstOrDefault();
+            var doc = client.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
             if (doc != default && doc.ExpiresAt != default && doc.ExpiresAt <= DateTime.UtcNow)
             {
@@ -214,7 +221,9 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
         }
         catch (OperationCanceledException)
         {
-            LogConsumer.Warning($"Operation cancelled while getting document with key and subkey: {key} {subKey}");
+            LogConsumer.Warning(
+                $"Operation cancelled while getting document with key and subkey: {key} {subKey}"
+            );
             throw;
         }
         catch (Exception e)
@@ -238,7 +247,8 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="key">Key to be removed.</param>
     public async Task RemoveAsync(string key, CancellationToken cancellationToken = default)
     {
-        await RemoveSpecificAsync<CouchDBCacheDocument>(key, cancellationToken).ConfigureAwait(false);
+        await RemoveSpecificAsync<CouchDBCacheDocument>(key, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <summary>
@@ -254,11 +264,15 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// If the specified entry does not exist, no action will be taken, and no exceptions will be thrown.
     /// </remarks>
     /// <returns>A task representing the asynchronous operation</returns>
-    public async Task RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)
+    public async Task RemoveAsync(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
-        await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey, cancellationToken).ConfigureAwait(false);
+        await RemoveSpecificAsync<CouchDBCacheDocument>(key, subKey, cancellationToken)
+            .ConfigureAwait(false);
     }
-
 
     /// <summary>
     /// Removes from a class specified database instead of the general <see cref="CouchDBCacheDocument"/> database.
@@ -267,7 +281,10 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public async Task RemoveSpecificAsync<T>(string key, CancellationToken cancellationToken = default)
+    public async Task RemoveSpecificAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         if (string.IsNullOrWhiteSpace(key))
@@ -328,7 +345,11 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentException">Thrown when key is null, empty, or whitespace.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async Task RemoveSpecificAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async Task RemoveSpecificAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         if (string.IsNullOrWhiteSpace(key))
@@ -339,7 +360,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
- 
+
             var db = await ResolveDatabase<T>().ConfigureAwait(false);
             var doc = db.Where(x => x.Key == key && x.SubKey == subKey).FirstOrDefault();
 
@@ -372,7 +393,12 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public async ValueTask SetAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
+    public async ValueTask SetAsync<T>(
+        T value,
+        string key,
+        TimeSpan? ttl = null,
+        CancellationToken cancellationToken = default
+    )
     {
         if (!typeof(CouchDBCacheDocument).IsAssignableFrom(typeof(T)))
         {
@@ -398,7 +424,12 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// </remarks>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     /// <returns>A ValueTask representing the asynchronous operation.</returns>
-    public async ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask SetAsync<T>(
+        T value,
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
@@ -408,18 +439,29 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
                 return;
             }
 
-            await SetSpecificAsync((CouchDBCacheDocument)(object)value, key, subKey, cancellationToken).ConfigureAwait(false);
+            await SetSpecificAsync(
+                    (CouchDBCacheDocument)(object)value,
+                    key,
+                    subKey,
+                    cancellationToken
+                )
+                .ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
             // Always propagate cancellation
-            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}, subKey: {subKey}");
+            LogConsumer.Warning(
+                $"Operation cancelled while setting document with key: {key}, subKey: {subKey}"
+            );
             throw;
         }
         catch (Exception ex)
         {
             // Log and wrap with context
-            LogConsumer.Error($"Failed to set cache item with key: '{key}', subKey: '{subKey}', type: {typeof(T).Name}", ex);
+            LogConsumer.Error(
+                $"Failed to set cache item with key: '{key}', subKey: '{subKey}', type: {typeof(T).Name}",
+                ex
+            );
 
             if (ShouldPropagateExceptions)
             {
@@ -436,7 +478,12 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
     /// <param name="ttl">How long the value should be stored.</param>
     /// <returns>A ValueTask representing the asynchronous operation</returns>
-    public async Task SetSpecificAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
+    public async Task SetSpecificAsync<T>(
+        T value,
+        string key,
+        TimeSpan? ttl = null,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         try
@@ -482,7 +529,12 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <exception cref="Exception">Thrown when an error occurs during the database operation, unless exceptions are suppressed.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled</exception>
     /// <returns>A task representing the asynchronous operation</returns>
-    public async Task SetSpecificAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
+    public async Task SetSpecificAsync<T>(
+        T value,
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
         where T : CouchDBCacheDocument
     {
         try
@@ -497,7 +549,9 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
         catch (OperationCanceledException)
         {
             // Always propagate cancellation
-            LogConsumer.Warning($"Operation cancelled while setting document with key: {key}, subKey: {subKey}");
+            LogConsumer.Warning(
+                $"Operation cancelled while setting document with key: {key}, subKey: {subKey}"
+            );
             throw;
         }
         catch (Exception e)
@@ -512,7 +566,10 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     }
 
     /// <inheritdoc />
-    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, CancellationToken cancellationToken = default)
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
@@ -561,7 +618,11 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// </remarks>
     /// <exception cref="OperationCanceledException">Thrown if the operation is cancelled.</exception>
     /// <exception cref="Exception">Thrown if ShouldPropagateExceptions is true and an error occurs.</exception>
-    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
@@ -576,7 +637,9 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
         catch (OperationCanceledException)
         {
             // Always propagate cancellation
-            LogConsumer.Warning($"Operation cancelled while setting document with key and subkey: {key} {subKey}");
+            LogConsumer.Warning(
+                $"Operation cancelled while setting document with key and subkey: {key} {subKey}"
+            );
             throw;
         }
         catch (Exception e)
@@ -613,7 +676,8 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var document = await GetAsync<CouchDBCacheDocument>(key, cancellationToken).ConfigureAwait(false);
+            var document = await GetAsync<CouchDBCacheDocument>(key, cancellationToken)
+                .ConfigureAwait(false);
 
             return document?.TTL ?? TimeSpan.Zero;
         }

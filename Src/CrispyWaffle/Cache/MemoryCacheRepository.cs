@@ -42,13 +42,20 @@ public class MemoryCacheRepository : ICacheRepository
     /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements.</exception>
     /// <exception cref="OperationCanceledException">If cancelled.</exception>
     /// <returns>The Value.</returns>
-    public ValueTask SetAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
+    public ValueTask SetAsync<T>(
+        T value,
+        string key,
+        TimeSpan? ttl = null,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         if (_data.Count >= int.MaxValue)
         {
-            throw new OverflowException("The dictionary already contains the maximum number of elements.");
+            throw new OverflowException(
+                "The dictionary already contains the maximum number of elements."
+            );
         }
 
         _data.AddOrUpdate(key, value, (_, _) => value);
@@ -66,7 +73,12 @@ public class MemoryCacheRepository : ICacheRepository
     /// <exception cref="OverflowException">The dictionary already contains the maximum number of elements.</exception>
     /// <exception cref="OperationCanceledException">If cancelled.</exception>
     /// <returns>ValuTask.</returns>
-    public ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
+    public ValueTask SetAsync<T>(
+        T value,
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -102,12 +114,16 @@ public class MemoryCacheRepository : ICacheRepository
     /// <typeparam name="T">The type parameter.</typeparam>
     /// <param name="key">The key.</param>
     /// <param name="subKey">The sub key.</param>
-    /// <param name="cancellationToken">to cancel.</param>  
+    /// <param name="cancellationToken">to cancel.</param>
     /// <exception cref="InvalidOperationException">Unable to get the item with key {key} and sub key {subKey}.</exception>
     /// <exception cref="OperationCanceledException">If cancelled.</exception>
     /// <exception cref="InvalidCastException">Invalid cast.</exception>
     /// <returns>T.</returns>
-    public ValueTask<T> GetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public ValueTask<T> GetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -126,7 +142,9 @@ public class MemoryCacheRepository : ICacheRepository
         }
         catch (InvalidCastException)
         {
-            throw new InvalidCastException($"Unable to convert the item with key {key} and sub key {subKey}");
+            throw new InvalidCastException(
+                $"Unable to convert the item with key {key} and sub key {subKey}"
+            );
         }
     }
 
@@ -141,7 +159,10 @@ public class MemoryCacheRepository : ICacheRepository
     /// <returns>
     /// A tuple containing Success (true if found and castable to T) and Value (the cached item or default(T)).
     /// </returns>
-    public ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, CancellationToken cancellationToken = default)
+    public ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -173,7 +194,11 @@ public class MemoryCacheRepository : ICacheRepository
     /// <returns>
     /// A tuple containing Success (true if found and castable to T) and Value (the cached item or default(T)).
     /// </returns>
-    public ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -220,7 +245,11 @@ public class MemoryCacheRepository : ICacheRepository
     /// <param name="subKey">The sub key.</param>
     /// <param name="cancellationToken">Cancel token.</param>
     /// <returns>Completed Task.</returns>
-    public Task RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)
+    public Task RemoveAsync(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         cancellationToken.ThrowIfCancellationRequested();
         var finalKey = $"{key}-{subKey}";

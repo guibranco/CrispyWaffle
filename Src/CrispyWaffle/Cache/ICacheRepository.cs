@@ -31,7 +31,12 @@ public interface ICacheRepository
         "CA1716:Identifiers should not match keywords",
         Justification = "Design choice."
     )]
-    ValueTask SetAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default);
+    ValueTask SetAsync<T>(
+        T value,
+        string key,
+        TimeSpan? ttl = null,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Sets the specified value.
@@ -47,7 +52,12 @@ public interface ICacheRepository
         "CA1716:Identifiers should not match keywords",
         Justification = "Design choice."
     )]
-    ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default);
+    ValueTask SetAsync<T>(
+        T value,
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Gets the object with the specified key.
@@ -77,7 +87,11 @@ public interface ICacheRepository
         "CA1716:Identifiers should not match keywords",
         Justification = "Design choice."
     )]
-    ValueTask<T> GetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default);
+    ValueTask<T> GetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Tries to get a value based on its key, if exists return true, else false.
@@ -87,7 +101,10 @@ public interface ICacheRepository
     /// <param name="key">The key.</param>
     /// <param name="cancellationToken">Cancel token.</param>
     /// <returns>Returns <b>True</b> if the object with the key exists, false otherwise.</returns>
-    ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, CancellationToken cancellationToken = default);
+    ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Tries the get.
@@ -97,7 +114,11 @@ public interface ICacheRepository
     /// <param name="subKey">The sub key.</param>
     /// <param name="cancellationToken">Cancel token.</param>
     /// <returns>Success info of the get, as a bool.</returns>
-    ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default);
+    ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Removes the specified key from the cache.

@@ -147,7 +147,6 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// <value><c>true</c> if [should propagate exceptions]; otherwise, <c>false</c>.</value>
     public bool ShouldPropagateExceptions { get; set; }
 
-
     /// <summary>
     /// Sets the specified value.
     /// </summary>
@@ -157,7 +156,12 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// <param name="ttl">The TTL.</param>
     /// <param name="cancellationToken">To cancel operation.</param>
     /// <returns>A valuetask representing the asynchronous operation.</returns>
-    public async ValueTask SetAsync<T>(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)
+    public async ValueTask SetAsync<T>(
+        T value,
+        string key,
+        TimeSpan? ttl = null,
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
@@ -184,7 +188,8 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
             else
             {
                 var cancellationTask = Task.Delay(Timeout.Infinite, cancellationToken);
-                var completedTask = await Task.WhenAny(cacheOperation, cancellationTask).ConfigureAwait(false);
+                var completedTask = await Task.WhenAny(cacheOperation, cancellationTask)
+                    .ConfigureAwait(false);
 
                 if (completedTask == cancellationTask)
                 {
@@ -233,7 +238,12 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     ///
     /// The ValueTask should always be awaited or its result checked to ensure proper exception handling.
     /// </returns>
-    public async ValueTask SetAsync<T>(T value, string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask SetAsync<T>(
+        T value,
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -265,7 +275,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
                 // Check for cancellation before expensive operation
                 cancellationToken.ThrowIfCancellationRequested();
 
-                allValues = await _cacheClient.Db0.HashGetAllAsync<T>(key, CommandFlags.PreferReplica).ConfigureAwait(false);
+                allValues = await _cacheClient
+                    .Db0.HashGetAllAsync<T>(key, CommandFlags.PreferReplica)
+                    .ConfigureAwait(false);
             }
             else
             {
@@ -279,7 +291,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
             cancellationToken.ThrowIfCancellationRequested();
 
             // Save the updated hash back to Redis
-            await _cacheClient.Db0.HashSetAsync(key, allValues, CommandFlags.FireAndForget).ConfigureAwait(false);
+            await _cacheClient
+                .Db0.HashSetAsync(key, allValues, CommandFlags.FireAndForget)
+                .ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -347,7 +361,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Retrieve the value from cache
-                var value = await _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).ConfigureAwait(false);
+                var value = await _cacheClient
+                    .Db0.GetAsync<T>(key, CommandFlags.PreferReplica)
+                    .ConfigureAwait(false);
                 return value;
             }
         }
@@ -403,7 +419,11 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// <exception cref="InvalidOperationException">Unable to get the item with key and sub key.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     ///
-    public async ValueTask<T> GetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask<T> GetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -424,7 +444,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Retrieve the value from cache
-                return await _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).ConfigureAwait(false);
+                return await _cacheClient
+                    .Db0.GetAsync<T>(key, CommandFlags.PreferReplica)
+                    .ConfigureAwait(false);
             }
         }
         catch (OperationCanceledException)
@@ -460,7 +482,7 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// </summary>
     /// <typeparam name="T">The type of object (the object will be cast to this type).</typeparam>
     /// <param name="key">The key.</param>
-    /// <param name="cancellationToken">Token to monitor for cancellation requests. <c>default</c> if no cancellation is required; 
+    /// <param name="cancellationToken">Token to monitor for cancellation requests. <c>default</c> if no cancellation is required;
     /// otherwise, a <see cref="CancellationToken"/> that can be used to cancel the operation.</param>
     /// <returns>
     /// A ValueTask that represents the asynchronous try-get operation. The task result contains:
@@ -477,7 +499,10 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException">Thrown when key is null or empty.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, CancellationToken cancellationToken = default)
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        CancellationToken cancellationToken = default
+    )
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -498,7 +523,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Retrieve the value from cache
-                var value = await _cacheClient.Db0.GetAsync<T>(key, CommandFlags.PreferReplica).ConfigureAwait(false);
+                var value = await _cacheClient
+                    .Db0.GetAsync<T>(key, CommandFlags.PreferReplica)
+                    .ConfigureAwait(false);
                 return (Success: true, Value: value);
             }
 
@@ -543,18 +570,22 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// A ValueTask that represents the asynchronous try-get operation. The task result contains:
     /// - A touple with Success=true and the cached value if the key exists
     /// - A touple with Success=false and default(T) if the key doesn't exist or operation fails
-    /// 
+    ///
     /// The returned ValueTask will complete when:
     /// • Success: Key exists and value is successfully retrieved from cache
     /// • Success: Key doesn't exist (returns false with default value)
     /// • Exception: Cache operation fails and ShouldPropagateExceptions is true
     /// • Exception: Operation is cancelled via the cancellation token (throws OperationCanceledException)
-    /// 
+    ///
     /// When ShouldPropagateExceptions is false, cache errors are logged and the method returns false.
     /// </returns>
     /// <exception cref="ArgumentException">Thrown when key is null or empty.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken = default)
+    public async ValueTask<(bool Success, T Value)> TryGetAsync<T>(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -567,7 +598,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
             cancellationToken.ThrowIfCancellationRequested();
 
             // More efficient: Check existence first, then get value if it exists
-            var hashFieldExists = await _cacheClient.Db0.HashExistsAsync(key, subKey).ConfigureAwait(false);
+            var hashFieldExists = await _cacheClient
+                .Db0.HashExistsAsync(key, subKey)
+                .ConfigureAwait(false);
 
             if (hashFieldExists)
             {
@@ -575,7 +608,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
                 cancellationToken.ThrowIfCancellationRequested();
 
                 // Retrieve the value from cache
-                var value = await _cacheClient.Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica).ConfigureAwait(false);
+                var value = await _cacheClient
+                    .Db0.HashGetAsync<T>(key, subKey, CommandFlags.PreferReplica)
+                    .ConfigureAwait(false);
                 return (Success: true, Value: value);
             }
 
@@ -622,7 +657,9 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            await _cacheClient.Db0.RemoveAsync(key, CommandFlags.FireAndForget).ConfigureAwait(false);
+            await _cacheClient
+                .Db0.RemoveAsync(key, CommandFlags.FireAndForget)
+                .ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -649,11 +686,17 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// otherwise, a <see cref="CancellationToken"/> that can be used to cancel the operation.</param>
     /// <returns>A ValueTask that represents the asynchronous call.</returns>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async Task RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)
+    public async Task RemoveAsync(
+        string key,
+        string subKey,
+        CancellationToken cancellationToken = default
+    )
     {
         try
         {
-            await _cacheClient.Db0.HashDeleteAsync(key, subKey, CommandFlags.FireAndForget).ConfigureAwait(false);
+            await _cacheClient
+                .Db0.HashDeleteAsync(key, subKey, CommandFlags.FireAndForget)
+                .ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -674,17 +717,20 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     /// <summary>
     /// Returns the time to live of the specified key.
     /// </summary>
-    /// <param name="key">The key.</param> 
+    /// <param name="key">The key.</param>
     /// <param name="cancellationToken">Tp cancel operation.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <returns>The timespan until this key is expired from the cache or 0 if it's already expired or doesn't exists.</returns>
-    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>    
+    /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
     public async Task<TimeSpan> TTLAsync(string key, CancellationToken cancellationToken = default)
     {
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var ttl = await _cacheClient.Db0.Database.KeyTimeToLiveAsync(key, CommandFlags.PreferReplica);
+            var ttl = await _cacheClient.Db0.Database.KeyTimeToLiveAsync(
+                key,
+                CommandFlags.PreferReplica
+            );
             return ttl ?? TimeSpan.Zero;
         }
         catch (OperationCanceledException)
@@ -713,7 +759,7 @@ public class RedisCacheRepository : ICacheRepository, IDisposable
     {
         try
         {
-           await _cacheClient.Db0.FlushDbAsync();
+            await _cacheClient.Db0.FlushDbAsync();
         }
         catch (Exception e)
         {

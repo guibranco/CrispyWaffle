@@ -42,7 +42,11 @@ public class CouchDBCacheRepositoryTests : IDisposable
     {
         var docOne = new Car("MakerOne");
 
-        await _repository.SetSpecificAsync(docOne, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+        await _repository.SetSpecificAsync(
+            docOne,
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString()
+        );
 
         var docTwo = new Car("MakerTwo");
 
@@ -93,10 +97,18 @@ public class CouchDBCacheRepositoryTests : IDisposable
     [Fact]
     public async Task DatabaseClearTest()
     {
-        var task1 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
-        var task2 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
-        var task3 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
-        var task4 = _repository.SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString()).AsTask();
+        var task1 = _repository
+            .SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString())
+            .AsTask();
+        var task2 = _repository
+            .SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString())
+            .AsTask();
+        var task3 = _repository
+            .SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString())
+            .AsTask();
+        var task4 = _repository
+            .SetAsync(new CouchDBCacheDocument(), Guid.NewGuid().ToString())
+            .AsTask();
 
         await Task.WhenAll(task1, task2, task3, task4);
 
