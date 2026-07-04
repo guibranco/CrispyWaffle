@@ -106,7 +106,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           PROJECT="${GITHUB_REPOSITORY/\//_}"
           ORG="${GITHUB_REPOSITORY_OWNER}"
 
