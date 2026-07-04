@@ -117,7 +117,8 @@ public class MessageReceiver
 
         var queueName = string.IsNullOrWhiteSpace(queue)
             ? (
-                await channel.QueueDeclareAsync(cancellationToken: cancellationToken)
+                await channel
+                    .QueueDeclareAsync(cancellationToken: cancellationToken)
                     .ConfigureAwait(false)
             ).QueueName
             : queue;
