@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using CrispyWaffle.BackgroundJobs.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -53,90 +53,15 @@ namespace CrispyWaffle.BackgroundJobs.Core
             {
                 try
                 {
-                    JobEntity? job = null;
-
-                    if (_store != null)
-                    {
-                        job = await _store.FetchNextAsync(stoppingToken);
-                        if (job == null)
-                        {
-                            await Task.Delay(_options.PollingInterval, stoppingToken);
-                            continue;
-                        }
-                    }
-                    else if (_queue != null)
-                    {
-                        job = await _queue.DequeueAsync(stoppingToken);
-                        if (job == null)
-                        {
-                            await Task.Delay(TimeSpan.FromMilliseconds(200), stoppingToken);
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        _logger.LogWarning("No job queue nor store configured. Worker sleeping.");
-                        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-                        continue;
-                    }
-
+                    var job = await FetchNextJobAsync(stoppingToken);
                     if (job == null)
                         continue;
 
-                    // If job has ScheduledAt in future, re-enqueue / re-schedule.
-                    if (job.ScheduledAt.HasValue && job.ScheduledAt.Value > DateTimeOffset.UtcNow)
-                    {
-                        // For persistence, mark back to pending with same ScheduledAt; for in-memory, just re-enqueue.
-                        if (_store != null)
-                        {
-                            // mark as Pending again (store.FetchNextAsync should have returned only due jobs, this is defensive)
-                            await _store.MarkRetryAsync(
-                                job.Id,
-                                job.ScheduledAt,
-                                job.Attempt,
-                                stoppingToken
-                            );
-                        }
-                        else
-                        {
-                            _queue!.Enqueue(job);
-                        }
-
+                    if (await RescheduleIfNotDueAsync(job, stoppingToken))
                         continue;
-                    }
 
-                    // Process job with scope so handlers can have scoped services.
-                    using var scope = _provider.CreateScope();
-                    var scopedProvider = scope.ServiceProvider;
-
-                    var success = false;
-                    try
-                    {
-                        success = await ProcessJobAsync(job, scopedProvider, stoppingToken);
-                    }
-                    catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
-                    {
-                        // If shutting down, put the job back to pending (or leave DB in Processing if store does locking; here we mark retry)
-                        if (_store != null)
-                        {
-                            var next = DateTimeOffset.UtcNow.AddSeconds(5);
-                            await _store.MarkRetryAsync(job.Id, next, job.Attempt, stoppingToken);
-                        }
-                        else
-                        {
-                            _queue!.Enqueue(job);
-                        }
-                        break; // exit loop to allow graceful shutdown
-                    }
-
-                    if (!success)
-                    {
-                        _logger.LogWarning(
-                            "Job {JobId} failed after processing attempt {Attempt}",
-                            job.Id,
-                            job.Attempt
-                        );
-                    }
+                    if (!await ProcessJobWithScopeAsync(job, stoppingToken))
+                        break; // shutting down
                 }
                 catch (Exception ex)
                 {
@@ -146,6 +71,92 @@ namespace CrispyWaffle.BackgroundJobs.Core
             }
 
             _logger.LogInformation("Worker {WorkerId} stopping", workerId);
+        }
+
+        private async Task<JobEntity?> FetchNextJobAsync(CancellationToken stoppingToken)
+        {
+            if (_store != null)
+            {
+                var job = await _store.FetchNextAsync(stoppingToken);
+                if (job == null)
+                    await Task.Delay(_options.PollingInterval, stoppingToken);
+                return job;
+            }
+
+            if (_queue != null)
+            {
+                var job = await _queue.DequeueAsync(stoppingToken);
+                if (job == null)
+                    await Task.Delay(TimeSpan.FromMilliseconds(200), stoppingToken);
+                return job;
+            }
+
+            _logger.LogWarning("No job queue nor store configured. Worker sleeping.");
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            return null;
+        }
+
+        private async Task<bool> RescheduleIfNotDueAsync(
+            JobEntity job,
+            CancellationToken stoppingToken
+        )
+        {
+            if (!job.ScheduledAt.HasValue || job.ScheduledAt.Value <= DateTimeOffset.UtcNow)
+                return false;
+
+            // For persistence, mark back to pending with same ScheduledAt; for in-memory, just re-enqueue.
+            if (_store != null)
+            {
+                // mark as Pending again (store.FetchNextAsync should have returned only due jobs, this is defensive)
+                await _store.MarkRetryAsync(job.Id, job.ScheduledAt, job.Attempt, stoppingToken);
+            }
+            else
+            {
+                _queue!.Enqueue(job);
+            }
+
+            return true;
+        }
+
+        private async Task<bool> ProcessJobWithScopeAsync(
+            JobEntity job,
+            CancellationToken stoppingToken
+        )
+        {
+            // Process job with scope so handlers can have scoped services.
+            using var scope = _provider.CreateScope();
+            var scopedProvider = scope.ServiceProvider;
+
+            bool success;
+            try
+            {
+                success = await ProcessJobAsync(job, scopedProvider, stoppingToken);
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+            {
+                // If shutting down, put the job back to pending (or leave DB in Processing if store does locking; here we mark retry)
+                if (_store != null)
+                {
+                    var next = DateTimeOffset.UtcNow.AddSeconds(5);
+                    await _store.MarkRetryAsync(job.Id, next, job.Attempt, stoppingToken);
+                }
+                else
+                {
+                    _queue!.Enqueue(job);
+                }
+                return false; // exit loop to allow graceful shutdown
+            }
+
+            if (!success)
+            {
+                _logger.LogWarning(
+                    "Job {JobId} failed after processing attempt {Attempt}",
+                    job.Id,
+                    job.Attempt
+                );
+            }
+
+            return true;
         }
 
         private async Task<bool> ProcessJobAsync(
@@ -158,28 +169,26 @@ namespace CrispyWaffle.BackgroundJobs.Core
             {
                 if (!_registry.TryGet(job.HandlerName, out var handlerType, out var dataType))
                 {
-                    var msg = $"No handler registered for '{job.HandlerName}'";
-                    _logger.LogError(msg);
-                    if (_store != null)
-                        await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
+                    await FailJobAsync(
+                        job,
+                        $"No handler registered for '{job.HandlerName}'",
+                        cancellationToken
+                    );
                     return false;
                 }
 
                 // Deserialize payload into dataType
-                object? data = null;
-                if (!string.IsNullOrWhiteSpace(job.Payload))
-                {
-                    data = JsonSerializer.Deserialize(job.Payload, dataType ?? typeof(object));
-                }
+                var data = DeserializePayload(job, dataType);
 
                 // Resolve handler instance
                 var handler = scopedProvider.GetService(handlerType!);
                 if (handler == null)
                 {
-                    var msg = $"Handler type {handlerType} not resolved from DI";
-                    _logger.LogError(msg);
-                    if (_store != null)
-                        await _store.MarkFailedAsync(job.Id, msg, cancellationToken);
+                    await FailJobAsync(
+                        job,
+                        $"Handler type {handlerType} not resolved from DI",
+                        cancellationToken
+                    );
                     return false;
                 }
 
@@ -193,62 +202,53 @@ namespace CrispyWaffle.BackgroundJobs.Core
                     return true;
                 }
 
-                // handle retry
-                job.Attempt++;
-                var shouldRetry = result.Retry && job.Attempt < job.MaxAttempt;
-                if (shouldRetry)
-                {
-                    var backoffSeconds = ComputeBackoffSeconds(job.Attempt);
-                    var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(backoffSeconds);
-                    _logger.LogInformation(
-                        "Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})",
-                        job.Id,
-                        backoffSeconds,
-                        job.Attempt,
-                        job.MaxAttempt
-                    );
-
-                    if (_store != null)
-                    {
-                        await _store.MarkRetryAsync(
-                            job.Id,
-                            nextAttempt,
-                            job.Attempt,
-                            cancellationToken
-                        );
-                    }
-                    else
-                    {
-                        job.ScheduledAt = nextAttempt;
-                        _queue!.Enqueue(job);
-                    }
-                }
-                else
-                {
-                    // exhaust
-                    var err = result.ErrorMessage ?? "Job failed";
-                    if (_store != null)
-                        await _store.MarkFailedAsync(job.Id, err, cancellationToken);
-                    else
-                        _logger.LogError(
-                            "Job {JobId} failed and will not be retried: {Error}",
-                            job.Id,
-                            err
-                        );
-                }
-
+                await HandleJobFailureAsync(job, result, cancellationToken);
                 return false;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception when processing job {JobId}", job.Id);
+                await ScheduleRetryAsync(job, cancellationToken);
+                return false;
+            }
+        }
+
+        private async Task FailJobAsync(JobEntity job, string message, CancellationToken cancellationToken)
+        {
+            _logger.LogError(message);
+            if (_store != null)
+                await _store.MarkFailedAsync(job.Id, message, cancellationToken);
+        }
+
+        private static object? DeserializePayload(JobEntity job, Type? dataType)
+        {
+            if (string.IsNullOrWhiteSpace(job.Payload))
+                return null;
+            return JsonSerializer.Deserialize(job.Payload, dataType ?? typeof(object));
+        }
+
+        private async Task HandleJobFailureAsync(
+            JobEntity job,
+            JobResult result,
+            CancellationToken cancellationToken
+        )
+        {
+            job.Attempt++;
+            var shouldRetry = result.Retry && job.Attempt < job.MaxAttempt;
+            if (shouldRetry)
+            {
+                var backoffSeconds = ComputeBackoffSeconds(job.Attempt);
+                var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(backoffSeconds);
+                _logger.LogInformation(
+                    "Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})",
+                    job.Id,
+                    backoffSeconds,
+                    job.Attempt,
+                    job.MaxAttempt
+                );
+
                 if (_store != null)
                 {
-                    // schedule retry with backoff
-                    job.Attempt++;
-                    var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(
-                        ComputeBackoffSeconds(job.Attempt)
-                    );
                     await _store.MarkRetryAsync(
                         job.Id,
                         nextAttempt,
@@ -258,14 +258,40 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 }
                 else
                 {
-                    job.Attempt++;
-                    job.ScheduledAt = DateTimeOffset.UtcNow.AddSeconds(
-                        ComputeBackoffSeconds(job.Attempt)
-                    );
+                    job.ScheduledAt = nextAttempt;
                     _queue!.Enqueue(job);
                 }
+            }
+            else
+            {
+                // exhaust
+                var err = result.ErrorMessage ?? "Job failed";
+                if (_store != null)
+                    await _store.MarkFailedAsync(job.Id, err, cancellationToken);
+                else
+                    _logger.LogError(
+                        "Job {JobId} failed and will not be retried: {Error}",
+                        job.Id,
+                        err
+                    );
+            }
+        }
 
-                return false;
+        private async Task ScheduleRetryAsync(JobEntity job, CancellationToken cancellationToken)
+        {
+            job.Attempt++;
+            var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(
+                ComputeBackoffSeconds(job.Attempt)
+            );
+
+            if (_store != null)
+            {
+                await _store.MarkRetryAsync(job.Id, nextAttempt, job.Attempt, cancellationToken);
+            }
+            else
+            {
+                job.ScheduledAt = nextAttempt;
+                _queue!.Enqueue(job);
             }
         }
 
