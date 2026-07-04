@@ -74,7 +74,7 @@ jobs:
 
       - name: Patch .props files with computed version
         run: |
-          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
           echo "Patching version → $VERSION"
           find . -name "*.props" -print0 | xargs -0 sed -i \
             -e "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|g" \
