@@ -18,16 +18,16 @@ internal class TestLogProvider : ILogProvider
             testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
     public void SetLevel(LogLevel level) =>
-        _testOutputHelper.WriteLine("Set level: {0}", level.GetHumanReadableValue());
+        SafeWriteLine("Set level: {0}", level.GetHumanReadableValue());
 
     public void Fatal(string category, string message) =>
-        _testOutputHelper.WriteLine("Fatal: {0} - {1}", category, message);
+        SafeWriteLine("Fatal: {0} - {1}", category, message);
 
     public void Error(string category, string message) =>
-        _testOutputHelper.WriteLine("Error: {0} - {1}", category, message);
+        SafeWriteLine("Error: {0} - {1}", category, message);
 
     public void Warning(string category, string message) =>
-        _testOutputHelper.WriteLine("Warning: {0} - {1}", category, message);
+        SafeWriteLine("Warning: {0} - {1}", category, message);
 
     public void Info(string category, string message) =>
         System.Diagnostics.Trace.WriteLine($"Info: {category} - {message}");
@@ -37,7 +37,7 @@ internal class TestLogProvider : ILogProvider
 
     public void Trace(string category, string message, Exception exception)
     {
-        _testOutputHelper.WriteLine("Trace: {0} - {1}", category, message);
+        SafeWriteLine("Trace: {0} - {1}", category, message);
         WriteExceptionDetails("Trace", category, exception);
     }
 
@@ -45,12 +45,12 @@ internal class TestLogProvider : ILogProvider
         WriteExceptionDetails("Trace", category, exception);
 
     public void Debug(string category, string message) =>
-        _testOutputHelper.WriteLine("Debug: {0} - {1}", category, message);
+        SafeWriteLine("Debug: {0} - {1}", category, message);
 
     public void Debug(string category, string content, string identifier)
     {
-        _testOutputHelper.WriteLine("Error: {0} - {1}", category, identifier);
-        _testOutputHelper.WriteLine(content);
+        SafeWriteLine("Error: {0} - {1}", category, identifier);
+        SafeWriteLine(content);
     }
 
     public void Debug<T>(
@@ -61,22 +61,49 @@ internal class TestLogProvider : ILogProvider
     )
         where T : class, new()
     {
-        _testOutputHelper.WriteLine("Error: {0} - {1}", category, identifier);
-        _testOutputHelper.WriteLine((string)content.GetCustomSerializer(customFormat));
+        SafeWriteLine("Error: {0} - {1}", category, identifier);
+        SafeWriteLine((string)content.GetCustomSerializer(customFormat));
+    }
+
+    /// <summary>
+    /// Writes to the test output, swallowing failures caused by the owning test having
+    /// already completed (e.g. this provider is stale, from a prior parallel test run).
+    /// </summary>
+    private void SafeWriteLine(string message)
+    {
+        try
+        {
+            _testOutputHelper.WriteLine(message);
+        }
+        catch (InvalidOperationException)
+        {
+            // The test that registered this provider has already finished; ignore.
+        }
+    }
+
+    /// <summary>
+    /// Writes to the test output, swallowing failures caused by the owning test having
+    /// already completed (e.g. this provider is stale, from a prior parallel test run).
+    /// </summary>
+    private void SafeWriteLine(string format, params object[] args)
+    {
+        try
+        {
+            _testOutputHelper.WriteLine(format, args);
+        }
+        catch (InvalidOperationException)
+        {
+            // The test that registered this provider has already finished; ignore.
+        }
     }
 
     private void WriteExceptionDetails(string level, string category, Exception exception)
     {
         do
         {
-            _testOutputHelper.WriteLine("{0}: {1} - {2}", level, category, exception.Message);
-            _testOutputHelper.WriteLine(
-                "{0}: {1} - {2}",
-                level,
-                category,
-                exception.GetType().FullName
-            );
-            _testOutputHelper.WriteLine("{0}: {1} - {2}", level, category, exception.StackTrace);
+            SafeWriteLine("{0}: {1} - {2}", level, category, exception.Message);
+            SafeWriteLine("{0}: {1} - {2}", level, category, exception.GetType().FullName);
+            SafeWriteLine("{0}: {1} - {2}", level, category, exception.StackTrace);
 
             exception = exception.InnerException;
         } while (exception != null);
