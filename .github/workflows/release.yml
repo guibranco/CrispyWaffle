@@ -25,7 +25,7 @@ jobs:
     # Update this list if you add or remove sub-projects.
     env:
       PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net RabbitMQ Redis Utils"
-      TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net6.0 net9.0"
+      TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net8.0 net9.0"
 
     # ── CouchDB service container ──────────────────────────────────────────────
     services:
@@ -74,13 +74,14 @@ jobs:
 
       - name: Patch .props files with computed version
         run: |
-          VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
-          echo "Patching version → $VERSION"
+          VERSION="${{ steps.gitversion.outputs.semVer }}"
+          ASSEMBLY_VERSION="${{ steps.gitversion.outputs.assemblySemVer }}"
+          echo "Patching version → $VERSION (assembly: $ASSEMBLY_VERSION)"
           find . -name "*.props" -print0 | xargs -0 sed -i \
             -e "s|<Version>[^<]*</Version>|<Version>$VERSION</Version>|g" \
             -e "s|<PackageVersion>[^<]*</PackageVersion>|<PackageVersion>$VERSION</PackageVersion>|g" \
-            -e "s|<AssemblyVersion>[^<]*</AssemblyVersion>|<AssemblyVersion>$VERSION</AssemblyVersion>|g" \
-            -e "s|<FileVersion>[^<]*</FileVersion>|<FileVersion>$VERSION</FileVersion>|g" \
+            -e "s|<AssemblyVersion>[^<]*</AssemblyVersion>|<AssemblyVersion>$ASSEMBLY_VERSION</AssemblyVersion>|g" \
+            -e "s|<FileVersion>[^<]*</FileVersion>|<FileVersion>$ASSEMBLY_VERSION</FileVersion>|g" \
             -e "s|<InformationalVersion>[^<]*</InformationalVersion>|<InformationalVersion>$VERSION</InformationalVersion>|g"
 
       # ── Resolve solution name ─────────────────────────────────────────────────
@@ -122,7 +123,7 @@ jobs:
 
       # ── Build ─────────────────────────────────────────────────────────────────
       - name: Build
-        run: dotnet build --no-restore --verbosity minimal ${{ steps.solution.outputs.name }}.sln
+        run: dotnet build --no-restore --configuration Release --verbosity minimal ${{ steps.solution.outputs.name }}.sln
 
       # ── Test + coverage ───────────────────────────────────────────────────────
       - name: Test with coverage
@@ -130,6 +131,7 @@ jobs:
           for TEST_PROJ in $(find ./Tests -name "*.csproj" -type f); do
             dotnet test "$TEST_PROJ" \
               --no-build \
+              --configuration Release \
               --verbosity minimal \
               /p:CollectCoverage=true \
               /p:CoverletOutputFormat='"cobertura,opencover,lcov"' \
@@ -241,7 +243,13 @@ jobs:
       # ── Push packages to NuGet.org ────────────────────────────────────────────
       - name: Push to NuGet.org
         run: |
-          for PKG in Zips/*.nupkg; do
+          shopt -s nullglob
+          PACKAGES=(Zips/*.nupkg)
+          if [ ${#PACKAGES[@]} -eq 0 ]; then
+            echo "::error::No .nupkg files found in Zips/ — check the build/pack steps above."
+            exit 1
+          fi
+          for PKG in "${PACKAGES[@]}"; do
             echo "Publishing $PKG …"
             dotnet nuget push "$PKG" \
               --api-key "${{ secrets.NUGET_TOKEN }}" \
