@@ -1,9 +1,8 @@
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
 using CrispyWaffle.Redis.Cache;
 using CrispyWaffle.Redis.Utils.Communications;
-using CrispyWaffle.Serialization;
-using StackExchange.Redis;
 using StackExchange.Redis.Extensions.Core;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace CrispyWaffle.IntegrationTests.Cache.Redis;
 public class RedisCacheRepositoryTests :  IDisposable
 {
     private readonly RedisCacheRepository _repository;
-    
+
     public RedisCacheRepositoryTests()
     {
         var host = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "localhost";
@@ -23,31 +22,33 @@ public class RedisCacheRepositoryTests :  IDisposable
 
         _repository = new RedisCacheRepository(connection);
     }
-    
+
     [Fact]
-    public void Should_Set_And_Get_Value_From_Redis()
+    public async Task Should_Set_And_Get_Value_From_Redis()
     {
         // Arrange
         var key = $"crispy:it:{Guid.NewGuid()}";
         var value = "integration-test-value";
 
-            _repository.Set(value, key);
-            var result = _repository.Get<string>(key);
+        await _repository.SetAsync(value, key);
+        var result = await _repository.GetAsync<string>(key);
 
-            Assert.Equal(value, result);
-            _repository.Remove(key);
+        Assert.Equal(value, result);
+        await _repository.RemoveAsync(key);
     }
 
     [Fact]
-    public void Should_Delete_Value_From_Redis()
+    public async Task Should_Delete_Value_From_Redis()
     {
         var key = $"crispy:it:{Guid.NewGuid()}";
         var value = "to-be-deleted";
 
-        _repository.Set(value, key);
-        _repository.Remove(key);
+        await _repository.SetAsync(value, key);
+        await _repository.RemoveAsync(key);
 
-        var ex = Assert.Throws<InvalidOperationException>(() => _repository.Get<string>(key));
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => _repository.GetAsync<string>(key).AsTask()
+        );
         Assert.Contains("Unable to get the item with key", ex.Message);
     }
     public void Dispose()
@@ -65,7 +66,7 @@ public class RedisCacheRepositoryTests :  IDisposable
     }
 }
 
-public class TestJsonSerializer : CrispyWaffle.Serialization.ISerializer
+public class TestJsonSerializer : ISerializer
 {
     private readonly JsonSerializerOptions _options;
 
