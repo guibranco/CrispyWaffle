@@ -14,7 +14,7 @@ public class NewtonsoftJsonSerializerAdapterTests
     public void ValidateSaveToFile()
     {
         // Arrange
-        const string fileName = "save-json-to-file.json";
+        const string fileName = "save-json-to-file-newtonsoft.json";
         var instance = GenerateSampleData();
 
         // Act
@@ -29,7 +29,7 @@ public class NewtonsoftJsonSerializerAdapterTests
     public void ValidateLoadFromFile()
     {
         // Arrange
-        const string fileName = "load-json-from-file.json";
+        const string fileName = "load-json-from-file-newtonsoft.json";
         File.WriteAllText(fileName, GetStringContent());
 
         // Act

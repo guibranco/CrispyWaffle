@@ -18,7 +18,7 @@ public class JsonSerializerAdapterTests
     public void ValidateSaveToFile()
     {
         // Arrange
-        const string fileName = "save-json-to-file.json";
+        const string fileName = "save-json-to-file-system-text-json.json";
         var instance = GenerateSampleData();
 
         // Act
@@ -33,7 +33,7 @@ public class JsonSerializerAdapterTests
     public void ValidateLoadFromFile()
     {
         // Arrange
-        const string fileName = "load-json-from-file.json";
+        const string fileName = "load-json-from-file-system-text-json.json";
         File.WriteAllText(fileName, GetStringContent());
 
         // Act
