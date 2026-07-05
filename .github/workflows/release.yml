@@ -28,7 +28,7 @@ jobs:
       PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net RabbitMQ Redis Utils"
       TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net8.0 net9.0"
 
-    # ── CouchDB service container ──────────────────────────────────────────────
+    # ── CouchDB & Redis service containers ────────────────────────────────────
     services:
       couchdb:
         image: couchdb:3.3.3
@@ -39,6 +39,15 @@ jobs:
           - 5984:5984
         options: >-
           --health-cmd "curl -sf http://localhost:5984/_up"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
