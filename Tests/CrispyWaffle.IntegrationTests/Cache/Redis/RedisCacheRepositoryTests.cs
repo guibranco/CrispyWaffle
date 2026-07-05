@@ -46,6 +46,11 @@ public class RedisCacheRepositoryTests : IDisposable
         var value = "to-be-deleted";
 
         await _repository.SetAsync(value, key);
+
+        // Confirm the value actually round-tripped through Redis before deleting it,
+        // otherwise the assertion below would also pass vacuously if Redis were unreachable.
+        Assert.Equal(value, await _repository.GetAsync<string>(key));
+
         await _repository.RemoveAsync(key);
 
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() =>
