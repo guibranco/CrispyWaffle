@@ -62,12 +62,12 @@ jobs:
 
       # ── Toolchain ────────────────────────────────────────────────────────────
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: "10.0.x"
 
       - name: Setup Java 21
-        uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
         with:
           distribution: temurin
           java-version: "21"
@@ -286,7 +286,7 @@ jobs:
 
       # ── Create GitHub Release ─────────────────────────────────────────────────
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3
         with:
           tag_name: v${{ steps.gitversion.outputs.semVer }}
           name: Release of ${{ steps.solution.outputs.name }} – v${{ steps.gitversion.outputs.semVer }}
