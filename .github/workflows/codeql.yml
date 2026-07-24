@@ -29,7 +29,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
       with:
-        dotnet-version: '9.x'
+        dotnet-version: '10.x'
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@7188fc363630916deb702c7fdcf4e481b751f97a # v4
