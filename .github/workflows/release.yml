@@ -26,7 +26,7 @@ jobs:
     # Update this list if you add or remove sub-projects.
     env:
       PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net RabbitMQ Redis Utils"
-      TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net8.0 net9.0"
+      TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net8.0 net9.0 net10.0"
 
     # ── CouchDB & Redis service containers ────────────────────────────────────
     services:
@@ -34,7 +34,7 @@ jobs:
         image: couchdb:3.3.3
         env:
           COUCHDB_USER: Admin
-          COUCHDB_PASSWORD: myP@ssw0rd
+          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
         ports:
           - 5984:5984
         options: >-
@@ -129,7 +129,7 @@ jobs:
             "/d:sonar.branch.name=main" \
             "/d:sonar.exclusions=**/bin/**/*,**/obj/**/*" \
             "/d:sonar.coverage.exclusions=**/${SLN}.Tests/**,**/*Tests.cs" \
-            "/d:sonar.cs.opencover.reportsPaths=Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+            "/d:sonar.cs.opencover.reportsPaths=Tests/${SLN}.Tests/coverage.net10.0.opencover.xml"
 
       # ── Build ─────────────────────────────────────────────────────────────────
       - name: Build
@@ -160,19 +160,21 @@ jobs:
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: Tests/${{ steps.solution.outputs.name }}.Tests/coverage.net9.0.opencover.xml
+          files: Tests/${{ steps.solution.outputs.name }}.Tests/coverage.net10.0.opencover.xml
           fail_ci_if_error: false
 
       - name: Report coverage → Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
           SLN="${{ steps.solution.outputs.name }}"
-          curl -fsSL \
+          curl --proto '=https' --tlsv1.2 -fsSL \
             https://github.com/codacy/codacy-coverage-reporter/releases/latest/download/codacy-coverage-reporter-assembly.jar \
             -o codacy-reporter.jar
           java -jar codacy-reporter.jar report \
             -l CSharp \
-            -t "${{ secrets.CODACY_PROJECT_TOKEN }}" \
-            -r "Tests/${SLN}.Tests/coverage.net9.0.opencover.xml"
+            -t "$CODACY_PROJECT_TOKEN" \
+            -r "Tests/${SLN}.Tests/coverage.net10.0.opencover.xml"
 
       # ── SonarCloud: end ───────────────────────────────────────────────────────
       - name: SonarCloud – end scan
