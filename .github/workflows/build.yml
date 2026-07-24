@@ -19,7 +19,7 @@ jobs:
         image: couchdb:3.3.3
         env:
           COUCHDB_USER: Admin
-          COUCHDB_PASSWORD: myP@ssw0rd
+          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
         ports:
           - 5984:5984
         options: >-
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
@@ -60,7 +60,9 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
 
       - name: 📡 Install DeepSource scanner
-        run: curl https://deepsource.io/cli | sh
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSLo deepsource-install.sh https://deepsource.io/cli
+          sh deepsource-install.sh
 
       - name: 💾 Cache NuGet packages
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
@@ -123,4 +125,4 @@ jobs:
           ./bin/deepsource report \
             --analyzer test-coverage \
             --key csharp \
-            --value-file ./Tests/CrispyWaffle.Tests/coverage.net9.0.cobertura.xml
+            --value-file ./Tests/CrispyWaffle.Tests/coverage.net10.0.cobertura.xml

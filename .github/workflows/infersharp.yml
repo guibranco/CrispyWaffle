@@ -14,14 +14,14 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
     - name: Run InferSharp
       uses: microsoft/infersharpaction@b749060de518f410f92c87d37d2366e5e9d7c5fc # v1.5
 
     - name: Upload SARIF results
       if: success() && steps.infersharp.outputs.sarif-report
-      uses: github/codeql-action/upload-sarif@7188fc363630916deb702c7fdcf4e481b751f97a # v4
+      uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
       with:
         sarif_file: ${{ steps.infersharp.outputs.sarif-report }}
       continue-on-error: true
