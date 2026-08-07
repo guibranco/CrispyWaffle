@@ -9,7 +9,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.4.2" />
+    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.0" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
     <PackageVersion Include="FluentAssertions" Version="8.10.0" />
     <PackageVersion Include="JunitXml.TestLogger" Version="8.0.0" />
@@ -30,9 +30,9 @@
     <PackageVersion Include="NEST" Version="7.17.5" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NSubstitute" Version="6.0.0" />
-    <PackageVersion Include="RabbitMQ.Client" Version="7.2.1" />
+    <PackageVersion Include="RabbitMQ.Client" Version="7.2.2" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.31.0.145097" />
-    <PackageVersion Include="StackExchange.Redis" Version="3.1.0" />
+    <PackageVersion Include="StackExchange.Redis" Version="3.1.13" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="10.0.10" />
