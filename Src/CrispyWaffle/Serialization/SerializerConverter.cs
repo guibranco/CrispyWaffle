@@ -152,6 +152,16 @@ public sealed class SerializerConverter<T>(T obj, ISerializerAdapter formatter)
             return json.ToString();
         }
 
+        if (instance._formatter is YamlSerializerAdapter)
+        {
+            instance._formatter.Serialize(instance._obj, out var stream);
+            using (stream)
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         throw new InvalidOperationException(
             $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
         );
