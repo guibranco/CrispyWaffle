@@ -10,8 +10,23 @@ namespace CrispyWaffle.Serialization.Adapters;
 /// A YAML serializer adapter backed by YamlDotNet.
 /// </summary>
 /// <seealso cref="ISerializerAdapter" />
-public sealed class YamlSerializerAdapter : BaseSerializerAdapter
+/// <seealso cref="IStringSerializerAdapter" />
+public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter
 {
+    /// <summary>
+    /// The configured YAML serializer.
+    /// </summary>
+    private static readonly ISerializer _serializer = new SerializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .Build();
+
+    /// <summary>
+    /// The configured YAML deserializer.
+    /// </summary>
+    private static readonly IDeserializer _deserializer = new DeserializerBuilder()
+        .WithNamingConvention(CamelCaseNamingConvention.Instance)
+        .Build();
+
     /// <summary>
     /// Deserialize a stream to a generic type.
     /// </summary>
@@ -40,7 +55,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter
             )
         )
         {
-            return CreateDeserializer().Deserialize<T>(reader);
+            return _deserializer.Deserialize<T>(reader);
         }
     }
 
@@ -65,7 +80,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter
             throw new ArgumentException("Serialized YAML must be a string.", nameof(serialized));
         }
 
-        return CreateDeserializer().Deserialize<T>(yaml);
+        return _deserializer.Deserialize<T>(yaml);
     }
 
     /// <summary>
@@ -78,32 +93,23 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter
         where T : class
     {
         stream = new MemoryStream();
-        if (deserialized == null)
+        var yaml = SerializeToString(deserialized);
+        if (yaml.Length == 0)
         {
             return;
         }
 
-        var yaml = CreateSerializer().Serialize(deserialized);
         var bytes = Encoding.UTF8.GetBytes(yaml);
         stream.Write(bytes, 0, bytes.Length);
         stream.Seek(0, SeekOrigin.Begin);
     }
 
     /// <summary>
-    /// Creates the configured YAML serializer.
+    /// Serializes an object of type <typeparamref name="T"/> into a YAML string.
     /// </summary>
-    /// <returns>The configured YAML serializer.</returns>
-    private static ISerializer CreateSerializer() =>
-        new SerializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .Build();
-
-    /// <summary>
-    /// Creates the configured YAML deserializer.
-    /// </summary>
-    /// <returns>The configured YAML deserializer.</returns>
-    private static IDeserializer CreateDeserializer() =>
-        new DeserializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .Build();
+    /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+    /// <param name="deserialized">The object to serialize.</param>
+    /// <returns>The YAML string representation, or an empty string when the object is null.</returns>
+    public string SerializeToString<T>(T deserialized)
+        where T : class => deserialized == null ? string.Empty : _serializer.Serialize(deserialized);
 }

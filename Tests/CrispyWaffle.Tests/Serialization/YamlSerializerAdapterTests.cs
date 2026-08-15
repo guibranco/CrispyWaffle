@@ -28,6 +28,22 @@ public class YamlSerializerAdapterTests
     }
 
     [Fact]
+    public void SerializeWithNullObjectProducesEmptyStream()
+    {
+        // Act
+        _serializer.Serialize<SampleYamlClass>(null, out var stream);
+
+        using (stream)
+        {
+            // Assert
+            stream.Should().NotBeNull();
+            stream.CanRead.Should().BeTrue();
+            stream.Length.Should().Be(0);
+            stream.Position.Should().Be(0);
+        }
+    }
+
+    [Fact]
     public void DeserializeWithValidYamlReturnsObject()
     {
         // Arrange

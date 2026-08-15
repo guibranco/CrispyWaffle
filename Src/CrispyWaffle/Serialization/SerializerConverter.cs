@@ -152,14 +152,9 @@ public sealed class SerializerConverter<T>(T obj, ISerializerAdapter formatter)
             return json.ToString();
         }
 
-        if (instance._formatter is YamlSerializerAdapter)
+        if (instance._formatter is IStringSerializerAdapter stringSerializer)
         {
-            instance._formatter.Serialize(instance._obj, out var stream);
-            using (stream)
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                return reader.ReadToEnd();
-            }
+            return stringSerializer.SerializeToString(instance._obj);
         }
 
         throw new InvalidOperationException(
