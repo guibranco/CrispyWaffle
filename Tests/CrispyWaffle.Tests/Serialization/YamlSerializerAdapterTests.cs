@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
+using YamlDotNet.Core;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Serialization;
@@ -54,6 +55,19 @@ public class YamlSerializerAdapterTests
 
         // Assert
         result.Should().BeEquivalentTo(GenerateSampleData());
+    }
+
+    [Fact]
+    public void DeserializeWithDuplicateKeysThrowsYamlException()
+    {
+        // Arrange
+        const string yaml = "name: Jane Doe\nname: John Doe\nage: 25\n";
+
+        // Act
+        Action act = () => _serializer.Deserialize<SampleYamlClass>(yaml);
+
+        // Assert
+        act.Should().Throw<YamlException>();
     }
 
     [Fact]

@@ -106,6 +106,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     private static IDeserializer CreateDeserializer() =>
         new DeserializerBuilder()
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .WithDuplicateKeyChecking()
             .Build();
 
     /// <summary>
