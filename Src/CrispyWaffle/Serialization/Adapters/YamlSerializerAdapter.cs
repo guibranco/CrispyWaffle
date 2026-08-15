@@ -14,20 +14,6 @@ namespace CrispyWaffle.Serialization.Adapters;
 public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter
 {
     /// <summary>
-    /// The configured YAML serializer.
-    /// </summary>
-    private static readonly ISerializer _serializer = new SerializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .Build();
-
-    /// <summary>
-    /// The configured YAML deserializer.
-    /// </summary>
-    private static readonly IDeserializer _deserializer = new DeserializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .Build();
-
-    /// <summary>
     /// Deserialize a stream to a generic type.
     /// </summary>
     /// <typeparam name="T">Generic type parameter.</typeparam>
@@ -55,7 +41,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
             )
         )
         {
-            return _deserializer.Deserialize<T>(reader);
+            return CreateDeserializer().Deserialize<T>(reader);
         }
     }
 
@@ -80,7 +66,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
             throw new ArgumentException("Serialized YAML must be a string.", nameof(serialized));
         }
 
-        return _deserializer.Deserialize<T>(yaml);
+        return CreateDeserializer().Deserialize<T>(yaml);
     }
 
     /// <summary>
@@ -105,11 +91,29 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     }
 
     /// <summary>
+    /// Creates the configured YAML serializer.
+    /// </summary>
+    /// <returns>The configured YAML serializer.</returns>
+    private static ISerializer CreateSerializer() =>
+        new SerializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
+
+    /// <summary>
+    /// Creates the configured YAML deserializer.
+    /// </summary>
+    /// <returns>The configured YAML deserializer.</returns>
+    private static IDeserializer CreateDeserializer() =>
+        new DeserializerBuilder()
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .Build();
+
+    /// <summary>
     /// Serializes an object of type <typeparamref name="T"/> into a YAML string.
     /// </summary>
     /// <typeparam name="T">The type of the object to be serialized.</typeparam>
     /// <param name="deserialized">The object to serialize.</param>
     /// <returns>The YAML string representation, or an empty string when the object is null.</returns>
     public string SerializeToString<T>(T deserialized)
-        where T : class => deserialized == null ? string.Empty : _serializer.Serialize(deserialized);
+        where T : class => deserialized == null ? string.Empty : CreateSerializer().Serialize(deserialized);
 }
