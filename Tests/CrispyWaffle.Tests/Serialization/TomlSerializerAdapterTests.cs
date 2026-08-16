@@ -45,6 +45,16 @@ public class TomlSerializerAdapterTests
     }
 
     [Fact]
+    public void SerializeToStringWithNullReturnsEmptyString()
+    {
+        // Act
+        var result = _serializer.SerializeToString<SampleTomlClass>(null);
+
+        // Assert
+        result.Should().Be(string.Empty);
+    }
+
+    [Fact]
     public void DeserializeWithValidTomlReturnsObject()
     {
         // Arrange
@@ -68,6 +78,17 @@ public class TomlSerializerAdapterTests
 
         // Assert
         act.Should().Throw<TomlException>();
+    }
+
+    [Fact]
+    public void DeserializeWithNullSerializedThrowsArgumentNullException()
+    {
+        // Act
+        Action act = () => _serializer.Deserialize<SampleTomlClass>(null);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>()
+            .And.ParamName.Should().Be("serialized");
     }
 
     [Fact]
