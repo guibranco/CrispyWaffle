@@ -33,26 +33,12 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <remarks>The supplied stream remains open after deserialization.</remarks>
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="stream"/> is <see langword="null"/>.</exception>
     public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
-        where T : class
-    {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
-
-        using (
-            var reader = new StreamReader(
-                stream,
-                encoding ?? Encoding.UTF8,
-                detectEncodingFromByteOrderMarks: true,
-                bufferSize: 1024,
-                leaveOpen: true
-            )
-        )
-        {
-            return TomlSerializer.Deserialize<T>(reader, SerializerOptions);
-        }
-    }
+        where T : class =>
+        StringSerializerAdapterHelper.DeserializeFromStream(
+            stream,
+            encoding,
+            reader => TomlSerializer.Deserialize<T>(reader, SerializerOptions)
+        );
 
     /// <summary>
     /// Deserializes a TOML string into an instance of <typeparamref name="T"/>.
@@ -63,20 +49,12 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="serialized"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">Thrown when <paramref name="serialized"/> is not a string.</exception>
     public override T Deserialize<T>(object serialized)
-        where T : class
-    {
-        if (serialized == null)
-        {
-            throw new ArgumentNullException(nameof(serialized));
-        }
-
-        if (serialized is not string toml)
-        {
-            throw new ArgumentException("Serialized TOML must be a string.", nameof(serialized));
-        }
-
-        return TomlSerializer.Deserialize<T>(toml, SerializerOptions);
-    }
+        where T : class =>
+        StringSerializerAdapterHelper.Deserialize(
+            serialized,
+            "TOML",
+            toml => TomlSerializer.Deserialize<T>(toml, SerializerOptions)
+        );
 
     /// <summary>
     /// Serializes an object of type <typeparamref name="T"/> to a UTF-8 TOML stream.
@@ -91,19 +69,12 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// object produces an empty stream.
     /// </remarks>
     public override void Serialize<T>(T deserialized, out Stream stream)
-        where T : class
-    {
-        stream = new MemoryStream();
-        var toml = SerializeToString(deserialized);
-        if (toml.Length == 0)
-        {
-            return;
-        }
-
-        var bytes = Encoding.UTF8.GetBytes(toml);
-        stream.Write(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-    }
+        where T : class =>
+        StringSerializerAdapterHelper.SerializeToStream(
+            deserialized,
+            value => TomlSerializer.Serialize(value, SerializerOptions),
+            out stream
+        );
 
     /// <summary>
     /// Serializes an object of type <typeparamref name="T"/> to a TOML string.
@@ -116,5 +87,8 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// </returns>
     public string SerializeToString<T>(T deserialized)
         where T : class =>
-        deserialized == null ? string.Empty : TomlSerializer.Serialize(deserialized, SerializerOptions);
+        StringSerializerAdapterHelper.SerializeToString(
+            deserialized,
+            value => TomlSerializer.Serialize(value, SerializerOptions)
+        );
 }
