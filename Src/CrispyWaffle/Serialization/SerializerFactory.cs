@@ -209,6 +209,12 @@ public static class SerializerFactory
                     ServiceLocator.Resolve<YamlSerializerAdapter>()
                 );
 
+            case SerializerFormat.Toml:
+                return new SerializerConverter<T>(
+                    obj,
+                    ServiceLocator.Resolve<TomlSerializerAdapter>()
+                );
+
             default:
                 throw new InvalidOperationException(nameof(attribute.Format));
         }

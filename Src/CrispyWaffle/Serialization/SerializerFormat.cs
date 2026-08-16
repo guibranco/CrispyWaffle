@@ -30,4 +30,10 @@ public enum SerializerFormat
     /// </summary>
     [HumanReadable("YAML")]
     Yaml,
+
+    /// <summary>
+    ///     An enum constant representing the TOML option.
+    /// </summary>
+    [HumanReadable("TOML")]
+    Toml,
 }
