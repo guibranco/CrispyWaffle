@@ -45,6 +45,16 @@ public class YamlSerializerAdapterTests
     }
 
     [Fact]
+    public void SerializeToStringWithNullReturnsEmptyString()
+    {
+        // Act
+        var result = _serializer.SerializeToString<SampleYamlClass>(null);
+
+        // Assert
+        result.Should().Be(string.Empty);
+    }
+
+    [Fact]
     public void DeserializeWithValidYamlReturnsObject()
     {
         // Arrange
@@ -68,6 +78,31 @@ public class YamlSerializerAdapterTests
 
         // Assert
         act.Should().Throw<YamlException>();
+    }
+
+    [Fact]
+    public void DeserializeWithNullSerializedThrowsArgumentNullException()
+    {
+        // Act
+        Action act = () => _serializer.Deserialize<SampleYamlClass>(null);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>()
+            .And.ParamName.Should().Be("serialized");
+    }
+
+    [Fact]
+    public void DeserializeWithNonStringSerializedThrowsArgumentException()
+    {
+        // Arrange
+        var invalidInput = new StringBuilder("not a string");
+
+        // Act
+        Action act = () => _serializer.Deserialize<SampleYamlClass>(invalidInput);
+
+        // Assert
+        act.Should().Throw<ArgumentException>()
+            .And.ParamName.Should().Be("serialized");
     }
 
     [Fact]
