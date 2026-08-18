@@ -1,6 +1,9 @@
 # Serialization
 
-Crispy Waffle provides serializer adapters for JSON, XML, and YAML. YAML support is implemented with [YamlDotNet](https://github.com/aaubry/YamlDotNet) and uses camel-case property names by default.
+Crispy Waffle provides serializer adapters for JSON, XML, and YAML. YAML
+support is implemented with
+[YamlDotNet](https://github.com/aaubry/YamlDotNet) and uses camel-case property
+names by default.
 
 ## YAML with `SerializerAttribute`
 
@@ -60,11 +63,13 @@ var loaded = SerializerFactory
 
 ## Selecting YAML explicitly
 
-When a type should not use YAML as its default serializer, request it explicitly with `GetCustomSerializer`:
+When a type should not use YAML as its default serializer, request it
+explicitly with `GetCustomSerializer`:
 
 ```csharp
 var yamlSerializer = settings.GetCustomSerializer(SerializerFormat.Yaml);
 var yaml = (string)yamlSerializer;
 ```
 
-This keeps YAML consistent with the existing serializer abstraction instead of requiring direct YamlDotNet usage in application code.
+This keeps YAML consistent with the existing serializer abstraction instead
+of requiring direct YamlDotNet usage in application code.
