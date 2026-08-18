@@ -7,7 +7,8 @@ names by default.
 
 ## YAML with `SerializerAttribute`
 
-Annotate a class with `SerializerFormat.Yaml` to make YAML its default serializer:
+Annotate a class with `SerializerFormat.Yaml` to make YAML its default
+serializer:
 
 ```csharp
 using CrispyWaffle.Serialization;
@@ -50,7 +51,8 @@ var settings = SerializerFactory
 
 ## Saving and loading YAML files
 
-The YAML adapter supports the same file APIs exposed by the other serializer adapters:
+The YAML adapter supports the same file APIs exposed by the other serializer
+adapters:
 
 ```csharp
 var serializer = settings.GetSerializer();
