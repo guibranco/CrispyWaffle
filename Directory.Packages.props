@@ -31,8 +31,8 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NSubstitute" Version="6.2.0" />
     <PackageVersion Include="RabbitMQ.Client" Version="7.2.2" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.32.0.713" />
-    <PackageVersion Include="StackExchange.Redis" Version="3.1.13" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.33.0.1635" />
+    <PackageVersion Include="StackExchange.Redis" Version="3.1.31" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="10.0.11" />
@@ -40,7 +40,7 @@
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="10.0.11" />
     <PackageVersion Include="System.Text.Json" Version="10.0.11" />
     <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
+    <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageVersion>
