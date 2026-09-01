@@ -3,8 +3,8 @@ using System.IO;
 using System.Text;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
-using YamlDotNet.Core;
 using Xunit;
+using YamlDotNet.Core;
 
 namespace CrispyWaffle.Tests.Serialization;
 

@@ -95,9 +95,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// </summary>
     /// <returns>The configured YAML serializer.</returns>
     private static ISerializer CreateSerializer() =>
-        new SerializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .Build();
+        new SerializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build();
 
     /// <summary>
     /// Creates the configured YAML deserializer.
