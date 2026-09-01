@@ -31,18 +31,15 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
             throw new ArgumentNullException(nameof(stream));
         }
 
-        using (
-            var reader = new StreamReader(
-                stream,
-                encoding ?? Encoding.UTF8,
-                detectEncodingFromByteOrderMarks: true,
-                bufferSize: 1024,
-                leaveOpen: true
-            )
-        )
-        {
-            return CreateDeserializer().Deserialize<T>(reader);
-        }
+        using var reader = new StreamReader(
+            stream,
+            encoding ?? Encoding.UTF8,
+            detectEncodingFromByteOrderMarks: true,
+            bufferSize: 1024,
+            leaveOpen: true
+        );
+
+        return CreateDeserializer().Deserialize<T>(reader);
     }
 
     /// <summary>
