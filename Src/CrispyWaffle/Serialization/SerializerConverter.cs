@@ -152,6 +152,11 @@ public sealed class SerializerConverter<T>(T obj, ISerializerAdapter formatter)
             return json.ToString();
         }
 
+        if (instance._formatter is IStringSerializerAdapter stringSerializer)
+        {
+            return stringSerializer.SerializeToString(instance._obj);
+        }
+
         throw new InvalidOperationException(
             $"The type {typeof(T).FullName} doesn't allow string explicit conversion"
         );
