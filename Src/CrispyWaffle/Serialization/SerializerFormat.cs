@@ -24,4 +24,10 @@ public enum SerializerFormat
     /// </summary>
     [HumanReadable("XML")]
     Xml,
+
+    /// <summary>
+    ///     An enum constant representing the YAML option.
+    /// </summary>
+    [HumanReadable("YAML")]
+    Yaml,
 }

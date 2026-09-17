@@ -20,7 +20,8 @@ Crispy Waffle is a versatile toolkit for .NET projects, offering a wide range of
 
 - **Scheduled Task Execution**: Automate the execution of tasks at defined intervals. [Learn More](scheduled-jobs.md)
 
-- **Serialization Helpers**: Easily serialize and deserialize data in JSON and XML formats.
+- **Serialization Helpers**: Easily serialize and deserialize data in JSON, XML,
+  and YAML formats. [Learn More](serialization.md)
 
 - **Service Locator**: Acts as a Dependency Injection and Inversion of Control (IoC) container. [Learn More](service-locator.md)
 

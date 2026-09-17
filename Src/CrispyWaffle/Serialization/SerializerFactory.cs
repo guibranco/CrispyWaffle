@@ -203,6 +203,12 @@ public static class SerializerFactory
                     ServiceLocator.Resolve<XmlSerializerAdapter>()
                 );
 
+            case SerializerFormat.Yaml:
+                return new SerializerConverter<T>(
+                    obj,
+                    ServiceLocator.Resolve<YamlSerializerAdapter>()
+                );
+
             default:
                 throw new InvalidOperationException(nameof(attribute.Format));
         }
