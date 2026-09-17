@@ -111,5 +111,6 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <param name="deserialized">The object to serialize.</param>
     /// <returns>The YAML string representation, or an empty string when the object is null.</returns>
     public string SerializeToString<T>(T deserialized)
-        where T : class => deserialized == null ? string.Empty : CreateSerializer().Serialize(deserialized);
+        where T : class =>
+        deserialized == null ? string.Empty : CreateSerializer().Serialize(deserialized);
 }
