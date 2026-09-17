@@ -87,8 +87,7 @@ public class YamlSerializerAdapterTests
         Action act = () => _serializer.Deserialize<SampleYamlClass>(null);
 
         // Assert
-        act.Should().Throw<ArgumentNullException>()
-            .And.ParamName.Should().Be("serialized");
+        act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("serialized");
     }
 
     [Fact]
