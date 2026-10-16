@@ -43,12 +43,12 @@ The two converters accept different "empty" values:
 |---|---|---|
 | `null` | Returns `null` | Returns `null` |
 | `""` or whitespace string | Returns `null` | Returns `null` |
-| `[]` | Returns `null` | Throws `InvalidOperationException` (see note) |
+| `[]` | Returns `null` | Throws `JsonException` (see note) |
 | `{}` | Returns `null` | Returns `null` |
 | Non-empty object | Throws `NotNullObserverException` | Throws `NotNullObserverException` |
-| Non-empty string, number, boolean, non-empty array | Throws `NotNullObserverException` | Throws `InvalidOperationException` (see note) |
+| Non-empty string, number, boolean, non-empty array | Throws `NotNullObserverException` | Throws `JsonException` (see note) |
 
-Note: the System.Text.Json converter calls `JsonElement.EnumerateObject()` before it checks the value kind. That call throws `InvalidOperationException` for any value that is not an object, so in those cases you get that exception instead of `NotNullObserverException`.
+Note: the System.Text.Json converter calls `JsonElement.EnumerateObject()` before it checks the value kind. That call throws `InvalidOperationException` for any value that is not an object, and System.Text.Json wraps it in a `JsonException` ("The JSON value could not be converted to CrispyWaffle.Serialization.NotNullObserver"). In those cases you get `JsonException` instead of `NotNullObserverException`.
 
 ## Getting started
 
@@ -219,7 +219,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 
 | Member | Description |
 |---|---|
-| `Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)` | Returns `null` for `null`, a null/whitespace string, or `{}`. Throws `NotNullObserverException` for a non-empty object. Throws `InvalidOperationException` for other non-null values (see the note under [Not-null observer](#not-null-observer)). |
+| `Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)` | Returns `null` for `null`, a null/whitespace string, or `{}`. Throws `NotNullObserverException` for a non-empty object. Throws `InvalidOperationException` for other non-null values, which System.Text.Json surfaces as a `JsonException` (see the note under [Not-null observer](#not-null-observer)). |
 | `Write(Utf8JsonWriter writer, NotNullObserver value, JsonSerializerOptions options)` | Writes `value` with `JsonSerializer.Serialize`. |
 
 ### `CrispyWaffle.Serialization.SystemTextJson.NotNullObserverException`
