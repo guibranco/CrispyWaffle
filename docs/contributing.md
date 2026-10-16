@@ -67,6 +67,13 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/rodri-oliveira-dev">
+                    <img src="https://avatars.githubusercontent.com/u/3470248?v=4" width="100;" alt="rodri-oliveira-dev"/>
+                    <br />
+                    <sub><b>Rodrigo de Oliveira</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/SimranGil">
                     <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
                     <br />
@@ -87,6 +94,8 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                     <sub><b>Tiago Schäffer</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/viktoriussuwandi">
                     <img src="https://avatars.githubusercontent.com/u/68414300?v=4" width="100;" alt="viktoriussuwandi"/>
@@ -94,8 +103,6 @@ Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/C
                     <sub><b>Viktorius Suwandi</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Yousef-Majidi">
                     <img src="https://avatars.githubusercontent.com/u/28239685?v=4" width="100;" alt="Yousef-Majidi"/>
