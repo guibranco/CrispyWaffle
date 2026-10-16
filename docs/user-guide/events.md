@@ -43,6 +43,10 @@ Event handling is currently done synchronously. There are plans to do an async, 
 
 ---
 
+## How it works
+
+[![Events and commands dispatch](../images/diagrams/events-commands.svg)](../images/diagrams/events-commands.svg)
+
 ## Examples
 
 ### Multiple event handlers for the same event

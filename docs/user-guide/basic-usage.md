@@ -26,6 +26,12 @@ Crispy Waffle is a versatile toolkit for .NET projects, offering a wide range of
 
 - **String Extensions**: Enhance string manipulation capabilities with useful extension methods.
 
+## Architecture
+
+[![CrispyWaffle package architecture](../images/diagrams/architecture.svg)](../images/diagrams/architecture.svg)
+
+More diagrams are on the [Diagrams](../diagrams.md) page.
+
 ## Examples
 
 Most methods are thoroughly tested, and usage examples can be found in the [test project source code](https://github.com/guibranco/CrispyWaffle). This resource provides practical demonstrations of each feature in action.

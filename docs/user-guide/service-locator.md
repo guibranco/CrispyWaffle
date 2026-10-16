@@ -5,6 +5,12 @@
 The service locator class is a helper class that acts like an IoC container.
 You can register instances as singleton/transient scope. Register dependencies and request an instance of an interface/class.
 
+## How it works
+
+The service locator is how `EventsConsumer` and `CommandsConsumer` find their handlers:
+
+[![Events and commands dispatch](../images/diagrams/events-commands.svg)](../images/diagrams/events-commands.svg)
+
 ## Examples
 
 The following example registers a singleton class and then requests it multiple times.
