@@ -9,6 +9,10 @@ Cache data is easy with Crispy Waffle, there are available two **repositories** 
 
 There is also a helper class, **CacheManager** that makes cache usage easy.
 
+## How it works
+
+[![Caching write and read paths](../images/diagrams/caching.svg)](../images/diagrams/caching.svg)
+
 ## Examples
 
 ### Single cache repository + CacheManager helper class
