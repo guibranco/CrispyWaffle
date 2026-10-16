@@ -57,7 +57,7 @@ Everything below ships in the `CrispyWaffle` package.
 | [Events](core/events.md) | One-to-many event dispatch to `IEventHandler<TEvent>` implementations |
 | [Commands](core/commands.md) | One-to-one command dispatch returning a result |
 | [Scheduler](core/scheduler.md) | Cron-based job scheduling with `JobManager` |
-| [Serialization](core/serialization.md) | JSON and XML serializer adapters, `SerializerFactory` |
+| [Serialization](core/serialization.md) | JSON, XML and YAML serializer adapters, `SerializerFactory` |
 | [Telemetry](core/telemetry.md) | `TelemetryAnalytics` facade for counters, events and exceptions |
 | [Template rendering](core/template-rendering.md) | Mustache-style text template engine |
 | [Cryptography](core/cryptography.md) | AES string encryption and MD5/SHA hashing (legacy compatibility) |
