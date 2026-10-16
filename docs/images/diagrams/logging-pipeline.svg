@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+  <title id="title">CrispyWaffle logging pipeline</title>
+  <desc id="desc">LogConsumer resolves a category from the caller, applies every ILogFilter per provider, and writes to each registered ILogProvider. Exceptions go through the configured IExceptionHandler, which tracks telemetry and writes to its own providers.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0c4dc"/>
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff79c6"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: #f8f8f2; }
+    .mono { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; font-variant-ligatures: none; }
+    .dim { fill: #a9adc8; }
+    .b { font-weight: 600; }
+    .card { fill: #343746; stroke: #44475a; }
+    .flow { stroke: #c0c4dc; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <rect width="1000" height="560" fill="#282a36"/>
+
+  <text x="40" y="44" font-size="20" class="b">Logging pipeline</text>
+  <text x="40" y="68" font-size="13" class="dim">LogConsumer is a static facade; every message is fanned out to each registered ILogProvider that passes the filters.</text>
+
+  <!-- Messages -->
+  <rect x="40" y="187" width="180" height="80" rx="8" class="card"/>
+  <text x="56" y="215" font-size="14" class="b">Your code</text>
+  <text x="56" y="240" font-size="12" class="mono" style="fill:#ff79c6">LogConsumer.Info(msg)</text>
+  <text x="56" y="258" font-size="11" class="dim">Debug · Trace · Warning · …</text>
+
+  <line x1="220" y1="227" x2="258" y2="227" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="260" y="187" width="190" height="80" rx="8" class="card"/>
+  <text x="276" y="215" font-size="14" class="b">Resolve category</text>
+  <text x="276" y="238" font-size="12" class="dim">walks the stack trace to</text>
+  <text x="276" y="255" font-size="12" class="dim">the caller's namespace</text>
+
+  <line x1="450" y1="227" x2="488" y2="227" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="490" y="187" width="180" height="80" rx="8" class="card"/>
+  <text x="506" y="215" font-size="14" class="b mono">ILogFilter</text>
+  <text x="506" y="238" font-size="12" class="dim">all filters must pass,</text>
+  <text x="506" y="255" font-size="12" class="dim">checked per provider</text>
+
+  <!-- Fan out -->
+  <g class="flow">
+    <path d="M670,227 C690,227 690,119 708,119" marker-end="url(#arrow)"/>
+    <path d="M670,227 C690,227 690,155 708,155" marker-end="url(#arrow)"/>
+    <path d="M670,227 C690,227 690,191 708,191" marker-end="url(#arrow)"/>
+    <path d="M670,227 L708,227" marker-end="url(#arrow)"/>
+    <path d="M670,227 C690,227 690,263 708,263" marker-end="url(#arrow)"/>
+    <path d="M670,227 C690,227 690,299 708,299" marker-end="url(#arrow)"/>
+    <path d="M670,227 C690,227 690,335 708,335" marker-end="url(#arrow)"/>
+  </g>
+
+  <text x="710" y="94" font-size="12" class="b">ILogProvider <tspan class="dim" font-weight="400">(each registered one)</tspan></text>
+  <g font-size="12">
+    <rect x="710" y="104" width="250" height="30" rx="6" class="card"/><text x="722" y="124" class="mono">ConsoleLogProvider</text><text x="950" y="124" font-size="10" text-anchor="end" class="dim">core</text>
+    <rect x="710" y="140" width="250" height="30" rx="6" class="card"/><text x="722" y="160" class="mono">TextFileLogProvider</text><text x="950" y="160" font-size="10" text-anchor="end" class="dim">core</text>
+    <rect x="710" y="176" width="250" height="30" rx="6" class="card"/><text x="722" y="196" class="mono">Log4NetLogProvider</text>
+    <rect x="710" y="212" width="250" height="30" rx="6" class="card"/><text x="722" y="232" class="mono">EventLogProvider</text>
+    <rect x="710" y="248" width="250" height="30" rx="6" class="card"/><text x="722" y="268" class="mono">PubSubRedisLogProvider</text>
+    <rect x="710" y="284" width="250" height="30" rx="6" class="card"/><text x="722" y="304" class="mono">RabbitMQLogProvider</text>
+    <rect x="710" y="320" width="250" height="30" rx="6" class="card"/><text x="722" y="340" class="mono">ElasticSearchLogProvider</text>
+  </g>
+
+  <text x="40" y="300" font-size="12" class="dim">Register with <tspan class="mono" style="fill:#f8f8f2">LogConsumer.AddProvider&lt;T&gt;()</tspan>.</text>
+  <text x="40" y="320" font-size="12" class="dim"><tspan class="mono" style="fill:#f8f8f2">LogTo&lt;TProvider&gt;(level, msg)</tspan> targets one provider only.</text>
+  <text x="40" y="340" font-size="12" class="dim">Console and text-file providers write through adapters</text>
+  <text x="40" y="358" font-size="12" class="dim">(<tspan class="mono">StandardConsoleLogAdapter</tspan>, <tspan class="mono">RollingTextFileLogAdapter</tspan>).</text>
+
+  <!-- Exceptions -->
+  <line x1="40" y1="392" x2="960" y2="392" stroke="#44475a" stroke-dasharray="4 4"/>
+  <text x="40" y="384" font-size="11" class="b dim" letter-spacing="1">EXCEPTIONS</text>
+
+  <rect x="40" y="420" width="180" height="80" rx="8" class="card"/>
+  <text x="56" y="448" font-size="14" class="b">Your code</text>
+  <text x="56" y="473" font-size="12" class="mono" style="fill:#ff79c6">LogConsumer.Handle(ex)</text>
+  <text x="56" y="491" font-size="11" class="dim">or unhandled-exception events</text>
+
+  <line x1="220" y1="460" x2="258" y2="460" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="260" y="410" width="300" height="100" rx="8" fill="#343746" stroke="#ff79c6"/>
+  <text x="276" y="438" font-size="14" class="b mono">IExceptionHandler</text>
+  <text x="276" y="462" font-size="12" class="dim">Default · Elmah · Null</text>
+  <text x="276" y="481" font-size="12" class="dim">set with <tspan class="mono">SetHandler(…)</tspan>; default unwraps</text>
+  <text x="276" y="498" font-size="12" class="dim">inner exceptions before logging them</text>
+
+  <line x1="560" y1="425" x2="618" y2="425" stroke="#ff79c6" stroke-width="1.5" marker-end="url(#arrow-pink)"/>
+  <rect x="620" y="402" width="340" height="44" rx="8" fill="#343746" stroke="#ff79c6"/>
+  <text x="636" y="420" font-size="13" class="b">Handler's own providers</text>
+  <text x="636" y="437" font-size="11" class="mono dim">AddLogProvider&lt;T&gt;(ExceptionLogType)</text>
+
+  <line x1="560" y1="484" x2="618" y2="484" class="flow" marker-end="url(#arrow)"/>
+  <rect x="620" y="459" width="190" height="50" rx="8" class="card"/>
+  <text x="636" y="481" font-size="13" class="b mono">TelemetryAnalytics</text>
+  <text x="636" y="499" font-size="11" class="mono dim">TrackException(type)</text>
+</svg>
