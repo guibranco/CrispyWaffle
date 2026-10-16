@@ -13,14 +13,34 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## Table of content
 
+- [Features](#features): What the toolkit provides.
 - [CI/CD](#cicd): Current project status in the build pipeline (GitHub Actions).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
-- [.NET support](#.NET-support): Supported .NET version. 
+- [.NET support](#net-support): Supported .NET versions.
 - [Installation](#installation): How to install/download this tool.
 - [User guide](#user-guide): How to set up, configure and use this tool.
 - [Change log](#changelog): Changelog containing the changes done in this project.
 - [Support](#support): How to get support.
 - [Contributing](#contributing): How to contribute.
+
+---
+
+## Features
+
+The core `CrispyWaffle` package provides:
+
+- **Service locator**: a lightweight IoC container with lifetimes and bootstrappers.
+- **Logging**: the `LogConsumer` facade with filters, multiple providers and exception handlers.
+- **Caching**: the async `CacheManager` facade over prioritized cache repositories.
+- **Events and commands**: one-to-many event dispatch and one-to-one command dispatch.
+- **Scheduler**: cron-based job scheduling with `JobManager`.
+- **Serialization**: JSON (Newtonsoft.Json and System.Text.Json), XML, YAML and TOML adapters behind `SerializerFactory`.
+- **Cryptography**: AES string encryption and MD5, SHA-1, SHA-2 and SHA-3 hashing.
+- **Template rendering, telemetry, validations and extension methods.**
+
+Integration packages add Redis, RabbitMQ, ElasticSearch, CouchDB, Log4Net, ELMAH and Windows Event Log support, and the standalone `CrispyWaffle.HttpClient` and `CrispyWaffle.BackgroundJobs` packages build on `Microsoft.Extensions.*`.
+
+See the [documentation](https://guibranco.github.io/CrispyWaffle/) for a page about every module and package.
 
 ---
 
@@ -61,12 +81,15 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## .NET support
 
-As of June 2025, this toolkit is currently published in the following `.NET` versions:
+As of October 2026, this toolkit is published for the following `.NET` versions:
 
 - .NET Standard 2.0
 - .NET Standard 2.1
 - .NET 8.0
 - .NET 9.0
+- .NET 10.0
+
+`CrispyWaffle.HttpClient` and `CrispyWaffle.BackgroundJobs` target .NET 10.0 only.
 
 This is an official Microsoft [.NET-supported versions](https://dotnet.microsoft.com/en-us/platform/dotnet-standard) table based on the lowest target version (.NET Standard 2.0):
 ![Supported version as of June/2025](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/docs/images/supported-versions-2025-06.png)
@@ -101,6 +124,8 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | --------- | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | **CrispyWaffle.I18n.PtBr** | [![PT-BR NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.I18n.PtBr.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.I18n.PtBr/) | [![PT-BR NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.I18n.PtBr.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.I18n.PtBr/) |
 
+`CrispyWaffle.CouchDB`, `CrispyWaffle.HttpClient` and `CrispyWaffle.BackgroundJobs` are not on NuGet yet. Reference their projects directly; see [Installation](https://guibranco.github.io/CrispyWaffle/installation/#packages-not-yet-on-nuget).
+
 More information is available [here](https://guibranco.github.io/CrispyWaffle/installation/).
 
 ---
@@ -125,7 +150,7 @@ Please [open an issue](https://github.com/guibranco/crispywaffle/issues/new) for
 
 ## Contributing
 
-Refer to [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to contribute to this project!
+Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contributing/) to learn how to contribute to this project!
 
 ### Contributors
 
