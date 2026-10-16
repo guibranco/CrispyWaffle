@@ -1,6 +1,6 @@
-# Crispy Waffle Project
+# Crispy Waffle
 
-A comprehensive toolkit designed to enhance .NET projects with a variety of functionalities.
+A toolkit for .NET applications: service location, logging, caching, events, commands, cron scheduling, serialization, template rendering and more, with integration packages for Redis, RabbitMQ, ElasticSearch, CouchDB, Log4Net, ELMAH and the Windows Event Log.
 
 ![Crispy Waffle Logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/logo.png)
 
@@ -10,130 +10,81 @@ Source code available at: [GitHub ![GitHub stars](https://img.shields.io/github/
 
 Currently opened issues: [![GitHub issues](https://img.shields.io/github/issues/guibranco/crispywaffle)](https://github.com/guibranco/crispywaffle/issues).
 
-## Project Status
+## Project status
 
-| Build Status | Last Commit | Tests | Coverage | Code Smells | Lines of Code |
-|:------------:|:-----------:|:-----:|:---------:|:-----------:|:-------------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/main?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/main?compact_message)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main/tests) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
+| Build and tests | Release | Last commit | Coverage | Code Smells | Lines of Code |
+|:---------------:|:-------:|:-----------:|:--------:|:-----------:|:-------------:|
+| [![Build, Test and Analyze](https://github.com/guibranco/CrispyWaffle/actions/workflows/build.yml/badge.svg)](https://github.com/guibranco/CrispyWaffle/actions/workflows/build.yml) | [![Release](https://github.com/guibranco/CrispyWaffle/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/guibranco/CrispyWaffle/actions/workflows/release.yml) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
+
+## Quick look
+
+```csharp
+using CrispyWaffle.Cache;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Log;
+using CrispyWaffle.Log.Adapters;
+using CrispyWaffle.Log.Providers;
+
+ServiceLocator.Register<IConsoleLogAdapter, StandardConsoleLogAdapter>(Lifetime.Singleton);
+LogConsumer.AddProvider<ConsoleLogProvider>();
+CacheManager.AddRepository<MemoryCacheRepository>();
+
+LogConsumer.Info("Hello from Crispy Waffle");
+
+await CacheManager.SetAsync(42, "answer");
+var answer = await CacheManager.GetAsync<int>("answer");
+```
+
+New here? Start with [Getting started](getting-started.md).
 
 ## Architecture
+
+The core `CrispyWaffle` package exposes static facades with pluggable extension points. Integration packages implement those extension points, and two standalone packages build on `Microsoft.Extensions.*`.
 
 [![CrispyWaffle package architecture](images/diagrams/architecture.svg)](images/diagrams/architecture.svg)
 
 More diagrams (logging, caching, events and commands, background jobs) are on the [Diagrams](diagrams.md) page.
 
-## Features
+## Core modules
 
-Crispy Waffle provides a rich set of features to enhance your .NET applications:
+Everything below ships in the `CrispyWaffle` package.
 
-### Caching
-Efficiently cache data to improve performance.
+| Module | What it does |
+| :----- | :---------- |
+| [Service Locator](core/service-locator.md) | Lightweight IoC container: register contracts, resolve instances, bootstrappers |
+| [Logging](core/logging.md) | `LogConsumer` facade with filters, multiple providers and exception handlers |
+| [Caching](core/caching.md) | `CacheManager` facade over prioritized cache repositories |
+| [Events](core/events.md) | One-to-many event dispatch to `IEventHandler<TEvent>` implementations |
+| [Commands](core/commands.md) | One-to-one command dispatch returning a result |
+| [Scheduler](core/scheduler.md) | Cron-based job scheduling with `JobManager` |
+| [Serialization](core/serialization.md) | JSON and XML serializer adapters, `SerializerFactory` |
+| [Telemetry](core/telemetry.md) | `TelemetryAnalytics` facade for counters, events and exceptions |
+| [Template rendering](core/template-rendering.md) | Mustache-style text template engine |
+| [Cryptography](core/cryptography.md) | AES string encryption and MD5/SHA hashing (legacy compatibility) |
+| [Extension methods](core/extensions.md) | Conversion, string, enum, exception, math, type and XML helpers |
+| [Utilities](core/utilities.md) | Query string builder, resettable lazy values, dynamic serialization, phone numbers |
+| [Validations](core/validations.md) | CPF, CNPJ and e-mail validation, shared regular expressions |
+| [Attributes](core/attributes.md) | Metadata attributes used across the library |
+| [Good practices](core/good-practices.md) | Small building blocks for safer code |
+| [Infrastructure](core/infrastructure.md) | Environment information and library constants |
 
-**Example Usage:**
-```csharp
-var cache = new CacheProvider();
-cache.Set("key", "value", TimeSpan.FromMinutes(10));
-var value = cache.Get<string>("key");
-```
+## Integration packages
 
-### Communication
-#### FTP Client
-Manage file transfers using the FTP protocol.
-
-**Example Usage:**
-```csharp
-var ftpClient = new FtpClient("ftp://example.com", "username", "password");
-ftpClient.Upload("localFile.txt", "remoteFile.txt");
-```
-
-#### SMTP Mailer Client
-Send emails easily via SMTP.
-
-**Example Usage:**
-```csharp
-var mailer = new SmtpMailer("smtp.example.com", "username", "password");
-mailer.Send("to@example.com", "Subject", "Email body");
-```
-
-### Conversion Extensions
-Simplify data type conversions.
-
-**Example Usage:**
-```csharp
-int number = "123".ToInt();
-```
-
-### Events Dispatching
-Trigger and manage application events.
-
-**Example Usage:**
-```csharp
-var eventDispatcher = new EventDispatcher();
-eventDispatcher.Subscribe<MyEvent>(e => Console.WriteLine(e.Message));
-eventDispatcher.Dispatch(new MyEvent("Hello, World!"));
-```
-
-### Logging
-Capture logs for debugging and monitoring.
-
-**Example Usage:**
-```csharp
-var logger = new Logger();
-logger.Log("This is a log message.");
-```
-
-### Messaging
-Implement messaging patterns for inter-component communication.
-
-**Example Usage:**
-```csharp
-var messageBus = new MessageBus();
-messageBus.Publish(new MyMessage("Hello!"));
-```
-
-### Scheduled Task Execution
-Automate execution of tasks at intervals.
-
-**Example Usage:**
-```csharp
-var scheduler = new TaskScheduler();
-scheduler.Schedule(() => Console.WriteLine("Task executed!"), TimeSpan.FromMinutes(1));
-```
-
-### Serialization Helpers
-Serialize and deserialize data in JSON and XML formats.
-
-**Example Usage:**
-```csharp
-var jsonData = JsonSerializer.Serialize(new { Name = "Crispy Waffle" });
-var obj = JsonSerializer.Deserialize<MyClass>(jsonData);
-```
-
-### Service Locator
-Acts as a Dependency Injection and IoC container.
-
-**Example Usage:**
-```csharp
-var serviceLocator = new ServiceLocator();
-serviceLocator.Register<IService, ServiceImpl>();
-var service = serviceLocator.Get<IService>();
-```
-
-### String Extensions
-Enhance string manipulation capabilities.
-
-**Example Usage:**
-```csharp
-string example = "Crispy Waffle";
-bool containsWaffle = example.Contains("Waffle");
-```
+| Package | What it adds |
+| :------ | :---------- |
+| [CrispyWaffle.Configuration](packages/configuration.md) | Connection and credential abstractions shared by the integration packages |
+| [CrispyWaffle.Redis](packages/redis.md) | Redis cache repository, Pub/Sub log provider and telemetry client |
+| [CrispyWaffle.RabbitMQ](packages/rabbitmq.md) | RabbitMQ messaging wrapper and log provider |
+| [CrispyWaffle.ElasticSearch](packages/elasticsearch.md) | ElasticSearch client wrapper and log provider |
+| [CrispyWaffle.CouchDB](packages/couchdb.md) | CouchDB cache repository (not yet on NuGet) |
+| [CrispyWaffle.Log4Net](packages/log4net.md) | Log provider that forwards to log4net |
+| [CrispyWaffle.EventLog](packages/eventlog.md) | Windows Event Log provider |
+| [CrispyWaffle.Elmah](packages/elmah.md) | Exception handler that forwards to ELMAH |
+| [CrispyWaffle.Utils](packages/utils.md) | FTP client and SMTP mailer |
+| [CrispyWaffle.I18n.PtBr](packages/i18n-ptbr.md) | Brazilian Portuguese conversions |
+| [CrispyWaffle.HttpClient](packages/http-client.md) | Standalone typed HTTP client wrapper with retries (not yet on NuGet) |
+| [CrispyWaffle.BackgroundJobs](packages/background-jobs.md) | Standalone hosted background job processing (not yet on NuGet) |
 
 ## Examples
 
-Most methods are thoroughly tested, and usage examples can be found in the [test project source code](https://github.com/guibranco/CrispyWaffle). This resource provides practical demonstrations of each feature in action.
-
-## Class Diagram
-
-The following class diagram illustrates the architecture and relationships within the Crispy Waffle project:
-
-<script src="https://zoomhub.net/alVEz.js?width=800px&height=auto&border=none"></script>
+Most features are covered by tests, and the [test projects](https://github.com/guibranco/CrispyWaffle/tree/main/Tests) are a good source of working examples.
