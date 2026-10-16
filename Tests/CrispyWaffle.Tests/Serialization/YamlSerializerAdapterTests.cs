@@ -3,8 +3,8 @@ using System.IO;
 using System.Text;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
-using YamlDotNet.Core;
 using Xunit;
+using YamlDotNet.Core;
 
 namespace CrispyWaffle.Tests.Serialization;
 
@@ -87,8 +87,7 @@ public class YamlSerializerAdapterTests
         Action act = () => _serializer.Deserialize<SampleYamlClass>(null);
 
         // Assert
-        act.Should().Throw<ArgumentNullException>()
-            .And.ParamName.Should().Be("serialized");
+        act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("serialized");
     }
 
     [Fact]
@@ -101,8 +100,7 @@ public class YamlSerializerAdapterTests
         Action act = () => _serializer.Deserialize<SampleYamlClass>(invalidInput);
 
         // Assert
-        act.Should().Throw<ArgumentException>()
-            .And.ParamName.Should().Be("serialized");
+        act.Should().Throw<ArgumentException>().And.ParamName.Should().Be("serialized");
     }
 
     [Fact]

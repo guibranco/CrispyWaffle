@@ -26,13 +26,13 @@ public enum SerializerFormat
     Xml,
 
     /// <summary>
-    ///     Represents the YAML serialization format.
+    ///     An enum constant representing the YAML option.
     /// </summary>
     [HumanReadable("YAML")]
     Yaml,
 
     /// <summary>
-    ///     Represents the TOML serialization format.
+    ///     An enum constant representing the TOML option.
     /// </summary>
     [HumanReadable("TOML")]
     Toml,

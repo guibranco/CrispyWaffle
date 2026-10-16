@@ -2,8 +2,14 @@
 
 ## Unreleased
 
-- Add TOML serializer support using Tomlyn - [issue #431](https://github.com/guibranco/CrispyWaffle/issues/431) by [@rodri-oliveira-dev](https://github.com/rodri-oliveira-dev)
-- Add YAML serializer support using YamlDotNet - [issue #432](https://github.com/guibranco/CrispyWaffle/issues/432) by [@rodri-oliveira-dev](https://github.com/rodri-oliveira-dev)
+- Add TOML serializer support using Tomlyn -
+  [issue #431][issue-431] by [@rodri-oliveira-dev][rodri]
+- Add YAML serializer support using YamlDotNet -
+  [issue #432][issue-432] by [@rodri-oliveira-dev][rodri]
+
+[issue-431]: https://github.com/guibranco/CrispyWaffle/issues/431
+[issue-432]: https://github.com/guibranco/CrispyWaffle/issues/432
+[rodri]: https://github.com/rodri-oliveira-dev
 
 ## Version 10.0 [2025-02-22]
 
