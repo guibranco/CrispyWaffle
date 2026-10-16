@@ -16,6 +16,16 @@ The Crispy Waffle project is divided into some packages:
 | **Redis**         | The [Redis](https://redis.io) extension package.<br /> Implements the Redis cache, log and telemetry features.                              |
 | **Utils**         | The utility extension package.<br /> Implements the utility classes (communications - FTP client, SMTP mailer).                             |
 
+### Packages not yet on NuGet
+
+The following projects are in the repository but are not part of the release workflow yet. Reference the project directly to use them.
+
+| Package           | Description | Reference |
+| ----------------- | ----------- | --------- |
+| **CouchDB**       | The [CouchDB](https://couchdb.apache.org/) cache repository. See [CouchDB](packages/couchdb.md). | `dotnet add reference Src/CrispyWaffle.CouchDB/CrispyWaffle.CouchDB.csproj` |
+| **HttpClient**    | Standalone typed HTTP client wrapper with retries (`net10.0` only). See [HttpClient](packages/http-client.md). | `dotnet add reference Src/CrispyWaffle.HttpClient/CrispyWaffle.HttpClient.csproj` |
+| **BackgroundJobs** | Standalone hosted background job processing (`net10.0` only). See [BackgroundJobs](packages/background-jobs.md). | `dotnet add reference Src/CrispyWaffle.BackgroundJobs/CrispyWaffle.BackgroundJobs.csproj` |
+
 ### Language packages
 
 The following language (i18n) packages are available:
@@ -23,6 +33,18 @@ The following language (i18n) packages are available:
 | Package   | Description                  |
 | --------- | ---------------------------- |
 | **Pt-Br** | Brazilian Portuguese (PT-BR) |
+
+## Supported frameworks
+
+The NuGet packages target:
+
+- .NET Standard 2.0
+- .NET Standard 2.1
+- .NET 8.0
+- .NET 9.0
+- .NET 10.0
+
+Some APIs depend on the target framework. For example, the SHA-3 hash algorithms are only available on .NET 8 or later (see [Cryptography](core/cryptography.md)).
 
 ## Github Releases
 

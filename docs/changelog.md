@@ -1,27 +1,94 @@
 # Changelog
 
-## Unreleased
+## Version 10.4 [2026-10-16]
 
 - Add TOML serializer support using Tomlyn -
-  [issue #431][issue-431] by [@rodri-oliveira-dev][rodri]
-- Add YAML serializer support using YamlDotNet -
-  [issue #432][issue-432] by [@rodri-oliveira-dev][rodri]
+  [issue #431][issue-431] and [pull request #981][pr-981] by
+  [@rodri-oliveira-dev][rodri]
+- Add a features section to the README, document .NET 10 support and the
+  packages not yet on NuGet, and fill in the missing changelog entries
 
-[issue-431]: https://github.com/guibranco/CrispyWaffle/issues/431
-[issue-432]: https://github.com/guibranco/CrispyWaffle/issues/432
-[rodri]: https://github.com/rodri-oliveira-dev
+## Version 10.3 [2026-10-16]
+
+- Add YAML serializer support using YamlDotNet -
+  [issue #432][issue-432] and [pull request #980][pr-980] by
+  [@rodri-oliveira-dev][rodri]
+- Rewrite the documentation site, with a page for every core module and
+  integration package plus architecture diagrams -
+  [pull request #1007][pr-1007] and [pull request #1008][pr-1008]
+
+## Version 10.2 [2026-07-04]
+
+- Add the `CrispyWaffle.BackgroundJobs` package (hosted background job
+  processing, not yet published to NuGet) -
+  [pull request #745][pr-745] by [@ducdaiii][ducdaiii]
+- Add Redis integration tests -
+  [pull request #753][pr-753] by [@Looseling][looseling]
+- Add .NET 10 target framework - [pull request #971][pr-971]
+
+## Version 10.1 [2026-07-04]
+
+- **Breaking:** make `CacheManager` and the cache repositories asynchronous -
+  [pull request #715][pr-715] by [@HarryKambo][harrykambo]
+- **Breaking:** migrate the RabbitMQ wrapper, message receiver and log provider
+  to async methods and upgrade `RabbitMQ.Client` to 7.0 -
+  [pull request #953][pr-953]
+- Add SHA3-256, SHA3-384 and SHA3-512 hashing on .NET 8 or later -
+  [pull request #901][pr-901] by [@christopher-conley][christopher-conley]
+- Fix the inverted logic in `ExtractQuerystring` -
+  [pull request #881][pr-881] by [@Sak3th2004][sak3th2004]
+- Replace `XXXX` placeholders in XML documentation with real return
+  descriptions - [pull request #882][pr-882] by [@Sak3th2004][sak3th2004]
 
 ## Version 10.0 [2025-02-22]
 
-- Drop support to .NET 6 - [pull request #667](https://github.com/guibranco/CrispyWaffle/pull/667)
+- Drop support to .NET 6 - [pull request #667][pr-667]
+- Add the `CrispyWaffle.HttpClient` package (typed HTTP client wrapper with
+  retries, not yet published to NuGet) -
+  [pull request #742][pr-742] by [@ducdaiii][ducdaiii]
 
-## Version 9.1 []
+## Version 9.1 [2024-11-26]
 
-- TBC
+- Add .NET 9 target framework - [pull request #631][pr-631]
 
-## Version 9.0 []
+## Version 9.0 [2024-11-12]
 
-- TBC
+- Refactor tests to use `async`/`await` instead of `Thread.Sleep` -
+  [pull request #548][pr-548] by [@mf0zz13][mf0zz13]
+- Run integration tests against Docker Compose services in CI -
+  [pull request #552][pr-552]
+- Document the serializer factory - [pull request #593][pr-593]
+- Simplify constructors with expression-bodied syntax -
+  [pull request #599][pr-599]
+
+[issue-431]: https://github.com/guibranco/CrispyWaffle/issues/431
+[issue-432]: https://github.com/guibranco/CrispyWaffle/issues/432
+[pr-981]: https://github.com/guibranco/CrispyWaffle/pull/981
+[pr-980]: https://github.com/guibranco/CrispyWaffle/pull/980
+[pr-1007]: https://github.com/guibranco/CrispyWaffle/pull/1007
+[pr-1008]: https://github.com/guibranco/CrispyWaffle/pull/1008
+[pr-745]: https://github.com/guibranco/CrispyWaffle/pull/745
+[pr-753]: https://github.com/guibranco/CrispyWaffle/pull/753
+[pr-971]: https://github.com/guibranco/CrispyWaffle/pull/971
+[pr-715]: https://github.com/guibranco/CrispyWaffle/pull/715
+[pr-953]: https://github.com/guibranco/CrispyWaffle/pull/953
+[pr-901]: https://github.com/guibranco/CrispyWaffle/pull/901
+[pr-881]: https://github.com/guibranco/CrispyWaffle/pull/881
+[pr-882]: https://github.com/guibranco/CrispyWaffle/pull/882
+[pr-667]: https://github.com/guibranco/CrispyWaffle/pull/667
+[pr-742]: https://github.com/guibranco/CrispyWaffle/pull/742
+[pr-631]: https://github.com/guibranco/CrispyWaffle/pull/631
+[pr-548]: https://github.com/guibranco/CrispyWaffle/pull/548
+[pr-552]: https://github.com/guibranco/CrispyWaffle/pull/552
+[pr-593]: https://github.com/guibranco/CrispyWaffle/pull/593
+[pr-599]: https://github.com/guibranco/CrispyWaffle/pull/599
+[christopher-conley]: https://github.com/christopher-conley
+[ducdaiii]: https://github.com/ducdaiii
+[harrykambo]: https://github.com/HarryKambo
+[looseling]: https://github.com/Looseling
+[mf0zz13]: https://github.com/mf0zz13
+[rodri]: https://github.com/rodri-oliveira-dev
+[sak3th2004]: https://github.com/Sak3th2004
 
 ## Version 8.2 [2024-09-11]
 
