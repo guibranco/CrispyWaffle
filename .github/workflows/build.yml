@@ -19,7 +19,9 @@ jobs:
         image: couchdb:3.3.3
         env:
           COUCHDB_USER: Admin
-          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD }}
+          # Secrets are not exposed to pull requests from forks; fall back to the
+          # throwaway password hardcoded in the integration tests.
+          COUCHDB_PASSWORD: ${{ secrets.COUCHDB_PASSWORD || 'myP@ssw0rd' }}
         ports:
           - 5984:5984
         options: >-
