@@ -1,10 +1,12 @@
 # Changelog
 
-## Unreleased
+## Version 10.4 [2026-10-16]
 
 - Add TOML serializer support using Tomlyn -
   [issue #431][issue-431] and [pull request #981][pr-981] by
   [@rodri-oliveira-dev][rodri]
+- Add a features section to the README, document .NET 10 support and the
+  packages not yet on NuGet, and fill in the missing changelog entries
 
 ## Version 10.3 [2026-10-16]
 
