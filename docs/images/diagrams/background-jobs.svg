@@ -93,7 +93,7 @@
 
   <path d="M405,404 C405,492 135,492 135,406" fill="none" stroke="#ffb86c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow-orange)"/>
   <text x="270" y="510" font-size="12" text-anchor="middle" style="fill:#ffb86c">retry: Attempt++, wait 2^Attempt s (max 300 s)</text>
-  <text x="270" y="528" font-size="11" text-anchor="middle" class="dim">when JobResult.Retry and Attempt &lt; MaxAttempt, or the handler throws</text>
+  <text x="270" y="528" font-size="11" text-anchor="middle" class="dim">when JobResult.Retry and Attempt &lt; MaxAttempt; a thrown exception always retries</text>
 
   <!-- Setup -->
   <rect x="40" y="552" width="920" height="48" rx="8" fill="#2f3141" stroke="#44475a"/>

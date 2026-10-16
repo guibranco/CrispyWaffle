@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="450" viewBox="0 0 1000 450" role="img" aria-labelledby="title desc">
   <title id="title">CrispyWaffle events and commands dispatch</title>
-  <desc id="desc">EventsConsumer resolves every IEventHandler for an event from the ServiceLocator and calls each one. CommandsConsumer resolves exactly one ICommandHandler for a command and returns its result.</desc>
+  <desc id="desc">EventsConsumer discovers every IEventHandler for an event by scanning loaded types and calls each one. CommandsConsumer resolves exactly one ICommandHandler for a command and returns its result.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#c0c4dc"/>
@@ -60,7 +60,7 @@
   <text x="380" y="324" font-size="13" text-anchor="middle" class="b">③ Handler C</text>
   <text x="380" y="345" font-size="11" text-anchor="middle" class="mono dim">Handle(evt)</text>
 
-  <text x="60" y="392" font-size="12" class="dim">Handlers run in registration order; nothing is returned.</text>
+  <text x="60" y="392" font-size="12" class="dim">Handlers run in type-discovery order; nothing is returned.</text>
   <text x="60" y="412" font-size="12" class="dim"><tspan class="mono">RaiseAsync</tspan> resolves <tspan class="mono">IEventHandlerAsync&lt;TEvent&gt;</tspan> on a background task.</text>
 
   <!-- Command handler -->

@@ -12,15 +12,15 @@ Visual overviews of how Crispy Waffle is put together. Each diagram is an SVG fi
 
 ## Package architecture
 
-The core `CrispyWaffle` package exposes static facades such as `LogConsumer`, `CacheManager` and `ServiceLocator`. Integration packages implement the core extension points (`ILogProvider`, `ICacheRepository`, `ITelemetryClient`, `IExceptionHandler`). Packages that open connections to external services also reference `CrispyWaffle.Configuration`. `BackgroundJobs` and `HttpClient` are standalone and build on `Microsoft.Extensions.*`.
+The core `CrispyWaffle` package exposes static facades such as `LogConsumer`, `CacheManager` and `ServiceLocator`. Integration packages implement the core extension points (`ILogProvider`, `ICacheRepository`, `ITelemetryClient`, `IExceptionHandler`). Packages that open connections to external services also reference `CrispyWaffle.Configuration`. Each module and package has its own page under Core Modules and Integration Packages. `BackgroundJobs` and `HttpClient` are standalone and build on `Microsoft.Extensions.*`.
 
 [![CrispyWaffle package architecture](images/diagrams/architecture.svg)](images/diagrams/architecture.svg)
 
 ## Logging pipeline
 
-`LogConsumer` resolves a category from the calling namespace, checks every `ILogFilter` for each provider, and writes to every registered `ILogProvider` that passes. Exceptions sent to `LogConsumer.Handle` go to the configured `IExceptionHandler`, which records telemetry and logs through the same providers.
+`LogConsumer` resolves a category from the calling namespace, checks every `ILogFilter` for each provider, and writes to every registered `ILogProvider` that passes. Exceptions sent to `LogConsumer.Handle` go to the configured `IExceptionHandler`. The default handler records telemetry and writes to its own provider list (`AddLogProvider<T>(ExceptionLogType)`), separate from `LogConsumer`'s providers.
 
-See the [Logging guide](user-guide/logging.md) for usage.
+See the [Logging guide](core/logging.md) for usage.
 
 [![Logging pipeline](images/diagrams/logging-pipeline.svg)](images/diagrams/logging-pipeline.svg)
 
@@ -28,20 +28,22 @@ See the [Logging guide](user-guide/logging.md) for usage.
 
 `CacheManager.SetAsync` writes to every repository in parallel. `CacheManager.GetAsync` tries repositories in priority order and returns the first hit; a value found outside memory is copied into `MemoryCacheRepository` in the background.
 
-See the [Caching guide](user-guide/caching.md) for usage.
+See the [Caching guide](core/caching.md) for usage.
 
 [![Caching write and read paths](images/diagrams/caching.svg)](images/diagrams/caching.svg)
 
 ## Events and commands
 
-`EventsConsumer` resolves every `IEventHandler<TEvent>` for an event and calls each one in registration order. `CommandsConsumer` resolves exactly one `ICommandHandler<TCommand, TResult>` and returns its result. Both look up handlers through the `ServiceLocator`.
+`EventsConsumer` finds every `IEventHandler<TEvent>` implementation by scanning the loaded assemblies and calls each one in discovery order. `CommandsConsumer` resolves exactly one `ICommandHandler<TCommand, TResult>` and returns its result. Both look up handlers through the `ServiceLocator`.
 
-See the [Events](user-guide/events.md), [Commands](user-guide/commands.md) and [Service Locator](user-guide/service-locator.md) guides for usage.
+See the [Events](core/events.md), [Commands](core/commands.md) and [Service Locator](core/service-locator.md) guides for usage.
 
 [![Events and commands dispatch](images/diagrams/events-commands.svg)](images/diagrams/events-commands.svg)
 
 ## Background jobs
 
 `JobDispatcher` saves a pending job to an `IJobStore` (in memory or EF Core). `BackgroundWorker` loops fetch due jobs, find the handler registered under the job's name, and run it in a DI scope. Failed jobs are retried with exponential backoff until `MaxAttempt` is reached.
+
+See the [BackgroundJobs package](packages/background-jobs.md) for usage.
 
 [![Background jobs pipeline and lifecycle](images/diagrams/background-jobs.svg)](images/diagrams/background-jobs.svg)
