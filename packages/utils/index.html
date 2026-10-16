@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Utils - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/utils/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../elmah/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../i18n-ptbr/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywaffleutils">CrispyWaffle.Utils</h1>
+<p>CrispyWaffle.Utils contains communication helpers: an FTP client for uploading files and managing a remote directory, and an SMTP mailer for sending plain-text and HTML e-mail with attachments. It also has an extension that renders a <code>MailMessage</code> as raw EML and the exceptions these helpers throw.</p>
+<p><code>SmtpMailer</code> currently sends only when the application runs on .NET Framework (through the <code>netstandard2.0</code> build). On .NET (Core) <code>SendAsync</code> throws before sending; see <a href="#smtp-mailer">SMTP mailer</a>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.Utils</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Utils.Communications</code>, <code>CrispyWaffle.Utils.Extensions</code>, <code>CrispyWaffle.Utils.GoodPractices</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.Utils</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>CrispyWaffle.Configuration</code> (no third-party package; uses <code>System.Net</code> FTP and SMTP classes)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="ftp-client">FTP client</h3>
+<p><code>FtpClient</code> works on one remote directory, set in the constructor. A trailing <code>/</code> on the directory is removed. Every URL is built as <code>ftp://{host}:{port}/{remoteDirectory}/{path}</code>. Requests use <code>FtpWebRequest</code> in passive mode with the configured credentials. Public methods take a lock, so one instance can be shared between threads, but calls run one at a time.</p>
+<p>Whether a path is treated as a file or a directory depends on whether it has a file extension. A path with an extension is uploaded or deleted as a file; a path without one is created or removed as a directory.</p>
+<p><code>Upload</code> creates the remote directory if it does not exist, deletes an existing file with the same name, and then uploads the bytes. <code>ClearDirectory</code> deletes every entry listed in the remote directory, removes the directory, and creates it again empty.</p>
+<p>FTP errors are wrapped in <code>FtpClientException</code>. An existence check that fails with a <code>WebException</code> is treated as "does not exist".</p>
+<p><code>FtpWebRequest</code> is marked obsolete in .NET 6 and later, and Microsoft recommends a third-party FTP library for new development.</p>
+<h3 id="smtp-mailer">SMTP mailer</h3>
+<p><code>SmtpMailer</code> wraps one <code>SmtpClient</code> and one <code>MailMessage</code>. Create one instance per e-mail and dispose it after sending. The client always uses SSL and a timeout of 300 seconds. The sender comes from <code>SmtpMailerOptions.FromAddress</code> and <code>FromName</code>.</p>
+<p>Build the message in this order:</p>
+<ol>
+<li><code>SetSubject</code>, <code>SetRecipients</code>, <code>SetReplyTo</code>, <code>SetReadNotificationTo</code>, <code>SetPriority</code> in any order.</li>
+<li><code>SetMessageBody</code> once. A second call throws <code>MessageException</code>.</li>
+<li><code>AddAttachment</code>, only after <code>SetMessageBody</code> with an HTML body; otherwise it throws (see the reference below).</li>
+<li><code>SendAsync</code>.</li>
+</ol>
+<p>The plain-text body is the main body. When an HTML body is given, it is added as a <code>text/html</code> alternate view, so mail clients that support HTML show it instead.</p>
+<p><code>SendAsync</code> behaves as follows:</p>
+<ul>
+<li>It first renders the message with <code>MailMessageExtensions.RawMessage</code>, even when debug is off. That method only works on .NET Framework (see its reference entry), so on .NET (Core) <code>SendAsync</code> throws <code>NullReferenceException</code> before anything is sent.</li>
+<li>When <code>SmtpMailerOptions.EnableDebug</code> is <code>true</code>, the raw message is written as an <code>.eml</code> file through <code>LogConsumer.DebugTo&lt;TextFileLogProvider&gt;</code>, named <code>{subject} {timestamp}.{guid}.eml</code>.</li>
+<li>When <code>SmtpMailerOptions.IsSandbox</code> is <code>true</code>, nothing is sent. A trace entry is written and the method returns.</li>
+<li>Otherwise the message is sent with <code>SmtpClient.SendMailAsync</code>.</li>
+</ul>
+<p>Send errors are tracked with <code>TelemetryAnalytics.TrackMetric("SMTPError", message)</code> and then handled by type:</p>
+<ul>
+<li>Socket errors (an inner-inner <code>SocketException</code>) and SMTP replies containing <code>4.7.1</code> or <code>5.0.3</code> store a flag in <code>CacheManager</code> for 15 minutes, keyed by the calling method. While the flag exists, <code>SendAsync</code> calls from the same method skip sending without an error. The exception is not rethrown. This only works when a cache repository is registered with <code>CacheManager</code>.</li>
+<li>Replies containing <code>4.4.2</code> or <code>4.7.0</code> are rethrown.</li>
+<li>Any other exception is passed to <code>LogConsumer.Handle</code> and not rethrown.</li>
+</ul>
+<p>In other words, <code>SendAsync</code> completing does not mean the e-mail was delivered.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System.Collections.Generic;
+using CrispyWaffle.Utils.Communications;
+
+using var mailer = new SmtpMailer(
+    &quot;smtp.example.com&quot;,
+    587,
+    &quot;user@example.com&quot;,
+    &quot;password&quot;,
+    &quot;Example App&quot;,
+    &quot;no-reply@example.com&quot;
+);
+
+mailer.SetSubject(&quot;Welcome&quot;);
+mailer.SetRecipients(new Dictionary&lt;string, string&gt; { [&quot;Jane Doe&quot;] = &quot;jane@example.com&quot; });
+mailer.SetMessageBody(&quot;Welcome to Example App.&quot;, &quot;&lt;p&gt;Welcome to &lt;b&gt;Example App&lt;/b&gt;.&lt;/p&gt;&quot;);
+
+await mailer.SendAsync();
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="smtpmailer"><code>SmtpMailer</code></h3>
+<p><code>public class SmtpMailer : IMailer</code> — builds and sends one e-mail through an SMTP server.</p>
+<p>The class has <code>[ConnectionName("SMTP")]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SmtpMailer(IConnection connection, SmtpMailerOptions options)</code></td>
+<td>Constructor. Takes host, port, user name and password from <code>connection</code>. Throws <code>ArgumentNullException</code> when <code>connection</code> or <code>options</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>SmtpMailer(string host, int port, string userName, string password, string senderDisplayName, string senderEmailAddress)</code></td>
+<td>Constructor. Builds a <code>Connection</code> and an <code>SmtpMailerOptions</code> (sandbox and debug off) from the arguments.</td>
+</tr>
+<tr>
+<td><code>SetSubject(string subject)</code></td>
+<td>Sets the subject, UTF-8 encoded.</td>
+</tr>
+<tr>
+<td><code>SetRecipients(Dictionary&lt;string, string&gt; recipients)</code></td>
+<td>Adds a <code>To</code> address for each entry. The key is the display name and the value is the address. Does nothing when <code>recipients</code> is <code>null</code>. Throws <code>ArgumentNullException</code> when an address is null or whitespace.</td>
+</tr>
+<tr>
+<td><code>SetMessageBody(string plainTextMessage, string htmlMessage)</code></td>
+<td>Sets the plain-text body (UTF-8) and, when <code>htmlMessage</code> is not null or whitespace, adds it as a <code>text/html</code> alternate view. Throws <code>MessageException</code> when called a second time.</td>
+</tr>
+<tr>
+<td><code>AddAttachment(Attachment attachment)</code></td>
+<td>Adds an attachment. Throws <code>NullMessageException</code> when <code>SetMessageBody</code> was not called. The attachment is skipped silently when the HTML body is longer than 150,000 characters. Errors while adding are passed to <code>LogConsumer.Handle</code>. The HTML-length check dereferences the HTML body, so when <code>SetMessageBody</code> was called without an HTML body this method throws <code>NullReferenceException</code>.</td>
+</tr>
+<tr>
+<td><code>SetReplyTo(string name, string emailAddress)</code></td>
+<td>Adds a reply-to address and a <code>Return-path</code> header.</td>
+</tr>
+<tr>
+<td><code>SetReadNotificationTo(string name, string emailAddress)</code></td>
+<td>Adds a <code>Disposition-Notification-To</code> header (read receipt request).</td>
+</tr>
+<tr>
+<td><code>SetPriority(MailPriority priority)</code></td>
+<td>Sets the message priority.</td>
+</tr>
+<tr>
+<td><code>SendAsync()</code></td>
+<td>Sends the message, honoring <code>IsSandbox</code> and <code>EnableDebug</code>. See How it works for error handling. Returns <code>Task</code>.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Disposes the message and the SMTP client.</td>
+</tr>
+<tr>
+<td><code>Dispose(bool disposing)</code></td>
+<td><code>protected virtual</code>. Override to release extra resources in a subclass.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="imailer"><code>IMailer</code></h3>
+<p><code>public interface IMailer : IDisposable</code> — contract for a mailer. <code>SmtpMailer</code> is the only implementation in the package.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetSubject(string subject)</code></td>
+<td>Sets the subject.</td>
+</tr>
+<tr>
+<td><code>SetRecipients(Dictionary&lt;string, string&gt; recipients)</code></td>
+<td>Adds recipients (name to address).</td>
+</tr>
+<tr>
+<td><code>SetMessageBody(string plainTextMessage, string htmlMessage)</code></td>
+<td>Sets the plain-text and HTML bodies.</td>
+</tr>
+<tr>
+<td><code>SetReadNotificationTo(string name, string emailAddress)</code></td>
+<td>Requests a read receipt.</td>
+</tr>
+<tr>
+<td><code>SetPriority(MailPriority priority)</code></td>
+<td>Sets the priority.</td>
+</tr>
+<tr>
+<td><code>SetReplyTo(string name, string emailAddress)</code></td>
+<td>Sets the reply-to address.</td>
+</tr>
+<tr>
+<td><code>AddAttachment(Attachment attachment)</code></td>
+<td>Adds an attachment.</td>
+</tr>
+<tr>
+<td><code>SendAsync()</code></td>
+<td>Sends the message. Returns <code>Task</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="smtpmaileroptions"><code>SmtpMailerOptions</code></h3>
+<p><code>public class SmtpMailerOptions</code> — sender and behavior settings for <code>SmtpMailer</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FromAddress</code></td>
+<td>Sender e-mail address.</td>
+</tr>
+<tr>
+<td><code>FromName</code></td>
+<td>Sender display name.</td>
+</tr>
+<tr>
+<td><code>IsSandbox</code></td>
+<td>When <code>true</code>, <code>SendAsync</code> does not send. Default <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>EnableDebug</code></td>
+<td>When <code>true</code>, <code>SendAsync</code> writes the raw message as an <code>.eml</code> file through <code>TextFileLogProvider</code>. Default <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ftpclient"><code>FtpClient</code></h3>
+<p><code>public class FtpClient</code> — uploads files to and manages one directory on an FTP server.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FtpClient(IConnection connection, string remoteDirectory)</code></td>
+<td>Constructor. Takes host, port (21 when <code>connection</code> is <code>null</code>), user name and password from <code>connection</code>.</td>
+</tr>
+<tr>
+<td><code>FtpClient(string host, int port, string userName, string password, string remoteDirectory)</code></td>
+<td>Constructor. Removes a trailing <code>/</code> from <code>remoteDirectory</code>. Throws <code>ArgumentNullException</code> when <code>remoteDirectory</code> is null or whitespace.</td>
+</tr>
+<tr>
+<td><code>Upload(string fileName, byte[] bytes)</code></td>
+<td>Creates the remote directory when it does not exist, deletes an existing <code>fileName</code>, and uploads <code>bytes</code>. Returns <code>true</code> when the server confirms the upload. Throws <code>ArgumentNullException</code> when an argument is <code>null</code>, and <code>FtpClientException</code> when the upload fails.</td>
+</tr>
+<tr>
+<td><code>CreateDirectory(string name)</code></td>
+<td>Creates the subdirectory <code>name</code> under the remote directory. Returns <code>true</code> when the server confirms it. Throws <code>FtpClientException</code> on failure.</td>
+</tr>
+<tr>
+<td><code>Remove(string path)</code></td>
+<td>Deletes <code>path</code> under the remote directory: a file when it has an extension, otherwise a directory. Throws <code>FtpClientException</code> when the server does not answer with <code>FileActionOK</code> or the request fails.</td>
+</tr>
+<tr>
+<td><code>ClearDirectory()</code></td>
+<td>Deletes every entry listed in the remote directory, removes the directory, and creates it again.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mailmessageextensions"><code>MailMessageExtensions</code></h3>
+<p><code>public static class MailMessageExtensions</code> — extension methods for <code>System.Net.Mail.MailMessage</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RawMessage(this MailMessage self)</code></td>
+<td>Returns a <code>MemoryStream</code> with the message in RFC 822 (EML) format, positioned at the start. It calls internal <code>System.Net.Mail</code> members through reflection and looks for a <code>MailWriter(Stream)</code> constructor, which exists only on .NET Framework. On .NET (Core) the constructor is <code>MailWriter(Stream, bool)</code>, so the method throws <code>NullReferenceException</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ftpclientexception"><code>FtpClientException</code></h3>
+<p><code>public class FtpClientException : Exception</code> — thrown by <code>FtpClient</code> when an FTP operation fails. Marked <code>[Serializable]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FtpClientException()</code></td>
+<td>Constructor with the default message.</td>
+</tr>
+<tr>
+<td><code>FtpClientException(string message)</code></td>
+<td>Constructor with a message.</td>
+</tr>
+<tr>
+<td><code>FtpClientException(string message, Exception innerException)</code></td>
+<td>Constructor with a message and inner exception.</td>
+</tr>
+<tr>
+<td><code>FtpClientException(string path, string action, FtpStatusCode responseCode)</code></td>
+<td>Message: <code>Unable to {action} the path/file {path} in the FtpClient host. Status code: {responseCode}</code>.</td>
+</tr>
+<tr>
+<td><code>FtpClientException(string path, string action, Exception innerException)</code></td>
+<td>Same message with status code <code>0</code>, and the inner exception. Used when the request throws a <code>WebException</code>.</td>
+</tr>
+<tr>
+<td><code>FtpClientException(SerializationInfo info, StreamingContext context)</code></td>
+<td><code>protected</code>. Deserialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="messageexception"><code>MessageException</code></h3>
+<p><code>public class MessageException : Exception</code> — thrown by <code>SmtpMailer.SetMessageBody</code> when the body was already set. Message: <code>The message cannot be set more than once for the same instance of Email class</code>. Marked <code>[Serializable]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MessageException()</code></td>
+<td>Constructor with the default message.</td>
+</tr>
+<tr>
+<td><code>MessageException(SerializationInfo info, StreamingContext context)</code></td>
+<td><code>protected</code>. Deserialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nullmessageexception"><code>NullMessageException</code></h3>
+<p><code>public class NullMessageException : Exception</code> — thrown by <code>SmtpMailer.AddAttachment</code> when the body has not been set. Message: <code>Unable to set the attachment of message before the message itself</code>. Marked <code>[Serializable]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NullMessageException()</code></td>
+<td>Constructor with the default message.</td>
+</tr>
+<tr>
+<td><code>NullMessageException(SerializationInfo info, StreamingContext context)</code></td>
+<td><code>protected</code>. Deserialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="send-an-e-mail-with-a-stored-connection-and-an-attachment">Send an e-mail with a stored connection and an attachment</h3>
+<p>Use a <code>Connection</code> from configuration and <code>SmtpMailerOptions</code> to keep sending off in test environments.</p>
+<pre><code class="language-csharp">using System.Collections.Generic;
+using System.IO;
+using System.Net.Mail;
+using System.Text;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Utils.Communications;
+
+var connection = new Connection
+{
+    Host = &quot;smtp.example.com&quot;,
+    Port = 587,
+    Credentials = { Username = &quot;user@example.com&quot;, Password = &quot;password&quot; },
+};
+
+var options = new SmtpMailerOptions
+{
+    FromAddress = &quot;reports@example.com&quot;,
+    FromName = &quot;Reports&quot;,
+    IsSandbox = false,
+};
+
+using var mailer = new SmtpMailer(connection, options);
+
+mailer.SetSubject(&quot;Daily report&quot;);
+mailer.SetRecipients(new Dictionary&lt;string, string&gt; { [&quot;Ops&quot;] = &quot;ops@example.com&quot; });
+mailer.SetReplyTo(&quot;Support&quot;, &quot;support@example.com&quot;);
+mailer.SetPriority(MailPriority.High);
+mailer.SetMessageBody(&quot;The daily report is attached.&quot;, &quot;&lt;p&gt;The daily report is attached.&lt;/p&gt;&quot;);
+
+var csv = new MemoryStream(Encoding.UTF8.GetBytes(&quot;date,total\n2024-01-01,10\n&quot;));
+mailer.AddAttachment(new Attachment(csv, &quot;report.csv&quot;, &quot;text/csv&quot;));
+
+await mailer.SendAsync();
+</code></pre>
+<h3 id="upload-a-file-over-ftp">Upload a file over FTP</h3>
+<p>Upload a file to <code>/exports</code> on the server, replacing any file with the same name.</p>
+<pre><code class="language-csharp">using System.IO;
+using CrispyWaffle.Utils.Communications;
+using CrispyWaffle.Utils.GoodPractices;
+
+var ftp = new FtpClient(&quot;ftp.example.com&quot;, 21, &quot;user&quot;, &quot;password&quot;, &quot;exports/&quot;);
+
+try
+{
+    var uploaded = ftp.Upload(&quot;report.csv&quot;, File.ReadAllBytes(&quot;report.csv&quot;));
+}
+catch (FtpClientException e)
+{
+    // e.Message: &quot;Unable to create the path/file report.csv in the FtpClient host. Status code: 0&quot;
+}
+</code></pre>
+<h3 id="save-a-message-as-an-eml-file">Save a message as an EML file</h3>
+<p><code>RawMessage</code> returns the message exactly as it would be sent. This works on .NET Framework only.</p>
+<pre><code class="language-csharp">using System.IO;
+using System.Net.Mail;
+using CrispyWaffle.Utils.Extensions;
+
+using var message = new MailMessage(&quot;from@example.com&quot;, &quot;to@example.com&quot;, &quot;Subject&quot;, &quot;Body&quot;);
+using var raw = message.RawMessage();
+using var file = File.Create(&quot;message.eml&quot;);
+raw.CopyTo(file);
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../configuration/">CrispyWaffle.Configuration</a></li>
+<li><a href="../../core/logging/">Logging</a></li>
+<li><a href="../../core/caching/">Caching</a></li>
+<li><a href="../../core/telemetry/">Telemetry</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Telemetry - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/telemetry/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../serialization/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../template-rendering/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="telemetry">Telemetry</h1>
+<p>The telemetry module is a small static facade, <code>TelemetryAnalytics</code>, that forwards counters (hits and metrics), stored events, exception types and dependency statistics to every registered telemetry client. The core package defines the contracts only. The storage is supplied by a client such as <code>RedisTelemetryClient</code> from the <a href="../../packages/redis/">Redis package</a>, or by your own <code>ITelemetryClient</code>.</p>
+<p>Use it to count things (page hits, jobs run, metric variations) or to keep short-lived snapshots of domain objects, without tying your code to a particular store.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Telemetry</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>TelemetryAnalytics</code> keeps a static list of <code>ITelemetryClient</code> instances, filled with <code>AddClient</code>. With no clients registered, every call does nothing and the getters return <code>0</code> or <code>null</code>.</p>
+<ul>
+<li><strong>Write calls</strong> (<code>TrackHit</code>, <code>TrackEvent</code>, <code>TrackMetric</code>, <code>TrackException</code>, <code>TrackDependency</code>, <code>RemoveHit</code>, <code>RemoveMetric</code>) are forwarded to every client, synchronously and in registration order. Return values from the clients' <code>Remove*</code> methods are discarded.</li>
+<li><strong>Read calls</strong> ask each client in order and return the first useful answer: <code>GetHit</code> and <code>GetMetric</code> return the first non-zero value (or <code>0</code>), and <code>GetEvent</code> returns the first non-null object (or <code>null</code>).</li>
+<li>Every call writes a Trace-level message through <code>LogConsumer</code> (for example <code>Tracking hit of &lt;name&gt;</code>), so with Trace enabled on a provider you can see telemetry activity in the <a href="../logging/">logs</a>.</li>
+</ul>
+<p>The library feeds telemetry itself in two places:</p>
+<ul>
+<li><code>DefaultExceptionHandler</code> calls <code>TrackException</code> for exception types in the chain of every exception it handles (see <a href="../logging/">Logging</a>).</li>
+<li><code>ServiceLocator.DisposeAllRegistrations()</code> calls <code>TrackDependency</code> for each registered contract with the number of times it was resolved (see <a href="../service-locator/">Service locator</a>).</li>
+</ul>
+<p>The client list is not synchronized. Add clients at startup, before telemetry is used from multiple threads.</p>
+<h3 id="redis-client">Redis client</h3>
+<p>The <a href="../../packages/redis/">Redis package</a> provides <code>RedisTelemetryClient</code>, which stores hits and metrics as Redis counters and events as serialized values with a TTL. It follows the convention described on <code>ITelemetryEvent&lt;TEvent&gt;</code>: <code>Name</code> is the Redis key and <code>Category</code> is the Redis database number.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Register a client at startup, then track and read a hit. This example uses the Redis client; see the <a href="../../packages/redis/">Redis package</a> for how to build a <code>RedisConnector</code>.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Composition;
+using CrispyWaffle.Redis.Telemetry;
+using CrispyWaffle.Redis.Utils.Communications;
+using CrispyWaffle.Telemetry;
+
+public static class TelemetrySetup
+{
+    public static void Configure(RedisConnector connector)
+    {
+        // The parameterless RedisTelemetryClient constructor resolves RedisConnector
+        // from the service locator and uses a 30-day TTL for events.
+        ServiceLocator.Register(connector);
+        TelemetryAnalytics.AddClient(new RedisTelemetryClient());
+    }
+
+    public static int CountHomePageVisit()
+    {
+        TelemetryAnalytics.TrackHit(&quot;home-page&quot;);
+        return TelemetryAnalytics.GetHit(&quot;home-page&quot;);
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="telemetryanalytics"><code>TelemetryAnalytics</code></h3>
+<p><code>public static class TelemetryAnalytics</code> — static facade that forwards telemetry calls to all registered clients.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddClient&lt;TTelemetryClient&gt;()</code></td>
+<td>Resolves <code>TTelemetryClient</code> from <code>ServiceLocator</code>, adds it and returns it as <code>ITelemetryClient</code>. Constraint: <code>TTelemetryClient : ITelemetryClient</code>.</td>
+</tr>
+<tr>
+<td><code>AddClient(ITelemetryClient client)</code></td>
+<td>Adds an existing client instance and returns it.</td>
+</tr>
+<tr>
+<td><code>TrackHit(string hitName)</code></td>
+<td>Increments the hit counter on every client.</td>
+</tr>
+<tr>
+<td><code>GetHit(string hitName)</code></td>
+<td>Returns the first non-zero hit count from the clients, or <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveHit(string hitName)</code></td>
+<td>Removes the hit counter from every client. Returns <code>void</code>.</td>
+</tr>
+<tr>
+<td><code>TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)</code></td>
+<td>Stores the event on every client, using each client's default TTL. Constraint: <code>TEvent : class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event, TimeSpan ttl)</code></td>
+<td>Stores the event on every client with the given TTL.</td>
+</tr>
+<tr>
+<td><code>GetEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)</code></td>
+<td>Returns the first non-null stored event data from the clients, or <code>null</code>. Only <code>@event.Name</code> and <code>@event.Category</code> are needed for the lookup.</td>
+</tr>
+<tr>
+<td><code>TrackMetric(string metricName, string variation)</code></td>
+<td>Increments the counter for a metric variation on every client.</td>
+</tr>
+<tr>
+<td><code>GetMetric(string metricName, string variation)</code></td>
+<td>Returns the first non-zero value for a metric variation, or <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveMetric(string metricName, string variation)</code></td>
+<td>Removes a metric variation from every client. Returns <code>void</code>.</td>
+</tr>
+<tr>
+<td><code>TrackException(Type exceptionType)</code></td>
+<td>Records an occurrence of an exception type on every client.</td>
+</tr>
+<tr>
+<td><code>TrackDependency(Type interfaceType, int resolvedTimes)</code></td>
+<td>Records how many times a contract was resolved on every client.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="itelemetryclient"><code>ITelemetryClient</code></h3>
+<p><code>public interface ITelemetryClient</code> — a telemetry store. Implement it to send telemetry to your own backend.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetHit(string hitName)</code></td>
+<td>Returns the current count for a hit.</td>
+</tr>
+<tr>
+<td><code>TrackHit(string hitName)</code></td>
+<td>Increments a hit counter.</td>
+</tr>
+<tr>
+<td><code>RemoveHit(string hitName)</code></td>
+<td>Removes a hit counter. Returns <code>true</code> if it was removed.</td>
+</tr>
+<tr>
+<td><code>GetEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)</code></td>
+<td>Returns the stored data for an event, or <code>null</code>. Constraint: <code>TEvent : class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)</code></td>
+<td>Stores an event's data.</td>
+</tr>
+<tr>
+<td><code>TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event, TimeSpan ttl)</code></td>
+<td>Stores an event's data with a time-to-live.</td>
+</tr>
+<tr>
+<td><code>GetMetric(string metricName, string variation)</code></td>
+<td>Returns the current value of a metric variation.</td>
+</tr>
+<tr>
+<td><code>TrackMetric(string metricName, string variation)</code></td>
+<td>Increments a metric variation.</td>
+</tr>
+<tr>
+<td><code>RemoveMetric(string metricName, string variation)</code></td>
+<td>Removes a metric variation. Returns <code>true</code> if it was removed.</td>
+</tr>
+<tr>
+<td><code>TrackException(Type exceptionType)</code></td>
+<td>Records an exception type.</td>
+</tr>
+<tr>
+<td><code>TrackDependency(Type interfaceType, int resolvedTimes)</code></td>
+<td>Records a dependency's resolution count.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="itelemetryeventtevent"><code>ITelemetryEvent&lt;TEvent&gt;</code></h3>
+<p><code>public interface ITelemetryEvent&lt;out TEvent&gt; where TEvent : class, new()</code> — identifies a stored event and carries its data. Covariant in <code>TEvent</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td><code>string</code>. Key of the event. <code>RedisTelemetryClient</code> uses it as the Redis key.</td>
+</tr>
+<tr>
+<td><code>Category</code></td>
+<td><code>int</code>. Partition of the event. <code>RedisTelemetryClient</code> uses it as the Redis database number.</td>
+</tr>
+<tr>
+<td><code>Event</code></td>
+<td><code>TEvent</code>. The data to store.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="storing-and-reading-an-event">Storing and reading an event</h3>
+<p>Define an event type and store a snapshot for one hour.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Telemetry;
+
+var tracked = new OrderEvent(new Order { Id = 42, Status = &quot;Shipped&quot; });
+TelemetryAnalytics.TrackEvent(tracked, TimeSpan.FromHours(1));
+
+Order stored = TelemetryAnalytics.GetEvent(tracked);
+
+public class Order
+{
+    public int Id { get; set; }
+    public string Status { get; set; }
+}
+
+public sealed class OrderEvent : ITelemetryEvent&lt;Order&gt;
+{
+    public OrderEvent(Order order) =&gt; Event = order;
+
+    public string Name =&gt; $&quot;order:{Event.Id}&quot;;
+
+    public int Category =&gt; 2;
+
+    public Order Event { get; }
+}
+</code></pre>
+<h3 id="counting-metric-variations">Counting metric variations</h3>
+<p>Track which payment method customers choose.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Telemetry;
+
+TelemetryAnalytics.TrackMetric(&quot;payment-method&quot;, &quot;credit-card&quot;);
+TelemetryAnalytics.TrackMetric(&quot;payment-method&quot;, &quot;pix&quot;);
+
+var creditCard = TelemetryAnalytics.GetMetric(&quot;payment-method&quot;, &quot;credit-card&quot;);
+</code></pre>
+<h3 id="writing-a-custom-client">Writing a custom client</h3>
+<p>An in-memory client, useful in tests.</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Concurrent;
+using CrispyWaffle.Telemetry;
+
+TelemetryAnalytics.AddClient(new InMemoryTelemetryClient());
+TelemetryAnalytics.TrackHit(&quot;startup&quot;);
+
+public sealed class InMemoryTelemetryClient : ITelemetryClient
+{
+    private readonly ConcurrentDictionary&lt;string, int&gt; _counters = new();
+    private readonly ConcurrentDictionary&lt;string, object&gt; _events = new();
+
+    public int GetHit(string hitName) =&gt; _counters.TryGetValue(hitName, out var v) ? v : 0;
+
+    public void TrackHit(string hitName) =&gt; _counters.AddOrUpdate(hitName, 1, (_, v) =&gt; v + 1);
+
+    public bool RemoveHit(string hitName) =&gt; _counters.TryRemove(hitName, out _);
+
+    public TEvent GetEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)
+        where TEvent : class, new() =&gt;
+        _events.TryGetValue($&quot;{@event.Category}:{@event.Name}&quot;, out var v) ? v as TEvent : null;
+
+    public void TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event)
+        where TEvent : class, new() =&gt;
+        _events[$&quot;{@event.Category}:{@event.Name}&quot;] = @event.Event;
+
+    public void TrackEvent&lt;TEvent&gt;(ITelemetryEvent&lt;TEvent&gt; @event, TimeSpan ttl)
+        where TEvent : class, new() =&gt; TrackEvent(@event);
+
+    public int GetMetric(string metricName, string variation) =&gt; GetHit($&quot;{metricName}:{variation}&quot;);
+
+    public void TrackMetric(string metricName, string variation) =&gt; TrackHit($&quot;{metricName}:{variation}&quot;);
+
+    public bool RemoveMetric(string metricName, string variation) =&gt; RemoveHit($&quot;{metricName}:{variation}&quot;);
+
+    public void TrackException(Type exceptionType) =&gt; TrackHit($&quot;exception:{exceptionType.FullName}&quot;);
+
+    public void TrackDependency(Type interfaceType, int resolvedTimes) =&gt;
+        _counters[$&quot;dependency:{interfaceType.FullName}&quot;] = resolvedTimes;
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../logging/">Logging</a></li>
+<li><a href="../service-locator/">Service locator</a></li>
+<li><a href="../../packages/redis/">Redis package</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

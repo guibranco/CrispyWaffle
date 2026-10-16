@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>EventLog - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/eventlog/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../log4net/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../elmah/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywaffleeventlog">CrispyWaffle.EventLog</h1>
+<p>CrispyWaffle.EventLog writes CrispyWaffle log messages to the Windows Event Log. Use it for Windows services and desktop applications whose operators read logs in Event Viewer.</p>
+<p>The package uses <code>System.Diagnostics.EventLog</code>, which only works on Windows. The library targets .NET Standard and .NET and has no platform annotation, so it builds anywhere, but on Linux and macOS the <code>System.Diagnostics.EventLog</code> calls throw <code>PlatformNotSupportedException</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.EventLog</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.EventLog.Log.Providers</code>, <code>CrispyWaffle.EventLog.Log.Adapters</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.EventLog</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>System.Diagnostics.EventLog</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>EventLogProvider</code> is the <code>ILogProvider</code> you register with <code>LogConsumer</code>. It forwards every call to an <code>EventLogAdapter</code>, which writes entries to a <code>System.Diagnostics.EventLog</code>. The <code>category</code> argument is not used.</p>
+<p><strong>Log and source.</strong> The adapter writes to the log named by <code>logName</code>, or to <code>Application</code> when <code>logName</code> is null, empty or whitespace. The source name is cut to 212 characters and <code>&lt;</code> and <code>&gt;</code> are replaced by <code>_</code>.</p>
+<p><strong>Source registration.</strong> Creating an event source requires administrator rights. By default (<code>manageEventSource: false</code>) the adapter only sets the source name; register the source beforehand, for example during installation with <code>EventLog.CreateEventSource</code>. With <code>manageEventSource: true</code> the adapter creates the source when it does not exist. If the source exists in a different log, the adapter deletes it from that log and writes a warning entry, under a helper source named <code>serilog-{logName}</code>, saying that a restart may be required before entries appear in the new log.</p>
+<p><strong>Levels and entry types.</strong> The adapter starts with no level enabled; call <code>SetLevel</code> after you register the provider. Levels map to entry types as follows:</p>
+<table>
+<thead>
+<tr>
+<th><code>LogLevel</code></th>
+<th><code>EventLogEntryType</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Fatal</code>, <code>Error</code></td>
+<td><code>Error</code></td>
+</tr>
+<tr>
+<td><code>Warning</code></td>
+<td><code>Warning</code></td>
+</tr>
+<tr>
+<td><code>Info</code>, <code>Trace</code>, <code>Debug</code></td>
+<td><code>Information</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Message size.</strong> Messages longer than 31,839 characters are truncated. Exceptions are written as one entry that contains the message and stack trace of the exception and of each inner exception, separated by <code>\r\n</code>.</p>
+<p><strong>Event IDs.</strong> Each entry gets an event ID from an <code>IEventIdProvider</code>. The default <code>EventIdProvider</code> hashes the message text into a 16-bit number, so the same message always gets the same ID.</p>
+<p><a href="../../images/diagrams/logging-pipeline.svg"><img alt="Logging pipeline" src="../../images/diagrams/logging-pipeline.svg" /></a></p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using CrispyWaffle.EventLog.Log.Providers;
+using CrispyWaffle.Log;
+
+LogConsumer.AddProvider(new EventLogProvider(&quot;my-service&quot;)).SetLevel(LogLevel.Production);
+
+LogConsumer.Info(&quot;Service started&quot;);
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="eventlogprovider"><code>EventLogProvider</code></h3>
+<p><code>public sealed class EventLogProvider : ILogProvider</code> — log provider that writes to the Windows Event Log through an <code>EventLogAdapter</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EventLogProvider()</code></td>
+<td>Constructor. Uses source <code>crispy-waffle</code>, the <code>Application</code> log, the local machine, no source management, and <code>EventIdProvider</code>.</td>
+</tr>
+<tr>
+<td><code>EventLogProvider(string source)</code></td>
+<td>Constructor. Uses <code>source</code>, the <code>Application</code> log, the local machine, no source management, and <code>EventIdProvider</code>.</td>
+</tr>
+<tr>
+<td><code>EventLogProvider(string source, string logName)</code></td>
+<td>Constructor. Same as above with the given log name.</td>
+</tr>
+<tr>
+<td><code>EventLogProvider(string source, string logName, string machineName, bool manageEventSource, IEventIdProvider eventIdProvider)</code></td>
+<td>Constructor. Uses <code>EventIdProvider</code> when <code>eventIdProvider</code> is <code>null</code>. Throws <code>ArgumentNullException</code> when <code>source</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>SetLevel(LogLevel level)</code></td>
+<td>Sets the enabled levels on the adapter.</td>
+</tr>
+<tr>
+<td><code>Fatal(category, message)</code> / <code>Error(category, message)</code> / <code>Warning(category, message)</code> / <code>Info(category, message)</code></td>
+<td>Writes <code>message</code> at that level.</td>
+</tr>
+<tr>
+<td><code>Trace(category, message)</code></td>
+<td>Writes <code>message</code> at trace level.</td>
+</tr>
+<tr>
+<td><code>Trace(category, message, exception)</code></td>
+<td>Writes <code>message</code>, then the exception details, as two entries at trace level.</td>
+</tr>
+<tr>
+<td><code>Trace(category, exception)</code></td>
+<td>Writes the exception details as one entry at trace level.</td>
+</tr>
+<tr>
+<td><code>Debug(category, message)</code></td>
+<td>Writes <code>message</code> at debug level.</td>
+</tr>
+<tr>
+<td><code>Debug(category, content, identifier)</code></td>
+<td>Writes <code>"{identifier}: {content}"</code> at debug level.</td>
+</tr>
+<tr>
+<td><code>Debug&lt;T&gt;(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)</code></td>
+<td>Serializes <code>content</code> with its <code>[Serializer]</code> format (or with <code>customFormat</code> when it is not <code>None</code>) and writes <code>"{identifier}: {serialized}"</code> at debug level. <code>T</code> must be <code>class, new()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ieventidprovider"><code>IEventIdProvider</code></h3>
+<p><code>public interface IEventIdProvider</code> — computes the event ID for a log entry. Implement it to control event IDs, for example to map known messages to fixed IDs.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ushort ComputeEventId(string message)</code></td>
+<td>Returns the event ID for <code>message</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eventidprovider"><code>EventIdProvider</code></h3>
+<p><code>public class EventIdProvider : IEventIdProvider</code> — default implementation that hashes the message.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ComputeEventId(string message)</code></td>
+<td>Returns a 16-bit hash of <code>message</code> (a Jenkins one-at-a-time hash truncated to <code>ushort</code>). Throws <code>ArgumentNullException</code> when <code>message</code> is <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eventlogadapter"><code>EventLogAdapter</code></h3>
+<p><code>public sealed class EventLogAdapter : ILogAdapter</code> — writes to a <code>System.Diagnostics.EventLog</code>. <code>EventLogProvider</code> creates one internally; use it directly only if you build your own provider.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EventLogAdapter(string source, string logName, string machineName, bool manageEventSource, IEventIdProvider eventIdProvider)</code></td>
+<td>Constructor. Normalizes the source name, opens the log (<code>Application</code> when <code>logName</code> is null or whitespace) and either registers the source (<code>manageEventSource: true</code>) or only sets it. Throws <code>ArgumentNullException</code> when <code>source</code> or <code>eventIdProvider</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>SetLevel(LogLevel level)</code></td>
+<td>Sets the enabled levels.</td>
+</tr>
+<tr>
+<td><code>Fatal(message)</code> / <code>Error(message)</code> / <code>Warning(message)</code> / <code>Info(message)</code></td>
+<td>Writes <code>message</code> at that level.</td>
+</tr>
+<tr>
+<td><code>Trace(message)</code></td>
+<td>Writes <code>message</code> at trace level.</td>
+</tr>
+<tr>
+<td><code>Trace(message, exception)</code></td>
+<td>Writes <code>message</code>, then the exception details, as two entries at trace level.</td>
+</tr>
+<tr>
+<td><code>Trace(exception)</code></td>
+<td>Writes the exception details as one entry at trace level.</td>
+</tr>
+<tr>
+<td><code>Debug(message)</code></td>
+<td>Writes <code>message</code> at debug level.</td>
+</tr>
+<tr>
+<td><code>Debug(string content, string fileName)</code></td>
+<td>Writes <code>"{fileName}: {content}"</code> at debug level.</td>
+</tr>
+<tr>
+<td><code>Debug&lt;T&gt;(T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)</code></td>
+<td>Serializes <code>content</code> and writes <code>"{identifier}: {serialized}"</code> at debug level. <code>T</code> must be a class.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Does nothing. The underlying <code>EventLog</code> is not disposed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="write-to-a-custom-log-with-source-management">Write to a custom log with source management</h3>
+<p>Run once with administrator rights so the source can be created in the <code>MyCompany</code> log.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.EventLog.Log.Providers;
+using CrispyWaffle.Log;
+
+var provider = new EventLogProvider(
+    &quot;billing-service&quot;,
+    &quot;MyCompany&quot;,
+    Environment.MachineName,
+    manageEventSource: true,
+    eventIdProvider: null
+);
+
+LogConsumer.AddProvider(provider).SetLevel(LogLevel.All);
+
+LogConsumer.Warning(&quot;Invoice queue is above {0} items&quot;, 1000);
+</code></pre>
+<h3 id="use-fixed-event-ids">Use fixed event IDs</h3>
+<p>Return the same event ID for every entry from a source.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.EventLog.Log.Providers;
+
+var provider = new EventLogProvider(
+    &quot;billing-service&quot;,
+    &quot;Application&quot;,
+    Environment.MachineName,
+    false,
+    new FixedEventIdProvider()
+);
+
+public sealed class FixedEventIdProvider : IEventIdProvider
+{
+    public ushort ComputeEventId(string message) =&gt; 1000;
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../core/logging/">Logging</a></li>
+<li><a href="../log4net/">CrispyWaffle.Log4Net</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
