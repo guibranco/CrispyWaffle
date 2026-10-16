@@ -194,14 +194,21 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/rodri-oliveira-dev">
+                    <img src="https://avatars.githubusercontent.com/u/3470248?v=4" width="100;" alt="rodri-oliveira-dev"/>
+                    <br />
+                    <sub><b>Rodrigo de Oliveira</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/christopher-conley">
                     <img src="https://avatars.githubusercontent.com/u/11824616?v=4" width="100;" alt="christopher-conley"/>
                     <br />
                     <sub><b>Christopher Conley</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/HarryKambo">
                     <img src="https://avatars.githubusercontent.com/u/18412100?v=4" width="100;" alt="HarryKambo"/>
@@ -214,13 +221,6 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
                     <br />
                     <sub><b>João Vítor Valadares</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/rodri-oliveira-dev">
-                    <img src="https://avatars.githubusercontent.com/u/3470248?v=4" width="100;" alt="rodri-oliveira-dev"/>
-                    <br />
-                    <sub><b>Rodrigo de Oliveira</b></sub>
                 </a>
             </td>
             <td align="center">
