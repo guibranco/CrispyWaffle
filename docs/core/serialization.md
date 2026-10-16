@@ -1,8 +1,8 @@
 # Serialization
 
-The serialization module converts objects to and from JSON and XML. You mark a class with `[Serializer]` to pick a format, then call `GetSerializer()` on an instance to get a `SerializerConverter<T>`. The converter can turn the object into a string, an `XmlDocument`, a `JToken` or a stream, and it can deserialize, load from a file or save to a file.
+The serialization module converts objects to and from JSON, XML and YAML. You mark a class with `[Serializer]` to pick a format, then call `GetSerializer()` on an instance to get a `SerializerConverter<T>`. The converter can turn the object into a string, an `XmlDocument`, a `JToken` or a stream, and it can deserialize, load from a file or save to a file.
 
-You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerializerAdapter`, `XmlSerializerAdapter`) on their own, without the attribute or the factory.
+You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerializerAdapter`, `XmlSerializerAdapter`, `YamlSerializerAdapter`) on their own, without the attribute or the factory.
 
 | | |
 |---|---|
@@ -18,6 +18,7 @@ You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerialize
 | `[Serializer]` or `[Serializer(SerializerFormat.Xml)]` | `XmlSerializerAdapter`, resolved through `ServiceLocator.Resolve<XmlSerializerAdapter>()` |
 | `[Serializer(SerializerFormat.Json)]` (strict, the default) | `NewtonsoftJsonSerializerAdapter`, resolved through `ServiceLocator.Resolve<NewtonsoftJsonSerializerAdapter>()` |
 | `[Serializer(SerializerFormat.Json, false)]` (not strict) | A new `NewtonsoftJsonSerializerAdapter` with `MissingMemberHandling.Ignore` |
+| `[Serializer(SerializerFormat.Yaml)]` | `YamlSerializerAdapter`, resolved through `ServiceLocator.Resolve<YamlSerializerAdapter>()` |
 | `SerializerFormat.None` | Throws `InvalidOperationException` |
 
 The factory always uses Newtonsoft.Json for JSON. The System.Text.Json adapter (`JsonSerializerAdapter`) is only used if you create it yourself.
@@ -31,7 +32,7 @@ Attribute lookup rules:
 
 Strict and non-strict JSON differ only when you deserialize. Strict mode uses `MissingMemberHandling.Error`, so a JSON property with no matching .NET member throws. Non-strict mode uses `MissingMemberHandling.Ignore`. Both modes use the `pt-BR` culture, `NullValueHandling.Ignore` and the Newtonsoft `NotNullObserverConverter`.
 
-`XmlSerializerAdapter` and `NewtonsoftJsonSerializerAdapter` have no constructor dependencies, so the service locator can create them without registration.
+`XmlSerializerAdapter`, `NewtonsoftJsonSerializerAdapter` and `YamlSerializerAdapter` have no constructor dependencies, so the service locator can create them without registration.
 
 ### Not-null observer
 
@@ -43,12 +44,12 @@ The two converters accept different "empty" values:
 |---|---|---|
 | `null` | Returns `null` | Returns `null` |
 | `""` or whitespace string | Returns `null` | Returns `null` |
-| `[]` | Returns `null` | Throws `InvalidOperationException` (see note) |
+| `[]` | Returns `null` | Throws `JsonException` (see note) |
 | `{}` | Returns `null` | Returns `null` |
 | Non-empty object | Throws `NotNullObserverException` | Throws `NotNullObserverException` |
-| Non-empty string, number, boolean, non-empty array | Throws `NotNullObserverException` | Throws `InvalidOperationException` (see note) |
+| Non-empty string, number, boolean, non-empty array | Throws `NotNullObserverException` | Throws `JsonException` (see note) |
 
-Note: the System.Text.Json converter calls `JsonElement.EnumerateObject()` before it checks the value kind. That call throws `InvalidOperationException` for any value that is not an object, so in those cases you get that exception instead of `NotNullObserverException`.
+Note: the System.Text.Json converter calls `JsonElement.EnumerateObject()` before it checks the value kind. That call throws `InvalidOperationException` for any value that is not an object, and System.Text.Json wraps it in a `JsonException` ("The JSON value could not be converted to CrispyWaffle.Serialization.NotNullObserver"). In those cases you get `JsonException` instead of `NotNullObserverException`.
 
 ## Getting started
 
@@ -104,7 +105,7 @@ Methods that deserialize or load replace the wrapped object and return it.
 | `Save(string file)` | Serializes the wrapped object to `file`, replacing it if it exists. |
 | `implicit operator XmlDocument(SerializerConverter<T>)` | Serializes to an `XmlDocument`. Returns `null` when the converter is `null` or its adapter is not `XmlSerializerAdapter`. An `InvalidOperationException` during serialization is logged through `LogConsumer.Handle` and an empty document is returned. |
 | `implicit operator JToken(SerializerConverter<T>)` | Serializes to a Newtonsoft `JToken`: a `JArray` when the object is `IEnumerable`, otherwise a `JObject`. Returns `null` when the adapter is not `NewtonsoftJsonSerializerAdapter`, or after logging an `InvalidOperationException`. |
-| `explicit operator string(SerializerConverter<T>)` | XML adapter: indented XML without the XML declaration. Newtonsoft adapter: indented JSON. Throws `InvalidOperationException` for any other adapter (including `JsonSerializerAdapter`). |
+| `explicit operator string(SerializerConverter<T>)` | XML adapter: indented XML without the XML declaration. Newtonsoft adapter: indented JSON. Any `IStringSerializerAdapter` (such as `YamlSerializerAdapter`): the result of `SerializeToString`. Throws `InvalidOperationException` for any other adapter (including `JsonSerializerAdapter`). |
 | `implicit operator SerializerConverter<T>(XmlDocument xml)` | Creates a converter with the XML adapter and deserializes `xml.InnerXml` into `T`. |
 | `implicit operator SerializerConverter<T>(JObject json)` | Creates a converter with the Newtonsoft adapter and deserializes `json` into `T`. |
 | `implicit operator T(SerializerConverter<T>)` | Returns the wrapped object. |
@@ -120,6 +121,14 @@ Methods that deserialize or load replace the wrapped object and return it.
 | `Load<T>(string file)` | Reads a file and deserializes its content. |
 | `Serialize<T>(T deserialized, out Stream stream)` | Serializes an object into a new stream. |
 | `Save<T>(string file, T deserialized)` | Serializes an object and writes it to a file. |
+
+### `IStringSerializerAdapter`
+
+`public interface IStringSerializerAdapter : ISerializerAdapter` — an adapter that can serialize directly to a string. `SerializerConverter<T>` uses it for the explicit `string` conversion.
+
+| Member | Description |
+|---|---|
+| `SerializeToString<T>(T deserialized)` | Serializes an object to its string representation. `T : class`. |
 
 ### `BaseSerializerAdapter`
 
@@ -167,6 +176,17 @@ Methods that deserialize or load replace the wrapped object and return it.
 | `Deserialize<T>(object serialized)` | Accepts an `XmlDocument` (uses `OuterXml`) or a `string`. |
 | `Serialize<T>(T deserialized, out Stream stream)` | Serializes with `new XmlSerializer(deserialized.GetType())` into a `MemoryStream` positioned at 0. Output is indented UTF-8, keeps the XML declaration, and has no `xsi`/`xsd` namespace declarations. |
 
+### `YamlSerializerAdapter`
+
+`public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter` — YAML adapter based on [YamlDotNet](https://github.com/aaubry/YamlDotNet). Property names use camel case (`ApplicationName` becomes `applicationName`).
+
+| Member | Description |
+|---|---|
+| `DeserializeFromStream<T>(Stream stream, Encoding encoding = null)` | Throws `ArgumentNullException` when `stream` is null. Reads the stream (UTF-8 when `encoding` is `null`, byte order marks detected) and deserializes it. The stream is left open. |
+| `Deserialize<T>(object serialized)` | Throws `ArgumentNullException` when `serialized` is null and `ArgumentException` when it is not a `string`. Duplicate keys throw `YamlDotNet.Core.YamlException`. |
+| `Serialize<T>(T deserialized, out Stream stream)` | Writes YAML as UTF-8 into a new `MemoryStream` positioned at 0. When `deserialized` is `null`, the stream is empty. |
+| `SerializeToString<T>(T deserialized)` | Returns the YAML string, or an empty string when `deserialized` is `null`. |
+
 ### `SerializerAttribute`
 
 `public sealed class SerializerAttribute : Attribute` — selects the format the factory uses for a class or interface.
@@ -177,7 +197,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 |---|---|
 | `SerializerAttribute(SerializerFormat format = SerializerFormat.Xml, bool isStrict = true)` | Constructor. Default is strict XML. |
 | `Format` | The `SerializerFormat`. |
-| `IsStrict` | For JSON: `true` fails on unknown JSON members during deserialization, `false` ignores them. Has no effect on XML. |
+| `IsStrict` | For JSON: `true` fails on unknown JSON members during deserialization, `false` ignores them. Has no effect on XML or YAML. |
 
 ### `SerializerFormat`
 
@@ -188,6 +208,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 | `None` (0) | No format. The factory throws `InvalidOperationException` for it. Label `None`. |
 | `Json` | JSON through Newtonsoft.Json. Label `JSON`. |
 | `Xml` | XML through `XmlSerializer`. Label `XML`. |
+| `Yaml` | YAML through YamlDotNet. Label `YAML`. |
 
 ### `NotNullObserver`
 
@@ -219,7 +240,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 
 | Member | Description |
 |---|---|
-| `Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)` | Returns `null` for `null`, a null/whitespace string, or `{}`. Throws `NotNullObserverException` for a non-empty object. Throws `InvalidOperationException` for other non-null values (see the note under [Not-null observer](#not-null-observer)). |
+| `Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)` | Returns `null` for `null`, a null/whitespace string, or `{}`. Throws `NotNullObserverException` for a non-empty object. Throws `InvalidOperationException` for other non-null values, which System.Text.Json surfaces as a `JsonException` (see the note under [Not-null observer](#not-null-observer)). |
 | `Write(Utf8JsonWriter writer, NotNullObserver value, JsonSerializerOptions options)` | Writes `value` with `JsonSerializer.Serialize`. |
 
 ### `CrispyWaffle.Serialization.SystemTextJson.NotNullObserverException`
@@ -331,6 +352,35 @@ public class Point
     public int Y { get; set; }
 }
 ```
+
+### YAML round trip
+
+`[Serializer(SerializerFormat.Yaml)]` selects YAML. Property names are written in camel case.
+
+```csharp
+using CrispyWaffle.Serialization;
+
+var settings = new AppSettings { ApplicationName = "Crispy Waffle", RetryCount = 3 };
+
+// applicationName: Crispy Waffle
+// retryCount: 3
+var yaml = (string)settings.GetSerializer();
+
+AppSettings copy = SerializerFactory.GetSerializer<AppSettings>().Deserialize(yaml);
+
+settings.GetSerializer().Save("settings.yaml");
+AppSettings loaded = SerializerFactory.GetSerializer<AppSettings>().Load("settings.yaml");
+
+[Serializer(SerializerFormat.Yaml)]
+public class AppSettings
+{
+    public string ApplicationName { get; set; }
+
+    public int RetryCount { get; set; }
+}
+```
+
+To use YAML for a type whose attribute selects another format, call `GetCustomSerializer(SerializerFormat.Yaml)`.
 
 ### Use the System.Text.Json adapter directly
 

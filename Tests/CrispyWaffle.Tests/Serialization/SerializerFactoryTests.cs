@@ -36,6 +36,24 @@ public class SerializerFactoryTests
     }
 
     [Fact]
+    public void ValidateSerializerYaml()
+    {
+        var deserialized = new SampleYamlClass { Name = "Jane Doe", Age = 25 };
+
+        var serializedResult = (string)deserialized.GetSerializer();
+
+        Assert.Contains("name: Jane Doe", serializedResult);
+        Assert.Contains("age: 25", serializedResult);
+
+        var deserializedResult = SerializerFactory
+            .GetSerializer<SampleYamlClass>()
+            .Deserialize(serializedResult);
+
+        Assert.Equal(deserialized.Name, deserializedResult.Name);
+        Assert.Equal(deserialized.Age, deserializedResult.Age);
+    }
+
+    [Fact]
     public void ValidateGetSerializerJsonNotStrict()
     {
         var deserialized = TestObjects.GetSampleJsonNotStrict();
