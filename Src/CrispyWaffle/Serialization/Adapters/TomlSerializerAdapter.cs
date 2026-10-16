@@ -17,8 +17,10 @@ namespace CrispyWaffle.Serialization.Adapters;
 /// <seealso cref="IStringSerializerAdapter" />
 public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter
 {
-    private static readonly TomlSerializerOptions SerializerOptions =
-        new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+    private static readonly TomlSerializerOptions SerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
 
     /// <summary>
     /// Deserializes TOML content from a stream into an instance of <typeparamref name="T"/>.

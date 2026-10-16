@@ -87,8 +87,7 @@ public class TomlSerializerAdapterTests
         Action act = () => _serializer.Deserialize<SampleTomlClass>(null);
 
         // Assert
-        act.Should().Throw<ArgumentNullException>()
-            .And.ParamName.Should().Be("serialized");
+        act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("serialized");
     }
 
     [Fact]
