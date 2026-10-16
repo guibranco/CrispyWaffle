@@ -7,85 +7,71 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace CrispyWaffle.Serialization.Adapters;
 
 /// <summary>
-/// A YAML serializer adapter backed by YamlDotNet.
+/// Serializes and deserializes YAML content using YamlDotNet.
 /// </summary>
+/// <remarks>
+/// Property names are written and read using the camel-case naming convention. The adapter supports
+/// string, stream, and file workflows through the standard Crispy Waffle serialization abstractions.
+/// </remarks>
 /// <seealso cref="ISerializerAdapter" />
 /// <seealso cref="IStringSerializerAdapter" />
 public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter
 {
     /// <summary>
-    /// Deserialize a stream to a generic type.
+    /// Deserializes YAML content from a stream into an instance of <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">Generic type parameter.</typeparam>
-    /// <param name="stream">The serialized object as stream.</param>
+    /// <typeparam name="T">The type to deserialize.</typeparam>
+    /// <param name="stream">The readable stream containing YAML content.</param>
     /// <param name="encoding">
-    /// (Optional) The encoding to read the stream. If null Encoding.UTF8 will be used.
+    /// The text encoding used to read the stream. When <see langword="null"/>,
+    /// <see cref="Encoding.UTF8"/> is used.
     /// </param>
-    /// <returns>A T.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="stream"/> is null.</exception>
+    /// <returns>The deserialized instance of <typeparamref name="T"/>.</returns>
+    /// <remarks>The supplied stream remains open after deserialization.</remarks>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="stream"/> is <see langword="null"/>.</exception>
     public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
-        where T : class
-    {
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
-
-        using var reader = new StreamReader(
+        where T : class =>
+        StringSerializerAdapterHelper.DeserializeFromStream(
             stream,
-            encoding ?? Encoding.UTF8,
-            detectEncodingFromByteOrderMarks: true,
-            bufferSize: 1024,
-            leaveOpen: true
+            encoding,
+            reader => CreateDeserializer().Deserialize<T>(reader)
         );
 
-        return CreateDeserializer().Deserialize<T>(reader);
-    }
-
     /// <summary>
-    /// Deserializes a YAML string to a generic type.
+    /// Deserializes a YAML string into an instance of <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T">Generic type parameter.</typeparam>
-    /// <param name="serialized">The YAML serialized representation.</param>
-    /// <returns>A T.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="serialized"/> is null.</exception>
+    /// <typeparam name="T">The type to deserialize.</typeparam>
+    /// <param name="serialized">The YAML string to deserialize.</param>
+    /// <returns>The deserialized instance of <typeparamref name="T"/>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="serialized"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException">Thrown when <paramref name="serialized"/> is not a string.</exception>
     public override T Deserialize<T>(object serialized)
-        where T : class
-    {
-        if (serialized == null)
-        {
-            throw new ArgumentNullException(nameof(serialized));
-        }
-
-        if (serialized is not string yaml)
-        {
-            throw new ArgumentException("Serialized YAML must be a string.", nameof(serialized));
-        }
-
-        return CreateDeserializer().Deserialize<T>(yaml);
-    }
+        where T : class =>
+        StringSerializerAdapterHelper.Deserialize(
+            serialized,
+            "YAML",
+            yaml => CreateDeserializer().Deserialize<T>(yaml)
+        );
 
     /// <summary>
-    /// Serializes an object of type <typeparamref name="T"/> into YAML and outputs it to a stream.
+    /// Serializes an object of type <typeparamref name="T"/> to a UTF-8 YAML stream.
     /// </summary>
-    /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+    /// <typeparam name="T">The type of the object to serialize.</typeparam>
     /// <param name="deserialized">The object to serialize.</param>
-    /// <param name="stream">An output stream containing the serialized YAML.</param>
+    /// <param name="stream">
+    /// When this method returns, contains a readable stream positioned at the beginning of the serialized YAML content.
+    /// </param>
+    /// <remarks>
+    /// The caller owns the returned stream and is responsible for disposing it. A <see langword="null"/>
+    /// object produces an empty stream.
+    /// </remarks>
     public override void Serialize<T>(T deserialized, out Stream stream)
-        where T : class
-    {
-        stream = new MemoryStream();
-        var yaml = SerializeToString(deserialized);
-        if (yaml.Length == 0)
-        {
-            return;
-        }
-
-        var bytes = Encoding.UTF8.GetBytes(yaml);
-        stream.Write(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-    }
+        where T : class =>
+        StringSerializerAdapterHelper.SerializeToStream(
+            deserialized,
+            value => CreateSerializer().Serialize(value),
+            out stream
+        );
 
     /// <summary>
     /// Creates the configured YAML serializer.
@@ -105,12 +91,18 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
             .Build();
 
     /// <summary>
-    /// Serializes an object of type <typeparamref name="T"/> into a YAML string.
+    /// Serializes an object of type <typeparamref name="T"/> to a YAML string.
     /// </summary>
-    /// <typeparam name="T">The type of the object to be serialized.</typeparam>
+    /// <typeparam name="T">The type of the object to serialize.</typeparam>
     /// <param name="deserialized">The object to serialize.</param>
-    /// <returns>The YAML string representation, or an empty string when the object is null.</returns>
+    /// <returns>
+    /// The YAML string representation of the object, or <see cref="string.Empty"/> when
+    /// <paramref name="deserialized"/> is <see langword="null"/>.
+    /// </returns>
     public string SerializeToString<T>(T deserialized)
         where T : class =>
-        deserialized == null ? string.Empty : CreateSerializer().Serialize(deserialized);
+        StringSerializerAdapterHelper.SerializeToString(
+            deserialized,
+            value => CreateSerializer().Serialize(value)
+        );
 }
