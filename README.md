@@ -13,7 +13,7 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## Table of content
 
-- [CI/CD](#cicd): Current project status in the build pipeline (AppVeyor).
+- [CI/CD](#cicd): Current project status in the build pipeline (GitHub Actions).
 - [Code Quality](#code-quality): Metrics from some tools about code quality.
 - [.NET support](#.NET-support): Supported .NET version. 
 - [Installation](#installation): How to install/download this tool.
@@ -26,9 +26,9 @@ Documentation: [Read the Docs](https://guibranco.github.io/CrispyWaffle/)
 
 ## CI/CD
 
-| Build status                                                                                                                                                             | Last commit                                                                                                                               | Tests                                                                                                                                                                                     | Coverage                                                                                                                                                                  | Code Smells                                                                                                                                                                     | LoC                                                                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Build status](https://ci.appveyor.com/api/projects/status/dr93gad0na076ng3/branch/main?svg=true)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![AppVeyor tests (branch)](https://img.shields.io/appveyor/tests/guibranco/crispywaffle/main?compact_message)](https://ci.appveyor.com/project/guibranco/crispywaffle/branch/main/tests) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
+| Build and tests | Release | Last commit | Coverage | Code Smells | LoC |
+| --- | --- | --- | --- | --- | --- |
+| [![Build, Test and Analyze](https://github.com/guibranco/CrispyWaffle/actions/workflows/build.yml/badge.svg)](https://github.com/guibranco/CrispyWaffle/actions/workflows/build.yml) | [![Release](https://github.com/guibranco/CrispyWaffle/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/guibranco/CrispyWaffle/actions/workflows/release.yml) | [![GitHub last commit](https://img.shields.io/github/last-commit/guibranco/CrispyWaffle/main)](https://github.com/guibranco/CrispyWaffle) | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=coverage)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=code_smells)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) | [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=guibranco_CrispyWaffle&metric=ncloc)](https://sonarcloud.io/dashboard?id=guibranco_CrispyWaffle) |
 
 ---
 
@@ -107,7 +107,7 @@ More information is available [here](https://guibranco.github.io/CrispyWaffle/in
 
 ## User guide
 
-The user guide is available [here](https://guibranco.github.io/CrispyWaffle/user-guide/basic-usage/).
+The user guide is available [here](https://guibranco.github.io/CrispyWaffle/getting-started/), with a page for every module and package.
 
 ---
 
