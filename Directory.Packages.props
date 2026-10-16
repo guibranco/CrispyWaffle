@@ -9,11 +9,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageVersion>
-    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.2" />
+    <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="9.5.3" />
     <PackageVersion Include="ElmahCore" Version="2.1.2" />
     <PackageVersion Include="FluentAssertions" Version="8.11.0" />
     <PackageVersion Include="JunitXml.TestLogger" Version="8.0.0" />
-    <PackageVersion Include="log4net" Version="3.4.0" />
+    <PackageVersion Include="log4net" Version="3.5.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.8" />
@@ -31,8 +31,8 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NSubstitute" Version="6.2.0" />
     <PackageVersion Include="RabbitMQ.Client" Version="7.2.2" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.34.0.3385" />
-    <PackageVersion Include="StackExchange.Redis" Version="3.3.0" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.35.0.4138" />
+    <PackageVersion Include="StackExchange.Redis" Version="3.3.1" />
     <PackageVersion Include="StackExchange.Redis.Extensions.Core" Version="9.1.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.1.118" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="10.0.12" />
