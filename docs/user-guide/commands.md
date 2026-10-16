@@ -34,6 +34,10 @@ CommandsConsumer.Raise<HelloWorldCommand, string>(new HelloWorldCommand());
 //do other stuff...
 ```
 
+## How it works
+
+[![Events and commands dispatch](../images/diagrams/events-commands.svg)](../images/diagrams/events-commands.svg)
+
 ## Examples
 
 ### Returning a class as a result

@@ -23,7 +23,10 @@
         "activityBarTop.inactiveForeground": "#15202b99",
         "commandCenter.foreground": "#15202b",
         "statusBar.debuggingBackground": "#f9e64f",
-        "statusBar.debuggingForeground": "#15202b"
+        "statusBar.debuggingForeground": "#15202b",
+        "activityBar.activeBorder": "#15202b",
+        "activityBarTop.activeBorder": "#15202b",
+        "statusBar.inactiveBackground": "#f9e64f"
     },
     "peacock.color": "#f9e64f",
     "sonarlint.connectedMode.project": {

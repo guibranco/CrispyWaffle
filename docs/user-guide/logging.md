@@ -19,6 +19,10 @@ Default adapters:
 - RollingTextFileLogAdapter: Text file output, rolling to another file every time each reaches a defined size.
 - ...
 
+## How it works
+
+[![Logging pipeline](../images/diagrams/logging-pipeline.svg)](../images/diagrams/logging-pipeline.svg)
+
 ## Examples
 
 Below are some examples of logging in a simple `console application` with different adapters.
