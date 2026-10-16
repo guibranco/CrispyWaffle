@@ -13,3 +13,56 @@ theme:
   favicon: images/favicon.png
   icon:
     repo: fontawesome/brands/github
+
+
+plugins:
+  - search
+  - redirects:
+      redirect_maps:
+        user-guide/basic-usage.md: getting-started.md
+        user-guide/service-locator.md: core/service-locator.md
+        user-guide/logging.md: core/logging.md
+        user-guide/caching.md: core/caching.md
+        user-guide/events.md: core/events.md
+        user-guide/commands.md: core/commands.md
+        user-guide/messaging.md: packages/rabbitmq.md
+        user-guide/scheduled-jobs.md: core/scheduler.md
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Installation: installation.md
+  - Core Modules:
+      - Service Locator: core/service-locator.md
+      - Logging: core/logging.md
+      - Caching: core/caching.md
+      - Events: core/events.md
+      - Commands: core/commands.md
+      - Scheduler: core/scheduler.md
+      - Serialization: core/serialization.md
+      - Telemetry: core/telemetry.md
+      - Template Rendering: core/template-rendering.md
+      - Cryptography: core/cryptography.md
+      - Extension Methods: core/extensions.md
+      - Utilities: core/utilities.md
+      - Validations: core/validations.md
+      - Attributes: core/attributes.md
+      - Good Practices: core/good-practices.md
+      - Infrastructure: core/infrastructure.md
+  - Integration Packages:
+      - Configuration: packages/configuration.md
+      - Redis: packages/redis.md
+      - RabbitMQ: packages/rabbitmq.md
+      - ElasticSearch: packages/elasticsearch.md
+      - CouchDB: packages/couchdb.md
+      - Log4Net: packages/log4net.md
+      - EventLog: packages/eventlog.md
+      - Elmah: packages/elmah.md
+      - Utils: packages/utils.md
+      - I18n.PtBr: packages/i18n-ptbr.md
+      - HttpClient: packages/http-client.md
+      - BackgroundJobs: packages/background-jobs.md
+  - Diagrams: diagrams.md
+  - Changelog: changelog.md
+  - Contributing: contributing.md
+  - License: license.md

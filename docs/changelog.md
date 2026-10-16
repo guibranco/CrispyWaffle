@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add YAML serializer support using YamlDotNet -
+  [issue #432][issue-432] by [@rodri-oliveira-dev][rodri]
+
+[issue-432]: https://github.com/guibranco/CrispyWaffle/issues/432
+[rodri]: https://github.com/rodri-oliveira-dev
+
 ## Version 10.0 [2025-02-22]
 
 - Drop support to .NET 6 - [pull request #667](https://github.com/guibranco/CrispyWaffle/pull/667)

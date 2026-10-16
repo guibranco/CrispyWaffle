@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+  <title id="title">CrispyWaffle.BackgroundJobs pipeline and job lifecycle</title>
+  <desc id="desc">JobDispatcher saves a pending JobEntity to an IJobStore. BackgroundWorker loops fetch due jobs, look up the handler in the registry and run it in a DI scope. Successful jobs complete; failed jobs retry with exponential backoff until MaxAttempt, then fail.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0c4dc"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ffb86c"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: #f8f8f2; }
+    .mono { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; font-variant-ligatures: none; }
+    .dim { fill: #a9adc8; }
+    .b { font-weight: 600; }
+    .card { fill: #343746; stroke: #44475a; }
+    .flow { stroke: #c0c4dc; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <rect width="1000" height="620" fill="#282a36"/>
+
+  <text x="40" y="44" font-size="20" class="b">Background jobs</text>
+  <text x="40" y="68" font-size="13" class="dim">CrispyWaffle.BackgroundJobs: a hosted worker that pulls jobs from a store and runs typed handlers from DI.</text>
+
+  <!-- Pipeline -->
+  <rect x="40" y="100" width="170" height="80" rx="8" class="card"/>
+  <text x="56" y="126" font-size="14" class="b">JobDispatcher</text>
+  <text x="56" y="148" font-size="11" class="mono dim">EnqueueAsync</text>
+  <text x="56" y="166" font-size="11" class="mono dim">ScheduleAsync</text>
+  <line x1="210" y1="140" x2="238" y2="140" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="240" y="100" width="190" height="80" rx="8" class="card"/>
+  <text x="256" y="126" font-size="14" class="b mono">IJobStore</text>
+  <text x="256" y="148" font-size="11" class="mono dim">InMemoryJobStore</text>
+  <text x="256" y="166" font-size="11" class="mono dim">EfCoreJobStore</text>
+  <line x1="430" y1="140" x2="458" y2="140" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="460" y="100" width="190" height="80" rx="8" class="card"/>
+  <text x="476" y="126" font-size="14" class="b">BackgroundWorker</text>
+  <text x="476" y="148" font-size="11" class="dim">WorkerCount loops</text>
+  <text x="476" y="166" font-size="11" class="dim">polls every 2 s (default)</text>
+  <line x1="650" y1="140" x2="678" y2="140" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="680" y="100" width="140" height="80" rx="8" class="card"/>
+  <text x="696" y="126" font-size="14" class="b">Registry</text>
+  <text x="696" y="148" font-size="11" class="mono dim">TryGet(name)</text>
+  <line x1="820" y1="140" x2="848" y2="140" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="850" y="100" width="110" height="80" rx="8" fill="#343746" stroke="#50fa7b"/>
+  <text x="866" y="126" font-size="14" class="b">Handler</text>
+  <text x="866" y="148" font-size="11" class="mono dim">HandleAsync</text>
+  <text x="866" y="166" font-size="11" class="dim">in a DI scope</text>
+
+  <g font-size="11" class="dim">
+    <text x="40" y="202">creates a Pending</text>
+    <text x="40" y="218">JobEntity, JSON payload</text>
+    <text x="240" y="202">FetchNextAsync returns a</text>
+    <text x="240" y="218">due job, marked Processing</text>
+    <text x="460" y="202">not due yet → re-queued</text>
+    <text x="460" y="218">default: one per CPU core</text>
+    <text x="680" y="202">name → handler</text>
+    <text x="680" y="218">and payload type</text>
+    <text x="850" y="202">returns</text>
+    <text x="850" y="218" class="mono">JobResult</text>
+  </g>
+
+  <!-- Lifecycle -->
+  <line x1="40" y1="256" x2="960" y2="256" stroke="#44475a" stroke-dasharray="4 4"/>
+  <text x="40" y="284" font-size="11" class="b dim" letter-spacing="1">JOB LIFECYCLE · JobStatus</text>
+
+  <rect x="60" y="360" width="150" height="44" rx="22" fill="#343746" stroke="#f1fa8c" stroke-width="1.5"/>
+  <text x="135" y="387" font-size="14" text-anchor="middle" class="b" style="fill:#f1fa8c">Pending</text>
+
+  <rect x="330" y="360" width="150" height="44" rx="22" fill="#343746" stroke="#8be9fd" stroke-width="1.5"/>
+  <text x="405" y="387" font-size="14" text-anchor="middle" class="b" style="fill:#8be9fd">Processing</text>
+
+  <rect x="700" y="300" width="160" height="44" rx="22" fill="#343746" stroke="#50fa7b" stroke-width="1.5"/>
+  <text x="780" y="327" font-size="14" text-anchor="middle" class="b" style="fill:#50fa7b">Completed</text>
+
+  <rect x="700" y="420" width="160" height="44" rx="22" fill="#343746" stroke="#ff5555" stroke-width="1.5"/>
+  <text x="780" y="447" font-size="14" text-anchor="middle" class="b" style="fill:#ff5555">Failed</text>
+
+  <line x1="210" y1="382" x2="328" y2="382" class="flow" marker-end="url(#arrow)"/>
+  <text x="270" y="372" font-size="11" text-anchor="middle" class="mono dim">FetchNextAsync</text>
+
+  <line x1="480" y1="372" x2="698" y2="324" class="flow" marker-end="url(#arrow)"/>
+  <text x="572" y="336" font-size="11" text-anchor="middle" class="mono dim">Success</text>
+
+  <line x1="480" y1="392" x2="698" y2="440" class="flow" marker-end="url(#arrow)"/>
+  <text x="600" y="446" font-size="11" text-anchor="middle" class="dim">no retries left,</text>
+  <text x="600" y="461" font-size="11" text-anchor="middle" class="dim">or no handler registered</text>
+
+  <path d="M405,404 C405,492 135,492 135,406" fill="none" stroke="#ffb86c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow-orange)"/>
+  <text x="270" y="510" font-size="12" text-anchor="middle" style="fill:#ffb86c">retry: Attempt++, wait 2^Attempt s (max 300 s)</text>
+  <text x="270" y="528" font-size="11" text-anchor="middle" class="dim">when JobResult.Retry and Attempt &lt; MaxAttempt; a thrown exception always retries</text>
+
+  <!-- Setup -->
+  <rect x="40" y="552" width="920" height="48" rx="8" fill="#2f3141" stroke="#44475a"/>
+  <text x="60" y="581" font-size="12" class="b">Setup</text>
+  <text x="110" y="581" font-size="11" class="mono dim">services.AddCrispyBackgroundJobs(o =&gt; o.WorkerCount = 4);  services.AddJobHandler&lt;EmailHandler, EmailData&gt;("send-email");</text>
+</svg>
