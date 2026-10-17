@@ -253,10 +253,7 @@ public class MemoryCacheRepository : ICacheRepository
     {
         cancellationToken.ThrowIfCancellationRequested();
         var finalKey = $"{key}-{subKey}";
-        if (_data.ContainsKey(finalKey))
-        {
-            _hash.TryRemove(finalKey, out _);
-        }
+        _hash.TryRemove(finalKey, out _);
 
         return Task.CompletedTask;
     }
