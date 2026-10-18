@@ -1,8 +1,8 @@
 # Serialization
 
-The serialization module converts objects to and from JSON, XML and YAML. You mark a class with `[Serializer]` to pick a format, then call `GetSerializer()` on an instance to get a `SerializerConverter<T>`. The converter can turn the object into a string, an `XmlDocument`, a `JToken` or a stream, and it can deserialize, load from a file or save to a file.
+The serialization module converts objects to and from JSON, XML, YAML and TOML. You mark a class with `[Serializer]` to pick a format, then call `GetSerializer()` on an instance to get a `SerializerConverter<T>`. The converter can turn the object into a string, an `XmlDocument`, a `JToken` or a stream, and it can deserialize, load from a file or save to a file.
 
-You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerializerAdapter`, `XmlSerializerAdapter`, `YamlSerializerAdapter`) on their own, without the attribute or the factory.
+You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerializerAdapter`, `XmlSerializerAdapter`, `YamlSerializerAdapter`, `TomlSerializerAdapter`) on their own, without the attribute or the factory.
 
 | | |
 |---|---|
@@ -19,6 +19,7 @@ You can also use the adapters (`NewtonsoftJsonSerializerAdapter`, `JsonSerialize
 | `[Serializer(SerializerFormat.Json)]` (strict, the default) | `NewtonsoftJsonSerializerAdapter`, resolved through `ServiceLocator.Resolve<NewtonsoftJsonSerializerAdapter>()` |
 | `[Serializer(SerializerFormat.Json, false)]` (not strict) | A new `NewtonsoftJsonSerializerAdapter` with `MissingMemberHandling.Ignore` |
 | `[Serializer(SerializerFormat.Yaml)]` | `YamlSerializerAdapter`, resolved through `ServiceLocator.Resolve<YamlSerializerAdapter>()` |
+| `[Serializer(SerializerFormat.Toml)]` | `TomlSerializerAdapter`, resolved through `ServiceLocator.Resolve<TomlSerializerAdapter>()` |
 | `SerializerFormat.None` | Throws `InvalidOperationException` |
 
 The factory always uses Newtonsoft.Json for JSON. The System.Text.Json adapter (`JsonSerializerAdapter`) is only used if you create it yourself.
@@ -32,7 +33,7 @@ Attribute lookup rules:
 
 Strict and non-strict JSON differ only when you deserialize. Strict mode uses `MissingMemberHandling.Error`, so a JSON property with no matching .NET member throws. Non-strict mode uses `MissingMemberHandling.Ignore`. Both modes use the `pt-BR` culture, `NullValueHandling.Ignore` and the Newtonsoft `NotNullObserverConverter`.
 
-`XmlSerializerAdapter`, `NewtonsoftJsonSerializerAdapter` and `YamlSerializerAdapter` have no constructor dependencies, so the service locator can create them without registration.
+`XmlSerializerAdapter`, `NewtonsoftJsonSerializerAdapter`, `YamlSerializerAdapter` and `TomlSerializerAdapter` have no constructor dependencies, so the service locator can create them without registration.
 
 ### Not-null observer
 
@@ -105,7 +106,7 @@ Methods that deserialize or load replace the wrapped object and return it.
 | `Save(string file)` | Serializes the wrapped object to `file`, replacing it if it exists. |
 | `implicit operator XmlDocument(SerializerConverter<T>)` | Serializes to an `XmlDocument`. Returns `null` when the converter is `null` or its adapter is not `XmlSerializerAdapter`. An `InvalidOperationException` during serialization is logged through `LogConsumer.Handle` and an empty document is returned. |
 | `implicit operator JToken(SerializerConverter<T>)` | Serializes to a Newtonsoft `JToken`: a `JArray` when the object is `IEnumerable`, otherwise a `JObject`. Returns `null` when the adapter is not `NewtonsoftJsonSerializerAdapter`, or after logging an `InvalidOperationException`. |
-| `explicit operator string(SerializerConverter<T>)` | XML adapter: indented XML without the XML declaration. Newtonsoft adapter: indented JSON. Any `IStringSerializerAdapter` (such as `YamlSerializerAdapter`): the result of `SerializeToString`. Throws `InvalidOperationException` for any other adapter (including `JsonSerializerAdapter`). |
+| `explicit operator string(SerializerConverter<T>)` | XML adapter: indented XML without the XML declaration. Newtonsoft adapter: indented JSON. Any `IStringSerializerAdapter` (such as `YamlSerializerAdapter` or `TomlSerializerAdapter`): the result of `SerializeToString`. Throws `InvalidOperationException` for any other adapter (including `JsonSerializerAdapter`). |
 | `implicit operator SerializerConverter<T>(XmlDocument xml)` | Creates a converter with the XML adapter and deserializes `xml.InnerXml` into `T`. |
 | `implicit operator SerializerConverter<T>(JObject json)` | Creates a converter with the Newtonsoft adapter and deserializes `json` into `T`. |
 | `implicit operator T(SerializerConverter<T>)` | Returns the wrapped object. |
@@ -187,6 +188,17 @@ Methods that deserialize or load replace the wrapped object and return it.
 | `Serialize<T>(T deserialized, out Stream stream)` | Writes YAML as UTF-8 into a new `MemoryStream` positioned at 0. When `deserialized` is `null`, the stream is empty. |
 | `SerializeToString<T>(T deserialized)` | Returns the YAML string, or an empty string when `deserialized` is `null`. |
 
+### `TomlSerializerAdapter`
+
+`public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter` — TOML adapter based on [Tomlyn](https://github.com/xoofx/Tomlyn). Property names use camel case (`ApplicationName` becomes `applicationName`).
+
+| Member | Description |
+|---|---|
+| `DeserializeFromStream<T>(Stream stream, Encoding encoding = null)` | Throws `ArgumentNullException` when `stream` is null. Reads the stream (UTF-8 when `encoding` is `null`, byte order marks detected) and deserializes it. The stream is left open. |
+| `Deserialize<T>(object serialized)` | Throws `ArgumentNullException` when `serialized` is null and `ArgumentException` when it is not a `string`. Invalid TOML, including duplicate keys, throws `Tomlyn.TomlException`. |
+| `Serialize<T>(T deserialized, out Stream stream)` | Writes TOML as UTF-8 into a new `MemoryStream` positioned at 0. When `deserialized` is `null`, the stream is empty. |
+| `SerializeToString<T>(T deserialized)` | Returns the TOML string, or an empty string when `deserialized` is `null`. |
+
 ### `SerializerAttribute`
 
 `public sealed class SerializerAttribute : Attribute` — selects the format the factory uses for a class or interface.
@@ -197,7 +209,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 |---|---|
 | `SerializerAttribute(SerializerFormat format = SerializerFormat.Xml, bool isStrict = true)` | Constructor. Default is strict XML. |
 | `Format` | The `SerializerFormat`. |
-| `IsStrict` | For JSON: `true` fails on unknown JSON members during deserialization, `false` ignores them. Has no effect on XML or YAML. |
+| `IsStrict` | For JSON: `true` fails on unknown JSON members during deserialization, `false` ignores them. Has no effect on XML, YAML or TOML. |
 
 ### `SerializerFormat`
 
@@ -209,6 +221,7 @@ Declared with `AttributeTargets.Class | AttributeTargets.Interface`, `Inherited 
 | `Json` | JSON through Newtonsoft.Json. Label `JSON`. |
 | `Xml` | XML through `XmlSerializer`. Label `XML`. |
 | `Yaml` | YAML through YamlDotNet. Label `YAML`. |
+| `Toml` | TOML through Tomlyn. Label `TOML`. |
 
 ### `NotNullObserver`
 
@@ -381,6 +394,35 @@ public class AppSettings
 ```
 
 To use YAML for a type whose attribute selects another format, call `GetCustomSerializer(SerializerFormat.Yaml)`.
+
+### TOML round trip
+
+`[Serializer(SerializerFormat.Toml)]` selects TOML. Property names are written in camel case.
+
+```csharp
+using CrispyWaffle.Serialization;
+
+var settings = new AppSettings { ApplicationName = "Crispy Waffle", RetryCount = 3 };
+
+// applicationName = "Crispy Waffle"
+// retryCount = 3
+var toml = (string)settings.GetSerializer();
+
+AppSettings copy = SerializerFactory.GetSerializer<AppSettings>().Deserialize(toml);
+
+settings.GetSerializer().Save("settings.toml");
+AppSettings loaded = SerializerFactory.GetSerializer<AppSettings>().Load("settings.toml");
+
+[Serializer(SerializerFormat.Toml)]
+public class AppSettings
+{
+    public string ApplicationName { get; set; }
+
+    public int RetryCount { get; set; }
+}
+```
+
+To use TOML for a type whose attribute selects another format, call `GetCustomSerializer(SerializerFormat.Toml)`.
 
 ### Use the System.Text.Json adapter directly
 
