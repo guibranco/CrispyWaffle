@@ -1,0 +1,12 @@
+bdc074df6973e20da161c19598c7ac1bee6405aa:packages/couchdb/index.html:generic-password:554
+bdc074df6973e20da161c19598c7ac1bee6405aa:packages/rabbitmq/index.html:generic-password:562
+bdc074df6973e20da161c19598c7ac1bee6405aa:packages/utils/index.html:generic-password:830
+bdc074df6973e20da161c19598c7ac1bee6405aa:packages/configuration/index.html:generic-password:544
+08d61f1290c15ca317cbc74da513fc28089e5737:docs/packages/configuration.md:generic-password:64
+08d61f1290c15ca317cbc74da513fc28089e5737:docs/packages/couchdb.md:generic-password:76
+08d61f1290c15ca317cbc74da513fc28089e5737:docs/packages/rabbitmq.md:generic-password:85
+08d61f1290c15ca317cbc74da513fc28089e5737:docs/packages/utils.md:generic-password:197
+39b80469ebf1a2690eafce4c88672a681792ad74:Tests/CrispyWaffle.IntegrationTests/Cache/CouchDBCacheRepositoryTests.cs:generic-password:20
+fedfebb38876703964861048ec1316c8c363de91:Tests/CrispyWaffle.Tests/Cache/CouchDBCacheRepositoryTests.cs:generic-password:20
+00f41ea92eae40513912b08ac2339fd8e6a5ae0a:Tests/CrispyWaffle.Tests/Configuration/CredentialTests.cs:generic-password:19
+6bf3e2cd18c634d5a4c3b2823651aeffebf35740:Tests/CrispyWaffle.Tests/Configuration/CredentialTests.cs:generic-password:19
