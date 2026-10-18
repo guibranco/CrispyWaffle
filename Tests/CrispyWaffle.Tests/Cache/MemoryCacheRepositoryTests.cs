@@ -60,4 +60,23 @@ public class MemoryCacheRepositoryTests
         // Assert
         exception.Should().NotBeNull();
     }
+
+    [Fact]
+    public async Task RemoveWithSubKeyShouldRemoveStoredValue()
+    {
+        // Arrange
+        var key = "test-key";
+        var subKey = "test-sub-key";
+        await _repository.SetAsync(42, key, subKey);
+        var (stored, _) = await _repository.TryGetAsync<int>(key, subKey);
+        stored.Should().BeTrue();
+
+        // Act
+        await _repository.RemoveAsync(key, subKey);
+        var (success, value) = await _repository.TryGetAsync<int>(key, subKey);
+
+        // Assert
+        success.Should().BeFalse();
+        value.Should().Be(default);
+    }
 }
