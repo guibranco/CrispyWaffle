@@ -104,12 +104,10 @@ public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     /// <inheritdoc />
     public void SetLevel(LogLevel level)
     {
-        var previousLevel = _level;
-        _level = level;
-
         Warning(
-            $"Level updated from {previousLevel.GetHumanReadableValue()} to {level.GetHumanReadableValue()}."
+            $"Level updated from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}."
         );
+        _level = level;        
      }
 
     /// <inheritdoc />
