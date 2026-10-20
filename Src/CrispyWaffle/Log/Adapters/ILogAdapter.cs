@@ -17,12 +17,12 @@ public interface ILogAdapter : IDisposable
     void SetLevel(LogLevel level);
 
     /// <summary>
-    /// Serializes the provided <paramref name="content"/> and saves it to a file with the specified <paramref name="identifier"/>.
+    /// Serializes the provided <paramref name="content"/> and logs it at the DEBUG level with the specified <paramref name="identifier"/>.
     /// Uses the default serializer format or a custom format provided via <paramref name="customFormat"/>.
     /// </summary>
     /// <typeparam name="T">The type of the object to be serialized and logged.</typeparam>
-    /// <param name="content">The object to be serialized and saved.</param>
-    /// <param name="identifier">The file name where the serialized content will be saved.</param>
+    /// <param name="content">The object to be serialized and logged.</param>
+    /// <param name="identifier">The content identifier. This can be a file name or a key, depending on the implementation.</param>
     /// <param name="customFormat">Optional custom serializer format to use. If not provided, the default serializer format will be used.</param>
     /// <remarks>
     /// This method requires the <see cref="LogLevel.Debug"/> log level to be enabled.
@@ -35,10 +35,10 @@ public interface ILogAdapter : IDisposable
         where T : class;
 
     /// <summary>
-    /// Saves the specified <paramref name="content"/> (as a string) to a file with the given <paramref name="fileName"/>.
+    /// Logs the specified <paramref name="content"/> (as a string) at the DEBUG level with the given <paramref name="fileName"/>.
     /// </summary>
-    /// <param name="content">The content to be written to the file.</param>
-    /// <param name="fileName">The name of the file to store the content.</param>
+    /// <param name="content">The content to be logged.</param>
+    /// <param name="fileName">The content identifier. This can be a file name or a key, depending on the implementation.</param>
     /// <remarks>
     /// This method requires the <see cref="LogLevel.Debug"/> log level to be enabled.
     /// </remarks>
