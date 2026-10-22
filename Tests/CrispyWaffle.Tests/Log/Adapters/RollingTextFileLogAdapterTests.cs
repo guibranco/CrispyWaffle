@@ -254,7 +254,8 @@ public class RollingTextFileLogAdapterTests
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
-        Assert.Equal(10, files.Count);
+        // SetLevel writes one warning before the 1,000 debug messages.
+        Assert.Equal(11, files.Count);
 
         foreach (var file in files)
         {
