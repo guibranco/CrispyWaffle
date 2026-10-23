@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Configuration - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/configuration/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../../core/infrastructure/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../redis/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywaffleconfiguration">CrispyWaffle.Configuration</h1>
+<p>CrispyWaffle.Configuration holds the connection settings that the connector packages (Redis, CouchDB, Elasticsearch, RabbitMQ, SMTP) take. A <code>Connection</code> stores a host, a port and a set of credentials. When it is serialized, the password is encrypted, so you can keep connections in configuration files without writing passwords in plain text.</p>
+<p>Use this package whenever you create a connector from one of the other CrispyWaffle packages. You can also use it for your own connection settings.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.Configuration</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Configuration</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.Configuration</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>Connection</code> implements <code>IConnection</code>, and its <code>Credentials</code> property holds an <code>IConnectionCredential</code>. The default constructor sets <code>Credentials</code> to a new <code>Credentials</code> instance, so you can use object-initializer syntax such as <code>Credentials = { Username = "...", Password = "..." }</code> without creating the credentials object yourself.</p>
+<p>Connectors read <code>Host</code>, <code>Port</code>, <code>Credentials.Username</code> and <code>Credentials.Password</code> from the connection in their constructors. They don't keep the connection after that, so changing a <code>Connection</code> after a connector has been created has no effect on that connector.</p>
+<h3 id="password-encryption">Password encryption</h3>
+<p><code>Credentials</code> has two password properties:</p>
+<ul>
+<li><code>Password</code> holds the plain-text value. It has <code>[XmlIgnore]</code> and both <code>JsonIgnore</code> attributes (Newtonsoft and System.Text.Json), so serializers never write it.</li>
+<li><code>PasswordInternal</code> is the value that gets serialized, under the name <code>Password</code> (XML element, Newtonsoft <code>JsonProperty</code> and System.Text.Json <code>JsonPropertyName</code>).</li>
+</ul>
+<p>When <code>PasswordInternal</code> is read, the plain-text password is encrypted with <code>Security.Encrypt</code> and a 32-character MD5 hash of the encrypted text is appended. When the password is empty or whitespace, the getter returns an empty string.</p>
+<p>When <code>PasswordInternal</code> is assigned, the setter does the reverse:</p>
+<ul>
+<li>If the last 32 characters match the MD5 hash of the rest of the value, the rest is decrypted and stored as the plain-text password.</li>
+<li>If they don't match, or the value is 32 characters or shorter, or decryption throws, the value is stored as the plain-text password.</li>
+</ul>
+<p>Because of this fallback, a configuration file can hold either an encrypted password or a plain-text one.</p>
+<p>The encryption keys come from an <code>ISecureCredentialProvider</code> that <code>Credentials</code> resolves through <code>ServiceLocator.Resolve&lt;ISecureCredentialProvider&gt;()</code> every time <code>PasswordInternal</code> is read or assigned. Register one before you serialize or deserialize credentials that have a password. The same keys must be used on both sides.</p>
+<p><code>Connection</code> has the <code>[Serializer]</code> attribute, which uses XML as the default format. The <code>Name</code> property is written as an XML attribute, and the credentials are written through the hidden <code>CredentialsInternal</code> property as a <code>Credentials</code> element.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+
+// Register the keys used to encrypt and decrypt serialized passwords.
+ServiceLocator.Register&lt;ISecureCredentialProvider&gt;(
+    () =&gt;
+        new SecureCredentialProvider
+        {
+            PasswordHash = &quot;Cr1$PTVV@FE13&quot;,
+            SaltKey = &quot;y48H85nH21&quot;,
+            IVKey = &quot;HZEM7|Ne2YGS/F41&quot;,
+        },
+    Lifetime.Singleton
+);
+
+// Describe a connection. Credentials is created by the constructor.
+var connection = new Connection
+{
+    Name = &quot;Redis&quot;,
+    Host = &quot;localhost&quot;,
+    Port = 6379,
+    Credentials = { Username = &quot;default&quot;, Password = &quot;myP@ssw0rd&quot; },
+};
+</code></pre>
+<p>Pass the connection to a connector constructor, for example <code>new RedisConnector(connection, serializer)</code>. See <a href="../redis/">CrispyWaffle.Redis</a>, <a href="../couchdb/">CrispyWaffle.CouchDB</a> and <a href="../elasticsearch/">CrispyWaffle.ElasticSearch</a>.</p>
+<h2 id="reference">Reference</h2>
+<h3 id="connection"><code>Connection</code></h3>
+<p><code>public sealed class Connection : IConnection</code> is the default implementation of <code>IConnection</code>, with XML serialization support.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Connection()</code></td>
+<td>Constructor. Sets <code>Credentials</code> to a new <code>Credentials</code> instance.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>Connection name or identifier. Serialized as the XML attribute <code>Name</code>.</td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td>Host name or address. Some connectors expect the URL scheme here (see the CouchDB page).</td>
+</tr>
+<tr>
+<td><code>Port</code></td>
+<td>Port number.</td>
+</tr>
+<tr>
+<td><code>Credentials</code></td>
+<td>The <code>IConnectionCredential</code> used to authenticate. Has <code>[XmlIgnore]</code>.</td>
+</tr>
+<tr>
+<td><code>CredentialsInternal</code></td>
+<td>Infrastructure property, hidden from IntelliSense. Casts <code>Credentials</code> to <code>Credentials</code> so the XML serializer can write it as the <code>Credentials</code> element. Reading it throws <code>InvalidCastException</code> if <code>Credentials</code> holds a different <code>IConnectionCredential</code> implementation. Don't use it directly.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iconnection"><code>IConnection</code></h3>
+<p><code>public interface IConnection</code> is the contract that every connector constructor accepts.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td>Connection name or identifier.</td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td>Host name or address.</td>
+</tr>
+<tr>
+<td><code>Port</code></td>
+<td>Port number.</td>
+</tr>
+<tr>
+<td><code>Credentials</code></td>
+<td>Credentials used to authenticate.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iconnectioncredential"><code>IConnectionCredential</code></h3>
+<p><code>public interface IConnectionCredential</code> is a username and password pair.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Username</code></td>
+<td>User name.</td>
+</tr>
+<tr>
+<td><code>Password</code></td>
+<td>Plain-text password.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="isecurecredentialprovider"><code>ISecureCredentialProvider</code></h3>
+<p><code>public interface ISecureCredentialProvider</code> supplies the keys that <code>Credentials</code> uses to encrypt and decrypt serialized passwords. <code>Credentials</code> resolves it from <code>ServiceLocator</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PasswordHash</code></td>
+<td>Password used to derive the encryption key.</td>
+</tr>
+<tr>
+<td><code>SaltKey</code></td>
+<td>Salt used to derive the encryption key.</td>
+</tr>
+<tr>
+<td><code>IVKey</code></td>
+<td>Initialization vector.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="credentials"><code>Credentials</code></h3>
+<p><code>public sealed class Credentials : IConnectionCredential, INotifyPropertyChanged</code> is the default credential implementation. It encrypts the password when serialized.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Username</code></td>
+<td>User name. Raises <code>PropertyChanged</code> when set.</td>
+</tr>
+<tr>
+<td><code>Password</code></td>
+<td>Plain-text password. Never serialized. Raises <code>PropertyChanged</code> when set.</td>
+</tr>
+<tr>
+<td><code>PasswordInternal</code></td>
+<td>Infrastructure property, hidden from IntelliSense, serialized as <code>Password</code>. The getter returns the encrypted password followed by its MD5 hash, or an empty string when there is no password. The setter decrypts a value in that format, or stores any other value as plain text. Both resolve <code>ISecureCredentialProvider</code> from <code>ServiceLocator</code> when there is a value to process. Raises <code>PropertyChanged</code> with the name <code>PasswordInternal</code>.</td>
+</tr>
+<tr>
+<td><code>PropertyChanged</code></td>
+<td>Event raised when <code>Username</code>, <code>Password</code> or <code>PasswordInternal</code> is set.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="securecredentialprovider"><code>SecureCredentialProvider</code></h3>
+<p><code>public class SecureCredentialProvider : ISecureCredentialProvider</code> is a plain implementation of <code>ISecureCredentialProvider</code> with settable properties.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PasswordHash</code></td>
+<td>Password used to derive the encryption key.</td>
+</tr>
+<tr>
+<td><code>SaltKey</code></td>
+<td>Salt used to derive the encryption key.</td>
+</tr>
+<tr>
+<td><code>IVKey</code></td>
+<td>Initialization vector.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="connectionnameattribute"><code>ConnectionNameAttribute</code></h3>
+<p><code>public sealed class ConnectionNameAttribute : Attribute</code> is a marker that records which named connection a connector class expects. You can apply it to a class more than once.</p>
+<p>The connectors in the CrispyWaffle packages use it to declare their expected names: <code>"Redis"</code>, <code>"RedisMaster"</code> and <code>"RedisSlave"</code>, <code>"CouchDB"</code>, <code>"ElasticSearch"</code>, <code>"RabbitMQ"</code> and <code>"SMTP"</code>. No code in the CrispyWaffle packages reads the attribute. It's metadata for your own configuration-loading code.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ConnectionNameAttribute(string name)</code></td>
+<td>Constructor. Sets <code>Name</code>.</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>The connection name.</td>
+</tr>
+<tr>
+<td><code>Order</code></td>
+<td>Ordering hint for when a class needs more than one connection, such as <code>MasterSlaveConfiguration</code>. Defaults to <code>0</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="round-trip-credentials-through-json">Round-trip credentials through JSON</h3>
+<p>The serialized output contains the encrypted password under <code>Password</code>. Assigning that value to <code>PasswordInternal</code> restores the plain-text password.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Configuration;
+using CrispyWaffle.Serialization;
+using CrispyWaffle.Utilities;
+
+// Requires an ISecureCredentialProvider registered in ServiceLocator.
+var credential = new Credentials { Password = &quot;EchoFoxPapa&quot; };
+
+var json = (string)credential.GetCustomSerializer(SerializerFormat.Json);
+
+dynamic deserialized = SerializerFactory
+    .GetCustomSerializer&lt;DynamicSerialization&gt;(SerializerFormat.Json)
+    .Deserialize(json);
+
+var restored = new Credentials { PasswordInternal = (string)deserialized.Password };
+// restored.Password == &quot;EchoFoxPapa&quot;
+</code></pre>
+<h3 id="mark-a-custom-connector-with-its-connection-name">Mark a custom connector with its connection name</h3>
+<pre><code class="language-csharp">using CrispyWaffle.Configuration;
+
+[ConnectionName(&quot;Billing&quot;)]
+public sealed class BillingApiConnector
+{
+    public BillingApiConnector(IConnection connection)
+    {
+        BaseUrl = $&quot;https://{connection.Host}:{connection.Port}&quot;;
+        ApiUser = connection.Credentials.Username;
+    }
+
+    public string BaseUrl { get; }
+
+    public string ApiUser { get; }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../redis/">CrispyWaffle.Redis</a></li>
+<li><a href="../couchdb/">CrispyWaffle.CouchDB</a></li>
+<li><a href="../elasticsearch/">CrispyWaffle.ElasticSearch</a></li>
+<li><a href="../rabbitmq/">CrispyWaffle.RabbitMQ</a></li>
+<li><a href="../../core/cryptography/">Cryptography</a></li>
+<li><a href="../../core/serialization/">Serialization</a></li>
+<li><a href="../../core/service-locator/">Service locator</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

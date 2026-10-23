@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>CouchDB - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/couchdb/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../elasticsearch/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../log4net/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywafflecouchdb">CrispyWaffle.CouchDB</h1>
+<p>CrispyWaffle.CouchDB provides a cache repository that stores documents in <a href="https://couchdb.apache.org/">Apache CouchDB</a>, using the CouchDB.NET driver. Use it when cached data should survive restarts and be readable from any process that can reach the CouchDB server, and when the cached values are documents rather than plain strings or numbers.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.CouchDB</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.CouchDB.Cache</code>, <code>CrispyWaffle.CouchDB.Utils.Communications</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td>Not yet published to NuGet (it is not in the release workflow's package list). Reference the project: <code>dotnet add reference Src/CrispyWaffle.CouchDB/CrispyWaffle.CouchDB.csproj</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>CrispyWaffle.Configuration</code>, <code>CouchDB.NET</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><a href="../../images/diagrams/caching.svg"><img alt="Caching" src="../../images/diagrams/caching.svg" /></a></p>
+<h3 id="connecting">Connecting</h3>
+<p><code>CouchDBConnector</code> creates a CouchDB.NET <code>CouchClient</code> from an <code>IConnection</code>. The client URL is <code>"{Host}:{Port}"</code>, so <code>Host</code> must include the scheme, for example <code>http://localhost</code>. The client always uses basic authentication with <code>Credentials.Username</code> and <code>Credentials.Password</code>.</p>
+<p>You can also pass a <code>CouchClient</code> that you have configured yourself.</p>
+<h3 id="documents-and-databases">Documents and databases</h3>
+<p>Only types derived from <code>CouchDBCacheDocument</code> can be stored.</p>
+<ul>
+<li><code>CouchDBCacheDocument.Key</code> is the CouchDB document ID, so one key holds at most one document. <code>SubKey</code> is an ordinary document field that the sub-key overloads use as an extra filter.</li>
+<li>The repository picks a database from the document type: the type name in lowercase followed by <code>s</code>. For example, <code>CouchDBCacheDocument</code> maps to <code>couchdbcachedocuments</code> and a <code>Car</code> subclass maps to <code>cars</code>. If that database isn't in the server's database list, it's created. If it's already there, the repository opens it with <code>CouchClient.GetDatabase&lt;T&gt;()</code>.</li>
+</ul>
+<p>There are two groups of methods:</p>
+<ul>
+<li><strong>The <code>ICacheRepository</code> methods</strong> (<code>SetAsync</code>, <code>GetAsync</code>, <code>TryGetAsync</code>, <code>RemoveAsync</code>, <code>TTLAsync</code>, <code>Clear</code>) always use the database of the base <code>CouchDBCacheDocument</code> type.</li>
+<li><code>SetAsync&lt;T&gt;</code> returns without storing anything when <code>T</code> doesn't derive from <code>CouchDBCacheDocument</code>, and <code>GetAsync&lt;T&gt;</code> returns <code>default</code>.</li>
+<li>Values are read back as <code>CouchDBCacheDocument</code> and then cast to <code>T</code>.</li>
+<li><strong>The <code>*Specific*</code> methods</strong> (<code>SetSpecificAsync&lt;T&gt;</code>, <code>GetSpecificAsync&lt;T&gt;</code>, <code>RemoveSpecificAsync&lt;T&gt;</code>, <code>Clear&lt;T&gt;</code>, <code>GetDocCount&lt;T&gt;</code>) use the database of <code>T</code>. Use them for your own document subclasses.</li>
+</ul>
+<h3 id="expiration">Expiration</h3>
+<p><code>SetSpecificAsync(value, key, ttl)</code> stores <code>ttl</code> in <code>TTL</code> and <code>DateTime.UtcNow + ttl</code> in <code>ExpiresAt</code>. CouchDB doesn't expire documents itself. Expiration is checked when a document is read:</p>
+<ul>
+<li>If <code>ExpiresAt</code> is set and in the past, the read deletes the document and returns <code>default</code>.</li>
+<li>The sub-key <code>SetAsync</code> and <code>SetSpecificAsync</code> overloads don't set a TTL.</li>
+<li><code>TTLAsync</code> returns the stored <code>TTL</code> value, which is the original lifetime, not the time remaining.</li>
+</ul>
+<h3 id="errors">Errors</h3>
+<p><code>ShouldPropagateExceptions</code> defaults to <code>false</code>.</p>
+<p>When it's <code>false</code>:</p>
+<ul>
+<li>Most failures are passed to <code>LogConsumer.Handle</code> and the method returns normally.</li>
+<li>The <code>Remove*</code> methods and <code>TTLAsync</code> also log through <code>LogConsumer.Error</code>.</li>
+<li><code>GetSpecificAsync</code> throws <code>InvalidOperationException</code> after logging a suppressed error.</li>
+</ul>
+<p>In both modes:</p>
+<ul>
+<li>A document that doesn't exist is returned as <code>null</code>, not as an error.</li>
+<li><code>OperationCanceledException</code> is logged as a warning and rethrown by most methods. The exception is <code>TryGetAsync&lt;T&gt;(key)</code>, which returns <code>(false, default)</code> on cancellation.</li>
+</ul>
+<p><code>Dispose()</code> disposes the <code>CouchDBConnector</code>, which disposes the <code>CouchClient</code>.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Start CouchDB locally. The repository's <code>docker-compose.yml</code> runs <code>couchdb:latest</code> on port 5984 with the user <code>Admin</code> and the password <code>myP@ssw0rd</code>.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Cache;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.CouchDB.Cache;
+using CrispyWaffle.CouchDB.Utils.Communications;
+
+var connection = new Connection
+{
+    Host = &quot;http://localhost&quot;, // include the scheme
+    Port = 5984,
+    Credentials = { Username = &quot;Admin&quot;, Password = &quot;myP@ssw0rd&quot; },
+};
+
+ServiceLocator.Register(() =&gt; new CouchDBConnector(connection), Lifetime.Singleton);
+ServiceLocator.Register(
+    () =&gt; new CouchDBCacheRepository(ServiceLocator.Resolve&lt;CouchDBConnector&gt;()),
+    Lifetime.Singleton
+);
+
+CacheManager.AddRepository&lt;CouchDBCacheRepository&gt;();
+
+// Use the repository directly for typed documents.
+var repository = ServiceLocator.Resolve&lt;CouchDBCacheRepository&gt;();
+
+var doc = new CouchDBCacheDocument();
+await repository.SetAsync(doc, Guid.NewGuid().ToString());
+
+var stored = await repository.GetAsync&lt;CouchDBCacheDocument&gt;(doc.Key);
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="couchdbcacherepository"><code>CouchDBCacheRepository</code></h3>
+<p><code>public class CouchDBCacheRepository : ICacheRepository, IDisposable</code> is a cache repository that stores <code>CouchDBCacheDocument</code> instances in CouchDB.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CouchDBCacheRepository(CouchDBConnector connector)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>ShouldPropagateExceptions</code></td>
+<td>When <code>true</code>, CouchDB errors are rethrown. When <code>false</code> (default), they are logged and suppressed.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)</code></td>
+<td>When <code>T</code> derives from <code>CouchDBCacheDocument</code>, calls <code>SetSpecificAsync</code> with <code>value</code> cast to <code>CouchDBCacheDocument</code>, so it's stored in the base document database. Does nothing for other types. Returns <code>ValueTask</code>.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Same as above, but sets <code>Key</code> and <code>SubKey</code> (trimmed) and calls <code>CreateOrUpdateAsync</code>. Suppressed errors are logged with <code>LogConsumer.Error</code>.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Reads document <code>key</code> from the base document database and casts it to <code>T</code>. Returns <code>default</code> when <code>T</code> doesn't derive from <code>CouchDBCacheDocument</code>, or when the document is missing or expired. Returns <code>ValueTask&lt;T&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Same, but matches on both <code>Key</code> and <code>SubKey</code>.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Returns <code>(true, value)</code> when a document is found, otherwise <code>(false, default)</code>. Returns <code>(false, default)</code> on cancellation instead of throwing.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Same, matching on <code>Key</code> and <code>SubKey</code>. Rethrows <code>OperationCanceledException</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveAsync(string key, CancellationToken cancellationToken = default)</code> / <code>RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Removes a document from the base document database. See <code>RemoveSpecificAsync</code>.</td>
+</tr>
+<tr>
+<td><code>TTLAsync(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Returns the <code>TTL</code> stored on document <code>key</code>, or <code>TimeSpan.Zero</code> when there is no document or a suppressed error occurred.</td>
+</tr>
+<tr>
+<td><code>Clear()</code> / <code>Clear&lt;T&gt;()</code></td>
+<td>Deletes every document in the base document database, or in the database of <code>T</code>. Blocks until all deletes finish.</td>
+</tr>
+<tr>
+<td><code>GetDocCount&lt;T&gt;()</code></td>
+<td>Returns the number of documents with a non-null ID in the database of <code>T</code>. <code>T : CouchDBCacheDocument</code>.</td>
+</tr>
+<tr>
+<td><code>SetSpecificAsync&lt;T&gt;(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)</code></td>
+<td>Sets <code>value.Key</code>, sets <code>TTL</code> and <code>ExpiresAt</code> when <code>ttl</code> is given, and creates the document in the database of <code>T</code> with <code>CreateAsync</code>. <code>T : CouchDBCacheDocument</code>. Returns <code>Task</code>.</td>
+</tr>
+<tr>
+<td><code>SetSpecificAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Sets <code>Key</code> and <code>SubKey</code> (trimmed) and calls <code>CreateOrUpdateAsync</code> in the database of <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>GetSpecificAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Finds document <code>key</code> in the database of <code>T</code>. Returns <code>null</code> when it doesn't exist. Deletes it and returns <code>null</code> when it has expired. Throws <code>InvalidOperationException</code> after a suppressed error.</td>
+</tr>
+<tr>
+<td><code>GetSpecificAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Same, matching on <code>Key</code> and <code>SubKey</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveSpecificAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Deletes document <code>key</code> from the database of <code>T</code>. Logs at info level whether the document was found. Throws <code>ArgumentException</code> when <code>key</code> is null, empty or whitespace.</td>
+</tr>
+<tr>
+<td><code>RemoveSpecificAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Same, matching on <code>Key</code> and <code>SubKey</code>.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Disposes the connector.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="couchdbconnector"><code>CouchDBConnector</code></h3>
+<p><code>public class CouchDBConnector : IDisposable</code> holds the CouchDB.NET client. It has the <code>[ConnectionName("CouchDB")]</code> attribute.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CouchDBConnector(IConnection connection)</code></td>
+<td>Creates a <code>CouchClient</code> for <code>"{connection.Host}:{connection.Port}"</code> with basic authentication from <code>connection.Credentials</code>.</td>
+</tr>
+<tr>
+<td><code>CouchDBConnector(CouchClient client)</code></td>
+<td>Wraps an existing client.</td>
+</tr>
+<tr>
+<td><code>CouchDBClient</code></td>
+<td>The <code>CouchClient</code> instance. Use it for operations the repository doesn't cover.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Disposes the client.</td>
+</tr>
+<tr>
+<td><code>Dispose(bool disposing)</code></td>
+<td>Protected virtual. Disposes <code>CouchDBClient</code> when <code>disposing</code> is <code>true</code>. Override it in subclasses to release extra resources.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="couchdbcachedocument"><code>CouchDBCacheDocument</code></h3>
+<p><code>public class CouchDBCacheDocument : CouchDocument</code> is the base class for everything stored by <code>CouchDBCacheRepository</code>. Derive from it to add your own fields. <code>Id</code> and <code>Rev</code> come from CouchDB.NET's <code>CouchDocument</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Key</code></td>
+<td>The cache key. Reads and writes the document <code>Id</code>.</td>
+</tr>
+<tr>
+<td><code>SubKey</code></td>
+<td>Optional secondary key, stored as a field.</td>
+</tr>
+<tr>
+<td><code>ExpiresAt</code></td>
+<td>UTC time after which the document is treated as expired. <code>default</code> means it never expires.</td>
+</tr>
+<tr>
+<td><code>TTL</code></td>
+<td>The lifetime the document was stored with.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="store-a-custom-document-type-in-its-own-database">Store a custom document type in its own database</h3>
+<p>Documents of type <code>Car</code> go to the <code>cars</code> database.</p>
+<pre><code class="language-csharp">using CrispyWaffle.CouchDB.Cache;
+
+public class Car : CouchDBCacheDocument
+{
+    public Car(string maker) =&gt; Maker = maker;
+
+    public string Maker { get; set; }
+}
+
+var car = new Car(&quot;MakerOne&quot;);
+await repository.SetSpecificAsync(car, Guid.NewGuid().ToString());
+
+var fromDb = await repository.GetSpecificAsync&lt;Car&gt;(car.Key);
+
+await repository.RemoveSpecificAsync&lt;Car&gt;(car.Key);
+</code></pre>
+<h3 id="store-a-document-that-expires">Store a document that expires</h3>
+<pre><code class="language-csharp">var key = Guid.NewGuid().ToString();
+await repository.SetAsync(new CouchDBCacheDocument(), key, TimeSpan.FromSeconds(5));
+
+await Task.Delay(6000);
+
+var expired = await repository.GetAsync&lt;CouchDBCacheDocument&gt;(key); // null; the document was deleted
+</code></pre>
+<h3 id="clear-a-database-and-count-documents">Clear a database and count documents</h3>
+<pre><code class="language-csharp">await repository.Clear();
+var remaining = await repository.GetDocCount&lt;CouchDBCacheDocument&gt;(); // 0
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../core/caching/">Caching</a></li>
+<li><a href="../configuration/">CrispyWaffle.Configuration</a></li>
+<li><a href="../redis/">CrispyWaffle.Redis</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

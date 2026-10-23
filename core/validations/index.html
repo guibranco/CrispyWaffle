@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Validations - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/validations/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../utilities/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../attributes/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="validations">Validations</h1>
+<p>The <code>CrispyWaffle.Validations</code> namespace validates and normalizes a small set of personal data formats: Brazilian taxpayer documents (CPF for individuals, CNPJ for companies) and e-mail addresses. It also exposes the precompiled regular expressions the rest of the library uses for IP addresses, e-mail addresses and string cleanup.</p>
+<p>Use it when you accept CPF, CNPJ or e-mail input and want a check-digit validation without a third-party library. For formatting and other pt-BR specific conversions (such as formatting a CPF or parsing a Brazilian phone number), see the <a href="../../packages/i18n-ptbr/">pt-BR internationalization package</a>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Validations</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="cpf-and-cnpj">CPF and CNPJ</h3>
+<p>The document methods are string extension methods on <code>PersonalDataValidation</code>. They all share the same steps:</p>
+<ol>
+<li>Remove every character that is not <code>0</code>–<code>9</code>, so formatted input such as <code>529.982.247-25</code> or <code>19.664.626/0001-20</code> is accepted.</li>
+<li>Check the length: 11 digits for a CPF, 14 for a CNPJ. Otherwise throw <code>InvalidDocumentException</code>.</li>
+<li>Reject input that contains 11 identical consecutive digits (<code>11111111111</code>, <code>00000000000000</code>, and so on) by throwing <code>InvalidDocumentException</code>.</li>
+<li>Compute the two check digits with the standard modulus-11 algorithm. For each digit, the weighted sum is divided by 11; a remainder below 2 gives <code>0</code>, otherwise the digit is <code>11 - remainder</code>. A CPF uses weights 10 down to 2 (then 11 down to 2); a CNPJ uses <code>5,4,3,2,9,8,7,6,5,4,3,2</code> (then <code>6,5,4,3,2,9,8,7,6,5,4,3,2</code>).</li>
+</ol>
+<p><code>IsValidBrazilianPersonDocument</code> and <code>IsValidBrazilianCorporateDocument</code> then compare the computed digits with the end of the original string. So the <code>IsValid...</code> methods return <code>false</code> for a document with wrong check digits, but <strong>throw</strong> <code>InvalidDocumentException</code> for wrong length or repeated digits. Wrap them in a <code>try</code>/<code>catch</code> if you need a plain boolean.</p>
+<p>Only numeric documents are supported. Letters are stripped in step 1, so an alphanumeric CNPJ fails the length check.</p>
+<h3 id="e-mail-addresses">E-mail addresses</h3>
+<p><code>ValidateEmailAddress</code> matches the input against <code>NetworkValidations.EmailAddressPattern</code>, an RFC 5322-style expression that also accepts Unicode letters. It also repairs two common typos:</p>
+<ul>
+<li>An address that ends with <code>combr</code> (case-insensitive) has <code>combr</code> replaced with <code>com.br</code>.</li>
+<li>An address that contains a comma has each comma replaced with a dot.</li>
+</ul>
+<p>The method returns the original or repaired address, or throws <code>InvalidEmailAddressException</code>. The repaired address is not matched against the pattern again.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Validations;
+
+try
+{
+    var cpfOk = &quot;229.706.190-08&quot;.IsValidBrazilianPersonDocument();   // true
+    var cnpjOk = &quot;19664626000120&quot;.IsValidBrazilianCorporateDocument(); // true
+    var email = &quot;nobody@example.combr&quot;.ValidateEmailAddress();       // &quot;nobody@example.com.br&quot;
+}
+catch (InvalidDocumentException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+catch (InvalidEmailAddressException ex)
+{
+    Console.WriteLine(ex.Message);
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="personaldatavalidation"><code>PersonalDataValidation</code></h3>
+<p><code>public static class PersonalDataValidation</code> — validation and check-digit calculation for CPF and CNPJ, and e-mail validation.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ValidateEmailAddress(this string emailAddress)</code></td>
+<td>Returns the address unchanged when it matches <code>NetworkValidations.EmailAddressPattern</code> and does not end with <code>combr</code>. If it ends with <code>combr</code> or contains a comma, returns it with <code>combr</code> replaced by <code>com.br</code> (case-sensitive replace) and commas replaced by dots, without re-validating. Throws <code>InvalidEmailAddressException</code> when the input is null or whitespace (the message shows an empty address) or otherwise invalid.</td>
+</tr>
+<tr>
+<td><code>IsValidBrazilianPersonDocument(this string document)</code></td>
+<td>Returns <code>true</code> when <code>document</code> ends with the CPF check digits from <code>CalculateBrazilianPersonDocumentDigits</code>, otherwise <code>false</code>. Throws <code>InvalidDocumentException</code> (type <code>CPF</code>) when the input does not have 11 digits or contains 11 identical consecutive digits.</td>
+</tr>
+<tr>
+<td><code>IsValidBrazilianCorporateDocument(this string document)</code></td>
+<td>Returns <code>true</code> when <code>document</code> ends with the CNPJ check digits from <code>CalculateBrazilianCorporateDocument</code>, otherwise <code>false</code>. Throws <code>InvalidDocumentException</code> (type <code>CNPJ</code>) when the input does not have 14 digits or contains 11 identical consecutive digits.</td>
+</tr>
+<tr>
+<td><code>CalculateBrazilianPersonDocumentDigits(this string document)</code></td>
+<td>Returns the two CPF check digits as a string, computed from the first 9 digits. The input must still have 11 digits; the last two are ignored. Throws <code>InvalidDocumentException</code> under the same conditions as above.</td>
+</tr>
+<tr>
+<td><code>CalculateBrazilianCorporateDocument(this string document)</code></td>
+<td>Returns the two CNPJ check digits as a string, computed from the first 12 digits. The input must still have 14 digits. Throws <code>InvalidDocumentException</code> under the same conditions as above.</td>
+</tr>
+<tr>
+<td><code>SameNumberDocumentPattern</code></td>
+<td><code>public static readonly Regex</code> matching 11 identical consecutive digits, <code>(\d)\1{10}</code>. It is not anchored, so it matches anywhere in a 14-digit CNPJ as well.</td>
+</tr>
+</tbody>
+</table>
+<p>All document methods throw <code>NullReferenceException</code> for null input.</p>
+<h3 id="networkvalidations"><code>NetworkValidations</code></h3>
+<p><code>public static class NetworkValidations</code> — precompiled regular expressions for network data. Both use a 5-second match timeout.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EmailAddressPattern</code></td>
+<td><code>public static readonly Regex</code>. Anchored (<code>^...$</code>), case-insensitive pattern for e-mail addresses in the style of RFC 5322, including quoted local parts and Unicode letters in the local part and domain. The domain needs at least one dot.</td>
+</tr>
+<tr>
+<td><code>IpAddressPattern</code></td>
+<td><code>public static readonly Regex</code> with pattern <code>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}</code>. It is not anchored and does not check that each octet is 0–255, so <code>IsMatch</code> is <code>true</code> for <code>999.1.1.1</code> or for any text that contains an IPv4-like substring. Use <code>Match(...).Value</code> to extract an address, and <code>System.Net.IPAddress.TryParse</code> for strict validation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stringvalidations"><code>StringValidations</code></h3>
+<p><code>public static class StringValidations</code> — precompiled regular expressions used by the string helpers in <a href="../extensions/">Extension methods</a>. All use <code>CultureInvariant | IgnoreCase</code> and a 5-second timeout.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Pattern</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PortuguesePrepositionPattern</code></td>
+<td><code>^(da\|de\|do\|das\|dos\|no\|na\|nos\|nas\|-\|etapa)$</code></td>
+<td>A whole string that is a Portuguese preposition (<code>da</code>, <code>de</code>, <code>do</code>, <code>das</code>, <code>dos</code>, <code>no</code>, <code>na</code>, <code>nos</code>, <code>nas</code>), <code>-</code> or <code>etapa</code>. Useful for keeping these words lowercase in title-cased names.</td>
+</tr>
+<tr>
+<td><code>ParenthesesPattern</code></td>
+<td><code>\((.+?)\)</code></td>
+<td>Text inside parentheses; group 1 holds the content.</td>
+</tr>
+<tr>
+<td><code>NonAlphanumericPattern</code></td>
+<td><code>[^\w\.@-]</code></td>
+<td>Any character that is not a word character, <code>.</code>, <code>@</code> or <code>-</code>. Used by <code>RemoveNonAlphanumeric</code> and <code>ReplaceNonAlphanumeric</code>.</td>
+</tr>
+<tr>
+<td><code>NonNumericPattern</code></td>
+<td><code>[^0-9]</code></td>
+<td>Any character that is not an ASCII digit. Used by <code>RemoveNonNumeric</code>.</td>
+</tr>
+<tr>
+<td><code>SpacesPattern</code></td>
+<td><code>\s+</code></td>
+<td>Runs of whitespace. Used by <code>RemoveSpaces</code>.</td>
+</tr>
+<tr>
+<td><code>MultipleSpacesPattern</code></td>
+<td><code>[\t\|\s]{2,}</code></td>
+<td>Runs of two or more whitespace characters. Because <code>\|</code> inside a character class is a literal, runs of <code>\|</code> also match. Used by <code>RemoveExcessSpaces</code>.</td>
+</tr>
+<tr>
+<td><code>InvalidFileName</code></td>
+<td>built from <code>Path.GetInvalidFileNameChars()</code></td>
+<td>Runs of characters that are invalid in a file name, and trailing dots. The character set depends on the operating system. Used by <code>ToValidFileName</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="invaliddocumentexception"><code>InvalidDocumentException</code></h3>
+<p><code>public class InvalidDocumentException : Exception</code> — thrown by the CPF and CNPJ methods of <code>PersonalDataValidation</code> when the document has the wrong number of digits or is made of repeated digits. Marked <code>[Serializable]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvalidDocumentException(string documentType, string value)</code></td>
+<td>Message: <code>The value '{value}' isn't a valid value for a document of type {documentType}</code>. The library passes <code>CPF</code> or <code>CNPJ</code> as the type and the digits-only value (punctuation removed) as the value.</td>
+</tr>
+<tr>
+<td><code>InvalidDocumentException(SerializationInfo info, StreamingContext context)</code></td>
+<td><code>protected</code> deserialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="invalidemailaddressexception"><code>InvalidEmailAddressException</code></h3>
+<p><code>public class InvalidEmailAddressException : Exception</code> — thrown by <code>ValidateEmailAddress</code> when the address is empty or cannot be matched or repaired. Marked <code>[Serializable]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvalidEmailAddressException(string emailAddress)</code></td>
+<td>Message: <code>The e-mail address '{emailAddress}' isn't in a valid e-mail address format</code>.</td>
+</tr>
+<tr>
+<td><code>InvalidEmailAddressException(SerializationInfo info, StreamingContext context)</code></td>
+<td><code>protected</code> deserialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="validate-a-cpf-as-a-boolean">Validate a CPF as a boolean</h3>
+<p>The <code>IsValid...</code> methods throw for malformed input. This wrapper turns every failure into <code>false</code>.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Validations;
+
+static bool IsCpf(string input)
+{
+    if (string.IsNullOrWhiteSpace(input))
+    {
+        return false;
+    }
+
+    try
+    {
+        return input.IsValidBrazilianPersonDocument();
+    }
+    catch (InvalidDocumentException)
+    {
+        return false;
+    }
+}
+
+var a = IsCpf(&quot;135.117.490-85&quot;); // true
+var b = IsCpf(&quot;135.117.490-86&quot;); // false: wrong check digit
+var c = IsCpf(&quot;111.111.111-11&quot;); // false: repeated digits
+</code></pre>
+<h3 id="compute-check-digits">Compute check digits</h3>
+<pre><code class="language-csharp">using CrispyWaffle.Validations;
+
+// The input must have 11 digits, but only the first 9 are used.
+// Pad with two placeholder digits to complete a new CPF.
+var digits = &quot;22970619000&quot;.CalculateBrazilianPersonDocumentDigits(); // &quot;08&quot;
+var cpf = &quot;229706190&quot; + digits;                                      // &quot;22970619008&quot;
+</code></pre>
+<h3 id="extract-an-ip-address-from-a-header">Extract an IP address from a header</h3>
+<pre><code class="language-csharp">using CrispyWaffle.Validations;
+
+var header = &quot;for=203.0.113.7;proto=https&quot;;
+var ip = NetworkValidations.IpAddressPattern.IsMatch(header)
+    ? NetworkValidations.IpAddressPattern.Match(header).Value   // &quot;203.0.113.7&quot;
+    : null;
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../packages/i18n-ptbr/">pt-BR internationalization</a> for formatting documents and other Brazilian conversions</li>
+<li><a href="../extensions/">Extension methods</a> for the string helpers that use these patterns</li>
+<li><a href="../utilities/">Utilities</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

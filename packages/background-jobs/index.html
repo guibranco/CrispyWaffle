@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>BackgroundJobs - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/background-jobs/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../http-client/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../../diagrams/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywafflebackgroundjobs">CrispyWaffle.BackgroundJobs</h1>
+<p><code>CrispyWaffle.BackgroundJobs</code> runs fire-and-forget and delayed jobs inside an ASP.NET Core application. You register typed handlers under a name, enqueue a job with that name and a payload, and a hosted worker picks it up, runs the handler in its own DI scope, and retries it with exponential backoff when it fails. Jobs are kept in an in-memory store by default, or in a database through Entity Framework Core.</p>
+<p>The package is standalone: it does not reference the core <code>CrispyWaffle</code> package. It is built on <code>Microsoft.Extensions.Hosting</code> (<code>BackgroundService</code>) and <code>Microsoft.Extensions.DependencyInjection</code>. It is a different thing from the core package's <a href="../../core/scheduler/">cron scheduler</a>: that one runs in-process actions on cron expressions through <code>JobManager</code>, while this package queues persisted, retryable jobs that carry a payload. The <code>CronJobService</code> base class in this package does not parse cron expressions (see <a href="#recurring-work">Recurring work</a>).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.BackgroundJobs</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.BackgroundJobs.Abstractions</code>, <code>CrispyWaffle.BackgroundJobs.Core</code>, <code>CrispyWaffle.BackgroundJobs.Extensions</code>, <code>CrispyWaffle.BackgroundJobs.Persistence</code>, <code>CrispyWaffle.BackgroundJobs.Scheduling</code>, <code>CrispyWaffle.BackgroundJobs.Monitoring</code>, <code>CrispyWaffle.BackgroundJobs.Exceptions</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td>Not yet published to NuGet (it is not in the release workflow's package list). Reference the project: <code>dotnet add reference Src/CrispyWaffle.BackgroundJobs/CrispyWaffle.BackgroundJobs.csproj</code></td>
+</tr>
+<tr>
+<td><strong>Target framework</strong></td>
+<td><code>net10.0</code> only</td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td>No CrispyWaffle packages. <code>Microsoft.Extensions.Hosting.Abstractions</code>, <code>Microsoft.AspNetCore.Hosting.Abstractions</code> (for <code>IStartupFilter</code> and the middleware), <code>Microsoft.EntityFrameworkCore</code> and <code>Microsoft.EntityFrameworkCore.Relational</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><a href="../../images/diagrams/background-jobs.svg"><img alt="Background jobs pipeline and lifecycle" src="../../images/diagrams/background-jobs.svg" /></a></p>
+<h3 id="registration">Registration</h3>
+<p><code>AddCrispyBackgroundJobs</code> registers, all as singletons unless noted:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobOptions</code></td>
+<td>The instance built from your <code>configureOptions</code> callback</td>
+</tr>
+<tr>
+<td><code>IJobHandlerRegistry</code></td>
+<td><code>JobHandlerRegistry</code></td>
+</tr>
+<tr>
+<td><code>JobDispatcher</code></td>
+<td><code>JobDispatcher</code></td>
+</tr>
+<tr>
+<td><code>JobMetrics</code></td>
+<td><code>JobMetrics</code></td>
+</tr>
+<tr>
+<td><code>IJobScheduler</code></td>
+<td><code>DelayedJobScheduler</code></td>
+</tr>
+<tr>
+<td><code>IJobStore</code></td>
+<td><code>InMemoryJobStore</code> (default), or <code>EfCoreJobStore</code> as <strong>scoped</strong> when <code>useEfCoreStore: true</code></td>
+</tr>
+<tr>
+<td><code>BackgroundJobQueue</code></td>
+<td>Only in the default (in-memory) mode</td>
+</tr>
+<tr>
+<td>Hosted service</td>
+<td><code>BackgroundWorker</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>IJobStore</code> and <code>BackgroundJobQueue</code> are added with <code>TryAdd</code>, so a store you register before the call wins.</p>
+<p><code>AddJobHandler&lt;THandler, TData&gt;(name)</code> registers <code>THandler</code> as scoped and adds an <code>IStartupFilter</code> that calls <code>IJobHandlerRegistry.Register&lt;THandler, TData&gt;(name)</code> when the ASP.NET Core request pipeline is built. This means <code>AddJobHandler</code> only populates the registry in an ASP.NET Core host. In a generic host (worker service) the filter never runs; register the handler type in DI yourself and call <code>Register</code> on the registry after building the host (see <a href="#use-a-generic-host">Use a generic host</a>).</p>
+<h3 id="enqueueing">Enqueueing</h3>
+<p><code>JobDispatcher.EnqueueAsync</code> (or <code>IJobScheduler.EnqueueAsync</code>) creates a <code>JobEntity</code> with <code>Status = Pending</code>, the handler name, the priority, <code>MaxAttempt</code>, and the payload serialized with <code>System.Text.Json</code> default options, then saves it with <code>IJobStore.SaveAsync</code>. <code>ScheduleAsync</code> does the same with <code>ScheduledAt = UtcNow + delay</code>; the job stays in the store until it is due.</p>
+<p>Only when no <code>IJobStore</code> is registered does the dispatcher fall back to the <code>BackgroundJobQueue</code>: <code>EnqueueAsync</code> pushes the job onto the queue, and <code>ScheduleAsync</code> waits for the delay in a background <code>Task</code> and then pushes it. With <code>AddCrispyBackgroundJobs</code> a store is always registered, so this path is not used.</p>
+<h3 id="worker-loop">Worker loop</h3>
+<p><code>BackgroundWorker</code> starts <code>JobOptions.WorkerCount</code> loops (default: one per processor). Each loop:</p>
+<ol>
+<li>Calls <code>IJobStore.FetchNextAsync</code>, which returns the oldest due <code>Pending</code> job with the highest priority (<code>High</code> before <code>Normal</code> before <code>Low</code>, then by <code>CreatedAt</code>) and marks it <code>Processing</code>. If nothing is due, the loop sleeps for <code>JobOptions.PollingInterval</code> (default 2 seconds).</li>
+<li>If the job's <code>ScheduledAt</code> is still in the future, puts it back (<code>MarkRetryAsync</code> with the same time) and moves on.</li>
+<li>Creates a DI scope, looks up the handler type and payload type in <code>IJobHandlerRegistry</code>, deserializes the payload into the payload type, resolves the handler from the scope, and calls its <code>HandleAsync</code>.</li>
+<li>Records the outcome in the store (see below).</li>
+</ol>
+<p>An unexpected error in the loop itself is logged and the loop waits 1 second before continuing.</p>
+<p>The handler is invoked by reflection: the worker looks up a <strong>public</strong> method named <code>HandleAsync</code> on the concrete handler type. Implement <code>IBackgroundJobHandler&lt;TData&gt;.HandleAsync</code> as a normal public method, not as an explicit interface implementation, and do not add other <code>HandleAsync</code> overloads; otherwise the call throws and the job is retried as described below.</p>
+<h3 id="lifecycle-and-retries">Lifecycle and retries</h3>
+<table>
+<thead>
+<tr>
+<th>Outcome</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Handler returns <code>JobResult.Ok()</code></td>
+<td><code>MarkCompletedAsync</code>: status <code>Completed</code>.</td>
+</tr>
+<tr>
+<td>Handler returns <code>JobResult.Fail(message, retry: true)</code> and <code>Attempt + 1 &lt; MaxAttempt</code></td>
+<td><code>Attempt</code> is incremented and <code>MarkRetryAsync</code> sets status <code>Pending</code> with <code>ScheduledAt = UtcNow + backoff</code>.</td>
+</tr>
+<tr>
+<td>Handler returns <code>Fail</code> with <code>retry: false</code>, or attempts are used up</td>
+<td><code>MarkFailedAsync</code>: status <code>Failed</code>, <code>LastError = message</code> (or <code>"Job failed"</code> when the message is <code>null</code>).</td>
+</tr>
+<tr>
+<td>No handler registered under the job's name</td>
+<td><code>MarkFailedAsync</code> with <code>"No handler registered for '&lt;name&gt;'"</code>. Not retried.</td>
+</tr>
+<tr>
+<td>Handler type cannot be resolved from DI</td>
+<td><code>MarkFailedAsync</code> with <code>"Handler type &lt;type&gt; not resolved from DI"</code>. Not retried.</td>
+</tr>
+<tr>
+<td>Handler throws, or the payload cannot be deserialized</td>
+<td>Logged, <code>Attempt</code> incremented, rescheduled with backoff. <code>MaxAttempt</code> is <strong>not</strong> checked on this path, so a job that always throws is retried indefinitely (every 300 seconds once the cap is reached).</td>
+</tr>
+</tbody>
+</table>
+<p>The backoff is <code>min(2^min(Attempt, 10), 300)</code> seconds, where <code>Attempt</code> is the already incremented count: 2, 4, 8, 16, 32, 64, 128, 256, then 300 seconds. The cap is hard-coded; <code>JobOptions.MaxBackoffSeconds</code> is not read. <code>JobEntity.RetryDelaySeconds</code> is also not read.</p>
+<p><code>MaxAttempt</code> counts total executions. With the default of 3, a handler that keeps returning <code>Fail(..., retry: true)</code> runs three times and is then marked <code>Failed</code>.</p>
+<p>On shutdown, a job interrupted by the stopping token is normally caught by the "handler throws" path and rescheduled with backoff. The <code>JobStatus.Dead</code> value is never assigned by the library.</p>
+<h3 id="job-stores">Job stores</h3>
+<p><strong>In-memory (default).</strong> <code>InMemoryJobStore</code> keeps jobs in a <code>ConcurrentDictionary</code>. Jobs are lost when the process stops, and completed and failed jobs are never removed. <code>FetchNextAsync</code> selects and marks a job in two separate steps without a lock, so with more than one worker the same job can occasionally be picked by two loops. Set <code>WorkerCount = 1</code> if handlers must not run twice.</p>
+<p><strong>EF Core.</strong> Pass <code>useEfCoreStore: true</code> and register <code>JobDbContext</code> yourself with your database provider, for example <code>services.AddDbContext&lt;JobDbContext&gt;(o =&gt; o.UseSqlServer(connectionString))</code>. You must also create the <code>Jobs</code> table, for example with <code>db.Database.EnsureCreated()</code> or with migrations generated against <code>JobDbContext</code> (migrations need a <code>MigrationsAssembly</code> in your project, since the context lives in this package).</p>
+<p>The EF Core mode has wiring problems you need to work around:</p>
+<ul>
+<li><code>JobDispatcher</code> takes a <code>BackgroundJobQueue</code> constructor parameter, but the queue is only registered in in-memory mode. Without <code>services.AddSingleton&lt;BackgroundJobQueue&gt;()</code>, resolving <code>JobDispatcher</code> or <code>IJobScheduler</code> fails.</li>
+<li><code>EfCoreJobStore</code> is scoped, but the singleton <code>BackgroundWorker</code> and <code>JobDispatcher</code> resolve it from the root provider. With scope validation enabled (the default in the <code>Development</code> environment) the host fails to start with a "Cannot consume scoped service" error. With validation disabled, a single <code>JobDbContext</code> instance is shared by every worker loop and every caller of the dispatcher. <code>DbContext</code> is not thread-safe, so keep <code>WorkerCount = 1</code> and avoid enqueueing while the worker is running, or register your own <code>IJobStore</code> that creates a context per call.</li>
+<li>No concurrency token is configured on <code>JobEntity</code>, so <code>FetchNextAsync</code> does not prevent two processes from claiming the same job.</li>
+</ul>
+<p>Treat the EF Core store as experimental until these are fixed.</p>
+<h3 id="monitoring">Monitoring</h3>
+<p><code>JobMetrics</code> is a singleton dictionary of named counters. The library registers it but does not increment any counter itself, so you record the values you care about, for example from your handlers. <code>MonitoringMiddleware</code> serves <code>JobMetrics.Snapshot()</code> as a JSON object (<code>{"counter": value}</code>) for any request whose path starts with the segment <code>/jobs/metrics</code>, and passes every other request on. There is no <code>UseXxx</code> extension; add it with <code>app.UseMiddleware&lt;MonitoringMiddleware&gt;()</code>. The endpoint has no authentication of its own.</p>
+<h3 id="recurring-work">Recurring work</h3>
+<p><code>CronJobService</code> is an abstract <code>BackgroundService</code> that calls <code>ExecuteOnce</code> in a loop with a fixed one-minute delay after each run. Despite the file name (<code>CronJobScheduler.cs</code>), it does not accept or parse a cron expression, and it is not registered by <code>AddCrispyBackgroundJobs</code>. Register a subclass with <code>AddHostedService</code>. For real cron expressions, use the core <a href="../../core/scheduler/">scheduler</a>, or enqueue jobs from your subclass.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Abstractions;
+using CrispyWaffle.BackgroundJobs.Core;
+using CrispyWaffle.BackgroundJobs.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCrispyBackgroundJobs(o =&gt; o.WorkerCount = 2);
+builder.Services.AddJobHandler&lt;SendEmailHandler, SendEmailData&gt;(&quot;send-email&quot;);
+
+var app = builder.Build();
+
+app.MapPost(
+    &quot;/signup&quot;,
+    async (string email, IJobScheduler jobs) =&gt;
+    {
+        await jobs.EnqueueAsync(&quot;send-email&quot;, new SendEmailData(email, &quot;Welcome!&quot;));
+        return Results.Accepted();
+    }
+);
+
+app.Run();
+
+public sealed record SendEmailData(string To, string Subject);
+
+public sealed class SendEmailHandler(ILogger&lt;SendEmailHandler&gt; logger)
+    : IBackgroundJobHandler&lt;SendEmailData&gt;
+{
+    public async Task&lt;JobResult&gt; HandleAsync(SendEmailData data, CancellationToken cancellationToken)
+    {
+        try
+        {
+            logger.LogInformation(&quot;Sending '{Subject}' to {To}&quot;, data.Subject, data.To);
+            await Task.Delay(100, cancellationToken); // send the email here
+            return JobResult.Ok();
+        }
+        catch (HttpRequestException ex)
+        {
+            return JobResult.Fail(ex.Message, retry: true);
+        }
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="servicecollectionextensions"><code>ServiceCollectionExtensions</code></h3>
+<p><code>public static class ServiceCollectionExtensions</code> — registration entry points (namespace <code>CrispyWaffle.BackgroundJobs.Extensions</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddCrispyBackgroundJobs(this IServiceCollection services, Action&lt;JobOptions&gt;? configureOptions = null, bool useEfCoreStore = false)</code></td>
+<td>Registers the services listed in <a href="#registration">Registration</a> and the <code>BackgroundWorker</code> hosted service. With <code>useEfCoreStore: true</code>, registers <code>EfCoreJobStore</code> as scoped <code>IJobStore</code>; you must register <code>JobDbContext</code> (and, see <a href="#job-stores">Job stores</a>, <code>BackgroundJobQueue</code>). Returns <code>services</code>.</td>
+</tr>
+<tr>
+<td><code>AddJobHandler&lt;THandler, TData&gt;(this IServiceCollection services, string handlerName)</code></td>
+<td>Constraint: <code>THandler : class, IBackgroundJobHandler&lt;TData&gt;</code>. Registers <code>THandler</code> as scoped and an <code>IStartupFilter</code> that adds <code>handlerName</code> to the registry when the ASP.NET Core pipeline is built. Has no effect on the registry in a non-web host. Returns <code>services</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijobscheduler"><code>IJobScheduler</code></h3>
+<p><code>public interface IJobScheduler</code> — the injectable API for adding jobs (namespace <code>CrispyWaffle.BackgroundJobs.Abstractions</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EnqueueAsync(string handlerName, object payload, int maxAttempts = 3, JobPriority priority = JobPriority.Normal)</code></td>
+<td>Adds a job that is due immediately. Returns <code>Task</code> (the job id is not exposed; use <code>JobDispatcher</code> to get it).</td>
+</tr>
+<tr>
+<td><code>ScheduleAsync(string handlerName, object payload, TimeSpan delay, int maxAttempts = 3, JobPriority priority = JobPriority.Normal)</code></td>
+<td>Adds a job that becomes due after <code>delay</code>. Returns <code>Task</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Because <code>maxAttempts</code> defaults to <code>3</code> here and is always passed on, <code>JobOptions.DefaultMaxAttempt</code> has no effect for jobs added through <code>IJobScheduler</code>.</p>
+<h3 id="delayedjobscheduler"><code>DelayedJobScheduler</code></h3>
+<p><code>public class DelayedJobScheduler : IJobScheduler</code> — default <code>IJobScheduler</code>; forwards both methods to <code>JobDispatcher</code> (namespace <code>CrispyWaffle.BackgroundJobs.Scheduling</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DelayedJobScheduler(IServiceProvider provider)</code></td>
+<td>Constructor. <code>JobDispatcher</code> is resolved from <code>provider</code> on every call.</td>
+</tr>
+<tr>
+<td><code>EnqueueAsync(...)</code> / <code>ScheduleAsync(...)</code></td>
+<td>See <code>IJobScheduler</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobdispatcher"><code>JobDispatcher</code></h3>
+<p><code>public class JobDispatcher</code> — creates <code>JobEntity</code> records and hands them to the store or the queue (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobDispatcher(IServiceProvider provider, BackgroundJobQueue? queue, IJobStore? store, JobOptions options)</code></td>
+<td>Constructor. Despite the nullable annotations, the DI container requires both <code>BackgroundJobQueue</code> and <code>IJobStore</code> to be registered.</td>
+</tr>
+<tr>
+<td><code>EnqueueAsync(string handlerName, object payload, int? maxAttempts = null, JobPriority priority = JobPriority.Normal)</code></td>
+<td>Creates a pending job (<code>MaxAttempt = maxAttempts ?? options.DefaultMaxAttempt</code>) and saves it to the store, or enqueues it when there is no store. Returns <code>Task&lt;Guid&gt;</code>, the job id.</td>
+</tr>
+<tr>
+<td><code>ScheduleAsync(string handlerName, object payload, TimeSpan delay, int? maxAttempts = null, JobPriority priority = JobPriority.Normal)</code></td>
+<td>Same, with <code>ScheduledAt = UtcNow + delay</code>. Without a store, waits <code>delay</code> in a background task before enqueueing (lost if the process stops). Returns <code>Task</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ibackgroundjobhandlertdata"><code>IBackgroundJobHandler&lt;TData&gt;</code></h3>
+<p><code>public interface IBackgroundJobHandler&lt;TData&gt;</code> — implement this to handle one kind of job (namespace <code>CrispyWaffle.BackgroundJobs.Abstractions</code>). Handlers are resolved from a new DI scope per job, so they can depend on scoped services.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HandleAsync(TData data, CancellationToken cancellationToken)</code></td>
+<td>Runs the job. <code>data</code> is the payload deserialized with <code>System.Text.Json</code> default options (<code>null</code>/<code>default</code> when the payload is empty). The token is the host's stopping token. Return <code>JobResult.Ok()</code> or <code>JobResult.Fail(...)</code>. Must be a public method on the handler class (see <a href="#worker-loop">Worker loop</a>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ibackgroundjob"><code>IBackgroundJob</code></h3>
+<p><code>public interface IBackgroundJob</code> — a payload-less job abstraction (namespace <code>CrispyWaffle.BackgroundJobs.Abstractions</code>). Nothing in the package executes it; the worker only runs <code>IBackgroundJobHandler&lt;TData&gt;</code> handlers.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExecuteAsync(CancellationToken cancellationToken)</code></td>
+<td>Returns <code>Task&lt;JobResult&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobresult"><code>JobResult</code></h3>
+<p><code>public sealed record JobResult(bool Success, bool Retry = false, string? ErrorMessage = null)</code> — the outcome returned by a handler (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Success</code></td>
+<td><code>true</code> when the job succeeded.</td>
+</tr>
+<tr>
+<td><code>Retry</code></td>
+<td>When <code>Success</code> is <code>false</code>, whether the worker should retry (subject to <code>MaxAttempt</code>).</td>
+</tr>
+<tr>
+<td><code>ErrorMessage</code></td>
+<td>Stored in <code>JobEntity.LastError</code> when the job ends as <code>Failed</code>.</td>
+</tr>
+<tr>
+<td><code>Ok()</code></td>
+<td>Static. Returns a successful result.</td>
+</tr>
+<tr>
+<td><code>Fail(string message, bool retry = false)</code></td>
+<td>Static. Returns a failed result. Note that <code>retry</code> defaults to <code>false</code>, so a plain <code>Fail("...")</code> is not retried.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijobhandlerregistry"><code>IJobHandlerRegistry</code></h3>
+<p><code>public interface IJobHandlerRegistry</code> — maps handler names to handler and payload types (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Register&lt;THandler, TData&gt;(string handlerName)</code></td>
+<td>Constraint: <code>THandler : class, IBackgroundJobHandler&lt;TData&gt;</code>. Adds or replaces the mapping for <code>handlerName</code>.</td>
+</tr>
+<tr>
+<td><code>TryGet(string handlerName, out Type? handlerType, out Type? dataType)</code></td>
+<td>Returns <code>true</code> and the two types when <code>handlerName</code> is registered.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobhandlerregistry"><code>JobHandlerRegistry</code></h3>
+<p><code>public class JobHandlerRegistry : IJobHandlerRegistry</code> — thread-safe default registry backed by a <code>ConcurrentDictionary</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Register&lt;THandler, TData&gt;(string handlerName)</code></td>
+<td>Throws <code>ArgumentException</code> when <code>handlerName</code> is null, empty or whitespace. Names are case-sensitive.</td>
+</tr>
+<tr>
+<td><code>TryGet(string handlerName, out Type? handlerType, out Type? dataType)</code></td>
+<td>Returns <code>false</code> for a <code>null</code> or unknown name.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijobstore"><code>IJobStore</code></h3>
+<p><code>public interface IJobStore</code> — persistence for jobs (namespace <code>CrispyWaffle.BackgroundJobs.Abstractions</code>). Implement it to use another storage; register your implementation before calling <code>AddCrispyBackgroundJobs</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SaveAsync(JobEntity job, CancellationToken cancellationToken = default)</code></td>
+<td>Stores a new job.</td>
+</tr>
+<tr>
+<td><code>FetchNextAsync(CancellationToken cancellationToken = default)</code></td>
+<td>Returns the next due <code>Pending</code> job (<code>ScheduledAt</code> null or not after now) and marks it <code>Processing</code>, or <code>null</code>. Implementations should claim the job atomically.</td>
+</tr>
+<tr>
+<td><code>MarkCompletedAsync(Guid jobId, CancellationToken cancellationToken = default)</code></td>
+<td>Sets status <code>Completed</code>.</td>
+</tr>
+<tr>
+<td><code>MarkFailedAsync(Guid jobId, string error, CancellationToken cancellationToken = default)</code></td>
+<td>Sets status <code>Failed</code> and <code>LastError</code>.</td>
+</tr>
+<tr>
+<td><code>MarkRetryAsync(Guid jobId, DateTimeOffset? nextAttemptAt, int attemptCount, CancellationToken cancellationToken = default)</code></td>
+<td>Sets status <code>Pending</code>, <code>ScheduledAt = nextAttemptAt</code> and <code>Attempt = attemptCount</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="inmemoryjobstore"><code>InMemoryJobStore</code></h3>
+<p><code>public class InMemoryJobStore : IJobStore</code> — default store, process-local (namespace <code>CrispyWaffle.BackgroundJobs.Persistence</code>). Implements every <code>IJobStore</code> member; all methods complete synchronously and ignore the token. Unknown ids are ignored. See <a href="#job-stores">Job stores</a> for its limits.</p>
+<h3 id="efcorejobstore"><code>EfCoreJobStore</code></h3>
+<p><code>public class EfCoreJobStore : IJobStore</code> — store backed by <code>JobDbContext</code> (namespace <code>CrispyWaffle.BackgroundJobs.Persistence</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EfCoreJobStore(JobDbContext db)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>SaveAsync(...)</code></td>
+<td>Sets <code>UpdatedAt</code>, adds the job and calls <code>SaveChangesAsync</code>.</td>
+</tr>
+<tr>
+<td><code>FetchNextAsync(...)</code></td>
+<td>Queries the first due pending job id ordered by priority then <code>CreatedAt</code>, loads it, sets <code>Processing</code> and saves. Returns <code>null</code> if nothing is due or if <code>SaveChangesAsync</code> throws <code>DbUpdateConcurrencyException</code>.</td>
+</tr>
+<tr>
+<td><code>MarkCompletedAsync(...)</code> / <code>MarkFailedAsync(...)</code> / <code>MarkRetryAsync(...)</code></td>
+<td>Load the job, update it as described in <code>IJobStore</code>, and save. Unknown ids are ignored.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobdbcontext"><code>JobDbContext</code></h3>
+<p><code>public class JobDbContext : DbContext</code> — EF Core context for the <code>EfCoreJobStore</code> (namespace <code>CrispyWaffle.BackgroundJobs.Persistence</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobDbContext(DbContextOptions&lt;JobDbContext&gt; options)</code></td>
+<td>Constructor, used by <code>AddDbContext&lt;JobDbContext&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>Jobs</code></td>
+<td><code>DbSet&lt;JobEntity&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>OnModelCreating(ModelBuilder modelBuilder)</code></td>
+<td>Protected. Key <code>Id</code>; <code>HandlerName</code> required, max length 256; <code>Payload</code> optional; <code>Priority</code> and <code>Status</code> stored as <code>int</code>; <code>CreatedAt</code> and <code>UpdatedAt</code> required; database defaults <code>MaxAttempt = 3</code> and <code>Attempt = 0</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backgroundworker"><code>BackgroundWorker</code></h3>
+<p><code>public class BackgroundWorker : BackgroundService</code> — the hosted service that runs jobs (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>). Registered by <code>AddCrispyBackgroundJobs</code>; you do not use it directly. See <a href="#worker-loop">Worker loop</a> and <a href="#lifecycle-and-retries">Lifecycle and retries</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BackgroundWorker(IServiceProvider provider, JobOptions options, ILogger&lt;BackgroundWorker&gt; logger)</code></td>
+<td>Constructor. Resolves <code>BackgroundJobQueue</code> and <code>IJobStore</code> (both optional) and <code>IJobHandlerRegistry</code> (required) from <code>provider</code>. Uses the store when one is registered, otherwise the queue.</td>
+</tr>
+<tr>
+<td><code>ExecuteAsync(CancellationToken stoppingToken)</code></td>
+<td>Protected override. Starts <code>WorkerCount</code> loops and completes when all of them stop.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backgroundjobqueue"><code>BackgroundJobQueue</code></h3>
+<p><code>public class BackgroundJobQueue</code> — in-memory priority queue used only when no <code>IJobStore</code> is registered (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Enqueue(JobEntity job)</code></td>
+<td>Adds the job with its <code>Priority</code> (lower value first) and signals a waiting consumer.</td>
+</tr>
+<tr>
+<td><code>DequeueAsync(CancellationToken cancellationToken)</code></td>
+<td>Waits for a signal and returns the highest-priority job. Returns <code>null</code> when cancelled.</td>
+</tr>
+</tbody>
+</table>
+<p>When the worker uses this queue, a job that is not yet due is dequeued and enqueued again in a tight loop until it is due.</p>
+<h3 id="joboptions"><code>JobOptions</code></h3>
+<p><code>public class JobOptions</code> — worker settings, configured through <code>AddCrispyBackgroundJobs</code> (namespace <code>CrispyWaffle.BackgroundJobs.Core</code>). Registered as a plain singleton, not through <code>IOptions&lt;T&gt;</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WorkerCount</code></td>
+<td><code>int</code>. Number of concurrent worker loops. Default <code>Environment.ProcessorCount</code>.</td>
+</tr>
+<tr>
+<td><code>DefaultMaxAttempt</code></td>
+<td><code>int</code>. <code>MaxAttempt</code> for jobs added through <code>JobDispatcher</code> without <code>maxAttempts</code>. Default <code>3</code>.</td>
+</tr>
+<tr>
+<td><code>PollingInterval</code></td>
+<td><code>TimeSpan</code>. Sleep between store polls when no job is due. Default 2 seconds.</td>
+</tr>
+<tr>
+<td><code>MaxBackoffSeconds</code></td>
+<td><code>int</code>. Default <code>300</code>. Not used; the worker's 300-second cap is hard-coded.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobentity"><code>JobEntity</code></h3>
+<p><code>public class JobEntity</code> — a stored job (namespace <code>CrispyWaffle.BackgroundJobs.Abstractions</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Id</code></td>
+<td><code>Guid</code>. Default <code>Guid.NewGuid()</code>.</td>
+</tr>
+<tr>
+<td><code>HandlerName</code></td>
+<td><code>string</code>. Name registered in <code>IJobHandlerRegistry</code>. Default empty.</td>
+</tr>
+<tr>
+<td><code>Payload</code></td>
+<td><code>string</code>. JSON payload. Default empty.</td>
+</tr>
+<tr>
+<td><code>Priority</code></td>
+<td><code>JobPriority</code>. Default <code>Normal</code>.</td>
+</tr>
+<tr>
+<td><code>Status</code></td>
+<td><code>JobStatus</code>. Default <code>Pending</code>.</td>
+</tr>
+<tr>
+<td><code>ScheduledAt</code></td>
+<td><code>DateTimeOffset?</code>. When the job becomes due; <code>null</code> means immediately.</td>
+</tr>
+<tr>
+<td><code>Attempt</code></td>
+<td><code>int</code>. Number of failed executions so far. Default <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>MaxAttempt</code></td>
+<td><code>int</code>. Maximum executions for <code>JobResult.Fail(..., retry: true)</code> outcomes. Default <code>3</code>.</td>
+</tr>
+<tr>
+<td><code>LastError</code></td>
+<td><code>string?</code>. Error recorded when the job is marked <code>Failed</code>.</td>
+</tr>
+<tr>
+<td><code>CreatedAt</code></td>
+<td><code>DateTimeOffset</code>. Default <code>UtcNow</code> at construction.</td>
+</tr>
+<tr>
+<td><code>UpdatedAt</code></td>
+<td><code>DateTimeOffset</code>. Updated by the stores on every change.</td>
+</tr>
+<tr>
+<td><code>RetryDelaySeconds</code></td>
+<td><code>int</code>. Default <code>0</code>. Not used by the worker.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobpriority"><code>JobPriority</code></h3>
+<p><code>public enum JobPriority</code> — lower values run first.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>High</code> (0)</td>
+<td>Picked before <code>Normal</code> and <code>Low</code>.</td>
+</tr>
+<tr>
+<td><code>Normal</code> (1)</td>
+<td>Default.</td>
+</tr>
+<tr>
+<td><code>Low</code> (2)</td>
+<td>Picked last.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobstatus"><code>JobStatus</code></h3>
+<p><code>public enum JobStatus</code> — job lifecycle state.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Pending</code> (0)</td>
+<td>Waiting to run, or waiting for a retry.</td>
+</tr>
+<tr>
+<td><code>Processing</code> (1)</td>
+<td>Claimed by a worker.</td>
+</tr>
+<tr>
+<td><code>Completed</code> (2)</td>
+<td>Handler returned success.</td>
+</tr>
+<tr>
+<td><code>Failed</code> (3)</td>
+<td>Handler failed with no retries left, did not ask for a retry, or could not be found.</td>
+</tr>
+<tr>
+<td><code>Dead</code> (4)</td>
+<td>Not used by the library.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobmetrics"><code>JobMetrics</code></h3>
+<p><code>public class JobMetrics</code> — thread-safe named counters, registered as a singleton (namespace <code>CrispyWaffle.BackgroundJobs.Monitoring</code>). Nothing in the package increments them.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Increment(string key)</code></td>
+<td>Adds 1 to <code>key</code>, creating it at 1.</td>
+</tr>
+<tr>
+<td><code>Get(string key)</code></td>
+<td>Returns the value of <code>key</code>, or <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>Snapshot()</code></td>
+<td>Returns a copy of all counters as <code>IDictionary&lt;string, long&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="monitoringmiddleware"><code>MonitoringMiddleware</code></h3>
+<p><code>public class MonitoringMiddleware</code> — ASP.NET Core middleware that exposes <code>JobMetrics</code> (namespace <code>CrispyWaffle.BackgroundJobs.Monitoring</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MonitoringMiddleware(RequestDelegate next, JobMetrics metrics)</code></td>
+<td>Constructor, called by <code>UseMiddleware&lt;MonitoringMiddleware&gt;()</code>.</td>
+</tr>
+<tr>
+<td><code>InvokeAsync(HttpContext context)</code></td>
+<td>For paths starting with <code>/jobs/metrics</code>, writes the snapshot as <code>application/json</code> and ends the request. Otherwise calls <code>next</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cronjobservice"><code>CronJobService</code></h3>
+<p><code>public abstract class CronJobService : BackgroundService</code> — base class for work that repeats every minute (namespace <code>CrispyWaffle.BackgroundJobs.Scheduling</code>). See <a href="#recurring-work">Recurring work</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CronJobService(ILogger logger)</code></td>
+<td>Protected constructor.</td>
+</tr>
+<tr>
+<td><code>ExecuteOnce(CancellationToken stoppingToken)</code></td>
+<td>Protected abstract. Your work. Exceptions are logged and the loop continues.</td>
+</tr>
+<tr>
+<td><code>ExecuteAsync(CancellationToken stoppingToken)</code></td>
+<td>Protected override. Calls <code>ExecuteOnce</code>, then waits one minute, until the host stops.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobfailedexception"><code>JobFailedException</code></h3>
+<p><code>public class JobFailedException : Exception</code> — namespace <code>CrispyWaffle.BackgroundJobs.Exceptions</code>. Has one constructor, <code>JobFailedException(string message)</code>. The package never throws it; if a handler throws it, it is treated like any other exception (logged and retried).</p>
+<h2 id="examples">Examples</h2>
+<h3 id="schedule-a-delayed-high-priority-job">Schedule a delayed, high-priority job</h3>
+<p><code>JobDispatcher</code> returns the job id; <code>IJobScheduler</code> does not.</p>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Abstractions;
+using CrispyWaffle.BackgroundJobs.Core;
+
+public sealed class ReminderService(JobDispatcher dispatcher)
+{
+    public Task&lt;Guid&gt; RemindNowAsync(string email) =&gt;
+        dispatcher.EnqueueAsync(&quot;send-email&quot;, new SendEmailData(email, &quot;Reminder&quot;));
+
+    public Task RemindLaterAsync(string email) =&gt;
+        dispatcher.ScheduleAsync(
+            &quot;send-email&quot;,
+            new SendEmailData(email, &quot;Your trial ends tomorrow&quot;),
+            TimeSpan.FromHours(1),
+            maxAttempts: 5,
+            priority: JobPriority.High
+        );
+}
+</code></pre>
+<h3 id="expose-metrics">Expose metrics</h3>
+<p>Increment counters from your handlers and map the middleware.</p>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Abstractions;
+using CrispyWaffle.BackgroundJobs.Core;
+using CrispyWaffle.BackgroundJobs.Extensions;
+using CrispyWaffle.BackgroundJobs.Monitoring;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCrispyBackgroundJobs();
+builder.Services.AddJobHandler&lt;ResizeImageHandler, ResizeImageData&gt;(&quot;resize-image&quot;);
+
+var app = builder.Build();
+app.UseMiddleware&lt;MonitoringMiddleware&gt;(); // GET /jobs/metrics -&gt; {&quot;resize-image.ok&quot;:12}
+app.Run();
+
+public sealed record ResizeImageData(string Path, int Width);
+
+public sealed class ResizeImageHandler(JobMetrics metrics) : IBackgroundJobHandler&lt;ResizeImageData&gt;
+{
+    public Task&lt;JobResult&gt; HandleAsync(ResizeImageData data, CancellationToken cancellationToken)
+    {
+        // resize data.Path to data.Width here
+        metrics.Increment(&quot;resize-image.ok&quot;);
+        return Task.FromResult(JobResult.Ok());
+    }
+}
+</code></pre>
+<h3 id="use-the-ef-core-store">Use the EF Core store</h3>
+<p>Register the context, the queue that <code>JobDispatcher</code> needs, and create the table at startup. Keep one worker because the store's <code>DbContext</code> is shared (see <a href="#job-stores">Job stores</a>), and disable scope validation, which otherwise rejects the scoped store inside singletons.</p>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Core;
+using CrispyWaffle.BackgroundJobs.Extensions;
+using CrispyWaffle.BackgroundJobs.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseDefaultServiceProvider(o =&gt;
+{
+    o.ValidateScopes = false;
+    o.ValidateOnBuild = false;
+});
+
+builder.Services.AddDbContext&lt;JobDbContext&gt;(o =&gt;
+    o.UseSqlServer(builder.Configuration.GetConnectionString(&quot;Jobs&quot;))
+);
+builder.Services.AddSingleton&lt;BackgroundJobQueue&gt;();
+builder.Services.AddCrispyBackgroundJobs(o =&gt; o.WorkerCount = 1, useEfCoreStore: true);
+builder.Services.AddJobHandler&lt;SendEmailHandler, SendEmailData&gt;(&quot;send-email&quot;);
+
+var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService&lt;JobDbContext&gt;().Database.EnsureCreated();
+}
+app.Run();
+</code></pre>
+<p><code>UseSqlServer</code> comes from the <code>Microsoft.EntityFrameworkCore.SqlServer</code> package; use the provider for your database.</p>
+<h3 id="use-a-generic-host">Use a generic host</h3>
+<p><code>AddJobHandler</code> relies on an ASP.NET Core startup filter. In a worker service, register the handler in DI and in the registry yourself before the host starts.</p>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Core;
+using CrispyWaffle.BackgroundJobs.Extensions;
+
+var builder = Host.CreateApplicationBuilder(args);
+builder.Services.AddCrispyBackgroundJobs();
+builder.Services.AddScoped&lt;SendEmailHandler&gt;();
+
+var host = builder.Build();
+host.Services.GetRequiredService&lt;IJobHandlerRegistry&gt;()
+    .Register&lt;SendEmailHandler, SendEmailData&gt;(&quot;send-email&quot;);
+
+host.Run();
+</code></pre>
+<h3 id="run-work-every-minute">Run work every minute</h3>
+<pre><code class="language-csharp">using CrispyWaffle.BackgroundJobs.Abstractions;
+using CrispyWaffle.BackgroundJobs.Scheduling;
+
+public sealed class CleanupService(ILogger&lt;CleanupService&gt; logger, IJobScheduler jobs)
+    : CronJobService(logger)
+{
+    protected override Task ExecuteOnce(CancellationToken stoppingToken) =&gt;
+        jobs.EnqueueAsync(&quot;cleanup&quot;, new { OlderThanDays = 30 });
+}
+
+// builder.Services.AddHostedService&lt;CleanupService&gt;();
+</code></pre>
+<p>The anonymous payload is serialized as <code>{"OlderThanDays":30}</code>, so the <code>cleanup</code> handler's payload type needs a matching <code>OlderThanDays</code> property.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../diagrams/">Diagrams</a></li>
+<li><a href="../../core/scheduler/">Scheduler</a> for cron-based scheduling in the core package</li>
+<li><a href="../http-client/">HTTP client</a>, the other standalone <code>Microsoft.Extensions</code> based package</li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

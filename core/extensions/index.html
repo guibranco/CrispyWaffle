@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Extension Methods - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/extensions/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../cryptography/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../utilities/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="extension-methods">Extension methods</h1>
+<p>The <code>CrispyWaffle.Extensions</code> namespace holds a set of static helper classes, mostly extension methods, for common chores: converting strings to numbers and dates, cleaning and reshaping text, reading enum attributes, flattening exception chains, rounding integers, reflecting over types and reading XML.</p>
+<p>Each class has no state and no dependencies to wire up. Add <code>using CrispyWaffle.Extensions;</code> and the methods appear on the types they extend.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Extensions</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p>Most methods are forgiving. They return a neutral value (<code>0</code>, <code>string.Empty</code>, the original input, or <code>false</code>) for null, empty or whitespace input instead of throwing. The exceptions to this rule are listed in each table: for example <code>ToDateTime</code> throws on empty input, and <code>Levenshtein</code> does not check for null.</p>
+<p>A few methods depend on legacy code pages that .NET (Core) does not load by default:</p>
+<ul>
+<li><code>RemoveDiacritics</code> and <code>LevenshteinInvariantCulture</code> use code page 1251.</li>
+<li><code>ToSafeUrl</code> uses ISO-8859-8.</li>
+</ul>
+<p>On .NET Core and .NET 5 or later, register the code pages provider once at startup before you call these methods. The library does not do it for you.</p>
+<pre><code class="language-csharp">using System.Text;
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+</code></pre>
+<p>Parsing methods (<code>ToInt32</code>, <code>ToInt64</code>, <code>ToDecimal</code>, <code>ToMonetary</code>, <code>TryToDateTime</code>) use the current culture unless noted.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Extensions;
+
+var quantity = &quot;1,250&quot;.ToInt32();             // 1250 under en-US; 0 if parsing fails
+var due = &quot;tomorrow&quot;.ToDateTime();            // DateTime.Today.AddDays(1)
+var active = &quot;s&quot;.ToBoolean();                 // true: matches the default &quot;S&quot;, case-insensitive
+var title = &quot;republica federativa do brasil&quot;.ToCamelCase(); // &quot;Republica Federativa Do Brasil&quot;
+var slots = 15.RoundUp();                     // 20
+var place = 22.ToOrdinal();                   // &quot;22nd&quot;
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="conversionextensions"><code>ConversionExtensions</code></h3>
+<p><code>public static class ConversionExtensions</code> — conversions between strings, numbers, dates, booleans, bytes, JSON and XML.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ToBoolean(string validValueForTrue = "S")</code></td>
+<td><code>string</code></td>
+<td>Returns <code>true</code> only when the string equals <code>validValueForTrue</code> (case-insensitive). Any other value, including null, returns <code>false</code>. The default <code>"S"</code> is the Portuguese "Sim".</td>
+</tr>
+<tr>
+<td><code>ToString(string trueValue, string falseValue)</code></td>
+<td><code>bool</code></td>
+<td>Returns <code>trueValue</code> or <code>falseValue</code>.</td>
+</tr>
+<tr>
+<td><code>ToDateTime()</code></td>
+<td><code>string</code></td>
+<td>Parses with the same rules as <code>TryToDateTime</code>. Throws <code>ArgumentNullException</code> when the input is null or whitespace, and <code>ArgumentOutOfRangeException</code> when it cannot be parsed.</td>
+</tr>
+<tr>
+<td><code>TryToDateTime(out DateTime value)</code></td>
+<td><code>string</code></td>
+<td>Accepts the keywords <code>now</code>, <code>today</code>, <code>yesterday</code> and <code>tomorrow</code> (case-insensitive, trimmed), then <code>DateTime.TryParse</code> with the current culture, then the exact format <code>dd/MM/yyyy</code> for 10-character input. Returns <code>false</code> and <code>DateTime.MinValue</code> on failure.</td>
+</tr>
+<tr>
+<td><code>ToInt32()</code> / <code>ToInt64()</code> / <code>ToDecimal()</code></td>
+<td><code>string</code></td>
+<td>Parses with <code>NumberStyles.Number</code> and the current culture. Returns <code>0</code> for null, whitespace or unparseable input.</td>
+</tr>
+<tr>
+<td><code>ToBytes()</code></td>
+<td><code>IEnumerable&lt;string&gt;</code></td>
+<td>Converts each base-2 string (for example <code>"01000001"</code>) to a byte. Throws <code>FormatException</code> on non-binary input.</td>
+</tr>
+<tr>
+<td><code>ToBinaryString()</code></td>
+<td><code>IEnumerable&lt;byte&gt;</code></td>
+<td>Converts each byte to an 8-character base-2 string.</td>
+</tr>
+<tr>
+<td><code>ToMonetary(CultureInfo cultureInfo = null)</code></td>
+<td><code>decimal</code></td>
+<td>Formats with <code>{0:C}</code> in <code>cultureInfo</code> or the current culture. Returns the literal <code>"No value"</code> for <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>ToUnixTimeStamp()</code></td>
+<td><code>DateTime</code></td>
+<td>Converts to UTC and returns the number of seconds since 1970-01-01 as an <code>int</code>.</td>
+</tr>
+<tr>
+<td><code>FromUnixTimeStamp()</code></td>
+<td><code>int</code></td>
+<td>Converts an epoch value to a local <code>DateTime</code>. The value is divided by 1000 (and rounded) before it is added as seconds, so it is treated as milliseconds. It is therefore not the inverse of <code>ToUnixTimeStamp</code>.</td>
+</tr>
+<tr>
+<td><code>ToPrettyString()</code></td>
+<td><code>string</code></td>
+<td>Re-formats a JSON object or array with indentation (Newtonsoft.Json). Returns <code>string.Empty</code> for null or whitespace and returns the input unchanged when <code>IsValidJson</code> is <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>ToIdentString()</code></td>
+<td><code>XmlDocument</code></td>
+<td>Serializes the document with tab indentation and CRLF line breaks. Returns <code>null</code> for a null document.</td>
+</tr>
+<tr>
+<td><code>ToModule10()</code></td>
+<td><code>string</code></td>
+<td>Strips non-digits and computes a modulus-10 check digit with alternating weights 2 and 1 from the right (products of 10 or more have their digits summed). Returns <code>0</code>–<code>9</code>.</td>
+</tr>
+<tr>
+<td><code>ToOrdinal()</code></td>
+<td><code>int</code>, <code>long</code></td>
+<td>Appends an English ordinal suffix (<code>1st</code>, <code>2nd</code>, <code>3rd</code>, <code>11th</code>, <code>22nd</code>). Negative numbers are returned without a suffix.</td>
+</tr>
+<tr>
+<td><code>DeepClone&lt;T&gt;(bool useNonPublic = true)</code></td>
+<td><code>T</code></td>
+<td>Builds a new <code>T</code> by calling its public constructor with the most parameters. Each argument comes from a property with the same name (case-insensitive) and exact type: public properties first, then non-public ones when <code>useNonPublic</code> is <code>true</code>. Property values are passed by reference, so nested objects are shared and the copy is shallow. Returns <code>default</code> when <code>T</code> has no public constructor. If a constructor parameter has no matching property, the argument list is too short and the constructor call throws.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stringextensions"><code>StringExtensions</code></h3>
+<p><code>public static class StringExtensions</code> — cleaning, formatting, encoding and comparing strings. All methods are marked <code>[Pure]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RemoveNonNumeric()</code></td>
+<td><code>string</code></td>
+<td>Removes every character except <code>0</code>–<code>9</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveNonAlphanumeric()</code></td>
+<td><code>string</code></td>
+<td>Removes every character that is not a word character (<code>\w</code>), <code>.</code>, <code>@</code> or <code>-</code>.</td>
+</tr>
+<tr>
+<td><code>ReplaceNonAlphanumeric(string replaceWith)</code></td>
+<td><code>string</code></td>
+<td>Like <code>RemoveNonAlphanumeric</code>, but replaces each character with <code>replaceWith</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveSpaces()</code></td>
+<td><code>string</code></td>
+<td>Removes all whitespace.</td>
+</tr>
+<tr>
+<td><code>RemoveExcessSpaces()</code></td>
+<td><code>string</code></td>
+<td>Replaces each run of two or more whitespace characters with a single space. The pattern is <code>[\t\|\s]{2,}</code>, so runs of <code>\|</code> characters are replaced as well.</td>
+</tr>
+<tr>
+<td><code>RemoveDiacritics()</code></td>
+<td><code>string</code></td>
+<td>Removes accents by round-tripping through code page 1251 and ASCII. Requires the code pages provider on .NET Core (see <a href="#how-it-works">How it works</a>).</td>
+</tr>
+<tr>
+<td><code>ReplaceFirst(string search, string replaceWith)</code></td>
+<td><code>string</code></td>
+<td>Replaces the first ordinal occurrence of <code>search</code>. Returns the input unchanged when <code>search</code> is not found.</td>
+</tr>
+<tr>
+<td><code>Abbreviate(int maxCharacters, bool addEllipsis = true)</code></td>
+<td><code>string</code></td>
+<td>Returns the input unchanged when it is shorter than <code>maxCharacters</code>. Otherwise truncates to <code>maxCharacters - 4</code> characters and appends <code>"..."</code> (or to <code>maxCharacters</code> characters with no ellipsis). Returns <code>string.Empty</code> for null or whitespace.</td>
+</tr>
+<tr>
+<td><code>ToCamelCase()</code></td>
+<td><code>string</code></td>
+<td>Splits on spaces, lowercases each word and capitalizes its first letter, then joins with single spaces. Despite the name, the result is title case: <code>"hello WORLD"</code> becomes <code>"Hello World"</code>. Returns <code>string.Empty</code> for null or whitespace.</td>
+</tr>
+<tr>
+<td><code>ToUcWords()</code></td>
+<td><code>string</code></td>
+<td>Lowercases the text, then uppercases each <code>a</code>–<code>z</code> letter at the start of the text or after whitespace, <code>/</code> or a digit.</td>
+</tr>
+<tr>
+<td><code>UcWords(string[] toUpper, string[] toLower)</code></td>
+<td><code>string[]</code></td>
+<td>Joins the words, each preceded by a space (so the result starts with a space). A word is fully uppercased when its uppercase form is in <code>toUpper</code>, lowercased when its lowercase form is in <code>toLower</code>, and passed to <code>ToCamelCase</code> otherwise.</td>
+</tr>
+<tr>
+<td><code>ToSafeUrl()</code></td>
+<td><code>string</code></td>
+<td>Builds a URL slug: transcodes through ISO-8859-8, removes <code>-</code> and <code>.</code>, collapses spaces, replaces remaining non-word characters with <code>-</code> and trims <code>-</code> from both ends. Case is preserved. Requires the code pages provider on .NET Core.</td>
+</tr>
+<tr>
+<td><code>ToBase64()</code></td>
+<td><code>string</code></td>
+<td>Encodes the UTF-8 bytes as Base64. Returns <code>string.Empty</code> for null or whitespace.</td>
+</tr>
+<tr>
+<td><code>FromBase64(string encoding = "ISO-8859-1")</code></td>
+<td><code>string</code></td>
+<td>Decodes Base64 and reads the bytes with <code>encoding</code>. Because the default is ISO-8859-1 and <code>ToBase64</code> uses UTF-8, non-ASCII text does not round-trip unless you pass <code>"UTF-8"</code>.</td>
+</tr>
+<tr>
+<td><code>FromISO2UTF8()</code></td>
+<td><code>string</code></td>
+<td>Encodes the string as ISO-8859-1, converts the bytes to UTF-8 and decodes them. Characters outside ISO-8859-1 become <code>?</code>.</td>
+</tr>
+<tr>
+<td><code>ToValidFileName()</code></td>
+<td><code>string</code></td>
+<td>Replaces runs of characters from <code>Path.GetInvalidFileNameChars()</code>, and trailing dots, with <code>_</code>. Throws <code>ArgumentNullException</code> for null.</td>
+</tr>
+<tr>
+<td><code>Levenshtein(string inputToCompare)</code></td>
+<td><code>string</code></td>
+<td>Returns the Levenshtein edit distance (case-sensitive). Throws <code>NullReferenceException</code> if either string is null.</td>
+</tr>
+<tr>
+<td><code>LevenshteinInvariantCulture(string inputToCompare)</code></td>
+<td><code>string</code></td>
+<td>Removes diacritics and lowercases both strings, then calls <code>Levenshtein</code>. Requires the code pages provider on .NET Core.</td>
+</tr>
+<tr>
+<td><code>GetPathOrFileName()</code></td>
+<td><code>string</code></td>
+<td>Parses an absolute URL. Returns the file name when the path has an extension, otherwise the absolute path. Throws <code>UriFormatException</code> for relative or malformed URLs.</td>
+</tr>
+<tr>
+<td><code>GetFileName()</code></td>
+<td><code>Uri</code></td>
+<td>Returns <code>Path.GetFileName</code> of the local path, or <code>string.Empty</code>.</td>
+</tr>
+<tr>
+<td><code>GetFileExtension()</code></td>
+<td><code>Uri</code>, <code>string</code></td>
+<td>Returns the extension including the leading dot (for example <code>.pdf</code>), or <code>string.Empty</code>.</td>
+</tr>
+<tr>
+<td><code>ToCenter(char spacer, int lineSize)</code></td>
+<td><code>string</code></td>
+<td>Pads both sides with <code>lineSize - input.Length / 2</code> copies of <code>spacer</code> (one more on the right for odd lengths). <code>lineSize</code> is effectively half the final width: the result is about <code>2 * lineSize</code> characters long.</td>
+</tr>
+<tr>
+<td><code>IsValidJson()</code></td>
+<td><code>string</code></td>
+<td>Returns <code>true</code> when the trimmed string starts and ends with <code>{}</code> or <code>[]</code> and parses with <code>JToken.Parse</code>. Returns <code>false</code> for null, scalars and parse errors.</td>
+</tr>
+<tr>
+<td><code>SplitBy(int chunkLength)</code></td>
+<td><code>string</code></td>
+<td>Lazily yields chunks of <code>chunkLength</code> characters (the last may be shorter). Yields a single <code>string.Empty</code> for null or whitespace input. Throws <code>ArgumentException</code> when <code>chunkLength &lt; 1</code>; because the method is an iterator, the exception surfaces on first enumeration.</td>
+</tr>
+<tr>
+<td><code>StripTags()</code></td>
+<td><code>string</code></td>
+<td>Removes everything from each <code>&lt;</code> to the next <code>&gt;</code>. Returns <code>string.Empty</code> for null or whitespace.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="enumextensions"><code>EnumExtensions</code></h3>
+<p><code>public static class EnumExtensions</code> — reads and resolves the <code>HumanReadable</code> and <code>InternalValue</code> attributes on enum fields. See <a href="../attributes/">Attributes</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetHumanReadableValue(string flagsSeparator = " \| ")</code></td>
+<td><code>Enum</code></td>
+<td>Returns the <code>[HumanReadable]</code> text of the value, or <code>null</code> if the field has none. For a <code>[Flags]</code> enum with more than one bit set, joins the text of each set single-bit flag with <code>flagsSeparator</code>. In that case every set flag must have the attribute, or an <code>IndexOutOfRangeException</code> is thrown. Throws <code>ArgumentNullException</code> when a non-flags value does not match a declared field.</td>
+</tr>
+<tr>
+<td><code>GetInternalValue()</code></td>
+<td><code>Enum</code></td>
+<td>Returns the <code>[InternalValue]</code> text of the value, or <code>null</code> if the field has none.</td>
+</tr>
+<tr>
+<td><code>GetUniqueFlags&lt;T&gt;()</code></td>
+<td><code>Enum</code></td>
+<td>Lazily yields each declared single-bit value (as <code>T</code>, usually the enum type) that is set in the value.</td>
+</tr>
+<tr>
+<td><code>GetEnumByHumanReadableAttribute&lt;T&gt;(string humanReadableValue)</code></td>
+<td>— (static)</td>
+<td>Returns the field of enum <code>T</code> whose <code>[HumanReadable]</code> text or field name equals <code>humanReadableValue</code> (case-insensitive). Throws <code>InvalidOperationException</code> when <code>T</code> is not an enum or more than one field matches, and <code>ArgumentOutOfRangeException</code> when nothing matches.</td>
+</tr>
+<tr>
+<td><code>GetEnumByInternalValueAttribute&lt;T&gt;(string internalValue)</code></td>
+<td>— (static)</td>
+<td>Same as above, using <code>[InternalValue]</code>. Returns <code>default(T)</code> when <code>internalValue</code> is null.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exceptionextensions"><code>ExceptionExtensions</code></h3>
+<p><code>public static class ExceptionExtensions</code> — flattens an exception chain and formats it. The logging infrastructure's default exception handler uses these methods; see <a href="../logging/">Logging</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ToQueue(out List&lt;Type&gt; types)</code></td>
+<td><code>Exception</code></td>
+<td>Returns a queue holding the exception and all its inner exceptions, with the innermost exception first and the original exception last. <code>types</code> receives the types of the inner exceptions only (not the outer one), ordered from outer to inner.</td>
+</tr>
+<tr>
+<td><code>GetMessages(string category, ICollection&lt;ILogProvider&gt; additionalProviders)</code></td>
+<td><code>Queue&lt;Exception&gt;</code></td>
+<td>Dequeues every exception (the queue is empty afterwards) and builds one string with each message, the exception type name in brackets, and the stack trace. Entries after the first are prefixed with <code>Exception rethrow at [n]:</code> and a space, where <code>n</code> is the entry's position. For each exception, also calls <code>Error(category, message)</code> on every provider in <code>additionalProviders</code>, which must not be null.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mathextensions"><code>MathExtensions</code></h3>
+<p><code>public static class MathExtensions</code> — rounds integers to a multiple.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RoundDown(int multipleOf = 10)</code></td>
+<td><code>int</code></td>
+<td>Rounds down to the nearest multiple (<code>15</code> becomes <code>10</code>). Negative values round toward zero.</td>
+</tr>
+<tr>
+<td><code>RoundUp(int multipleOf = 10, bool forceDifferentValue = false)</code></td>
+<td><code>int</code></td>
+<td>Rounds up to the next multiple (<code>11</code> becomes <code>20</code>). An exact multiple is returned unchanged unless <code>forceDifferentValue</code> is <code>true</code>, in which case <code>multipleOf</code> is added.</td>
+</tr>
+<tr>
+<td><code>RoundBest(int multipleOf = 10, bool forceDifferentValue = false)</code></td>
+<td><code>int</code></td>
+<td>Rounds to the nearest multiple: down when the remainder is less than <code>multipleOf / 2</code>, up otherwise. A remainder of exactly <code>1</code> always rounds down. An exact multiple is returned unchanged even when <code>forceDifferentValue</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="typeextensions"><code>TypeExtensions</code></h3>
+<p><code>public static class TypeExtensions</code> — reflection helpers.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Implements&lt;TInterface&gt;()</code></td>
+<td><code>Type</code></td>
+<td>Returns <code>true</code> when <code>TInterface</code> is assignable from the type. <code>TInterface</code> must be a reference type.</td>
+</tr>
+<tr>
+<td><code>IsSimpleType()</code></td>
+<td><code>Type</code></td>
+<td>Returns <code>true</code> for value types, primitives, <code>string</code>, <code>decimal</code>, <code>DateTime</code>, <code>DateTimeOffset</code>, <code>TimeSpan</code>, <code>Guid</code>, and any type whose <code>TypeCode</code> is not <code>Object</code>.</td>
+</tr>
+<tr>
+<td><code>IsNumericType()</code></td>
+<td><code>Type</code></td>
+<td>Returns <code>true</code> for <code>byte</code>, <code>sbyte</code>, the 16-, 32- and 64-bit signed and unsigned integers, <code>decimal</code>, <code>double</code> and <code>float</code>, and for <code>Nullable&lt;T&gt;</code> of any of these.</td>
+</tr>
+<tr>
+<td><code>UpdateValues&lt;T&gt;(T newObject)</code></td>
+<td><code>T : IUpdateable</code></td>
+<td>Copies values from <code>newObject</code> into the current object and returns the current object. A property is copied when its new value is non-null and differs from the value on a freshly constructed <code>T</code>, or when <code>newObject</code> has a <code>bool ShouldSerialize&lt;PropertyName&gt;()</code> method that returns <code>true</code>. Simple types are assigned directly; properties whose type implements <code>IUpdateable</code> are merged recursively; other reference types (such as collections) are skipped. <code>T</code> needs a public parameterless constructor and settable properties.</td>
+</tr>
+<tr>
+<td><code>GetQueryStringBuilderKeyName()</code></td>
+<td><code>PropertyInfo</code></td>
+<td>Returns the key from <code>[QueryStringBuilderKeyName]</code>, or <code>null</code>. Used by <code>QueryStringBuilder.AddFromType</code>.</td>
+</tr>
+<tr>
+<td><code>QueryStringBuilderIgnore()</code></td>
+<td><code>PropertyInfo</code></td>
+<td>Returns <code>true</code> when the property has <code>[QueryStringBuilderIgnore]</code>.</td>
+</tr>
+<tr>
+<td><code>GetCallingMethod(int frame = 1, bool excludeBegin = true)</code></td>
+<td>— (static)</td>
+<td>Returns <code>Namespace.Type.Method</code> for the given stack frame (<code>1</code> is the method that called <code>GetCallingMethod</code>). With <code>excludeBegin</code>, a leading <code>CrispyWaffle.</code> is removed. Returns <code>"CrispyWaffle"</code> when the frame has no method.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xmlextensions"><code>XmlExtensions</code></h3>
+<p><code>public static class XmlExtensions</code> — helpers for <code>XmlReader</code>, <code>XmlDocument</code> and <code>XmlNode</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Extends</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DuplicateReaders(out XmlReader cloneOne, out XmlReader cloneTwo)</code></td>
+<td><code>XmlReader</code></td>
+<td>Loads the reader into an <code>XmlDocument</code>, writes it to a <code>MemoryStream</code> and creates two readers (with <code>IgnoreWhitespace</code>) over that stream, then closes the original reader. Both clones share the same stream, so they are not independent: read one to the end before you start the other, and expect problems with documents larger than the reader buffer.</td>
+</tr>
+<tr>
+<td><code>GetFirstElementByTagName(string tagName)</code></td>
+<td><code>XmlDocument</code></td>
+<td>Returns the first element with the tag name, or <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>GetNodeValue(string node)</code></td>
+<td><code>XmlNode</code></td>
+<td>Evaluates <code>node</code> as an XPath expression against the node and returns the inner text of the first match, or <code>string.Empty</code>.</td>
+</tr>
+<tr>
+<td><code>GetNodeValue(string[] nodes)</code></td>
+<td><code>XmlNode</code></td>
+<td>Evaluates each expression and joins the inner texts with a space. Missing nodes contribute an empty string.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="parse-user-input-safely">Parse user input safely</h3>
+<p><code>ToInt32</code> and <code>TryToDateTime</code> never throw, so they suit form and CSV input.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Extensions;
+
+var page = &quot;abc&quot;.ToInt32();                    // 0
+if (&quot;31/12/2020&quot;.TryToDateTime(out var date))  // dd/MM/yyyy fallback
+{
+    Console.WriteLine(date.ToString(&quot;yyyy-MM-dd&quot;)); // 2020-12-31
+}
+
+Console.WriteLine(1000m.ToMonetary(new System.Globalization.CultureInfo(&quot;en-US&quot;))); // $1,000.00
+</code></pre>
+<h3 id="map-enums-to-display-and-storage-values">Map enums to display and storage values</h3>
+<pre><code class="language-csharp">using CrispyWaffle.Attributes;
+using CrispyWaffle.Extensions;
+
+var label = OrderStatus.Pending.GetHumanReadableValue();   // &quot;Waiting for payment&quot;
+var code = OrderStatus.Shipped.GetInternalValue();         // &quot;SH&quot;
+var status = EnumExtensions.GetEnumByInternalValueAttribute&lt;OrderStatus&gt;(&quot;sh&quot;); // OrderStatus.Shipped
+
+public enum OrderStatus
+{
+    [HumanReadable(&quot;Waiting for payment&quot;)]
+    [InternalValue(&quot;WP&quot;)]
+    Pending = 0,
+
+    [HumanReadable(&quot;Shipped&quot;)]
+    [InternalValue(&quot;SH&quot;)]
+    Shipped = 1,
+}
+</code></pre>
+<h3 id="flatten-an-exception-chain">Flatten an exception chain</h3>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using CrispyWaffle.Extensions;
+using CrispyWaffle.Log.Providers;
+
+try
+{
+    throw new InvalidOperationException(&quot;Outer&quot;, new ArgumentException(&quot;Inner&quot;));
+}
+catch (Exception ex)
+{
+    var queue = ex.ToQueue(out var innerTypes);   // Inner first, then Outer
+    var text = queue.GetMessages(&quot;Orders&quot;, new List&lt;ILogProvider&gt;());
+    Console.WriteLine(text);
+}
+</code></pre>
+<h3 id="compare-strings-ignoring-accents-and-case">Compare strings ignoring accents and case</h3>
+<pre><code class="language-csharp">using System.Text;
+using CrispyWaffle.Extensions;
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+var distance = &quot;Three&quot;.LevenshteinInvariantCulture(&quot;tree&quot;); // 1
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../attributes/">Attributes</a> for <code>HumanReadable</code>, <code>InternalValue</code> and the query string attributes</li>
+<li><a href="../utilities/">Utilities</a> for <code>QueryStringBuilder</code> and <code>IUpdateable</code></li>
+<li><a href="../validations/">Validations</a> for the regular expressions used by the string helpers</li>
+<li><a href="../../packages/i18n-ptbr/">pt-BR internationalization</a> for Brazilian-specific conversions</li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

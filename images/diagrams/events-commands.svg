@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="450" viewBox="0 0 1000 450" role="img" aria-labelledby="title desc">
+  <title id="title">CrispyWaffle events and commands dispatch</title>
+  <desc id="desc">EventsConsumer discovers every IEventHandler for an event by scanning loaded types and calls each one. CommandsConsumer resolves exactly one ICommandHandler for a command and returns its result.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0c4dc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#50fa7b"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: #f8f8f2; }
+    .mono { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; font-variant-ligatures: none; }
+    .dim { fill: #a9adc8; }
+    .b { font-weight: 600; }
+    .card { fill: #343746; stroke: #44475a; }
+    .flow { stroke: #c0c4dc; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <rect width="1000" height="450" fill="#282a36"/>
+
+  <text x="40" y="44" font-size="20" class="b">Events and commands</text>
+  <text x="40" y="68" font-size="13" class="dim">Both consumers look handlers up in the ServiceLocator: events reach every handler, a command reaches exactly one.</text>
+
+  <!-- Panel titles -->
+  <text x="60" y="96" font-size="11" class="b dim" letter-spacing="1">EVENTS · ONE → MANY</text>
+  <text x="520" y="96" font-size="11" class="b dim" letter-spacing="1">COMMANDS · ONE → ONE</text>
+
+  <!-- Callers -->
+  <rect x="60" y="104" width="380" height="50" rx="8" fill="#343746" stroke="#50fa7b"/>
+  <text x="250" y="134" font-size="12" text-anchor="middle" class="mono">EventsConsumer.Raise(myEvent)</text>
+
+  <rect x="520" y="104" width="360" height="50" rx="8" fill="#343746" stroke="#50fa7b"/>
+  <text x="700" y="134" font-size="12" text-anchor="middle" class="mono">CommandsConsumer.Raise&lt;TCmd, TResult&gt;(cmd)</text>
+
+  <line x1="250" y1="154" x2="250" y2="198" class="flow" marker-end="url(#arrow)"/>
+  <text x="260" y="181" font-size="11" class="mono dim">ResolveAll&lt;IEventHandler&lt;TEvent&gt;&gt;()</text>
+  <line x1="620" y1="154" x2="620" y2="198" class="flow" marker-end="url(#arrow)"/>
+  <text x="630" y="181" font-size="11" class="mono dim">Resolve&lt;ICommandHandler&lt;TCmd, TResult&gt;&gt;()</text>
+
+  <!-- ServiceLocator -->
+  <rect x="40" y="200" width="860" height="56" rx="8" fill="#343746" stroke="#bd93f9" stroke-width="1.5"/>
+  <text x="60" y="224" font-size="14" class="b mono">ServiceLocator</text>
+  <text x="190" y="224" font-size="12" class="dim">composition root — maps contracts to implementations</text>
+  <text x="60" y="244" font-size="11" class="mono dim">Register&lt;TContract, TImpl&gt;(Lifetime.Transient | Singleton) · RegisterBootstrapper&lt;T&gt;() · Resolve · ResolveAll · TryResolve</text>
+
+  <!-- Event handlers -->
+  <line x1="250" y1="256" x2="124" y2="298" class="flow" marker-end="url(#arrow)"/>
+  <line x1="250" y1="256" x2="250" y2="298" class="flow" marker-end="url(#arrow)"/>
+  <line x1="250" y1="256" x2="376" y2="298" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="60" y="300" width="120" height="60" rx="8" class="card"/>
+  <text x="120" y="324" font-size="13" text-anchor="middle" class="b">① Handler A</text>
+  <text x="120" y="345" font-size="11" text-anchor="middle" class="mono dim">Handle(evt)</text>
+  <rect x="190" y="300" width="120" height="60" rx="8" class="card"/>
+  <text x="250" y="324" font-size="13" text-anchor="middle" class="b">② Handler B</text>
+  <text x="250" y="345" font-size="11" text-anchor="middle" class="mono dim">Handle(evt)</text>
+  <rect x="320" y="300" width="120" height="60" rx="8" class="card"/>
+  <text x="380" y="324" font-size="13" text-anchor="middle" class="b">③ Handler C</text>
+  <text x="380" y="345" font-size="11" text-anchor="middle" class="mono dim">Handle(evt)</text>
+
+  <text x="60" y="392" font-size="12" class="dim">Handlers run in type-discovery order; nothing is returned.</text>
+  <text x="60" y="412" font-size="12" class="dim"><tspan class="mono">RaiseAsync</tspan> resolves <tspan class="mono">IEventHandlerAsync&lt;TEvent&gt;</tspan> on a background task.</text>
+
+  <!-- Command handler -->
+  <line x1="620" y1="256" x2="658" y2="298" class="flow" marker-end="url(#arrow)"/>
+  <rect x="560" y="300" width="200" height="60" rx="8" class="card"/>
+  <text x="660" y="324" font-size="13" text-anchor="middle" class="b">Handler</text>
+  <text x="660" y="345" font-size="11" text-anchor="middle" class="mono dim">Handle(cmd) → TResult</text>
+
+  <path d="M760,330 L930,330 L930,129 L884,129" fill="none" stroke="#50fa7b" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="790" y="322" font-size="11" class="mono" style="fill:#50fa7b">TResult</text>
+
+  <text x="520" y="392" font-size="12" class="dim">Exactly one handler per command type.</text>
+  <text x="520" y="412" font-size="12" class="dim"><tspan class="mono">RaiseAsync</tspan> uses <tspan class="mono">ICommandHandlerAsync&lt;TCmd, TResult&gt;</tspan>.</text>
+</svg>
