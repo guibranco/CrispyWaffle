@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -104,13 +104,18 @@ public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     /// <inheritdoc />
     public void SetLevel(LogLevel level)
     {
-        _level = level;
         Warning(
             $"Level updated from {_level.GetHumanReadableValue()} to {level.GetHumanReadableValue()}."
         );
-    }
+        _level = level;        
+     }
 
     /// <inheritdoc />
+    /// <remarks>
+    /// This method requires the <see cref="LogLevel.Debug"/> log level to be enabled.
+    /// Writes the serialized content to the current rolling log file and stores <paramref name="identifier"/> in <see cref="LogMessage.MessageIdentifier"/>.
+    /// No separate content file is created.
+    /// </remarks>
     public void Debug<T>(
         T content,
         string identifier,
@@ -133,6 +138,11 @@ public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
     }
 
     /// <inheritdoc />
+    /// <remarks>
+    /// This method requires the <see cref="LogLevel.Debug"/> log level to be enabled.
+    /// Writes the content to the current rolling log file and stores <paramref name="fileName"/> in <see cref="LogMessage.MessageIdentifier"/>.
+    /// No separate content file is created.
+    /// </remarks>
     public void Debug(string content, string fileName) =>
         WriteToFile(LogLevel.Debug, content, fileName);
 
@@ -201,7 +211,7 @@ public sealed class RollingTextFileLogAdapter : ITextFileLogAdapter
 
     /// <inheritdoc />
     public void CategorizedDebug(string category, string content, string identifier) =>
-        WriteToFile(LogLevel.Fatal, content, fileName: identifier, category: category);
+        WriteToFile(LogLevel.Debug, content, fileName: identifier, category: category);
 
     /// <inheritdoc />
     public void CategorizedDebug<T>(
