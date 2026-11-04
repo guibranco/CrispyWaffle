@@ -68,8 +68,13 @@ public static class ConversionExtensions
 
         var subscriberLength = dirtyLength - (hasTrunkPrefix ? 3 : 2);
 
+        if (subscriberLength > 9)
+        {
+            return false;
+        }
+
         var hasNineDigits =
-            subscriberLength >= 9
+            subscriberLength == 9
             && dirty.Substring(dirtyLength - 9, 1).Equals(@"9", StringComparison.OrdinalIgnoreCase);
 
         var allowedDigits = hasNineDigits ? 9 : 8;

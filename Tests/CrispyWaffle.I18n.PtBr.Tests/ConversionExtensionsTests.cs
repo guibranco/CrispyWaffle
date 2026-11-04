@@ -54,6 +54,8 @@ public class ConversionExtensionsTests
     [InlineData("123456789123456789", "123456789123456789")]
     [InlineData("abc123def456", "123456")]
     [InlineData("190", "190")]
+    [InlineData("119912345678", "119912345678")]
+    [InlineData("113312345678", "113312345678")]
     public void ValidateInvalidParseBrazilianPhoneNumber(
         string phoneNumber,
         string cleanPhoneNumber

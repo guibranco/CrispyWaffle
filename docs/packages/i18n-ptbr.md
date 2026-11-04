@@ -20,7 +20,8 @@ All methods remove non-digit characters from the input before working on it, so 
 1. If the digits start with `55` and there are 12 to 14 of them, the `55` country code is removed.
 2. If fewer than 10 or more than 12 digits remain, parsing fails.
 3. The area code (DDD) is the first two digits, or digits two and three when the number starts with `0` and has 11 or 12 digits (a trunk prefix such as `011`).
-4. If at least nine digits remain after the area code (and trunk prefix) and the ninth digit from the end is `9`, the number is the last nine digits (mobile number with the extra 9). Otherwise it is the last eight digits, so a landline in an area code ending in 9 (for example `19 3234-5678`) is parsed as `32345678`.
+4. If more than nine digits remain after the area code (and trunk prefix), parsing fails (for example a 12-digit number without a `0` trunk prefix).
+5. If exactly nine digits remain after the area code (and trunk prefix) and the ninth digit from the end is `9`, the number is the last nine digits (mobile number with the extra 9). Otherwise it is the last eight digits, so a landline in an area code ending in 9 (for example `19 3234-5678`) is parsed as `32345678`.
 
 The result is a `PhoneNumber` (from the core package, namespace `CrispyWaffle.Utilities`) with `CountryCode` 55, `RegionCode` set to the area code and `Number` set to the subscriber number. `PhoneNumber.IsNinthDigit` is `true` when the number has nine digits.
 
