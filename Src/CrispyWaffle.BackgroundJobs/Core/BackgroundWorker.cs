@@ -4,287 +4,259 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CrispyWaffle.BackgroundJobs.Core
+namespace CrispyWaffle.BackgroundJobs.Core;
+
+/// <summary>
+/// The hosted service that fetches jobs from the store, or from the in-memory queue, and runs their handlers.
+/// </summary>
+public class BackgroundWorker : BackgroundService
 {
-    public class BackgroundWorker : BackgroundService
+    private readonly IServiceProvider _provider;
+    private readonly BackgroundJobQueue? _queue;
+    private readonly IJobStore? _store;
+    private readonly IJobHandlerRegistry _registry;
+    private readonly JobOptions _options;
+    private readonly ILogger<BackgroundWorker> _logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BackgroundWorker"/> class.
+    /// </summary>
+    /// <param name="provider">The service provider used to resolve the store, the queue, the handler registry and the handlers.</param>
+    /// <param name="options">The worker settings.</param>
+    /// <param name="logger">The logger.</param>
+    public BackgroundWorker(
+        IServiceProvider provider,
+        JobOptions options,
+        ILogger<BackgroundWorker> logger
+    )
     {
-        private readonly IServiceProvider _provider;
-        private readonly BackgroundJobQueue? _queue;
-        private readonly IJobStore? _store;
-        private readonly IJobHandlerRegistry _registry;
-        private readonly JobOptions _options;
-        private readonly ILogger<BackgroundWorker> _logger;
+        _provider = provider;
+        _options = options;
+        _logger = logger;
 
-        public BackgroundWorker(
-            IServiceProvider provider,
-            JobOptions options,
-            ILogger<BackgroundWorker> logger
-        )
+        // These may or may not be registered depending on configuration; resolve lazily per scope
+        _queue = provider.GetService<BackgroundJobQueue>();
+        _store = provider.GetService<IJobStore>();
+        _registry = provider.GetRequiredService<IJobHandlerRegistry>();
+    }
+
+    /// <inheritdoc />
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        _logger.LogInformation(
+            "BackgroundWorker starting with {Workers} workers",
+            _options.WorkerCount
+        );
+
+        var tasks = new Task[_options.WorkerCount];
+        for (int i = 0; i < _options.WorkerCount; i++)
+            tasks[i] = Task.Run(() => WorkerLoopAsync(i, stoppingToken), stoppingToken);
+
+        return Task.WhenAll(tasks);
+    }
+
+    private async Task WorkerLoopAsync(int workerId, CancellationToken stoppingToken)
+    {
+        _logger.LogInformation("Worker {WorkerId} started", workerId);
+
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _provider = provider;
-            _options = options;
-            _logger = logger;
-
-            // These may or may not be registered depending on configuration; resolve lazily per scope
-            _queue = provider.GetService<BackgroundJobQueue>();
-            _store = provider.GetService<IJobStore>();
-            _registry = provider.GetRequiredService<IJobHandlerRegistry>();
-        }
-
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogInformation(
-                "BackgroundWorker starting with {Workers} workers",
-                _options.WorkerCount
-            );
-
-            var tasks = new Task[_options.WorkerCount];
-            for (int i = 0; i < _options.WorkerCount; i++)
-                tasks[i] = Task.Run(() => WorkerLoopAsync(i, stoppingToken), stoppingToken);
-
-            return Task.WhenAll(tasks);
-        }
-
-        private async Task WorkerLoopAsync(int workerId, CancellationToken stoppingToken)
-        {
-            _logger.LogInformation("Worker {WorkerId} started", workerId);
-
-            while (!stoppingToken.IsCancellationRequested)
+            try
             {
-                try
-                {
-                    var job = await FetchNextJobAsync(stoppingToken);
-                    if (job == null)
-                        continue;
+                var job = await FetchNextJobAsync(stoppingToken);
+                if (job == null)
+                    continue;
 
-                    if (await RescheduleIfNotDueAsync(job, stoppingToken))
-                        continue;
+                if (await RescheduleIfNotDueAsync(job, stoppingToken))
+                    continue;
 
-                    if (!await ProcessJobWithScopeAsync(job, stoppingToken))
-                        break; // shutting down
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Worker loop encountered an unexpected error");
-                    await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
-                }
+                if (!await ProcessJobWithScopeAsync(job, stoppingToken))
+                    break; // shutting down
             }
-
-            _logger.LogInformation("Worker {WorkerId} stopping", workerId);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Worker loop encountered an unexpected error");
+                await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+            }
         }
 
-        private async Task<JobEntity?> FetchNextJobAsync(CancellationToken stoppingToken)
+        _logger.LogInformation("Worker {WorkerId} stopping", workerId);
+    }
+
+    private async Task<JobEntity?> FetchNextJobAsync(CancellationToken stoppingToken)
+    {
+        if (_store != null)
         {
+            var job = await _store.FetchNextAsync(stoppingToken);
+            if (job == null)
+                await Task.Delay(_options.PollingInterval, stoppingToken);
+            return job;
+        }
+
+        if (_queue != null)
+        {
+            var job = await _queue.DequeueAsync(stoppingToken);
+            if (job == null)
+                await Task.Delay(TimeSpan.FromMilliseconds(200), stoppingToken);
+            return job;
+        }
+
+        _logger.LogWarning("No job queue nor store configured. Worker sleeping.");
+        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+        return null;
+    }
+
+    private async Task<bool> RescheduleIfNotDueAsync(JobEntity job, CancellationToken stoppingToken)
+    {
+        if (!job.ScheduledAt.HasValue || job.ScheduledAt.Value <= DateTimeOffset.UtcNow)
+            return false;
+
+        // For persistence, mark back to pending with same ScheduledAt; for in-memory, just re-enqueue.
+        if (_store != null)
+        {
+            // mark as Pending again (store.FetchNextAsync should have returned only due jobs, this is defensive)
+            await _store.MarkRetryAsync(job.Id, job.ScheduledAt, job.Attempt, stoppingToken);
+        }
+        else
+        {
+            _queue!.Enqueue(job);
+        }
+
+        return true;
+    }
+
+    private async Task<bool> ProcessJobWithScopeAsync(
+        JobEntity job,
+        CancellationToken stoppingToken
+    )
+    {
+        // Process job with scope so handlers can have scoped services.
+        using var scope = _provider.CreateScope();
+        var scopedProvider = scope.ServiceProvider;
+
+        bool success;
+        try
+        {
+            success = await ProcessJobAsync(job, scopedProvider, stoppingToken);
+        }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+        {
+            // If shutting down, put the job back to pending (or leave DB in Processing if store does locking; here we mark retry)
             if (_store != null)
             {
-                var job = await _store.FetchNextAsync(stoppingToken);
-                if (job == null)
-                    await Task.Delay(_options.PollingInterval, stoppingToken);
-                return job;
-            }
-
-            if (_queue != null)
-            {
-                var job = await _queue.DequeueAsync(stoppingToken);
-                if (job == null)
-                    await Task.Delay(TimeSpan.FromMilliseconds(200), stoppingToken);
-                return job;
-            }
-
-            _logger.LogWarning("No job queue nor store configured. Worker sleeping.");
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-            return null;
-        }
-
-        private async Task<bool> RescheduleIfNotDueAsync(
-            JobEntity job,
-            CancellationToken stoppingToken
-        )
-        {
-            if (!job.ScheduledAt.HasValue || job.ScheduledAt.Value <= DateTimeOffset.UtcNow)
-                return false;
-
-            // For persistence, mark back to pending with same ScheduledAt; for in-memory, just re-enqueue.
-            if (_store != null)
-            {
-                // mark as Pending again (store.FetchNextAsync should have returned only due jobs, this is defensive)
-                await _store.MarkRetryAsync(job.Id, job.ScheduledAt, job.Attempt, stoppingToken);
+                var next = DateTimeOffset.UtcNow.AddSeconds(5);
+                await _store.MarkRetryAsync(job.Id, next, job.Attempt, stoppingToken);
             }
             else
             {
                 _queue!.Enqueue(job);
             }
-
-            return true;
+            return false; // exit loop to allow graceful shutdown
         }
 
-        private async Task<bool> ProcessJobWithScopeAsync(
-            JobEntity job,
-            CancellationToken stoppingToken
-        )
+        if (!success)
         {
-            // Process job with scope so handlers can have scoped services.
-            using var scope = _provider.CreateScope();
-            var scopedProvider = scope.ServiceProvider;
+            _logger.LogWarning(
+                "Job {JobId} failed after processing attempt {Attempt}",
+                job.Id,
+                job.Attempt
+            );
+        }
 
-            bool success;
-            try
-            {
-                success = await ProcessJobAsync(job, scopedProvider, stoppingToken);
-            }
-            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
-            {
-                // If shutting down, put the job back to pending (or leave DB in Processing if store does locking; here we mark retry)
-                if (_store != null)
-                {
-                    var next = DateTimeOffset.UtcNow.AddSeconds(5);
-                    await _store.MarkRetryAsync(job.Id, next, job.Attempt, stoppingToken);
-                }
-                else
-                {
-                    _queue!.Enqueue(job);
-                }
-                return false; // exit loop to allow graceful shutdown
-            }
+        return true;
+    }
 
-            if (!success)
+    private async Task<bool> ProcessJobAsync(
+        JobEntity job,
+        IServiceProvider scopedProvider,
+        CancellationToken cancellationToken
+    )
+    {
+        try
+        {
+            if (!_registry.TryGet(job.HandlerName, out var handlerType, out var dataType))
             {
-                _logger.LogWarning(
-                    "Job {JobId} failed after processing attempt {Attempt}",
-                    job.Id,
-                    job.Attempt
+                await FailJobAsync(
+                    job,
+                    $"No handler registered for '{job.HandlerName}'",
+                    cancellationToken
                 );
-            }
-
-            return true;
-        }
-
-        private async Task<bool> ProcessJobAsync(
-            JobEntity job,
-            IServiceProvider scopedProvider,
-            CancellationToken cancellationToken
-        )
-        {
-            try
-            {
-                if (!_registry.TryGet(job.HandlerName, out var handlerType, out var dataType))
-                {
-                    await FailJobAsync(
-                        job,
-                        $"No handler registered for '{job.HandlerName}'",
-                        cancellationToken
-                    );
-                    return false;
-                }
-
-                // Deserialize payload into dataType
-                var data = DeserializePayload(job, dataType);
-
-                // Resolve handler instance
-                var handler = scopedProvider.GetService(handlerType!);
-                if (handler == null)
-                {
-                    await FailJobAsync(
-                        job,
-                        $"Handler type {handlerType} not resolved from DI",
-                        cancellationToken
-                    );
-                    return false;
-                }
-
-                // Invoke handler using reflection and await the Task<JobResult>
-                var result = await InvokeHandleAsync(handler, data, cancellationToken);
-
-                if (result.Success)
-                {
-                    if (_store != null)
-                        await _store.MarkCompletedAsync(job.Id, cancellationToken);
-                    return true;
-                }
-
-                await HandleJobFailureAsync(job, result, cancellationToken);
                 return false;
             }
-            catch (Exception ex)
+
+            // Deserialize payload into dataType
+            var data = DeserializePayload(job, dataType);
+
+            // Resolve handler instance
+            var handler = scopedProvider.GetService(handlerType!);
+            if (handler == null)
             {
-                _logger.LogError(ex, "Exception when processing job {JobId}", job.Id);
-                await ScheduleRetryAsync(job, cancellationToken);
+                await FailJobAsync(
+                    job,
+                    $"Handler type {handlerType} not resolved from DI",
+                    cancellationToken
+                );
                 return false;
             }
-        }
 
-        private async Task FailJobAsync(
-            JobEntity job,
-            string message,
-            CancellationToken cancellationToken
-        )
-        {
-            _logger.LogError(message);
-            if (_store != null)
-                await _store.MarkFailedAsync(job.Id, message, cancellationToken);
-        }
+            // Invoke handler using reflection and await the Task<JobResult>
+            var result = await InvokeHandleAsync(handler, data, cancellationToken);
 
-        private static object? DeserializePayload(JobEntity job, Type? dataType)
-        {
-            if (string.IsNullOrWhiteSpace(job.Payload))
-                return null;
-            return JsonSerializer.Deserialize(job.Payload, dataType ?? typeof(object));
-        }
-
-        private async Task HandleJobFailureAsync(
-            JobEntity job,
-            JobResult result,
-            CancellationToken cancellationToken
-        )
-        {
-            job.Attempt++;
-            var shouldRetry = result.Retry && job.Attempt < job.MaxAttempt;
-            if (shouldRetry)
+            if (result.Success)
             {
-                var backoffSeconds = ComputeBackoffSeconds(job.Attempt);
-                var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(backoffSeconds);
-                _logger.LogInformation(
-                    "Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})",
-                    job.Id,
-                    backoffSeconds,
-                    job.Attempt,
-                    job.MaxAttempt
-                );
+                if (_store != null)
+                    await _store.MarkCompletedAsync(job.Id, cancellationToken);
+                return true;
+            }
 
-                if (_store != null)
-                {
-                    await _store.MarkRetryAsync(
-                        job.Id,
-                        nextAttempt,
-                        job.Attempt,
-                        cancellationToken
-                    );
-                }
-                else
-                {
-                    job.ScheduledAt = nextAttempt;
-                    _queue!.Enqueue(job);
-                }
-            }
-            else
-            {
-                // exhaust
-                var err = result.ErrorMessage ?? "Job failed";
-                if (_store != null)
-                    await _store.MarkFailedAsync(job.Id, err, cancellationToken);
-                else
-                    _logger.LogError(
-                        "Job {JobId} failed and will not be retried: {Error}",
-                        job.Id,
-                        err
-                    );
-            }
+            await HandleJobFailureAsync(job, result, cancellationToken);
+            return false;
         }
-
-        private async Task ScheduleRetryAsync(JobEntity job, CancellationToken cancellationToken)
+        catch (Exception ex)
         {
-            job.Attempt++;
-            var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(ComputeBackoffSeconds(job.Attempt));
+            _logger.LogError(ex, "Exception when processing job {JobId}", job.Id);
+            await ScheduleRetryAsync(job, cancellationToken);
+            return false;
+        }
+    }
+
+    private async Task FailJobAsync(
+        JobEntity job,
+        string message,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogError(message);
+        if (_store != null)
+            await _store.MarkFailedAsync(job.Id, message, cancellationToken);
+    }
+
+    private static object? DeserializePayload(JobEntity job, Type? dataType)
+    {
+        if (string.IsNullOrWhiteSpace(job.Payload))
+            return null;
+        return JsonSerializer.Deserialize(job.Payload, dataType ?? typeof(object));
+    }
+
+    private async Task HandleJobFailureAsync(
+        JobEntity job,
+        JobResult result,
+        CancellationToken cancellationToken
+    )
+    {
+        job.Attempt++;
+        var shouldRetry = result.Retry && job.Attempt < job.MaxAttempt;
+        if (shouldRetry)
+        {
+            var backoffSeconds = ComputeBackoffSeconds(job.Attempt);
+            var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(backoffSeconds);
+            _logger.LogInformation(
+                "Scheduling retry for job {JobId} after {Delay}s (attempt {Attempt}/{MaxAttempt})",
+                job.Id,
+                backoffSeconds,
+                job.Attempt,
+                job.MaxAttempt
+            );
 
             if (_store != null)
             {
@@ -296,74 +268,101 @@ namespace CrispyWaffle.BackgroundJobs.Core
                 _queue!.Enqueue(job);
             }
         }
-
-        private static int ComputeBackoffSeconds(int attempt)
+        else
         {
-            // exponential backoff with cap
-            var seconds = (int)Math.Pow(2, Math.Min(attempt, 10));
-            return Math.Min(seconds, 300);
-        }
-
-        private static async Task<JobResult> InvokeHandleAsync(
-            object handler,
-            object? data,
-            CancellationToken cancellationToken
-        )
-        {
-            // Find HandleAsync method (TData, CancellationToken)
-            var method = handler.GetType().GetMethod("HandleAsync");
-            if (method == null)
-                throw new InvalidOperationException("Handler does not implement HandleAsync");
-
-            var parameters = method.GetParameters();
-            object? invokeArg1 = null;
-            object? invokeArg2 = null;
-            if (parameters.Length == 2)
-            {
-                invokeArg1 = data;
-                invokeArg2 = cancellationToken;
-            }
-            else if (parameters.Length == 1)
-            {
-                invokeArg1 = data ?? cancellationToken;
-                if (invokeArg1 is CancellationToken)
-                {
-                    invokeArg2 = null;
-                }
-            }
-
-            var taskObj = method.Invoke(
-                handler,
-                invokeArg2 == null ? new[] { invokeArg1 } : new[] { invokeArg1, invokeArg2 }
-            );
-            if (taskObj == null)
-                throw new InvalidOperationException(
-                    "Handler returned null instead of Task<JobResult>"
+            // exhaust
+            var err = result.ErrorMessage ?? "Job failed";
+            if (_store != null)
+                await _store.MarkFailedAsync(job.Id, err, cancellationToken);
+            else
+                _logger.LogError(
+                    "Job {JobId} failed and will not be retried: {Error}",
+                    job.Id,
+                    err
                 );
-
-            // support Task<JobResult> and Task
-            if (taskObj is Task<JobResult> typed)
-            {
-                return await typed;
-            }
-
-            if (taskObj is Task task)
-            {
-                await task;
-                // attempt to read Result property (in case of Task<T>)
-                var resultProperty = task.GetType().GetProperty("Result");
-                if (resultProperty != null)
-                {
-                    var res = resultProperty.GetValue(task);
-                    if (res is JobResult jr)
-                        return jr;
-                }
-
-                // else assume success
-                return JobResult.Ok();
-            }
-
-            throw new InvalidOperationException("Handler.HandleAsync returned unsupported type");
         }
+    }
+
+    private async Task ScheduleRetryAsync(JobEntity job, CancellationToken cancellationToken)
+    {
+        job.Attempt++;
+        var nextAttempt = DateTimeOffset.UtcNow.AddSeconds(ComputeBackoffSeconds(job.Attempt));
+
+        if (_store != null)
+        {
+            await _store.MarkRetryAsync(job.Id, nextAttempt, job.Attempt, cancellationToken);
+        }
+        else
+        {
+            job.ScheduledAt = nextAttempt;
+            _queue!.Enqueue(job);
+        }
+    }
+
+    private static int ComputeBackoffSeconds(int attempt)
+    {
+        // exponential backoff with cap
+        var seconds = (int)Math.Pow(2, Math.Min(attempt, 10));
+        return Math.Min(seconds, 300);
+    }
+
+    private static async Task<JobResult> InvokeHandleAsync(
+        object handler,
+        object? data,
+        CancellationToken cancellationToken
+    )
+    {
+        // Find HandleAsync method (TData, CancellationToken)
+        var method = handler.GetType().GetMethod("HandleAsync");
+        if (method == null)
+            throw new InvalidOperationException("Handler does not implement HandleAsync");
+
+        var parameters = method.GetParameters();
+        object? invokeArg1 = null;
+        object? invokeArg2 = null;
+        if (parameters.Length == 2)
+        {
+            invokeArg1 = data;
+            invokeArg2 = cancellationToken;
+        }
+        else if (parameters.Length == 1)
+        {
+            invokeArg1 = data ?? cancellationToken;
+            if (invokeArg1 is CancellationToken)
+            {
+                invokeArg2 = null;
+            }
+        }
+
+        var taskObj = method.Invoke(
+            handler,
+            invokeArg2 == null ? new[] { invokeArg1 } : new[] { invokeArg1, invokeArg2 }
+        );
+        if (taskObj == null)
+            throw new InvalidOperationException("Handler returned null instead of Task<JobResult>");
+
+        // support Task<JobResult> and Task
+        if (taskObj is Task<JobResult> typed)
+        {
+            return await typed;
+        }
+
+        if (taskObj is Task task)
+        {
+            await task;
+            // attempt to read Result property (in case of Task<T>)
+            var resultProperty = task.GetType().GetProperty("Result");
+            if (resultProperty != null)
+            {
+                var res = resultProperty.GetValue(task);
+                if (res is JobResult jr)
+                    return jr;
+            }
+
+            // else assume success
+            return JobResult.Ok();
+        }
+
+        throw new InvalidOperationException("Handler.HandleAsync returned unsupported type");
     }
 }
