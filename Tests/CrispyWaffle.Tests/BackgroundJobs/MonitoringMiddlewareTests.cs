@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CrispyWaffle.BackgroundJobs.Monitoring;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using NSubstitute;
 using Xunit;
 
 namespace CrispyWaffle.Tests.BackgroundJobs;
@@ -83,22 +82,15 @@ public class MonitoringMiddlewareTests
         body.Length.Should().Be(0);
     }
 
-    private static HttpContext CreateContext(
+    private static DefaultHttpContext CreateContext(
         string path,
         Stream body,
         CancellationToken requestAborted
     )
     {
-        var request = Substitute.For<HttpRequest>();
-        request.Path.Returns(new PathString(path));
-
-        var response = Substitute.For<HttpResponse>();
-        response.Body.Returns(body);
-
-        var context = Substitute.For<HttpContext>();
-        context.Request.Returns(request);
-        context.Response.Returns(response);
-        context.RequestAborted.Returns(requestAborted);
+        var context = new DefaultHttpContext { RequestAborted = requestAborted };
+        context.Request.Path = path;
+        context.Response.Body = body;
 
         return context;
     }
