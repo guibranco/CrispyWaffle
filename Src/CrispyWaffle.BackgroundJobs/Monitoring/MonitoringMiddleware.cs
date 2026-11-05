@@ -33,7 +33,10 @@ namespace CrispyWaffle.BackgroundJobs.Monitoring
             if (context.Request.Path.StartsWithSegments("/jobs/metrics"))
             {
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(JsonSerializer.Serialize(_metrics.Snapshot()));
+                await context.Response.WriteAsync(
+                    JsonSerializer.Serialize(_metrics.Snapshot()),
+                    context.RequestAborted
+                );
                 return;
             }
 
