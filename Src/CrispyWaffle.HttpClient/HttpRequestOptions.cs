@@ -9,6 +9,35 @@ namespace CrispyWaffle.HttpClient
     /// <summary>
     /// Options used as defaults (via IOptions) and can be overriden per-request.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <see cref="HttpClientWrapper"/> combines the instance passed to a request with the registered
+    /// defaults one property at a time. Not every default is inherited.
+    /// </para>
+    /// <list type="bullet">
+    /// <item><description>
+    /// <see cref="BaseAddress"/>, <see cref="NamedHttpClient"/> and <see cref="Serializer"/> take the
+    /// per-request value when it is not <c>null</c>, otherwise the default.
+    /// </description></item>
+    /// <item><description>
+    /// <see cref="TimeoutSeconds"/>, <see cref="RetryCount"/>, <see cref="RetryBaseDelayMs"/> and
+    /// <see cref="MaxRetryDelayMs"/> take the per-request value when it is not <c>0</c>, otherwise the default.
+    /// </description></item>
+    /// <item><description>
+    /// <see cref="ThrowOnError"/> and <see cref="UseJsonContentType"/> always take the per-request value.
+    /// </description></item>
+    /// <item><description>
+    /// The <see cref="DefaultRequestHeaders"/> of both are sent. For a header present in both, the
+    /// per-request value is used.
+    /// </description></item>
+    /// </list>
+    /// <para>
+    /// A new instance starts with 30, 3, 200 and 10000 in the numeric properties, <c>false</c> in
+    /// <see cref="ThrowOnError"/> and <c>true</c> in <see cref="UseJsonContentType"/>. Passing one therefore
+    /// replaces the registered values of those properties, unless they are set again on it. A per-request
+    /// <see cref="RetryCount"/> of <c>0</c> does not disable retries: it falls back to the registered default.
+    /// </para>
+    /// </remarks>
     public class HttpRequestOptions
     {
         /// <summary>Gets or sets base address for created HttpClient if specified (can be null when using full URLs).</summary>

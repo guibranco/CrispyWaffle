@@ -11,8 +11,14 @@ namespace CrispyWaffle.BackgroundJobs.Core
         public int WorkerCount { get; set; } = Environment.ProcessorCount;
 
         /// <summary>
-        /// Gets or sets the default maximum retry attempts for jobs enqueued without explicit MaxAttempt.
+        /// Gets or sets the <see cref="Abstractions.JobEntity.MaxAttempt"/> given to jobs that
+        /// <see cref="JobDispatcher"/> enqueues without an explicit value.
         /// </summary>
+        /// <remarks>
+        /// The value counts executions, not retries: with the default of 3, a handler that keeps asking
+        /// for a retry runs three times. It is not checked when the handler throws an exception: such a
+        /// job is always scheduled to run again.
+        /// </remarks>
         public int DefaultMaxAttempt { get; set; } = 3;
 
         /// <summary>
@@ -23,6 +29,9 @@ namespace CrispyWaffle.BackgroundJobs.Core
         /// <summary>
         /// Gets or sets the maximum exponential backoff seconds for retry.
         /// </summary>
+        /// <remarks>
+        /// The worker does not read this value: its retry backoff is capped at a fixed 300 seconds.
+        /// </remarks>
         public int MaxBackoffSeconds { get; set; } = 300; // 5 minutes
     }
 }

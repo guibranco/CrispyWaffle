@@ -15,8 +15,15 @@ namespace CrispyWaffle.HttpClient
         /// </summary>
         /// <typeparam name="T">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
-        /// <param name="cancellationToken">A token to cancel the request.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A token to cancel the request. It is observed until the response headers arrive and during the waits
+        /// between retries, but not while the response body is read.
+        /// </param>
         /// <returns>A task whose result describes the outcome of the request.</returns>
         Task<HttpResponse<T>> GetAsync<T>(
             string url,
@@ -32,8 +39,15 @@ namespace CrispyWaffle.HttpClient
         /// <typeparam name="TResponse">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
         /// <param name="body">The request body; no content is sent when it is <c>null</c>.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
-        /// <param name="cancellationToken">A token to cancel the request.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A token to cancel the request. It is observed until the response headers arrive and during the waits
+        /// between retries, but not while the response body is read.
+        /// </param>
         /// <returns>A task whose result describes the outcome of the request.</returns>
         Task<HttpResponse<TResponse>> PostAsync<TRequest, TResponse>(
             string url,
@@ -50,8 +64,15 @@ namespace CrispyWaffle.HttpClient
         /// <typeparam name="TResponse">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
         /// <param name="body">The request body; no content is sent when it is <c>null</c>.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
-        /// <param name="cancellationToken">A token to cancel the request.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A token to cancel the request. It is observed until the response headers arrive and during the waits
+        /// between retries, but not while the response body is read.
+        /// </param>
         /// <returns>A task whose result describes the outcome of the request.</returns>
         Task<HttpResponse<TResponse>> PutAsync<TRequest, TResponse>(
             string url,
@@ -64,8 +85,15 @@ namespace CrispyWaffle.HttpClient
         /// Sends a DELETE request. A response body, if any, is deserialized as an <see cref="object"/>.
         /// </summary>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
-        /// <param name="cancellationToken">A token to cancel the request.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
+        /// <param name="cancellationToken">
+        /// A token to cancel the request. It is observed until the response headers arrive and during the waits
+        /// between retries, but not while the response body is read.
+        /// </param>
         /// <returns>A task whose result describes the outcome of the request.</returns>
         Task<HttpResponse<object?>> DeleteAsync(
             string url,
@@ -78,7 +106,11 @@ namespace CrispyWaffle.HttpClient
         /// </summary>
         /// <typeparam name="T">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
         /// <returns>The outcome of the request.</returns>
         /// <remarks>
         /// This method blocks on <see cref="GetAsync{T}"/> and may deadlock when called under a synchronization context.
@@ -94,7 +126,11 @@ namespace CrispyWaffle.HttpClient
         /// <typeparam name="TResponse">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
         /// <param name="body">The request body; no content is sent when it is <c>null</c>.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
         /// <returns>The outcome of the request.</returns>
         /// <remarks>
         /// This method blocks on <see cref="PostAsync{TRequest, TResponse}"/> and may deadlock when called under a synchronization context.
@@ -114,7 +150,11 @@ namespace CrispyWaffle.HttpClient
         /// <typeparam name="TResponse">The type the response body is deserialized into.</typeparam>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
         /// <param name="body">The request body; no content is sent when it is <c>null</c>.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
         /// <returns>The outcome of the request.</returns>
         /// <remarks>
         /// This method blocks on <see cref="PutAsync{TRequest, TResponse}"/> and may deadlock when called under a synchronization context.
@@ -130,7 +170,11 @@ namespace CrispyWaffle.HttpClient
         /// Sends a DELETE request synchronously. A response body, if any, is deserialized as an <see cref="object"/>.
         /// </summary>
         /// <param name="url">The request URL, absolute or relative to the configured base address.</param>
-        /// <param name="options">The options for this request, merged with the registered defaults; <c>null</c> to use the defaults.</param>
+        /// <param name="options">
+        /// The options for this request; <c>null</c> to use the registered defaults. A non-null value replaces
+        /// some of those defaults even for properties it leaves unset, such as
+        /// <see cref="HttpRequestOptions.ThrowOnError"/>; see the remarks on <see cref="HttpRequestOptions"/>.
+        /// </param>
         /// <returns>The outcome of the request.</returns>
         /// <remarks>
         /// This method blocks on <see cref="DeleteAsync"/> and may deadlock when called under a synchronization context.
