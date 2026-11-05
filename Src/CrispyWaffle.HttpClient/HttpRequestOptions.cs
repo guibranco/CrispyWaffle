@@ -37,6 +37,10 @@ namespace CrispyWaffle.HttpClient;
 /// replaces the registered values of those properties, unless they are set again on it. A per-request
 /// <see cref="RetryCount"/> of <c>0</c> does not disable retries: it falls back to the registered default.
 /// </para>
+/// <para>
+/// The resulting <see cref="BaseAddress"/> is applied only when the client that the factory returns has
+/// none. A base address configured on a named client is kept.
+/// </para>
 /// </remarks>
 public class HttpRequestOptions
 {
