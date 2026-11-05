@@ -90,7 +90,8 @@ public sealed class StandardConsoleLogAdapter : IConsoleLogAdapter
     }
 
     /// <summary>
-    /// Finalizes an instance of the <see cref="StandardConsoleLogAdapter"/> class and suppresses finalization.
+    /// Finalizes an instance of the <see cref="StandardConsoleLogAdapter"/> class.
+    /// Calls <see cref="Dispose"/>, which suppresses finalization.
     /// </summary>
     ~StandardConsoleLogAdapter()
     {
