@@ -47,7 +47,7 @@ public class CategoryLogFilter(Type provider = null, bool isExclusive = true) : 
     /// <returns><c>true</c> if the log message should be filtered (i.e., not allowed to pass through), <c>false</c> otherwise.</returns>
     /// <remarks>
     /// If a provider type is specified, the log message will only pass through if it matches
-    /// the provided provider type. If the <paramref name="isExclusive"/> flag is set to <c>true</c>,
+    /// the provided provider type. If the <c>isExclusive</c> flag is set to <c>true</c>,
     /// the log message will only pass through if its category is one of the specified categories.
     /// If the flag is set to <c>false</c>, the message will pass through only if its category
     /// is not in the filter.
