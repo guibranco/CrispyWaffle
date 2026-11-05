@@ -6,15 +6,13 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="coverlet.msbuild" />
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="JunitXml.TestLogger" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="NSubstitute" />
+    <PackageReference Include="System.Diagnostics.EventLog" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />

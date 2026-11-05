@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CrispyWaffle.BackgroundJobs.Monitoring;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using NSubstitute;
 using Xunit;
 
 namespace CrispyWaffle.Tests.BackgroundJobs;
@@ -82,15 +83,25 @@ public class MonitoringMiddlewareTests
         body.Length.Should().Be(0);
     }
 
-    private static DefaultHttpContext CreateContext(
+    // The context is built from substitutes because DefaultHttpContext lives in the ASP.NET Core
+    // shared framework, which this test project does not reference. The library compiles against
+    // Microsoft.AspNetCore.Http.Abstractions 2.2.0, whose WriteAsync writes to Response.Body.
+    private static HttpContext CreateContext(
         string path,
         Stream body,
         CancellationToken requestAborted
     )
     {
-        var context = new DefaultHttpContext { RequestAborted = requestAborted };
-        context.Request.Path = path;
-        context.Response.Body = body;
+        var request = Substitute.For<HttpRequest>();
+        request.Path.Returns(new PathString(path));
+
+        var response = Substitute.For<HttpResponse>();
+        response.Body.Returns(body);
+
+        var context = Substitute.For<HttpContext>();
+        context.Request.Returns(request);
+        context.Response.Returns(response);
+        context.RequestAborted.Returns(requestAborted);
 
         return context;
     }
