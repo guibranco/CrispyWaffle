@@ -118,7 +118,7 @@ public class SmtpMailer : IMailer
         ) { }
 
     /// <summary>
-    /// Finalizer for the <see cref="SmtpMailer"/> class.
+    /// Finalizes an instance of the <see cref="SmtpMailer"/> class.
     /// Ensures that resources are properly cleaned up when the object is collected by the garbage collector.
     /// </summary>
     ~SmtpMailer() => Dispose(false);

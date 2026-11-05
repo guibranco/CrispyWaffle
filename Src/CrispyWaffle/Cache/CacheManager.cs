@@ -637,6 +637,7 @@ public static class CacheManager
     /// <typeparam name="T">The type of the value to retrieve.</typeparam>
     /// <param name="key">The key of the cached value.</param>
     /// <param name="subKey">The sub key of the cached value.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The retrieved value.</returns>
     /// <exception cref="InvalidOperationException">Unable to get the item with key {key} and sub key {subKey}.</exception>
     public static async ValueTask<T> GetAsync<T>(
