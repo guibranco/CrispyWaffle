@@ -13,7 +13,7 @@ public class ErrorResponse : IJsonResponse
     /// The key represents the error field or context, and the value is a collection of error messages related to that key.
     /// </summary>
     /// <value>
-    /// A dictionary where the key is a string representing the error field or context, and the value is an <see cref="IEnumerable{string}"/>
+    /// A dictionary where the key is a string representing the error field or context, and the value is an <see cref="IEnumerable{T}"/> of <see cref="string"/>
     /// containing the error messages related to that field or context.
     /// </value>
     public Dictionary<string, IEnumerable<string>> ErrorList { get; set; }

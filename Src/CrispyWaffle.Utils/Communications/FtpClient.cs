@@ -197,7 +197,6 @@ public class FtpClient
     /// Removes the path/file in the FtpClient host.
     /// </summary>
     /// <param name="path">The path String.</param>
-    /// <returns>true if it succeeds, false if it fails.</returns>
     /// <exception cref="CrispyWaffle.Utils.GoodPractices.FtpClientException">remove.</exception>
     private void RemoveInternal(string path)
     {
