@@ -48,7 +48,7 @@ public static class XmlExtensions
     /// The first <see cref="XmlNode"/> matching the tag name, or <c>null</c> if no matching elements are found.
     /// </returns>
     /// <remarks>
-    /// This method uses <see cref="XmlDocument.GetElementsByTagName"/> to get all elements with the specified tag
+    /// This method uses <see cref="XmlDocument.GetElementsByTagName(string)"/> to get all elements with the specified tag
     /// and returns the first element in the collection, if any.
     /// </remarks>
     public static XmlNode GetFirstElementByTagName(this XmlDocument document, string tagName)
@@ -66,7 +66,7 @@ public static class XmlExtensions
     /// The inner text of the child node if found; otherwise, an empty string.
     /// </returns>
     /// <remarks>
-    /// This method uses <see cref="XmlNode.SelectNodes"/> to select the child node by its name and fetches the
+    /// This method uses <see cref="XmlNode.SelectNodes(string)"/> to select the child node by its name and fetches the
     /// <see cref="XmlNode.InnerText"/> if the node is found.
     /// </remarks>
     public static string GetNodeValue(this XmlNode xmlNode, string node)
@@ -86,7 +86,7 @@ public static class XmlExtensions
     /// If a node is not found, an empty string is used in its place.
     /// </returns>
     /// <remarks>
-    /// This method uses <see cref="XmlNode.SelectNodes"/> for each node name in the <paramref name="nodes"/>
+    /// This method uses <see cref="XmlNode.SelectNodes(string)"/> for each node name in the <paramref name="nodes"/>
     /// array, collects the values of the found nodes, and concatenates them into a single string with a space separator.
     /// </remarks>
     public static string GetNodeValue(this XmlNode xmlNode, string[] nodes)

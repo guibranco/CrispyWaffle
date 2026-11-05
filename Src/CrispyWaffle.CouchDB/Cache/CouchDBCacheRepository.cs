@@ -112,12 +112,13 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <typeparam name="T">The type of the cached document to retrieve.</typeparam>
     /// <param name="key">The primary key used to identify the cached document.</param>
     /// <param name="subKey">The secondary key used to further specify the cached document.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>
     /// An instance of type <typeparamref name="T"/> if the type is assignable from <see cref="CouchDBCacheDocument"/>; otherwise, returns the default value for type <typeparamref name="T"/>.
     /// </returns>
     /// <remarks>
     /// This method checks if the specified type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
-    /// If it is, it calls the method <see cref="GetSpecificAsync{CouchDBCacheDocument}"/> to retrieve the cached document associated with the provided keys.
+    /// If it is, it calls the method <see cref="GetSpecificAsync{T}(string, string, CancellationToken)"/> to retrieve the cached document associated with the provided keys.
     /// If the type is not assignable, it returns the default value for that type, which could be null for reference types or zero for numeric types.
     /// This method is useful for retrieving cached data in a type-safe manner, ensuring that only compatible types are processed.
     /// </remarks>
@@ -419,7 +420,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <remarks>
     /// This method checks if the provided type <typeparamref name="T"/> is assignable from <see cref="CouchDBCacheDocument"/>.
     /// If it is not, the method returns without performing any action.
-    /// If the type is valid, it calls the <see cref="SetSpecific"/> method to set the value in the cache.
+    /// If the type is valid, it calls the <see cref="SetSpecificAsync{T}(T, string, string, CancellationToken)"/> method to set the value in the cache.
     /// This allows for type-safe caching of documents that inherit from <see cref="CouchDBCacheDocument"/>.
     /// </remarks>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
@@ -477,6 +478,7 @@ public class CouchDBCacheRepository : ICacheRepository, IDisposable
     /// <param name="value">The value of type T to be persisted.</param>
     /// <param name="key">A uniquely identifiable key to remove document from the specified database.</param>
     /// <param name="ttl">How long the value should be stored.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A ValueTask representing the asynchronous operation.</returns>
     public async Task SetSpecificAsync<T>(
         T value,
