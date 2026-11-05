@@ -3,12 +3,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CrispyWaffle.HttpClient
 {
+    /// <summary>
+    /// Extension methods to register the HttpClient wrapper in an <see cref="IServiceCollection"/>.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Registers the HttpClient wrapper with defaults and a System.Text.Json serializer.
         /// Make sure you call this after configuring your application's dependency injection.
         /// </summary>
+        /// <param name="services">The service collection to add the wrapper to.</param>
+        /// <param name="configureOptions">An optional action to configure the default <see cref="HttpRequestOptions"/>.</param>
+        /// <returns>The same <see cref="IServiceCollection"/>, so that calls can be chained.</returns>
         /// <remarks>
         /// Improvements:
         /// 1. Use services.Configure(...) to register options in a standard and thread-safe way.

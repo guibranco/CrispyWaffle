@@ -12,6 +12,18 @@ namespace CrispyWaffle.HttpClient
     /// </summary>
     internal static class RetryPolicy
     {
+        /// <summary>
+        /// Executes an HTTP action, retrying it on transient failures with exponential backoff and jitter.
+        /// </summary>
+        /// <param name="action">The action that sends the request. It is invoked once for each attempt.</param>
+        /// <param name="retryCount">The number of retries after the first attempt. Zero or less means a single attempt.</param>
+        /// <param name="baseDelayMs">The base delay, in milliseconds, used for the exponential backoff.</param>
+        /// <param name="maxDelayMs">The maximum delay, in milliseconds, to wait before the next attempt.</param>
+        /// <param name="ct">A token to cancel the operation.</param>
+        /// <returns>
+        /// A tuple holding the response when one that does not need to be retried is received;
+        /// otherwise a <c>null</c> response and the last exception caught, if any.
+        /// </returns>
         public static async Task<(
             HttpResponseMessage? Response,
             Exception? Exception

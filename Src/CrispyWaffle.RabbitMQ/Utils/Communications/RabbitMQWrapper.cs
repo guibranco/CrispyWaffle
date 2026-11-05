@@ -36,6 +36,7 @@ public class RabbitMQWrapper
     /// <param name="item">The item to send. It will be serialized to JSON before being sent.</param>
     /// <param name="exchangeDeclareType">The type of exchange to declare. If <c>null</c>, the exchange will not be declared.</param>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> to allow cancellation of the operation.</param>
+    /// <returns>A <see cref="Task"/> that completes when the message has been published to the exchange.</returns>
     /// <remarks>
     /// This method establishes a connection to RabbitMQ, declares an exchange if necessary,
     /// serializes the provided item to JSON, and sends the message to the exchange.
@@ -101,6 +102,7 @@ public class RabbitMQWrapper
     /// <param name="item">The item to send. It will be serialized to JSON before being sent.</param>
     /// <param name="queueDeclare">If <c>true</c>, the queue will be declared before sending the message. Default is <c>true</c>.</param>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> to allow cancellation of the operation.</param>
+    /// <returns>A <see cref="Task"/> that completes when the message has been published to the queue.</returns>
     /// <remarks>
     /// This method establishes a connection to RabbitMQ, declares a queue if necessary,
     /// serializes the provided item to JSON, and sends the message to the queue.

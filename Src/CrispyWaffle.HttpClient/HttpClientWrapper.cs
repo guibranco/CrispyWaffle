@@ -24,6 +24,14 @@ namespace CrispyWaffle.HttpClient
         private readonly IJsonSerializer _defaultSerializer;
         private readonly ILogger<HttpClientWrapper>? _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpClientWrapper"/> class.
+        /// </summary>
+        /// <param name="httpClientFactory">The factory used to create the underlying <see cref="System.Net.Http.HttpClient"/> instances.</param>
+        /// <param name="options">The default request options. A new <see cref="HttpRequestOptions"/> is used when it, or its value, is <c>null</c>.</param>
+        /// <param name="serializer">The default JSON serializer. A <see cref="SystemTextJsonSerializer"/> is used when it is <c>null</c>.</param>
+        /// <param name="logger">The logger used to report header, read and deserialization problems. It may be <c>null</c>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="httpClientFactory"/> is <c>null</c>.</exception>
         public HttpClientWrapper(
             IHttpClientFactory httpClientFactory,
             IOptions<HttpRequestOptions> options,
@@ -131,12 +139,14 @@ namespace CrispyWaffle.HttpClient
 
         #region Public Async Methods
 
+        /// <inheritdoc />
         public Task<HttpResponse<T>> GetAsync<T>(
             string url,
             HttpRequestOptions? options = null,
             CancellationToken cancellationToken = default
         ) => SendAsync<T>(HttpMethod.Get, url, null, options, cancellationToken);
 
+        /// <inheritdoc />
         public Task<HttpResponse<TResponse>> PostAsync<TRequest, TResponse>(
             string url,
             TRequest? body = default,
@@ -144,6 +154,7 @@ namespace CrispyWaffle.HttpClient
             CancellationToken cancellationToken = default
         ) => SendAsync<TResponse>(HttpMethod.Post, url, body, options, cancellationToken);
 
+        /// <inheritdoc />
         public Task<HttpResponse<TResponse>> PutAsync<TRequest, TResponse>(
             string url,
             TRequest? body = default,
@@ -151,6 +162,7 @@ namespace CrispyWaffle.HttpClient
             CancellationToken cancellationToken = default
         ) => SendAsync<TResponse>(HttpMethod.Put, url, body, options, cancellationToken);
 
+        /// <inheritdoc />
         public Task<HttpResponse<object?>> DeleteAsync(
             string url,
             HttpRequestOptions? options = null,
@@ -161,21 +173,25 @@ namespace CrispyWaffle.HttpClient
 
         #region Public Sync wrappers (use with caution)
 
+        /// <inheritdoc />
         public HttpResponse<T> Get<T>(string url, HttpRequestOptions? options = null) =>
             GetAsync<T>(url, options).GetAwaiter().GetResult();
 
+        /// <inheritdoc />
         public HttpResponse<TResponse> Post<TRequest, TResponse>(
             string url,
             TRequest? body = default,
             HttpRequestOptions? options = null
         ) => PostAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
 
+        /// <inheritdoc />
         public HttpResponse<TResponse> Put<TRequest, TResponse>(
             string url,
             TRequest? body = default,
             HttpRequestOptions? options = null
         ) => PutAsync<TRequest, TResponse>(url, body, options).GetAwaiter().GetResult();
 
+        /// <inheritdoc />
         public HttpResponse<object?> Delete(string url, HttpRequestOptions? options = null) =>
             DeleteAsync(url, options).GetAwaiter().GetResult();
 

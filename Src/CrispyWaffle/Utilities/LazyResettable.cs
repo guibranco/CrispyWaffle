@@ -8,7 +8,7 @@ namespace CrispyWaffle.Utilities;
 /// <summary>
 /// The resettable lazy class. This class is based on https://stackoverflow.com/a/6255398/1890220.
 /// </summary>
-/// <typeparam name="T"></typeparam>
+/// <typeparam name="T">The type of the lazily initialized value.</typeparam>
 /// <seealso cref="ILazyResettable" />
 /// <remarks>
 /// Initializes a new instance of the <see cref="LazyResettable{T}" /> class.
