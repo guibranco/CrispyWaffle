@@ -3,6 +3,9 @@ using CrispyWaffle.BackgroundJobs.Abstractions;
 
 namespace CrispyWaffle.BackgroundJobs.Core
 {
+    /// <summary>
+    /// Creates jobs and hands them to the job store, or to the in-memory queue when there is no store.
+    /// </summary>
     public class JobDispatcher
     {
         private readonly IServiceProvider _provider;
@@ -10,6 +13,13 @@ namespace CrispyWaffle.BackgroundJobs.Core
         private readonly IJobStore? _store;
         private readonly JobOptions _options;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JobDispatcher"/> class.
+        /// </summary>
+        /// <param name="provider">The service provider.</param>
+        /// <param name="queue">The in-memory queue, used when there is no store.</param>
+        /// <param name="store">The job store, when one is registered.</param>
+        /// <param name="options">The worker settings.</param>
         public JobDispatcher(
             IServiceProvider provider,
             BackgroundJobQueue? queue,
@@ -23,6 +33,17 @@ namespace CrispyWaffle.BackgroundJobs.Core
             _options = options;
         }
 
+        /// <summary>
+        /// Creates a job that is due immediately.
+        /// </summary>
+        /// <param name="handlerName">The name the handler was registered under.</param>
+        /// <param name="payload">The payload of the job. It is serialized to JSON.</param>
+        /// <param name="maxAttempts">
+        /// The maximum number of executions when the handler keeps asking for a retry,
+        /// or <c>null</c> to use <see cref="JobOptions.DefaultMaxAttempt"/>.
+        /// </param>
+        /// <param name="priority">The priority of the job.</param>
+        /// <returns>A task whose result is the id of the new job.</returns>
         public async Task<Guid> EnqueueAsync(
             string handlerName,
             object payload,
@@ -52,6 +73,22 @@ namespace CrispyWaffle.BackgroundJobs.Core
             return job.Id;
         }
 
+        /// <summary>
+        /// Creates a job that becomes due after a delay.
+        /// </summary>
+        /// <param name="handlerName">The name the handler was registered under.</param>
+        /// <param name="payload">The payload of the job. It is serialized to JSON.</param>
+        /// <param name="delay">The time to wait before the job becomes due.</param>
+        /// <param name="maxAttempts">
+        /// The maximum number of executions when the handler keeps asking for a retry,
+        /// or <c>null</c> to use <see cref="JobOptions.DefaultMaxAttempt"/>.
+        /// </param>
+        /// <param name="priority">The priority of the job.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <remarks>
+        /// Without a store, the delay is waited in a background task before the job is queued,
+        /// so the job is lost if the process stops in the meantime.
+        /// </remarks>
         public async Task ScheduleAsync(
             string handlerName,
             object payload,

@@ -3,10 +3,14 @@ using CrispyWaffle.BackgroundJobs.Abstractions;
 
 namespace CrispyWaffle.BackgroundJobs.Persistence
 {
+    /// <summary>
+    /// The default <see cref="IJobStore"/>, which keeps jobs in the memory of the process.
+    /// </summary>
     public class InMemoryJobStore : IJobStore
     {
         private readonly ConcurrentDictionary<Guid, JobEntity> _storage = new();
 
+        /// <inheritdoc />
         public Task SaveAsync(JobEntity job, CancellationToken cancellationToken = default)
         {
             job.UpdatedAt = DateTimeOffset.UtcNow;
@@ -14,6 +18,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public Task<JobEntity?> FetchNextAsync(CancellationToken cancellationToken = default)
         {
             var now = DateTimeOffset.UtcNow;
@@ -38,6 +43,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.FromResult<JobEntity?>(null);
         }
 
+        /// <inheritdoc />
         public Task MarkCompletedAsync(Guid jobId, CancellationToken cancellationToken = default)
         {
             if (_storage.TryGetValue(jobId, out var job))
@@ -49,6 +55,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public Task MarkFailedAsync(
             Guid jobId,
             string error,
@@ -65,6 +72,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             return Task.CompletedTask;
         }
 
+        /// <inheritdoc />
         public Task MarkRetryAsync(
             Guid jobId,
             DateTimeOffset? nextAttemptAt,

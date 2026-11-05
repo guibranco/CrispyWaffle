@@ -12,11 +12,16 @@ namespace CrispyWaffle.BackgroundJobs.Scheduling
     {
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CronJobService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger used to report execution errors.</param>
         protected CronJobService(ILogger logger)
         {
             _logger = logger;
         }
 
+        /// <inheritdoc />
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             // Example stub: run every minute
@@ -35,6 +40,11 @@ namespace CrispyWaffle.BackgroundJobs.Scheduling
             }
         }
 
+        /// <summary>
+        /// Runs the work once. It is called repeatedly, with a one-minute wait after each run.
+        /// </summary>
+        /// <param name="stoppingToken">A token that is cancelled when the host is stopping.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         protected abstract Task ExecuteOnce(CancellationToken stoppingToken);
     }
 }

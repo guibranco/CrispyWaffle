@@ -8,11 +8,18 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CrispyWaffle.BackgroundJobs.Extensions
 {
+    /// <summary>
+    /// Extension methods to register the background job services in an <see cref="IServiceCollection"/>.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Register core background job services. By default uses InMemoryJobStore. To use EF Core, call AddDbContext<JobDbContext> before this and pass useEfCore=true.
+        /// Register core background job services. By default uses InMemoryJobStore. To use EF Core, call AddDbContext&lt;JobDbContext&gt; before this and pass useEfCoreStore=true.
         /// </summary>
+        /// <param name="services">The service collection to add the services to.</param>
+        /// <param name="configureOptions">An optional action to configure the <see cref="JobOptions"/>.</param>
+        /// <param name="useEfCoreStore"><c>true</c> to store jobs through Entity Framework Core; <c>false</c> to keep them in memory.</param>
+        /// <returns>The same <see cref="IServiceCollection"/>, so that calls can be chained.</returns>
         public static IServiceCollection AddCrispyBackgroundJobs(
             this IServiceCollection services,
             Action<JobOptions>? configureOptions = null,
@@ -55,6 +62,11 @@ namespace CrispyWaffle.BackgroundJobs.Extensions
         /// Register a typed job handler where handler is resolved from DI and payload is serialized as JSON.
         /// handlerName is the logical identifier used when enqueueing jobs.
         /// </summary>
+        /// <typeparam name="THandler">The type of the handler.</typeparam>
+        /// <typeparam name="TData">The payload type of the handler.</typeparam>
+        /// <param name="services">The service collection to add the handler to.</param>
+        /// <param name="handlerName">The logical name used when enqueueing jobs for this handler.</param>
+        /// <returns>The same <see cref="IServiceCollection"/>, so that calls can be chained.</returns>
         public static IServiceCollection AddJobHandler<THandler, TData>(
             this IServiceCollection services,
             string handlerName

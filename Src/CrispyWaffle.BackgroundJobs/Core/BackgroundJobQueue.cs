@@ -16,6 +16,10 @@ namespace CrispyWaffle.BackgroundJobs.Core
             new UnboundedChannelOptions { SingleReader = false, SingleWriter = false }
         );
 
+        /// <summary>
+        /// Adds a job to the queue, ordered by its priority, and signals a waiting consumer.
+        /// </summary>
+        /// <param name="job">The job to add.</param>
         public void Enqueue(JobEntity job)
         {
             lock (_lock)
@@ -26,6 +30,11 @@ namespace CrispyWaffle.BackgroundJobs.Core
             _ = _signal.Writer.WriteAsync(job);
         }
 
+        /// <summary>
+        /// Waits for a job to be signaled and removes the job with the highest priority from the queue.
+        /// </summary>
+        /// <param name="cancellationToken">A token to cancel the wait.</param>
+        /// <returns>A task whose result is the job, or <c>null</c> when the wait was cancelled or the queue was empty.</returns>
         public async Task<JobEntity?> DequeueAsync(CancellationToken cancellationToken)
         {
             // Wait until a job is signaled and then pop from our priority queue.

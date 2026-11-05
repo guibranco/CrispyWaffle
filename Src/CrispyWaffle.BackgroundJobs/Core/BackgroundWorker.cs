@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace CrispyWaffle.BackgroundJobs.Core
 {
+    /// <summary>
+    /// The hosted service that fetches jobs from the store, or from the in-memory queue, and runs their handlers.
+    /// </summary>
     public class BackgroundWorker : BackgroundService
     {
         private readonly IServiceProvider _provider;
@@ -15,6 +18,12 @@ namespace CrispyWaffle.BackgroundJobs.Core
         private readonly JobOptions _options;
         private readonly ILogger<BackgroundWorker> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BackgroundWorker"/> class.
+        /// </summary>
+        /// <param name="provider">The service provider used to resolve the store, the queue, the handler registry and the handlers.</param>
+        /// <param name="options">The worker settings.</param>
+        /// <param name="logger">The logger.</param>
         public BackgroundWorker(
             IServiceProvider provider,
             JobOptions options,
@@ -31,6 +40,7 @@ namespace CrispyWaffle.BackgroundJobs.Core
             _registry = provider.GetRequiredService<IJobHandlerRegistry>();
         }
 
+        /// <inheritdoc />
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation(

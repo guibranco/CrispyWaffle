@@ -3,15 +3,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrispyWaffle.BackgroundJobs.Persistence
 {
+    /// <summary>
+    /// An <see cref="IJobStore"/> that keeps jobs in a database through <see cref="JobDbContext"/>.
+    /// </summary>
     public class EfCoreJobStore : IJobStore
     {
         private readonly JobDbContext _db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EfCoreJobStore"/> class.
+        /// </summary>
+        /// <param name="db">The database context that holds the jobs.</param>
         public EfCoreJobStore(JobDbContext db)
         {
             _db = db;
         }
 
+        /// <inheritdoc />
         public async Task SaveAsync(JobEntity job, CancellationToken cancellationToken = default)
         {
             job.UpdatedAt = DateTimeOffset.UtcNow;
@@ -19,6 +27,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             await _db.SaveChangesAsync(cancellationToken);
         }
 
+        /// <inheritdoc />
         public async Task<JobEntity?> FetchNextAsync(CancellationToken cancellationToken = default)
         {
             // We attempt to find a pending job that is due, ordered by priority and created time. We then mark it Processing inside a transaction
@@ -57,6 +66,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             }
         }
 
+        /// <inheritdoc />
         public async Task MarkCompletedAsync(
             Guid jobId,
             CancellationToken cancellationToken = default
@@ -70,6 +80,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             await _db.SaveChangesAsync(cancellationToken);
         }
 
+        /// <inheritdoc />
         public async Task MarkFailedAsync(
             Guid jobId,
             string error,
@@ -85,6 +96,7 @@ namespace CrispyWaffle.BackgroundJobs.Persistence
             await _db.SaveChangesAsync(cancellationToken);
         }
 
+        /// <inheritdoc />
         public async Task MarkRetryAsync(
             Guid jobId,
             DateTimeOffset? nextAttemptAt,
