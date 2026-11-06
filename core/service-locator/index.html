@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Service Locator - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/service-locator/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../../installation/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../logging/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="service-locator">Service Locator</h1>
+<p><code>ServiceLocator</code> is the small inversion-of-control container built into the core package. You register contracts (interfaces or classes) with an implementation, an instance, or a factory, and resolve them anywhere through static methods. Constructor dependencies are resolved recursively, so most classes need no registration at all.</p>
+<p>The rest of the library relies on it: <code>EventsConsumer</code> and <code>CommandsConsumer</code> find their handlers through it, and other modules resolve their collaborators from it.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Composition</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><a href="../../images/diagrams/events-commands.svg"><img alt="Events and commands dispatch through the service locator" src="../../images/diagrams/events-commands.svg" /></a></p>
+<h3 id="startup">Startup</h3>
+<p>The first time any <code>ServiceLocator</code> member is touched, its static constructor runs:</p>
+<ol>
+<li>It loads every assembly referenced by the assemblies already in the <code>AppDomain</code> (one level deep). Assemblies that fail to load are skipped.</li>
+<li>It builds <code>TypesCache</code>, a list of every type in every loaded assembly. This list is never refreshed, so types in assemblies loaded later are not visible to auto-registration or <code>ResolveAll</code>.</li>
+<li>It registers <code>CancellationToken</code>, backed by an internal <code>CancellationTokenSource</code> (see <code>RequestCancellation</code>).</li>
+</ol>
+<h3 id="registration">Registration</h3>
+<p>Every <code>Register</code> overload stores a factory delegate keyed by the contract type. Each contract can be registered only once: a second registration for the same contract throws <code>ArgumentException</code> ("An item with the same key has already been added"). The same applies to <code>RegisterDependencyResolver</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Lifetime</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Lifetime.Transient</code> (default)</td>
+<td>The factory runs on every resolve.</td>
+</tr>
+<tr>
+<td><code>Lifetime.Singleton</code></td>
+<td>The instance is created lazily on the first resolve and reused afterwards. Creation is guarded by a lock per implementation type.</td>
+</tr>
+<tr>
+<td><code>Register&lt;TContract&gt;(TContract instance)</code></td>
+<td>The supplied instance is always returned.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resolution">Resolution</h3>
+<p><code>Resolve&lt;T&gt;()</code> and <code>GetInstance(type)</code> follow these steps:</p>
+<ol>
+<li>If the type is registered, the registered factory is invoked.</li>
+<li>Otherwise, if the type is concrete (not abstract and not an interface), a new instance is created every time. Unregistered concrete types therefore behave as transient.</li>
+<li>Otherwise (interface or abstract class), the locator tries auto-registration: it looks in <code>TypesCache</code> for non-abstract types that implement the contract and have a public parameterless constructor.</li>
+<li>No candidates: nothing is resolved.</li>
+<li>More than one candidate: <code>TooManyImplementationsException</code> is thrown.</li>
+<li>Exactly one candidate: it is instantiated and stored as a singleton for that contract.</li>
+<li>If nothing was resolved, <code>Resolve</code> and <code>GetInstance</code> throw <code>InvalidOperationException</code> ("No registrations for ..."). <code>TryResolve</code> and <code>TryGetInstance</code> return <code>null</code> instead.</li>
+</ol>
+<p>When an instance is created, the locator picks a public constructor:</p>
+<ul>
+<li>With one public constructor, that constructor is used.</li>
+<li>With several, constructors that take a simple type (value types, <code>string</code>, <code>decimal</code>, <code>DateTime</code>, <code>DateTimeOffset</code>, <code>TimeSpan</code>, <code>Guid</code>, ...) or the type itself are discarded. Of the remaining ones, the constructor with the most parameters whose dependencies can all be resolved wins. Probing resolves the dependencies, so their constructors run during selection.</li>
+</ul>
+<p>Each constructor parameter is resolved recursively. If a dependency resolver is registered for the parameter type, it is asked for the value instead (see <code>IDependencyResolver</code>). A parameter whose type cannot be resolved (an interface with no implementation, for example) is passed as <code>null</code> instead of causing an error. The parameter list chosen for each type is cached. Any exception during creation is wrapped in <code>InvalidOperationException</code> ("Unable to create instance of type ...").</p>
+<h3 id="resolving-all-implementations">Resolving all implementations</h3>
+<p><code>ResolveAll&lt;T&gt;()</code> does not use registrations to find implementations. It scans <code>TypesCache</code> for every non-abstract type assignable to <code>T</code> (the list is cached per contract) and resolves each concrete type individually with <code>GetInstance</code>. A concrete type that is itself registered (for example as a singleton) is resolved through that registration. Results come back in <code>TypesCache</code> order, not registration order.</p>
+<h3 id="disposal-and-cancellation">Disposal and cancellation</h3>
+<p><code>DisposeAllRegistrations()</code> sends a dependency-usage count for every registered contract to <code>TelemetryAnalytics.TrackDependency</code>, then disposes registrations whose contract type implements <code>IDisposable</code> and that were resolved at least once. It is also called by a finalizer when the static state is collected. Only the contract type is checked: a singleton registered as <code>Register&lt;IFoo, Foo&gt;()</code> is not disposed when <code>IFoo</code> does not extend <code>IDisposable</code>, even if <code>Foo</code> does. For a transient registration, disposal invokes the factory, so a new instance is created and immediately disposed.</p>
+<h3 id="thread-safety-and-limitations">Thread safety and limitations</h3>
+<ul>
+<li>Registration and resolution use concurrent dictionaries and per-type locks for singleton creation, but the per-contract usage counters are a plain <code>Dictionary</code>. Register everything at startup, before resolving from several threads.</li>
+<li><code>Register&lt;T&gt;()</code> and <code>Register&lt;T&gt;(Lifetime.Transient)</code> on a single concrete type cause infinite recursion (a <code>StackOverflowException</code>) when the type is resolved, because the transient factory resolves the same type again. To get a new instance on every resolve, do not register the class (unregistered concrete types are already transient) or register a factory with <code>Register&lt;T&gt;(() =&gt; new T())</code>. <code>Register&lt;T&gt;(Lifetime.Singleton)</code> works as expected.</li>
+<li><code>ResolveWith&lt;T&gt;</code> and <code>GetInstanceWith</code> currently fail for every type: the argument list is passed to <code>Activator.CreateInstance</code> as a single object instead of an array, so creation throws and is reported as <code>InvalidOperationException</code> ("Unable to create instance of type ... using parameters"). Use a factory registration instead.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Composition;
+
+public interface IClock
+{
+    DateTime Now { get; }
+}
+
+public sealed class SystemClock : IClock
+{
+    public DateTime Now =&gt; DateTime.UtcNow;
+}
+
+public sealed class ReportService
+{
+    private readonly IClock _clock;
+
+    public ReportService(IClock clock) =&gt; _clock = clock;
+
+    public string Header() =&gt; $&quot;Report generated at {_clock.Now:O}&quot;;
+}
+
+public static class Program
+{
+    public static void Main()
+    {
+        // Register the contract once, at startup.
+        ServiceLocator.Register&lt;IClock, SystemClock&gt;(Lifetime.Singleton);
+
+        // ReportService is not registered: it is created on demand and
+        // its IClock dependency is resolved from the registration above.
+        var service = ServiceLocator.Resolve&lt;ReportService&gt;();
+        Console.WriteLine(service.Header());
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="servicelocator"><code>ServiceLocator</code></h3>
+<p><code>public static class ServiceLocator</code> — registers contracts and resolves instances.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TypesCache</code></td>
+<td><code>List&lt;Type&gt;</code> of every type in the assemblies loaded when the locator was initialized. Used by auto-registration and <code>ResolveAll</code>.</td>
+</tr>
+<tr>
+<td><code>RegisterBootstrapper&lt;TBootstrapper&gt;()</code></td>
+<td>Creates <code>TBootstrapper</code> (constraint: <code>class, IBootstrapper, new()</code>) and calls its <code>RegisterServices()</code> method.</td>
+</tr>
+<tr>
+<td><code>Register&lt;TContract&gt;(TContract instance)</code></td>
+<td>Registers an existing instance; every resolve of <code>TContract</code> returns it.</td>
+</tr>
+<tr>
+<td><code>Register&lt;TImplementation&gt;()</code> / <code>Register&lt;TImplementation&gt;(Lifetime lifetime)</code></td>
+<td>Registers a class as its own contract. The default lifetime is <code>Transient</code>. Only the <code>Singleton</code> form is usable; see the limitations above.</td>
+</tr>
+<tr>
+<td><code>Register&lt;TContract, TImplementation&gt;()</code> / <code>Register&lt;TContract, TImplementation&gt;(Lifetime lifetime)</code></td>
+<td>Maps <code>TContract</code> to <code>TImplementation</code> (constraint: <code>TImplementation : TContract</code>). The default lifetime is <code>Transient</code>. <code>TImplementation</code> is created with constructor injection.</td>
+</tr>
+<tr>
+<td><code>Register&lt;TContract&gt;(Func&lt;TContract&gt; instanceCreator)</code> / <code>Register&lt;TContract&gt;(Func&lt;TContract&gt; instanceCreator, Lifetime lifetime)</code></td>
+<td>Registers a factory. The default lifetime is <code>Transient</code>; with <code>Singleton</code>, the factory runs once on the first resolve.</td>
+</tr>
+<tr>
+<td><code>RegisterDependencyResolver&lt;TContract, TImplementation&gt;()</code></td>
+<td>Registers an <code>IDependencyResolver</code> (constraint: <code>TImplementation : IDependencyResolver</code>) used whenever a constructor parameter of type <code>TContract</code> is resolved. The resolver is created immediately.</td>
+</tr>
+<tr>
+<td><code>RegisterDependencyResolver&lt;TContract&gt;(IDependencyResolver resolver)</code></td>
+<td>Same as above, with an existing resolver instance.</td>
+</tr>
+<tr>
+<td><code>Resolve&lt;T&gt;()</code></td>
+<td>Returns an instance of <code>T</code>. Throws <code>InvalidOperationException</code> when nothing can be resolved, and <code>TooManyImplementationsException</code> when auto-registration finds several candidates.</td>
+</tr>
+<tr>
+<td><code>TryResolve&lt;T&gt;()</code></td>
+<td>Like <code>Resolve&lt;T&gt;()</code> but returns <code>null</code> (<code>default</code>) when nothing can be resolved. Creation errors and <code>TooManyImplementationsException</code> still propagate.</td>
+</tr>
+<tr>
+<td><code>ResolveAll&lt;T&gt;()</code></td>
+<td>Returns <code>IEnumerable&lt;T&gt;</code> with one instance of every concrete type assignable to <code>T</code> in <code>TypesCache</code>. Instances are created lazily as the sequence is enumerated.</td>
+</tr>
+<tr>
+<td><code>ResolveWith&lt;T&gt;(Dictionary&lt;int, object&gt; parameters)</code></td>
+<td>Intended to create <code>T</code> using the given values for the constructor parameters at the given zero-based positions, resolving the rest. Currently always throws <code>InvalidOperationException</code>; see the limitations above.</td>
+</tr>
+<tr>
+<td><code>GetInstance(Type contract)</code></td>
+<td>Non-generic form of <code>Resolve&lt;T&gt;()</code>. Returns <code>object</code>.</td>
+</tr>
+<tr>
+<td><code>TryGetInstance(Type contract)</code></td>
+<td>Non-generic form of <code>TryResolve&lt;T&gt;()</code>. Returns <code>object</code> or <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>GetInstanceWith(Type contract, Dictionary&lt;int, object&gt; parameters)</code></td>
+<td>Non-generic form of <code>ResolveWith&lt;T&gt;()</code>, with the same limitation.</td>
+</tr>
+<tr>
+<td><code>RequestCancellation()</code></td>
+<td>Cancels the <code>CancellationToken</code> that the locator injects into constructors and returns from <code>Resolve&lt;CancellationToken&gt;()</code>. Returns <code>true</code> when cancellation was requested.</td>
+</tr>
+<tr>
+<td><code>DisposeAllRegistrations()</code></td>
+<td>Reports usage counts to telemetry and disposes resolved registrations whose contract implements <code>IDisposable</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ibootstrapper"><code>IBootstrapper</code></h3>
+<p><code>public interface IBootstrapper</code> — groups the registrations of an application or module in one class.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void RegisterServices()</code></td>
+<td>Performs the registrations. Called by <code>ServiceLocator.RegisterBootstrapper&lt;TBootstrapper&gt;()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="idependencyresolver"><code>IDependencyResolver</code></h3>
+<p><code>public interface IDependencyResolver</code> — supplies a constructor dependency based on the type that requests it.</p>
+<p>Register a resolver for a dependency type with <code>RegisterDependencyResolver</code>. Whenever the locator builds a type whose constructor has a parameter of that dependency type, it calls the resolver instead of the normal resolution. This lets you hand out different instances (for example, different connection strings) to different consumers. Resolvers are not consulted by a direct <code>Resolve&lt;TContract&gt;()</code> call.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>object Resolve(Type type, int order)</code></td>
+<td><code>type</code> is the class being constructed (the consumer), not the dependency type. <code>order</code> is the zero-based position of the parameter in the chosen constructor. Return the instance to inject. An <code>InvalidOperationException</code> thrown here is rethrown as <code>InvalidOperationException</code> ("No registrations for ...") naming the consumer type.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lifetime"><code>Lifetime</code></h3>
+<p><code>public enum Lifetime</code> — the lifetime of a registration.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Transient</code></td>
+<td>A new instance is created on every resolve. Human-readable value: <code>Transient</code>.</td>
+</tr>
+<tr>
+<td><code>Singleton</code></td>
+<td>One instance is created on the first resolve and reused. When the implementation (or, for factories, the contract) implements <code>IDisposable</code>, the instance is held in a <code>LazyDisposable&lt;T&gt;</code>. Human-readable value: <code>Singleton</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lazydisposablet"><code>LazyDisposable&lt;T&gt;</code></h3>
+<p><code>public class LazyDisposable&lt;T&gt; : Lazy&lt;T&gt;, IDisposable where T : IDisposable</code> — a <code>Lazy&lt;T&gt;</code> that disposes its value when it is disposed.</p>
+<p>Disposing an instance whose value was never created does nothing.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LazyDisposable()</code> / <code>LazyDisposable(bool isThreadSafe)</code> / <code>LazyDisposable(LazyThreadSafetyMode mode)</code></td>
+<td>Constructors. The value is created with the default constructor of <code>T</code>, using the given thread-safety setting.</td>
+</tr>
+<tr>
+<td><code>LazyDisposable(Func&lt;T&gt; valueFactory)</code> / <code>LazyDisposable(Func&lt;T&gt; valueFactory, bool isThreadSafe)</code> / <code>LazyDisposable(Func&lt;T&gt; valueFactory, LazyThreadSafetyMode mode)</code></td>
+<td>Constructors. The value is created by <code>valueFactory</code>, using the given thread-safety setting.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Disposes the value if it has been created and suppresses finalization.</td>
+</tr>
+<tr>
+<td><code>protected virtual Dispose(bool disposing)</code></td>
+<td>Override to add cleanup. The base implementation disposes <code>Value</code> when <code>disposing</code> is <code>true</code> and <code>IsValueCreated</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Members inherited from <code>Lazy&lt;T&gt;</code> (<code>Value</code>, <code>IsValueCreated</code>) behave as in the base class.</p>
+<h3 id="toomanyimplementationsexception"><code>TooManyImplementationsException</code></h3>
+<p><code>[Serializable] public class TooManyImplementationsException : Exception</code> — thrown when auto-registration finds more than one candidate.</p>
+<p>Thrown by <code>Resolve</code>, <code>TryResolve</code>, <code>GetInstance</code> and <code>TryGetInstance</code> when an unregistered interface or abstract type has more than one non-abstract implementation with a public parameterless constructor. The message is "The type {FullName} has many implementations available, please consider registering one of them". Register the implementation you want to fix it.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TooManyImplementationsException(Type type)</code></td>
+<td>Creates the exception for the contract <code>type</code>.</td>
+</tr>
+<tr>
+<td><code>protected TooManyImplementationsException(SerializationInfo info, StreamingContext context)</code></td>
+<td>Serialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="group-registrations-in-a-bootstrapper">Group registrations in a bootstrapper</h3>
+<p>Implement <code>IBootstrapper</code> and register it once at startup.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Composition;
+
+// At startup:
+ServiceLocator.RegisterBootstrapper&lt;AppBootstrapper&gt;();
+
+var greeter = ServiceLocator.Resolve&lt;IGreeter&gt;();
+
+public interface IGreeter
+{
+    string Greet(string name);
+}
+
+public sealed class Greeter : IGreeter
+{
+    public string Greet(string name) =&gt; $&quot;Hello, {name}!&quot;;
+}
+
+public sealed class AppBootstrapper : IBootstrapper
+{
+    public void RegisterServices()
+    {
+        ServiceLocator.Register&lt;IGreeter, Greeter&gt;(Lifetime.Singleton);
+    }
+}
+</code></pre>
+<h3 id="register-a-singleton-built-by-a-factory">Register a singleton built by a factory</h3>
+<p>Use a factory when the instance needs values that cannot be injected, such as configuration strings. This pattern comes from the test fixtures.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+
+ServiceLocator.Register&lt;ISecureCredentialProvider&gt;(
+    () =&gt;
+        new SecureCredentialProvider
+        {
+            PasswordHash = &quot;my-password-hash&quot;,
+            SaltKey = &quot;my-salt-key&quot;,
+            IVKey = &quot;my-16-char-iv-key&quot;,
+        },
+    Lifetime.Singleton
+);
+</code></pre>
+<h3 id="check-singleton-and-transient-behavior">Check singleton and transient behavior</h3>
+<p>A class registered as a singleton is created once. An unregistered concrete class is created on every resolve.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Composition;
+
+ServiceLocator.Register&lt;SingletonTest&gt;(Lifetime.Singleton);
+
+var a = ServiceLocator.Resolve&lt;SingletonTest&gt;();
+var b = ServiceLocator.Resolve&lt;SingletonTest&gt;();
+Console.WriteLine(a.Id == b.Id); // True
+
+// Not registered: a new instance every time.
+var c = ServiceLocator.Resolve&lt;TransientTest&gt;();
+var d = ServiceLocator.Resolve&lt;TransientTest&gt;();
+Console.WriteLine(c.Id == d.Id); // False
+
+public sealed class SingletonTest
+{
+    public Guid Id { get; } = Guid.NewGuid();
+}
+
+public sealed class TransientTest
+{
+    public Guid Id { get; } = Guid.NewGuid();
+}
+</code></pre>
+<h3 id="inject-a-value-that-depends-on-the-consumer">Inject a value that depends on the consumer</h3>
+<p>A dependency resolver returns a different <code>IConnection</code> for each class that asks for one.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Composition;
+
+ServiceLocator.RegisterDependencyResolver&lt;IConnection, ConnectionResolver&gt;();
+
+var repository = ServiceLocator.Resolve&lt;OrdersRepository&gt;();
+Console.WriteLine(repository.Connection.Name); // orders-db
+
+public interface IConnection
+{
+    string Name { get; }
+}
+
+public sealed class Connection : IConnection
+{
+    public Connection(string name) =&gt; Name = name;
+
+    public string Name { get; }
+}
+
+public sealed class ConnectionResolver : IDependencyResolver
+{
+    public object Resolve(Type type, int order) =&gt;
+        new Connection(type == typeof(OrdersRepository) ? &quot;orders-db&quot; : &quot;default-db&quot;);
+}
+
+public sealed class OrdersRepository
+{
+    public OrdersRepository(IConnection connection) =&gt; Connection = connection;
+
+    public IConnection Connection { get; }
+}
+</code></pre>
+<h3 id="stop-background-work-with-the-shared-cancellation-token">Stop background work with the shared cancellation token</h3>
+<p>Any class that takes a <code>CancellationToken</code> in its constructor receives the locator's token. <code>RequestCancellation</code> cancels it.</p>
+<pre><code class="language-csharp">using System.Threading;
+using CrispyWaffle.Composition;
+
+var worker = ServiceLocator.Resolve&lt;Worker&gt;();
+
+// Later, for example on application shutdown:
+ServiceLocator.RequestCancellation();
+
+// worker.CancellationToken.IsCancellationRequested is now true.
+
+public sealed class Worker
+{
+    public Worker(CancellationToken cancellationToken) =&gt; CancellationToken = cancellationToken;
+
+    public CancellationToken CancellationToken { get; }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../events/">Events</a></li>
+<li><a href="../commands/">Commands</a></li>
+<li><a href="../telemetry/">Telemetry</a></li>
+<li><a href="../../diagrams/">Diagrams</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

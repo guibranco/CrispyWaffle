@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Serialization - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/serialization/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../scheduler/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../telemetry/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="serialization">Serialization</h1>
+<p>The serialization module converts objects to and from JSON, XML, YAML and TOML. You mark a class with <code>[Serializer]</code> to pick a format, then call <code>GetSerializer()</code> on an instance to get a <code>SerializerConverter&lt;T&gt;</code>. The converter can turn the object into a string, an <code>XmlDocument</code>, a <code>JToken</code> or a stream, and it can deserialize, load from a file or save to a file.</p>
+<p>You can also use the adapters (<code>NewtonsoftJsonSerializerAdapter</code>, <code>JsonSerializerAdapter</code>, <code>XmlSerializerAdapter</code>, <code>YamlSerializerAdapter</code>, <code>TomlSerializerAdapter</code>) on their own, without the attribute or the factory.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Serialization</code>, <code>CrispyWaffle.Serialization.Adapters</code>, <code>CrispyWaffle.Serialization.NewtonsoftJson</code>, <code>CrispyWaffle.Serialization.SystemTextJson</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>SerializerFactory.GetSerializer(obj)</code> reads the <code>SerializerAttribute</code> from the runtime type of <code>obj</code> and wraps the object in a <code>SerializerConverter&lt;T&gt;</code> with an adapter for that format:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Adapter used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Serializer]</code> or <code>[Serializer(SerializerFormat.Xml)]</code></td>
+<td><code>XmlSerializerAdapter</code>, resolved through <code>ServiceLocator.Resolve&lt;XmlSerializerAdapter&gt;()</code></td>
+</tr>
+<tr>
+<td><code>[Serializer(SerializerFormat.Json)]</code> (strict, the default)</td>
+<td><code>NewtonsoftJsonSerializerAdapter</code>, resolved through <code>ServiceLocator.Resolve&lt;NewtonsoftJsonSerializerAdapter&gt;()</code></td>
+</tr>
+<tr>
+<td><code>[Serializer(SerializerFormat.Json, false)]</code> (not strict)</td>
+<td>A new <code>NewtonsoftJsonSerializerAdapter</code> with <code>MissingMemberHandling.Ignore</code></td>
+</tr>
+<tr>
+<td><code>[Serializer(SerializerFormat.Yaml)]</code></td>
+<td><code>YamlSerializerAdapter</code>, resolved through <code>ServiceLocator.Resolve&lt;YamlSerializerAdapter&gt;()</code></td>
+</tr>
+<tr>
+<td><code>[Serializer(SerializerFormat.Toml)]</code></td>
+<td><code>TomlSerializerAdapter</code>, resolved through <code>ServiceLocator.Resolve&lt;TomlSerializerAdapter&gt;()</code></td>
+</tr>
+<tr>
+<td><code>SerializerFormat.None</code></td>
+<td>Throws <code>InvalidOperationException</code></td>
+</tr>
+</tbody>
+</table>
+<p>The factory always uses Newtonsoft.Json for JSON. The System.Text.Json adapter (<code>JsonSerializerAdapter</code>) is only used if you create it yourself.</p>
+<p>Attribute lookup rules:</p>
+<ul>
+<li>The attribute is read from the object's runtime type. <code>SerializerAttribute</code> is declared with <code>Inherited = false</code>, so a derived class needs its own <code>[Serializer]</code>.</li>
+<li>For an array, the attribute is read from the element type (<code>Customer[]</code> uses the attribute on <code>Customer</code>).</li>
+<li>For any other <code>IEnumerable</code>, the attribute is read from the first generic argument (<code>List&lt;Customer&gt;</code> uses the attribute on <code>Customer</code>).</li>
+<li>If no attribute is found, <code>GetSerializer</code> throws <code>InvalidOperationException</code> with the message <code>The CrispyWaffle.Serialization.SerializerAttribute attribute was not found in the object of type ...</code>.</li>
+</ul>
+<p>Strict and non-strict JSON differ only when you deserialize. Strict mode uses <code>MissingMemberHandling.Error</code>, so a JSON property with no matching .NET member throws. Non-strict mode uses <code>MissingMemberHandling.Ignore</code>. Both modes use the <code>pt-BR</code> culture, <code>NullValueHandling.Ignore</code> and the Newtonsoft <code>NotNullObserverConverter</code>.</p>
+<p><code>XmlSerializerAdapter</code>, <code>NewtonsoftJsonSerializerAdapter</code>, <code>YamlSerializerAdapter</code> and <code>TomlSerializerAdapter</code> have no constructor dependencies, so the service locator can create them without registration.</p>
+<h3 id="not-null-observer">Not-null observer</h3>
+<p><code>NotNullObserver</code> is an empty marker class. Use it as the type of a property that you expect to always be <code>null</code> or empty in incoming JSON, such as a field a third-party API documents but never fills. Both JSON adapters register a matching converter by default. When the JSON has a real value for that property, the converter throws <code>NotNullObserverException</code>, and the adapter wraps it in a second <code>NotNullObserverException</code> that names the target type. This lets you detect when the upstream payload changes.</p>
+<p>The two converters accept different "empty" values:</p>
+<table>
+<thead>
+<tr>
+<th>JSON value</th>
+<th>Newtonsoft converter</th>
+<th>System.Text.Json converter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>null</code></td>
+<td>Returns <code>null</code></td>
+<td>Returns <code>null</code></td>
+</tr>
+<tr>
+<td><code>""</code> or whitespace string</td>
+<td>Returns <code>null</code></td>
+<td>Returns <code>null</code></td>
+</tr>
+<tr>
+<td><code>[]</code></td>
+<td>Returns <code>null</code></td>
+<td>Throws <code>JsonException</code> (see note)</td>
+</tr>
+<tr>
+<td><code>{}</code></td>
+<td>Returns <code>null</code></td>
+<td>Returns <code>null</code></td>
+</tr>
+<tr>
+<td>Non-empty object</td>
+<td>Throws <code>NotNullObserverException</code></td>
+<td>Throws <code>NotNullObserverException</code></td>
+</tr>
+<tr>
+<td>Non-empty string, number, boolean, non-empty array</td>
+<td>Throws <code>NotNullObserverException</code></td>
+<td>Throws <code>JsonException</code> (see note)</td>
+</tr>
+</tbody>
+</table>
+<p>Note: the System.Text.Json converter calls <code>JsonElement.EnumerateObject()</code> before it checks the value kind. That call throws <code>InvalidOperationException</code> for any value that is not an object, and System.Text.Json wraps it in a <code>JsonException</code> ("The JSON value could not be converted to CrispyWaffle.Serialization.NotNullObserver"). In those cases you get <code>JsonException</code> instead of <code>NotNullObserverException</code>.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Serialization;
+
+var customer = new Customer { Id = 1, Name = &quot;Jane Doe&quot; };
+
+// Serialize to a JSON string (Newtonsoft.Json, indented).
+var json = (string)customer.GetSerializer();
+
+// Deserialize back into a new instance.
+Customer copy = SerializerFactory.GetSerializer&lt;Customer&gt;().Deserialize(json);
+
+Console.WriteLine(copy.Name);
+
+[Serializer(SerializerFormat.Json)]
+public class Customer
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="serializerfactory"><code>SerializerFactory</code></h3>
+<p><code>public static class SerializerFactory</code> — creates <code>SerializerConverter&lt;T&gt;</code> instances from the <code>[Serializer]</code> attribute or from an explicit format.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetSerializer&lt;T&gt;(this T obj)</code></td>
+<td>Extension method. Reads the <code>SerializerAttribute</code> from the runtime type of <code>obj</code> (or its element / first generic argument for collections) and returns a converter that wraps <code>obj</code>. Throws <code>InvalidOperationException</code> when no attribute is found or the format is <code>None</code>. <code>T : class</code>.</td>
+</tr>
+<tr>
+<td><code>GetSerializer&lt;T&gt;()</code></td>
+<td>Creates a new <code>T</code> with <code>Activator.CreateInstance&lt;T&gt;()</code> and returns a converter for it. Use it when you only want to deserialize. <code>T</code> needs a public parameterless constructor.</td>
+</tr>
+<tr>
+<td><code>GetCustomSerializer&lt;T&gt;(this T obj, SerializerFormat format)</code></td>
+<td>Extension method. Ignores any attribute and returns a converter for <code>format</code>. JSON is always strict here. Throws <code>InvalidOperationException</code> for <code>SerializerFormat.None</code>.</td>
+</tr>
+<tr>
+<td><code>GetCustomSerializer&lt;T&gt;(SerializerFormat format)</code></td>
+<td>Same as above, for a new <code>T</code> created with <code>Activator.CreateInstance&lt;T&gt;()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serializerconvertert"><code>SerializerConverter&lt;T&gt;</code></h3>
+<p><code>public sealed class SerializerConverter&lt;T&gt; where T : class</code> — wraps an object and an <code>ISerializerAdapter</code>, and exposes conversion operators and file helpers.</p>
+<p>Methods that deserialize or load replace the wrapped object and return it.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SerializerConverter(T obj, ISerializerAdapter formatter)</code></td>
+<td>Constructor. Wraps <code>obj</code> with the given adapter.</td>
+</tr>
+<tr>
+<td><code>Serialize(out Stream stream)</code></td>
+<td>Serializes the wrapped object with the adapter. The stream is positioned at 0.</td>
+</tr>
+<tr>
+<td><code>Deserialize(object deserialized)</code></td>
+<td>Deserializes <code>deserialized</code> with the adapter, stores the result and returns it. JSON adapters expect a <code>string</code>. The XML adapter accepts a <code>string</code> or an <code>XmlDocument</code>.</td>
+</tr>
+<tr>
+<td><code>DeserializeFromStream(Stream stream, Encoding encoding = null)</code></td>
+<td>Deserializes from a stream (UTF-8 when <code>encoding</code> is <code>null</code>), stores the result and returns it.</td>
+</tr>
+<tr>
+<td><code>Load(string file)</code></td>
+<td>Reads the file as UTF-8, deserializes it, stores the result and returns it. See <code>BaseSerializerAdapter.Load&lt;T&gt;</code> for exceptions.</td>
+</tr>
+<tr>
+<td><code>Save(string file)</code></td>
+<td>Serializes the wrapped object to <code>file</code>, replacing it if it exists.</td>
+</tr>
+<tr>
+<td><code>implicit operator XmlDocument(SerializerConverter&lt;T&gt;)</code></td>
+<td>Serializes to an <code>XmlDocument</code>. Returns <code>null</code> when the converter is <code>null</code> or its adapter is not <code>XmlSerializerAdapter</code>. An <code>InvalidOperationException</code> during serialization is logged through <code>LogConsumer.Handle</code> and an empty document is returned.</td>
+</tr>
+<tr>
+<td><code>implicit operator JToken(SerializerConverter&lt;T&gt;)</code></td>
+<td>Serializes to a Newtonsoft <code>JToken</code>: a <code>JArray</code> when the object is <code>IEnumerable</code>, otherwise a <code>JObject</code>. Returns <code>null</code> when the adapter is not <code>NewtonsoftJsonSerializerAdapter</code>, or after logging an <code>InvalidOperationException</code>.</td>
+</tr>
+<tr>
+<td><code>explicit operator string(SerializerConverter&lt;T&gt;)</code></td>
+<td>XML adapter: indented XML without the XML declaration. Newtonsoft adapter: indented JSON. Any <code>IStringSerializerAdapter</code> (such as <code>YamlSerializerAdapter</code> or <code>TomlSerializerAdapter</code>): the result of <code>SerializeToString</code>. Throws <code>InvalidOperationException</code> for any other adapter (including <code>JsonSerializerAdapter</code>).</td>
+</tr>
+<tr>
+<td><code>implicit operator SerializerConverter&lt;T&gt;(XmlDocument xml)</code></td>
+<td>Creates a converter with the XML adapter and deserializes <code>xml.InnerXml</code> into <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>implicit operator SerializerConverter&lt;T&gt;(JObject json)</code></td>
+<td>Creates a converter with the Newtonsoft adapter and deserializes <code>json</code> into <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>implicit operator T(SerializerConverter&lt;T&gt;)</code></td>
+<td>Returns the wrapped object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iserializeradapter"><code>ISerializerAdapter</code></h3>
+<p><code>public interface ISerializerAdapter</code> — contract for a format-specific serializer. All methods have the constraint <code>T : class</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Deserializes a stream. <code>null</code> encoding means UTF-8.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Deserializes a serialized representation (usually a <code>string</code>).</td>
+</tr>
+<tr>
+<td><code>Load&lt;T&gt;(string file)</code></td>
+<td>Reads a file and deserializes its content.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Serializes an object into a new stream.</td>
+</tr>
+<tr>
+<td><code>Save&lt;T&gt;(string file, T deserialized)</code></td>
+<td>Serializes an object and writes it to a file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="istringserializeradapter"><code>IStringSerializerAdapter</code></h3>
+<p><code>public interface IStringSerializerAdapter : ISerializerAdapter</code> — an adapter that can serialize directly to a string. <code>SerializerConverter&lt;T&gt;</code> uses it for the explicit <code>string</code> conversion.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SerializeToString&lt;T&gt;(T deserialized)</code></td>
+<td>Serializes an object to its string representation. <code>T : class</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="baseserializeradapter"><code>BaseSerializerAdapter</code></h3>
+<p><code>public abstract class BaseSerializerAdapter : ISerializerAdapter</code> — base class with file handling. Subclass it to add a format.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>virtual DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Throws <code>NotImplementedException</code>. Override it.</td>
+</tr>
+<tr>
+<td><code>virtual Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Throws <code>NotImplementedException</code>. Override it.</td>
+</tr>
+<tr>
+<td><code>virtual Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Throws <code>NotImplementedException</code>. Override it.</td>
+</tr>
+<tr>
+<td><code>virtual Load&lt;T&gt;(string file)</code></td>
+<td>Reads the whole file as UTF-8 and passes the string to <code>Deserialize&lt;T&gt;</code>. Throws <code>ArgumentNullException</code> when <code>file</code> is null or whitespace or has no file name part. Throws <code>LocalFileNotFoundException</code> when the file does not exist.</td>
+</tr>
+<tr>
+<td><code>virtual Save&lt;T&gt;(string file, T deserialized)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>file</code> is null or whitespace. Deletes an existing file, then calls <code>Serialize&lt;T&gt;</code> and copies the stream into a new file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="newtonsoftjsonserializeradapter"><code>NewtonsoftJsonSerializerAdapter</code></h3>
+<p><code>public sealed class NewtonsoftJsonSerializerAdapter : BaseSerializerAdapter</code> — JSON adapter based on Newtonsoft.Json. The factory uses it for all JSON.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NewtonsoftJsonSerializerAdapter()</code></td>
+<td>Constructor. Uses <code>JsonSerializerSettings</code> with <code>NotNullObserverConverter</code> (Newtonsoft), culture <code>pt-BR</code>, <code>MissingMemberHandling.Error</code> and <code>NullValueHandling.Ignore</code>.</td>
+</tr>
+<tr>
+<td><code>NewtonsoftJsonSerializerAdapter(JsonSerializerSettings settings)</code></td>
+<td>Constructor. Uses your settings for deserialization.</td>
+</tr>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Reads the stream to the end and calls <code>JsonConvert.DeserializeObject&lt;T&gt;</code> with the settings. Wraps <code>NotNullObserverException</code> in a new <code>NotNullObserverException(typeof(T), e)</code>.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Casts <code>serialized</code> to <code>string</code> and deserializes it with the settings. Same exception wrapping.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Writes indented JSON as UTF-8 into a new <code>MemoryStream</code> positioned at 0. This method uses a default <code>JsonSerializer</code> and does not apply the configured settings, so <code>null</code> properties are written.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jsonserializeradapter"><code>JsonSerializerAdapter</code></h3>
+<p><code>public sealed class JsonSerializerAdapter : BaseSerializerAdapter</code> — JSON adapter based on System.Text.Json. The factory never selects it; create it directly.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JsonSerializerAdapter()</code></td>
+<td>Constructor. Uses <code>JsonSerializerOptions</code> with <code>WriteIndented = true</code>, <code>PropertyNameCaseInsensitive = true</code>, <code>DefaultIgnoreCondition = WhenWritingNull</code> and the System.Text.Json <code>NotNullObserverConverter</code>.</td>
+</tr>
+<tr>
+<td><code>JsonSerializerAdapter(JsonSerializerOptions settings)</code></td>
+<td>Constructor. Uses your options.</td>
+</tr>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>stream</code> is null. Reads the stream to the end and calls <code>JsonSerializer.Deserialize&lt;T&gt;</code>. Wraps <code>NotNullObserverException</code> in a new <code>NotNullObserverException(typeof(T), e)</code>.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Casts <code>serialized</code> to <code>string</code> and deserializes it. Same exception wrapping.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Writes JSON with a <code>Utf8JsonWriter</code> (indented when <code>WriteIndented</code> is set) into a new <code>MemoryStream</code> positioned at 0. When <code>deserialized</code> is <code>null</code>, the stream is empty.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xmlserializeradapter"><code>XmlSerializerAdapter</code></h3>
+<p><code>public sealed class XmlSerializerAdapter : BaseSerializerAdapter</code> — XML adapter based on <code>System.Xml.Serialization.XmlSerializer</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Deserializes with <code>new XmlSerializer(typeof(T))</code>. Returns <code>null</code> if the result is not a <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Accepts an <code>XmlDocument</code> (uses <code>OuterXml</code>) or a <code>string</code>.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Serializes with <code>new XmlSerializer(deserialized.GetType())</code> into a <code>MemoryStream</code> positioned at 0. Output is indented UTF-8, keeps the XML declaration, and has no <code>xsi</code>/<code>xsd</code> namespace declarations.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="yamlserializeradapter"><code>YamlSerializerAdapter</code></h3>
+<p><code>public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter</code> — YAML adapter based on <a href="https://github.com/aaubry/YamlDotNet">YamlDotNet</a>. Property names use camel case (<code>ApplicationName</code> becomes <code>applicationName</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>stream</code> is null. Reads the stream (UTF-8 when <code>encoding</code> is <code>null</code>, byte order marks detected) and deserializes it. The stream is left open.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>serialized</code> is null and <code>ArgumentException</code> when it is not a <code>string</code>. Duplicate keys throw <code>YamlDotNet.Core.YamlException</code>.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Writes YAML as UTF-8 into a new <code>MemoryStream</code> positioned at 0. When <code>deserialized</code> is <code>null</code>, the stream is empty.</td>
+</tr>
+<tr>
+<td><code>SerializeToString&lt;T&gt;(T deserialized)</code></td>
+<td>Returns the YAML string, or an empty string when <code>deserialized</code> is <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tomlserializeradapter"><code>TomlSerializerAdapter</code></h3>
+<p><code>public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerializerAdapter</code> — TOML adapter based on <a href="https://github.com/xoofx/Tomlyn">Tomlyn</a>. Property names use camel case (<code>ApplicationName</code> becomes <code>applicationName</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DeserializeFromStream&lt;T&gt;(Stream stream, Encoding encoding = null)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>stream</code> is null. Reads the stream (UTF-8 when <code>encoding</code> is <code>null</code>, byte order marks detected) and deserializes it. The stream is left open.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(object serialized)</code></td>
+<td>Throws <code>ArgumentNullException</code> when <code>serialized</code> is null and <code>ArgumentException</code> when it is not a <code>string</code>. Invalid TOML, including duplicate keys, throws <code>Tomlyn.TomlException</code>.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T deserialized, out Stream stream)</code></td>
+<td>Writes TOML as UTF-8 into a new <code>MemoryStream</code> positioned at 0. When <code>deserialized</code> is <code>null</code>, the stream is empty.</td>
+</tr>
+<tr>
+<td><code>SerializeToString&lt;T&gt;(T deserialized)</code></td>
+<td>Returns the TOML string, or an empty string when <code>deserialized</code> is <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serializerattribute"><code>SerializerAttribute</code></h3>
+<p><code>public sealed class SerializerAttribute : Attribute</code> — selects the format the factory uses for a class or interface.</p>
+<p>Declared with <code>AttributeTargets.Class | AttributeTargets.Interface</code>, <code>Inherited = false</code>, <code>AllowMultiple = true</code>. The factory reads it with <code>Attribute.GetCustomAttribute</code>, which throws <code>AmbiguousMatchException</code> if the attribute is applied more than once, so apply it only once per type.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SerializerAttribute(SerializerFormat format = SerializerFormat.Xml, bool isStrict = true)</code></td>
+<td>Constructor. Default is strict XML.</td>
+</tr>
+<tr>
+<td><code>Format</code></td>
+<td>The <code>SerializerFormat</code>.</td>
+</tr>
+<tr>
+<td><code>IsStrict</code></td>
+<td>For JSON: <code>true</code> fails on unknown JSON members during deserialization, <code>false</code> ignores them. Has no effect on XML, YAML or TOML.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serializerformat"><code>SerializerFormat</code></h3>
+<p><code>public enum SerializerFormat</code> — output format. Each value has a <code>[HumanReadable]</code> label.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code> (0)</td>
+<td>No format. The factory throws <code>InvalidOperationException</code> for it. Label <code>None</code>.</td>
+</tr>
+<tr>
+<td><code>Json</code></td>
+<td>JSON through Newtonsoft.Json. Label <code>JSON</code>.</td>
+</tr>
+<tr>
+<td><code>Xml</code></td>
+<td>XML through <code>XmlSerializer</code>. Label <code>XML</code>.</td>
+</tr>
+<tr>
+<td><code>Yaml</code></td>
+<td>YAML through YamlDotNet. Label <code>YAML</code>.</td>
+</tr>
+<tr>
+<td><code>Toml</code></td>
+<td>TOML through Tomlyn. Label <code>TOML</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notnullobserver"><code>NotNullObserver</code></h3>
+<p><code>public class NotNullObserver</code> — empty marker type for properties that should never receive a value. See <a href="#not-null-observer">Not-null observer</a>.</p>
+<h3 id="crispywaffleserializationnewtonsoftjsonnotnullobserverconverter"><code>CrispyWaffle.Serialization.NewtonsoftJson.NotNullObserverConverter</code></h3>
+<p><code>public sealed class NotNullObserverConverter : JsonConverter</code> (Newtonsoft) — enforces <code>NotNullObserver</code> properties during Newtonsoft deserialization.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CanConvert(Type objectType)</code></td>
+<td>Returns <code>true</code> only for <code>NotNullObserver</code>.</td>
+</tr>
+<tr>
+<td><code>ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)</code></td>
+<td>Returns <code>null</code> for <code>null</code>, a null/whitespace string, or an empty array or object. Otherwise throws <code>NotNullObserverException</code> with the token type, value and JSON path.</td>
+</tr>
+<tr>
+<td><code>WriteJson(JsonWriter writer, object value, JsonSerializer serializer)</code></td>
+<td>Writes <code>value</code> with <code>serializer.Serialize</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crispywaffleserializationnewtonsoftjsonnotnullobserverexception"><code>CrispyWaffle.Serialization.NewtonsoftJson.NotNullObserverException</code></h3>
+<p><code>public class NotNullObserverException : Exception</code> — thrown by the Newtonsoft converter and adapter when a <code>NotNullObserver</code> property has a value.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotNullObserverException(JsonToken type, object value, string path)</code></td>
+<td>Message: <code>Not null observer found a not null value in path {path} of type {type}: {value}</code>. Thrown by the converter.</td>
+</tr>
+<tr>
+<td><code>NotNullObserverException(Type parentType, Exception innerException)</code></td>
+<td>Message: <code>Unable to serialize type {parentType.FullName}. Constraints: Not null observer</code>. Thrown by <code>NewtonsoftJsonSerializerAdapter</code> around the converter's exception.</td>
+</tr>
+<tr>
+<td><code>protected NotNullObserverException(SerializationInfo info, StreamingContext context)</code></td>
+<td>Serialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crispywaffleserializationsystemtextjsonnotnullobserverconverter"><code>CrispyWaffle.Serialization.SystemTextJson.NotNullObserverConverter</code></h3>
+<p><code>public sealed class NotNullObserverConverter : JsonConverter&lt;NotNullObserver&gt;</code> (System.Text.Json) — enforces <code>NotNullObserver</code> properties during System.Text.Json deserialization.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)</code></td>
+<td>Returns <code>null</code> for <code>null</code>, a null/whitespace string, or <code>{}</code>. Throws <code>NotNullObserverException</code> for a non-empty object. Throws <code>InvalidOperationException</code> for other non-null values, which System.Text.Json surfaces as a <code>JsonException</code> (see the note under <a href="#not-null-observer">Not-null observer</a>).</td>
+</tr>
+<tr>
+<td><code>Write(Utf8JsonWriter writer, NotNullObserver value, JsonSerializerOptions options)</code></td>
+<td>Writes <code>value</code> with <code>JsonSerializer.Serialize</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crispywaffleserializationsystemtextjsonnotnullobserverexception"><code>CrispyWaffle.Serialization.SystemTextJson.NotNullObserverException</code></h3>
+<p><code>public class NotNullObserverException : Exception</code> — thrown by the System.Text.Json converter and adapter when a <code>NotNullObserver</code> property has a value.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotNullObserverException(JsonTokenType type, object value)</code></td>
+<td>Message: <code>Not null observer found a not null value of type {type}: {value}</code>. Thrown by the converter.</td>
+</tr>
+<tr>
+<td><code>NotNullObserverException(Type parentType, Exception innerException)</code></td>
+<td>Message: <code>Unable to serialize type {parentType.FullName}. Constraints: Not null observer</code>. Thrown by <code>JsonSerializerAdapter</code> around the converter's exception.</td>
+</tr>
+<tr>
+<td><code>protected NotNullObserverException(SerializationInfo info, StreamingContext context)</code></td>
+<td>Serialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<p>The two exception classes have the same name in different namespaces. Catch the one that matches the adapter you use.</p>
+<h3 id="localfilenotfoundexception"><code>LocalFileNotFoundException</code></h3>
+<p><code>public class LocalFileNotFoundException : Exception</code> (namespace <code>CrispyWaffle.Serialization.Adapters</code>) — thrown by <code>BaseSerializerAdapter.Load&lt;T&gt;</code> when the file does not exist.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LocalFileNotFoundException(string file, string fullPath)</code></td>
+<td>Message: <code>Unable to find the file {file} in the directory {fullPath}</code>. <code>fullPath</code> is the directory of the absolute path.</td>
+</tr>
+<tr>
+<td><code>protected LocalFileNotFoundException(SerializationInfo info, StreamingContext context)</code></td>
+<td>Serialization constructor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="xml-round-trip">XML round trip</h3>
+<p><code>[Serializer]</code> with no arguments selects XML.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Serialization;
+
+var order = new Order { Code = 42, Description = &quot;Sample&quot; };
+
+var xml = (string)order.GetSerializer();
+
+Order copy = SerializerFactory.GetSerializer&lt;Order&gt;().Deserialize(xml);
+
+[Serializer]
+public class Order
+{
+    public int Code { get; set; }
+
+    public string Description { get; set; }
+}
+</code></pre>
+<h3 id="collections">Collections</h3>
+<p>Arrays and generic collections use the attribute of their element type.</p>
+<pre><code class="language-csharp">using System.Collections.Generic;
+using CrispyWaffle.Serialization;
+
+var items = new List&lt;Customer&gt;
+{
+    new() { Id = 1, Name = &quot;Jane&quot; },
+    new() { Id = 2, Name = &quot;John&quot; },
+};
+
+var json = (string)items.GetSerializer();
+
+List&lt;Customer&gt; copy = new List&lt;Customer&gt;().GetSerializer().Deserialize(json);
+
+[Serializer(SerializerFormat.Json)]
+public class Customer
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+}
+</code></pre>
+<h3 id="save-to-and-load-from-a-file">Save to and load from a file</h3>
+<pre><code class="language-csharp">using CrispyWaffle.Serialization;
+
+var settings = new AppSettings { Endpoint = &quot;https://example.com&quot; };
+
+settings.GetSerializer().Save(&quot;settings.json&quot;);
+
+AppSettings loaded = SerializerFactory.GetSerializer&lt;AppSettings&gt;().Load(&quot;settings.json&quot;);
+
+[Serializer(SerializerFormat.Json, false)]
+public class AppSettings
+{
+    public string Endpoint { get; set; }
+}
+</code></pre>
+<h3 id="force-a-format-without-an-attribute">Force a format without an attribute</h3>
+<p><code>GetCustomSerializer</code> ignores the attribute, so it also works for types without one.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Serialization;
+using Newtonsoft.Json.Linq;
+
+var point = new Point { X = 1, Y = 2 };
+
+JToken token = point.GetCustomSerializer(SerializerFormat.Json);
+
+public class Point
+{
+    public int X { get; set; }
+
+    public int Y { get; set; }
+}
+</code></pre>
+<h3 id="yaml-round-trip">YAML round trip</h3>
+<p><code>[Serializer(SerializerFormat.Yaml)]</code> selects YAML. Property names are written in camel case.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Serialization;
+
+var settings = new AppSettings { ApplicationName = &quot;Crispy Waffle&quot;, RetryCount = 3 };
+
+// applicationName: Crispy Waffle
+// retryCount: 3
+var yaml = (string)settings.GetSerializer();
+
+AppSettings copy = SerializerFactory.GetSerializer&lt;AppSettings&gt;().Deserialize(yaml);
+
+settings.GetSerializer().Save(&quot;settings.yaml&quot;);
+AppSettings loaded = SerializerFactory.GetSerializer&lt;AppSettings&gt;().Load(&quot;settings.yaml&quot;);
+
+[Serializer(SerializerFormat.Yaml)]
+public class AppSettings
+{
+    public string ApplicationName { get; set; }
+
+    public int RetryCount { get; set; }
+}
+</code></pre>
+<p>To use YAML for a type whose attribute selects another format, call <code>GetCustomSerializer(SerializerFormat.Yaml)</code>.</p>
+<h3 id="toml-round-trip">TOML round trip</h3>
+<p><code>[Serializer(SerializerFormat.Toml)]</code> selects TOML. Property names are written in camel case.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Serialization;
+
+var settings = new AppSettings { ApplicationName = &quot;Crispy Waffle&quot;, RetryCount = 3 };
+
+// applicationName = &quot;Crispy Waffle&quot;
+// retryCount = 3
+var toml = (string)settings.GetSerializer();
+
+AppSettings copy = SerializerFactory.GetSerializer&lt;AppSettings&gt;().Deserialize(toml);
+
+settings.GetSerializer().Save(&quot;settings.toml&quot;);
+AppSettings loaded = SerializerFactory.GetSerializer&lt;AppSettings&gt;().Load(&quot;settings.toml&quot;);
+
+[Serializer(SerializerFormat.Toml)]
+public class AppSettings
+{
+    public string ApplicationName { get; set; }
+
+    public int RetryCount { get; set; }
+}
+</code></pre>
+<p>To use TOML for a type whose attribute selects another format, call <code>GetCustomSerializer(SerializerFormat.Toml)</code>.</p>
+<h3 id="use-the-systemtextjson-adapter-directly">Use the System.Text.Json adapter directly</h3>
+<pre><code class="language-csharp">using System.IO;
+using CrispyWaffle.Serialization.Adapters;
+
+var adapter = new JsonSerializerAdapter();
+
+adapter.Serialize(new Point { X = 1, Y = 2 }, out Stream stream);
+var json = new StreamReader(stream).ReadToEnd();
+
+Point copy = adapter.Deserialize&lt;Point&gt;(json);
+
+public class Point
+{
+    public int X { get; set; }
+
+    public int Y { get; set; }
+}
+</code></pre>
+<h3 id="detect-an-unexpected-value">Detect an unexpected value</h3>
+<p><code>LegacyField</code> is expected to always be empty. When it is not, deserialization fails.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Serialization;
+using CrispyWaffle.Serialization.Adapters;
+using CrispyWaffle.Serialization.NewtonsoftJson;
+
+var adapter = new NewtonsoftJsonSerializerAdapter();
+
+try
+{
+    adapter.Deserialize&lt;Payload&gt;(&quot;{\&quot;Id\&quot;:1,\&quot;LegacyField\&quot;:\&quot;surprise\&quot;}&quot;);
+}
+catch (NotNullObserverException e)
+{
+    // &quot;Unable to serialize type Payload. Constraints: Not null observer&quot;
+    Console.WriteLine(e.Message);
+    Console.WriteLine(e.InnerException?.Message);
+}
+
+public class Payload
+{
+    public int Id { get; set; }
+
+    public NotNullObserver LegacyField { get; set; }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../service-locator/">Service locator</a></li>
+<li><a href="../attributes/">Attributes</a></li>
+<li><a href="../logging/">Logging</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

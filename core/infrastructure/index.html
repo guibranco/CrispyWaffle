@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Infrastructure - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/infrastructure/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../good-practices/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../../packages/configuration/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="infrastructure-and-constants">Infrastructure and constants</h1>
+<p><code>EnvironmentHelper</code> exposes facts about the running process: application name and version, host name, user, IP addresses, operating system, and process ID. Log providers and connectors use these values to label what they write, so setting the application name and the current operation early in startup makes logs easier to filter.</p>
+<p>The root <code>Constants</code> class holds values used by the validation helpers. It is <code>internal</code> and is not part of the public API.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Infrastructure</code>, <code>CrispyWaffle</code> (<code>Constants</code>, internal)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p>All values are computed once, in the static constructor, the first time any <code>EnvironmentHelper</code> member is accessed. <code>UserAgent</code> is the only value rebuilt on every access.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ApplicationName</code></td>
+<td>Name of the entry assembly (or the calling assembly when there is no entry assembly), with spaces replaced by <code>-</code> and converted to lower case. Can be replaced with <code>SetApplicationName</code>.</td>
+</tr>
+<tr>
+<td><code>DisplayApplicationName</code></td>
+<td><code>null</code> until <code>SetDisplayApplicationName</code> is called.</td>
+</tr>
+<tr>
+<td><code>Operation</code></td>
+<td><code>null</code> until <code>SetOperation</code> is called.</td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td><code>Environment.MachineName</code>.</td>
+</tr>
+<tr>
+<td><code>UserName</code></td>
+<td><code>Environment.UserName</code>.</td>
+</tr>
+<tr>
+<td><code>IpAddress</code></td>
+<td>The first IPv4, non-loopback unicast address of a network interface that is up. Empty string when none is found.</td>
+</tr>
+<tr>
+<td><code>IpAddressExternal</code></td>
+<td>The public IPv4 address returned by <code>https://api.ipify.org</code>. Empty string when the request fails or the response is not an IP address.</td>
+</tr>
+<tr>
+<td><code>ExecutionPath</code></td>
+<td><code>Assembly.Location</code> of the same assembly used for <code>ApplicationName</code>.</td>
+</tr>
+<tr>
+<td><code>Version</code></td>
+<td><code>ProductVersion</code> of that assembly file, or an empty string when <code>ExecutionPath</code> is empty.</td>
+</tr>
+<tr>
+<td><code>VersionDate</code></td>
+<td>Last write time of that assembly file, local time, formatted as <code>dd/MM/yyyy HH:mm:ss</code>.</td>
+</tr>
+<tr>
+<td><code>OperationalSystemVersion</code></td>
+<td><code>Environment.OSVersion</code>, a hyphen, and <code>x64</code> or <code>x86</code> depending on whether the operating system is 64-bit.</td>
+</tr>
+<tr>
+<td><code>ProcessId</code></td>
+<td>ID of the current process.</td>
+</tr>
+</tbody>
+</table>
+<p>Keep these points in mind:</p>
+<ul>
+<li>The first access makes a blocking HTTP request to <code>api.ipify.org</code> to get <code>IpAddressExternal</code>. On machines without internet access, the first use of <code>EnvironmentHelper</code> (often the first log entry) can be slow until that request fails.</li>
+<li>When the entry assembly has no file location (for example, a single-file published application), <code>ExecutionPath</code> is empty and building <code>VersionDate</code> throws, so the static constructor fails with a <code>TypeInitializationException</code>.</li>
+<li>The <code>Set*</code> methods only store the value. <code>SetApplicationName</code> does not apply the lower-case and <code>-</code> normalization used for the default name.</li>
+</ul>
+<p>Values are read by the logging and messaging integrations, among others:</p>
+<ul>
+<li><code>RollingTextFileLogAdapter</code> and the Elasticsearch and RabbitMQ log providers include the application name, host, IP addresses, operation, process ID and user agent in each entry. The Redis log provider includes the host and IP addresses.</li>
+<li>The Elasticsearch and RabbitMQ connectors use <code>ApplicationName</code> (and <code>Version</code> for Elasticsearch) in their default index and exchange names.</li>
+<li>The Redis propagation strategies publish to channels named after <code>Operation</code> or <code>ProcessId</code>.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Infrastructure;
+
+// Set names before the first log entry is written.
+EnvironmentHelper.SetApplicationName(&quot;orders-api&quot;);
+EnvironmentHelper.SetDisplayApplicationName(&quot;Orders API&quot;);
+EnvironmentHelper.SetOperation(&quot;nightly-import&quot;);
+
+Console.WriteLine(EnvironmentHelper.ApplicationName); // orders-api
+Console.WriteLine(EnvironmentHelper.Host);
+Console.WriteLine(EnvironmentHelper.UserAgent); // orders-api/1.0.0 (H:MY-HOST|P:1234|T:1)
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="environmenthelper"><code>EnvironmentHelper</code></h3>
+<p><code>public static class EnvironmentHelper</code> — information about the current application, process and machine.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetApplicationName(string applicationName)</code></td>
+<td>Replaces <code>ApplicationName</code>.</td>
+</tr>
+<tr>
+<td><code>SetDisplayApplicationName(string displayApplicationName)</code></td>
+<td>Sets <code>DisplayApplicationName</code>.</td>
+</tr>
+<tr>
+<td><code>SetOperation(string operation)</code></td>
+<td>Sets <code>Operation</code>, a free-form name for the job or operation the process is running.</td>
+</tr>
+<tr>
+<td><code>ApplicationName</code></td>
+<td>Application name used in logs and default resource names. See the table above for the default.</td>
+</tr>
+<tr>
+<td><code>DisplayApplicationName</code></td>
+<td>Friendly application name. <code>null</code> until set.</td>
+</tr>
+<tr>
+<td><code>Operation</code></td>
+<td>Current operation name. <code>null</code> until set.</td>
+</tr>
+<tr>
+<td><code>Host</code></td>
+<td>Machine name.</td>
+</tr>
+<tr>
+<td><code>UserName</code></td>
+<td>Name of the user running the process.</td>
+</tr>
+<tr>
+<td><code>IpAddress</code></td>
+<td>Local IPv4 address, or an empty string.</td>
+</tr>
+<tr>
+<td><code>IpAddressExternal</code></td>
+<td>Public IPv4 address, or an empty string.</td>
+</tr>
+<tr>
+<td><code>ExecutionPath</code></td>
+<td>Full path of the entry assembly file.</td>
+</tr>
+<tr>
+<td><code>Version</code></td>
+<td>Product version of the entry assembly, or an empty string.</td>
+</tr>
+<tr>
+<td><code>VersionDate</code></td>
+<td>Last write time of the entry assembly, as <code>dd/MM/yyyy HH:mm:ss</code>.</td>
+</tr>
+<tr>
+<td><code>OperationalSystemVersion</code></td>
+<td>Operating system description and bitness, for example <code>Microsoft Windows NT 10.0.22631.0 - x64</code>.</td>
+</tr>
+<tr>
+<td><code>ProcessId</code></td>
+<td><code>int</code> ID of the current process.</td>
+</tr>
+<tr>
+<td><code>UserAgent</code></td>
+<td><code>{ApplicationName}/{Version} (H:{Host}\|P:{ProcessId}\|T:{ManagedThreadId})</code>, where the thread ID is that of the thread reading the property.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="constants"><code>Constants</code></h3>
+<p><code>internal static class Constants</code> — constants for Brazilian tax document validation. Not accessible from application code; listed here for completeness.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_BrazilianCorporateDocumentName</code></td>
+<td><code>"CNPJ"</code></td>
+<td>Name of the Brazilian corporate taxpayer document.</td>
+</tr>
+<tr>
+<td><code>_BrazilianCorporateDocumentFullLength</code></td>
+<td><code>14</code></td>
+<td>Number of digits in a CNPJ.</td>
+</tr>
+<tr>
+<td><code>_BrazilianPersonDocumentName</code></td>
+<td><code>"CPF"</code></td>
+<td>Name of the Brazilian individual taxpayer document.</td>
+</tr>
+<tr>
+<td><code>_BrazilianPersonDocumentFullLength</code></td>
+<td><code>11</code></td>
+<td>Number of digits in a CPF.</td>
+</tr>
+</tbody>
+</table>
+<p>These values are used by <code>PersonalDataValidation</code> in <code>CrispyWaffle.Validations</code> (see <a href="../validations/">Validations</a>).</p>
+<h2 id="examples">Examples</h2>
+<h3 id="tag-log-output-with-the-current-operation">Tag log output with the current operation</h3>
+<p>Set the operation at the start of each job so that log entries and the Redis operation channel carry its name.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Infrastructure;
+using CrispyWaffle.Log;
+
+EnvironmentHelper.SetOperation(&quot;invoice-export&quot;);
+LogConsumer.Info(&quot;Starting {0} on {1}&quot;, EnvironmentHelper.Operation, EnvironmentHelper.Host);
+</code></pre>
+<h3 id="send-a-user-agent-with-outgoing-http-requests">Send a user agent with outgoing HTTP requests</h3>
+<pre><code class="language-csharp">using System.Net.Http;
+using CrispyWaffle.Infrastructure;
+
+using var client = new HttpClient();
+client.DefaultRequestHeaders.TryAddWithoutValidation(&quot;User-Agent&quot;, EnvironmentHelper.UserAgent);
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../logging/">Logging</a></li>
+<li><a href="../telemetry/">Telemetry</a></li>
+<li><a href="../validations/">Validations</a></li>
+<li><a href="../../packages/redis/">Redis</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

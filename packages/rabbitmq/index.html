@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>RabbitMQ - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/rabbitmq/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../redis/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../elasticsearch/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywafflerabbitmq">CrispyWaffle.RabbitMQ</h1>
+<p>CrispyWaffle.RabbitMQ sends and receives messages through a RabbitMQ broker and provides a log provider that publishes CrispyWaffle log messages to a RabbitMQ exchange.</p>
+<p>Use it when you want to publish typed messages to a queue or an exchange with a few lines of code, consume them through an event, or ship your application logs to RabbitMQ.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.RabbitMQ</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.RabbitMQ.Utils.Communications</code>, <code>CrispyWaffle.RabbitMQ.Helpers</code>, <code>CrispyWaffle.RabbitMQ.Log</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.RabbitMQ</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>CrispyWaffle.Configuration</code>, <code>RabbitMQ.Client</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>RabbitMQConnector</code> turns an <code>IConnection</code> (host, port, credentials) into a RabbitMQ.Client <code>IConnectionFactory</code> and stores a default exchange name. Every other type in the package takes a connector.</p>
+<p>Message types are plain classes that:</p>
+<ul>
+<li>implement the marker interface <code>IQueuing</code>,</li>
+<li>have a public parameterless constructor (the methods use the <code>class, IQueuing, new()</code> constraint),</li>
+<li>carry a <code>[Serializer]</code> attribute, because the body is produced with <code>GetSerializer()</code>. With <code>[Serializer(SerializerFormat.Json)]</code> the body is JSON; with the attribute's default format the body is XML. Without the attribute, sending throws <code>InvalidOperationException</code>.</li>
+</ul>
+<p>The target name comes from the message type:</p>
+<ul>
+<li><code>[QueueName("...")]</code> sets the queue name and <code>[ExchangeName("...")]</code> sets the exchange name.</li>
+<li>Without the attribute, the name is the class name in lowercase (for example <code>OrderCreated</code> becomes <code>ordercreated</code>).</li>
+</ul>
+<h3 id="sending">Sending</h3>
+<p><code>RabbitMQWrapper</code> opens a new connection and channel for every call and disposes them when the call ends. Messages are published as persistent and UTF-8 encoded.</p>
+<ul>
+<li><code>SendToQueueAsync</code> publishes to the default exchange with the queue name as routing key. By default it first declares the queue as durable, non-exclusive and not auto-deleted.</li>
+<li><code>SendToExchangeAsync</code> publishes to the named exchange with an empty routing key. It declares the exchange (durable, not auto-deleted) only when you pass an exchange type such as <code>ExchangeType.Fanout</code>.</li>
+</ul>
+<p>After each send the wrapper writes a trace entry through <code>LogConsumer</code> with the target name and the serialized body.</p>
+<h3 id="receiving">Receiving</h3>
+<p><code>MessageReceiver</code> starts a background task for each <code>ReceiveFromQueue&lt;T&gt;</code> or <code>ReceiveFromExchange&lt;T&gt;</code> call and returns immediately. The task keeps its connection and channel open until the <code>CancellationToken</code> is canceled.</p>
+<ul>
+<li><code>ReceiveFromQueue&lt;T&gt;</code> consumes from the queue named by <code>T</code>. It does not declare the queue, so the queue must already exist.</li>
+<li><code>ReceiveFromExchange&lt;T&gt;</code> declares a server-named queue, binds it to the exchange named by <code>T</code> with an empty routing key, and consumes from it. The exchange must already exist.</li>
+</ul>
+<p>Each delivery is decoded as UTF-8 and raised through the <code>MessageReceived</code> event as a <code>MessageReceivedArgs</code> (queue name and body). The body is the raw string; deserialize it yourself. The event handler runs on the RabbitMQ consumer thread.</p>
+<p>The receiver has no API to acknowledge messages. Pass <code>autoAck: true</code> unless you only want to peek: with <code>autoAck: false</code> messages stay unacknowledged and are redelivered when the channel closes. Deliveries that arrive while no handler is subscribed to <code>MessageReceived</code> are ignored. Exceptions in the background task (for example a failed connection) are not surfaced to the caller.</p>
+<h3 id="log-provider">Log provider</h3>
+<p><code>RabbitMQLogProvider</code> implements <code>ILogProvider</code>. Its constructor connects synchronously, opens a channel and declares the connector's <code>DefaultExchangeName</code> as a durable fanout exchange. Log calls build a <code>LogMessage</code> (application, host, IP addresses, level, thread, and so on), serialize it as JSON and put it in an in-memory queue. A dedicated worker thread publishes the queued messages to the exchange with an empty routing key. Publish failures are written to <code>LogConsumer.Trace</code> and the message is dropped.</p>
+<p>The worker thread is a foreground thread that only stops after the <code>CancellationToken</code> passed to the constructor is canceled, so cancel that token when your application shuts down or the process will not exit. The provider starts with no level enabled; call <code>SetLevel</code> before it writes anything.</p>
+<p><a href="../../images/diagrams/logging-pipeline.svg"><img alt="Logging pipeline" src="../../images/diagrams/logging-pipeline.svg" /></a></p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using System.Threading.Tasks;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.RabbitMQ.Helpers;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+using CrispyWaffle.Serialization;
+
+[QueueName(&quot;orders&quot;)]
+[Serializer(SerializerFormat.Json)]
+public class OrderCreated : IQueuing
+{
+    public Guid Id { get; set; }
+
+    public string Customer { get; set; }
+}
+
+public static class Program
+{
+    public static async Task Main()
+    {
+        var connection = new Connection
+        {
+            Host = &quot;localhost&quot;,
+            Port = 5672,
+            Credentials = { Username = &quot;guest&quot;, Password = &quot;guest&quot; },
+        };
+
+        ServiceLocator.Register(new RabbitMQConnector(connection));
+
+        var wrapper = ServiceLocator.Resolve&lt;RabbitMQWrapper&gt;();
+
+        await wrapper.SendToQueueAsync(new OrderCreated { Id = Guid.NewGuid(), Customer = &quot;ACME&quot; });
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="rabbitmqwrapper"><code>RabbitMQWrapper</code></h3>
+<p><code>public class RabbitMQWrapper</code> — publishes serialized messages to RabbitMQ queues and exchanges.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RabbitMQWrapper(RabbitMQConnector connector)</code></td>
+<td>Constructor. Throws <code>ArgumentNullException</code> when <code>connector</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>SendToExchangeAsync&lt;T&gt;(T item, string exchangeDeclareType = null, CancellationToken cancellationToken = default)</code></td>
+<td>Serializes <code>item</code> and publishes it as a persistent message to the exchange named by <code>T</code> (see <code>ExchangeNameAttribute</code>), with an empty routing key. When <code>exchangeDeclareType</code> is not null or whitespace, declares the exchange first with that type, durable and not auto-deleted. Returns <code>Task</code>. <code>T</code> must be <code>class, IQueuing, new()</code>.</td>
+</tr>
+<tr>
+<td><code>SendToQueueAsync&lt;T&gt;(T item, bool queueDeclare = true, CancellationToken cancellationToken = default)</code></td>
+<td>Serializes <code>item</code> and publishes it as a persistent message to the queue named by <code>T</code> (see <code>QueueNameAttribute</code>) through the default exchange. When <code>queueDeclare</code> is <code>true</code>, declares the queue first as durable, non-exclusive and not auto-deleted. Returns <code>Task</code>. <code>T</code> must be <code>class, IQueuing, new()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="messagereceiver"><code>MessageReceiver</code></h3>
+<p><code>public class MessageReceiver</code> — consumes messages from a queue or an exchange in the background and raises an event for each one.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MessageReceiver(RabbitMQConnector connector)</code></td>
+<td>Constructor. Throws <code>ArgumentNullException</code> when <code>connector</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>MessageReceivedHandler</code></td>
+<td>Nested delegate: <code>public delegate void MessageReceivedHandler(object sender, MessageReceivedArgs e)</code>.</td>
+</tr>
+<tr>
+<td><code>MessageReceived</code></td>
+<td><code>event MessageReceivedHandler</code>. Raised for each delivery with the queue name and the UTF-8 decoded body.</td>
+</tr>
+<tr>
+<td><code>ReceiveFromQueue&lt;T&gt;(bool autoAck, CancellationToken cancellationToken)</code></td>
+<td>Starts a background consumer on the existing queue named by <code>T</code>. Returns immediately. The consumer stops when <code>cancellationToken</code> is canceled.</td>
+</tr>
+<tr>
+<td><code>ReceiveFromExchange&lt;T&gt;(bool autoAck, CancellationToken cancellationToken)</code></td>
+<td>Declares a server-named queue, binds it to the existing exchange named by <code>T</code> with an empty routing key, and starts a background consumer on it. Returns immediately. The consumer stops when <code>cancellationToken</code> is canceled.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rabbitmqconnector"><code>RabbitMQConnector</code></h3>
+<p><code>public sealed class RabbitMQConnector</code> — holds the RabbitMQ connection factory and the default exchange name used by the other types.</p>
+<p>The class has <code>[ConnectionName("RabbitMQ")]</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RabbitMQConnector(IConnection connection)</code></td>
+<td>Constructor. Uses virtual host <code>/</code> and default exchange <code>{EnvironmentHelper.ApplicationName}.logs</code>.</td>
+</tr>
+<tr>
+<td><code>RabbitMQConnector(IConnection connection, string virtualHost, string defaultExchange)</code></td>
+<td>Constructor. Copies <code>Host</code> and <code>Port</code> into a new <code>ConnectionFactory</code>, and the user name and password when they are not null or whitespace. Throws <code>ArgumentNullException</code> when <code>connection</code> or <code>virtualHost</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>ConnectionFactory</code></td>
+<td><code>IConnectionFactory</code> (RabbitMQ.Client) used to open connections.</td>
+</tr>
+<tr>
+<td><code>DefaultExchangeName</code></td>
+<td>Name of the exchange used by <code>RabbitMQLogProvider</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>IConnection</code> here is <code>CrispyWaffle.Configuration.IConnection</code>, not the RabbitMQ.Client interface of the same name. See <a href="../configuration/">CrispyWaffle.Configuration</a>.</p>
+<h3 id="rabbitmqlogprovider"><code>RabbitMQLogProvider</code></h3>
+<p><code>public class RabbitMQLogProvider : ILogProvider, IDisposable</code> — log provider that publishes JSON-serialized <code>LogMessage</code> entries to the connector's default exchange.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RabbitMQLogProvider(RabbitMQConnector connector, CancellationToken cancellationToken)</code></td>
+<td>Constructor. Connects, opens a channel, declares <code>connector.DefaultExchangeName</code> as a durable fanout exchange, and starts the worker thread. Blocks until the connection is open. Throws <code>ArgumentNullException</code> when <code>connector</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>SetLevel(LogLevel level)</code></td>
+<td>Sets the enabled levels. Calls for levels that are not enabled are ignored.</td>
+</tr>
+<tr>
+<td><code>Fatal(category, message)</code> / <code>Error(category, message)</code> / <code>Warning(category, message)</code> / <code>Info(category, message)</code></td>
+<td>Queues one message at that level.</td>
+</tr>
+<tr>
+<td><code>Trace(category, message)</code></td>
+<td>Queues one message at trace level.</td>
+</tr>
+<tr>
+<td><code>Trace(category, message, exception)</code></td>
+<td>Queues <code>message</code>, then the message and stack trace of <code>exception</code> and of each inner exception, as separate entries.</td>
+</tr>
+<tr>
+<td><code>Trace(category, exception)</code></td>
+<td>Queues the message and stack trace of <code>exception</code> and of each inner exception, as separate entries.</td>
+</tr>
+<tr>
+<td><code>Debug(category, message)</code></td>
+<td>Queues one message at debug level.</td>
+</tr>
+<tr>
+<td><code>Debug(category, content, identifier)</code></td>
+<td>Queues <code>content</code> at debug level with <code>identifier</code> stored in <code>LogMessage.MessageIdentifier</code>.</td>
+</tr>
+<tr>
+<td><code>Debug&lt;T&gt;(string category, T content, string identifier, SerializerFormat customFormat)</code></td>
+<td>Serializes <code>content</code> (with its <code>[Serializer]</code> format when <code>customFormat</code> is <code>None</code>, otherwise with <code>customFormat</code>) and queues it at debug level with <code>identifier</code>. <code>T</code> must be <code>class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Closes and disposes the channel. It does not stop the worker thread or close the connection.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iqueuing"><code>IQueuing</code></h3>
+<p><code>public interface IQueuing</code> — empty marker interface. Message types used with <code>RabbitMQWrapper</code>, <code>MessageReceiver</code> and the <code>Extensions</code> helpers must implement it.</p>
+<h3 id="extensions"><code>Extensions</code></h3>
+<p><code>public static class Extensions</code> (namespace <code>CrispyWaffle.RabbitMQ.Helpers</code>) — resolves queue and exchange names from a message type.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetExchangeName&lt;T&gt;()</code></td>
+<td>Returns the value of the <code>ExchangeNameAttribute</code> on <code>T</code>, or <code>T</code>'s class name in lowercase (spaces replaced by <code>-</code>). <code>T</code> must be <code>class, IQueuing, new()</code>.</td>
+</tr>
+<tr>
+<td><code>GetQueueName&lt;T&gt;()</code></td>
+<td>Returns the value of the <code>QueueNameAttribute</code> on <code>T</code>, or <code>T</code>'s class name in lowercase (spaces replaced by <code>-</code>). <code>T</code> must be <code>class, IQueuing, new()</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>These are static methods, not extension methods. Call them as <code>Extensions.GetQueueName&lt;OrderCreated&gt;()</code>.</p>
+<h3 id="messagereceivedargs"><code>MessageReceivedArgs</code></h3>
+<p><code>public class MessageReceivedArgs</code> — data passed to <code>MessageReceiver.MessageReceived</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QueueName</code></td>
+<td>Name of the queue the message came from. For <code>ReceiveFromExchange&lt;T&gt;</code> this is the server-generated queue name.</td>
+</tr>
+<tr>
+<td><code>Body</code></td>
+<td>Message body decoded as UTF-8.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="queuenameattribute"><code>QueueNameAttribute</code></h3>
+<p><code>public sealed class QueueNameAttribute : Attribute</code> — sets the queue name for a message class. Applies to classes.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QueueNameAttribute(string queueName)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>QueueName</code></td>
+<td>The queue name.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exchangenameattribute"><code>ExchangeNameAttribute</code></h3>
+<p><code>public sealed class ExchangeNameAttribute : Attribute</code> — sets the exchange name for a message class. Applies to classes.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ExchangeNameAttribute(string exchangeName)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>ExchangeName</code></td>
+<td>The exchange name.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="send-a-message-to-an-exchange">Send a message to an exchange</h3>
+<p>Declare a fanout exchange on first use and publish to it.</p>
+<pre><code class="language-csharp">using System;
+using System.Threading.Tasks;
+using CrispyWaffle.Composition;
+using CrispyWaffle.RabbitMQ.Helpers;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+using CrispyWaffle.Serialization;
+using RabbitMQ.Client;
+
+[ExchangeName(&quot;rabbitmq-exchange-name&quot;)]
+[Serializer(SerializerFormat.Json)]
+public class SampleItemDto : IQueuing
+{
+    public Guid Id { get; set; }
+
+    public string Text { get; set; }
+
+    public DateTime Date { get; set; }
+}
+
+public static class Sender
+{
+    public static async Task SendAsync()
+    {
+        var wrapper = ServiceLocator.Resolve&lt;RabbitMQWrapper&gt;();
+
+        var data = new SampleItemDto
+        {
+            Id = Guid.NewGuid(),
+            Text = &quot;some random text&quot;,
+            Date = DateTime.Now,
+        };
+
+        await wrapper.SendToExchangeAsync(data, ExchangeType.Fanout);
+    }
+}
+</code></pre>
+<h3 id="send-a-message-to-a-queue">Send a message to a queue</h3>
+<p>The queue is declared as durable before the message is published.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Composition;
+using CrispyWaffle.RabbitMQ.Helpers;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+using CrispyWaffle.Serialization;
+
+var wrapper = ServiceLocator.Resolve&lt;RabbitMQWrapper&gt;();
+
+await wrapper.SendToQueueAsync(new SampleQueueItemDto { Id = Guid.NewGuid(), Text = &quot;hello&quot; });
+
+[QueueName(&quot;rabbitmq-queue-name&quot;)]
+[Serializer(SerializerFormat.Json)]
+public class SampleQueueItemDto : IQueuing
+{
+    public Guid Id { get; set; }
+
+    public string Text { get; set; }
+}
+</code></pre>
+<h3 id="consume-messages-from-a-queue">Consume messages from a queue</h3>
+<p>Subscribe to the event before starting the consumer, and cancel the token to stop it.</p>
+<pre><code class="language-csharp">using System;
+using System.Threading;
+using CrispyWaffle.Composition;
+using CrispyWaffle.RabbitMQ.Helpers;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+
+using var cts = new CancellationTokenSource();
+
+var receiver = new MessageReceiver(ServiceLocator.Resolve&lt;RabbitMQConnector&gt;());
+
+receiver.MessageReceived += (sender, e) =&gt;
+    Console.WriteLine($&quot;{e.QueueName}: {e.Body}&quot;);
+
+receiver.ReceiveFromQueue&lt;SampleQueueItemDto&gt;(autoAck: true, cts.Token);
+
+Console.ReadKey();
+cts.Cancel();
+</code></pre>
+<h3 id="ship-logs-to-rabbitmq">Ship logs to RabbitMQ</h3>
+<p>Register the provider with <code>LogConsumer</code>, enable levels, and cancel the token on shutdown.</p>
+<pre><code class="language-csharp">using System.Threading;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.Log;
+using CrispyWaffle.RabbitMQ.Log;
+using CrispyWaffle.RabbitMQ.Utils.Communications;
+
+var cts = new CancellationTokenSource();
+
+var connector = new RabbitMQConnector(
+    new Connection { Host = &quot;localhost&quot;, Port = 5672 },
+    &quot;/&quot;,
+    &quot;my-app.logs&quot;
+);
+
+var provider = new RabbitMQLogProvider(connector, cts.Token);
+LogConsumer.AddProvider(provider).SetLevel(LogLevel.Production);
+
+LogConsumer.Info(&quot;Application started&quot;);
+
+// On shutdown:
+cts.Cancel();
+provider.Dispose();
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../configuration/">CrispyWaffle.Configuration</a></li>
+<li><a href="../../core/logging/">Logging</a></li>
+<li><a href="../../core/serialization/">Serialization</a></li>
+<li><a href="../../core/service-locator/">Service locator</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

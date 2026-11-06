@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Caching - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/caching/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../logging/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../events/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="caching">Caching</h1>
+<p>The caching module gives you one static entry point, <code>CacheManager</code>, in front of one or more cache repositories. Writes go to every registered repository; reads walk the repositories in priority order and return the first hit. Use it when you want a fast in-process cache, a shared distributed cache, or both layered together.</p>
+<p>The core package ships <code>MemoryCacheRepository</code>. Distributed repositories live in separate packages: <code>RedisCacheRepository</code> in <a href="../../packages/redis/">CrispyWaffle.Redis</a> and <code>CouchDBCacheRepository</code> in <a href="../../packages/couchdb/">CrispyWaffle.CouchDB</a>. You can also write your own by implementing <code>ICacheRepository</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Cache</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><a href="../../images/diagrams/caching.svg"><img alt="Caching write and read paths" src="../../images/diagrams/caching.svg" /></a></p>
+<p><strong>Registration and priority.</strong> <code>CacheManager</code> keeps its repositories in a list sorted by an integer priority. Lower numbers are queried first. <code>AddRepository</code> overloads without a priority use an internal counter that starts at 0 and increments on every such call. When you pass an explicit priority that is already taken, the manager increments it until it finds a free slot, so a call never fails because of a collision. The repository list is static and lives for the life of the process; there is no way to remove a repository once added.</p>
+<p><strong>Writes.</strong> <code>SetAsync</code> calls <code>SetAsync</code> on every repository in parallel and waits for all of them with <code>Task.WhenAll</code>. A repository that throws is logged through <code>LogConsumer.Error</code> and skipped; the others still store the value. Cancellation inside a single repository is swallowed (a message is written to the console) and is not rethrown. <code>SetAsync</code> therefore never reports a partial failure to the caller. <code>SetToAsync</code> writes to exactly one repository, selected by its concrete type.</p>
+<p><strong>Reads.</strong> <code>GetAsync</code> and <code>TryGetAsync</code> query repositories one at a time, in priority order, through each repository's <code>TryGetAsync</code>. The first repository that reports success wins and the rest are not queried. A repository that throws is logged and skipped. When no repository has the key, <code>GetAsync</code> throws <code>InvalidOperationException</code> and <code>TryGetAsync</code> returns a failure result.</p>
+<p><strong>Promotion to memory.</strong> If a <code>MemoryCacheRepository</code> is registered and the hit comes from a different repository, the value is copied into the memory repository in a fire-and-forget background task (<code>SetToAsync&lt;MemoryCacheRepository, T&gt;</code>). Subsequent reads are served from memory if the memory repository has a lower priority number than the remote one. Promotion failures are logged and never surface to the caller. Promotion ignores the remote TTL, because the memory repository does not support expiration.</p>
+<p><strong>Timeouts and cancellation.</strong> Every read and remove operation that goes through repositories (<code>GetAsync</code>, <code>GetFrom</code>, <code>GetFromAsync</code>, <code>TryGetAsync</code>, <code>Remove</code>, <code>RemoveFrom</code>) runs under a fixed 10-second timeout linked to your <code>CancellationToken</code>. If the timeout fires, the manager throws <code>TimeoutException</code>. If your token is cancelled, the <code>OperationCanceledException</code> is rethrown. The timeout is not configurable. <code>SetAsync</code>, <code>SetToAsync</code> and <code>TTLAsync</code> do not use the timeout.</p>
+<p><strong>TTL.</strong> Expiration is a repository feature. <code>SetAsync(value, key, ttl)</code> passes the TTL to each repository; <code>MemoryCacheRepository</code> ignores it. <code>TTLAsync</code> asks each repository in priority order and returns the first non-zero value, or <code>TimeSpan.Zero</code> if every repository returns zero.</p>
+<p><strong>Typed selection.</strong> <code>SetToAsync</code>, <code>GetFrom</code>, <code>GetFromAsync</code> and <code>RemoveFrom</code> locate the repository whose runtime type is exactly <code>TCacheRepository</code> (not a base type or interface). If none matches they throw <code>InvalidOperationException</code>. If more than one registered repository has that type, <code>SingleOrDefault</code> throws <code>InvalidOperationException</code> as well.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System.Threading.Tasks;
+using CrispyWaffle.Cache;
+
+public static class Program
+{
+    public static async Task Main()
+    {
+        CacheManager.AddRepository(new MemoryCacheRepository());
+
+        await CacheManager.SetAsync(&quot;some string text&quot;, &quot;MyKey&quot;);
+
+        var value = await CacheManager.GetAsync&lt;string&gt;(&quot;MyKey&quot;); // &quot;some string text&quot;
+
+        var (found, cached) = await CacheManager.TryGetAsync&lt;string&gt;(&quot;OtherKey&quot;);
+        // found == false, cached == null
+
+        await CacheManager.Remove(&quot;MyKey&quot;);
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="cachemanager"><code>CacheManager</code></h3>
+<p><code>public static class CacheManager</code> — static facade that fans writes out to all registered <code>ICacheRepository</code> instances and reads from the first one that has the key.</p>
+<p>All <code>key</code> and <code>subKey</code> arguments are strings. Every method that takes a <code>CancellationToken</code> defaults it to <code>default</code>. Methods check the token on entry and throw <code>OperationCanceledException</code> if it is already cancelled.</p>
+<p><strong>Registration</strong></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddRepository&lt;TCacheRepository&gt;()</code></td>
+<td>Resolves <code>TCacheRepository</code> from <a href="../service-locator/"><code>ServiceLocator</code></a> and adds it with the next automatic priority. <code>TCacheRepository</code> must implement <code>ICacheRepository</code>. Returns the resolved repository as <code>ICacheRepository</code>.</td>
+</tr>
+<tr>
+<td><code>AddRepository(ICacheRepository repository)</code></td>
+<td>Adds an existing instance with the next automatic priority. Returns the same instance.</td>
+</tr>
+<tr>
+<td><code>AddRepository&lt;TCacheRepository&gt;(int priority)</code></td>
+<td>Resolves <code>TCacheRepository</code> from <code>ServiceLocator</code> and adds it at <code>priority</code> (or the next free slot above it). Returns the resolved repository.</td>
+</tr>
+<tr>
+<td><code>AddRepository(ICacheRepository repository, int priority)</code></td>
+<td>Adds an instance at <code>priority</code>, incrementing until a free slot is found. Returns the <code>int</code> priority actually used.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Writing</strong></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, CancellationToken cancellationToken)</code></td>
+<td>Stores <code>value</code> under <code>key</code> in every repository, in parallel. Returns <code>ValueTask</code>. Per-repository errors are logged and swallowed.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same as above, using a key plus sub-key (hash field).</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, TimeSpan ttl, CancellationToken cancellationToken)</code></td>
+<td>Same as the first overload, passing <code>ttl</code> to each repository. Repositories that do not support expiration ignore it.</td>
+</tr>
+<tr>
+<td><code>SetToAsync&lt;TCacheRepository, TValue&gt;(TValue value, string key, CancellationToken cancellationToken)</code></td>
+<td>Stores the value only in the repository whose type is exactly <code>TCacheRepository</code>. Throws <code>InvalidOperationException</code> if that repository is not registered. Errors from the repository itself are logged and swallowed.</td>
+</tr>
+<tr>
+<td><code>SetToAsync&lt;TCacheRepository, TValue&gt;(TValue value, string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same, with a sub-key.</td>
+</tr>
+<tr>
+<td><code>SetToAsync&lt;TCacheRepository, TValue&gt;(TValue value, string key, TimeSpan ttl, CancellationToken cancellationToken)</code></td>
+<td>Same, passing <code>ttl</code> to the repository.</td>
+</tr>
+<tr>
+<td><code>SetToAsync&lt;TCacheRepository, TValue&gt;(TValue value, string key, string subKey, TimeSpan ttl, CancellationToken cancellationToken)</code></td>
+<td>Stores the value with a sub-key in one repository. Note: <code>ttl</code> is currently ignored; the call is forwarded to the sub-key overload without a TTL.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reading</strong></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, CancellationToken cancellationToken)</code></td>
+<td>Returns <code>ValueTask&lt;T&gt;</code> with the first value found, querying repositories in priority order and promoting remote hits to memory. Throws <code>InvalidOperationException</code> if no repository has the key, <code>TimeoutException</code> after 10 seconds.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same, for a key plus sub-key.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, CancellationToken cancellationToken)</code></td>
+<td>Returns <code>ValueTask&lt;(bool Success, T Value)&gt;</code>. <code>Success</code> is <code>false</code> and <code>Value</code> is <code>default(T)</code> when no repository has the key. Same ordering, promotion and timeout as <code>GetAsync</code>.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Returns <code>ValueTask&lt;bool&gt;</code> only: <code>true</code> if any repository has the key and sub-key. The value itself is not returned (it is still promoted to memory). Use <code>GetAsync&lt;T&gt;(key, subKey)</code> to read it.</td>
+</tr>
+<tr>
+<td><code>GetFrom&lt;TCacheRepository, TValue&gt;(string key, CancellationToken cancellationToken)</code></td>
+<td>Reads from the single repository whose type is exactly <code>TCacheRepository</code>, via that repository's <code>GetAsync</code>. Returns <code>ValueTask&lt;TValue&gt;</code>. Throws <code>InvalidOperationException</code> if the repository is not registered or (for most repositories) if the key is missing, <code>TimeoutException</code> after 10 seconds. No promotion.</td>
+</tr>
+<tr>
+<td><code>GetFromAsync&lt;TCacheRepository, TValue&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same as <code>GetFrom</code>, for a key plus sub-key. Note the <code>Async</code> suffix, which the single-key overload lacks.</td>
+</tr>
+<tr>
+<td><code>TTLAsync(string key)</code></td>
+<td>Returns <code>Task&lt;TimeSpan&gt;</code>: the first non-zero TTL reported by a repository in priority order, or <code>TimeSpan.Zero</code>. No cancellation token and no timeout.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Removing</strong></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Remove(string key, CancellationToken cancellationToken)</code></td>
+<td>Removes <code>key</code> from every repository, sequentially in priority order. Returns <code>ValueTask</code>. Errors from individual repositories are swallowed without logging. Throws <code>TimeoutException</code> after 10 seconds.</td>
+</tr>
+<tr>
+<td><code>Remove(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same, for a key plus sub-key.</td>
+</tr>
+<tr>
+<td><code>RemoveFrom&lt;TCacheRepository&gt;(string key, CancellationToken cancellationToken)</code></td>
+<td>Removes <code>key</code> only from the repository whose type is exactly <code>TCacheRepository</code>. Throws <code>InvalidOperationException</code> if it is not registered; repository errors propagate.</td>
+</tr>
+<tr>
+<td><code>RemoveFrom&lt;TCacheRepository&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same, for a key plus sub-key.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="icacherepository"><code>ICacheRepository</code></h3>
+<p><code>public interface ICacheRepository</code> — contract every cache backend implements so it can be registered with <code>CacheManager</code>.</p>
+<p>Implement this to plug in your own store. <code>CacheManager</code> reads through <code>TryGetAsync</code>, so make sure it returns <code>(false, default)</code> rather than throwing on a miss.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ShouldPropagateExceptions</code></td>
+<td><code>bool</code>, get/set. Whether the implementation should rethrow backend errors instead of swallowing them. Honoring it is up to the implementation.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default)</code></td>
+<td>Stores a value. <code>ttl</code> is the optional time to live. Returns <code>ValueTask</code>.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Stores a value under a key and sub-key. Returns <code>ValueTask</code>.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code> / <code>GetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Returns <code>ValueTask&lt;T&gt;</code>. Expected to throw <code>InvalidOperationException</code> when the key does not exist.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default)</code> / <code>TryGetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Returns <code>ValueTask&lt;(bool Success, T Value)&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>RemoveAsync(string key, CancellationToken cancellationToken = default)</code> / <code>RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default)</code></td>
+<td>Removes the entry. Returns <code>Task</code>.</td>
+</tr>
+<tr>
+<td><code>TTLAsync(string key, CancellationToken cancellationToken = default)</code></td>
+<td>Returns <code>Task&lt;TimeSpan&gt;</code>: the remaining time to live, or <code>TimeSpan.Zero</code> if expired, missing or unsupported.</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>Removes every entry. Returns <code>Task</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memorycacherepository"><code>MemoryCacheRepository</code></h3>
+<p><code>public class MemoryCacheRepository : ICacheRepository</code> — in-process cache backed by <code>ConcurrentDictionary</code> instances.</p>
+<p>The backing dictionaries are <code>static</code>, so every <code>MemoryCacheRepository</code> instance in the process shares the same data, and <code>Clear()</code> on one instance clears all of them. Values are stored as object references, not serialized copies: mutating a cached reference type mutates the cached value. There is no expiration and no size limit.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MemoryCacheRepository()</code></td>
+<td>Default constructor.</td>
+</tr>
+<tr>
+<td><code>ShouldPropagateExceptions</code></td>
+<td>Settable, but not used by this implementation.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, TimeSpan? ttl, CancellationToken cancellationToken)</code></td>
+<td>Adds or replaces the value. <code>ttl</code> is ignored.</td>
+</tr>
+<tr>
+<td><code>SetAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Adds or replaces the value in a separate sub-key store, under the composite key <code>"{key}-{subKey}"</code>.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, CancellationToken cancellationToken)</code></td>
+<td>Returns the value cast to <code>T</code>. Throws <code>InvalidOperationException</code> if the key is missing, <code>InvalidCastException</code> if the value is not a <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Same, for the sub-key store.</td>
+</tr>
+<tr>
+<td><code>TryGetAsync&lt;T&gt;(string key, CancellationToken cancellationToken)</code> / <code>TryGetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Returns <code>(true, value)</code> when found and castable to <code>T</code>; <code>(false, default(T))</code> when missing or of a different type.</td>
+</tr>
+<tr>
+<td><code>RemoveAsync(string key, CancellationToken cancellationToken)</code></td>
+<td>Removes the key if present.</td>
+</tr>
+<tr>
+<td><code>RemoveAsync(string key, string subKey, CancellationToken cancellationToken)</code></td>
+<td>Intended to remove the sub-key entry. Note: it checks the main store for the composite key instead of the sub-key store, so in practice sub-key entries are not removed.</td>
+</tr>
+<tr>
+<td><code>TTLAsync(string key, CancellationToken cancellationToken)</code></td>
+<td>Always returns <code>TimeSpan.Zero</code>.</td>
+</tr>
+<tr>
+<td><code>Clear()</code></td>
+<td>Clears both the key store and the sub-key store.</td>
+</tr>
+</tbody>
+</table>
+<p>All methods except <code>TTLAsync</code> and <code>Clear</code> throw <code>OperationCanceledException</code> if the token is already cancelled.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="two-tier-cache-memory-in-front-of-redis">Two-tier cache: memory in front of Redis</h3>
+<p>Register memory first so it gets the lower priority number and is queried first. A Redis hit is promoted into memory in the background. See <a href="../../packages/redis/">Redis</a> for registering <code>RedisConnector</code>.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Cache;
+using CrispyWaffle.Composition;
+using CrispyWaffle.Redis.Cache;
+
+ServiceLocator.Register&lt;MemoryCacheRepository&gt;(Lifetime.Singleton);
+ServiceLocator.Register&lt;RedisCacheRepository&gt;(Lifetime.Singleton);
+
+CacheManager.AddRepository&lt;MemoryCacheRepository&gt;();  // priority 0
+CacheManager.AddRepository&lt;RedisCacheRepository&gt;();   // priority 1
+
+await CacheManager.SetAsync(&quot;some string text&quot;, &quot;MyKey&quot;, TimeSpan.FromMinutes(5));
+
+// Looks in memory first, then Redis.
+var value = await CacheManager.GetAsync&lt;string&gt;(&quot;MyKey&quot;);
+
+// Reads only from Redis, bypassing memory.
+var fromRedis = await CacheManager.GetFrom&lt;RedisCacheRepository, string&gt;(&quot;MyKey&quot;);
+
+// Remaining TTL as reported by the first repository that supports it (Redis here).
+var ttl = await CacheManager.TTLAsync(&quot;MyKey&quot;);
+</code></pre>
+<h3 id="explicit-priorities">Explicit priorities</h3>
+<pre><code class="language-csharp">CacheManager.AddRepository(new MemoryCacheRepository(), 0);
+CacheManager.AddRepository&lt;RedisCacheRepository&gt;(10);
+var used = CacheManager.AddRepository(new MyCacheRepository(), 10); // 10 is taken, so used == 11
+</code></pre>
+<h3 id="key-and-sub-key">Key and sub-key</h3>
+<p>Sub-keys group related values under one key (a hash in Redis).</p>
+<pre><code class="language-csharp">await CacheManager.SetAsync(42, &quot;user:1&quot;, &quot;score&quot;);
+
+int score = await CacheManager.GetAsync&lt;int&gt;(&quot;user:1&quot;, &quot;score&quot;);
+
+bool exists = await CacheManager.TryGetAsync&lt;int&gt;(&quot;user:1&quot;, &quot;score&quot;); // value is not returned
+
+await CacheManager.Remove(&quot;user:1&quot;, &quot;score&quot;);
+</code></pre>
+<h3 id="handling-timeouts-and-misses">Handling timeouts and misses</h3>
+<pre><code class="language-csharp">using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+
+try
+{
+    var order = await CacheManager.GetAsync&lt;Order&gt;(&quot;order:123&quot;, cts.Token);
+}
+catch (InvalidOperationException)
+{
+    // Not found in any repository.
+}
+catch (TimeoutException)
+{
+    // The internal 10-second timeout elapsed.
+}
+catch (OperationCanceledException)
+{
+    // Your token was cancelled.
+}
+</code></pre>
+<h3 id="custom-repository">Custom repository</h3>
+<pre><code class="language-csharp">public sealed class MyCacheRepository : ICacheRepository
+{
+    public bool ShouldPropagateExceptions { get; set; }
+
+    public ValueTask SetAsync&lt;T&gt;(T value, string key, TimeSpan? ttl = null, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public ValueTask SetAsync&lt;T&gt;(T value, string key, string subKey, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public ValueTask&lt;T&gt; GetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public ValueTask&lt;T&gt; GetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public ValueTask&lt;(bool Success, T Value)&gt; TryGetAsync&lt;T&gt;(string key, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public ValueTask&lt;(bool Success, T Value)&gt; TryGetAsync&lt;T&gt;(string key, string subKey, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public Task RemoveAsync(string key, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public Task RemoveAsync(string key, string subKey, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public Task&lt;TimeSpan&gt; TTLAsync(string key, CancellationToken cancellationToken = default) =&gt; throw new NotImplementedException();
+    public Task Clear() =&gt; throw new NotImplementedException();
+}
+
+CacheManager.AddRepository(new MyCacheRepository());
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../packages/redis/">Redis</a> — <code>RedisCacheRepository</code></li>
+<li><a href="../../packages/couchdb/">CouchDB</a> — <code>CouchDBCacheRepository</code></li>
+<li><a href="../service-locator/">Service locator</a></li>
+<li><a href="../logging/">Logging</a> — where <code>CacheManager</code> writes its trace and error messages</li>
+<li><a href="../../diagrams/">Diagrams</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
