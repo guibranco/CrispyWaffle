@@ -116,24 +116,22 @@ public sealed class ConsoleLogProvider : ILogProvider
     public void Debug(string category, string message) => _adapter.Debug(message);
 
     /// <summary>
-    /// This method is currently a placeholder and does not perform any actions. It exists to provide a method signature
-    /// consistent with the <see cref="Debug{T}"/> method for generic usage.
+    /// Logs the content with a debug log level by passing it and its identifier on to the console adapter.
     /// </summary>
     /// <param name="category">The category or context of the log message (e.g., the class or module where the log is generated).</param>
-    /// <param name="content">This parameter is not used in the current implementation.</param>
-    /// <param name="identifier">This parameter is not used in the current implementation.</param>
+    /// <param name="content">The content to be logged.</param>
+    /// <param name="identifier">The identifier of the content (for example, a file name or key).</param>
     public void Debug(string category, string content, string identifier) =>
         _adapter.Debug(content, identifier);
 
     /// <summary>
-    /// This method is currently a placeholder and does not perform any actions. It exists to provide a method signature
-    /// consistent with the <see cref="Debug{T}"/> method for generic usage with custom formats.
+    /// Logs an object with a debug log level by passing it, its identifier and the serializer format on to the console adapter.
     /// </summary>
     /// <param name="category">The category or context of the log message (e.g., the class or module where the log is generated).</param>
-    /// <typeparam name="T">This type parameter is not used in the current implementation.</typeparam>
-    /// <param name="content">This parameter is not used in the current implementation.</param>
-    /// <param name="identifier">This parameter is not used in the current implementation.</param>
-    /// <param name="customFormat">This parameter is not used in the current implementation.</param>
+    /// <typeparam name="T">The type of the object to be logged.</typeparam>
+    /// <param name="content">The object to be serialized and logged.</param>
+    /// <param name="identifier">The identifier of the serialized content (for example, a file name or key).</param>
+    /// <param name="customFormat">The custom serializer format to use, or <see cref="SerializerFormat.None"/> for the default one.</param>
     public void Debug<T>(
         string category,
         T content,

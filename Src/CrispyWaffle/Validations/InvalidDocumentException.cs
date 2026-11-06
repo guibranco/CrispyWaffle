@@ -25,8 +25,8 @@ public class InvalidDocumentException : Exception
     /// <summary>
     /// Initializes a new instance of the <see cref="InvalidDocumentException"/> class with serialized data.
     /// </summary>
-    /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
-    /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+    /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+    /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
     /// <remarks>
     /// This constructor is used during the deserialization process when the exception is being transmitted over a network or saved to a file.
     /// </remarks>
