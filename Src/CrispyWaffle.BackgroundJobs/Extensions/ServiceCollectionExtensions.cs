@@ -6,113 +6,124 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace CrispyWaffle.BackgroundJobs.Extensions
+namespace CrispyWaffle.BackgroundJobs.Extensions;
+
+/// <summary>
+/// Extension methods to register the background job services in an <see cref="IServiceCollection"/>.
+/// </summary>
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    /// <summary>
+    /// Register core background job services. By default uses InMemoryJobStore. To use EF Core, call AddDbContext&lt;JobDbContext&gt; before this and pass useEfCoreStore=true.
+    /// </summary>
+    /// <param name="services">The service collection to add the services to.</param>
+    /// <param name="configureOptions">An optional action to configure the <see cref="JobOptions"/>.</param>
+    /// <param name="useEfCoreStore"><c>true</c> to store jobs through Entity Framework Core; <c>false</c> to keep them in memory.</param>
+    /// <returns>The same <see cref="IServiceCollection"/>, so that calls can be chained.</returns>
+    public static IServiceCollection AddCrispyBackgroundJobs(
+        this IServiceCollection services,
+        Action<JobOptions>? configureOptions = null,
+        bool useEfCoreStore = false
+    )
     {
-        /// <summary>
-        /// Register core background job services. By default uses InMemoryJobStore. To use EF Core, call AddDbContext<JobDbContext> before this and pass useEfCore=true.
-        /// </summary>
-        public static IServiceCollection AddCrispyBackgroundJobs(
-            this IServiceCollection services,
-            Action<JobOptions>? configureOptions = null,
-            bool useEfCoreStore = false
-        )
+        var options = new JobOptions();
+        configureOptions?.Invoke(options);
+
+        services.AddSingleton(options);
+        services.AddSingleton<IJobHandlerRegistry, JobHandlerRegistry>();
+        services.AddSingleton<JobDispatcher>();
+        services.AddSingleton<JobMetrics>();
+
+        // Register appropriate store
+        if (useEfCoreStore)
         {
-            var options = new JobOptions();
-            configureOptions?.Invoke(options);
-
-            services.AddSingleton(options);
-            services.AddSingleton<IJobHandlerRegistry, JobHandlerRegistry>();
-            services.AddSingleton<JobDispatcher>();
-            services.AddSingleton<JobMetrics>();
-
-            // Register appropriate store
-            if (useEfCoreStore)
-            {
-                // JobDbContext must be registered by caller
-                services.TryAddScoped<IJobStore, EfCoreJobStore>();
-            }
-            else
-            {
-                services.TryAddSingleton<IJobStore, InMemoryJobStore>();
-                services.TryAddSingleton<BackgroundJobQueue>();
-            }
-
-            // Scheduler & worker
-            services.AddSingleton<
-                IJobScheduler,
-                CrispyWaffle.BackgroundJobs.Scheduling.DelayedJobScheduler
-            >();
-
-            // Hosted service (worker)
-            services.AddHostedService<BackgroundWorker>();
-
-            return services;
+            // JobDbContext must be registered by caller
+            services.TryAddScoped<IJobStore, EfCoreJobStore>();
+        }
+        else
+        {
+            services.TryAddSingleton<IJobStore, InMemoryJobStore>();
+            services.TryAddSingleton<BackgroundJobQueue>();
         }
 
-        /// <summary>
-        /// Register a typed job handler where handler is resolved from DI and payload is serialized as JSON.
-        /// handlerName is the logical identifier used when enqueueing jobs.
-        /// </summary>
-        public static IServiceCollection AddJobHandler<THandler, TData>(
-            this IServiceCollection services,
-            string handlerName
+        // Scheduler & worker
+        services.AddSingleton<
+            IJobScheduler,
+            CrispyWaffle.BackgroundJobs.Scheduling.DelayedJobScheduler
+        >();
+
+        // Hosted service (worker)
+        services.AddHostedService<BackgroundWorker>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Register a typed job handler where handler is resolved from DI and payload is serialized as JSON.
+    /// handlerName is the logical identifier used when enqueueing jobs.
+    /// </summary>
+    /// <typeparam name="THandler">The type of the handler.</typeparam>
+    /// <typeparam name="TData">The payload type of the handler.</typeparam>
+    /// <param name="services">The service collection to add the handler to.</param>
+    /// <param name="handlerName">The logical name used when enqueueing jobs for this handler.</param>
+    /// <returns>The same <see cref="IServiceCollection"/>, so that calls can be chained.</returns>
+    public static IServiceCollection AddJobHandler<THandler, TData>(
+        this IServiceCollection services,
+        string handlerName
+    )
+        where THandler : class, IBackgroundJobHandler<TData>
+    {
+        services.AddScoped<THandler>();
+        // The registry registration happens at runtime; to ensure the registry has the entry we add a post-processor
+        services.AddSingleton<IStartupFilter>(sp => new JobHandlerStartupFilter(
+            sp,
+            handlerName,
+            typeof(THandler),
+            typeof(TData)
+        ));
+        return services;
+    }
+
+    // StartupFilter ensures the registry is populated after DI container is built
+    private class JobHandlerStartupFilter : Microsoft.AspNetCore.Hosting.IStartupFilter
+    {
+        private readonly IServiceProvider _sp;
+        private readonly string _handlerName;
+        private readonly Type _handlerType;
+        private readonly Type _dataType;
+
+        public JobHandlerStartupFilter(
+            IServiceProvider sp,
+            string handlerName,
+            Type handlerType,
+            Type dataType
         )
-            where THandler : class, IBackgroundJobHandler<TData>
         {
-            services.AddScoped<THandler>();
-            // The registry registration happens at runtime; to ensure the registry has the entry we add a post-processor
-            services.AddSingleton<IStartupFilter>(sp => new JobHandlerStartupFilter(
-                sp,
-                handlerName,
-                typeof(THandler),
-                typeof(TData)
-            ));
-            return services;
+            _sp = sp;
+            _handlerName = handlerName;
+            _handlerType = handlerType;
+            _dataType = dataType;
         }
 
-        // StartupFilter ensures the registry is populated after DI container is built
-        private class JobHandlerStartupFilter : Microsoft.AspNetCore.Hosting.IStartupFilter
+        public Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> Configure(
+            Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> next
+        )
         {
-            private readonly IServiceProvider _sp;
-            private readonly string _handlerName;
-            private readonly Type _handlerType;
-            private readonly Type _dataType;
-
-            public JobHandlerStartupFilter(
-                IServiceProvider sp,
-                string handlerName,
-                Type handlerType,
-                Type dataType
-            )
+            return app =>
             {
-                _sp = sp;
-                _handlerName = handlerName;
-                _handlerType = handlerType;
-                _dataType = dataType;
-            }
-
-            public Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> Configure(
-                Action<Microsoft.AspNetCore.Builder.IApplicationBuilder> next
-            )
-            {
-                return app =>
+                var registry = _sp.GetRequiredService<IJobHandlerRegistry>();
+                var registerMethod = registry
+                    .GetType()
+                    .GetMethod("Register")
+                    ?.MakeGenericMethod(_handlerType, _dataType);
+                // If Register<THandler, TData>(string) exists we call via reflection
+                if (registerMethod != null)
                 {
-                    var registry = _sp.GetRequiredService<IJobHandlerRegistry>();
-                    var registerMethod = registry
-                        .GetType()
-                        .GetMethod("Register")
-                        ?.MakeGenericMethod(_handlerType, _dataType);
-                    // If Register<THandler, TData>(string) exists we call via reflection
-                    if (registerMethod != null)
-                    {
-                        registerMethod.Invoke(registry, new object[] { _handlerName });
-                    }
+                    registerMethod.Invoke(registry, new object[] { _handlerName });
+                }
 
-                    next(app);
-                };
-            }
+                next(app);
+            };
         }
     }
 }
