@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Cryptography - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/cryptography/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../template-rendering/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../extensions/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="cryptography">Cryptography</h1>
+<p>The cryptography module has one static class, <code>Security</code>. It provides symmetric string encryption and decryption (AES-256 in CBC mode, with a key derived from a password) and string hashing with MD5, SHA-1, SHA-2 and, on .NET 8 or later, SHA-3.</p>
+<p>These helpers exist for compatibility with data produced by earlier versions of the library. Read <a href="#security-notes">Security notes</a> before you use them for new data.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Cryptography</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="encryption-and-decryption">Encryption and decryption</h3>
+<p><code>Encrypt</code> and <code>Decrypt</code> are extension methods on <code>string</code>. Both take the same three secrets: <code>passwordHash</code>, <code>saltKey</code> and <code>viKey</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key derivation</td>
+<td><code>new Rfc2898DeriveBytes(passwordHash, Encoding.ASCII.GetBytes(saltKey)).GetBytes(32)</code>. This is PBKDF2 with the .NET defaults for this constructor: HMAC-SHA1 and 1,000 iterations. The password is UTF-8 encoded by <code>Rfc2898DeriveBytes</code>; the salt is ASCII encoded (non-ASCII characters become <code>?</code>). The result is a 256-bit key.</td>
+</tr>
+<tr>
+<td>Initialization vector</td>
+<td><code>Encoding.ASCII.GetBytes(viKey)</code>, used as is. It must be exactly 16 ASCII characters (one 128-bit block). Any other length throws <code>ArgumentException</code> ("Specified initialization vector (IV) does not match the block size for this algorithm.").</td>
+</tr>
+<tr>
+<td>Cipher</td>
+<td><code>RijndaelManaged</code> with its default 128-bit block size, <code>CipherMode.CBC</code>. With a 256-bit key this is AES-256-CBC.</td>
+</tr>
+<tr>
+<td>Padding</td>
+<td><code>Encrypt</code> uses <code>PaddingMode.Zeros</code>. <code>Decrypt</code> uses <code>PaddingMode.None</code> and then removes all trailing <code>'\0'</code> characters from the decoded text.</td>
+</tr>
+<tr>
+<td>Plain text encoding</td>
+<td>UTF-8.</td>
+</tr>
+<tr>
+<td>Cipher text encoding</td>
+<td>Base64 of the raw cipher text. The output contains only the cipher text: no salt, IV, version or authentication tag.</td>
+</tr>
+</tbody>
+</table>
+<p>Encryption is deterministic: the same plain text with the same three secrets always gives the same output.</p>
+<h3 id="hashing">Hashing</h3>
+<p><code>Security.Hash(value, type)</code> UTF-8 encodes <code>value</code>, computes the hash with the selected algorithm and converts the bytes to a string. The string format depends on the algorithm:</p>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Output format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Md5</code></td>
+<td>Lowercase hexadecimal, two characters per byte (32 characters). This is the usual MD5 hex string.</td>
+</tr>
+<tr>
+<td>All others</td>
+<td>Each byte as an unpadded decimal number (<code>0</code> to <code>255</code>), concatenated with no separator. For example, bytes <code>0x05 0xA0</code> become <code>"5160"</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The non-MD5 format is not the standard hex encoding, so it does not match the output of other tools (<code>sha256sum</code>, <code>Convert.ToHexString</code>), and it has variable length. Different hashes can also produce the same string, because the byte boundaries are lost. Compare these values only with other values produced by <code>Security.Hash</code>.</p>
+<p>The hash algorithm objects are created once, in a static field, and shared by all calls.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Cryptography;
+
+const string password = &quot;123456&quot;;
+const string salt = &quot;12345678&quot;;
+const string iv = &quot;HZEM7|Ne2YGS/F41&quot;; // exactly 16 ASCII characters
+
+var encrypted = &quot;PlainText&quot;.Encrypt(password, salt, iv); // &quot;vBWW26e4f9QMRPjz4pXoEQ==&quot;
+var decrypted = encrypted.Decrypt(password, salt, iv);   // &quot;PlainText&quot;
+
+var md5 = Security.Hash(&quot;PlainText&quot;, HashAlgorithmType.Md5); // &quot;b7ebbf7f254ef646928dd58f62383a85&quot;
+
+Console.WriteLine($&quot;{encrypted} {decrypted} {md5}&quot;);
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="security"><code>Security</code></h3>
+<p><code>public static class Security</code> — string encryption, decryption and hashing helpers.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Encrypt(this string plainText, string passwordHash, string saltKey, string viKey)</code></td>
+<td>Encrypts <code>plainText</code> with AES-256-CBC and zero padding, as described in <a href="#encryption-and-decryption">How it works</a>. Returns the cipher text as Base64. Throws <code>ArgumentException</code> when <code>viKey</code> is not 16 ASCII bytes. Throws <code>ArgumentNullException</code> when any argument is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>Decrypt(this string encryptedText, string passwordHash, string saltKey, string viKey)</code></td>
+<td>Decodes Base64 and decrypts with the same parameters. Returns the UTF-8 text with trailing <code>'\0'</code> characters removed. Throws <code>FormatException</code> for invalid Base64, <code>ArgumentException</code> for an invalid IV length, and <code>CryptographicException</code> when the cipher text length is not a multiple of 16 bytes. Wrong secrets do not throw; they return unreadable text.</td>
+</tr>
+<tr>
+<td><code>Hash(string value, HashAlgorithmType type)</code></td>
+<td>Returns the hash of <code>value</code> in the format described in <a href="#hashing">Hashing</a>. Throws <code>ArgumentOutOfRangeException</code> (<code>Invalid algorithm type</code>) for a <code>type</code> that is not supported on the current target framework. Throws <code>ArgumentNullException</code> when <code>value</code> is <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hashalgorithmtype"><code>HashAlgorithmType</code></h3>
+<p><code>public enum HashAlgorithmType</code> — algorithm selector for <code>Security.Hash</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Md5</code></td>
+<td>MD5 (128-bit). Output is lowercase hex.</td>
+</tr>
+<tr>
+<td><code>Sha1</code></td>
+<td>SHA-1 (160-bit).</td>
+</tr>
+<tr>
+<td><code>Sha256</code></td>
+<td>SHA-256.</td>
+</tr>
+<tr>
+<td><code>Sha384</code></td>
+<td>SHA-384.</td>
+</tr>
+<tr>
+<td><code>Sha512</code></td>
+<td>SHA-512.</td>
+</tr>
+<tr>
+<td><code>Sha3_256</code></td>
+<td>SHA3-256. Only defined when the library is compiled for .NET 8 or later.</td>
+</tr>
+<tr>
+<td><code>Sha3_384</code></td>
+<td>SHA3-384. Only defined when the library is compiled for .NET 8 or later.</td>
+</tr>
+<tr>
+<td><code>Sha3_512</code></td>
+<td>SHA3-512. Only defined when the library is compiled for .NET 8 or later.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="hash-with-each-algorithm">Hash with each algorithm</h3>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Cryptography;
+
+foreach (var type in new[] { HashAlgorithmType.Md5, HashAlgorithmType.Sha1, HashAlgorithmType.Sha256 })
+{
+    Console.WriteLine($&quot;{type}: {Security.Hash(&quot;PlainText&quot;, type)}&quot;);
+}
+
+// Md5: b7ebbf7f254ef646928dd58f62383a85
+// Sha1: 5022439192242211661341747135888248197192199115101
+// Sha256: 43167247186156224140100585014234839723255150225212687216120565623113068401650
+</code></pre>
+<h3 id="keep-secrets-out-of-code">Keep secrets out of code</h3>
+<p>Read the three secrets from configuration instead of constants. The IV still has to be 16 ASCII characters.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Cryptography;
+
+var password = Environment.GetEnvironmentVariable(&quot;APP_CRYPTO_PASSWORD&quot;);
+var salt = Environment.GetEnvironmentVariable(&quot;APP_CRYPTO_SALT&quot;);
+var iv = Environment.GetEnvironmentVariable(&quot;APP_CRYPTO_IV&quot;);
+
+var token = &quot;customer-42&quot;.Encrypt(password, salt, iv);
+var original = token.Decrypt(password, salt, iv);
+</code></pre>
+<h2 id="security-notes">Security notes</h2>
+<p>These points come from the code in <code>Security.cs</code>:</p>
+<ul>
+<li><strong>No integrity protection.</strong> The output is unauthenticated AES-CBC. An attacker who can change the cipher text can change the decrypted plain text in predictable ways, and <code>Decrypt</code> will not detect it. Do not use this for data that crosses a trust boundary without a separate MAC or signature.</li>
+<li><strong>Fixed IV.</strong> The IV comes from a caller-supplied string and is reused for every message. Equal plain texts produce equal cipher texts, and messages that share a prefix produce cipher texts that share a prefix. Each message should have a random IV.</li>
+<li><strong>Fixed salt.</strong> The salt is also a caller-supplied constant, so the derived key is the same for every message.</li>
+<li><strong>Weak key derivation.</strong> PBKDF2 uses the <code>Rfc2898DeriveBytes</code> constructor defaults: HMAC-SHA1 with 1,000 iterations, far below current recommendations. Treat <code>passwordHash</code> as a high-entropy secret, not a human password.</li>
+<li><strong>Zero padding.</strong> Plain text that ends with <code>'\0'</code> characters loses them on decryption.</li>
+<li><strong>Obsolete APIs.</strong> <code>RijndaelManaged</code> and the <code>Rfc2898DeriveBytes(string, byte[])</code> constructor are marked obsolete in recent .NET versions (SYSLIB0022 and SYSLIB0041).</li>
+<li><strong>Weak hash algorithms.</strong> <code>Md5</code> and <code>Sha1</code> are broken for collision resistance. Do not use them for signatures or integrity checks. None of the hash options is suitable for password storage: they are fast, unsalted hashes. Use a password hashing function (PBKDF2 with a high iteration count, bcrypt, scrypt or Argon2) for passwords.</li>
+<li><strong>Thread safety.</strong> <code>Hash</code> reuses one <code>HashAlgorithm</code> instance per algorithm, stored in a static dictionary. <code>HashAlgorithm.ComputeHash</code> is not thread-safe, so concurrent calls with the same algorithm can return wrong results or throw. Synchronize calls if you hash from several threads.</li>
+<li><strong>SHA-3 availability.</strong> On .NET 8 or later, the SHA-3 instances are created in the same static initializer as the others. .NET throws <code>PlatformNotSupportedException</code> from <code>SHA3_256.Create()</code> and its siblings on platforms without SHA-3 support, which would surface as a <code>TypeInitializationException</code> the first time <code>Hash</code> runs on such a platform.</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../extensions/">Extensions</a></li>
+<li><a href="../utilities/">Utilities</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

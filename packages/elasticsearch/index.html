@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>ElasticSearch - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/elasticsearch/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../rabbitmq/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../couchdb/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywaffleelasticsearch">CrispyWaffle.ElasticSearch</h1>
+<p>CrispyWaffle.ElasticSearch connects CrispyWaffle to <a href="https://www.elastic.co/elasticsearch">Elasticsearch</a> through the official <code>Elastic.Clients.Elasticsearch</code> client. It provides:</p>
+<ul>
+<li>A log provider that indexes every log message as a document and deletes old log documents once, shortly after startup.</li>
+<li>A small wrapper for reading and writing documents.</li>
+<li>Index helpers that derive index names from your types.</li>
+</ul>
+<p>Use it when you want CrispyWaffle logs searchable in Elasticsearch or Kibana, or when you need simple document storage without writing client code yourself.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.ElasticSearch</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.ElasticSearch.Log</code>, <code>CrispyWaffle.ElasticSearch.Helpers</code>, <code>CrispyWaffle.ElasticSearch.Utils.Communications</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.ElasticSearch</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>CrispyWaffle.Configuration</code>, <code>Elastic.Clients.Elasticsearch</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="connecting">Connecting</h3>
+<p><code>ElasticConnector</code> builds an <code>ElasticsearchClient</code> from an <code>IConnection</code>:</p>
+<ul>
+<li>The scheme is <code>https</code> when <code>Port</code> is <code>443</code>, and <code>http</code> otherwise.</li>
+<li>Basic authentication is added only when <code>Credentials</code> isn't <code>null</code> and <code>Credentials.Username</code> isn't blank.</li>
+<li>The client's default index is the <code>defaultIndexName</code> constructor argument. When you don't pass one, it's <code>logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}</code>.</li>
+</ul>
+<p>Register the connector as a singleton. <code>ElasticWrapper</code> and <code>ElasticSearchLogProvider</code> take it in their constructors. The static <code>Extensions</code> class resolves it from <code>ServiceLocator</code>.</p>
+<h3 id="log-provider">Log provider</h3>
+<p><a href="../../images/diagrams/logging-pipeline.svg"><img alt="Logging pipeline" src="../../images/diagrams/logging-pipeline.svg" /></a></p>
+<p><code>ElasticSearchLogProvider</code> is an <code>ILogProvider</code>. Each logging call that passes the level check builds a <code>LogMessage</code> and indexes it in the connector's default index. The <code>LogMessage</code> carries:</p>
+<ul>
+<li>The application name, date, host name and process ID.</li>
+<li>The local and remote IP addresses.</li>
+<li>The operation, user agent, thread ID and thread name.</li>
+</ul>
+<p>Indexing calls are started but not awaited. Logging never blocks, and indexing errors aren't reported back to the caller.</p>
+<p>The provider's level starts with no flags set, so call <code>SetLevel</code> after adding it.</p>
+<p>Ten seconds after it's constructed, the provider runs a single delete-by-query against the default index. The query removes <code>LogMessage</code> documents whose <code>Date</code> is older than <code>logRetentionDays</code> days. This cleanup runs once per provider instance, not on a schedule.</p>
+<p><code>AbortGarbageCollector()</code> and <code>Dispose()</code> cancel the cleanup if it hasn't run yet.</p>
+<h3 id="index-names">Index names</h3>
+<p><code>Extensions.GetIndexName&lt;T&gt;()</code> decides which index a type belongs to:</p>
+<ul>
+<li>If the type has an <code>[IndexName]</code> attribute, that name is used.</li>
+<li>Otherwise, the type name in lowercase is used (with spaces replaced by <code>-</code>).</li>
+</ul>
+<p><code>ElasticWrapper</code>'s <code>*WithResolver</code> methods and the <code>Extensions</code> methods use this name. Types used with them must implement the marker interface <code>IIndexable</code>.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Start Elasticsearch locally. The repository's <code>docker-compose.yml</code> runs <code>elasticsearch:8.8.0</code> as a single node on port 9200 with security disabled.</p>
+<pre><code class="language-csharp">using CrispyWaffle.Composition;
+using CrispyWaffle.Configuration;
+using CrispyWaffle.ElasticSearch.Log;
+using CrispyWaffle.ElasticSearch.Utils.Communications;
+using CrispyWaffle.Log;
+
+var connection = new Connection { Host = &quot;localhost&quot;, Port = 9200 };
+
+var connector = new ElasticConnector(connection, &quot;logs-my-app&quot;);
+ServiceLocator.Register(connector);
+
+// Index log messages and delete log documents older than 30 days.
+LogConsumer
+    .AddProvider(new ElasticSearchLogProvider(connector, 30))
+    .SetLevel(LogLevel.Production);
+
+LogConsumer.Info(&quot;Application started&quot;);
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="elasticconnector"><code>ElasticConnector</code></h3>
+<p><code>public sealed class ElasticConnector</code> creates and holds the <code>ElasticsearchClient</code>. It has the <code>[ConnectionName("ElasticSearch")]</code> attribute.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElasticConnector(IConnection connection)</code></td>
+<td>Uses <code>logs-{EnvironmentHelper.ApplicationName}-{EnvironmentHelper.Version}</code> as the default index.</td>
+</tr>
+<tr>
+<td><code>ElasticConnector(IConnection connection, string defaultIndexName)</code></td>
+<td>Builds the client for <code>connection.Host:connection.Port</code> with <code>defaultIndexName</code> as the default index. Throws <code>ArgumentNullException</code> when <code>connection</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>Client</code></td>
+<td>The <code>ElasticsearchClient</code>. Use it for anything the wrapper doesn't cover.</td>
+</tr>
+<tr>
+<td><code>DefaultIndexName</code></td>
+<td>The default index name passed to the client.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="elasticsearchlogprovider"><code>ElasticSearchLogProvider</code></h3>
+<p><code>public class ElasticSearchLogProvider : ILogProvider, IDisposable</code> indexes log messages in Elasticsearch.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElasticSearchLogProvider(ElasticConnector elastic, int logRetentionDays)</code></td>
+<td>Constructor. Uses <code>elastic.Client</code> and <code>elastic.DefaultIndexName</code>, and schedules the one-time retention cleanup to run 10 seconds later.</td>
+</tr>
+<tr>
+<td><code>SetLevel(LogLevel level)</code></td>
+<td>Sets which levels are indexed. Nothing is indexed until this is called.</td>
+</tr>
+<tr>
+<td><code>Fatal(category, message)</code> / <code>Error(category, message)</code> / <code>Warning(category, message)</code> / <code>Info(category, message)</code> / <code>Debug(category, message)</code></td>
+<td>Indexes a message at that level when the level is enabled.</td>
+</tr>
+<tr>
+<td><code>Trace(category, message)</code> / <code>Trace(category, message, exception)</code> / <code>Trace(category, exception)</code></td>
+<td>Indexes a trace message. The exception overloads also index the message and the stack trace of the exception and of each inner exception, as separate documents.</td>
+</tr>
+<tr>
+<td><code>Debug(string category, string content, string identifier)</code></td>
+<td>Indexes <code>content</code> at debug level with <code>identifier</code> as the <code>MessageIdentifier</code>.</td>
+</tr>
+<tr>
+<td><code>Debug&lt;T&gt;(string category, T content, string identifier, SerializerFormat customFormat = SerializerFormat.None)</code></td>
+<td>Serializes <code>content</code> with its default serializer (when <code>customFormat</code> is <code>None</code>) or with <code>customFormat</code>, and indexes it at debug level. <code>T</code> must be <code>class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>AbortGarbageCollector()</code></td>
+<td>Cancels the pending retention cleanup.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Cancels the pending retention cleanup. The provider can still index messages afterwards.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="elasticwrapper"><code>ElasticWrapper</code></h3>
+<p><code>public sealed class ElasticWrapper</code> has convenience methods for single-document reads and writes. The synchronous methods block on the asynchronous client calls with <code>.Result</code> or <code>.Wait()</code>. Prefer the <code>*Async</code> versions.</p>
+<p>The <code>id</code> parameter is typed as <code>object</code> but is cast to <code>Elastic.Clients.Elasticsearch.Id</code>, so pass an <code>Id</code> instance such as <code>new Id("42")</code>. A plain string or number throws <code>InvalidCastException</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElasticWrapper(ElasticConnector elastic)</code></td>
+<td>Constructor. Uses <code>elastic.Client</code>.</td>
+</tr>
+<tr>
+<td><code>IndexExists&lt;T&gt;()</code> / <code>IndexExistsAsync&lt;T&gt;()</code></td>
+<td>Returns whether the index for <code>T</code> (from <code>GetIndexName&lt;T&gt;()</code>) exists. <code>T : class, IIndexable, new()</code>.</td>
+</tr>
+<tr>
+<td><code>GetDocument&lt;T&gt;(object id)</code> / <code>GetDocumentAsync&lt;T&gt;(object id)</code></td>
+<td>Gets document <code>id</code> from the index the client infers for <code>T</code> (the default index unless you configured a mapping), and returns its source. <code>T : class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>GetDocumentWithResolver&lt;T&gt;(object id)</code> / <code>GetDocumentWithResolverAsync&lt;T&gt;(object id)</code></td>
+<td>Gets document <code>id</code> from the index named by <code>GetIndexName&lt;T&gt;()</code>. <code>T : class, IIndexable, new()</code>.</td>
+</tr>
+<tr>
+<td><code>GetDocumentFrom&lt;T&gt;(object id, string indexName)</code> / <code>GetDocumentFromAsync&lt;T&gt;(object id, string indexName)</code></td>
+<td>Gets document <code>id</code> from <code>indexName</code>. <code>T : class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>SetDocument&lt;T&gt;(T document)</code> / <code>SetDocumentAsync&lt;T&gt;(T document)</code></td>
+<td>Indexes <code>document</code> in the index the client infers for <code>T</code>. <code>T : class, new()</code>.</td>
+</tr>
+<tr>
+<td><code>SetDocumentWithResolver&lt;T&gt;(T document)</code> / <code>SetDocumentWithResolverAsync&lt;T&gt;(T document)</code></td>
+<td>Indexes <code>document</code> in the index named by <code>GetIndexName&lt;T&gt;()</code>. <code>T : class, IIndexable, new()</code>.</td>
+</tr>
+<tr>
+<td><code>SetDocumentTo&lt;T&gt;(T document, string indexName)</code> / <code>SetDocumentToAsync&lt;T&gt;(T document, string indexName)</code></td>
+<td>Indexes <code>document</code> in <code>indexName</code>. <code>T : class, new()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="extensions"><code>Extensions</code></h3>
+<p><code>public static class Extensions</code> (namespace <code>CrispyWaffle.ElasticSearch.Helpers</code>) has index-management helpers.</p>
+<p>The extension methods use the <code>ElasticConnector</code> resolved from <code>ServiceLocator</code> the first time the class is used. Register the connector before that.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetIndexName&lt;T&gt;()</code></td>
+<td>Returns the <code>[IndexName]</code> value of <code>T</code>, or the lowercase type name. <code>T : class, IIndexable, new()</code>.</td>
+</tr>
+<tr>
+<td><code>AliasAsync&lt;T&gt;(this T index, string alias, string indexName = null)</code></td>
+<td>Adds <code>alias</code> to <code>indexName</code>, or to <code>GetIndexName&lt;T&gt;()</code> when <code>indexName</code> is blank. Returns <code>index</code>.</td>
+</tr>
+<tr>
+<td><code>DeleteAsync&lt;T&gt;(this T index)</code></td>
+<td>Deletes the whole index named by <code>GetIndexName&lt;T&gt;()</code> if it exists, not just the document. Returns <code>index</code>.</td>
+</tr>
+<tr>
+<td><code>DeleteByQueryAsync&lt;T&gt;(this T index, Expression&lt;Func&lt;T, object&gt;&gt; field, string indexPattern, int daysBefore)</code></td>
+<td>Deletes documents in <code>indexPattern</code> whose date <code>field</code> is older than <code>daysBefore</code> days. Returns the number of deleted documents. <code>T : class, new()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iindexable"><code>IIndexable</code></h3>
+<p><code>public interface IIndexable</code> is a marker interface with no members. Implement it on document types that you use with <code>GetIndexName&lt;T&gt;()</code>, the <code>*WithResolver</code> methods and the <code>Extensions</code> methods.</p>
+<h3 id="indexnameattribute"><code>IndexNameAttribute</code></h3>
+<p><code>public sealed class IndexNameAttribute : Attribute</code> sets the index name for a class. Apply it to classes only.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IndexNameAttribute(string indexName)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>IndexName</code></td>
+<td>The index name.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="read-and-write-a-typed-document">Read and write a typed document</h3>
+<pre><code class="language-csharp">using CrispyWaffle.ElasticSearch.Helpers;
+using CrispyWaffle.ElasticSearch.Utils.Communications;
+using Elastic.Clients.Elasticsearch;
+
+[IndexName(&quot;products&quot;)]
+public class Product : IIndexable
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+}
+
+var wrapper = new ElasticWrapper(connector);
+
+await wrapper.SetDocumentWithResolverAsync(new Product { Id = &quot;42&quot;, Name = &quot;Waffle iron&quot; });
+
+var product = await wrapper.GetDocumentWithResolverAsync&lt;Product&gt;(new Id(&quot;42&quot;));
+var exists = await wrapper.IndexExistsAsync&lt;Product&gt;();
+</code></pre>
+<h3 id="remove-old-documents-and-add-an-alias">Remove old documents and add an alias</h3>
+<pre><code class="language-csharp">using CrispyWaffle.ElasticSearch.Helpers;
+
+public class AuditEntry : IIndexable
+{
+    public DateTime Date { get; set; }
+
+    public string Action { get; set; }
+}
+
+var deleted = await new AuditEntry().DeleteByQueryAsync(e =&gt; e.Date, &quot;auditentry*&quot;, 90);
+
+await new AuditEntry().AliasAsync(&quot;audit-current&quot;);
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../core/logging/">Logging</a></li>
+<li><a href="../configuration/">CrispyWaffle.Configuration</a></li>
+<li><a href="../../core/service-locator/">Service locator</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

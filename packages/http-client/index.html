@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>HttpClient - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/http-client/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../i18n-ptbr/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../background-jobs/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywafflehttpclient">CrispyWaffle.HttpClient</h1>
+<p><code>CrispyWaffle.HttpClient</code> is a small wrapper around <code>IHttpClientFactory</code> that sends JSON requests, retries transient failures with exponential backoff, and returns every result as an <code>HttpResponse&lt;T&gt;</code> instead of throwing (unless you ask it to throw). Use it when you want typed JSON calls with retries and a uniform result object, without adding Polly.</p>
+<p>The package is standalone: it does not reference the core <code>CrispyWaffle</code> package and does not use <code>ServiceLocator</code>. It is wired up through <code>Microsoft.Extensions.DependencyInjection</code> and consumed by injecting <code>IHttpClientWrapper</code>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.HttpClient</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.HttpClient</code>, <code>CrispyWaffle.HttpClient.Serialization</code>, <code>CrispyWaffle.HttpClient.Exceptions</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td>Not yet published to NuGet (it is not in the release workflow's package list). Reference the project: <code>dotnet add reference Src/CrispyWaffle.HttpClient/CrispyWaffle.HttpClient.csproj</code></td>
+</tr>
+<tr>
+<td><strong>Target framework</strong></td>
+<td><code>net10.0</code> only</td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td>No CrispyWaffle packages. <code>Microsoft.Extensions.Http</code> (which brings <code>Microsoft.Extensions.Options</code>, <code>Microsoft.Extensions.Logging.Abstractions</code> and DI abstractions)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="registration">Registration</h3>
+<p><code>AddCrispyWaffleHttpClient</code> calls <code>services.AddHttpClient()</code>, binds <code>HttpRequestOptions</code> through <code>services.Configure</code>, and registers two singletons: <code>IJsonSerializer</code> as <code>SystemTextJsonSerializer</code> and <code>IHttpClientWrapper</code> as <code>HttpClientWrapper</code>. The wrapper also takes an optional <code>ILogger&lt;HttpClientWrapper&gt;</code>; if logging is registered, it logs header, read and deserialization problems.</p>
+<h3 id="request-flow">Request flow</h3>
+<p>For each call, the wrapper:</p>
+<ol>
+<li>Merges the registered default options with the per-request <code>HttpRequestOptions</code>, if any (see <a href="#per-request-options">Per-request options</a>).</li>
+<li>Picks the serializer: <code>options.Serializer</code> if set, otherwise the <code>IJsonSerializer</code> from DI.</li>
+<li>Creates a client from <code>IHttpClientFactory</code> (<code>CreateClient(NamedHttpClient)</code> when <code>NamedHttpClient</code> is set, otherwise <code>CreateClient()</code>), then:<ul>
+<li>sets <code>BaseAddress</code> from the options only if the client has no base address yet;</li>
+<li>sets <code>Timeout</code> to <code>max(1, TimeoutSeconds)</code> seconds, overwriting any timeout configured on a named client;</li>
+<li>adds each <code>DefaultRequestHeaders</code> entry to the client's default headers (invalid headers are skipped and logged as warnings);</li>
+<li>adds <code>Accept: application/json</code> if the client has no <code>Accept</code> header.</li>
+</ul>
+</li>
+<li>Builds a new <code>HttpRequestMessage</code> for every attempt. If a body is present, it is serialized with the chosen serializer and sent as UTF-8 <code>StringContent</code> with content type <code>application/json</code> (or <code>text/plain</code> when <code>UseJsonContentType</code> is <code>false</code>). The headers are also copied onto the message with <code>TryAddWithoutValidation</code>.</li>
+<li>Sends with <code>HttpCompletionOption.ResponseHeadersRead</code> through the retry policy below.</li>
+<li>Reads the body as a string, collects response and content headers into <code>Headers</code>, and builds the result:<ul>
+<li><strong>2xx</strong>: deserializes the body into <code>T</code> (an empty or whitespace body gives <code>default(T)</code>). A deserialization error gives a failed result with the error <code>"DeserializationFailed: &lt;message&gt;"</code>.</li>
+<li><strong>Any other status</strong>: a failed result whose <code>Errors</code> holds <code>"HTTP &lt;code&gt; &lt;reason&gt;"</code> and, if non-empty, the raw body.</li>
+<li><strong>No response after retries</strong>: a failed result with <code>StatusCode = null</code> and one error (the last exception message, or <code>"Unknown error"</code>).</li>
+</ul>
+</li>
+</ol>
+<p>When <code>ThrowOnError</code> is <code>true</code>, each of the failure cases above throws <code>HttpClientException</code> instead of returning a failed result. <code>Duration</code> covers all attempts and retry delays, up to the arrival of the final response headers (it does not include reading the body).</p>
+<h3 id="retry-policy">Retry policy</h3>
+<p>Retries are handled by an internal policy (no Polly dependency). With the default <code>RetryCount = 3</code>, a call makes up to 4 attempts.</p>
+<p>What is retried:</p>
+<table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Retried</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Status code <code>&gt;= 500</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>408 Request Timeout</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>429 Too Many Requests</code></td>
+<td>Yes, honoring <code>Retry-After</code></td>
+</tr>
+<tr>
+<td>Any other status (including all other 4xx)</td>
+<td>No. Returned immediately</td>
+</tr>
+<tr>
+<td><code>HttpRequestException</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>OperationCanceledException</code> (including <code>TaskCanceledException</code> from <code>HttpClient.Timeout</code>)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>TimeoutException</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Any other exception</td>
+<td>No. It propagates out of the call unwrapped</td>
+</tr>
+</tbody>
+</table>
+<p>Delay before the next attempt, where <code>attempt</code> is 0 for the first try:</p>
+<pre><code class="language-text">capped = min(RetryBaseDelayMs * 2^min(attempt, 10), MaxRetryDelayMs)
+delay  = max(0, capped + capped * 0.2 * (random[0,1) - 0.5))      // jitter of +/-10%
+</code></pre>
+<p>With the defaults (<code>RetryBaseDelayMs = 200</code>, <code>MaxRetryDelayMs = 10000</code>) the waits are about 200 ms, 400 ms and 800 ms.</p>
+<p>For a <code>429</code> response with a <code>Retry-After</code> header (delta seconds or an HTTP date, read from response or content headers), the delay becomes <code>min(Retry-After, MaxRetryDelayMs)</code> with no jitter.</p>
+<p>Edge cases to be aware of:</p>
+<ul>
+<li>If the last attempt still returns a retryable status, the policy waits one more delay and then reports "no response". The result has <code>StatusCode = null</code> and no body, so the final <code>5xx</code>/<code>429</code> status is not visible to the caller.</li>
+<li>If <code>RetryCount &lt;= 0</code>, the request is sent once and <strong>any</strong> exception is captured into a failed result (or an <code>HttpClientException</code> when <code>ThrowOnError</code> is <code>true</code>), rather than propagating.</li>
+<li>Cancelling the <code>CancellationToken</code> while a retry is pending throws <code>TaskCanceledException</code> from the delay. If cancellation hits the final attempt, the call returns a failed "no response" result instead.</li>
+<li>A <code>Retry-After</code> date in the past produces a negative delay, and <code>Task.Delay</code> throws <code>ArgumentOutOfRangeException</code>.</li>
+</ul>
+<h3 id="per-request-options">Per-request options</h3>
+<p>When you pass an <code>HttpRequestOptions</code> to a call, it is merged with the registered defaults like this:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Merge rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseAddress</code>, <code>NamedHttpClient</code>, <code>Serializer</code></td>
+<td>Per-request value if not <code>null</code>, else default</td>
+</tr>
+<tr>
+<td><code>TimeoutSeconds</code>, <code>RetryCount</code>, <code>RetryBaseDelayMs</code>, <code>MaxRetryDelayMs</code></td>
+<td>Per-request value if not <code>0</code>, else default</td>
+</tr>
+<tr>
+<td><code>ThrowOnError</code>, <code>UseJsonContentType</code></td>
+<td>Always the per-request value</td>
+</tr>
+<tr>
+<td><code>DefaultRequestHeaders</code></td>
+<td>Union of both; per-request keys win (case-insensitive)</td>
+</tr>
+</tbody>
+</table>
+<p>Because a new <code>HttpRequestOptions</code> already has non-zero numeric defaults (30, 3, 200, 10000) and <code>ThrowOnError = false</code>, passing one replaces your registered values for those properties with the class defaults unless you set them again. Setting <code>RetryCount = 0</code> per request does not disable retries; it falls back to the registered default. To disable retries, set <code>RetryCount = 0</code> in the registered options.</p>
+<h3 id="naming-conflicts">Naming conflicts</h3>
+<ul>
+<li><code>HttpRequestOptions</code> also exists as <code>System.Net.Http.HttpRequestOptions</code>. Projects with <code>ImplicitUsings</code> enabled import <code>System.Net.Http</code> globally, so naming the type alone gives error CS0104 (ambiguous reference). Add an alias: <code>using HttpRequestOptions = CrispyWaffle.HttpClient.HttpRequestOptions;</code>. The examples on this page do this.</li>
+<li>Inside a namespace that starts with <code>CrispyWaffle</code>, the name <code>HttpClient</code> resolves to the <code>CrispyWaffle.HttpClient</code> namespace, not <code>System.Net.Http.HttpClient</code>. Use the fully qualified name or an alias if you need the BCL type there.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using CrispyWaffle.HttpClient;
+using Microsoft.Extensions.DependencyInjection;
+
+var services = new ServiceCollection();
+services.AddLogging();
+services.AddCrispyWaffleHttpClient(o =&gt;
+{
+    o.BaseAddress = &quot;https://api.example.com/&quot;;
+    o.TimeoutSeconds = 10;
+    o.RetryCount = 2;
+});
+
+using var provider = services.BuildServiceProvider();
+var http = provider.GetRequiredService&lt;IHttpClientWrapper&gt;();
+
+HttpResponse&lt;Todo&gt; response = await http.GetAsync&lt;Todo&gt;(&quot;todos/1&quot;);
+if (response.IsSuccess)
+{
+    Console.WriteLine($&quot;{response.Data!.Title} ({response.Duration.TotalMilliseconds} ms)&quot;);
+}
+else
+{
+    Console.WriteLine($&quot;Failed: {response.StatusCode} {string.Join(&quot;; &quot;, response.Errors ?? [])}&quot;);
+}
+
+public sealed record Todo(int Id, string Title, bool Completed);
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="servicecollectionextensions"><code>ServiceCollectionExtensions</code></h3>
+<p><code>public static class ServiceCollectionExtensions</code> — DI registration for the wrapper (namespace <code>CrispyWaffle.HttpClient</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddCrispyWaffleHttpClient(this IServiceCollection services, Action&lt;HttpRequestOptions&gt;? configureOptions = null)</code></td>
+<td>Calls <code>AddHttpClient()</code>, configures <code>HttpRequestOptions</code> with <code>configureOptions</code> (or an empty configuration), and registers <code>IJsonSerializer</code> -&gt; <code>SystemTextJsonSerializer</code> and <code>IHttpClientWrapper</code> -&gt; <code>HttpClientWrapper</code>, both as singletons. Returns <code>services</code>. To use a different serializer, register your own <code>IJsonSerializer</code> after this call so it replaces the default.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ihttpclientwrapper"><code>IHttpClientWrapper</code></h3>
+<p><code>public interface IHttpClientWrapper</code> — the high-level HTTP API. Inject this.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GetAsync&lt;T&gt;(string url, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)</code></td>
+<td>Sends <code>GET</code> and deserializes a 2xx body into <code>T</code>. Returns <code>Task&lt;HttpResponse&lt;T&gt;&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>PostAsync&lt;TRequest, TResponse&gt;(string url, TRequest? body = default, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)</code></td>
+<td>Sends <code>POST</code> with <code>body</code> serialized as JSON (no content when <code>body</code> is <code>null</code>). Returns <code>Task&lt;HttpResponse&lt;TResponse&gt;&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>PutAsync&lt;TRequest, TResponse&gt;(string url, TRequest? body = default, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)</code></td>
+<td>Same as <code>PostAsync</code> with <code>PUT</code>.</td>
+</tr>
+<tr>
+<td><code>DeleteAsync(string url, HttpRequestOptions? options = null, CancellationToken cancellationToken = default)</code></td>
+<td>Sends <code>DELETE</code>. Returns <code>Task&lt;HttpResponse&lt;object?&gt;&gt;</code>; a JSON body is deserialized as <code>object</code> (a <code>JsonElement</code> with the default serializer).</td>
+</tr>
+<tr>
+<td><code>Get&lt;T&gt;(url, options)</code> / <code>Post&lt;TRequest, TResponse&gt;(url, body, options)</code> / <code>Put&lt;TRequest, TResponse&gt;(url, body, options)</code> / <code>Delete(url, options)</code></td>
+<td>Synchronous versions that block on the async methods with <code>GetAwaiter().GetResult()</code>. No cancellation token. They can deadlock under a synchronization context; prefer the async methods.</td>
+</tr>
+</tbody>
+</table>
+<p><code>url</code> is either absolute or relative to <code>BaseAddress</code>. A relative URL with no base address throws <code>InvalidOperationException</code> from <code>HttpClient</code>, which is not retried and propagates (when <code>RetryCount &gt; 0</code>).</p>
+<h3 id="httpclientwrapper"><code>HttpClientWrapper</code></h3>
+<p><code>public class HttpClientWrapper : IHttpClientWrapper</code> — the default implementation described in <a href="#how-it-works">How it works</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpClientWrapper(IHttpClientFactory httpClientFactory, IOptions&lt;HttpRequestOptions&gt; options, IJsonSerializer? serializer = null, ILogger&lt;HttpClientWrapper&gt;? logger = null)</code></td>
+<td>Constructor. Throws <code>ArgumentNullException</code> when <code>httpClientFactory</code> is <code>null</code>. Uses <code>new HttpRequestOptions()</code> when <code>options</code> or its value is <code>null</code>, and <code>new SystemTextJsonSerializer()</code> when <code>serializer</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td>All <code>IHttpClientWrapper</code> members</td>
+<td>See above.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="httprequestoptions"><code>HttpRequestOptions</code></h3>
+<p><code>public class HttpRequestOptions</code> — registered defaults (through <code>IOptions&lt;HttpRequestOptions&gt;</code>) and per-request overrides.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseAddress</code></td>
+<td><code>string?</code>. Base URL for the created client. Only applied if the client has no base address already. Default <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>TimeoutSeconds</code></td>
+<td><code>int</code>. Per-attempt timeout; values below 1 become 1. Default <code>30</code>.</td>
+</tr>
+<tr>
+<td><code>RetryCount</code></td>
+<td><code>int</code>. Number of retries after the first attempt. <code>0</code> or less means a single attempt. Default <code>3</code>.</td>
+</tr>
+<tr>
+<td><code>RetryBaseDelayMs</code></td>
+<td><code>int</code>. Base delay for exponential backoff. Default <code>200</code>.</td>
+</tr>
+<tr>
+<td><code>MaxRetryDelayMs</code></td>
+<td><code>int</code>. Upper bound for one retry delay, including <code>Retry-After</code>. Default <code>10000</code>.</td>
+</tr>
+<tr>
+<td><code>ThrowOnError</code></td>
+<td><code>bool</code>. Throw <code>HttpClientException</code> on failure instead of returning a failed <code>HttpResponse&lt;T&gt;</code>. Default <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>DefaultRequestHeaders</code></td>
+<td><code>IDictionary&lt;string, string&gt;?</code>. Headers added to every request. Default <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>NamedHttpClient</code></td>
+<td><code>string?</code>. Name passed to <code>IHttpClientFactory.CreateClient(name)</code>. Default <code>null</code> (unnamed client).</td>
+</tr>
+<tr>
+<td><code>UseJsonContentType</code></td>
+<td><code>bool</code>. Send request bodies as <code>application/json</code>; when <code>false</code>, <code>text/plain</code>. The body is serialized with the JSON serializer either way. Default <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>Serializer</code></td>
+<td><code>IJsonSerializer?</code>. Serializer override. Default <code>null</code> (use the one from DI).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="httpresponset"><code>HttpResponse&lt;T&gt;</code></h3>
+<p><code>public class HttpResponse&lt;T&gt;</code> — the result of every wrapper call.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsSuccess</code></td>
+<td><code>true</code> for a 2xx response whose body deserialized without error.</td>
+</tr>
+<tr>
+<td><code>StatusCode</code></td>
+<td><code>HttpStatusCode?</code>. <code>null</code> when no response was received.</td>
+</tr>
+<tr>
+<td><code>Data</code></td>
+<td><code>T?</code>. The deserialized body; <code>default</code> on failure or empty body.</td>
+</tr>
+<tr>
+<td><code>RawContent</code></td>
+<td><code>string?</code>. The response body as text.</td>
+</tr>
+<tr>
+<td><code>Errors</code></td>
+<td><code>IList&lt;string&gt;?</code>. Failure messages; <code>null</code> on success.</td>
+</tr>
+<tr>
+<td><code>Headers</code></td>
+<td><code>IDictionary&lt;string, IEnumerable&lt;string&gt;&gt;?</code>. Response and content headers. <code>null</code> when no response was received.</td>
+</tr>
+<tr>
+<td><code>Duration</code></td>
+<td><code>TimeSpan</code>. Time spent on all attempts and retry delays, up to the final response headers.</td>
+</tr>
+<tr>
+<td><code>Success(T? data, HttpStatusCode statusCode, string? rawContent, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt;? headers, TimeSpan duration)</code></td>
+<td>Static factory for a successful result.</td>
+</tr>
+<tr>
+<td><code>Failure(HttpStatusCode? statusCode, string? rawContent, IList&lt;string&gt;? errors, IDictionary&lt;string, IEnumerable&lt;string&gt;&gt;? headers, TimeSpan duration)</code></td>
+<td>Static factory for a failed result.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijsonserializer"><code>IJsonSerializer</code></h3>
+<p><code>public interface IJsonSerializer</code> — pluggable serializer (namespace <code>CrispyWaffle.HttpClient.Serialization</code>). Implementations must be thread-safe because the registered instance is a singleton.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Serialize&lt;T&gt;(T value)</code></td>
+<td>Returns the JSON string for <code>value</code>. Used for request bodies.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(string json)</code></td>
+<td>Returns <code>json</code> as <code>T</code>. Used for response bodies.</td>
+</tr>
+<tr>
+<td><code>Deserialize(string json, Type type)</code></td>
+<td>Non-generic form. Not used by the wrapper.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="systemtextjsonserializer"><code>SystemTextJsonSerializer</code></h3>
+<p><code>public class SystemTextJsonSerializer : IJsonSerializer</code> — the default serializer, based on <code>System.Text.Json</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SystemTextJsonSerializer(JsonSerializerOptions? options = null)</code></td>
+<td>Constructor. When <code>options</code> is <code>null</code>, uses camelCase property names, case-insensitive property matching, and <code>DefaultIgnoreCondition = WhenWritingNull</code>.</td>
+</tr>
+<tr>
+<td><code>Serialize&lt;T&gt;(T value)</code></td>
+<td><code>JsonSerializer.Serialize(value, options)</code>.</td>
+</tr>
+<tr>
+<td><code>Deserialize&lt;T&gt;(string json)</code></td>
+<td>Returns <code>default</code> for null or whitespace input, otherwise <code>JsonSerializer.Deserialize&lt;T&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>Deserialize(string json, Type type)</code></td>
+<td>Returns <code>null</code> for null or whitespace input, otherwise <code>JsonSerializer.Deserialize(json, type, options)</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="httpclientexception"><code>HttpClientException</code></h3>
+<p><code>public class HttpClientException : Exception</code> — thrown on failure when <code>ThrowOnError</code> is <code>true</code> (namespace <code>CrispyWaffle.HttpClient.Exceptions</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpClientException(string message, HttpStatusCode? statusCode = null, string? responseContent = null, Exception? inner = null)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>StatusCode</code></td>
+<td><code>HttpStatusCode?</code>. Status of the failed response; <code>null</code> when no response was received.</td>
+</tr>
+<tr>
+<td><code>ResponseContent</code></td>
+<td><code>string?</code>. Response body, when available.</td>
+</tr>
+</tbody>
+</table>
+<p>Thrown with these messages:</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Situation</th>
+<th><code>StatusCode</code></th>
+<th><code>InnerException</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HTTP request failed after retries</code></td>
+<td>No usable response after all attempts</td>
+<td><code>null</code></td>
+<td>Last exception, if any</td>
+</tr>
+<tr>
+<td><code>Failed to read response content</code></td>
+<td>Reading the body threw</td>
+<td>Response status</td>
+<td>The read exception</td>
+</tr>
+<tr>
+<td><code>Failed to deserialize response to &lt;T&gt;</code></td>
+<td>2xx body could not be deserialized</td>
+<td>Response status</td>
+<td>The deserialization exception</td>
+</tr>
+<tr>
+<td><code>HTTP request failed with &lt;code&gt;</code></td>
+<td>Non-2xx, non-retryable status</td>
+<td>Response status</td>
+<td><code>null</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="post-a-body-and-throw-on-failure">Post a body and throw on failure</h3>
+<p>Set <code>ThrowOnError</code> per request to get exceptions instead of a failed result. Remember that a per-request options object also resets the numeric settings to their class defaults.</p>
+<pre><code class="language-csharp">using CrispyWaffle.HttpClient;
+using CrispyWaffle.HttpClient.Exceptions;
+using HttpRequestOptions = CrispyWaffle.HttpClient.HttpRequestOptions;
+
+public sealed class OrdersClient(IHttpClientWrapper http)
+{
+    public async Task&lt;OrderCreated?&gt; CreateAsync(NewOrder order, CancellationToken ct)
+    {
+        try
+        {
+            var response = await http.PostAsync&lt;NewOrder, OrderCreated&gt;(
+                &quot;orders&quot;,
+                order,
+                new HttpRequestOptions { ThrowOnError = true, TimeoutSeconds = 5 },
+                ct
+            );
+            return response.Data;
+        }
+        catch (HttpClientException ex)
+        {
+            Console.WriteLine($&quot;Order API failed: {ex.StatusCode} {ex.ResponseContent}&quot;);
+            return null;
+        }
+    }
+}
+
+public sealed record NewOrder(string Sku, int Quantity);
+
+public sealed record OrderCreated(Guid Id);
+</code></pre>
+<h3 id="use-a-named-client-and-per-request-headers">Use a named client and per-request headers</h3>
+<p>Configure the named client with <code>AddHttpClient</code>, then point the wrapper at it. The base address from the named client is kept; <code>TimeoutSeconds</code> from the options still overrides its timeout.</p>
+<pre><code class="language-csharp">using CrispyWaffle.HttpClient;
+using Microsoft.Extensions.DependencyInjection;
+using HttpRequestOptions = CrispyWaffle.HttpClient.HttpRequestOptions;
+
+var services = new ServiceCollection();
+services.AddHttpClient(&quot;github&quot;, c =&gt;
+{
+    c.BaseAddress = new Uri(&quot;https://api.github.com/&quot;);
+    c.DefaultRequestHeaders.UserAgent.ParseAdd(&quot;crispy-waffle-sample&quot;);
+});
+services.AddCrispyWaffleHttpClient(o =&gt; o.NamedHttpClient = &quot;github&quot;);
+
+using var provider = services.BuildServiceProvider();
+var http = provider.GetRequiredService&lt;IHttpClientWrapper&gt;();
+
+var response = await http.GetAsync&lt;Repo&gt;(
+    &quot;repos/guibranco/CrispyWaffle&quot;,
+    new HttpRequestOptions
+    {
+        DefaultRequestHeaders = new Dictionary&lt;string, string&gt;
+        {
+            [&quot;X-GitHub-Api-Version&quot;] = &quot;2022-11-28&quot;,
+        },
+    }
+);
+Console.WriteLine(response.Data?.FullName);
+
+public sealed record Repo(string FullName, int StargazersCount);
+</code></pre>
+<h3 id="use-custom-json-settings">Use custom JSON settings</h3>
+<p>Register your own <code>IJsonSerializer</code> after <code>AddCrispyWaffleHttpClient</code> to replace the default for every call, or set <code>HttpRequestOptions.Serializer</code> for a single call.</p>
+<pre><code class="language-csharp">using System.Text.Json;
+using CrispyWaffle.HttpClient;
+using CrispyWaffle.HttpClient.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+
+var services = new ServiceCollection();
+services.AddCrispyWaffleHttpClient();
+services.AddSingleton&lt;IJsonSerializer&gt;(
+    new SystemTextJsonSerializer(
+        new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower }
+    )
+);
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../diagrams/">Diagrams</a></li>
+<li><a href="../../core/serialization/">Serialization</a> for the core package's serializers</li>
+<li><a href="../background-jobs/">Background jobs</a>, the other standalone <code>Microsoft.Extensions</code> based package</li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

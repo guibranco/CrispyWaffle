@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Template Rendering - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/template-rendering/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../telemetry/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../cryptography/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="template-rendering">Template rendering</h1>
+<p>The template rendering module fills text templates with data. It has two engines: <code>MustacheTemplateRender</code>, a small regex-based engine with a Mustache-like syntax for plain text and HTML (for example, email bodies), and <code>XmlTemplateRender</code>, which applies an XSLT stylesheet to an XML document. It also has a template repository abstraction, with an implementation that reads templates from <code>.resx</code> resources.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.TemplateRendering.Engines</code>, <code>CrispyWaffle.TemplateRendering.Repositories</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p>Both engines implement <code>ITemplateRender.Render(string template, object data)</code> and return the rendered string. There are two implementations, so register the one you want with the service locator instead of relying on auto-registration:</p>
+<pre><code class="language-csharp">ServiceLocator.Register&lt;ITemplateRender, MustacheTemplateRender&gt;();
+</code></pre>
+<h3 id="mustache-engine-pipeline">Mustache engine pipeline</h3>
+<p><code>MustacheTemplateRender.Render</code> runs these steps in this order. Each step works on the output of the previous one:</p>
+<ol>
+<li>Read all public properties of <code>data</code> (instance and static) into a dictionary keyed by the lower-case property name. Fields are not read.</li>
+<li>Evaluate conditional blocks <code>{{#name}}...{{/name}}</code>.</li>
+<li>Expand <code>{{#with name}}...{{/with}}</code> blocks.</li>
+<li>Expand <code>{{#each name}}...{{/each}}</code> loops.</li>
+<li>Replace every remaining <code>{{...}}</code> with a top-level property value.</li>
+</ol>
+<p>Rules that apply to all steps:</p>
+<ul>
+<li>Tag keywords and property names are case-insensitive. <code>{{NAME}}</code>, <code>{{Name}}</code> and <code>{{name}}</code> are the same.</li>
+<li>Only top-level properties of <code>data</code> are available. There is no dotted path syntax (<code>{{address.city}}</code> does not work). Use <code>{{#with}}</code> to reach into a nested object.</li>
+<li>Whitespace inside the braces is not trimmed. <code>{{ name }}</code> looks for a property called <code>" name "</code> and renders as an empty string.</li>
+<li>Values are inserted with <code>ToString()</code>, using the current culture. Nothing is HTML-escaped.</li>
+<li>A placeholder whose name does not match any property renders as an empty string. This also removes any leftover or unknown tags.</li>
+<li>A placeholder that matches a property whose value is <code>null</code> throws <code>NullReferenceException</code>. Make sure every referenced property has a value, or wrap it in a conditional.</li>
+<li><code>Render</code> throws <code>ArgumentNullException</code> when <code>data</code> is <code>null</code>.</li>
+<li>The engine stores the parsed properties in an instance field during <code>Render</code>, so do not share one instance across threads at the same time.</li>
+</ul>
+<h2 id="template-syntax-mustache-engine">Template syntax (Mustache engine)</h2>
+<h3 id="placeholders">Placeholders</h3>
+<pre><code class="language-text">Hello {{name}}!
+</code></pre>
+<p><code>{{name}}</code> is replaced with <code>data.Name.ToString()</code>. Unknown names produce an empty string.</p>
+<h3 id="conditionals">Conditionals</h3>
+<pre><code class="language-text">{{#name}}shown when name is truthy{{/name}}
+{{#name}}shown when truthy{{#else}}shown otherwise{{/name}}
+</code></pre>
+<ul>
+<li>The closing tag must repeat the opening name exactly (case-insensitive): <code>{{#company}}...{{/company}}</code>.</li>
+<li><code>{{#else}}</code> splits the block. There is no separate closing tag for it; the else part ends at <code>{{/name}}</code>. A stray <code>{{/else}}</code> is harmless, because step 5 removes it as an unknown placeholder.</li>
+<li>When the condition is false and there is no <code>{{#else}}</code>, the whole block is removed.</li>
+<li>Conditions are evaluated against the top-level properties only, even when the block sits inside an <code>{{#each}}</code> or <code>{{#with}}</code> body.</li>
+</ul>
+<p>A property is truthy when:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Property does not exist, or value is <code>null</code></td>
+<td>False</td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td>The value itself</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>True if it is not empty or whitespace</td>
+</tr>
+<tr>
+<td>Any other value type (<code>int</code>, <code>DateTime</code>, enums, <code>Guid</code>, ...), <code>decimal</code>, <code>DateTimeOffset</code>, <code>TimeSpan</code></td>
+<td>Always true, including <code>0</code> and default values</td>
+</tr>
+<tr>
+<td>A reference type with a public parameterless constructor</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A reference type without a public parameterless constructor (arrays, anonymous types, many records)</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>Nested conditionals are not evaluated. In <code>{{#a}}A{{#b}}B{{/b}}{{/a}}</code>, when <code>a</code> is true the inner <code>{{#b}}</code> and <code>{{/b}}</code> tags are removed as unknown placeholders and <code>B</code> is always rendered, even when <code>b</code> is false. Repeating the same block side by side (<code>{{#a}}1{{/a}}-{{#a}}2{{/a}}</code>) works.</p>
+<h3 id="with-blocks"><code>with</code> blocks</h3>
+<pre><code class="language-text">{{#with address}}{{street}}, {{number}} - {{city}}{{/with}}
+</code></pre>
+<p>The body is rendered by a new <code>MustacheTemplateRender</code> using the <code>address</code> object as data, so it supports the full syntax (conditionals, loops, placeholders) against that object's properties. Top-level properties are not available inside the body.</p>
+<ul>
+<li>If the property does not exist or its value is a simple type (value types, <code>string</code>, <code>decimal</code>, <code>DateTime</code>, ...), the whole block is removed.</li>
+<li>If the property value is <code>null</code>, <code>Render</code> throws <code>NullReferenceException</code>.</li>
+<li>Matching is non-greedy, so a <code>{{#with}}</code> nested directly inside another <code>{{#with}}</code> closes at the first <code>{{/with}}</code>. Do not nest <code>with</code> blocks.</li>
+</ul>
+<h3 id="loops">Loops</h3>
+<pre><code class="language-text">&lt;ul&gt;{{#each items}}&lt;li&gt;{{this}}&lt;/li&gt;{{/each}}&lt;/ul&gt;
+&lt;ul&gt;{{#each people}}&lt;li&gt;{{firstName}} {{lastName}}&lt;/li&gt;{{/each}}&lt;/ul&gt;
+</code></pre>
+<p>The property must be an array. Other collections, such as <code>List&lt;T&gt;</code>, are not expanded: the block is removed. A missing property also removes the block, and a <code>null</code> value throws <code>NullReferenceException</code>.</p>
+<ul>
+<li>Array of strings: the body is repeated for each item and <code>{{this}}</code> is replaced with the item. Other placeholders in the body are left for step 5, so they render top-level properties. Item values go through <code>Regex.Replace</code>, so <code>$</code> sequences in an item (such as <code>$0</code>) are treated as substitution patterns.</li>
+<li>Array of other simple types (<code>int[]</code>, <code>DateTime[]</code>, ...): throws <code>InvalidCastException</code>. Convert to <code>string[]</code> first.</li>
+<li>Array of objects (reference types): for each item, every <code>{{name}}</code> in the body is replaced with that item's property value. Unknown names, <code>{{this}}</code> and top-level properties render as empty strings. A <code>null</code> item property throws <code>NullReferenceException</code>. Conditionals and nested loops inside the body are not evaluated per item.</li>
+<li>Like <code>with</code>, loops do not nest: the first <code>{{/each}}</code> closes the block.</li>
+</ul>
+<h3 id="not-supported">Not supported</h3>
+<ul>
+<li>Partials and imports. An <code>{{&gt;import ...}}</code> tag is removed as an unknown placeholder.</li>
+<li>Comments, triple braces, HTML escaping, inverted sections (<code>{{^name}}</code>), dotted names.</li>
+</ul>
+<h2 id="xslt-engine">XSLT engine</h2>
+<p><code>XmlTemplateRender.Render(template, data)</code> treats <code>template</code> as an XSLT stylesheet and <code>data</code> as an <code>XNode</code> (<code>XDocument</code> or <code>XElement</code>). It loads the stylesheet with <code>XslCompiledTransform</code> (default settings), transforms <code>data.CreateReader()</code> with no XSLT arguments, and returns the output written by an <code>XmlTextWriter</code>.</p>
+<ul>
+<li>Throws <code>ArgumentNullException</code> when <code>template</code> or <code>data</code> is <code>null</code>.</li>
+<li>Throws <code>InvalidCastException</code> when <code>data</code> is not an <code>XNode</code>.</li>
+<li>Stylesheet load or transformation errors (<code>XsltException</code>, <code>XmlException</code>) propagate to the caller.</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Composition;
+using CrispyWaffle.TemplateRendering.Engines;
+
+ServiceLocator.Register&lt;ITemplateRender, MustacheTemplateRender&gt;();
+
+var template = &quot;Hello {{name}}{{#company}}, from {{company}}{{/company}}!&quot;;
+var data = new { Name = &quot;Jane Doe&quot;, Company = &quot;Contoso&quot; };
+
+var result = ServiceLocator.Resolve&lt;ITemplateRender&gt;().Render(template, data);
+
+Console.WriteLine(result); // Hello Jane Doe, from Contoso!
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="itemplaterender"><code>ITemplateRender</code></h3>
+<p><code>public interface ITemplateRender</code> — contract for a template engine.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string Render(string template, object data)</code></td>
+<td>Renders <code>template</code> with values from <code>data</code> and returns the result.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mustachetemplaterender"><code>MustacheTemplateRender</code></h3>
+<p><code>public class MustacheTemplateRender : ITemplateRender</code> — regex-based engine with the syntax described in <a href="#template-syntax-mustache-engine">Template syntax</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MustacheTemplateRender()</code></td>
+<td>Default constructor.</td>
+</tr>
+<tr>
+<td><code>Render(string template, object data)</code></td>
+<td>Renders the template. Throws <code>ArgumentNullException</code> when <code>data</code> is <code>null</code>. Throws <code>NullReferenceException</code> for <code>null</code> values referenced by placeholders, <code>with</code> blocks or loops, and <code>InvalidCastException</code> for loops over non-string simple-type arrays. Each regex has a 5-second match timeout, so a pathological template can throw <code>RegexMatchTimeoutException</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xmltemplaterender"><code>XmlTemplateRender</code></h3>
+<p><code>public sealed class XmlTemplateRender : ITemplateRender</code> — applies an XSLT stylesheet to XML data. See <a href="#xslt-engine">XSLT engine</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XmlTemplateRender()</code></td>
+<td>Default constructor.</td>
+</tr>
+<tr>
+<td><code>Render(string template, object data)</code></td>
+<td><code>template</code> is the XSLT source. <code>data</code> must be an <code>XNode</code>. Returns the transformation output.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="itemplaterepository"><code>ITemplateRepository</code></h3>
+<p><code>public interface ITemplateRepository</code> — stores and returns templates by name.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void RegisterTemplate(string name, string content)</code></td>
+<td>Adds a template. Behavior for duplicate names is up to the implementation.</td>
+</tr>
+<tr>
+<td><code>string GetTemplateByName(string name)</code></td>
+<td>Returns the template content. The interface documents <code>null</code> for unknown names, but implementations may throw instead.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resourcetemplaterepository"><code>ResourceTemplateRepository</code></h3>
+<p><code>public sealed class ResourceTemplateRepository : ITemplateRepository</code> — read-only repository backed by a <code>ResourceManager</code> (for example, the generated <code>Resources.ResourceManager</code> of a <code>.resx</code> file).</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ResourceTemplateRepository(ResourceManager manager)</code></td>
+<td>Constructor.</td>
+</tr>
+<tr>
+<td><code>RegisterTemplate(string name, string content)</code></td>
+<td>Always throws <code>InvalidOperationException</code> (<code>The registration of resource at runtime is not allowed.</code>).</td>
+</tr>
+<tr>
+<td><code>GetTemplateByName(string name)</code></td>
+<td>Returns <code>manager.GetString(name, CultureInfo.CurrentCulture)</code>. Throws <code>InvalidOperationException</code> (<code>Unable to find the template '{name}' in the repository '...'.</code>) when the resource is not found.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="conditional-with-else">Conditional with else</h3>
+<pre><code class="language-csharp">using CrispyWaffle.TemplateRendering.Engines;
+
+var render = new MustacheTemplateRender();
+var template =
+    &quot;The name is: {{#name}}{{name}}{{#else}}empty{{/name}}&quot;
+    + &quot;{{#company}} works at: {{company}}{{#else}} doesn't work{{/company}}&quot;;
+
+// &quot;The name is: Jane doesn't work&quot;
+var result = render.Render(template, new { Name = &quot;Jane&quot; });
+</code></pre>
+<h3 id="loops-over-strings-and-objects">Loops over strings and objects</h3>
+<pre><code class="language-csharp">using CrispyWaffle.TemplateRendering.Engines;
+
+var render = new MustacheTemplateRender();
+
+// &quot;&lt;ul&gt;&lt;li&gt;One&lt;/li&gt;&lt;li&gt;Two&lt;/li&gt;&lt;/ul&gt;&quot;
+var list = render.Render(
+    &quot;&lt;ul&gt;{{#each li}}&lt;li&gt;{{this}}&lt;/li&gt;{{/each}}&lt;/ul&gt;&quot;,
+    new { Li = new[] { &quot;One&quot;, &quot;Two&quot; } }
+);
+
+// &quot;&lt;ul&gt;&lt;li&gt;John Doe&lt;/li&gt;&lt;li&gt;Jane Doe&lt;/li&gt;&lt;/ul&gt;&quot;
+var people = render.Render(
+    &quot;&lt;ul&gt;{{#each person}}&lt;li&gt;{{FirstName}} {{LastName}}&lt;/li&gt;{{/each}}&lt;/ul&gt;&quot;,
+    new
+    {
+        Person = new[]
+        {
+            new { FirstName = &quot;John&quot;, LastName = &quot;Doe&quot; },
+            new { FirstName = &quot;Jane&quot;, LastName = &quot;Doe&quot; },
+        },
+    }
+);
+</code></pre>
+<h3 id="nested-object-with-with">Nested object with <code>with</code></h3>
+<pre><code class="language-csharp">using CrispyWaffle.TemplateRendering.Engines;
+
+var render = new MustacheTemplateRender();
+var template = &quot;{{NAME}} lives in {{#with ADDRESS}}{{STREET}}, {{NUMBER}} at {{CITY}}{{/with}}&quot;;
+var data = new
+{
+    Name = &quot;John Doe&quot;,
+    Address = new { Street = &quot;Avenida Paulista&quot;, Number = 1000, City = &quot;São Paulo&quot; },
+};
+
+// &quot;John Doe lives in Avenida Paulista, 1000 at São Paulo&quot;
+var result = render.Render(template, data);
+</code></pre>
+<h3 id="templates-from-resources">Templates from resources</h3>
+<p><code>Templates</code> is the class generated for a <code>Templates.resx</code> file in your project.</p>
+<pre><code class="language-csharp">using CrispyWaffle.TemplateRendering.Engines;
+using CrispyWaffle.TemplateRendering.Repositories;
+
+ITemplateRepository repository = new ResourceTemplateRepository(Templates.ResourceManager);
+ITemplateRender render = new MustacheTemplateRender();
+
+var body = render.Render(
+    repository.GetTemplateByName(&quot;WelcomeEmail&quot;),
+    new { Name = &quot;Jane&quot; }
+);
+</code></pre>
+<h3 id="xslt">XSLT</h3>
+<pre><code class="language-csharp">using System.Xml.Linq;
+using CrispyWaffle.TemplateRendering.Engines;
+
+var xslt = &quot;&quot;&quot;
+    &lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+      &lt;xsl:output method=&quot;text&quot; /&gt;
+      &lt;xsl:template match=&quot;/customer&quot;&gt;Hello &lt;xsl:value-of select=&quot;name&quot; /&gt;!&lt;/xsl:template&gt;
+    &lt;/xsl:stylesheet&gt;
+    &quot;&quot;&quot;;
+
+var data = XDocument.Parse(&quot;&lt;customer&gt;&lt;name&gt;Jane&lt;/name&gt;&lt;/customer&gt;&quot;);
+
+var result = new XmlTemplateRender().Render(xslt, data); // &quot;Hello Jane!&quot;
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../service-locator/">Service locator</a></li>
+<li><a href="../serialization/">Serialization</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

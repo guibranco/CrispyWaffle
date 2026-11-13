@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Events - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/events/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../caching/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../commands/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="events">Events</h1>
+<p>Events let one part of an application announce that something happened without knowing who reacts to it. An event is a plain class that implements <code>IEvent</code>. Any number of handler classes implement <code>IEventHandler&lt;TEvent&gt;</code> (synchronous) or <code>IEventHandlerAsync&lt;TEvent&gt;</code> (asynchronous), and <code>EventsConsumer</code> delivers the event to all of them.</p>
+<p>Use events for one-to-many notifications with no return value. When you need exactly one handler and a result, use <a href="../commands/">commands</a>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Events</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><a href="../../images/diagrams/events-commands.svg"><img alt="Events and commands dispatch" src="../../images/diagrams/events-commands.svg" /></a></p>
+<p><code>EventsConsumer.Raise(event)</code> calls <code>ServiceLocator.ResolveAll&lt;IEventHandler&lt;TEvent&gt;&gt;()</code>. <code>ResolveAll</code> does not look at registrations to find handlers: it scans every type loaded when the <a href="../service-locator/">service locator</a> was initialized and creates one instance of each non-abstract class that implements the handler interface. You do not need to register handlers. Handler constructors can take dependencies, which are resolved by the service locator; a handler class that is registered under its own type (for example <code>Register&lt;MyHandler&gt;(Lifetime.Singleton)</code>) is created through that registration.</p>
+<p>Handlers are called one after another on the calling thread, in the order their types appear in the loaded assemblies. That order is not the registration order and should not be relied on. Before each call, a trace message is written through <code>LogConsumer.Trace</code>. If a handler throws, the exception propagates to the caller of <code>Raise</code> and the remaining handlers are not called.</p>
+<p><code>EventsConsumer.RaiseAsync(event)</code> resolves <code>IEventHandlerAsync&lt;TEvent&gt;</code> handlers the same way, inside <code>Task.Run</code>, and calls <code>HandleAsync</code> on each of them in turn. The returned tasks are not awaited. As a result:</p>
+<ul>
+<li>The task returned by <code>RaiseAsync</code> completes once every handler has been started, usually before the handlers have finished their asynchronous work.</li>
+<li>An exception thrown before a handler's first <code>await</code> faults the <code>RaiseAsync</code> task and stops the remaining handlers. An exception thrown after the first <code>await</code> is not observed by the caller.</li>
+</ul>
+<p>If a handler must finish before you continue, raise the event synchronously, or have the handler signal completion itself.</p>
+<p>The two handler interfaces are independent: <code>Raise</code> only calls <code>IEventHandler&lt;TEvent&gt;</code> implementations and <code>RaiseAsync</code> only calls <code>IEventHandlerAsync&lt;TEvent&gt;</code> implementations. A class can implement both.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Events;
+
+public sealed class OrderPlacedEvent : IEvent
+{
+    public OrderPlacedEvent(Guid orderId) =&gt; OrderId = orderId;
+
+    public Guid OrderId { get; }
+}
+
+public sealed class SendConfirmationEmail : IEventHandler&lt;OrderPlacedEvent&gt;
+{
+    public void Handle(OrderPlacedEvent args) =&gt;
+        Console.WriteLine($&quot;Sending confirmation for order {args.OrderId}&quot;);
+}
+
+public static class Program
+{
+    public static void Main()
+    {
+        // No registration needed: every IEventHandler&lt;OrderPlacedEvent&gt; is found automatically.
+        EventsConsumer.Raise(new OrderPlacedEvent(Guid.NewGuid()));
+    }
+}
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="eventsconsumer"><code>EventsConsumer</code></h3>
+<p><code>public static class EventsConsumer</code> — raises events and invokes their handlers.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Raise&lt;TEvent&gt;(TEvent @event)</code></td>
+<td>Constraint: <code>TEvent : IEvent</code>. Calls <code>Handle</code> on every <code>IEventHandler&lt;TEvent&gt;</code> implementation, synchronously and sequentially. Exceptions from a handler propagate and stop the remaining handlers. Does nothing if there are no handlers.</td>
+</tr>
+<tr>
+<td><code>RaiseAsync&lt;TEvent&gt;(TEvent @event)</code></td>
+<td>Constraint: <code>TEvent : IEvent</code>. Returns <code>Task</code>. Calls <code>HandleAsync</code> on every <code>IEventHandlerAsync&lt;TEvent&gt;</code> implementation on a thread-pool thread without awaiting the handler tasks. See "How it works" for completion and error behavior.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ievent"><code>IEvent</code></h3>
+<p><code>public interface IEvent</code> — marker interface for event classes.</p>
+<p>It has no members. Put the data the handlers need in properties of the event class.</p>
+<h3 id="ieventhandlertevent"><code>IEventHandler&lt;TEvent&gt;</code></h3>
+<p><code>public interface IEventHandler&lt;in TEvent&gt; where TEvent : IEvent</code> — handles an event synchronously.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>void Handle(TEvent args)</code></td>
+<td>Called by <code>EventsConsumer.Raise</code> with the raised event.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ieventhandlerasynctevent"><code>IEventHandlerAsync&lt;TEvent&gt;</code></h3>
+<p><code>public interface IEventHandlerAsync&lt;in TEvent&gt; where TEvent : IEvent</code> — handles an event asynchronously.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Task HandleAsync(TEvent args)</code></td>
+<td>Called by <code>EventsConsumer.RaiseAsync</code> with the raised event. The returned task is not awaited by the consumer.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 id="several-handlers-for-the-same-event">Several handlers for the same event</h3>
+<p>Each handler class is discovered and called. Handlers can take constructor dependencies.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Events;
+using CrispyWaffle.Log;
+
+// Both handlers run.
+EventsConsumer.Raise(new SomeEvent(&quot;Some text passed to all event handlers&quot;));
+
+public sealed class SomeEvent : IEvent
+{
+    public SomeEvent(string data)
+    {
+        Id = Guid.NewGuid();
+        Date = DateTime.Now;
+        Data = data;
+    }
+
+    public Guid Id { get; }
+
+    public string Data { get; }
+
+    public DateTime Date { get; }
+}
+
+public sealed class SomeEventHandler : IEventHandler&lt;SomeEvent&gt;
+{
+    public void Handle(SomeEvent args) =&gt;
+        LogConsumer.Warning(
+            &quot;Event 'SomeEvent' handled by 'SomeEventHandler'. Event Id: {0}&quot;,
+            args.Id
+        );
+}
+
+public sealed class AnotherSomeEventHandler : IEventHandler&lt;SomeEvent&gt;
+{
+    public void Handle(SomeEvent args) =&gt;
+        LogConsumer.Warning(
+            &quot;Event 'SomeEvent' handled by 'AnotherSomeEventHandler'. Event Id: {0}&quot;,
+            args.Id
+        );
+}
+</code></pre>
+<h3 id="one-class-handling-an-event-both-ways">One class handling an event both ways</h3>
+<p>This pattern comes from the test suite. <code>Raise</code> calls <code>Handle</code>; <code>RaiseAsync</code> calls <code>HandleAsync</code>.</p>
+<pre><code class="language-csharp">using System;
+using System.Threading.Tasks;
+using CrispyWaffle.Events;
+using CrispyWaffle.Log;
+
+var @event = new TestDoneEvent(Guid.NewGuid(), &quot;Sample test&quot;);
+EventsConsumer.Raise(@event);
+await EventsConsumer.RaiseAsync(@event); // Returns once LogDoneEvent.HandleAsync has started.
+
+public sealed class TestDoneEvent : IEvent
+{
+    public TestDoneEvent(Guid identifier, string text)
+    {
+        Identifier = identifier;
+        Text = text;
+        CreatedDateTime = DateTime.Now;
+    }
+
+    public Guid Identifier { get; }
+
+    public string Text { get; }
+
+    public DateTime CreatedDateTime { get; }
+}
+
+public sealed class LogDoneEvent : IEventHandler&lt;TestDoneEvent&gt;, IEventHandlerAsync&lt;TestDoneEvent&gt;
+{
+    public void Handle(TestDoneEvent args) =&gt;
+        LogConsumer.Info(
+            &quot;Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}&quot;,
+            args.Identifier,
+            args.Text,
+            args.CreatedDateTime
+        );
+
+    public async Task HandleAsync(TestDoneEvent args) =&gt;
+        await Task.Run(() =&gt;
+            LogConsumer.Info(
+                &quot;Sample done action handled: {0} - {1} - {2:dd/MM/yyyy HH:mm:ss}&quot;,
+                args.Identifier,
+                args.Text,
+                args.CreatedDateTime
+            )
+        );
+}
+</code></pre>
+<h3 id="handling-exceptions-from-a-handler">Handling exceptions from a handler</h3>
+<p>An exception thrown by a synchronous handler reaches the caller of <code>Raise</code>.</p>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Events;
+
+try
+{
+    EventsConsumer.Raise(new ExceptionEvent(Guid.NewGuid()));
+}
+catch (NotImplementedException e)
+{
+    Console.WriteLine($&quot;Handler failed: {e.Message}&quot;);
+}
+
+public sealed class ExceptionEvent : IEvent
+{
+    public ExceptionEvent(Guid identifier) =&gt; Identifier = identifier;
+
+    public Guid Identifier { get; }
+}
+
+public sealed class ThrowExceptionEvent : IEventHandler&lt;ExceptionEvent&gt;
+{
+    public void Handle(ExceptionEvent args) =&gt;
+        throw new NotImplementedException(args.Identifier.ToString());
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../commands/">Commands</a></li>
+<li><a href="../service-locator/">Service Locator</a></li>
+<li><a href="../logging/">Logging</a></li>
+<li><a href="../../diagrams/">Diagrams</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>

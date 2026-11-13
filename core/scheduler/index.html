@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>Scheduler - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/core/scheduler/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="true">
+                    Core Modules
+                </a>
+                <div class="collapse show" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="false">
+                    Integration Packages
+                </a>
+                <div class="collapse" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../packages/background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../commands/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../serialization/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="scheduler-cron-jobs">Scheduler (cron jobs)</h1>
+<p>The scheduler module runs in-process actions on a recurring schedule written as a CRON-like expression. You register one or more jobs with a <code>JobManager</code>, start it, and each job's delegate runs on its own thread whenever the current minute matches its expression. Use it for lightweight periodic work inside a long-running process, such as cleanup, polling or cache refresh.</p>
+<p>This module is a minimal minute-resolution timer that lives in the core package. For queued, retried or persisted background work, use the separate <a href="../../packages/background-jobs/">BackgroundJobs package</a> instead.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.Scheduler</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><strong>Timer.</strong> <code>JobManager</code> owns a <code>System.Timers.Timer</code> with a fixed 30-second interval. On each tick it compares the current minute (<code>DateTime.Now.Minute</code>) with the minute of the last run. If the minute has changed, it records the new run time and calls <code>Execute(DateTime.Now)</code> on every registered <code>JobRunner</code>, in the order they were added. The last-run time is initialized when the <code>JobManager</code> is constructed, so the minute in which you create the manager never triggers jobs. All times are local (<code>DateTime.Now</code>).</p>
+<p><strong>Matching.</strong> Each <code>JobRunner</code> holds a <code>CronScheduler</code> built from its expression. <code>Execute</code> checks <code>CronScheduler.IsTime(dateTime)</code>; if the time does not match, nothing happens.</p>
+<p><strong>Threading.</strong> When the time matches, the runner starts a new <code>Thread</code> for the delegate, unless the previous run of the same job is still in the <code>Running</code> or <code>WaitSleepJoin</code> state, in which case the run is skipped. Runs of the same job never overlap; different jobs run concurrently. Calls to <code>Execute</code> are serialized with a lock per runner. The job threads are ordinary foreground threads and nothing catches exceptions thrown by the delegate: an unhandled exception in a job terminates the process. Wrap the body of each job in <code>try</code>/<code>catch</code>.</p>
+<p><strong>Stopping.</strong> <code>Stop()</code> stops the timer, so no new runs start. Jobs already running are not interrupted. <code>JobManager</code> does not implement <code>IDisposable</code>.</p>
+<h2 id="cron-syntax">CRON syntax</h2>
+<p><code>CronScheduler</code> supports five fields, in this order. There is no seconds field and no year field.</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Field</th>
+<th>Values</th>
+<th><code>*</code> expands to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Minute</td>
+<td>0-59</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Hour</td>
+<td>0-23</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Day of month</td>
+<td>1-31</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Month</td>
+<td>1-12</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Day of week</td>
+<td>0-6, 0 = Sunday</td>
+<td>0-6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fields are found by pattern matching, not by splitting on spaces.</strong> The expression is scanned with <code>CronSchedulerValidations.ValidationRegex</code>, and each successive match becomes the next field. Any character that is not part of a match acts as a separator. Fields that are missing at the end default to <code>*</code>, so <code>10</code> is the same as <code>10 * * * *</code> and <code>* */3</code> is the same as <code>* */3 * * *</code>. Matches after the fifth are ignored.</p>
+<p>Each field can use exactly one of these forms:</p>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Example</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td><code>*</code></td>
+<td>Every value in the field's range.</td>
+</tr>
+<tr>
+<td><code>*/n</code></td>
+<td><code>*/15</code></td>
+<td>Every value in the field's range that is divisible by <code>n</code> (<code>value % n == 0</code>).</td>
+</tr>
+<tr>
+<td><code>a-b</code></td>
+<td><code>10-15</code></td>
+<td>Every value from <code>a</code> to <code>b</code>, inclusive.</td>
+</tr>
+<tr>
+<td><code>a-b/n</code></td>
+<td><code>10-30/2</code></td>
+<td>Every value from <code>a</code> to <code>b</code>, inclusive, that is divisible by <code>n</code>.</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td><code>5</code></td>
+<td>A single value.</td>
+</tr>
+<tr>
+<td><code>a,b,c</code></td>
+<td><code>0,6</code></td>
+<td>A list of single values.</td>
+</tr>
+</tbody>
+</table>
+<p>All conditions are combined with AND: a time matches only if the minute, hour, day of month, month and day of week all match. This differs from standard cron, where a restricted day of month and a restricted day of week are combined with OR.</p>
+<p>Behaviors to be aware of:</p>
+<ul>
+<li>Steps are divisibility tests, not offsets from the start. <code>*/5</code> in the day-of-month field yields 5, 10, 15, 20, 25, 30 (not 1, 6, 11, ...). <code>1-10/3</code> in the minute field yields 3, 6, 9 (not 1, 4, 7, 10). <code>*/2</code> in the month field yields 2, 4, ..., 12.</li>
+<li>Not supported: names (<code>MON</code>, <code>JAN</code>), <code>?</code>, <code>L</code>, <code>W</code>, <code>#</code>, <code>7</code> for Sunday, steps on a single value (<code>5/10</code>), lists that contain ranges (<code>1-5,10</code>), and macros such as <code>@daily</code>.</li>
+<li>Unsupported tokens are not rejected. They are skipped or split into extra matches, which shifts the remaining fields. For example, <code>0 0 * * MON</code> has only four matches, so the day of week becomes <code>*</code> and the job runs every day at midnight. <code>1-5,10 * * * *</code> yields six matches (<code>1-5</code>, <code>10</code>, <code>*</code>, ...), so <code>10</code> becomes the hour.</li>
+<li>Values outside a field's range are accepted but never match (for example, minute <code>70</code>).</li>
+<li><code>IsValid</code> returns <code>true</code> if the expression contains at least one match, so it only rejects strings with no digits and no <code>*</code> at all.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>Every minute.</td>
+</tr>
+<tr>
+<td><code>10</code></td>
+<td>At minute 10 of every hour.</td>
+</tr>
+<tr>
+<td><code>*/10</code></td>
+<td>At minutes 0, 10, 20, 30, 40 and 50 of every hour.</td>
+</tr>
+<tr>
+<td><code>10 1 * * 0</code></td>
+<td>At 01:10 every Sunday.</td>
+</tr>
+<tr>
+<td><code>0 9-17 * * 1-5</code></td>
+<td>On the hour from 09:00 to 17:00, Monday to Friday.</td>
+</tr>
+<tr>
+<td><code>*/20 * 10,20,30 * *</code></td>
+<td>At minutes 0, 20 and 40 of every hour on days 10, 20 and 30 of each month.</td>
+</tr>
+<tr>
+<td><code>0 0 1 * *</code></td>
+<td>At midnight on the first day of each month.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using System;
+using System.Threading;
+using CrispyWaffle.Scheduler;
+
+var counter = 0;
+
+var jobManager = new JobManager();
+jobManager.AddJob(&quot;* * * * *&quot;, () =&gt; Interlocked.Increment(ref counter));
+jobManager.Start();
+
+Thread.Sleep(TimeSpan.FromMinutes(2));
+
+jobManager.Stop();
+Console.WriteLine(counter); // typically 1 or 2, depending on when the manager was created
+</code></pre>
+<h2 id="reference">Reference</h2>
+<h3 id="jobmanager"><code>JobManager</code></h3>
+<p><code>public class JobManager : IJobManager</code> — holds a list of jobs and triggers them from a 30-second timer, at most once per minute.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobManager()</code></td>
+<td>Creates the manager and its timer. The timer is not started.</td>
+</tr>
+<tr>
+<td><code>AddJob(string cronExpression, ThreadStart action)</code></td>
+<td>Creates a <code>JobRunner</code> for the expression and action and adds it. Throws <code>ArgumentNullException</code> if the expression is null or whitespace or the action is null, <code>ArgumentOutOfRangeException</code> if the expression is not valid. The job list is not thread-safe; add jobs before calling <code>Start</code>.</td>
+</tr>
+<tr>
+<td><code>Start()</code></td>
+<td>Starts the timer.</td>
+</tr>
+<tr>
+<td><code>Stop()</code></td>
+<td>Stops the timer. Running jobs continue to completion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijobmanager"><code>IJobManager</code></h3>
+<p><code>public interface IJobManager</code> — contract for a component that schedules and runs jobs.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddJob(string cronExpression, ThreadStart action)</code></td>
+<td>Adds a job with a schedule and the delegate to run.</td>
+</tr>
+<tr>
+<td><code>Start()</code></td>
+<td>Begins running scheduled jobs.</td>
+</tr>
+<tr>
+<td><code>Stop()</code></td>
+<td>Stops triggering jobs until <code>Start</code> is called again.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ijobrunner"><code>IJobRunner</code></h3>
+<p><code>public interface IJobRunner</code> — contract for a single scheduled job.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Execute(DateTime dateTime)</code></td>
+<td>Runs the job if <code>dateTime</code> matches its schedule.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jobrunner"><code>JobRunner</code></h3>
+<p><code>public class JobRunner : IJobRunner</code> — runs one <code>ThreadStart</code> delegate on a new thread when a <code>CronScheduler</code> matches.</p>
+<p>You normally create these through <code>JobManager.AddJob</code>. Create one directly to drive a schedule from your own timer.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobRunner(string schedule, ThreadStart threadStart)</code></td>
+<td>Builds a <code>CronScheduler</code> from <code>schedule</code>. Throws <code>ArgumentNullException</code> if <code>schedule</code> is null or whitespace or <code>threadStart</code> is null, <code>ArgumentOutOfRangeException</code> if <code>schedule</code> is not a valid expression.</td>
+</tr>
+<tr>
+<td><code>Execute(DateTime dateTime)</code></td>
+<td>If <code>dateTime</code> matches the schedule and the previous run is not still running, starts the delegate on a new thread and returns immediately. Thread-safe.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ischeduler"><code>IScheduler</code></h3>
+<p><code>public interface IScheduler</code> — contract for an object that parses a schedule expression and tests dates against it.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsValid(string expression)</code></td>
+<td>Returns <code>true</code> if the expression is acceptable to the scheduler.</td>
+</tr>
+<tr>
+<td><code>IsTime(DateTime dateTime)</code></td>
+<td>Returns <code>true</code> if <code>dateTime</code> matches the schedule.</td>
+</tr>
+<tr>
+<td><code>Minutes</code></td>
+<td><code>ICollection&lt;int&gt;</code> of matching minutes.</td>
+</tr>
+<tr>
+<td><code>Hours</code></td>
+<td><code>ICollection&lt;int&gt;</code> of matching hours.</td>
+</tr>
+<tr>
+<td><code>DaysOfMonth</code></td>
+<td><code>ICollection&lt;int&gt;</code> of matching days of the month.</td>
+</tr>
+<tr>
+<td><code>Months</code></td>
+<td><code>ICollection&lt;int&gt;</code> of matching months.</td>
+</tr>
+<tr>
+<td><code>DaysOfWeek</code></td>
+<td><code>ICollection&lt;int&gt;</code> of matching days of the week. In <code>CronScheduler</code> these use <code>System.DayOfWeek</code> numbering: 0 = Sunday through 6 = Saturday.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cronscheduler"><code>CronScheduler</code></h3>
+<p><code>public class CronScheduler : IScheduler</code> — parses a five-field expression (see <a href="#cron-syntax">CRON syntax</a>) into sets of matching values.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CronScheduler()</code></td>
+<td>Creates an instance with no expression. All collections are empty and <code>IsTime</code> always returns <code>false</code>. Useful only for calling <code>IsValid</code>.</td>
+</tr>
+<tr>
+<td><code>CronScheduler(string expression)</code></td>
+<td>Parses <code>expression</code>. Throws <code>ArgumentOutOfRangeException</code> if <code>IsValid</code> returns <code>false</code>, <code>ArgumentNullException</code> if <code>expression</code> is null.</td>
+</tr>
+<tr>
+<td><code>IsValid(string expression)</code></td>
+<td>Returns <code>true</code> if <code>ValidationRegex</code> finds at least one match in <code>expression</code>. This is a weak check; see <a href="#cron-syntax">CRON syntax</a>.</td>
+</tr>
+<tr>
+<td><code>IsTime(DateTime dateTime)</code></td>
+<td>Returns <code>true</code> if the minute, hour, day, month and day of week of <code>dateTime</code> are all in their sets. Seconds are ignored.</td>
+</tr>
+<tr>
+<td><code>Minutes</code>, <code>Hours</code>, <code>DaysOfMonth</code>, <code>Months</code>, <code>DaysOfWeek</code></td>
+<td>The parsed sets, as <code>ICollection&lt;int&gt;</code>. They are the live internal sets; do not modify them.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cronschedulervalidations"><code>CronSchedulerValidations</code></h3>
+<p><code>public static class CronSchedulerValidations</code> — the regular expressions used to tokenize and classify CRON fields.</p>
+<p>All are <code>public static readonly Regex</code>, compiled, with a 5-second match timeout.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Pattern</th>
+<th>Matches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DividedRegex</code></td>
+<td><code>(\*/\d+)</code></td>
+<td><code>*/n</code></td>
+</tr>
+<tr>
+<td><code>RangeRegex</code></td>
+<td><code>(\d+\-\d+)\/?(\d+)?</code></td>
+<td><code>a-b</code> and <code>a-b/n</code></td>
+</tr>
+<tr>
+<td><code>WildRegex</code></td>
+<td><code>(\*)</code></td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td><code>ListRegex</code></td>
+<td><code>(((\d+,)*\d+)+)</code></td>
+<td><code>a</code> and <code>a,b,c</code></td>
+</tr>
+<tr>
+<td><code>ValidationRegex</code></td>
+<td>The four above joined with <code>\|</code>, in that order</td>
+<td>Any single field. Used to split an expression into fields.</td>
+</tr>
+</tbody>
+</table>
+<p>When classifying a field, <code>CronScheduler</code> tests <code>DividedRegex</code>, then <code>RangeRegex</code>, then <code>WildRegex</code>, then <code>ListRegex</code>, and uses the first that matches.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="several-jobs-with-error-handling">Several jobs with error handling</h3>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Log;
+using CrispyWaffle.Scheduler;
+
+var jobManager = new JobManager();
+
+jobManager.AddJob(&quot;*/5&quot;, () =&gt;
+{
+    try
+    {
+        PurgeExpiredSessions();
+    }
+    catch (Exception ex)
+    {
+        LogConsumer.Handle(ex);
+    }
+});
+
+jobManager.AddJob(&quot;0 3 * * 0&quot;, () =&gt;
+{
+    try
+    {
+        RebuildSearchIndex(); // 03:00 every Sunday
+    }
+    catch (Exception ex)
+    {
+        LogConsumer.Handle(ex);
+    }
+});
+
+jobManager.Start();
+</code></pre>
+<h3 id="inspecting-a-schedule">Inspecting a schedule</h3>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Scheduler;
+
+var scheduler = new CronScheduler(&quot;* 10-15 * * *&quot;);
+
+Console.WriteLine(string.Join(&quot;,&quot;, scheduler.Hours)); // 10,11,12,13,14,15
+
+var weekend = new CronScheduler(&quot;* * * * 0,6&quot;);
+Console.WriteLine(weekend.IsTime(new DateTime(2020, 9, 5, 12, 0, 0))); // True (Saturday)
+</code></pre>
+<h3 id="driving-a-runner-from-your-own-clock">Driving a runner from your own clock</h3>
+<pre><code class="language-csharp">using System;
+using CrispyWaffle.Scheduler;
+
+IJobRunner runner = new JobRunner(&quot;0 * * * *&quot;, () =&gt; Console.WriteLine(&quot;top of the hour&quot;));
+
+runner.Execute(new DateTime(2024, 1, 1, 10, 0, 0)); // starts the job
+runner.Execute(new DateTime(2024, 1, 1, 10, 1, 0)); // does nothing
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../packages/background-jobs/">BackgroundJobs</a></li>
+<li><a href="../logging/">Logging</a></li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
