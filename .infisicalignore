@@ -54,3 +54,8 @@ f60320aace81b6a8a832a679ed63c5b850fb2376:packages/couchdb/index.html:generic-pas
 f60320aace81b6a8a832a679ed63c5b850fb2376:packages/rabbitmq/index.html:generic-password:562
 f60320aace81b6a8a832a679ed63c5b850fb2376:packages/utils/index.html:generic-password:830
 fedfebb38876703964861048ec1316c8c363de91:Tests/CrispyWaffle.Tests/Cache/CouchDBCacheRepositoryTests.cs:generic-password:20
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/couchdb/index.html:generic-password:554
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/rabbitmq/index.html:generic-password:562
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/utils/index.html:generic-password:830
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/configuration/index.html:generic-password:544
+
