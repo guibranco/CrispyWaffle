@@ -62,3 +62,7 @@ e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/couchdb/index.html:generic-pas
 e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/rabbitmq/index.html:generic-password:562
 e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/utils/index.html:generic-password:830
 e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/configuration/index.html:generic-password:544
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/couchdb/index.html:generic-password:554
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/rabbitmq/index.html:generic-password:562
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/utils/index.html:generic-password:830
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/configuration/index.html:generic-password:544
