@@ -242,7 +242,7 @@ public static class ConversionExtensions
     public static DateTime FromUnixTimeStamp(this int epochTime)
     {
         return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-            .AddSeconds(Math.Round((double)epochTime / 1000))
+            .AddSeconds(epochTime)
             .ToLocalTime();
     }
 
