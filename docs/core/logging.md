@@ -69,7 +69,7 @@ Other CrispyWaffle packages add providers and handlers that plug into the same p
 
 ### Threading
 
-`LogConsumer` holds providers and filters in plain collections with no locking, so register them at startup before logging from multiple threads. `StandardConsoleLogAdapter` and `RollingTextFileLogAdapter` lock around each write, so concurrent logging through them is safe.
+`LogConsumer` keeps providers and filters in copy-on-write arrays. `AddProvider` and `AddFilter` build a new array under a lock and publish it, and each log call reads whichever array is current without locking. You can therefore add providers and filters while other threads are logging; a message logged at the same moment may or may not reach the newly added provider. Before version 10.5.1 the lists were plain collections, and adding to them while logging could throw `InvalidOperationException`. `StandardConsoleLogAdapter` and `RollingTextFileLogAdapter` lock around each write, so concurrent logging through them is safe.
 
 ## Getting started
 
