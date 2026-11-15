@@ -211,6 +211,13 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/EnesKartal">
+                    <img src="https://avatars.githubusercontent.com/u/43950508?v=4" width="100;" alt="EnesKartal"/>
+                    <br />
+                    <sub><b>Enes Kartal</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/HarryKambo">
                     <img src="https://avatars.githubusercontent.com/u/18412100?v=4" width="100;" alt="HarryKambo"/>
                     <br />
@@ -238,6 +245,8 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>Simran Gill</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/thiagochfc">
                     <img src="https://avatars.githubusercontent.com/u/36862932?v=4" width="100;" alt="thiagochfc"/>
@@ -245,8 +254,6 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>Thiago Christopher</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/tiagoschaffer">
                     <img src="https://avatars.githubusercontent.com/u/12534089?v=4" width="100;" alt="tiagoschaffer"/>
@@ -283,7 +290,7 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io/- -end -->
 
@@ -352,7 +359,7 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
 
