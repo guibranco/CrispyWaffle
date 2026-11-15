@@ -131,70 +131,72 @@ public sealed class LogStreamOptions
     /// <exception cref="InvalidOperationException">A required setting is missing or out of range.</exception>
     public void Validate()
     {
-        if (ServerUrl == null || !ServerUrl.IsAbsoluteUri)
-        {
-            throw new InvalidOperationException("An absolute LogStream server URL is required.");
-        }
+        ValidateEndpoint();
+        ValidateCredentials();
+        ValidateBatching();
+        ValidateTimings();
+        ValidateLevels();
+    }
 
-        if (string.IsNullOrWhiteSpace(AppId))
+    private static void Require(bool condition, string message)
+    {
+        if (!condition)
         {
-            throw new InvalidOperationException("The LogStream app_id is required.");
+            throw new InvalidOperationException(message);
         }
+    }
 
+    private static bool IsTimerSafe(TimeSpan value) => value.TotalMilliseconds <= int.MaxValue;
+
+    private void ValidateEndpoint()
+    {
+        Require(
+            ServerUrl != null && ServerUrl.IsAbsoluteUri,
+            "An absolute LogStream server URL is required."
+        );
+        Require(!string.IsNullOrWhiteSpace(AppId), "The LogStream app_id is required.");
+    }
+
+    private void ValidateCredentials()
+    {
         var hasClientCredentials =
             !string.IsNullOrWhiteSpace(ApiKey) && !string.IsNullOrWhiteSpace(ApiToken);
 
-        if (!UsesSharedSecret && !hasClientCredentials)
-        {
-            throw new InvalidOperationException(
-                "Set either ApiSecret (file storage) or both ApiKey and ApiToken (MariaDB storage)."
-            );
-        }
+        Require(
+            UsesSharedSecret || hasClientCredentials,
+            "Set either ApiSecret (file storage) or both ApiKey and ApiToken (MariaDB storage)."
+        );
+        Require(
+            !UsesSharedSecret || !string.IsNullOrWhiteSpace(AppKey),
+            "The LogStream app_key is required with ApiSecret."
+        );
+    }
 
-        if (UsesSharedSecret && string.IsNullOrWhiteSpace(AppKey))
-        {
-            throw new InvalidOperationException(
-                "The LogStream app_key is required with ApiSecret."
-            );
-        }
+    private void ValidateBatching()
+    {
+        Require(BatchSize >= 1 && BatchSize <= 1000, "BatchSize must be between 1 and 1000.");
+        Require(QueueLimit >= BatchSize, "QueueLimit must be at least BatchSize.");
+        Require(MaxRetries >= 0, "MaxRetries cannot be negative.");
+    }
 
-        if (BatchSize < 1 || BatchSize > 1000)
-        {
-            throw new InvalidOperationException("BatchSize must be between 1 and 1000.");
-        }
+    private void ValidateTimings()
+    {
+        Require(
+            FlushInterval > TimeSpan.Zero && IsTimerSafe(FlushInterval),
+            "FlushInterval must be positive and at most int.MaxValue milliseconds (about 24.8 days)."
+        );
+        Require(
+            ShutdownTimeout >= TimeSpan.Zero && IsTimerSafe(ShutdownTimeout),
+            "ShutdownTimeout cannot be negative or above int.MaxValue milliseconds."
+        );
+    }
 
-        if (QueueLimit < BatchSize)
-        {
-            throw new InvalidOperationException("QueueLimit must be at least BatchSize.");
-        }
-
-        if (MaxRetries < 0)
-        {
-            throw new InvalidOperationException("MaxRetries cannot be negative.");
-        }
-
-        if (FlushInterval <= TimeSpan.Zero || FlushInterval.TotalMilliseconds > int.MaxValue)
-        {
-            throw new InvalidOperationException(
-                "FlushInterval must be positive and at most int.MaxValue milliseconds (about 24.8 days)."
-            );
-        }
-
-        if (ShutdownTimeout < TimeSpan.Zero || ShutdownTimeout.TotalMilliseconds > int.MaxValue)
-        {
-            throw new InvalidOperationException(
-                "ShutdownTimeout cannot be negative or above int.MaxValue milliseconds."
-            );
-        }
-
-        if (!LogStreamLevels.IsValid(TraceLevel))
-        {
-            throw new InvalidOperationException("TraceLevel is not a LogStream level.");
-        }
-
-        if (!LogStreamLevels.IsValid(ExceptionLevel))
-        {
-            throw new InvalidOperationException("ExceptionLevel is not a LogStream level.");
-        }
+    private void ValidateLevels()
+    {
+        Require(LogStreamLevels.IsValid(TraceLevel), "TraceLevel is not a LogStream level.");
+        Require(
+            LogStreamLevels.IsValid(ExceptionLevel),
+            "ExceptionLevel is not a LogStream level."
+        );
     }
 }
