@@ -4,10 +4,11 @@ Contributions are welcome. Open an [issue](https://github.com/guibranco/CrispyWa
 
 ### Working on the code
 
+- After cloning, run `git config core.hooksPath .githooks` once so Git uses the repository's hooks.
 - Branch names must match the pre-commit hook in `.githooks`: a prefix such as `feature/`, `fix/`, `docs/`, `refactor/`, `test/` or `chore/`, followed by a name.
 - The same hook runs `dotnet csharpier . --check`. Run `dotnet tool restore && dotnet csharpier .` to format before committing.
 - Build with `dotnet build` and test with `dotnet test`. The integration tests need the services in `docker-compose.yml` (CouchDB, Elasticsearch, RabbitMQ and Redis): start them with `docker compose up -d`.
-- Public members need XML documentation; the build reports missing or malformed comments as warnings.
+- Public members need XML documentation. StyleCop reports missing comments (SA1600 and related rules) and the compiler reports malformed ones as build warnings. The compiler's own missing-comment warning, CS1591, is suppressed in `Directory.Build.props`.
 
 ### Adding an integration package
 

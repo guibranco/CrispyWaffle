@@ -2,14 +2,14 @@
 
 ## Version 10.5 [2026-11-15]
 
-- Add the `CrispyWaffle.LogStream` package: `LogStreamLogProvider` sends log
+- 10.5.0: add the `CrispyWaffle.LogStream` package: `LogStreamLogProvider` sends log
   messages in batches to a [LogStream][logstream] server, with retries, a
   bounded queue and trace correlation - [pull request #1084][pr-1084]
-- Fix `InvalidOperationException` when a provider or filter is added to
+- 10.5.1: fix `InvalidOperationException` when a provider or filter is added to
   `LogConsumer` while other threads are logging. The lists are now
   copy-on-write arrays and logging takes no lock -
   [pull request #1087][pr-1087]
-- Ship a dedicated README with each NuGet package instead of the repository
+- 10.5.2: ship a dedicated README with each NuGet package instead of the repository
   README - [pull request #1088][pr-1088]
 
 ## Version 10.4 [2026-10-16]
@@ -19,10 +19,10 @@
   [@rodri-oliveira-dev][rodri]
 - Add a features section to the README, document .NET 10 support and the
   packages not yet on NuGet, and fill in the missing changelog entries
-- Fix `MemoryCacheRepository.RemoveAsync(key, subKey)`, which never removed
+- 10.4.5: fix `MemoryCacheRepository.RemoveAsync(key, subKey)`, which never removed
   the sub-key entry - [issue #1018][issue-1018] and
   [pull request #1046][pr-1046] by [@rojo1585][rojo1585]
-- Fix every XML documentation warning, add `CrispyWaffle.BackgroundJobs` to
+- 10.4.14: fix every XML documentation warning, add `CrispyWaffle.BackgroundJobs` to
   the solution so CI builds it, add the first tests for
   `CrispyWaffle.BackgroundJobs` and `CrispyWaffle.HttpClient`, and stop
   `MonitoringMiddleware` writing after the client disconnects -
