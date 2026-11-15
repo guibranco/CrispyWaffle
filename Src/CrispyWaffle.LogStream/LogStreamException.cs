@@ -33,12 +33,21 @@ public class LogStreamException : Exception
     /// <param name="message">The message.</param>
     /// <param name="statusCode">The HTTP status code returned by the server.</param>
     /// <param name="responseBody">The response body returned by the server.</param>
+    public LogStreamException(string message, int? statusCode, string responseBody)
+        : this(message, statusCode, responseBody, null) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LogStreamException"/> class.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="statusCode">The HTTP status code returned by the server.</param>
+    /// <param name="responseBody">The response body returned by the server.</param>
     /// <param name="innerException">The inner exception.</param>
     public LogStreamException(
         string message,
         int? statusCode,
         string responseBody,
-        Exception innerException = null
+        Exception innerException
     )
         : base(message, innerException)
     {

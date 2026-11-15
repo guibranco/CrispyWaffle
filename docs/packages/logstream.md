@@ -142,7 +142,7 @@ To use an `HttpClient` from `IHttpClientFactory` (or a test handler), pass it to
 
 ### `LogStreamLevels`
 
-Constants for the six LogStream levels (`debug`, `info`, `notice`, `warning`, `error`, `critical`), `IsValid(string)` and `From(LogLevel, LogStreamOptions)`.
+Static properties for the six LogStream levels (`debug`, `info`, `notice`, `warning`, `error`, `critical`), `IsValid(string)` and `From(LogLevel, LogStreamOptions)`.
 
 ### `LogStreamException`
 

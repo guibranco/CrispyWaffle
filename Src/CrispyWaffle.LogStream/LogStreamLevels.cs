@@ -10,22 +10,22 @@ namespace CrispyWaffle.LogStream;
 public static class LogStreamLevels
 {
     /// <summary>The <c>debug</c> level.</summary>
-    public const string Debug = "debug";
+    public static string Debug { get; } = "debug";
 
     /// <summary>The <c>info</c> level.</summary>
-    public const string Info = "info";
+    public static string Info { get; } = "info";
 
     /// <summary>The <c>notice</c> level.</summary>
-    public const string Notice = "notice";
+    public static string Notice { get; } = "notice";
 
     /// <summary>The <c>warning</c> level.</summary>
-    public const string Warning = "warning";
+    public static string Warning { get; } = "warning";
 
     /// <summary>The <c>error</c> level.</summary>
-    public const string Error = "error";
+    public static string Error { get; } = "error";
 
     /// <summary>The <c>critical</c> level.</summary>
-    public const string Critical = "critical";
+    public static string Critical { get; } = "critical";
 
     private static readonly string[] _all = { Debug, Info, Notice, Warning, Error, Critical };
 

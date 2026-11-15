@@ -125,12 +125,7 @@ internal sealed class LogStreamSender : IDisposable
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                if (_pending.Count == 0)
-                {
-                    TakeBatch(_pending);
-                }
-
-                if (_pending.Count == 0)
+                if (_pending.Count == 0 && !TakeBatch(_pending))
                 {
                     return;
                 }
@@ -269,7 +264,7 @@ internal sealed class LogStreamSender : IDisposable
         }
     }
 
-    private void TakeBatch(List<LogStreamEntry> batch)
+    private bool TakeBatch(List<LogStreamEntry> batch)
     {
         while (batch.Count < _options.BatchSize && _queue.TryDequeue(out var entry))
         {
@@ -277,10 +272,13 @@ internal sealed class LogStreamSender : IDisposable
             batch.Add(entry);
         }
 
-        if (batch.Count > 0)
+        if (batch.Count == 0)
         {
-            Interlocked.Exchange(ref _queueFullReported, 0);
+            return false;
         }
+
+        Interlocked.Exchange(ref _queueFullReported, 0);
+        return true;
     }
 
     private async Task SendWithRetryAsync(
