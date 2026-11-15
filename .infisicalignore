@@ -54,3 +54,15 @@ f60320aace81b6a8a832a679ed63c5b850fb2376:packages/couchdb/index.html:generic-pas
 f60320aace81b6a8a832a679ed63c5b850fb2376:packages/rabbitmq/index.html:generic-password:562
 f60320aace81b6a8a832a679ed63c5b850fb2376:packages/utils/index.html:generic-password:830
 fedfebb38876703964861048ec1316c8c363de91:Tests/CrispyWaffle.Tests/Cache/CouchDBCacheRepositoryTests.cs:generic-password:20
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/couchdb/index.html:generic-password:554
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/rabbitmq/index.html:generic-password:562
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/utils/index.html:generic-password:830
+d648e38e92bd96ad46da156d9457893caa7de1aa:packages/configuration/index.html:generic-password:544
+e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/couchdb/index.html:generic-password:554
+e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/rabbitmq/index.html:generic-password:562
+e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/utils/index.html:generic-password:830
+e9580b8bf2bcbe0b577aaf0680fbaee36231b76b:packages/configuration/index.html:generic-password:544
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/couchdb/index.html:generic-password:554
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/rabbitmq/index.html:generic-password:562
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/utils/index.html:generic-password:830
+c130aa73c6bf36d14d0a69d034dedc86bcbfb879:packages/configuration/index.html:generic-password:544
