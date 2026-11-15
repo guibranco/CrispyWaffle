@@ -1,6 +1,24 @@
 ## Contributing
 
-Refer to [CONTRIBUTING.md](https://github.com/guibranco/CrispyWaffle/blob/main/CONTRIBUTING.md) to learn how to contribute to this project!
+Contributions are welcome. Open an [issue](https://github.com/guibranco/CrispyWaffle/issues) to discuss a bug or an idea, then send a pull request against `main`.
+
+### Working on the code
+
+- Branch names must match the pre-commit hook in `.githooks`: a prefix such as `feature/`, `fix/`, `docs/`, `refactor/`, `test/` or `chore/`, followed by a name.
+- The same hook runs `dotnet csharpier . --check`. Run `dotnet tool restore && dotnet csharpier .` to format before committing.
+- Build with `dotnet build` and test with `dotnet test`. The integration tests need the services in `docker-compose.yml` (CouchDB, Elasticsearch, RabbitMQ and Redis): start them with `docker compose up -d`.
+- Public members need XML documentation; the build reports missing or malformed comments as warnings.
+
+### Adding an integration package
+
+A new `CrispyWaffle.<Name>` package needs more than its project. Check each of these:
+
+1. Create the project under `Src/CrispyWaffle.<Name>` and add it to `CrispyWaffle.sln`. A project that is not in the solution is not built or tested by CI.
+2. Add `<Name>` to `PACKAGE_PROJECTS` in `.github/workflows/release.yml` so the release publishes it to NuGet. Add new dependency versions to `Directory.Packages.props`.
+3. Add `Src/CrispyWaffle.<Name>/README.md`. `Directory.Build.props` packs it as the package's NuGet.org readme. Use absolute links, because NuGet.org cannot resolve relative ones.
+4. Add tests under `Tests/`.
+5. Document it: a page in `docs/packages/`, an entry in the `nav` of `mkdocs.yml`, a row in the package tables of `docs/index.md`, `docs/installation.md` and `README.md`, and a link from the matching core page (for example the providers table in [Logging](core/logging.md) for a log provider).
+6. Add an entry to the [changelog](changelog.md).
 
 ### Contributors
 
