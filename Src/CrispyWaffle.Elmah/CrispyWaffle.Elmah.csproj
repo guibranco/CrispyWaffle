@@ -12,6 +12,10 @@
   <ItemGroup>
     <!-- ReSharper disable once VulnerablePackage -->
     <PackageReference Include="ElmahCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="System.Text.Encoding.CodePages" />
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>
