@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 10.5 [2026-11-15]
+
+- 10.5.0: add the `CrispyWaffle.LogStream` package: `LogStreamLogProvider` sends log
+  messages in batches to a [LogStream][logstream] server, with retries, a
+  bounded queue and trace correlation - [pull request #1084][pr-1084]
+- 10.5.1: fix `InvalidOperationException` when a provider or filter is added to
+  `LogConsumer` while other threads are logging. The lists are now
+  copy-on-write arrays and logging takes no lock -
+  [pull request #1087][pr-1087]
+- 10.5.2: ship a dedicated README with each NuGet package instead of the repository
+  README - [pull request #1088][pr-1088]
+
 ## Version 10.4 [2026-10-16]
 
 - Add TOML serializer support using Tomlyn -
@@ -7,6 +19,14 @@
   [@rodri-oliveira-dev][rodri]
 - Add a features section to the README, document .NET 10 support and the
   packages not yet on NuGet, and fill in the missing changelog entries
+- 10.4.5: fix `MemoryCacheRepository.RemoveAsync(key, subKey)`, which never removed
+  the sub-key entry - [issue #1018][issue-1018] and
+  [pull request #1046][pr-1046] by [@rojo1585][rojo1585]
+- 10.4.14: fix every XML documentation warning, add `CrispyWaffle.BackgroundJobs` to
+  the solution so CI builds it, add the first tests for
+  `CrispyWaffle.BackgroundJobs` and `CrispyWaffle.HttpClient`, and stop
+  `MonitoringMiddleware` writing after the client disconnects -
+  [pull request #1062][pr-1062]
 
 ## Version 10.3 [2026-10-16]
 
@@ -61,6 +81,13 @@
 - Simplify constructors with expression-bodied syntax -
   [pull request #599][pr-599]
 
+[logstream]: https://github.com/guibranco/logstream-server
+[issue-1018]: https://github.com/guibranco/CrispyWaffle/issues/1018
+[pr-1084]: https://github.com/guibranco/CrispyWaffle/pull/1084
+[pr-1087]: https://github.com/guibranco/CrispyWaffle/pull/1087
+[pr-1088]: https://github.com/guibranco/CrispyWaffle/pull/1088
+[pr-1046]: https://github.com/guibranco/CrispyWaffle/pull/1046
+[pr-1062]: https://github.com/guibranco/CrispyWaffle/pull/1062
 [issue-431]: https://github.com/guibranco/CrispyWaffle/issues/431
 [issue-432]: https://github.com/guibranco/CrispyWaffle/issues/432
 [pr-981]: https://github.com/guibranco/CrispyWaffle/pull/981
@@ -88,6 +115,7 @@
 [looseling]: https://github.com/Looseling
 [mf0zz13]: https://github.com/mf0zz13
 [rodri]: https://github.com/rodri-oliveira-dev
+[rojo1585]: https://github.com/rojo1585
 [sak3th2004]: https://github.com/Sak3th2004
 
 ## Version 8.2 [2024-09-11]
