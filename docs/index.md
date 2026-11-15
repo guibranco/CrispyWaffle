@@ -1,6 +1,6 @@
 # Crispy Waffle
 
-A toolkit for .NET applications: service location, logging, caching, events, commands, cron scheduling, serialization, template rendering and more, with integration packages for Redis, RabbitMQ, ElasticSearch, CouchDB, Log4Net, ELMAH and the Windows Event Log.
+A toolkit for .NET applications: service location, logging, caching, events, commands, cron scheduling, serialization, template rendering and more, with integration packages for Redis, RabbitMQ, ElasticSearch, CouchDB, Log4Net, LogStream, ELMAH and the Windows Event Log.
 
 ![Crispy Waffle Logo](https://raw.githubusercontent.com/guibranco/CrispyWaffle/main/logo.png)
 
@@ -78,6 +78,7 @@ Everything below ships in the `CrispyWaffle` package.
 | [CrispyWaffle.ElasticSearch](packages/elasticsearch.md) | ElasticSearch client wrapper and log provider |
 | [CrispyWaffle.CouchDB](packages/couchdb.md) | CouchDB cache repository (not yet on NuGet) |
 | [CrispyWaffle.Log4Net](packages/log4net.md) | Log provider that forwards to log4net |
+| [CrispyWaffle.LogStream](packages/logstream.md) | Log provider that ships logs to a LogStream server |
 | [CrispyWaffle.EventLog](packages/eventlog.md) | Windows Event Log provider |
 | [CrispyWaffle.Elmah](packages/elmah.md) | Exception handler that forwards to ELMAH |
 | [CrispyWaffle.Utils](packages/utils.md) | FTP client and SMTP mailer |
