@@ -15,7 +15,7 @@ CrispyWaffle.LogStream sends CrispyWaffle log messages to a [LogStream](https://
 
 Failed requests are retried with an exponential delay when the failure is transient (network error, timeout, HTTP 408, 429 or 5xx), up to `MaxRetries` times. Other responses (400, 401, 403…) drop the batch at once. Entries the server rejects one by one (the `errors` list of a 202/201 response) are counted as dropped too. Dropped entries never throw: they are counted in `DroppedCount` and reported to the `OnError` callback, or to `System.Diagnostics.Trace` when there is none. The provider does not log its own failures through `LogConsumer`, which would loop back into it.
 
-When the queue holds `QueueLimit` entries, new entries are dropped until it drains. Dispose the provider on shutdown: `Dispose` stops the background task and sends what is left, waiting at most `ShutdownTimeout`.
+When the queue holds `QueueLimit` entries, new entries are dropped until it drains. Dispose the provider on shutdown: `Dispose` stops the background task and sends what is left. One `ShutdownTimeout` deadline covers the whole shutdown, including a request already in flight; entries still unsent then, and entries logged after `Dispose`, are counted as dropped.
 
 Like the other providers, it starts with no level enabled, so call `SetLevel` after you register it.
 
@@ -100,12 +100,12 @@ To use an `HttpClient` from `IHttpClientFactory` (or a test handler), pass it to
 | `ApiSecret` | — | Shared write secret (file storage). |
 | `ApiKey`, `ApiToken` | — | Client credentials (MariaDB storage). |
 | `BatchSize` | `100` | Entries per request (1–1000). |
-| `FlushInterval` | 2 s | Longest wait before a partial batch is sent. |
+| `FlushInterval` | 2 s | Longest wait before a partial batch is sent (at most about 24.8 days). |
 | `QueueLimit` | `10000` | Entries kept in memory; newer ones are dropped while full. |
 | `MaxRetries` | `3` | Retries after a transient failure. |
 | `RetryDelay` | 1 s | First retry delay; doubles after each attempt. |
 | `RequestTimeout` | 30 s | Timeout of the `HttpClient` the connector creates. |
-| `ShutdownTimeout` | 10 s | How long `Dispose` waits for the queue to be sent. |
+| `ShutdownTimeout` | 10 s | Deadline for `Dispose` to send the queue, in-flight request included. |
 | `TraceLevel` | `debug` | LogStream level for `Trace` messages. |
 | `ExceptionLevel` | `error` | LogStream level for `Trace` calls with an exception. |
 | `IncludeEnvironment` | `true` | Adds host, process and thread details to the context. |

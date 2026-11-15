@@ -34,6 +34,8 @@ internal sealed class LogStreamSender : IDisposable
     private readonly SemaphoreSlim _signal = new(0, 1);
     private readonly SemaphoreSlim _sendLock = new(1, 1);
     private readonly CancellationTokenSource _stopping = new();
+    private readonly CancellationTokenSource _deadline = new();
+    private readonly object _admission = new();
     private readonly Task _worker;
 
     private int _count;
@@ -70,12 +72,25 @@ internal sealed class LogStreamSender : IDisposable
     /// <returns><c>false</c> when the entry was dropped.</returns>
     public bool TryEnqueue(LogStreamEntry entry)
     {
-        if (Volatile.Read(ref _disposed) != 0)
+        int count;
+
+        // Admission and Dispose share a lock, so an entry is either queued before the final
+        // drain starts or rejected; it is never accepted and then left unsent.
+        lock (_admission)
         {
-            return false;
+            if (_disposed != 0)
+            {
+                Interlocked.Increment(ref _dropped);
+                return false;
+            }
+
+            count = Interlocked.Increment(ref _count);
+            if (count <= _options.QueueLimit)
+            {
+                _queue.Enqueue(entry);
+            }
         }
 
-        var count = Interlocked.Increment(ref _count);
         if (count > _options.QueueLimit)
         {
             Interlocked.Decrement(ref _count);
@@ -96,8 +111,6 @@ internal sealed class LogStreamSender : IDisposable
 
             return false;
         }
-
-        _queue.Enqueue(entry);
 
         if (count >= _options.BatchSize)
         {
@@ -146,11 +159,20 @@ internal sealed class LogStreamSender : IDisposable
     /// </summary>
     public void Dispose()
     {
-        if (Interlocked.Exchange(ref _disposed, 1) != 0)
+        lock (_admission)
         {
-            return;
+            if (_disposed != 0)
+            {
+                return;
+            }
+
+            _disposed = 1;
         }
 
+        // One deadline covers the worker's in-flight batch and the final drain; requests
+        // started after it expires, or still running when it does, are cancelled.
+        var deadline = DateTime.UtcNow + _options.ShutdownTimeout;
+        _deadline.CancelAfter(_options.ShutdownTimeout);
         _stopping.Cancel();
 
         try
@@ -162,32 +184,35 @@ internal sealed class LogStreamSender : IDisposable
             // The worker only ends by cancellation; nothing to report.
         }
 
-        using (var timeout = new CancellationTokenSource(_options.ShutdownTimeout))
+        try
         {
-            try
+            if (DateTime.UtcNow < deadline)
             {
-                FlushAsync(timeout.Token).GetAwaiter().GetResult();
+                FlushAsync(_deadline.Token).GetAwaiter().GetResult();
             }
-            catch (OperationCanceledException)
-            {
-                var left = Count;
-                if (left > 0)
-                {
-                    Interlocked.Add(ref _dropped, left);
-                    Report(
-                        new LogStreamException(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "{0} LogStream entries were not sent before the shutdown timeout.",
-                                left
-                            )
-                        )
-                    );
-                }
-            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Reported below.
+        }
+
+        var left = Count;
+        if (left > 0)
+        {
+            Interlocked.Add(ref _dropped, left);
+            Report(
+                new LogStreamException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "{0} LogStream entries were not sent before the shutdown timeout.",
+                        left
+                    )
+                )
+            );
         }
 
         _stopping.Dispose();
+        _deadline.Dispose();
         _signal.Dispose();
     }
 
@@ -324,7 +349,7 @@ internal sealed class LogStreamSender : IDisposable
             {
                 using var request = BuildRequest(json);
                 using var response = await _connector
-                    .HttpClient.SendAsync(request, CancellationToken.None)
+                    .HttpClient.SendAsync(request, _deadline.Token)
                     .ConfigureAwait(false);
                 var body =
                     response.Content == null
@@ -358,6 +383,11 @@ internal sealed class LogStreamSender : IDisposable
             catch (HttpRequestException e)
             {
                 failure = e;
+            }
+            catch (OperationCanceledException) when (_deadline.IsCancellationRequested)
+            {
+                // Shutdown deadline: keep the batch pending and stop.
+                throw;
             }
             catch (TaskCanceledException e)
             {

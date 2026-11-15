@@ -424,6 +424,75 @@ public class LogStreamLogProviderTests
     }
 
     [Fact]
+    public void DisposeShouldStopAtTheShutdownDeadlineWhenTheServerHangs()
+    {
+        // Arrange
+        var never = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously
+        );
+        using var handler = new RecordingHandler { Gate = never.Task };
+        var errors = new ConcurrentBag<Exception>();
+        var provider = CreateProvider(
+            handler,
+            o =>
+            {
+                o.ShutdownTimeout = TimeSpan.FromMilliseconds(300);
+                o.OnError = errors.Add;
+            }
+        );
+        provider.SetLevel(LogLevel.All);
+        provider.Info("Cat", "stuck");
+        var watch = Stopwatch.StartNew();
+
+        // Act
+        provider.Dispose();
+        watch.Stop();
+
+        // Assert
+        watch.Elapsed.Should().BeLessThan(TimeSpan.FromSeconds(3));
+        provider.DroppedCount.Should().Be(1);
+        errors.Should().ContainSingle(e => e.Message.Contains("shutdown timeout"));
+        never.SetResult(true);
+    }
+
+    [Fact]
+    public void EntriesLoggedAfterDisposeShouldBeRejectedAndCounted()
+    {
+        // Arrange
+        using var handler = new RecordingHandler();
+        var provider = CreateProvider(handler);
+        provider.SetLevel(LogLevel.All);
+        provider.Dispose();
+
+        // Act
+        provider.Info("Cat", "too late");
+
+        // Assert
+        provider.DroppedCount.Should().Be(1);
+        handler.Requests.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void AFlushIntervalAboveTheTimerLimitShouldBeRejected()
+    {
+        // Arrange
+        var options = new LogStreamOptions
+        {
+            ServerUrl = _server,
+            AppKey = "billing-api",
+            AppId = "production",
+            ApiSecret = "lsa_secret",
+            FlushInterval = TimeSpan.FromDays(30),
+        };
+
+        // Act
+        var act = () => new LogStreamConnector(options);
+
+        // Assert
+        act.Should().Throw<InvalidOperationException>().WithMessage("*FlushInterval*");
+    }
+
+    [Fact]
     public async Task TheCurrentActivityShouldProvideTheTraceId()
     {
         // Arrange
@@ -644,7 +713,7 @@ public class LogStreamLogProviderTests
         {
             if (Gate != null)
             {
-                await Gate;
+                await Gate.WaitAsync(cancellationToken);
             }
 
             var body = await request.Content!.ReadAsStringAsync(cancellationToken);

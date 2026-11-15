@@ -173,9 +173,18 @@ public sealed class LogStreamOptions
             throw new InvalidOperationException("MaxRetries cannot be negative.");
         }
 
-        if (FlushInterval <= TimeSpan.Zero)
+        if (FlushInterval <= TimeSpan.Zero || FlushInterval.TotalMilliseconds > int.MaxValue)
         {
-            throw new InvalidOperationException("FlushInterval must be positive.");
+            throw new InvalidOperationException(
+                "FlushInterval must be positive and at most int.MaxValue milliseconds (about 24.8 days)."
+            );
+        }
+
+        if (ShutdownTimeout < TimeSpan.Zero || ShutdownTimeout.TotalMilliseconds > int.MaxValue)
+        {
+            throw new InvalidOperationException(
+                "ShutdownTimeout cannot be negative or above int.MaxValue milliseconds."
+            );
         }
 
         if (!LogStreamLevels.IsValid(TraceLevel))
