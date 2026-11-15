@@ -150,7 +150,7 @@ A new `CrispyWaffle.<Name>` package needs more than its project. Check each of t
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io/- -end -->
 
@@ -219,6 +219,6 @@ A new `CrispyWaffle.<Name>` package needs more than its project. Check each of t
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
