@@ -25,7 +25,7 @@ jobs:
     # ── Projects to package (mirrors AppVeyor $PROJECTS) ──────────────────────
     # Update this list if you add or remove sub-projects.
     env:
-      PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net RabbitMQ Redis Utils"
+      PACKAGE_PROJECTS: "Configuration ElasticSearch Elmah EventLog I18n.PtBr Log4Net LogStream RabbitMQ Redis Utils"
       TARGET_FRAMEWORKS: "netstandard2.0 netstandard2.1 net8.0 net9.0 net10.0"
 
     # ── CouchDB & Redis service containers ────────────────────────────────────

@@ -352,7 +352,7 @@ When the worker uses this queue, a job that is not yet due is dequeued and enque
 | Member | Description |
 |---|---|
 | `MonitoringMiddleware(RequestDelegate next, JobMetrics metrics)` | Constructor, called by `UseMiddleware<MonitoringMiddleware>()`. |
-| `InvokeAsync(HttpContext context)` | For paths starting with `/jobs/metrics`, writes the snapshot as `application/json` and ends the request. Otherwise calls `next`. |
+| `InvokeAsync(HttpContext context)` | For paths starting with `/jobs/metrics`, writes the snapshot as `application/json` and ends the request. The write uses `HttpContext.RequestAborted`, so it stops if the client disconnects. Otherwise calls `next`. |
 
 ### `CronJobService`
 
