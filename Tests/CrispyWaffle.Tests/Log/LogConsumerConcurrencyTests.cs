@@ -39,7 +39,7 @@ public class LogConsumerConcurrencyTests
         for (var i = 0; i < 50; i++)
         {
             LogConsumer.AddProvider(new NullLogProvider());
-            LogConsumer.AddFilter(new AllowAllFilter());
+            LogConsumer.AddFilter(new CategoryLogFilter(typeof(NullLogProvider)));
             await Task.Yield();
         }
 
@@ -50,33 +50,60 @@ public class LogConsumerConcurrencyTests
         await Task.WhenAll(writers);
     }
 
-    private sealed class AllowAllFilter : ILogFilter
-    {
-        public bool Filter(string providerType, LogLevel level, string category, string message) =>
-            true;
-    }
-
+    /// <summary>
+    /// A provider that discards everything, so the test exercises only LogConsumer's own lists.
+    /// </summary>
     private sealed class NullLogProvider : ILogProvider
     {
-        public void SetLevel(LogLevel level) { }
+        public void SetLevel(LogLevel level)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Fatal(string category, string message) { }
+        public void Fatal(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Error(string category, string message) { }
+        public void Error(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Warning(string category, string message) { }
+        public void Warning(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Info(string category, string message) { }
+        public void Info(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Trace(string category, string message) { }
+        public void Trace(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Trace(string category, string message, Exception exception) { }
+        public void Trace(string category, string message, Exception exception)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Trace(string category, Exception exception) { }
+        public void Trace(string category, Exception exception)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Debug(string category, string message) { }
+        public void Debug(string category, string message)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
-        public void Debug(string category, string content, string identifier) { }
+        public void Debug(string category, string content, string identifier)
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
 
         public void Debug<T>(
             string category,
@@ -84,6 +111,9 @@ public class LogConsumerConcurrencyTests
             string identifier,
             SerializerFormat customFormat
         )
-            where T : class, new() { }
+            where T : class, new()
+        {
+            // Intentionally empty: the test only needs providers to enumerate.
+        }
     }
 }
