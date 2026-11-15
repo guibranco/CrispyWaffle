@@ -473,6 +473,51 @@ public class LogStreamLogProviderTests
     }
 
     [Fact]
+    public async Task EveryEntryShouldBeSentOrDroppedExactlyOnceWhenDisposeRacesWithAFullQueue()
+    {
+        // Arrange
+        const int producers = 8;
+        const int perProducer = 500;
+        using var handler = new RecordingHandler();
+        var provider = CreateProvider(
+            handler,
+            o =>
+            {
+                o.BatchSize = 10;
+                o.QueueLimit = 20;
+                o.FlushInterval = TimeSpan.FromMilliseconds(5);
+            }
+        );
+        provider.SetLevel(LogLevel.All);
+        using var start = new ManualResetEventSlim();
+
+        var tasks = Enumerable
+            .Range(0, producers)
+            .Select(p =>
+                Task.Run(() =>
+                {
+                    start.Wait();
+                    for (var i = 0; i < perProducer; i++)
+                    {
+                        provider.Info("Cat", $"{p}-{i}");
+                    }
+                })
+            )
+            .ToArray();
+
+        // Act
+        start.Set();
+        await Task.Delay(5);
+        provider.Dispose();
+        await Task.WhenAll(tasks);
+
+        // Assert
+        var sent = handler.Requests.Sum(r => ((JArray)r.Json["logs"]).Count);
+        (sent + provider.DroppedCount).Should().Be(producers * perProducer);
+        provider.PendingCount.Should().Be(0);
+    }
+
+    [Fact]
     public void AFlushIntervalAboveTheTimerLimitShouldBeRejected()
     {
         // Arrange

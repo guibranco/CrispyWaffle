@@ -73,9 +73,10 @@ internal sealed class LogStreamSender : IDisposable
     public bool TryEnqueue(LogStreamEntry entry)
     {
         int count;
+        bool full;
 
-        // Admission and Dispose share a lock, so an entry is either queued before the final
-        // drain starts or rejected; it is never accepted and then left unsent.
+        // Admission, the queue-full rollback and Dispose share a lock, so an entry is either
+        // queued before the final drain starts or rejected and counted exactly once.
         lock (_admission)
         {
             if (_disposed != 0)
@@ -85,17 +86,20 @@ internal sealed class LogStreamSender : IDisposable
             }
 
             count = Interlocked.Increment(ref _count);
-            if (count <= _options.QueueLimit)
+            full = count > _options.QueueLimit;
+            if (full)
+            {
+                Interlocked.Decrement(ref _count);
+                Interlocked.Increment(ref _dropped);
+            }
+            else
             {
                 _queue.Enqueue(entry);
             }
         }
 
-        if (count > _options.QueueLimit)
+        if (full)
         {
-            Interlocked.Decrement(ref _count);
-            Interlocked.Increment(ref _dropped);
-
             if (Interlocked.Exchange(ref _queueFullReported, 1) == 0)
             {
                 Report(
