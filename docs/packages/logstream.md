@@ -135,7 +135,7 @@ To use an `HttpClient` from `IHttpClientFactory` (or a test handler), pass it to
 | `LogStreamLogProvider(LogStreamConnector connector)` | Starts the background sender. |
 | `LogStreamLogProvider(LogStreamOptions options)` | Creates a connector and starts the background sender. |
 | `SetLevel(LogLevel level)` | Sets the enabled levels. |
-| `Flush()`, `FlushAsync(CancellationToken)` | Sends every queued entry now. |
+| `Flush()`, `FlushAsync()`, `FlushAsync(CancellationToken)` | Sends every queued entry now. |
 | `PendingCount` | Entries waiting to be sent. |
 | `DroppedCount` | Entries dropped so far. |
 | `Dispose()` | Stops the sender and sends what is left. |

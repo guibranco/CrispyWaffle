@@ -77,8 +77,14 @@ public sealed class LogStreamLogProvider : ILogProvider, IDisposable
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task that completes when the queue is empty.</returns>
-    public Task FlushAsync(CancellationToken cancellationToken = default) =>
+    public Task FlushAsync(CancellationToken cancellationToken) =>
         _sender.FlushAsync(cancellationToken);
+
+    /// <summary>
+    /// Sends every queued entry now.
+    /// </summary>
+    /// <returns>A task that completes when the queue is empty.</returns>
+    public Task FlushAsync() => _sender.FlushAsync(CancellationToken.None);
 
     /// <summary>
     /// Sends every queued entry now, blocking the caller.
@@ -158,6 +164,17 @@ public sealed class LogStreamLogProvider : ILogProvider, IDisposable
         WriteContent(category, content, identifier);
 
     /// <summary>
+    /// Serializes the object with its default serializer and logs it with debug level,
+    /// as <see cref="Debug(string, string, string)"/>.
+    /// </summary>
+    /// <typeparam name="T">any class that has a CrispyWaffle serializer attribute.</typeparam>
+    /// <param name="category">The category.</param>
+    /// <param name="content">The object to be serialized.</param>
+    /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
+    public void Debug<T>(string category, T content, string identifier)
+        where T : class, new() => Debug(category, content, identifier, SerializerFormat.None);
+
+    /// <summary>
     /// Serializes the object and logs it with debug level, as <see cref="Debug(string, string, string)"/>.
     /// </summary>
     /// <typeparam name="T">any class that can be serialized to the <paramref name="customFormat" /> serializer format.</typeparam>
@@ -165,16 +182,11 @@ public sealed class LogStreamLogProvider : ILogProvider, IDisposable
     /// <param name="content">The object to be serialized.</param>
     /// <param name="identifier">The filename/attachment identifier (file name or key).</param>
     /// <param name="customFormat">(Optional) the custom serializer format.</param>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Critical Code Smell",
-        "S1006:Method overrides should not change parameter defaults",
-        Justification = "Matches the other CrispyWaffle log providers."
-    )]
     public void Debug<T>(
         string category,
         T content,
         string identifier,
-        SerializerFormat customFormat = SerializerFormat.None
+        SerializerFormat customFormat
     )
         where T : class, new()
     {
