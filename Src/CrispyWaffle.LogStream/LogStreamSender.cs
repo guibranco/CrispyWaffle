@@ -181,7 +181,7 @@ internal sealed class LogStreamSender : IDisposable
 
         try
         {
-            _worker.Wait(_options.ShutdownTimeout);
+            _worker.Wait((int)_options.ShutdownTimeout.TotalMilliseconds, CancellationToken.None);
         }
         catch (AggregateException)
         {
@@ -358,7 +358,7 @@ internal sealed class LogStreamSender : IDisposable
                 var body =
                     response.Content == null
                         ? null
-                        : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        : await ReadBodyAsync(response.Content).ConfigureAwait(false);
                 var status = (int)response.StatusCode;
 
                 if (response.IsSuccessStatusCode)
@@ -415,6 +415,13 @@ internal sealed class LogStreamSender : IDisposable
             )
         );
     }
+
+    private Task<string> ReadBodyAsync(HttpContent content) =>
+#if NET5_0_OR_GREATER
+        content.ReadAsStringAsync(_deadline.Token);
+#else
+        content.ReadAsStringAsync();
+#endif
 
     private HttpRequestMessage BuildRequest(string json)
     {
