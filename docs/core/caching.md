@@ -134,7 +134,7 @@ The backing dictionaries are `static`, so every `MemoryCacheRepository` instance
 | `GetAsync<T>(string key, string subKey, CancellationToken cancellationToken)` | Same, for the sub-key store. |
 | `TryGetAsync<T>(string key, CancellationToken cancellationToken)` / `TryGetAsync<T>(string key, string subKey, CancellationToken cancellationToken)` | Returns `(true, value)` when found and castable to `T`; `(false, default(T))` when missing or of a different type. |
 | `RemoveAsync(string key, CancellationToken cancellationToken)` | Removes the key if present. |
-| `RemoveAsync(string key, string subKey, CancellationToken cancellationToken)` | Removes the sub-key entry if present. Fixed in version 10.4.5; in earlier versions the sub-key entry was never removed, so `CacheManager.Remove(key, subKey)` did nothing for this repository. |
+| `RemoveAsync(string key, string subKey, CancellationToken cancellationToken)` | Removes the sub-key entry if present. Fixed in version 10.4.5. In earlier versions the entry was removed only when the composite key `"{key}-{subKey}"` was also stored as a plain key, so the sub-key entry usually stayed in the cache, including when removed through `CacheManager.Remove(key, subKey)`. |
 | `TTLAsync(string key, CancellationToken cancellationToken)` | Always returns `TimeSpan.Zero`. |
 | `Clear()` | Clears both the key store and the sub-key store. |
 
