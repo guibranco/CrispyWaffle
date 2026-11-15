@@ -1,5 +1,4 @@
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -21,14 +20,20 @@ namespace CrispyWaffle.Log;
 public static class LogConsumer
 {
     /// <summary>
-    /// The providers.
+    /// Serializes changes to <see cref="_providers"/> and <see cref="_filters"/>.
     /// </summary>
-    private static readonly Collection<ILogProvider> _providers;
+    private static readonly object _sync = new object();
 
     /// <summary>
-    /// The filters.
+    /// The providers. Copy-on-write: the array is replaced, never modified, so log calls can
+    /// enumerate it on any thread while providers are being added.
     /// </summary>
-    private static readonly Collection<ILogFilter> _filters;
+    private static volatile ILogProvider[] _providers = Array.Empty<ILogProvider>();
+
+    /// <summary>
+    /// The filters. Copy-on-write, like <see cref="_providers"/>.
+    /// </summary>
+    private static volatile ILogFilter[] _filters = Array.Empty<ILogFilter>();
 
     /// <summary>
     /// The handler.
@@ -52,8 +57,6 @@ public static class LogConsumer
     {
         StorageDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
         DebugDirectory = Path.Combine(StorageDirectory, "Debug");
-        _providers = new Collection<ILogProvider>();
-        _filters = new Collection<ILogFilter>();
         try
         {
             _handler = ServiceLocator.Resolve<IExceptionHandler>();
@@ -135,8 +138,7 @@ public static class LogConsumer
         where TLogProvider : ILogProvider
     {
         var provider = ServiceLocator.Resolve<TLogProvider>();
-        _providers.Add(provider);
-        return provider;
+        return AddProvider(provider);
     }
 
     /// <summary>
@@ -146,7 +148,11 @@ public static class LogConsumer
     /// <returns>The instance of the added log provider.</returns>
     public static ILogProvider AddProvider(ILogProvider provider)
     {
-        _providers.Add(provider);
+        lock (_sync)
+        {
+            _providers = Append(_providers, provider);
+        }
+
         return provider;
     }
 
@@ -154,7 +160,28 @@ public static class LogConsumer
     /// Adds a log filter to the consumer.
     /// </summary>
     /// <param name="filter">The log filter to add.</param>
-    public static void AddFilter(ILogFilter filter) => _filters.Add(filter);
+    public static void AddFilter(ILogFilter filter)
+    {
+        lock (_sync)
+        {
+            _filters = Append(_filters, filter);
+        }
+    }
+
+    /// <summary>
+    /// Returns a new array with the item added at the end.
+    /// </summary>
+    /// <typeparam name="T">The item type.</typeparam>
+    /// <param name="source">The current array.</param>
+    /// <param name="item">The item to add.</param>
+    /// <returns>The new array.</returns>
+    private static T[] Append<T>(T[] source, T item)
+    {
+        var result = new T[source.Length + 1];
+        Array.Copy(source, result, source.Length);
+        result[source.Length] = item;
+        return result;
+    }
 
     /// <summary>
     /// Sets the exception handler for logging operations.
