@@ -12,6 +12,7 @@ The Crispy Waffle project is divided into some packages:
 | **ELMAH**         | The [ELMAH](https://elmah.github.io/) exception handler.<br /> Redirects the exceptions messages (from LogConsumer.Handle method) to ELMAH. |
 | **EventLog**      | The event log extension package.<br /> Implements the log classes to Windows event log.                                                     |
 | **Log4Net**       | The [Log4Net](https://github.com/apache/logging-log4net) log provider.<br /> Redirects the log output to Log4Net.                           |
+| **LogStream**     | The [LogStream](https://github.com/guibranco/logstream-server) log provider.<br /> Ships the log output to a LogStream server in batches.   |
 | **RabbitMQ**      | The [RabbitMQ](https://www.rabbitmq.com/) extension package.<br /> Implements the RabbitMQ message broker client and log features.          |
 | **Redis**         | The [Redis](https://redis.io) extension package.<br /> Implements the Redis cache, log and telemetry features.                              |
 | **Utils**         | The utility extension package.<br /> Implements the utility classes (communications - FTP client, SMTP mailer).                             |
@@ -62,6 +63,7 @@ Download the latest zip file from the [Release](https://github.com/GuiBranco/Cri
 | **CrispyWaffle.Elmah**         |             [![CrispyWaffle ELMAH NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/)             |             [![CrispyWaffle ELMAH NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Elmah.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Elmah/)             |
 | **CrispyWaffle.EventLog**      |             [![CrispyWaffle EventLog NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.EventLog.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.EventLog/)             |             [![CrispyWaffle EventLog NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.EventLog.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.EventLog/)             |
 | **CrispyWaffle.Log4Net**       |          [![CrispyWaffle Log4Net NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/)          |          [![CrispyWaffle Log4Net NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Log4Net.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Log4Net/)          |
+| **CrispyWaffle.LogStream**       |          [![CrispyWaffle LogStream NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.LogStream.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.LogStream/)          |          [![CrispyWaffle LogStream NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.LogStream.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.LogStream/)          |
 | **CrispyWaffle.RabbitMQ**      |        [![CrispyWaffle RabbitMQ NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.RabbitMQ.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.RabbitMQ/)         |        [![CrispyWaffle RabbitMQ NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.RabbitMQ.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.RabbitMQ/)         |
 | **CrispyWaffle.Redis**         |             [![CrispyWaffle Redis NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Redis.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Redis/)             |             [![CrispyWaffle Redis NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Redis.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Redis/)             |
 | **CrispyWaffle.Utils**         |             [![CrispyWaffle Utils NuGet Version](https://img.shields.io/nuget/v/CrispyWaffle.Utils.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Utils/)             |             [![CrispyWaffle Utils NuGet Downloads](https://img.shields.io/nuget/dt/CrispyWaffle.Utils.svg?style=flat)](https://www.nuget.org/packages/CrispyWaffle.Utils/)             |
@@ -108,6 +110,12 @@ Install-Package CrispyWaffle.EventLog
 
 ```ps
 Install-Package CrispyWaffle.Log4Net
+```
+
+**LogStream**
+
+```ps
+Install-Package CrispyWaffle.LogStream
 ```
 
 **RabbitMQ**

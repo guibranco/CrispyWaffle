@@ -1,6 +1,6 @@
 # Logging
 
-CrispyWaffle logging is a static facade, `LogConsumer`, that fans each message out to every registered log provider. Providers decide where messages go (console, rolling text files, Log4Net, Redis, RabbitMQ, Elasticsearch, Windows Event Log). Filters decide which provider receives which message, and an exception handler decides what happens to exceptions passed to `LogConsumer.Handle`.
+CrispyWaffle logging is a static facade, `LogConsumer`, that fans each message out to every registered log provider. Providers decide where messages go (console, rolling text files, Log4Net, LogStream, Redis, RabbitMQ, Elasticsearch, Windows Event Log). Filters decide which provider receives which message, and an exception handler decides what happens to exceptions passed to `LogConsumer.Handle`.
 
 Use it when you want one logging call site in your code and the freedom to add or swap destinations at startup without touching that code.
 
@@ -60,6 +60,7 @@ Other CrispyWaffle packages add providers and handlers that plug into the same p
 | Package | Adds |
 |---|---|
 | [Log4Net](../packages/log4net.md) | `Log4NetLogProvider` |
+| [LogStream](../packages/logstream.md) | `LogStreamLogProvider` |
 | [EventLog](../packages/eventlog.md) | `EventLogProvider`, `EventLogAdapter` |
 | [Redis](../packages/redis.md) | `PubSubRedisLogProvider` |
 | [RabbitMQ](../packages/rabbitmq.md) | `RabbitMQLogProvider` |
