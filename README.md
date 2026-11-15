@@ -283,7 +283,7 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: collaborators,contributors,snyk-bot/-,guistracini-outsurance-ie/-,codefactor-io/- -end -->
 
@@ -352,7 +352,7 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
 		</tr>
-	<tbody>
+	</tbody>
 </table>
 <!-- readme: bots,snyk-bot -end -->
 
