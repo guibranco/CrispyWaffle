@@ -97,3 +97,8 @@ a3ec64d9f223c5dcf602300d8273e80166bfb460:Src/CrispyWaffle.RabbitMQ/README.md:gen
 681b3bd24d8bf2cc767dc638be36191e113b01e9:Src/CrispyWaffle.CouchDB/README.md:generic-password:35
 681b3bd24d8bf2cc767dc638be36191e113b01e9:Src/CrispyWaffle.LogStream/README.md:generic-password:53
 681b3bd24d8bf2cc767dc638be36191e113b01e9:Src/CrispyWaffle.RabbitMQ/README.md:generic-password:50
+6672f250221b9ed55780ca52887bd7b148fdc679:packages/configuration/index.html:generic-password:552
+6672f250221b9ed55780ca52887bd7b148fdc679:packages/couchdb/index.html:generic-password:562
+6672f250221b9ed55780ca52887bd7b148fdc679:packages/logstream/index.html:generic-password:626
+6672f250221b9ed55780ca52887bd7b148fdc679:packages/rabbitmq/index.html:generic-password:570
+6672f250221b9ed55780ca52887bd7b148fdc679:packages/utils/index.html:generic-password:838
