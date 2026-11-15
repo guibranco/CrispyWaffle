@@ -70,7 +70,11 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\..\README.md">
+    <!-- Each package ships its own README (Src/<Project>/README.md) for its NuGet.org page. -->
+    <None
+      Include="$(MSBuildProjectDirectory)\README.md"
+      Condition="Exists('$(MSBuildProjectDirectory)\README.md')"
+    >
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
