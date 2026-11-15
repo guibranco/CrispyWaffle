@@ -19,8 +19,8 @@
   [@rodri-oliveira-dev][rodri]
 - Add a features section to the README, document .NET 10 support and the
   packages not yet on NuGet, and fill in the missing changelog entries
-- 10.4.5: fix `MemoryCacheRepository.RemoveAsync(key, subKey)`, which never removed
-  the sub-key entry - [issue #1018][issue-1018] and
+- 10.4.5: fix `MemoryCacheRepository.RemoveAsync(key, subKey)`, which
+  usually left the sub-key entry in the cache - [issue #1018][issue-1018] and
   [pull request #1046][pr-1046] by [@rojo1585][rojo1585]
 - 10.4.14: fix every XML documentation warning, add `CrispyWaffle.BackgroundJobs` to
   the solution so CI builds it, add the first tests for
