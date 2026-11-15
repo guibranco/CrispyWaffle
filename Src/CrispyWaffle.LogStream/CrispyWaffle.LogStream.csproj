@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>5F0C2B8E-6D7A-4B1E-9C3F-2A4E8D1B7C60</ProjectGuid>
+    <TargetFrameworks>$(DotNetVersions)</TargetFrameworks>
+    <Description>The CrispyWaffle LogStream log provider package</Description>
+    <PackageTags>toolkit sdk framework library lib logstream log provider structured logging</PackageTags>
+    <PackageReleaseNotes>LogStream release</PackageReleaseNotes>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrispyWaffle.Configuration\CrispyWaffle.Configuration.csproj" />
+    <ProjectReference Include="..\CrispyWaffle\CrispyWaffle.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="CrispyWaffle.Tests" />
+  </ItemGroup>
+</Project>
