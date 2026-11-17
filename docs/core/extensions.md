@@ -58,8 +58,8 @@ var place = 22.ToOrdinal();                   // "22nd"
 | `ToBytes()` | `IEnumerable<string>` | Converts each base-2 string (for example `"01000001"`) to a byte. Throws `FormatException` on non-binary input. |
 | `ToBinaryString()` | `IEnumerable<byte>` | Converts each byte to an 8-character base-2 string. |
 | `ToMonetary(CultureInfo cultureInfo = null)` | `decimal` | Formats with `{0:C}` in `cultureInfo` or the current culture. Returns the literal `"No value"` for `0`. |
-| `ToUnixTimeStamp()` | `DateTime` | Converts to UTC and returns the number of seconds since 1970-01-01 as an `int`. Fractional seconds are truncated, and only dates between 1901-12-13 and 2038-01-19 fit in the `int` range. |
-| `FromUnixTimeStamp()` | `int` | Converts a number of seconds since 1970-01-01 (UTC) to a local `DateTime`. It is the inverse of `ToUnixTimeStamp` for whole-second values between 1901 and 2038 (the `int` range). |
+| `ToUnixTimeStamp()` | `DateTime` | Converts to UTC and returns the number of seconds since 1970-01-01 as an `int`. Fractional seconds are truncated, and only dates from 1901-12-13 20:45:52 UTC to 2038-01-19 03:14:07 UTC fit in the `int` range. |
+| `FromUnixTimeStamp()` | `int` | Converts a number of seconds since 1970-01-01 (UTC) to a local `DateTime`. It is the inverse of `ToUnixTimeStamp` for whole-second values in that same `int` range. |
 | `ToPrettyString()` | `string` | Re-formats a JSON object or array with indentation (Newtonsoft.Json). Returns `string.Empty` for null or whitespace and returns the input unchanged when `IsValidJson` is `false`. |
 | `ToIdentString()` | `XmlDocument` | Serializes the document with tab indentation and CRLF line breaks. Returns `null` for a null document. |
 | `ToModule10()` | `string` | Strips non-digits and computes a modulus-10 check digit with alternating weights 2 and 1 from the right (products of 10 or more have their digits summed). Returns `0`–`9`. |

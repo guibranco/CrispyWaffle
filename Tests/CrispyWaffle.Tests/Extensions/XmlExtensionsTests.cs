@@ -57,14 +57,16 @@ public class XmlExtensionsTests
 
             while (moreOne || moreTwo)
             {
-                if (moreOne && (moreOne = cloneOne.Read()) && cloneOne.Name == "i")
+                if (moreOne)
                 {
-                    countOne++;
+                    moreOne = cloneOne.Read();
+                    countOne += moreOne && cloneOne.Name == "i" ? 1 : 0;
                 }
 
-                if (moreTwo && (moreTwo = cloneTwo.Read()) && cloneTwo.Name == "i")
+                if (moreTwo)
                 {
-                    countTwo++;
+                    moreTwo = cloneTwo.Read();
+                    countTwo += moreTwo && cloneTwo.Name == "i" ? 1 : 0;
                 }
             }
 
