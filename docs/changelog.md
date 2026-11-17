@@ -11,6 +11,15 @@
   [pull request #1087][pr-1087]
 - 10.5.2: ship a dedicated README with each NuGet package instead of the repository
   README - [pull request #1088][pr-1088]
+- 10.5.6: **behaviour change:** `FromUnixTimeStamp` now reads its input as
+  seconds, not milliseconds, so it is the inverse of `ToUnixTimeStamp`. Before
+  this it returned a date in January 1970 for any realistic input. Also make
+  `XmlExtensions.DuplicateReaders` return two independent readers instead of
+  two readers over one shared stream - part of [issue #1033][issue-1033],
+  [pull request #1083][pr-1083] by [@EnesKartal][eneskartal]
+- Stop `DuplicateReaders` copying the serialized XML, dispose each clone's
+  stream with the clone, and document the whole-second and `int` range limits
+  of the Unix timestamp round trip - [issue #1094][issue-1094]
 
 ## Version 10.4 [2026-10-16]
 
@@ -83,6 +92,9 @@
 
 [logstream]: https://github.com/guibranco/logstream-server
 [issue-1018]: https://github.com/guibranco/CrispyWaffle/issues/1018
+[issue-1033]: https://github.com/guibranco/CrispyWaffle/issues/1033
+[issue-1094]: https://github.com/guibranco/CrispyWaffle/issues/1094
+[pr-1083]: https://github.com/guibranco/CrispyWaffle/pull/1083
 [pr-1084]: https://github.com/guibranco/CrispyWaffle/pull/1084
 [pr-1087]: https://github.com/guibranco/CrispyWaffle/pull/1087
 [pr-1088]: https://github.com/guibranco/CrispyWaffle/pull/1088
@@ -111,6 +123,7 @@
 [pr-599]: https://github.com/guibranco/CrispyWaffle/pull/599
 [christopher-conley]: https://github.com/christopher-conley
 [ducdaiii]: https://github.com/ducdaiii
+[eneskartal]: https://github.com/EnesKartal
 [harrykambo]: https://github.com/HarryKambo
 [looseling]: https://github.com/Looseling
 [mf0zz13]: https://github.com/mf0zz13

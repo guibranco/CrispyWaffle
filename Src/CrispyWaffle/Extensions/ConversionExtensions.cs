@@ -226,6 +226,10 @@ public static class ConversionExtensions
     /// </summary>
     /// <param name="dateTime">The date time.</param>
     /// <returns>System.Int32.</returns>
+    /// <remarks>
+    /// Fractional seconds are truncated, and the result only fits in an <see cref="int"/> for dates
+    /// between 1901-12-13 20:45:52 UTC and 2038-01-19 03:14:07 UTC.
+    /// </remarks>
     public static int ToUnixTimeStamp(this DateTime dateTime) =>
         (int)
             dateTime
@@ -239,6 +243,11 @@ public static class ConversionExtensions
     /// </summary>
     /// <param name="epochTime">The Unix Timestamp.</param>
     /// <returns>A DateTime instance of the epochTime.</returns>
+    /// <remarks>
+    /// This is the inverse of <see cref="ToUnixTimeStamp(DateTime)"/> for whole-second values between
+    /// 1901 and 2038 (the <see cref="int"/> range). Sub-second precision lost by
+    /// <see cref="ToUnixTimeStamp(DateTime)"/> cannot be recovered.
+    /// </remarks>
     public static DateTime FromUnixTimeStamp(this int epochTime)
     {
         return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
