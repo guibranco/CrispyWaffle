@@ -112,3 +112,8 @@ df6f11ce409d0d94fb44cff2c79256c167b2d4c7:packages/couchdb/index.html:generic-pas
 df6f11ce409d0d94fb44cff2c79256c167b2d4c7:packages/logstream/index.html:generic-password:626
 df6f11ce409d0d94fb44cff2c79256c167b2d4c7:packages/rabbitmq/index.html:generic-password:570
 df6f11ce409d0d94fb44cff2c79256c167b2d4c7:packages/utils/index.html:generic-password:838
+e85d2bc6a0da5151285697c8bbfa791c7043b5cc:packages/configuration/index.html:generic-password:552
+e85d2bc6a0da5151285697c8bbfa791c7043b5cc:packages/couchdb/index.html:generic-password:562
+e85d2bc6a0da5151285697c8bbfa791c7043b5cc:packages/logstream/index.html:generic-password:626
+e85d2bc6a0da5151285697c8bbfa791c7043b5cc:packages/rabbitmq/index.html:generic-password:570
+e85d2bc6a0da5151285697c8bbfa791c7043b5cc:packages/utils/index.html:generic-password:838
