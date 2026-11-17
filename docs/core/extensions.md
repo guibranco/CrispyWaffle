@@ -58,8 +58,8 @@ var place = 22.ToOrdinal();                   // "22nd"
 | `ToBytes()` | `IEnumerable<string>` | Converts each base-2 string (for example `"01000001"`) to a byte. Throws `FormatException` on non-binary input. |
 | `ToBinaryString()` | `IEnumerable<byte>` | Converts each byte to an 8-character base-2 string. |
 | `ToMonetary(CultureInfo cultureInfo = null)` | `decimal` | Formats with `{0:C}` in `cultureInfo` or the current culture. Returns the literal `"No value"` for `0`. |
-| `ToUnixTimeStamp()` | `DateTime` | Converts to UTC and returns the number of seconds since 1970-01-01 as an `int`. |
-| `FromUnixTimeStamp()` | `int` | Converts a number of seconds since 1970-01-01 (UTC) to a local `DateTime`. It is the inverse of `ToUnixTimeStamp`. |
+| `ToUnixTimeStamp()` | `DateTime` | Converts to UTC and returns the number of seconds since 1970-01-01 as an `int`. Fractional seconds are truncated, and only dates from 1901-12-13 20:45:52 UTC to 2038-01-19 03:14:07 UTC fit in the `int` range. |
+| `FromUnixTimeStamp()` | `int` | Converts a number of seconds since 1970-01-01 (UTC) to a local `DateTime`. It is the inverse of `ToUnixTimeStamp` for whole-second values in that same `int` range. |
 | `ToPrettyString()` | `string` | Re-formats a JSON object or array with indentation (Newtonsoft.Json). Returns `string.Empty` for null or whitespace and returns the input unchanged when `IsValidJson` is `false`. |
 | `ToIdentString()` | `XmlDocument` | Serializes the document with tab indentation and CRLF line breaks. Returns `null` for a null document. |
 | `ToModule10()` | `string` | Strips non-digits and computes a modulus-10 check digit with alternating weights 2 and 1 from the right (products of 10 or more have their digits summed). Returns `0`–`9`. |
@@ -149,7 +149,7 @@ var place = 22.ToOrdinal();                   // "22nd"
 
 | Member | Extends | Description |
 |---|---|---|
-| `DuplicateReaders(out XmlReader cloneOne, out XmlReader cloneTwo)` | `XmlReader` | Loads the reader into an `XmlDocument`, writes it to a `MemoryStream` and creates two readers (with `IgnoreWhitespace`), each over its own copy of that stream, then closes the original reader. The clones can be read independently. |
+| `DuplicateReaders(out XmlReader cloneOne, out XmlReader cloneTwo)` | `XmlReader` | Loads the reader into an `XmlDocument`, writes it to a `MemoryStream` and creates two readers (with `IgnoreWhitespace`), each over its own read-only stream that wraps the same buffer (no copy is made), then closes the original reader. The clones can be read independently, and disposing a clone also disposes its stream. |
 | `GetFirstElementByTagName(string tagName)` | `XmlDocument` | Returns the first element with the tag name, or `null`. |
 | `GetNodeValue(string node)` | `XmlNode` | Evaluates `node` as an XPath expression against the node and returns the inner text of the first match, or `string.Empty`. |
 | `GetNodeValue(string[] nodes)` | `XmlNode` | Evaluates each expression and joins the inner texts with a space. Missing nodes contribute an empty string. |
