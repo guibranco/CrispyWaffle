@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CrispyWaffle.Extensions;
+using CrispyWaffle.Log;
 using CrispyWaffle.Log.Adapters;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -14,6 +15,85 @@ namespace CrispyWaffle.Tests.Log.Adapters;
 [Collection("Sequential")]
 public class RollingTextFileLogAdapterTests
 {
+    [Theory]
+    [InlineData(LogLevel.Production, false)]
+    [InlineData(LogLevel.All, true)]
+    public void CategorizedDebugRespectsLogLevelTest(LogLevel level, bool shouldLog)
+    {
+        var folderPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        Directory.CreateDirectory(folderPath);
+
+        try
+        {
+            using (var adapter = new RollingTextFileLogAdapter(
+                folderPath,
+                "categorizedDebug",
+                100,
+                (Unit.KByte, 100),
+                LogFileType.JSON
+            ))
+            {
+                adapter.SetLevel(level);
+                adapter.CategorizedDebug("category", "debug message", "identifier");
+            }
+
+            var file = Assert.Single(Directory.GetFiles(folderPath));
+            var messages = JArray.Parse(File.ReadAllText(file));
+            var debugMessages = messages.Where(message =>
+                message["Message"].Value<string>() == "debug message"
+            );
+
+            if (shouldLog)
+            {
+                var message = Assert.Single(debugMessages);
+                Assert.Equal("Debug", message["Level"].Value<string>());
+                Assert.Equal("category", message["Category"].Value<string>());
+                Assert.Equal("identifier", message["MessageIdentifier"].Value<string>());
+            }
+            else
+            {
+                Assert.Empty(debugMessages);
+            }
+        }
+        finally
+        {
+            Directory.Delete(folderPath, true);
+        }
+    }
+
+    [Fact]
+    public void SetLevelLogsPreviousAndNewLevelsTest()
+    {
+        var folderPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        Directory.CreateDirectory(folderPath);
+
+        try
+        {
+            using (var adapter = new RollingTextFileLogAdapter(
+                folderPath,
+                "setLevel",
+                100,
+                (Unit.KByte, 100),
+                LogFileType.JSON
+            ))
+            {
+                adapter.SetLevel(LogLevel.All);
+            }
+
+            var file = Assert.Single(Directory.GetFiles(folderPath));
+            var message = Assert.Single(JArray.Parse(File.ReadAllText(file)));
+            Assert.Equal("Warning", message["Level"].Value<string>());
+            Assert.Equal(
+                $"Level updated from {LogLevel.Production.GetHumanReadableValue()} to {LogLevel.All.GetHumanReadableValue()}.",
+                message["Message"].Value<string>()
+            );
+        }
+        finally
+        {
+            Directory.Delete(folderPath, true);
+        }
+    }
+
     [Fact]
     public void BasicSaveLogsToTextFileTest()
     {
@@ -174,7 +254,8 @@ public class RollingTextFileLogAdapterTests
             .Where(x => regexFileName.IsMatch(x))
             .ToList();
 
-        Assert.True(files.Count == 10);
+        // SetLevel writes one warning before the 1,000 debug messages.
+        Assert.Equal(11, files.Count);
 
         foreach (var file in files)
         {
