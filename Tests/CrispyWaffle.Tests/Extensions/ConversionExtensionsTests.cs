@@ -220,4 +220,22 @@ public class ConversionExtensionsTests
 
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void FromUnixTimeStampTreatsInputAsSeconds()
+    {
+        var result = 1704110400.FromUnixTimeStamp().ToUniversalTime();
+
+        Assert.Equal(new DateTime(2024, 1, 1, 12, 0, 0, DateTimeKind.Utc), result);
+    }
+
+    [Fact]
+    public void FromUnixTimeStampReversesToUnixTimeStamp()
+    {
+        var date = new DateTime(2024, 1, 1, 12, 0, 0, DateTimeKind.Utc);
+
+        var result = date.ToUnixTimeStamp().FromUnixTimeStamp().ToUniversalTime();
+
+        Assert.Equal(date, result);
+    }
 }

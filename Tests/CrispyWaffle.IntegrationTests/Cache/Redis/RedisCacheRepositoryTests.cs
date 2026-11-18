@@ -53,10 +53,35 @@ public class RedisCacheRepositoryTests : IDisposable
 
         await _repository.RemoveAsync(key);
 
+        // RemoveAsync uses CommandFlags.FireAndForget, and the connection pool may send the next
+        // read on a different connection, so Redis can serve it before the delete is applied.
+        // Wait until the delete is observable before asserting on GetAsync.
+        Assert.True(
+            await WaitUntilRemovedAsync(key, TimeSpan.FromSeconds(5)),
+            $"Key '{key}' was still present 5 seconds after RemoveAsync."
+        );
+
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             _repository.GetAsync<string>(key).AsTask()
         );
         Assert.Contains("Unable to get the item with key", ex.Message);
+    }
+
+    private async Task<bool> WaitUntilRemovedAsync(string key, TimeSpan timeout)
+    {
+        var deadline = DateTime.UtcNow + timeout;
+        do
+        {
+            var (found, _) = await _repository.TryGetAsync<string>(key);
+            if (!found)
+            {
+                return true;
+            }
+
+            await Task.Delay(50);
+        } while (DateTime.UtcNow < deadline);
+
+        return false;
     }
 
     public void Dispose()

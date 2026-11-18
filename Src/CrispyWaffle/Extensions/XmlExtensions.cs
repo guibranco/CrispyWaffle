@@ -19,7 +19,9 @@ public static class XmlExtensions
     /// <param name="cloneTwo">The second <see cref="XmlReader"/> clone, created from the original reader.</param>
     /// <remarks>
     /// The method creates an <see cref="XmlDocument"/> to load the XML content from the original reader.
-    /// It then saves the document to a <see cref="MemoryStream"/> to allow the creation of two separate clones.
+    /// It then saves the document to a <see cref="MemoryStream"/> and creates each clone over its own read-only
+    /// <see cref="MemoryStream"/> that wraps the same buffer, so the clones can be read independently without
+    /// copying the serialized XML. Disposing a clone also disposes its underlying stream.
     /// </remarks>
     public static void DuplicateReaders(
         this XmlReader xmlReader,
@@ -28,14 +30,17 @@ public static class XmlExtensions
     )
     {
         var document = new XmlDocument();
-        var stream = new MemoryStream();
         document.Load(xmlReader);
+
+        using var stream = new MemoryStream();
         document.Save(stream);
-        var settings = new XmlReaderSettings { IgnoreWhitespace = true };
-        stream.Position = 0;
-        cloneOne = XmlReader.Create(stream, settings);
-        stream.Position = 0;
-        cloneTwo = XmlReader.Create(stream, settings);
+
+        var buffer = stream.GetBuffer();
+        var length = (int)stream.Length;
+        var settings = new XmlReaderSettings { IgnoreWhitespace = true, CloseInput = true };
+
+        cloneOne = XmlReader.Create(new MemoryStream(buffer, 0, length, writable: false), settings);
+        cloneTwo = XmlReader.Create(new MemoryStream(buffer, 0, length, writable: false), settings);
         xmlReader.Close();
     }
 
