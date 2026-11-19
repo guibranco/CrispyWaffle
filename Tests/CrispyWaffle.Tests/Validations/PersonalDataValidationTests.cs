@@ -8,6 +8,8 @@ public class PersonalDataValidationTests
     [Theory]
     [InlineData("john.doe@example.com", "john.doe@example.com")]
     [InlineData("nobody@example.combr", "nobody@example.com.br")]
+    [InlineData("x@y.COMBR", "x@y.com.br")]
+    [InlineData("combr@example.COMBR", "combr@example.com.br")]
     [InlineData("nobody@example,com", "nobody@example.com")]
     [InlineData("jane.doe.123456@example.com", "jane.doe.123456@example.com")]
     public void ValidateEmailAddressValidEmailAddressReturnsValidEmailAddress(
@@ -23,6 +25,8 @@ public class PersonalDataValidationTests
     [InlineData("")]
     [InlineData("invalid.address")]
     [InlineData("test@@domain.com")]
+    [InlineData("not an email, really")]
+    [InlineData("not an email combr")]
     public void ValidateEmailAddressInvalidEmailAddressThrowsException(string inputEmail)
     {
         var exception = Assert.Throws<InvalidEmailAddressException>(
@@ -76,6 +80,7 @@ public class PersonalDataValidationTests
     [InlineData("06010416000177")]
     [InlineData("22295895000171")]
     [InlineData("48382658000131")]
+    [InlineData("00000000000191")]
     public void IsValidBrazilianCorporateDocumentValidInputReturnsTrue(string inputDocument)
     {
         var result = inputDocument.IsValidBrazilianCorporateDocument();
@@ -104,5 +109,17 @@ public class PersonalDataValidationTests
             $"The value '{inputDocument}' isn't a valid value for a document of type CNPJ",
             exception.Message
         );
+    }
+
+    [Theory]
+    [InlineData("192.168.0.1", true)]
+    [InlineData("255.255.255.255", true)]
+    [InlineData("0.0.0.0", true)]
+    [InlineData("Address: 203.0.113.7!", true)]
+    [InlineData("999.999.999.999", false)]
+    [InlineData("256.0.0.1", false)]
+    public void IpAddressPatternMatchesOnlyValidIpv4Octets(string input, bool expected)
+    {
+        Assert.Equal(expected, NetworkValidations.IpAddressPattern.IsMatch(input));
     }
 }
