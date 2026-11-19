@@ -117,9 +117,8 @@ public class QueryStringBuilder : NameValueCollection
             throw new ArgumentNullException(nameof(value));
         }
 
-        var existingValue = base[name];
         var urlEncoded = HttpUtility.UrlEncode(value);
-        if (string.IsNullOrWhiteSpace(existingValue) && !string.IsNullOrWhiteSpace(urlEncoded))
+        if (base.GetValues(name) == null)
         {
             base.Add(name, urlEncoded);
         }
