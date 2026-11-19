@@ -38,6 +38,11 @@ public static class ExceptionExtensions
 
         result.Enqueue(handling);
 
+        if (handling != null)
+        {
+            types.Add(handling.GetType());
+        }
+
         while (handling?.InnerException != null)
         {
             result.Enqueue(handling.InnerException);
