@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using CrispyWaffle.ElasticSearch.Helpers;
 using Elastic.Clients.Elasticsearch;
 
@@ -39,13 +41,33 @@ public sealed class ElasticWrapper
         (await _elastic.Indices.ExistsAsync(Helpers.Extensions.GetIndexName<T>())).Exists;
 
     /// <summary>
+    /// Converts the provided identifier object into an Elasticsearch <see cref="Id"/>.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>An <see cref="Id"/> instance.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="id"/> is <c>null</c>.</exception>
+    private static Id ToId(object id) =>
+        id switch
+        {
+            null => throw new ArgumentNullException(nameof(id)),
+            Id elasticId => elasticId,
+            string s => s,
+            long l => l,
+            Guid g => g,
+            IFormattable formattable => new Id(
+                formattable.ToString(null, CultureInfo.InvariantCulture)
+            ),
+            _ => new Id(id.ToString()),
+        };
+
+    /// <summary>
     /// Gets the document.
     /// </summary>
     /// <typeparam name="T">The type to be used.</typeparam>
     /// <param name="id">The identifier.</param>
     /// <returns>T.</returns>
     public T GetDocument<T>(object id)
-        where T : class, new() => _elastic.GetAsync<T>((Id)id).Result.Source;
+        where T : class, new() => _elastic.GetAsync<T>(ToId(id)).Result.Source;
 
     /// <summary>
     /// Gets the document.
@@ -54,7 +76,7 @@ public sealed class ElasticWrapper
     /// <param name="id">The identifier.</param>
     /// <returns>T.</returns>
     public async Task<T> GetDocumentAsync<T>(object id)
-        where T : class, new() => (await _elastic.GetAsync<T>((Id)id)).Source;
+        where T : class, new() => (await _elastic.GetAsync<T>(ToId(id))).Source;
 
     /// <summary>
     /// Gets the document with resolver.
@@ -65,7 +87,7 @@ public sealed class ElasticWrapper
     public T GetDocumentWithResolver<T>(object id)
         where T : class, IIndexable, new() =>
         _elastic
-            .GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id))
+            .GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), ToId(id)))
             .Result.Source;
 
     /// <summary>
@@ -77,7 +99,9 @@ public sealed class ElasticWrapper
     public async Task<T> GetDocumentWithResolverAsync<T>(object id)
         where T : class, IIndexable, new() =>
         (
-            await _elastic.GetAsync<T>(new GetRequest(Helpers.Extensions.GetIndexName<T>(), (Id)id))
+            await _elastic.GetAsync<T>(
+                new GetRequest(Helpers.Extensions.GetIndexName<T>(), ToId(id))
+            )
         ).Source;
 
     /// <summary>
@@ -89,7 +113,7 @@ public sealed class ElasticWrapper
     /// <returns>T.</returns>
     public T GetDocumentFrom<T>(object id, string indexName)
         where T : class, new() =>
-        _elastic.GetAsync<T>(new GetRequest(indexName, (Id)id)).Result.Source;
+        _elastic.GetAsync<T>(new GetRequest(indexName, ToId(id))).Result.Source;
 
     /// <summary>
     /// Gets the document from.
@@ -100,7 +124,7 @@ public sealed class ElasticWrapper
     /// <returns>T.</returns>
     public async Task<T> GetDocumentFromAsync<T>(object id, string indexName)
         where T : class, new() =>
-        (await _elastic.GetAsync<T>(new GetRequest(indexName, (Id)id))).Source;
+        (await _elastic.GetAsync<T>(new GetRequest(indexName, ToId(id)))).Source;
 
     /// <summary>
     /// Sets the document.
