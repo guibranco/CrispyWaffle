@@ -6,47 +6,25 @@ namespace CrispyWaffle.Log.Providers;
 
 /// <summary>
 /// Provides console-based logging by using the specified <see cref="IConsoleLogAdapter"/>.
-/// This class follows the singleton pattern to ensure only one instance of the adapter is used
-/// throughout the application's lifetime, preventing unnecessary re-initializations.
 /// </summary>
 /// <remarks>
-/// The <see cref="ConsoleLogProvider"/> ensures that logging messages are directed to the console.
-/// The provider uses an <see cref="IConsoleLogAdapter"/> for the actual implementation of logging, and it
-/// guarantees thread-safe initialization of this adapter.
+/// The <see cref="ConsoleLogProvider"/> directs logging messages to the console through the
+/// <see cref="IConsoleLogAdapter"/> instance supplied to its constructor.
 /// </remarks>
 public sealed class ConsoleLogProvider : ILogProvider
 {
     /// <summary>
-    /// A synchronization object used to ensure thread-safe initialization of the adapter.
-    /// </summary>
-    private static readonly object _syncRoot = new object();
-
-    /// <summary>
     /// The adapter responsible for sending log messages to the console.
-    /// This field is initialized only once during the application's lifecycle.
     /// </summary>
-    private static IConsoleLogAdapter _adapter;
+    private readonly IConsoleLogAdapter _adapter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ConsoleLogProvider"/> class.
-    /// This constructor ensures that only one <see cref="IConsoleLogAdapter"/> instance is initialized,
-    /// even in multi-threaded environments.
     /// </summary>
     /// <param name="adapter">The <see cref="IConsoleLogAdapter"/> instance used for logging messages.</param>
-    /// <remarks>
-    /// If the adapter has already been initialized, the constructor does nothing to prevent reinitialization.
-    /// </remarks>
     public ConsoleLogProvider(IConsoleLogAdapter adapter)
     {
-        if (_adapter != null)
-        {
-            return;
-        }
-
-        lock (_syncRoot)
-        {
-            _adapter ??= adapter;
-        }
+        _adapter = adapter;
     }
 
     /// <summary>
