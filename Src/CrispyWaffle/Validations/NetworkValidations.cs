@@ -18,7 +18,7 @@ public static class NetworkValidations
     /// separated by periods (e.g., 192.168.0.1).
     /// </remarks>
     public static readonly Regex IpAddressPattern = new Regex(
-        @"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}",
+        @"(?<![\d.])(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?![\d.])",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
         TimeSpan.FromSeconds(5)
     );
