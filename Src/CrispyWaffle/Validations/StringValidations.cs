@@ -65,7 +65,7 @@ public static class StringValidations
     /// The multiple spaces pattern (matches sequences of two or more spaces or tabs).
     /// </summary>
     public static readonly Regex MultipleSpacesPattern = new(
-        @"[\t|\s]{2,}",
+        @"\s{2,}",
         RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
         TimeSpan.FromSeconds(5)
     );
