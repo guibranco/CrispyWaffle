@@ -73,7 +73,7 @@ public sealed class MustacheTemplateRenderTests
             .Should()
             .Be("yes");
         renderer
-            .Render("{{#n}}yes{{#else}}no{{/n}}", new { N = new string[0] })
+            .Render("{{#n}}yes{{#else}}no{{/n}}", new { N = System.Array.Empty<string>() })
             .Should()
             .Be("no");
     }
