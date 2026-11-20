@@ -39,7 +39,7 @@ public interface IScheduler
     /// <summary>
     /// Gets the days of the week that are part of the schedule.
     /// </summary>
-    /// <value>A collection of integers representing the days of the week (1 for Sunday, 7 for Saturday).</value>
+    /// <value>A collection of integers representing the days of the week (0 for Sunday, 6 for Saturday).</value>
     /// <remarks>
     /// This property contains a collection of day numbers that are part of the schedule. For example, if
     /// the schedule runs on Mondays and Wednesdays, this collection will contain 2 and 4.
