@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using CrispyWaffle.Serialization;
 using Xunit;
@@ -138,5 +140,39 @@ public class SerializerFactoryTests
         var deserializedResult = deserializedObject.GetSerializer().Deserialize(serializedResult);
 
         Assert.Equal(deserialized, deserializedResult);
+    }
+
+    [Fact]
+    public void ValidateSerializerAttributeDisallowsMultiple()
+    {
+        var usage = (AttributeUsageAttribute)
+            Attribute.GetCustomAttribute(
+                typeof(SerializerAttribute),
+                typeof(AttributeUsageAttribute)
+            );
+
+        Assert.NotNull(usage);
+        Assert.False(usage.AllowMultiple);
+    }
+
+    [Fact]
+    public void ValidateNonGenericEnumerableThrowsInvalidOperationException()
+    {
+        var list = new ArrayList { TestObjects.GetSampleJson() };
+
+        var ex = Assert.Throws<InvalidOperationException>(() => list.GetSerializer());
+
+        Assert.Contains(typeof(ArrayList).FullName!, ex.Message);
+    }
+
+    [Fact]
+    public void ValidateDictionaryErrorNamesCollectionTypeNotKeyType()
+    {
+        var dict = new Dictionary<string, SampleJsonClass> { { "a", TestObjects.GetSampleJson() } };
+
+        var ex = Assert.Throws<InvalidOperationException>(() => dict.GetSerializer());
+
+        Assert.Contains("Dictionary", ex.Message);
+        Assert.DoesNotContain("object of type System.String", ex.Message);
     }
 }
