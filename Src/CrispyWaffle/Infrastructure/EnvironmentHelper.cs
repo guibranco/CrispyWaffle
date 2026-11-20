@@ -5,10 +5,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Text;
 using CrispyWaffle.Validations;
 
 namespace CrispyWaffle.Infrastructure;
@@ -19,6 +19,11 @@ namespace CrispyWaffle.Infrastructure;
 public static class EnvironmentHelper
 {
     /// <summary>
+    /// Lazy-loaded external IP address.
+    /// </summary>
+    private static readonly Lazy<string> _ipAddressExternal = new(GetIpAddressExternal);
+
+    /// <summary>
     /// Initializes static members of the <see cref="EnvironmentHelper"/> class.
     /// </summary>
     static EnvironmentHelper()
@@ -28,18 +33,27 @@ public static class EnvironmentHelper
         Host = Environment.MachineName;
         UserName = Environment.UserName;
         IpAddress = GetIpAddressLocal();
-        IpAddressExternal = GetIpAddressExternal();
         ExecutionPath = assembly.Location;
-        Version = !string.IsNullOrWhiteSpace(ExecutionPath)
-            ? FileVersionInfo.GetVersionInfo(ExecutionPath).ProductVersion
-            : string.Empty;
-        VersionDate = new FileInfo(ExecutionPath).LastWriteTime.ToString(
-            @"dd/MM/yyyy HH:mm:ss",
-            CultureInfo.InvariantCulture
-        );
+        (Version, VersionDate) = ResolveVersionInfo(ExecutionPath);
         OperationalSystemVersion =
             $@"{Environment.OSVersion} - {(Environment.Is64BitOperatingSystem ? @"x64" : @"x86")}";
         ProcessId = Process.GetCurrentProcess().Id;
+    }
+
+    private static (string Version, string VersionDate) ResolveVersionInfo(string executionPath)
+    {
+        if (string.IsNullOrWhiteSpace(executionPath))
+        {
+            return (string.Empty, string.Empty);
+        }
+
+        return (
+            FileVersionInfo.GetVersionInfo(executionPath).ProductVersion,
+            new FileInfo(executionPath).LastWriteTime.ToString(
+                @"dd/MM/yyyy HH:mm:ss",
+                CultureInfo.InvariantCulture
+            )
+        );
     }
 
     /// <summary>
@@ -73,11 +87,10 @@ public static class EnvironmentHelper
     /// <returns>System.String.</returns>
     private static string GetIpAddressExternal()
     {
-        using var wc = new WebClient();
-        wc.Encoding = Encoding.UTF8;
+        using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
         try
         {
-            var ip = wc.DownloadString("https://api.ipify.org");
+            var ip = client.GetStringAsync("https://api.ipify.org").GetAwaiter().GetResult();
             return NetworkValidations.IpAddressPattern.IsMatch(ip)
                 ? NetworkValidations.IpAddressPattern.Match(ip).Value
                 : string.Empty;
@@ -130,7 +143,7 @@ public static class EnvironmentHelper
     /// Gets the ip address external.
     /// </summary>
     /// <value>The ip address external.</value>
-    public static string IpAddressExternal { get; }
+    public static string IpAddressExternal => _ipAddressExternal.Value;
 
     /// <summary>
     /// Gets the execution path.
