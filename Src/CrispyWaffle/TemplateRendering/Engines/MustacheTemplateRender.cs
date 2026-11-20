@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CrispyWaffle.Extensions;
@@ -33,6 +33,15 @@ public class MustacheTemplateRender : ITemplateRender
             );
     }
 
+    private static readonly Regex InnermostConditionalPattern = new(
+        @"{{\#(?<condition>(?!else}}).+?)}}(?<innerContent>(?:(?!{{\#(?!else}})).)+?)(?:{{\#else}}(?<elseInnerContent>(?:(?!{{\#(?!else}})).)+?))?{{/\1}}",
+        RegexOptions.Compiled
+            | RegexOptions.CultureInvariant
+            | RegexOptions.IgnoreCase
+            | RegexOptions.Singleline,
+        TimeSpan.FromSeconds(5)
+    );
+
     /// <summary>
     /// Evaluates the conditional.
     /// </summary>
@@ -40,12 +49,15 @@ public class MustacheTemplateRender : ITemplateRender
     /// <returns>String.</returns>
     private string EvaluateConditional(string template)
     {
-        return !MustachePatterns.ConditionalPattern.IsMatch(template)
-            ? template
-            : MustachePatterns
-                .ConditionalPattern.Matches(template)
+        while (InnermostConditionalPattern.IsMatch(template))
+        {
+            template = InnermostConditionalPattern
+                .Matches(template)
                 .Cast<Match>()
                 .Aggregate(template, (current, match) => EvaluateConditional(match, current));
+        }
+
+        return template;
     }
 
     /// <summary>
@@ -99,14 +111,22 @@ public class MustacheTemplateRender : ITemplateRender
             return (bool)value;
         }
 
-        return typeof(string) == type
-            ? !string.IsNullOrWhiteSpace((string)value)
-            : type.IsSimpleType()
-                || (
-                    type.GetConstructors().Any(c => c.GetParameters().Length == 0)
-                    && Convert.ChangeType(value, type, CultureInfo.InvariantCulture)
-                        != Activator.CreateInstance(type)
-                );
+        if (value is string str)
+        {
+            return !string.IsNullOrWhiteSpace(str);
+        }
+
+        if (type.IsSimpleType())
+        {
+            return true;
+        }
+
+        if (value is IEnumerable enumerable)
+        {
+            return enumerable.Cast<object>().Any();
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -134,12 +154,11 @@ public class MustacheTemplateRender : ITemplateRender
     {
         var withProperty = match.Groups["property"].Value.ToLowerInvariant();
         var with = match.Groups["innerContent"].Value;
-        if (!_properties.ContainsKey(withProperty))
+        if (!_properties.TryGetValue(withProperty, out var property) || property == null)
         {
             return template.Replace(match.Value, string.Empty);
         }
 
-        var property = _properties[withProperty];
         if (property.GetType().IsSimpleType())
         {
             return template.Replace(match.Value, string.Empty);
@@ -175,22 +194,39 @@ public class MustacheTemplateRender : ITemplateRender
     {
         var loopProperty = match.Groups["property"].Value.ToLowerInvariant();
         var pattern = match.Groups["innerContent"].Value;
-        if (!_properties.ContainsKey(loopProperty))
+        if (
+            !_properties.TryGetValue(loopProperty, out var replacements)
+            || replacements is null or string
+            || replacements is not IEnumerable enumerable
+        )
         {
             return template.Replace(match.Value, string.Empty);
         }
 
-        var replacements = _properties[loopProperty];
+        var items = enumerable.Cast<object>().ToList();
+        if (items.Count == 0)
+        {
+            return template.Replace(match.Value, string.Empty);
+        }
+
         var type = replacements.GetType();
-        if (!type.IsArray)
-        {
-            return template.Replace(match.Value, string.Empty);
-        }
+        var subType = type.IsArray
+            ? type.GetElementType()
+            : type.IsGenericType
+                ? type.GetGenericArguments().FirstOrDefault()
+                : null;
+        var isSimple = subType != null
+            ? subType.IsSimpleType()
+            : items.All(item => item == null || item.GetType().IsSimpleType());
 
-        var subType = type.GetElementType();
-        return type.IsSimpleType() || subType.IsSimpleType()
-            ? ProcessSimpleLoop(match, template, pattern, (string[])replacements)
-            : ProcessComplexLoop(match, template, pattern, (object[])replacements);
+        return isSimple
+            ? ProcessSimpleLoop(
+                match,
+                template,
+                pattern,
+                items.Select(item => item?.ToString() ?? string.Empty)
+            )
+            : ProcessComplexLoop(match, template, pattern, items);
     }
 
     /// <summary>
@@ -212,7 +248,7 @@ public class MustacheTemplateRender : ITemplateRender
         result = replacements.Aggregate(
             result,
             (current, value) =>
-                current + MustachePatterns.LoopPropertyPattern.Replace(pattern, value)
+                current + MustachePatterns.LoopPropertyPattern.Replace(pattern, _ => value)
         );
         return template.Replace(match.Value, result);
     }
@@ -229,7 +265,7 @@ public class MustacheTemplateRender : ITemplateRender
         Capture match,
         string template,
         string pattern,
-        object[] replacements
+        IEnumerable<object> replacements
     )
     {
         var result = string.Empty;
@@ -257,7 +293,7 @@ public class MustacheTemplateRender : ITemplateRender
     private static string RenderProperties(Match match, IDictionary<string, object> properties)
     {
         var property = match.Groups["property"].Value.ToLowerInvariant();
-        return properties.TryGetValue(property, out var property1)
+        return properties.TryGetValue(property, out var property1) && property1 != null
             ? property1.ToString()
             : string.Empty;
     }

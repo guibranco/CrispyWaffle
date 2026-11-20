@@ -41,7 +41,7 @@ internal static class MustachePatterns
 
     /// <summary>
     /// A regular expression pattern that matches a conditional block (e.g., {{#condition}}...{{/condition}}) in a Mustache template.
-    /// Optionally matches an "else" block (e.g., {{#else}}...{{/else}}).
+    /// Optionally matches an "else" block (e.g., {{#condition}}...{{#else}}...{{/condition}}).
     /// </summary>
     /// <remarks>
     /// This pattern captures the condition being evaluated, the content for the "true" case, and optionally, the content for the "else" case.
