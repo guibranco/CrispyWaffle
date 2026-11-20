@@ -92,7 +92,7 @@ public sealed class NewtonsoftJsonSerializerAdapter : BaseSerializerAdapter
     public override void Serialize<T>(T deserialized, out Stream stream)
         where T : class
     {
-        var jsonSerializer = new JsonSerializer();
+        var jsonSerializer = JsonSerializer.Create(_settings);
         stream = new MemoryStream();
         var streamTemp = new MemoryStream();
         var streamWriter = new StreamWriter(streamTemp, Encoding.UTF8);

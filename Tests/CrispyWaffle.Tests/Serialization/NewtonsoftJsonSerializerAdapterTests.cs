@@ -2,6 +2,7 @@
 using System.IO;
 using CrispyWaffle.Serialization.Adapters;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace CrispyWaffle.Tests.Serialization;
@@ -38,6 +39,41 @@ public class NewtonsoftJsonSerializerAdapterTests
         // Assert
         instance.Should().NotBeNull();
         instance.Should().BeEquivalentTo(GenerateSampleData());
+    }
+
+    [Fact]
+    public void SerializeHonoursConfiguredNullValueHandlingIgnore()
+    {
+        var payload = new NullableSample { Name = "Alice", Optional = null };
+
+        _serializer.Serialize(payload, out var stream);
+        using var reader = new StreamReader(stream);
+        var json = reader.ReadToEnd();
+
+        json.Should().Contain("\"Name\": \"Alice\"");
+        json.Should().NotContain("\"Optional\"");
+    }
+
+    [Fact]
+    public void SerializeHonoursCustomJsonSerializerSettings()
+    {
+        var serializer = new NewtonsoftJsonSerializerAdapter(
+            new JsonSerializerSettings { NullValueHandling = NullValueHandling.Include }
+        );
+        var payload = new NullableSample { Name = "Alice", Optional = null };
+
+        serializer.Serialize(payload, out var stream);
+        using var reader = new StreamReader(stream);
+        var json = reader.ReadToEnd();
+
+        json.Should().Contain("\"Optional\": null");
+    }
+
+    private sealed class NullableSample
+    {
+        public string Name { get; set; }
+
+        public string Optional { get; set; }
     }
 
     private static string GetStringContent() =>

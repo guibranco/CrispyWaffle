@@ -121,6 +121,36 @@ public class JsonSerializerAdapterTests
         Assert.Throws<JsonException>(() => _serializer.DeserializeFromStream<TestObject>(stream));
     }
 
+    [Theory]
+    [InlineData("{\"Observer\":null}")]
+    [InlineData("{\"Observer\":\"\"}")]
+    [InlineData("{\"Observer\":\"   \"}")]
+    [InlineData("{\"Observer\":[]}")]
+    [InlineData("{\"Observer\":{}}")]
+    public void DeserializeNotNullObserverWithEmptyValuesReturnsNull(string json)
+    {
+        var result = _serializer.Deserialize<NotNullObserverHolder>(json);
+
+        result.Should().NotBeNull();
+        result.Observer.Should().BeNull();
+    }
+
+    [Theory]
+    [InlineData("{\"Observer\":\"x\"}")]
+    [InlineData("{\"Observer\":1}")]
+    [InlineData("{\"Observer\":true}")]
+    [InlineData("{\"Observer\":[1]}")]
+    [InlineData("{\"Observer\":{\"a\":1}}")]
+    public void DeserializeNotNullObserverWithNonEmptyValuesThrowsNotNullObserverException(string json)
+    {
+        Assert.Throws<NotNullObserverException>(() => _serializer.Deserialize<NotNullObserverHolder>(json));
+    }
+
+    private class NotNullObserverHolder
+    {
+        public NotNullObserver Observer { get; set; }
+    }
+
     // Additional tests for Custom Converter, Error Handling, etc.
 
     private class TestObject
