@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="660" viewBox="0 0 1000 660" role="img" aria-labelledby="title desc">
+  <title id="title">CrispyWaffle cache read and write paths</title>
+  <desc id="desc">CacheManager.SetAsync writes to every repository in parallel. CacheManager.GetAsync walks repositories in priority order, returns the first hit, and promotes values found outside memory into MemoryCacheRepository.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0c4dc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#50fa7b"/>
+    </marker>
+    <marker id="arrow-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6272a4"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: #f8f8f2; }
+    .mono { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; font-variant-ligatures: none; }
+    .dim { fill: #a9adc8; }
+    .b { font-weight: 600; }
+    .card { fill: #343746; stroke: #44475a; }
+    .flow { stroke: #c0c4dc; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <rect width="1000" height="660" fill="#282a36"/>
+
+  <text x="40" y="44" font-size="20" class="b">Caching — write and read paths</text>
+  <text x="40" y="68" font-size="13" class="dim">CacheManager keeps repositories in priority order: writes go everywhere, reads stop at the first hit.</text>
+
+  <!-- Write -->
+  <rect x="40" y="114" width="64" height="22" rx="11" fill="#44475a"/>
+  <text x="72" y="129" font-size="11" text-anchor="middle" class="b" letter-spacing="1">WRITE</text>
+  <rect x="360" y="100" width="280" height="56" rx="8" fill="#343746" stroke="#8be9fd"/>
+  <text x="500" y="133" font-size="12" text-anchor="middle" class="mono">CacheManager.SetAsync(value, key)</text>
+
+  <line x1="430" y1="156" x2="252" y2="248" class="flow" marker-end="url(#arrow)"/>
+  <line x1="500" y1="156" x2="500" y2="248" class="flow" marker-end="url(#arrow)"/>
+  <line x1="570" y1="156" x2="748" y2="248" class="flow" marker-end="url(#arrow)"/>
+  <text x="510" y="210" font-size="11" class="dim">in parallel · Task.WhenAll</text>
+
+  <!-- Repositories -->
+  <rect x="160" y="250" width="180" height="80" rx="8" class="card"/>
+  <rect x="160" y="250" width="180" height="4" fill="#8be9fd"/>
+  <text x="250" y="284" font-size="12" text-anchor="middle" class="b mono">MemoryCacheRepository</text>
+  <text x="250" y="306" font-size="11" text-anchor="middle" class="dim">priority 0 · core</text>
+
+  <rect x="410" y="250" width="180" height="80" rx="8" class="card"/>
+  <rect x="410" y="250" width="180" height="4" fill="#8be9fd"/>
+  <text x="500" y="284" font-size="12" text-anchor="middle" class="b mono">RedisCacheRepository</text>
+  <text x="500" y="306" font-size="11" text-anchor="middle" class="dim">priority 1 · CrispyWaffle.Redis</text>
+
+  <rect x="660" y="250" width="180" height="80" rx="8" class="card"/>
+  <rect x="660" y="250" width="180" height="4" fill="#8be9fd"/>
+  <text x="750" y="284" font-size="12" text-anchor="middle" class="b mono">CouchDBCacheRepository</text>
+  <text x="750" y="306" font-size="11" text-anchor="middle" class="dim">priority 2 · CrispyWaffle.CouchDB</text>
+
+  <!-- Promotion -->
+  <line x1="408" y1="316" x2="344" y2="316" stroke="#50fa7b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-green)"/>
+  <text x="375" y="306" font-size="11" text-anchor="middle" style="fill:#50fa7b">promote</text>
+
+  <!-- Read -->
+  <line x1="430" y1="440" x2="252" y2="332" class="flow" marker-end="url(#arrow)"/>
+  <line x1="500" y1="440" x2="500" y2="332" class="flow" marker-end="url(#arrow)"/>
+  <line x1="570" y1="440" x2="748" y2="332" stroke="#6272a4" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#arrow-dim)"/>
+  <text x="326" y="396" font-size="12" text-anchor="end">① miss</text>
+  <text x="510" y="396" font-size="12">② hit — returned</text>
+  <text x="672" y="396" font-size="12" class="dim">③ not queried</text>
+
+  <rect x="40" y="454" width="64" height="22" rx="11" fill="#44475a"/>
+  <text x="72" y="469" font-size="11" text-anchor="middle" class="b" letter-spacing="1">READ</text>
+  <rect x="360" y="440" width="280" height="56" rx="8" fill="#343746" stroke="#8be9fd"/>
+  <text x="500" y="473" font-size="12" text-anchor="middle" class="mono">CacheManager.GetAsync&lt;T&gt;(key)</text>
+
+  <!-- Notes -->
+  <rect x="40" y="528" width="920" height="104" rx="8" fill="#2f3141" stroke="#44475a"/>
+  <text x="60" y="556" font-size="12" class="dim">• <tspan class="mono" style="fill:#f8f8f2">AddRepository(repo, priority)</tspan> stores repositories in a SortedList; lower values are tried first (default: registration order).</text>
+  <text x="60" y="580" font-size="12" class="dim">• SetAsync writes everywhere in parallel; a repository that throws is logged and skipped, the others still succeed.</text>
+  <text x="60" y="604" font-size="12" class="dim">• GetAsync stops at the first hit. No hit → InvalidOperationException; the whole lookup times out after 10 s (TimeoutException).</text>
+</svg>
