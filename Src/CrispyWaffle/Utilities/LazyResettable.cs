@@ -46,8 +46,8 @@ public class LazyResettable<T>(
     /// <summary>
     /// The value factory.
     /// </summary>
-    private readonly Func<T> _valueFactory =
-        valueFactory ?? throw new ArgumentNullException(nameof(valueFactory));
+    private readonly Func<T> _valueFactory = valueFactory
+        ?? throw new ArgumentNullException(nameof(valueFactory));
 
     /// <summary>
     /// The synchronize lock.

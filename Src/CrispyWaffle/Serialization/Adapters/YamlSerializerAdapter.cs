@@ -31,10 +31,8 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="stream"/> is <see langword="null"/>.</exception>
     public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
         where T : class =>
-        StringSerializerAdapterHelper.DeserializeFromStream(
-            stream,
-            encoding,
-            reader => CreateDeserializer().Deserialize<T>(reader)
+        StringSerializerAdapterHelper.DeserializeFromStream(stream, encoding, reader =>
+            CreateDeserializer().Deserialize<T>(reader)
         );
 
     /// <summary>
@@ -47,10 +45,8 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <exception cref="ArgumentException">Thrown when <paramref name="serialized"/> is not a string.</exception>
     public override T Deserialize<T>(object serialized)
         where T : class =>
-        StringSerializerAdapterHelper.Deserialize(
-            serialized,
-            "YAML",
-            yaml => CreateDeserializer().Deserialize<T>(yaml)
+        StringSerializerAdapterHelper.Deserialize(serialized, "YAML", yaml =>
+            CreateDeserializer().Deserialize<T>(yaml)
         );
 
     /// <summary>
@@ -101,8 +97,7 @@ public sealed class YamlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// </returns>
     public string SerializeToString<T>(T deserialized)
         where T : class =>
-        StringSerializerAdapterHelper.SerializeToString(
-            deserialized,
-            value => CreateSerializer().Serialize(value)
+        StringSerializerAdapterHelper.SerializeToString(deserialized, value =>
+            CreateSerializer().Serialize(value)
         );
 }
