@@ -46,8 +46,7 @@ public class JobRunner : IJobRunner
         }
 
         _scheduler = new CronScheduler(schedule);
-        _threadStart =
-            threadStart
+        _threadStart = threadStart
             ?? throw new ArgumentNullException(nameof(threadStart), "ThreadStart cannot be null.");
         _thread = new Thread(threadStart);
     }

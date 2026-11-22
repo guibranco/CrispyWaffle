@@ -105,8 +105,7 @@ public class TestJsonSerializer : ISerializer
 
     public TestJsonSerializer(JsonSerializerOptions options = null)
     {
-        _options =
-            options
+        _options = options
             ?? new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

@@ -188,12 +188,21 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/EnesKartal">
+                    <img src="https://avatars.githubusercontent.com/u/43950508?v=4" width="100;" alt="EnesKartal"/>
+                    <br />
+                    <sub><b>Enes Kartal</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Sak3th2004">
                     <img src="https://avatars.githubusercontent.com/u/139762801?v=4" width="100;" alt="Sak3th2004"/>
                     <br />
                     <sub><b>Gunnam Sai Saketh Ram</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/rodri-oliveira-dev">
                     <img src="https://avatars.githubusercontent.com/u/3470248?v=4" width="100;" alt="rodri-oliveira-dev"/>
@@ -201,20 +210,11 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>Rodrigo de Oliveira</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/christopher-conley">
                     <img src="https://avatars.githubusercontent.com/u/11824616?v=4" width="100;" alt="christopher-conley"/>
                     <br />
                     <sub><b>Christopher Conley</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/EnesKartal">
-                    <img src="https://avatars.githubusercontent.com/u/43950508?v=4" width="100;" alt="EnesKartal"/>
-                    <br />
-                    <sub><b>Enes Kartal</b></sub>
                 </a>
             </td>
             <td align="center">

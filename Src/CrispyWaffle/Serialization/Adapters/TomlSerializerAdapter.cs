@@ -36,10 +36,8 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <exception cref="ArgumentNullException">Thrown when <paramref name="stream"/> is <see langword="null"/>.</exception>
     public override T DeserializeFromStream<T>(Stream stream, Encoding encoding = null)
         where T : class =>
-        StringSerializerAdapterHelper.DeserializeFromStream(
-            stream,
-            encoding,
-            reader => TomlSerializer.Deserialize<T>(reader, SerializerOptions)
+        StringSerializerAdapterHelper.DeserializeFromStream(stream, encoding, reader =>
+            TomlSerializer.Deserialize<T>(reader, SerializerOptions)
         );
 
     /// <summary>
@@ -52,10 +50,8 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// <exception cref="ArgumentException">Thrown when <paramref name="serialized"/> is not a string.</exception>
     public override T Deserialize<T>(object serialized)
         where T : class =>
-        StringSerializerAdapterHelper.Deserialize(
-            serialized,
-            "TOML",
-            toml => TomlSerializer.Deserialize<T>(toml, SerializerOptions)
+        StringSerializerAdapterHelper.Deserialize(serialized, "TOML", toml =>
+            TomlSerializer.Deserialize<T>(toml, SerializerOptions)
         );
 
     /// <summary>
@@ -89,8 +85,7 @@ public sealed class TomlSerializerAdapter : BaseSerializerAdapter, IStringSerial
     /// </returns>
     public string SerializeToString<T>(T deserialized)
         where T : class =>
-        StringSerializerAdapterHelper.SerializeToString(
-            deserialized,
-            value => TomlSerializer.Serialize(value, SerializerOptions)
+        StringSerializerAdapterHelper.SerializeToString(deserialized, value =>
+            TomlSerializer.Serialize(value, SerializerOptions)
         );
 }
