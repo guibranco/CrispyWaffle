@@ -38,6 +38,11 @@ public static class ConversionExtensions
     /// <returns><c>true</c> if is valid phone number, <c>false</c> otherwise.</returns>
     public static bool TryParseBrazilianPhoneNumber(this string number, ref PhoneNumber result)
     {
+        if (string.IsNullOrWhiteSpace(number))
+        {
+            return false;
+        }
+
         var dirty = number.RemoveNonNumeric();
         var dirtyLength = dirty.Length;
 
@@ -55,15 +60,22 @@ public static class ConversionExtensions
             return false;
         }
 
-        var prefix =
+        var hasTrunkPrefix =
             dirty.Substring(0, 1).Equals(@"0", StringComparison.OrdinalIgnoreCase)
-            && (dirtyLength == 11 || dirtyLength == 12)
-                ? dirty.Substring(1, 2)
-                : dirty.Substring(0, 2);
+            && (dirtyLength == 11 || dirtyLength == 12);
 
-        var hasNineDigits = dirty
-            .Substring(dirtyLength - 9, 1)
-            .Equals(@"9", StringComparison.OrdinalIgnoreCase);
+        var prefix = hasTrunkPrefix ? dirty.Substring(1, 2) : dirty.Substring(0, 2);
+
+        var subscriberLength = dirtyLength - (hasTrunkPrefix ? 3 : 2);
+
+        if (subscriberLength > 9)
+        {
+            return false;
+        }
+
+        var hasNineDigits =
+            subscriberLength == 9
+            && dirty.Substring(dirtyLength - 9, 1).Equals(@"9", StringComparison.OrdinalIgnoreCase);
 
         var allowedDigits = hasNineDigits ? 9 : 8;
 
@@ -86,13 +98,11 @@ public static class ConversionExtensions
             return "Invalid document";
         }
 
+        var digits = document.RemoveNonNumeric();
+
         var documentPattern =
-            document.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            documentPattern,
-            document.RemoveNonNumeric().ToInt64()
-        );
+            digits.Length == 14 ? @"{0:00\.000\.000/0000-00}" : @"{0:000\.000\.000-00}";
+        return string.Format(CultureInfo.InvariantCulture, documentPattern, digits.ToInt64());
     }
 
     /// <summary>
