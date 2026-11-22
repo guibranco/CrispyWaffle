@@ -59,14 +59,11 @@ public class JobRunnerTests
 
         var sampler = new TestObjects();
 
-        var runner = new JobRunner(
-            "*",
-            () =>
-            {
-                sampler.Counter++;
-                Thread.Sleep(sleepMilliseconds);
-            }
-        );
+        var runner = new JobRunner("*", () =>
+        {
+            sampler.Counter++;
+            Thread.Sleep(sleepMilliseconds);
+        });
 
         runner.Execute(DateTime.Now);
         runner.Execute(DateTime.Now);

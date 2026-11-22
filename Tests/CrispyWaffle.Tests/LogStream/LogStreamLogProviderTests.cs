@@ -65,16 +65,13 @@ public class LogStreamLogProviderTests
     {
         // Arrange
         using var handler = new RecordingHandler();
-        using var provider = CreateProvider(
-            handler,
-            o =>
-            {
-                o.ApiSecret = null;
-                o.AppKey = null;
-                o.ApiKey = "billing-api";
-                o.ApiToken = "lss_token";
-            }
-        );
+        using var provider = CreateProvider(handler, o =>
+        {
+            o.ApiSecret = null;
+            o.AppKey = null;
+            o.ApiKey = "billing-api";
+            o.ApiToken = "lss_token";
+        });
         provider.SetLevel(LogLevel.All);
 
         // Act
@@ -251,9 +248,8 @@ public class LogStreamLogProviderTests
     {
         // Arrange
         using var handler = new RecordingHandler();
-        using var provider = CreateProvider(
-            handler,
-            o => o.FlushInterval = TimeSpan.FromMilliseconds(50)
+        using var provider = CreateProvider(handler, o =>
+            o.FlushInterval = TimeSpan.FromMilliseconds(50)
         );
         provider.SetLevel(LogLevel.All);
 
@@ -299,14 +295,11 @@ public class LogStreamLogProviderTests
         // Arrange
         using var handler = new RecordingHandler(HttpStatusCode.BadGateway);
         var errors = new ConcurrentBag<Exception>();
-        using var provider = CreateProvider(
-            handler,
-            o =>
-            {
-                o.MaxRetries = 2;
-                o.OnError = errors.Add;
-            }
-        );
+        using var provider = CreateProvider(handler, o =>
+        {
+            o.MaxRetries = 2;
+            o.OnError = errors.Add;
+        });
         provider.SetLevel(LogLevel.All);
 
         // Act
@@ -376,15 +369,12 @@ public class LogStreamLogProviderTests
         );
         using var handler = new RecordingHandler { Gate = gate.Task };
         var errors = new ConcurrentBag<Exception>();
-        using var provider = CreateProvider(
-            handler,
-            o =>
-            {
-                o.BatchSize = 2;
-                o.QueueLimit = 2;
-                o.OnError = errors.Add;
-            }
-        );
+        using var provider = CreateProvider(handler, o =>
+        {
+            o.BatchSize = 2;
+            o.QueueLimit = 2;
+            o.OnError = errors.Add;
+        });
         provider.SetLevel(LogLevel.All);
 
         // Act
@@ -432,14 +422,11 @@ public class LogStreamLogProviderTests
         );
         using var handler = new RecordingHandler { Gate = never.Task };
         var errors = new ConcurrentBag<Exception>();
-        var provider = CreateProvider(
-            handler,
-            o =>
-            {
-                o.ShutdownTimeout = TimeSpan.FromMilliseconds(300);
-                o.OnError = errors.Add;
-            }
-        );
+        var provider = CreateProvider(handler, o =>
+        {
+            o.ShutdownTimeout = TimeSpan.FromMilliseconds(300);
+            o.OnError = errors.Add;
+        });
         provider.SetLevel(LogLevel.All);
         provider.Info("Cat", "stuck");
         var watch = Stopwatch.StartNew();
@@ -479,15 +466,12 @@ public class LogStreamLogProviderTests
         const int producers = 8;
         const int perProducer = 500;
         using var handler = new RecordingHandler();
-        var provider = CreateProvider(
-            handler,
-            o =>
-            {
-                o.BatchSize = 10;
-                o.QueueLimit = 20;
-                o.FlushInterval = TimeSpan.FromMilliseconds(5);
-            }
-        );
+        var provider = CreateProvider(handler, o =>
+        {
+            o.BatchSize = 10;
+            o.QueueLimit = 20;
+            o.FlushInterval = TimeSpan.FromMilliseconds(5);
+        });
         provider.SetLevel(LogLevel.All);
         using var start = new ManualResetEventSlim();
 
@@ -572,10 +556,7 @@ public class LogStreamLogProviderTests
         await provider.FlushAsync();
 
         // Assert
-        handler.Requests.Single().Json["logs"]![0]!["context"]!
-            .Children()
-            .Should()
-            .BeEmpty();
+        handler.Requests.Single().Json["logs"]![0]!["context"]!.Children().Should().BeEmpty();
     }
 
     [Theory]

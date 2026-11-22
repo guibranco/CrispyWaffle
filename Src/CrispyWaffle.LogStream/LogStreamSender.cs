@@ -225,10 +225,9 @@ internal sealed class LogStreamSender : IDisposable
 
     private static string BuildUserAgent()
     {
-        var version =
-            typeof(LogStreamSender)
-                .Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                ?.InformationalVersion
+        var version = typeof(LogStreamSender)
+            .Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            ?.InformationalVersion
             ?? typeof(LogStreamSender).Assembly.GetName().Version?.ToString()
             ?? "0.0.0";
         var plus = version.IndexOf('+');
