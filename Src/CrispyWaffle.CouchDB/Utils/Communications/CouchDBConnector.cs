@@ -27,13 +27,11 @@ public class CouchDBConnector : IDisposable
     /// basic authentication for secure access.
     /// </remarks>
     public CouchDBConnector(IConnection connection) =>
-        CouchDBClient = new CouchClient(
-            $"{connection.Host}:{connection.Port}",
-            s =>
-                s.UseBasicAuthentication(
-                    connection.Credentials.Username,
-                    connection.Credentials.Password
-                )
+        CouchDBClient = new CouchClient($"{connection.Host}:{connection.Port}", s =>
+            s.UseBasicAuthentication(
+                connection.Credentials.Username,
+                connection.Credentials.Password
+            )
         );
 
     /// <summary>

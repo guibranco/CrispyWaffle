@@ -16,56 +16,41 @@ public class JobManagerTests
 
         var syncRoot = new object();
 
-        manager.AddJob(
-            "*",
-            () =>
+        manager.AddJob("*", () =>
+        {
+            lock (syncRoot)
             {
-                lock (syncRoot)
-                {
-                    sampler.Counter++;
-                }
+                sampler.Counter++;
             }
-        );
-        manager.AddJob(
-            "*",
-            () =>
+        });
+        manager.AddJob("*", () =>
+        {
+            lock (syncRoot)
             {
-                lock (syncRoot)
-                {
-                    sampler.Counter++;
-                }
+                sampler.Counter++;
             }
-        );
-        manager.AddJob(
-            "*",
-            () =>
+        });
+        manager.AddJob("*", () =>
+        {
+            lock (syncRoot)
             {
-                lock (syncRoot)
-                {
-                    sampler.Counter++;
-                }
+                sampler.Counter++;
             }
-        );
-        manager.AddJob(
-            "*",
-            () =>
+        });
+        manager.AddJob("*", () =>
+        {
+            lock (syncRoot)
             {
-                lock (syncRoot)
-                {
-                    sampler.Counter++;
-                }
+                sampler.Counter++;
             }
-        );
-        manager.AddJob(
-            "*",
-            () =>
+        });
+        manager.AddJob("*", () =>
+        {
+            lock (syncRoot)
             {
-                lock (syncRoot)
-                {
-                    sampler.Counter++;
-                }
+                sampler.Counter++;
             }
-        );
+        });
 
         manager.Start();
 

@@ -14,8 +14,8 @@ internal class TestLogProvider : ILogProvider
     private readonly ITestOutputHelper _testOutputHelper;
 
     public TestLogProvider(ITestOutputHelper testOutputHelper) =>
-        _testOutputHelper =
-            testOutputHelper ?? throw new ArgumentNullException(nameof(testOutputHelper));
+        _testOutputHelper = testOutputHelper
+            ?? throw new ArgumentNullException(nameof(testOutputHelper));
 
     public void SetLevel(LogLevel level) =>
         SafeWriteLine("Set level: {0}", level.GetHumanReadableValue());
