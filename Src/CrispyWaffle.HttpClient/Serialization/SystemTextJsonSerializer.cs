@@ -19,8 +19,7 @@ public class SystemTextJsonSerializer : IJsonSerializer
     /// </param>
     public SystemTextJsonSerializer(JsonSerializerOptions? options = null)
     {
-        _options =
-            options
+        _options = options
             ?? new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
