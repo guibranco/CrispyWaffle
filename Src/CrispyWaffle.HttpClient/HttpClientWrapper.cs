@@ -39,8 +39,8 @@ public class HttpClientWrapper : IHttpClientWrapper
         ILogger<HttpClientWrapper>? logger = null
     )
     {
-        _httpClientFactory =
-            httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _httpClientFactory = httpClientFactory
+            ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _defaults = options?.Value ?? new HttpRequestOptions();
         _defaultSerializer = serializer ?? new SystemTextJsonSerializer();
         _logger = logger;

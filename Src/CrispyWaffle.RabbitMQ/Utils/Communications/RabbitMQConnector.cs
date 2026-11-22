@@ -50,8 +50,8 @@ public sealed class RabbitMQConnector
             ConnectionFactory.Password = connection.Credentials.Password;
         }
 
-        ConnectionFactory.VirtualHost =
-            virtualHost ?? throw new ArgumentNullException(nameof(virtualHost));
+        ConnectionFactory.VirtualHost = virtualHost
+            ?? throw new ArgumentNullException(nameof(virtualHost));
 
         DefaultExchangeName = defaultExchange;
     }
