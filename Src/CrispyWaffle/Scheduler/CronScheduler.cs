@@ -242,7 +242,12 @@ public class CronScheduler : IScheduler
 
         if (Regex.IsMatch(field, @"^\*/\d+$"))
         {
-            return int.TryParse(field.Substring(2), NumberStyles.None, CultureInfo.InvariantCulture, out var step)
+            return int.TryParse(
+                    field.Substring(2),
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var step
+                )
                 && step > 0;
         }
 
@@ -250,8 +255,18 @@ public class CronScheduler : IScheduler
         if (rangeMatch.Success)
         {
             if (
-                !int.TryParse(rangeMatch.Groups[1].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var start)
-                || !int.TryParse(rangeMatch.Groups[2].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var end)
+                !int.TryParse(
+                    rangeMatch.Groups[1].Value,
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var start
+                )
+                || !int.TryParse(
+                    rangeMatch.Groups[2].Value,
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var end
+                )
             )
             {
                 return false;
@@ -264,7 +279,12 @@ public class CronScheduler : IScheduler
 
             if (rangeMatch.Groups[3].Success)
             {
-                return int.TryParse(rangeMatch.Groups[3].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var step)
+                return int.TryParse(
+                        rangeMatch.Groups[3].Value,
+                        NumberStyles.None,
+                        CultureInfo.InvariantCulture,
+                        out var step
+                    )
                     && step > 0;
             }
 

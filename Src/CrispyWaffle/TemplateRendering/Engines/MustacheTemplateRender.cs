@@ -269,18 +269,14 @@ public class MustacheTemplateRender : ITemplateRender
     )
     {
         var result = string.Empty;
-        result = replacements.Aggregate(
-            result,
-            (current, value) =>
-            {
-                var properties = ParseObject(value);
-                return current
-                    + MustachePatterns.PropertyPattern.Replace(
-                        pattern,
-                        patch => RenderProperties(patch, properties)
-                    );
-            }
-        );
+        result = replacements.Aggregate(result, (current, value) =>
+        {
+            var properties = ParseObject(value);
+            return current
+                + MustachePatterns.PropertyPattern.Replace(pattern, patch =>
+                    RenderProperties(patch, properties)
+                );
+        });
         return template.Replace(match.Value, result);
     }
 
@@ -310,9 +306,8 @@ public class MustacheTemplateRender : ITemplateRender
             return template;
         }
 
-        template = MustachePatterns.PropertyPattern.Replace(
-            template,
-            match => RenderProperties(match, _properties)
+        template = MustachePatterns.PropertyPattern.Replace(template, match =>
+            RenderProperties(match, _properties)
         );
         return template;
     }
