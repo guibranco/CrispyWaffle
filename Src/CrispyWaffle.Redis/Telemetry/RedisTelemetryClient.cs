@@ -22,7 +22,7 @@ public sealed class RedisTelemetryClient : ITelemetryClient
     /// <summary>
     /// The default Time-to-Live (TTL) for events.
     /// </summary>
-    private readonly TimeSpan _defaultTTL;
+    private readonly TimeSpan _defaultTTL = new(30, 0, 0, 0);
 
     /// <summary>
     /// A suffix to be appended to keys for events and metrics.
@@ -35,7 +35,6 @@ public sealed class RedisTelemetryClient : ITelemetryClient
     public RedisTelemetryClient()
     {
         _redis = ServiceLocator.Resolve<RedisConnector>();
-        _defaultTTL = new TimeSpan(30, 0, 0, 0); // Default TTL is 30 days
     }
 
     /// <summary>
