@@ -8,7 +8,6 @@ using System.Security.Permissions;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using CrispyWaffle.Extensions;
 using CrispyWaffle.Serialization;
 
 namespace CrispyWaffle.Utilities;
@@ -83,7 +82,9 @@ public class DynamicSerialization
                 return key.ToUpperInvariant();
 
             case DynamicSerializationOption.Camelcase:
-                return key.ToCamelCase();
+                return string.IsNullOrEmpty(key)
+                    ? key
+                    : char.ToLowerInvariant(key[0]) + key.Substring(1);
 
             default:
                 return key;
@@ -198,7 +199,17 @@ public class DynamicSerialization
     {
         unchecked
         {
-            return ((Dictionary?.GetHashCode() ?? 0) * 397) ^ (int)SerializationKeyFilter;
+            var hash = (int)SerializationKeyFilter;
+            if (Dictionary != null)
+            {
+                foreach (var kvp in Dictionary)
+                {
+                    hash = (hash * 397) ^ (kvp.Key?.GetHashCode() ?? 0);
+                    hash = (hash * 397) ^ (kvp.Value?.GetHashCode() ?? 0);
+                }
+            }
+
+            return hash;
         }
     }
 
