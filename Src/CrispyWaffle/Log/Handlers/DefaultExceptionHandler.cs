@@ -157,6 +157,14 @@ public class DefaultExceptionHandler : IExceptionHandler
     public ILogProvider AddLogProvider<TLogProvider>(ExceptionLogType type)
         where TLogProvider : ILogProvider
     {
+        var existing = _additionalProviders.FirstOrDefault(p =>
+            p.Item1 is TLogProvider && p.Item2 == type
+        );
+        if (existing != null)
+        {
+            return existing.Item1;
+        }
+
         var provider = ServiceLocator.Resolve<TLogProvider>();
         _additionalProviders.Add(new Tuple<ILogProvider, ExceptionLogType>(provider, type));
         return provider;
@@ -184,7 +192,12 @@ public class DefaultExceptionHandler : IExceptionHandler
 
             var instance = ServiceLocator.TryResolve<ConsoleLogProvider>();
 
-            if (instance != null)
+            if (
+                instance != null
+                && !_additionalProviders.Any(p =>
+                    p.Item1 is ConsoleLogProvider && p.Item2 == ExceptionLogType.Message
+                )
+            )
             {
                 _additionalProviders.Add(
                     new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Message)
@@ -204,7 +217,12 @@ public class DefaultExceptionHandler : IExceptionHandler
         {
             var instance = ServiceLocator.TryResolve<TextFileLogProvider>();
 
-            if (instance != null)
+            if (
+                instance != null
+                && !_additionalProviders.Any(p =>
+                    p.Item1 is TextFileLogProvider && p.Item2 == ExceptionLogType.Full
+                )
+            )
             {
                 _additionalProviders.Add(
                     new Tuple<ILogProvider, ExceptionLogType>(instance, ExceptionLogType.Full)
