@@ -41,10 +41,12 @@ public sealed class NotNullObserverConverter : JsonConverter<NotNullObserver>
                 return null;
             }
 
-            if (
-                !root.EnumerateObject().Any()
-                && (root.ValueKind == JsonValueKind.Array || root.ValueKind == JsonValueKind.Object)
-            )
+            if (root.ValueKind == JsonValueKind.Array && root.GetArrayLength() == 0)
+            {
+                return null;
+            }
+
+            if (root.ValueKind == JsonValueKind.Object && !root.EnumerateObject().Any())
             {
                 return null;
             }
