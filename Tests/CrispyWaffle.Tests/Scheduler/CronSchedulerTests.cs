@@ -246,4 +246,39 @@ public class CronSchedulerTests
             scheduler.IsTime(DateTime.Parse("2020-09-05 23:59:59", CultureInfo.InvariantCulture))
         );
     }
+
+    [Theory]
+    [InlineData("every day at 5")]
+    [InlineData("0 0 * * MON")]
+    [InlineData("1-5,10 * * * *")]
+    [InlineData("abc 5")]
+    [InlineData("*/0")]
+    [InlineData("1-5/0")]
+    [InlineData("60 * * * *")]
+    [InlineData("* * 0 * *")]
+    [InlineData("* * * * * *")]
+    public void ValidateRejectsMalformedOrUnsupportedExpressions(string expression)
+    {
+        var scheduler = new CronScheduler();
+
+        Assert.False(scheduler.IsValid(expression));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new CronScheduler(expression));
+    }
+
+    [Fact]
+    public void ValidateStepsStartFromRangeMinimum()
+    {
+        Assert.Equal([1, 4, 7, 10], new CronScheduler("1-10/3 * * * *").Minutes);
+        Assert.Equal([1, 6, 11, 16, 21, 26, 31], new CronScheduler("* * */5 * *").DaysOfMonth);
+    }
+
+    [Fact]
+    public void ValidateRestrictedDayOfMonthAndDayOfWeekUseOrSemantics()
+    {
+        var scheduler = new CronScheduler("0 0 13 * 5");
+
+        Assert.True(scheduler.IsTime(new DateTime(2024, 5, 13, 0, 0, 0)));
+        Assert.True(scheduler.IsTime(new DateTime(2024, 5, 10, 0, 0, 0)));
+        Assert.False(scheduler.IsTime(new DateTime(2024, 5, 14, 0, 0, 0)));
+    }
 }

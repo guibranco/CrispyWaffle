@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CrispyWaffle.Scheduler;
 
@@ -41,6 +43,9 @@ public class CronScheduler : IScheduler
     /// </summary>
     private readonly HashSet<int> _minutes = new();
 
+    private bool _isDayOfMonthRestricted;
+    private bool _isDayOfWeekRestricted;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CronScheduler"/> class with a default cron expression.
     /// </summary>
@@ -73,17 +78,21 @@ public class CronScheduler : IScheduler
     /// </summary>
     private void GenerateData()
     {
-        var matches = CronSchedulerValidations.ValidationRegex.Matches(_expression);
+        var fields = _expression.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+        var minuteField = fields[0];
+        var hourField = fields.Length > 1 ? fields[1] : "*";
+        var dayOfMonthField = fields.Length > 2 ? fields[2] : "*";
+        var monthField = fields.Length > 3 ? fields[3] : "*";
+        var dayOfWeekField = fields.Length > 4 ? fields[4] : "*";
 
-        GenerateData(matches[0].ToString(), 0, 60).ForEach(i => _minutes.Add(i));
-        GenerateData(matches.Count > 1 ? matches[1].ToString() : "*", 0, 24)
-            .ForEach(i => _hours.Add(i));
-        GenerateData(matches.Count > 2 ? matches[2].ToString() : "*", 1, 32)
-            .ForEach(i => _daysOfMonth.Add(i));
-        GenerateData(matches.Count > 3 ? matches[3].ToString() : "*", 1, 13)
-            .ForEach(i => _months.Add(i));
-        GenerateData(matches.Count > 4 ? matches[4].ToString() : "*", 0, 7)
-            .ForEach(i => _daysOfWeek.Add(i));
+        _isDayOfMonthRestricted = dayOfMonthField != "*";
+        _isDayOfWeekRestricted = dayOfWeekField != "*";
+
+        GenerateData(minuteField, 0, 60).ForEach(i => _minutes.Add(i));
+        GenerateData(hourField, 0, 24).ForEach(i => _hours.Add(i));
+        GenerateData(dayOfMonthField, 1, 32).ForEach(i => _daysOfMonth.Add(i));
+        GenerateData(monthField, 1, 13).ForEach(i => _months.Add(i));
+        GenerateData(dayOfWeekField, 0, 7).ForEach(i => _daysOfWeek.Add(i));
     }
 
     /// <summary>
@@ -125,16 +134,11 @@ public class CronScheduler : IScheduler
     private static List<int> GenerateDivided(string value, int start, int max)
     {
         var result = new List<int>();
+        var divisor = int.Parse(value.Split('/')[1], CultureInfo.InvariantCulture);
 
-        var split = value.Split('/');
-        var divisor = int.Parse(split[1]);
-
-        for (var i = start; i < max; i++)
+        for (var i = start; i < max; i += divisor)
         {
-            if (i % divisor == 0)
-            {
-                result.Add(i);
-            }
+            result.Add(i);
         }
 
         return result;
@@ -150,29 +154,22 @@ public class CronScheduler : IScheduler
         var result = new List<int>();
 
         var split = value.Split('-');
-        var start = int.Parse(split[0]);
+        var start = int.Parse(split[0], CultureInfo.InvariantCulture);
         int end;
+        var step = 1;
 
         if (split[1].Contains("/"))
         {
-            split = split[1].Split('/');
-            end = int.Parse(split[0]);
-            var divisor = int.Parse(split[1]);
-
-            for (var i = start; i <= end; i++)
-            {
-                if (i % divisor == 0)
-                {
-                    result.Add(i);
-                }
-            }
-
-            return result;
+            var stepSplit = split[1].Split('/');
+            end = int.Parse(stepSplit[0], CultureInfo.InvariantCulture);
+            step = int.Parse(stepSplit[1], CultureInfo.InvariantCulture);
+        }
+        else
+        {
+            end = int.Parse(split[1], CultureInfo.InvariantCulture);
         }
 
-        end = int.Parse(split[1]);
-
-        for (var i = start; i <= end; i++)
+        for (var i = start; i <= end; i += step)
         {
             result.Add(i);
         }
@@ -227,13 +224,121 @@ public class CronScheduler : IScheduler
     /// <value>A collection of integers representing the minutes (0-59).</value>
     public ICollection<int> Minutes => _minutes;
 
+    private static readonly (int Min, int Max)[] FieldBounds =
+    {
+        (0, 59),
+        (0, 23),
+        (1, 31),
+        (1, 12),
+        (0, 6),
+    };
+
+    private static bool IsFieldValid(string field, int min, int max)
+    {
+        if (field == "*")
+        {
+            return true;
+        }
+
+        if (Regex.IsMatch(field, @"^\*/\d+$"))
+        {
+            return int.TryParse(
+                    field.Substring(2),
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var step
+                )
+                && step > 0;
+        }
+
+        var rangeMatch = Regex.Match(field, @"^(\d+)-(\d+)(?:/(\d+))?$");
+        if (rangeMatch.Success)
+        {
+            if (
+                !int.TryParse(
+                    rangeMatch.Groups[1].Value,
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var start
+                )
+                || !int.TryParse(
+                    rangeMatch.Groups[2].Value,
+                    NumberStyles.None,
+                    CultureInfo.InvariantCulture,
+                    out var end
+                )
+            )
+            {
+                return false;
+            }
+
+            if (start < min || end > max || start > end)
+            {
+                return false;
+            }
+
+            if (rangeMatch.Groups[3].Success)
+            {
+                return int.TryParse(
+                        rangeMatch.Groups[3].Value,
+                        NumberStyles.None,
+                        CultureInfo.InvariantCulture,
+                        out var step
+                    )
+                    && step > 0;
+            }
+
+            return true;
+        }
+
+        if (!Regex.IsMatch(field, @"^\d+(?:,\d+)*$"))
+        {
+            return false;
+        }
+
+        foreach (var part in field.Split(','))
+        {
+            if (
+                !int.TryParse(part, NumberStyles.None, CultureInfo.InvariantCulture, out var val)
+                || val < min
+                || val > max
+            )
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /// <summary>
     /// Validates whether the specified cron expression is valid.
     /// </summary>
     /// <param name="expression">The cron expression to validate.</param>
     /// <returns><c>true</c> if the specified cron expression is valid; otherwise, <c>false</c>.</returns>
-    public bool IsValid(string expression) =>
-        CronSchedulerValidations.ValidationRegex.Matches(expression).Count > 0;
+    public bool IsValid(string expression)
+    {
+        if (string.IsNullOrWhiteSpace(expression))
+        {
+            return false;
+        }
+
+        var fields = expression.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+        if (fields.Length is < 1 or > 5)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < fields.Length; i++)
+        {
+            if (!IsFieldValid(fields[i], FieldBounds[i].Min, FieldBounds[i].Max))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     /// <summary>
     /// Determines whether the specified <see cref="DateTime"/> matches the cron schedule.
@@ -242,10 +347,16 @@ public class CronScheduler : IScheduler
     /// <returns><c>true</c> if the specified date and time match the cron schedule; otherwise, <c>false</c>.</returns>
     public bool IsTime(DateTime dateTime)
     {
+        var dayOfMonthMatch = _daysOfMonth.Contains(dateTime.Day);
+        var dayOfWeekMatch = _daysOfWeek.Contains((int)dateTime.DayOfWeek);
+        var dayMatch =
+            _isDayOfMonthRestricted && _isDayOfWeekRestricted
+                ? dayOfMonthMatch || dayOfWeekMatch
+                : dayOfMonthMatch && dayOfWeekMatch;
+
         return _minutes.Contains(dateTime.Minute)
             && _hours.Contains(dateTime.Hour)
-            && _daysOfMonth.Contains(dateTime.Day)
             && _months.Contains(dateTime.Month)
-            && _daysOfWeek.Contains((int)dateTime.DayOfWeek);
+            && dayMatch;
     }
 }

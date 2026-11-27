@@ -96,16 +96,12 @@ public static class Extensions
     )
         where T : class, new()
     {
-        var result = await _connector.Client.DeleteByQueryAsync<T>(
-            indexPattern,
-            d =>
-                d.Query(q =>
-                    q.Range(r =>
-                        r.DateRange(dr =>
-                            dr.Field(field).Lt(DateMath.Now.Subtract($@"{daysBefore}d"))
-                        )
-                    )
+        var result = await _connector.Client.DeleteByQueryAsync<T>(indexPattern, d =>
+            d.Query(q =>
+                q.Range(r =>
+                    r.DateRange(dr => dr.Field(field).Lt(DateMath.Now.Subtract($@"{daysBefore}d")))
                 )
+            )
         );
 
         return result.Deleted;
