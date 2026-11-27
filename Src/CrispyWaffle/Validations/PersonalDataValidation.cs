@@ -15,7 +15,7 @@ public static class PersonalDataValidation
     /// A regular expression pattern that matches documents with the same repeated number (e.g., "11111111111").
     /// </summary>
     public static readonly Regex SameNumberDocumentPattern = new Regex(
-        @"(\d)\1{10}",
+        @"^(\d)\1*$",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
         TimeSpan.FromSeconds(10)
     );
@@ -49,7 +49,16 @@ public static class PersonalDataValidation
             || emailAddress.Contains(",")
         )
         {
-            return emailAddress.Replace("combr", "com.br").Replace(",", ".");
+            var candidate = emailAddress.Replace(",", ".");
+            if (candidate.EndsWith("combr", StringComparison.OrdinalIgnoreCase))
+            {
+                candidate = candidate.Substring(0, candidate.Length - 5) + "com.br";
+            }
+
+            if (NetworkValidations.EmailAddressPattern.IsMatch(candidate))
+            {
+                return candidate;
+            }
         }
 
         throw new InvalidEmailAddressException(emailAddress);
@@ -62,6 +71,12 @@ public static class PersonalDataValidation
     /// <returns>
     /// <c>true</c> if the document is valid; otherwise, <c>false</c>.
     /// </returns>
+    /// <exception cref="InvalidDocumentException">
+    /// Thrown when the document has an incorrect length or consists of identical repeated digits.
+    /// </exception>
+    /// <exception cref="NullReferenceException">
+    /// Thrown when <paramref name="document"/> is <c>null</c>.
+    /// </exception>
     public static bool IsValidBrazilianPersonDocument(this string document)
     {
         var digits = document.CalculateBrazilianPersonDocumentDigits();
@@ -75,6 +90,12 @@ public static class PersonalDataValidation
     /// <returns>
     /// <c>true</c> if the document is valid; otherwise, <c>false</c>.
     /// </returns>
+    /// <exception cref="InvalidDocumentException">
+    /// Thrown when the document has an incorrect length or consists of identical repeated digits.
+    /// </exception>
+    /// <exception cref="NullReferenceException">
+    /// Thrown when <paramref name="document"/> is <c>null</c>.
+    /// </exception>
     public static bool IsValidBrazilianCorporateDocument(this string document)
     {
         var digits = document.CalculateBrazilianCorporateDocument();
