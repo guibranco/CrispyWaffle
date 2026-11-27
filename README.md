@@ -225,6 +225,13 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Khallarrary">
+                    <img src="https://avatars.githubusercontent.com/u/142602821?v=4" width="100;" alt="Khallarrary"/>
+                    <br />
+                    <sub><b>José Aparecido Fernandes Junior</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/joaovaladares">
                     <img src="https://avatars.githubusercontent.com/u/42593399?v=4" width="100;" alt="joaovaladares"/>
                     <br />
@@ -238,6 +245,8 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>Rojo</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/SimranGil">
                     <img src="https://avatars.githubusercontent.com/u/111714647?v=4" width="100;" alt="SimranGil"/>
@@ -245,8 +254,6 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>Simran Gill</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/thiagochfc">
                     <img src="https://avatars.githubusercontent.com/u/36862932?v=4" width="100;" alt="thiagochfc"/>
@@ -282,6 +289,8 @@ Refer to the [contributing guide](https://guibranco.github.io/CrispyWaffle/contr
                     <sub><b>akhtareimon</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/mf0zz13">
                     <img src="https://avatars.githubusercontent.com/u/115477550?v=4" width="100;" alt="mf0zz13"/>
