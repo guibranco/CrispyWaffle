@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+        <title>LogStream - Crispy Waffle</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link rel="canonical" href="http://guilhermebranco.com.br/packages/logstream/">
+        
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="../../assets/css/darcula-highlight.min.css">
+
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../assets/css/dracula-ui.min.css">
+        <link rel="stylesheet" href="../../assets/css/mkdocs.min.css">
+            <link href="../../extra.css" rel="stylesheet">
+
+        
+            <link  rel="icon" type="image/x-icon" href="../../images/favicon.png">
+        
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+                <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body class="drac-bg-black-secondary drac-text-grey-ternary drac-text drac-scrollbar-purple">
+
+    <main class="d-flex">
+
+        <!-- block sidebar -->
+            <nav id="sidebar" class="sidebar drac-bg-black">
+    <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Menu</span>
+        </button>
+    </div>
+
+    <div class="p-4">
+        
+            <img class="logo" src="../../logo.png" height="150px">
+        
+
+        <div class="drac-text-center">
+            
+                <span class="drac-text drac-line-height drac-text-white">Crispy Waffle</span>
+            
+        </div>
+
+        <div class="drac-box flex-column">
+            <ul class="dot-ul">
+                <li><div class="dot-li drac-bg-cyan"></div></li>
+                <li><div class="dot-li drac-bg-green"></div></li>
+                <li><div class="dot-li drac-bg-orange"></div></li>
+                <li><div class="dot-li drac-bg-pink"></div></li>
+                <li><div class="dot-li drac-bg-purple"></div></li>
+                <li><div class="dot-li drac-bg-red"></div></li>
+                <li><div class="dot-li drac-bg-yellow"></div></li>
+            </ul>
+        </div>
+
+        <hr class="drac-divider" />
+
+        <!-- block menu -->
+        <ul class="mb-5 drac-list drac-list-none">
+            
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Home
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../getting-started/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Getting Started
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../installation/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Installation
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class="
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover collapsed"
+                    data-bs-toggle="collapse" data-bs-target="#core-modules-collapse" aria-expanded="false">
+                    Core Modules
+                </a>
+                <div class="collapse" id="core-modules-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/service-locator/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Service Locator
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/logging/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Logging
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/caching/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Caching
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/events/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Events
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/commands/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Commands
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/scheduler/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Scheduler
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/serialization/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Serialization
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/telemetry/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Telemetry
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/template-rendering/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Template Rendering
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/cryptography/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Cryptography
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/extensions/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Extension Methods
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/utilities/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utilities
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/validations/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Validations
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/attributes/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Attributes
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/good-practices/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Good Practices
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../../core/infrastructure/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Infrastructure
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../.."
+                    class=" active 
+                    drac-anchor btn-toggle d-inline-flex align-items-center border-0 drac-text-purple--hover"
+                    data-bs-toggle="collapse" data-bs-target="#integration-packages-collapse" aria-expanded="true">
+                    Integration Packages
+                </a>
+                <div class="collapse show" id="integration-packages-collapse">
+                    <ul class="mb-5 drac-list drac-list-none">
+                            
+    <li class="drac-box-ternary">
+        <a href="../configuration/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Configuration
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../redis/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Redis
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../rabbitmq/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            RabbitMQ
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elasticsearch/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            ElasticSearch
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../couchdb/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            CouchDB
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../log4net/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Log4Net
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="./"
+            class=" active 
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            LogStream
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../eventlog/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            EventLog
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../elmah/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Elmah
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../utils/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            Utils
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../i18n-ptbr/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            I18n.PtBr
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../http-client/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            HttpClient
+        </a>
+    </li>
+                            
+    <li class="drac-box-ternary">
+        <a href="../background-jobs/"
+            class="
+            drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+            BackgroundJobs
+        </a>
+    </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="drac-box">
+                <a href="../../diagrams/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Diagrams
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../changelog/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Changelog
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../contributing/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    Contributing
+                </a>
+            </li>
+            <li class="drac-box">
+                <a href="../../license/"
+                    class="
+                    drac-anchor d-inline-flex align-items-center border-0 drac-text-purple--hover">
+                    License
+                </a>
+            </li>
+        </ul>
+        <!-- endblock -->
+    </div>
+</nav>
+        <!-- endblock -->
+
+        <nav class="divider drac-bg-purple-cyan"></nav>
+
+        <div class="content">
+            <!-- block header -->
+                <header>
+    <nav class="navbar navbar-expand-xl drac-bg-purple">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler w-100 text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+                aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+                <ul class="navbar-nav text-md-center">
+
+                    <!-- block preview -->
+                    <li class="nav-item">
+                            
+        <div class="container">
+            <div class="row row-preview">
+                <div class="col">
+                    <a href="../log4net/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="../eventlog/"
+                        class="btn-preview drac-btn drac-btn-outline drac-text-white drac-text-cyan-green--hover" style="padding-left: 3%;">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block search -->
+                    <li class="nav-item"><div role="search" class="search-box">
+	<form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+		<input type="text" name="q" class="drac-input drac-input-search drac-input-white drac-text-white drac-bg-black-secondary"
+		placeholder="Search docs" title="Type search term here" />
+	</form>
+</div>
+                    </li>
+                    <!--  endblock -->
+
+                    <!-- block source -->
+                    <li class="nav-item">
+                        
+                            
+                                <div class="md-source source-detail">
+    <div class="md-source-repo-icon">
+        <i class="fa fa-github-alt drac-text-white" aria-hidden="true"></i>
+    </div>
+
+    <div class="md-source-repo-url">
+        <a href="https://github.com/guibranco/CrispyWaffle"
+            class="md-source drac-anchor drac-text drac-text-white drac-text-cyan-green--hover">
+            guibranco/CrispyWaffle
+        </a>
+
+        <ul class="md-source-repo-text">
+            <li>
+                <i class="fa fa-tag drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub tag (latest by date)"
+                    src="https://img.shields.io/github/v/tag/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-star drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub Repo stars"
+                    src="https://img.shields.io/github/stars/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+
+            <li>
+                <i class="fa fa-code-fork drac-text-black" aria-hidden="true"></i>
+                <img alt="GitHub forks"
+                    src="https://img.shields.io/github/forks/guibranco/CrispyWaffle?color=white&label=%20&style=flat-square">
+            </li>
+        </ul>
+    </div>
+
+</div>
+                            
+                        
+                    </li>
+                    <!--  endblock -->
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+            <!-- endblock -->
+
+            <!-- block content -->
+                <section class="p-md-5 section-content">
+    <article>
+        <p><h1 id="crispywafflelogstream">CrispyWaffle.LogStream</h1>
+<p>CrispyWaffle.LogStream sends CrispyWaffle log messages to a <a href="https://github.com/guibranco/logstream-server">LogStream</a> server. Use it when your services already report to LogStream and you want messages written through <code>LogConsumer</code> to show up there as structured entries, with their category, level, host details, exception chain and trace ID.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>CrispyWaffle.LogStream</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>CrispyWaffle.LogStream</code>, <code>CrispyWaffle.LogStream.Log</code></td>
+</tr>
+<tr>
+<td><strong>Install</strong></td>
+<td><code>dotnet add package CrispyWaffle.LogStream</code></td>
+</tr>
+<tr>
+<td><strong>Depends on</strong></td>
+<td><code>CrispyWaffle</code>, <code>CrispyWaffle.Configuration</code>, <code>Newtonsoft.Json</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-it-works">How it works</h2>
+<p><code>LogStreamLogProvider</code> implements <code>ILogProvider</code>. A log call builds an entry and puts it in an in-memory queue; it never waits for the network. A background task sends the queue to <code>POST /api/logs</code> as batches of up to <code>BatchSize</code> entries, as soon as a full batch is waiting or every <code>FlushInterval</code>.</p>
+<p>Failed requests are retried with an exponential delay when the failure is transient (network error, timeout, HTTP 408, 429 or 5xx), up to <code>MaxRetries</code> times. Other responses (400, 401, 403…) drop the batch at once. Entries the server rejects one by one (the <code>errors</code> list of a 202/201 response) are counted as dropped too. Dropped entries never throw: they are counted in <code>DroppedCount</code> and reported to the <code>OnError</code> callback, or to <code>System.Diagnostics.Trace</code> when there is none. The provider does not log its own failures through <code>LogConsumer</code>, which would loop back into it.</p>
+<p>When the queue holds <code>QueueLimit</code> entries, new entries are dropped until it drains. Dispose the provider on shutdown: <code>Dispose</code> stops the background task and sends what is left. One <code>ShutdownTimeout</code> deadline covers the whole shutdown, including a request already in flight; entries still unsent then, and entries logged after <code>Dispose</code>, are counted as dropped.</p>
+<p>Like the other providers, it starts with no level enabled, so call <code>SetLevel</code> after you register it.</p>
+<table>
+<thead>
+<tr>
+<th>CrispyWaffle call</th>
+<th>LogStream level</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Fatal</code></td>
+<td><code>critical</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Error</code></td>
+<td><code>error</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Warning</code></td>
+<td><code>warning</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Info</code></td>
+<td><code>info</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Trace(category, message)</code></td>
+<td><code>TraceLevel</code> (default <code>debug</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Trace(category, message, exception)</code></td>
+<td><code>ExceptionLevel</code> (default <code>error</code>)</td>
+<td>One entry; the exception chain goes to <code>context.exception</code></td>
+</tr>
+<tr>
+<td><code>Trace(category, exception)</code></td>
+<td><code>ExceptionLevel</code> (default <code>error</code>)</td>
+<td>The message is the exception message</td>
+</tr>
+<tr>
+<td><code>Debug(category, message)</code></td>
+<td><code>debug</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>Debug(category, content, identifier)</code> and <code>Debug&lt;T&gt;</code></td>
+<td><code>debug</code></td>
+<td>Message <code>Debug content {identifier}</code>, sent as a message template; <code>context.identifier</code> and <code>context.content</code> hold the values</td>
+</tr>
+</tbody>
+</table>
+<p>Each entry's <code>context</code> carries the <code>StaticContext</code> properties and, unless <code>IncludeEnvironment</code> is off, <code>application</code>, <code>host</code>, <code>ip_address</code>, <code>process_id</code>, <code>thread_id</code>, <code>thread_name</code> and <code>operation</code>. When <code>UseActivityTraceId</code> is on (the default) and there is a current <code>System.Diagnostics.Activity</code>, its trace ID is sent as <code>trace_id</code> and its span ID as <code>context.span_id</code>, so LogStream's trace view groups the entries of one request. Without an activity, the server generates a trace ID per entry.</p>
+<p>Categories longer than 100 characters are truncated; an empty category becomes <code>general</code>. The <code>User-Agent</code> header is <code>&lt;ApplicationName&gt;/&lt;Version&gt; (CrispyWaffle.LogStream/&lt;package version&gt;)</code>, which LogStream records as the application identifier.</p>
+<h2 id="authentication">Authentication</h2>
+<p>LogStream has two kinds of write credentials, and the options choose between them:</p>
+<table>
+<thead>
+<tr>
+<th>Server storage</th>
+<th>Options</th>
+<th>Sent as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File (JSONL)</td>
+<td><code>ApiSecret</code> + <code>AppKey</code></td>
+<td><code>Authorization: Bearer &lt;ApiSecret&gt;</code>, and <code>app_key</code> in the body</td>
+</tr>
+<tr>
+<td>MariaDB</td>
+<td><code>ApiKey</code> + <code>ApiToken</code></td>
+<td><code>X-Api-Key</code> and <code>X-Api-Token</code>; the server uses the key as the <code>app_key</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>AppId</code> (the instance or environment, for example <code>production</code>) is always required.</p>
+<h2 id="getting-started">Getting started</h2>
+<pre><code class="language-csharp">using CrispyWaffle.Log;
+using CrispyWaffle.LogStream;
+using CrispyWaffle.LogStream.Log;
+
+var options = new LogStreamOptions
+{
+    ServerUrl = new Uri(&quot;https://logs.example.com&quot;),
+    ApiKey = &quot;billing-api&quot;,
+    ApiToken = Environment.GetEnvironmentVariable(&quot;LOGSTREAM_TOKEN&quot;),
+    AppId = &quot;production&quot;,
+    OnError = e =&gt; Console.Error.WriteLine(e.Message),
+};
+options.StaticContext[&quot;region&quot;] = &quot;eu-west-1&quot;;
+
+var provider = new LogStreamLogProvider(options);
+LogConsumer.AddProvider(provider).SetLevel(LogLevel.Production);
+
+LogConsumer.Info(&quot;Application started&quot;);
+
+// On shutdown
+provider.Dispose();
+</code></pre>
+<p>With a CrispyWaffle <code>Connection</code>, the host (or a full URL) and port give the server address. A user name and password are sent as <code>X-Api-Key</code> and <code>X-Api-Token</code>; a password alone is the shared <code>API_SECRET</code>:</p>
+<pre><code class="language-csharp">var connection = new Connection
+{
+    Host = &quot;logs.example.com&quot;,
+    Port = 443,
+    Credentials = new Credentials { Username = &quot;billing-api&quot;, Password = token },
+};
+
+var connector = new LogStreamConnector(connection, appKey: null, appId: &quot;production&quot;);
+LogConsumer.AddProvider(new LogStreamLogProvider(connector)).SetLevel(LogLevel.All);
+</code></pre>
+<p>To use an <code>HttpClient</code> from <code>IHttpClientFactory</code> (or a test handler), pass it to <code>new LogStreamConnector(options, httpClient)</code>. The connector does not dispose a client it did not create.</p>
+<h2 id="reference">Reference</h2>
+<h3 id="logstreamoptions"><code>LogStreamOptions</code></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ServerUrl</code></td>
+<td>—</td>
+<td>Base address of the server; entries are posted to <code>{ServerUrl}/api/logs</code>. Required.</td>
+</tr>
+<tr>
+<td><code>AppKey</code></td>
+<td>—</td>
+<td>Application slug. Required with <code>ApiSecret</code>.</td>
+</tr>
+<tr>
+<td><code>AppId</code></td>
+<td>—</td>
+<td>Instance or environment identifier. Required.</td>
+</tr>
+<tr>
+<td><code>ApiSecret</code></td>
+<td>—</td>
+<td>Shared write secret (file storage).</td>
+</tr>
+<tr>
+<td><code>ApiKey</code>, <code>ApiToken</code></td>
+<td>—</td>
+<td>Client credentials (MariaDB storage).</td>
+</tr>
+<tr>
+<td><code>BatchSize</code></td>
+<td><code>100</code></td>
+<td>Entries per request (1–1000).</td>
+</tr>
+<tr>
+<td><code>FlushInterval</code></td>
+<td>2 s</td>
+<td>Longest wait before a partial batch is sent (at most about 24.8 days).</td>
+</tr>
+<tr>
+<td><code>QueueLimit</code></td>
+<td><code>10000</code></td>
+<td>Entries kept in memory; newer ones are dropped while full.</td>
+</tr>
+<tr>
+<td><code>MaxRetries</code></td>
+<td><code>3</code></td>
+<td>Retries after a transient failure.</td>
+</tr>
+<tr>
+<td><code>RetryDelay</code></td>
+<td>1 s</td>
+<td>First retry delay; doubles after each attempt.</td>
+</tr>
+<tr>
+<td><code>RequestTimeout</code></td>
+<td>30 s</td>
+<td>Timeout of the <code>HttpClient</code> the connector creates.</td>
+</tr>
+<tr>
+<td><code>ShutdownTimeout</code></td>
+<td>10 s</td>
+<td>Deadline for <code>Dispose</code> to send the queue, in-flight request included.</td>
+</tr>
+<tr>
+<td><code>TraceLevel</code></td>
+<td><code>debug</code></td>
+<td>LogStream level for <code>Trace</code> messages.</td>
+</tr>
+<tr>
+<td><code>ExceptionLevel</code></td>
+<td><code>error</code></td>
+<td>LogStream level for <code>Trace</code> calls with an exception.</td>
+</tr>
+<tr>
+<td><code>IncludeEnvironment</code></td>
+<td><code>true</code></td>
+<td>Adds host, process and thread details to the context.</td>
+</tr>
+<tr>
+<td><code>UseActivityTraceId</code></td>
+<td><code>true</code></td>
+<td>Sends the current <code>Activity</code> trace ID.</td>
+</tr>
+<tr>
+<td><code>StaticContext</code></td>
+<td>empty</td>
+<td>Properties added to every entry's context.</td>
+</tr>
+<tr>
+<td><code>OnError</code></td>
+<td><code>null</code></td>
+<td>Called with a <code>LogStreamException</code> when entries are dropped.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Validate()</code> throws <code>InvalidOperationException</code> for a missing or out-of-range setting; the connector calls it.</p>
+<h3 id="logstreamconnector"><code>LogStreamConnector</code></h3>
+<p><code>[ConnectionName("LogStream")] public sealed class LogStreamConnector</code> — holds the options, the <code>HttpClient</code> and the ingest URI.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LogStreamConnector(LogStreamOptions options)</code></td>
+<td>Validates the options and creates an <code>HttpClient</code>.</td>
+</tr>
+<tr>
+<td><code>LogStreamConnector(LogStreamOptions options, HttpClient httpClient)</code></td>
+<td>Uses the given client.</td>
+</tr>
+<tr>
+<td><code>LogStreamConnector(IConnection connection, string appKey, string appId)</code></td>
+<td>Builds the options from a connection, as described above.</td>
+</tr>
+<tr>
+<td><code>Options</code>, <code>HttpClient</code>, <code>IngestUri</code></td>
+<td>The settings, client and <code>POST</code> endpoint.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logstreamlogprovider"><code>LogStreamLogProvider</code></h3>
+<p><code>public sealed class LogStreamLogProvider : ILogProvider, IDisposable</code></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LogStreamLogProvider(LogStreamConnector connector)</code></td>
+<td>Starts the background sender.</td>
+</tr>
+<tr>
+<td><code>LogStreamLogProvider(LogStreamOptions options)</code></td>
+<td>Creates a connector and starts the background sender.</td>
+</tr>
+<tr>
+<td><code>SetLevel(LogLevel level)</code></td>
+<td>Sets the enabled levels.</td>
+</tr>
+<tr>
+<td><code>Flush()</code>, <code>FlushAsync()</code>, <code>FlushAsync(CancellationToken)</code></td>
+<td>Sends every queued entry now.</td>
+</tr>
+<tr>
+<td><code>PendingCount</code></td>
+<td>Entries waiting to be sent.</td>
+</tr>
+<tr>
+<td><code>DroppedCount</code></td>
+<td>Entries dropped so far.</td>
+</tr>
+<tr>
+<td><code>Dispose()</code></td>
+<td>Stops the sender and sends what is left.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logstreamlevels"><code>LogStreamLevels</code></h3>
+<p>Static properties for the six LogStream levels (<code>debug</code>, <code>info</code>, <code>notice</code>, <code>warning</code>, <code>error</code>, <code>critical</code>), <code>IsValid(string)</code> and <code>From(LogLevel, LogStreamOptions)</code>.</p>
+<h3 id="logstreamexception"><code>LogStreamException</code></h3>
+<p>Passed to <code>OnError</code>. <code>StatusCode</code> and <code>ResponseBody</code> hold the server's answer when there was one.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="../../core/logging/">Logging</a></li>
+<li><a href="../log4net/">CrispyWaffle.Log4Net</a></li>
+<li><a href="https://github.com/guibranco/logstream-server">LogStream server</a></li>
+<li><a href="https://github.com/guibranco/serilog-sinks-logstream">Serilog.Sinks.LogStream</a>, the Serilog sink for LogStream</li>
+</ul></p>
+    </article>
+</section>
+            <!-- endblock -->
+
+            <!-- block footer -->
+                
+                    <footer>
+    <div class="d-flex flex-sm-row justify-content-between py-2 border-top drac-text-black drac-bg-cyan-green">
+        <a href="https://github.com/dracula/mkdocs" target="_blank" style="padding-left: 1%;"
+            class="footer-text drac-anchor drac-text-black drac-text-purple--hover">
+            Made with Dracula Theme for MkDocs
+        </a>
+    </div>
+</footer>
+                
+            <!-- endblock -->
+        </div>
+
+    </main>
+
+        <script>var base_url = '../..';</script>
+        <script src="../../assets/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="../../assets/js/mkdocs.js"></script>
+			<script src="../../search/main.js" defer></script>
+
+</body>
+
+</html>
