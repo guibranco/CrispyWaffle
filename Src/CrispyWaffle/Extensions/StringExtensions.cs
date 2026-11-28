@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -71,9 +72,22 @@ public static class StringExtensions
     [Pure]
     public static string RemoveDiacritics(this string input)
     {
-        return string.IsNullOrWhiteSpace(input)
-            ? input
-            : Encoding.ASCII.GetString(Encoding.GetEncoding(1251).GetBytes(input));
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return input;
+        }
+
+        var normalized = input.Normalize(NormalizationForm.FormD);
+        var builder = new StringBuilder(normalized.Length);
+        foreach (var ch in normalized)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark)
+            {
+                builder.Append(ch);
+            }
+        }
+
+        return builder.ToString().Normalize(NormalizationForm.FormC);
     }
 
     /// <summary>
@@ -130,15 +144,17 @@ public static class StringExtensions
             return string.Empty;
         }
 
-        if (input.Length < maxCharacters)
+        if (input.Length <= maxCharacters)
         {
             return input;
         }
 
-        return string.Concat(
-            input.Substring(0, addEllipsis ? maxCharacters - 4 : maxCharacters),
-            addEllipsis ? "..." : string.Empty
-        );
+        if (addEllipsis && maxCharacters > 3)
+        {
+            return string.Concat(input.Substring(0, maxCharacters - 3), "...");
+        }
+
+        return input.Substring(0, Math.Max(0, maxCharacters));
     }
 
     /// <summary>
@@ -236,9 +252,8 @@ public static class StringExtensions
             return input;
         }
 
-        var bytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(input);
-        return Encoding
-            .UTF8.GetString(bytes)
+        return input
+            .RemoveDiacritics()
             .Replace("-", string.Empty)
             .Replace(".", string.Empty)
             .RemoveExcessSpaces()
@@ -423,8 +438,10 @@ public static class StringExtensions
     [Pure]
     public static string ToCenter(this string input, char spacer, int lineSize)
     {
-        var half = lineSize - (input.Length / 2);
-        return $"{new string(spacer, half)}{input}{new string(spacer, input.Length % 2 == 0 ? half : half + 1)}";
+        var padding = Math.Max(0, lineSize - input.Length);
+        var left = padding / 2;
+        var right = padding - left;
+        return $"{new string(spacer, left)}{input}{new string(spacer, right)}";
     }
 
     /// <summary>

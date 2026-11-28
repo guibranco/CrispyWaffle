@@ -146,4 +146,35 @@ public class StringExtensionsTests
 
         Assert.False(result);
     }
+
+    [Fact]
+    public void ValidateRemoveDiacriticsAndToSafeUrl()
+    {
+        Assert.Equal("acao", "ação".RemoveDiacritics());
+        Assert.Equal("Acao-rapida", "Ação rápida".ToSafeUrl());
+        Assert.Equal(0, "ação".LevenshteinInvariantCulture("acao"));
+    }
+
+    [Fact]
+    public void ValidateRemoveExcessSpacesPreservesPipes()
+    {
+        Assert.Equal("a||b", "a||b".RemoveExcessSpaces());
+        Assert.Equal("a b c", "a  \t  b   c".RemoveExcessSpaces());
+    }
+
+    [Fact]
+    public void ValidateToCenter()
+    {
+        Assert.Equal("****ab****", "ab".ToCenter('*', 10));
+        Assert.Equal("***abc****", "abc".ToCenter('*', 10));
+        Assert.Equal("abcdef", "abcdef".ToCenter('*', 4));
+    }
+
+    [Fact]
+    public void ValidateAbbreviate()
+    {
+        Assert.Equal("12345", "12345".Abbreviate(5));
+        Assert.Equal("1234567...", "1234567890".Abbreviate(10));
+        Assert.Equal("12345", "1234567890".Abbreviate(5, addEllipsis: false));
+    }
 }
