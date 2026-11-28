@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Linq;
 using CrispyWaffle.Composition;
 using CrispyWaffle.Serialization.Adapters;
 using CrispyWaffle.Serialization.NewtonsoftJson;
@@ -92,16 +94,32 @@ public static class SerializerFactory
     )
         where T : class
     {
-        type = type.GetGenericArguments()[0];
+        var enumerableInterface =
+            type.IsInterface
+            && type.IsGenericType
+            && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
+                ? type
+                : type.GetInterfaces()
+                    .FirstOrDefault(i =>
+                        i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>)
+                    );
 
-        var attribute =
-            Attribute.GetCustomAttribute(type, typeof(SerializerAttribute)) as SerializerAttribute;
-
-        if (attribute == null)
+        if (enumerableInterface == null)
         {
             return false;
         }
 
+        var elementType = enumerableInterface.GetGenericArguments()[0];
+
+        if (
+            Attribute.GetCustomAttribute(elementType, typeof(SerializerAttribute))
+            is not SerializerAttribute attribute
+        )
+        {
+            return false;
+        }
+
+        type = elementType;
         serializerConverter = GetSerializer(obj, attribute);
 
         return true;

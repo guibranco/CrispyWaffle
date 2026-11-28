@@ -14,7 +14,7 @@ namespace CrispyWaffle.Serialization;
 [AttributeUsage(
     AttributeTargets.Class | AttributeTargets.Interface,
     Inherited = false,
-    AllowMultiple = true
+    AllowMultiple = false
 )]
 public sealed class SerializerAttribute(
     SerializerFormat format = SerializerFormat.Xml,
